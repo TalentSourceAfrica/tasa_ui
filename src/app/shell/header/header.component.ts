@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 
 // services
 import { AuthenticationService, CredentialsService } from '@app/auth';
-import { DialogService } from '@app/services/dialog.service';
+import { SharedService } from '@app/services/shared.service';
 
 // component
 import { LoginComponent } from '@app/auth/login.component';
@@ -20,7 +20,7 @@ export class HeaderComponent implements OnInit {
     private router: Router,
     private authenticationService: AuthenticationService,
     private credentialsService: CredentialsService,
-    private dialogService: DialogService
+    private sharedService: SharedService
   ) {}
 
   ngOnInit() {}
@@ -34,7 +34,7 @@ export class HeaderComponent implements OnInit {
   }
 
   login() {
-    this.dialogService.open(LoginComponent, { width: '600px', data: {}, disableClose: false });
+    this.sharedService.dialogService.open(LoginComponent, { width: '600px', data: {}, disableClose: false });
   }
 
   get username(): string | null {
