@@ -13,7 +13,7 @@ import { environment } from '@env/environment';
 import { CoreModule } from '@core';
 import { SharedModule } from '@shared';
 import { AuthModule } from '@app/auth';
-import { HomeModule } from './home/home.module';
+import { HomeModule } from './scenes/home/home.module';
 import { ShellModule } from './shell/shell.module';
 import { AboutModule } from './about/about.module';
 import { AppComponent } from './app.component';
