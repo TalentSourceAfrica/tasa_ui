@@ -6,6 +6,9 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
+// Ui Frameworks modules
+import { MaterialModule } from '@app/modules/material.module';
+
 import { environment } from '@env/environment';
 import { CoreModule } from '@core';
 import { SharedModule } from '@shared';
@@ -25,6 +28,7 @@ import { AppRoutingModule } from './app-routing.module';
     TranslateModule.forRoot(),
     NgbModule,
     CoreModule,
+    MaterialModule,
     SharedModule,
     ShellModule,
     HomeModule,
