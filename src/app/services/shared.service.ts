@@ -13,8 +13,7 @@ import { DialogService } from './dialog.service';
 // jquery & extras
 import * as moment from 'moment';
 import * as underscore from 'underscore';
-
-declare var jQuery: any;
+import * as jQuery from 'jquery';
 
 @Injectable({
   providedIn: 'root',
