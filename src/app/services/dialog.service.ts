@@ -12,7 +12,6 @@ export class DialogService {
   public open<T>(component: ComponentType<T> | TemplateRef<T>, dialogConfig?: any) {
     const dialogRef = this.dialog.open(component, dialogConfig);
     this.dialogReff = dialogRef;
-
     return dialogRef;
   }
 }

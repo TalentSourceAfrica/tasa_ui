@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { finalize } from 'rxjs/operators';
 
+// services
 import { QuoteService } from './quote.service';
+import { DialogService } from '@app/services/dialog.service';
 
 @Component({
   selector: 'app-home',

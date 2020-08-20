@@ -1,7 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
+// services
 import { AuthenticationService, CredentialsService } from '@app/auth';
+import { DialogService } from '@app/services/dialog.service';
+
+// component
+import { LoginComponent } from '@app/auth/login.component';
 
 @Component({
   selector: 'app-header',
@@ -14,7 +19,8 @@ export class HeaderComponent implements OnInit {
   constructor(
     private router: Router,
     private authenticationService: AuthenticationService,
-    private credentialsService: CredentialsService
+    private credentialsService: CredentialsService,
+    private dialogService: DialogService
   ) {}
 
   ngOnInit() {}
@@ -25,6 +31,10 @@ export class HeaderComponent implements OnInit {
 
   logout() {
     this.authenticationService.logout().subscribe(() => this.router.navigate(['/login'], { replaceUrl: true }));
+  }
+
+  login() {
+    this.dialogService.open(LoginComponent, { width: '600px', data: {}, disableClose: false });
   }
 
   get username(): string | null {

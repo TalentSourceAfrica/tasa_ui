@@ -8,6 +8,7 @@
 
 // 3rd party libraries
 @import "~bootstrap/scss/bootstrap";
+
 @import "~@fortawesome/fontawesome-free/scss/fontawesome.scss";
 @import "~@fortawesome/fontawesome-free/scss/brands.scss";
 @import "~@fortawesome/fontawesome-free/scss/regular.scss";
@@ -15,3 +16,7 @@
 
 // Theme customization
 @import "theme/theme";
+
+// Angular Material custom theme
+// The mixins below must be included once so we separated them from the variables
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
