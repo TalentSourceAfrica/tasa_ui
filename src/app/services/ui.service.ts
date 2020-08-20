@@ -8,6 +8,7 @@ import { Router, NavigationStart } from '@angular/router';
 
 import Swal from 'sweetalert2';
 import { MatSnackBar } from '@angular/material/snack-bar';
+
 // jquery and extras
 declare var jQuery: any;
 
@@ -18,6 +19,7 @@ export class UiService {
   isLoggedIn$: Observable<boolean>;
 
   constructor(public router: Router, public snackBar: MatSnackBar) {}
+
   showMessage(msg: any): void {
     this.snackBar.open(msg, '', { duration: 4000 });
   }

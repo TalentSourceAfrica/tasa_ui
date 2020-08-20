@@ -20,3 +20,11 @@
 // Angular Material custom theme
 // The mixins below must be included once so we separated them from the variables
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+// style common for application
+.ng-invalid.ng-touched:not(form) {
+  border-left: 4px solid theme-color("danger");
+}
+.mat-form-field-appearance-fill .mat-form-field-flex {
+  background: none !important;
+}

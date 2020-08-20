@@ -19,6 +19,7 @@ import { ShellModule } from './shell/shell.module';
 import { AboutModule } from './about/about.module';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { SignupPopupComponent } from './partials/popups/signup-popup/signup-popup.component';
 
 @NgModule({
   imports: [
@@ -26,6 +27,7 @@ import { AppRoutingModule } from './app-routing.module';
     BrowserAnimationsModule,
     ServiceWorkerModule.register('./ngsw-worker.js', { enabled: environment.production }),
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     TranslateModule.forRoot(),
     NgbModule,
@@ -38,7 +40,7 @@ import { AppRoutingModule } from './app-routing.module';
     AuthModule,
     AppRoutingModule, // must be imported as the last module as it contains the fallback route
   ],
-  declarations: [AppComponent],
+  declarations: [AppComponent, SignupPopupComponent],
   providers: [],
   bootstrap: [AppComponent],
 })

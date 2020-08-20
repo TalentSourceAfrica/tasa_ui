@@ -7,6 +7,7 @@ import { SharedService } from '@app/services/shared.service';
 
 // component
 import { LoginComponent } from '@app/auth/login.component';
+import { SignupPopupComponent } from '@app/partials/popups/signup-popup/signup-popup.component';
 
 @Component({
   selector: 'app-header',
@@ -35,6 +36,10 @@ export class HeaderComponent implements OnInit {
 
   login() {
     this.sharedService.dialogService.open(LoginComponent, { width: '600px', data: {}, disableClose: false });
+  }
+
+  signup() {
+    this.sharedService.dialogService.open(SignupPopupComponent, { width: '600px', data: {}, disableClose: false });
   }
 
   get username(): string | null {
