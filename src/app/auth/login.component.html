@@ -11,26 +11,48 @@
     </div>
   </div>
 </div> -->
-<div mat-dialog-content>
-  <div class="card col-md-6 mt-3 mx-auto">
-    <div class="card-body">
-      <h4 class="card-title text-center">
-        <i class="far fa-3x fa-user-circle text-muted"></i>
-      </h4>
-      <form (ngSubmit)="login()" [formGroup]="loginForm" novalidate>
-        <div class="alert alert-danger" [hidden]="!error || isLoading" translate>
-          Username or password incorrect.
-        </div>
-        <div class="form-group">
-          <label class="d-block">
-            <input
-              type="text"
-              class="form-control"
-              formControlName="username"
-              autocomplete="username"
-              [placeholder]="'Username' | translate"
-            />
-            <span hidden translate>Username</span>
+<div class="d-flex align-items-center">
+  <div class="col-sm-8 col-md-12 col-lg-12 mx-auto">
+    <!-- <div class="text-center mt-5 mb-1">
+          <div class="avatar avatar-lg">
+              <img src="assets/images/logo/primary.svg" class="avatar-img rounded-circle" alt="LearnPlus" />
+          </div>
+      </div> -->
+    <!-- <div class="d-flex justify-content-center mb-5 navbar-light">
+          <a href="student-dashboard.html" class="navbar-brand m-0">LearnPlus</a>
+      </div> -->
+    <div class="card navbar-shadow">
+      <div class="card-header text-center">
+        <h4 class="card-title">Login</h4>
+        <p class="card-subtitle">Access your account</p>
+      </div>
+      <div class="card-body">
+        <!-- <a href="student-dashboard.html" class="btn btn-light btn-block">
+                  <span class="fab fa-google mr-2"></span>
+                  Continue with Google
+              </a>
+
+              <div class="page-separator">
+                  <div class="page-separator__text">or</div>
+              </div> -->
+
+        <form (ngSubmit)="login()" [formGroup]="loginForm" novalidate>
+          <div class="form-group">
+            <label class="form-label" for="email">Your email address:</label>
+            <div class="input-group input-group-merge">
+              <input
+                id="email"
+                type="email"
+                formControlName="username"
+                class="form-control form-control-prepended"
+                placeholder="Your email address"
+              />
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <span class="far fa-envelope"></span>
+                </div>
+              </div>
+            </div>
             <small
               [hidden]="loginForm.controls.username.valid || loginForm.controls.username.untouched"
               class="text-danger"
@@ -38,17 +60,23 @@
             >
               Username is required
             </small>
-          </label>
-          <label class="d-block">
-            <input
-              type="password"
-              class="form-control"
-              formControlName="password"
-              autocomplete="current-password"
-              [placeholder]="'Password' | translate"
-              required
-            />
-            <span hidden translate>Password</span>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="password">Your password:</label>
+            <div class="input-group input-group-merge">
+              <input
+                id="password"
+                type="password"
+                formControlName="password"
+                class="form-control form-control-prepended"
+                placeholder="Your password"
+              />
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <span class="far fa-key"></span>
+                </div>
+              </div>
+            </div>
             <small
               [hidden]="loginForm.controls.password.valid || loginForm.controls.password.untouched"
               class="text-danger"
@@ -56,19 +84,19 @@
             >
               Password is required
             </small>
-          </label>
-          <div class="form-check">
-            <label class="form-check-label">
-              <input type="checkbox" class="form-check-input" formControlName="remember" />
-              <span translate>Remember me</span>
-            </label>
           </div>
-        </div>
-        <button class="btn btn-primary w-100" type="submit" [disabled]="loginForm.invalid || isLoading">
-          <i class="fas fa-cog fa-spin" [hidden]="!isLoading"></i>
-          <span translate>Login</span>
-        </button>
-      </form>
+          <div class="form-group">
+            <button type="submit" [disabled]="loginForm.invalid" class="btn btn-primary btn-block">Login</button>
+          </div>
+          <div class="text-center">
+            <a (click)="forgotPass()" class="text-black-70" style="text-decoration: underline;">Forgot Password?</a>
+          </div>
+        </form>
+      </div>
+      <div class="card-footer text-center text-black-50">
+        Not yet a student?
+        <a class="text-black-70 pointer" style="text-decoration: underline;" (click)="signup()">Signup</a>
+      </div>
     </div>
   </div>
 </div>

@@ -41,7 +41,6 @@ export class SignupPopupComponent implements OnInit {
 
   login() {
     this.dialogRef.close();
-
     this.sharedService.dialogService.open(LoginComponent, { width: '600px', data: {}, disableClose: false });
   }
 

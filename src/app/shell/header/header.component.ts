@@ -7,7 +7,7 @@ import { SharedService } from '@app/services/shared.service';
 
 // component
 import { LoginComponent } from '@app/auth/login.component';
-import { SignupPopupComponent } from '@app/partials/popups/signup-popup/signup-popup.component';
+import { SignupPopupComponent } from '@app/partials/popups/authentication/signup-popup/signup-popup.component';
 
 @Component({
   selector: 'app-header',
