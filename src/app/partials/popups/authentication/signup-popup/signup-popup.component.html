@@ -11,8 +11,8 @@
         <p class="card-subtitle">
           <mat-form-field appearance="fill">
             <mat-select [(ngModel)]="userType.value">
-              <mat-option *ngFor="let type of signupType" [value]="type.value">
-                {{ type.viewValue }}
+              <mat-option *ngFor="let item of signupType" [value]="item.value">
+                {{ item.viewValue }}
               </mat-option>
             </mat-select>
           </mat-form-field>

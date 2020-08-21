@@ -9,7 +9,6 @@ import { I18nModule } from '@app/i18n';
 import { AuthRoutingModule } from './auth-routing.module';
 
 import { SignupPopupComponent } from '@app/partials/popups/authentication/signup-popup/signup-popup.component';
-// import { LoginPopupComponent } from '@app/partials/popups/authentication/login-popup/login-popup.component';
 import { ForgotPasswordPopupComponent } from '@app/partials/popups/authentication/forgot-password-popup/forgot-password-popup.component';
 
 @NgModule({
