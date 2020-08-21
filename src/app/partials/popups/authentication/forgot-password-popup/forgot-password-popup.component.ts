@@ -1,12 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 //service
 import { SharedService } from '@app/services/shared.service';
-
-//component
-import { LoginComponent } from '@app/auth/login.component';
 
 @Component({
   selector: 'app-forgot-password-popup',
@@ -15,24 +12,30 @@ import { LoginComponent } from '@app/auth/login.component';
 })
 export class ForgotPasswordPopupComponent implements OnInit {
   forgortPassForm: FormGroup;
-
+  popupData: any;
   constructor(
+    @Inject(MAT_DIALOG_DATA) public data: any,
     private formBuilder: FormBuilder,
     private dialogRef: MatDialogRef<ForgotPasswordPopupComponent>,
     private sharedService: SharedService
   ) {
+    this.popupData = data;
     this.initForm();
   }
 
   login() {
     this.dialogRef.close();
-    this.sharedService.dialogService.open(LoginComponent, { width: '600px', data: {}, disableClose: false });
+    this.popupData.authenticationService.openLoginPopup();
   }
 
   initForm() {
     this.forgortPassForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
     });
+  }
+
+  onSubmit() {
+    console.log(this.forgortPassForm.value);
   }
 
   ngOnInit(): void {}

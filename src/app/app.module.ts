@@ -19,8 +19,7 @@ import { ShellModule } from './shell/shell.module';
 import { AboutModule } from './about/about.module';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { SignupPopupComponent } from './partials/popups/authentication/signup-popup/signup-popup.component';
-import { ForgotPasswordPopupComponent } from './partials/popups/authentication/forgot-password-popup/forgot-password-popup.component';
+import { LoginPopupComponent } from './partials/popups/authentication/login-popup/login-popup.component';
 
 @NgModule({
   imports: [
@@ -41,7 +40,7 @@ import { ForgotPasswordPopupComponent } from './partials/popups/authentication/f
     AuthModule,
     AppRoutingModule, // must be imported as the last module as it contains the fallback route
   ],
-  declarations: [AppComponent, SignupPopupComponent, ForgotPasswordPopupComponent],
+  declarations: [AppComponent, LoginPopupComponent],
   providers: [],
   bootstrap: [AppComponent],
 })

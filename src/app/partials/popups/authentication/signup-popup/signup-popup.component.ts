@@ -1,12 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 //service
 import { SharedService } from '@app/services/shared.service';
-
-//component
-import { LoginComponent } from '@app/auth/login.component';
 
 @Component({
   selector: 'app-signup-popup',
@@ -15,6 +12,7 @@ import { LoginComponent } from '@app/auth/login.component';
 })
 export class SignupPopupComponent implements OnInit {
   signupForm: FormGroup;
+  popupData: any;
   signupType: any = [
     { value: 0, viewValue: 'Mentee' },
     { value: 1, viewValue: 'Mentor' },
@@ -22,10 +20,12 @@ export class SignupPopupComponent implements OnInit {
   ];
   userType = { value: 0, viewValue: 'Mentee' };
   constructor(
+    @Inject(MAT_DIALOG_DATA) public data: any,
     private formBuilder: FormBuilder,
     private dialogRef: MatDialogRef<SignupPopupComponent>,
     private sharedService: SharedService
   ) {
+    this.popupData = data;
     this.initForm();
   }
 
@@ -41,7 +41,8 @@ export class SignupPopupComponent implements OnInit {
 
   login() {
     this.dialogRef.close();
-    this.sharedService.dialogService.open(LoginComponent, { width: '600px', data: {}, disableClose: false });
+    this.popupData.authenticationService.openLoginPopup();
+    // this.sharedService.dialogService.open(LoginComponent, { width: '600px', data: {}, disableClose: false });
   }
 
   onSubmit() {

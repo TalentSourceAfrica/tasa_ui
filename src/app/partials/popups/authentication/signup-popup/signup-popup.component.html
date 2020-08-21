@@ -10,9 +10,9 @@
         <h4 class="card-title">Sign Up As</h4>
         <p class="card-subtitle">
           <mat-form-field appearance="fill">
-            <mat-select [(ngModel)]="userType.value" name="food">
-              <mat-option *ngFor="let food of signupType" [value]="food.value">
-                {{ food.viewValue }}
+            <mat-select [(ngModel)]="userType.value">
+              <mat-option *ngFor="let type of signupType" [value]="type.value">
+                {{ type.viewValue }}
               </mat-option>
             </mat-select>
           </mat-form-field>

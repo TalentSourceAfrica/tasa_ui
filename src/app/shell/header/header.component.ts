@@ -5,9 +5,8 @@ import { Router } from '@angular/router';
 import { AuthenticationService, CredentialsService } from '@app/auth';
 import { SharedService } from '@app/services/shared.service';
 
-// component
-import { LoginComponent } from '@app/auth/login.component';
-import { SignupPopupComponent } from '@app/partials/popups/authentication/signup-popup/signup-popup.component';
+// // component
+// import { LoginComponent } from '@app/auth/login.component';
 
 @Component({
   selector: 'app-header',
@@ -35,11 +34,11 @@ export class HeaderComponent implements OnInit {
   }
 
   login() {
-    this.sharedService.dialogService.open(LoginComponent, { width: '600px', data: {}, disableClose: false });
+    this.authenticationService.openLoginPopup();
   }
 
   signup() {
-    this.sharedService.dialogService.open(SignupPopupComponent, { width: '600px', data: {}, disableClose: false });
+    this.authenticationService.openSignupPopup();
   }
 
   get username(): string | null {
