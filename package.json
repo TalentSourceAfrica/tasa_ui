@@ -36,6 +36,7 @@
     "@ng-bootstrap/ng-bootstrap": "^6.0.2",
     "@ngx-translate/core": "^12.0.0",
     "@types/jquery": "^3.5.1",
+    "@types/lodash": "^4.14.159",
     "@types/underscore": "^1.10.22",
     "bootstrap": "^4.1.1",
     "rxjs": "^6.5.5",

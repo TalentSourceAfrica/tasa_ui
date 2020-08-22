@@ -14,6 +14,8 @@ import { DialogService } from './dialog.service';
 import * as moment from 'moment';
 import * as underscore from 'underscore';
 import * as jQuery from 'jquery';
+import { ConfigService } from './config.service';
+import { UrlService } from './url.service';
 
 @Injectable({
   providedIn: 'root',
@@ -26,7 +28,9 @@ export class SharedService {
     public uiService: UiService,
     public utilityService: UtilityService,
     public router: Router,
-    public dialogService: DialogService
+    public dialogService: DialogService,
+    public configService: ConfigService,
+    public urlService: UrlService
   ) {
     this.initPlugins();
   }

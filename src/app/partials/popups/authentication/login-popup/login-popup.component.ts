@@ -7,6 +7,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 // service
 import { SharedService } from '@app/services/shared.service';
+import { finalize } from 'rxjs/operators';
 
 const log = new Logger('Login');
 
@@ -38,26 +39,26 @@ export class LoginPopupComponent implements OnInit {
   ngOnDestroy() {}
 
   login() {
-    // this.isLoading = true;
-    // const login$ = this.authenticationService.login(this.loginForm.value);
-    // login$
-    //   .pipe(
-    //     finalize(() => {
-    //       this.loginForm.markAsPristine();
-    //       this.isLoading = false;
-    //     }),
-    //     untilDestroyed(this)
-    //   )
-    //   .subscribe(
-    //     (credentials) => {
-    //       log.debug(`${credentials.username} successfully logged in`);
-    //       this.router.navigate([this.route.snapshot.queryParams.redirect || '/'], { replaceUrl: true });
-    //     },
-    //     (error) => {
-    //       log.debug(`Login error: ${error}`);
-    //       this.error = error;
-    //     }
-    //   );
+    this.isLoading = true;
+    const login$ = this.popupData.authenticationService.login(this.loginForm.value);
+    login$
+      .pipe(
+        finalize(() => {
+          this.loginForm.markAsPristine();
+          this.isLoading = false;
+        }),
+        untilDestroyed(this)
+      )
+      .subscribe(
+        (credentials: any) => {
+          log.debug(`${credentials.username} successfully logged in`);
+          this.router.navigate([this.route.snapshot.queryParams.redirect || '/'], { replaceUrl: true });
+        },
+        (error: any) => {
+          log.debug(`Login error: ${error}`);
+          this.error = error;
+        }
+      );
   }
 
   forgotPass() {

@@ -26,17 +26,40 @@ export class SignupPopupComponent implements OnInit {
     private sharedService: SharedService
   ) {
     this.popupData = data;
-    this.initForm();
+    this.initForm(false);
+
+    let apiUrl = this.sharedService.urlService.simpleApiCall('getUsers');
+    this.sharedService.configService.get(apiUrl).subscribe(
+      (response) => {
+        console.log(response);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
-  initForm() {
-    this.signupForm = this.formBuilder.group({
-      firstName: ['', [Validators.required]],
-      lastName: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required]],
-      termsCond: [true, [Validators.required]],
-    });
+  signupTypeChange() {
+    this.userType.value == 0 || this.userType.value == 1 ? this.initForm(false) : this.initForm(true);
+  }
+
+  initForm(_isRecruiter: boolean) {
+    if (!_isRecruiter) {
+      this.signupForm = this.formBuilder.group({
+        firstName: ['', [Validators.required]],
+        lastName: ['', [Validators.required]],
+        email: ['', [Validators.required, Validators.email]],
+        password: ['', [Validators.required]],
+        termsCond: [true, [Validators.required]],
+      });
+    } else {
+      this.signupForm = this.formBuilder.group({
+        organizationName: ['', [Validators.required]],
+        email: ['', [Validators.required, Validators.email]],
+        password: ['', [Validators.required]],
+        termsCond: [true, [Validators.required]],
+      });
+    }
   }
 
   login() {
