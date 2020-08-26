@@ -34,14 +34,13 @@ export class LoginPopupComponent implements OnInit {
     this.createForm();
   }
 
-  ngOnInit() {}
-
-  ngOnDestroy() {}
-
   login() {
     this.isLoading = true;
+    this.sharedService.uiService.showApiStartPopMsg('Logging you in...');
     const login$ = this.popupData.authenticationService.login(this.loginForm.value);
-    login$
+    let apiUrl = this.sharedService.urlService.simpleApiCall('login');
+    this.sharedService.configService
+      .post(apiUrl, this.loginForm.value)
       .pipe(
         finalize(() => {
           this.loginForm.markAsPristine();
@@ -50,15 +49,33 @@ export class LoginPopupComponent implements OnInit {
         untilDestroyed(this)
       )
       .subscribe(
-        (credentials: any) => {
-          log.debug(`${credentials.username} successfully logged in`);
-          this.router.navigate([this.route.snapshot.queryParams.redirect || '/'], { replaceUrl: true });
+        (response) => {
+          this.sharedService.uiService.showApiSuccessPopMsg('Login in successfully...');
+          this.dialogRef.close();
         },
-        (error: any) => {
-          log.debug(`Login error: ${error}`);
-          this.error = error;
+        (error) => {
+          console.log(error);
+          this.sharedService.uiService.closePopMsg();
         }
       );
+    // login$
+    //   .pipe(
+    //     finalize(() => {
+    //       this.loginForm.markAsPristine();
+    //       this.isLoading = false;
+    //     }),
+    //     untilDestroyed(this)
+    //   )
+    //   .subscribe(
+    //     (credentials: any) => {
+    //       log.debug(`${credentials.username} successfully logged in`);
+    //       this.router.navigate([this.route.snapshot.queryParams.redirect || '/'], { replaceUrl: true });
+    //     },
+    //     (error: any) => {
+    //       log.debug(`Login error: ${error}`);
+    //       this.error = error;
+    //     }
+    //   );
   }
 
   forgotPass() {
@@ -75,7 +92,11 @@ export class LoginPopupComponent implements OnInit {
     this.loginForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required],
-      remember: true,
+      // remember: true,
     });
   }
+
+  ngOnInit() {}
+
+  ngOnDestroy() {}
 }

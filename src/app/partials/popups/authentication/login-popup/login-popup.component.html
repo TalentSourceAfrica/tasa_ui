@@ -38,14 +38,14 @@
 
         <form (ngSubmit)="login()" [formGroup]="loginForm" novalidate>
           <div class="form-group">
-            <label class="form-label" for="email">Your email address:</label>
+            <label class="form-label" for="email">Your username</label>
             <div class="input-group input-group-merge">
               <input
                 id="email"
                 type="email"
                 formControlName="username"
                 class="form-control form-control-prepended"
-                placeholder="Your email address"
+                placeholder="Type username"
               />
               <div class="input-group-prepend">
                 <div class="input-group-text">

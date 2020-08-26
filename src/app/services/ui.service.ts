@@ -51,7 +51,7 @@ export class UiService {
     Swal.fire({
       title: msg, // title of the modal
       text: 'Please wait ...', // description of the modal
-      //   imageUrl: 'assets/img/loader/hourglass.svg',
+      imageUrl: 'assets/loaders/swal-loader.gif',
       imageWidth: 125,
       imageHeight: 125,
       type: null,

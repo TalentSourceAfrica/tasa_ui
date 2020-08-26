@@ -43,7 +43,7 @@ export class BaseConfig {
       this.envExtension = '-playground';
       this.env = 'PLAYGROUND';
     }
-    this.restPath = this.restHost + '/elearning';
+    this.restPath = this.restHost + '/tasaapi';
     // this.restSocketPath = this.localSocketRestHost + '/amazeRest' + this.envExtension;
 
     this.globals = {

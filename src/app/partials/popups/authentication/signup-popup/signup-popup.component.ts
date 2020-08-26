@@ -4,6 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 //service
 import { SharedService } from '@app/services/shared.service';
+import { MustMatch } from '@app/auth/must-match';
 
 @Component({
   selector: 'app-signup-popup',
@@ -27,16 +28,6 @@ export class SignupPopupComponent implements OnInit {
   ) {
     this.popupData = data;
     this.initForm(false);
-
-    let apiUrl = this.sharedService.urlService.simpleApiCall('getUsers');
-    this.sharedService.configService.get(apiUrl).subscribe(
-      (response) => {
-        console.log(response);
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
   }
 
   signupTypeChange() {
@@ -45,20 +36,34 @@ export class SignupPopupComponent implements OnInit {
 
   initForm(_isRecruiter: boolean) {
     if (!_isRecruiter) {
-      this.signupForm = this.formBuilder.group({
-        firstName: ['', [Validators.required]],
-        lastName: ['', [Validators.required]],
-        email: ['', [Validators.required, Validators.email]],
-        password: ['', [Validators.required]],
-        termsCond: [true, [Validators.required]],
-      });
+      this.signupForm = this.formBuilder.group(
+        {
+          firstName: ['', [Validators.required]],
+          lastName: ['', [Validators.required]],
+          username: ['', [Validators.required]],
+          email: ['', [Validators.required, Validators.email]],
+          password: ['', [Validators.required]],
+          confirmPassword: ['', [Validators.required]],
+          termsCond: [true, [Validators.required]],
+        },
+        {
+          validator: MustMatch('password', 'confirmPassword'),
+        }
+      );
     } else {
-      this.signupForm = this.formBuilder.group({
-        organizationName: ['', [Validators.required]],
-        email: ['', [Validators.required, Validators.email]],
-        password: ['', [Validators.required]],
-        termsCond: [true, [Validators.required]],
-      });
+      this.signupForm = this.formBuilder.group(
+        {
+          organizationName: ['', [Validators.required]],
+          username: ['', [Validators.required]],
+          email: ['', [Validators.required, Validators.email]],
+          password: ['', [Validators.required]],
+          confirmPassword: ['', [Validators.required]],
+          termsCond: [true, [Validators.required]],
+        },
+        {
+          validator: MustMatch('password', 'confirmPassword'),
+        }
+      );
     }
   }
 
@@ -70,6 +75,20 @@ export class SignupPopupComponent implements OnInit {
 
   onSubmit() {
     console.log(this.signupForm.value);
+    let $t = this;
+    let apiUrl = $t.sharedService.urlService.simpleApiCall('signup');
+    $t.sharedService.uiService.showApiStartPopMsg('Creating Account...');
+    let payload = { ...$t.signupForm.value, type: $t.userType.viewValue };
+    $t.sharedService.configService.post(apiUrl, payload).subscribe(
+      (response) => {
+        console.log(response);
+        $t.sharedService.uiService.showApiSuccessPopMsg('Account Created Successfully...!');
+      },
+      (error) => {
+        console.log(error);
+        $t.sharedService.uiService.closePopMsg();
+      }
+    );
   }
 
   ngOnInit(): void {}
