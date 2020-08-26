@@ -25,9 +25,11 @@
 @import "theme/helpers";
 
 // style common for application
+
 .ng-invalid.ng-touched:not(form) {
   border-left: 4px solid theme-color("danger");
 }
+
 .mat-form-field-appearance-fill .mat-form-field-flex {
   background: none !important;
 }
