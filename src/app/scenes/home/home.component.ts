@@ -37,12 +37,12 @@ export class HomeComponent implements OnInit {
       },
       1000: {
         items: 1,
-      }
+      },
     },
     nav: true,
     navSpeed: 500,
-    navText: ['<i class="fa-chevron-left">Prev</i>', '<i class="fa-chevron-right">Next</i>']
-  }
+    navText: ['<i class="fa fa-chevron-left"></i>', '<i class="fa fa-chevron-right"></i>'],
+  };
   constructor(private quoteService: QuoteService) {}
 
   ngOnInit() {
