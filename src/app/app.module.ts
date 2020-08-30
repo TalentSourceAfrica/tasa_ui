@@ -20,6 +20,7 @@ import { AboutModule } from './about/about.module';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { LoginPopupComponent } from './partials/popups/authentication/login-popup/login-popup.component';
+import { FooterComponent } from './partials/footer/footer.component';
 
 @NgModule({
   imports: [
@@ -40,7 +41,7 @@ import { LoginPopupComponent } from './partials/popups/authentication/login-popu
     AuthModule,
     AppRoutingModule, // must be imported as the last module as it contains the fallback route
   ],
-  declarations: [AppComponent, LoginPopupComponent],
+  declarations: [AppComponent, LoginPopupComponent, FooterComponent],
   providers: [],
   bootstrap: [AppComponent],
 })

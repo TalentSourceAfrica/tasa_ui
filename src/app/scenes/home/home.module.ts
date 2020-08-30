@@ -13,7 +13,16 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
-  imports: [CommonModule, TranslateModule, CoreModule, SharedModule, HomeRoutingModule, MaterialModule, CarouselModule, BrowserAnimationsModule],
+  imports: [
+    CommonModule,
+    TranslateModule,
+    CoreModule,
+    SharedModule,
+    HomeRoutingModule,
+    MaterialModule,
+    CarouselModule,
+    BrowserAnimationsModule,
+  ],
   declarations: [HomeComponent],
 })
 export class HomeModule {}

@@ -288,3 +288,15 @@ $card_head_padding: 0px 0px $card-padding-basis 0px;
     transform: translateY(0);
   }
 }
+
+.news-section {
+  min-height: 400px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  .news-card {
+    border-bottom: 2px solid #9d56a2;
+    /* border-left: 2px solid #c195c4; */
+    box-shadow: 5px 5px 5px 0 #c89fca4f;
+  }
+}

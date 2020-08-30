@@ -5,6 +5,10 @@
 // where PA stands for PATCH api request
 // where D  stands for DELETE api request
 export const urls: any = {
+  // home
+  getNews: '/news', // G
+  gePost: '/posts', // G
+
   // Authentication
   getUsers: '/users', // G
   login: '/v1/login', // PO

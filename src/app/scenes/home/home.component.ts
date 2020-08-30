@@ -6,6 +6,7 @@ import { OwlDOMData } from 'ngx-owl-carousel-o/lib/models/owlDOM-data.model';
 // services
 import { QuoteService } from './quote.service';
 import { DialogService } from '@app/services/dialog.service';
+import { SharedService } from '@app/services/shared.service';
 
 @Component({
   selector: 'app-home',
@@ -16,6 +17,8 @@ export class HomeComponent implements OnInit {
   quote: string | undefined;
   isLoading = false;
   activeSlide: number = 3;
+  news: Array<object> = [];
+  posts: Array<object> = [];
   customOptions: OwlOptions = {
     loop: true,
     animateIn: 'slide-in',
@@ -43,20 +46,53 @@ export class HomeComponent implements OnInit {
     navSpeed: 500,
     navText: ['<i class="fa fa-chevron-left"></i>', '<i class="fa fa-chevron-right"></i>'],
   };
-  constructor(private quoteService: QuoteService) {}
+
+  customOption2: OwlOptions = {
+    nav: true,
+    loop: true,
+    navText: ['<i class="fa fa-chevron-left"></i>', '<i class="fa fa-chevron-right"></i>'],
+    dots: false,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    responsive: {
+      0: {
+        items: 1,
+      },
+      750: {
+        items: 2,
+      },
+    },
+  };
+  constructor(private sharedService: SharedService) {}
+
+  getNews() {
+    let apiUrl = this.sharedService.urlService.simpleApiCall('getNews');
+    this.sharedService.configService.get(apiUrl).subscribe(
+      (response: any) => {
+        this.news = response;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+  getPosts() {
+    let apiUrl = this.sharedService.urlService.simpleApiCall('gePost');
+    this.sharedService.configService.get(apiUrl).subscribe(
+      (response: any) => {
+        this.posts = response;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
 
   ngOnInit() {
     this.isLoading = true;
-    this.quoteService
-      .getRandomQuote({ category: 'dev' })
-      .pipe(
-        finalize(() => {
-          this.isLoading = false;
-        })
-      )
-      .subscribe((quote: string) => {
-        this.quote = quote;
-      });
+    this.getPosts();
+    this.getNews();
   }
 
   getPassedData(data: SlidesOutputData) {
