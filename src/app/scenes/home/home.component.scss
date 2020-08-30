@@ -7,3 +7,285 @@ q {
   font-size: 1.2rem;
   quotes: "« " " »";
 }
+
+.TasaHeader {
+  background-image: url("../../../assets/curved_check.png");
+  background-position: bottom left;
+  background-repeat: no-repeat;
+  background-size: contain;
+  padding-left: 50px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  max-width: 45%;
+  min-width: 45%;
+}
+
+.TasaContent {
+  padding-top: 10px;
+  background: rgb(255, 219, 255);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  padding-left: 60px;
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  position: relative;
+}
+
+.TasaPartners {
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  flex-direction: column;
+  -webkit-box-align: start;
+  align-items: flex-start;
+  margin-left: 25%;
+  margin-top: 2%;
+}
+
+.TasaPartnerLogo {
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: start;
+  justify-content: flex-start;
+  width: 530px;
+}
+
+.TasaLearnMore {
+  position: relative;
+  font-size: 16px;
+  font-weight: 700;
+  background: #ef403d;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  display: inline-flex;
+  -webkit-box-pack: center;
+  justify-content: center;
+  text-align: center;
+  white-space: nowrap;
+  -webkit-box-align: center;
+  align-items: center;
+  line-height: 1.5;
+  vertical-align: top;
+  user-select: none;
+  margin: 30px 125px;
+  border-radius: 4px;
+  height: 50px;
+  background-image: linear-gradient(to right, #ffccff, #ffb3ff, #ff99ff);
+  color: #fff;
+  padding: 0 40px;
+  border: none;
+}
+
+$black: #282828;
+$point: salmon;
+$point-light: lighten($point, 5%);
+
+$ratio: 1.214;
+$card_width: 60%;
+$card_height: $card_width * $ratio;
+$card_padding: 20px;
+$card-bgcolor: white;
+$card_margin: 5px;
+$card_round: 10px;
+$card-shadow: -20px -20px 0px 0px $point-light;
+
+$card-padding-basis: 15px;
+$card_head_padding: 0px 0px $card-padding-basis 0px;
+
+*{
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.container{
+  width: 100%;
+  min-height: 50vh;  
+  display: -webkit-box;  
+  display: -ms-flexbox;  
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.tasaCard{
+  background-color: $card-bgcolor;
+  width: $card_width;
+  display: -webkit-box;
+  display: -ms-flexbox;  
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding: $card_padding;
+  margin-left: 20%;
+  margin-top: 2%;
+  border-radius: 25px;
+  
+  h1,h2,h3,h4,h5{
+    margin: 0px;
+    padding: $card_head_padding;
+    font-family: 'Roboto','Helvetica Neue',Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';
+    font-size: 40px;
+    color: black;
+    font-weight: bolder;
+    text-align: center;
+  }
+  
+  hr{
+    display: block;
+    border: none;
+    height: 3px;
+    background-color: #9A519E;
+    margin: 0px;
+    
+    -webkit-animation-name: line-show; /* Safari 4.0 - 8.0 */
+    -webkit-animation-duration: 0.3s; /* Safari 4.0 - 8.0 */
+    animation-name: line-show;
+    animation-duration: 0.3s;
+    -webkit-transition-timing-function: cubic-bezier(0.795, 0.000, 0.165, 1.000);
+    -o-transition-timing-function: cubic-bezier(0.795, 0.000, 0.165, 1.000);
+    transition-timing-function: cubic-bezier(0.795, 0.000, 0.165, 1.000); /* custom */
+  }
+  
+  p{
+    margin: $card-padding-basis 0px 0px 0px;
+    font-family: 'Roboto','Helvetica Neue',Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';
+    font-weight: 100;
+    letter-spacing: -0.25px;
+    line-height: 1.25;
+    font-size: 30px;
+    word-break: break-all;
+    word-wrap: pre-wrap;
+    color: black;
+    font-weight: bold;
+    text-align: center;
+    word-break: break-word;
+    
+    -webkit-animation-name: p-show; /* Safari 4.0 - 8.0 */
+    -webkit-animation-duration: 1.5s; /* Safari 4.0 - 8.0 */
+    animation-name: p-show;
+    animation-duration: 1.5s;
+  }  
+}
+
+.slideItem {
+  background-image: url("../../../assets/cb_tasa.png");
+}
+
+.slideItem .avatar {
+  opacity: 0;
+}
+
+.slideItem .mainContent {
+  opacity: 0;
+}
+
+.slideItem .subContent {
+  opacity: 0;
+}
+
+.activeSlideItem {
+  background-image: url("../../../assets/cb_tasa.png");
+}
+
+.activeSlideItem .mainContent {
+  display: block;
+  -webkit-animation: bounceInRight 0.5s;
+  animation: bounceInRight 0.5s;
+}
+
+.activeSlideItem .subContent {
+  display: block;
+  -webkit-animation: bounceInRight 1.5s;
+  animation: bounceInRight 1.5s;
+}
+
+.activeSlideItem .avatar {
+  display: block;
+  -webkit-animation: bounceInDown 2s;
+  animation: bounceInDown 2s;
+}
+
+@-webkit-keyframes bounceInRight {
+  0% {
+     opacity: 0;
+     -webkit-transform: translateX(2000px);
+  }
+  60% {
+     opacity: 1;
+     -webkit-transform: translateX(-30px);
+  }
+  80% {
+     -webkit-transform: translateX(10px);
+  }
+  100% {
+     -webkit-transform: translateX(0);
+  }
+}
+
+@keyframes bounceInRight {
+  0% {
+     opacity: 0;
+     transform: translateX(2000px);
+  }
+  60% {
+     opacity: 1;
+     transform: translateX(-30px);
+  }
+  80% {
+     transform: translateX(10px);
+  }
+  100% {
+     transform: translateX(0);
+  }
+}
+
+@-webkit-keyframes bounceInDown {
+  0% {
+     opacity: 0;
+     -webkit-transform: translateY(-2000px);
+  }
+  60% {
+     opacity: 1;
+     -webkit-transform: translateY(30px);
+  }
+  80% {
+     -webkit-transform: translateY(-10px);
+  }
+  100% { 
+     -webkit-transform: translateY(0);
+  }
+}
+
+@keyframes bounceInDown {
+  0% {
+     opacity: 0;
+     transform: translateY(-2000px);
+  }
+  60% {
+     opacity: 1;
+     transform: translateY(30px);
+  }
+  80% {
+     transform: translateY(-10px);
+  }
+  100% {
+     transform: translateY(0);
+  }
+}
+
+
+
+
+

@@ -9,9 +9,11 @@ import { HomeComponent } from './home.component';
 
 import { QuoteService } from './quote.service';
 import { MaterialModule } from '@app/modules/material.module';
+import { CarouselModule } from 'ngx-owl-carousel-o';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
-  imports: [CommonModule, TranslateModule, CoreModule, SharedModule, HomeRoutingModule, MaterialModule],
+  imports: [CommonModule, TranslateModule, CoreModule, SharedModule, HomeRoutingModule, MaterialModule, CarouselModule, BrowserAnimationsModule],
   declarations: [HomeComponent],
 })
 export class HomeModule {}

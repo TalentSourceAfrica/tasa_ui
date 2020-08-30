@@ -1,10 +1,185 @@
 <div class="container-fluid">
-  <div class="jumbotron text-center">
-    <h1>
-      <img class="logo" src="assets/logo/TSA_transparent_logo.png" alt="TASA logo" />
-      <span translate>Hello world !</span>
-    </h1>
-    <app-loader [isLoading]="isLoading"></app-loader>
-    <q [hidden]="isLoading">{{ quote }}</q>
+  <div
+    class="TasaHomeBannerMainContainer"
+    style="display: flex; -webkit-box-orient: vertical; -webkit-box-direction: normal; flex-direction: column;"
+  >
+    <!-- <section class="TasaHomeBannerSection" style="height: 90vh; background-color: white;">
+      <div class="TasaHomeBannerWrapper" style="height: 90vh; display: flex;">
+        <div class="TasaHeader">
+          <h1 style="font-weight: bold; font-size: 36px; color: #333333; padding-top: 35px;">
+            <img
+              class="logo"
+              src="assets/logo/TSA_transparent_logo.png"
+              alt="TASA logo"
+              style="height: 230px; width: 200px;"
+            />
+            <span> Talent Source Africa </span>
+            <br />
+            <span translate>
+              Best Courses. Top Institutions. <br />
+              Learn anytime. Anywhere.
+            </span>
+            <div class="TasaLearnMore">Learn More &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b> -> </b></div>
+          </h1>
+        </div>
+        <div class="TasaContent">
+          <div class="TasaCarousel" style="height: 60vh;">
+            <img src="assets/carousel_1.jpg" alt="Carosel Pic 1" style="height: 400px;" />
+          </div>
+          <div class="TasaPartners">
+            <div style="font-weight: 300; font-size: 26px; color: #4f4f4f;">
+              Our Partners
+            </div>
+            <div class="TasaPartnerLogo">
+              <div style="width: auto; margin-right: 30px; margin-top: 10px; margin-bottom: 10px; float: left;">
+                <img class="logo" src="assets/mitLogo.png" alt="MIT logo" style="height: 120x; width: 200px;" />
+              </div>
+              <div style="width: auto; margin-top: 10px; margin-bottom: 10px; float: left;">
+                <img class="logo" src="assets/harvardLogo.png" alt="MIT logo" style="height: 120px; width: 200px;" />
+              </div>
+              <div style="clear: both;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section> -->
+    <owl-carousel-o [options]="customOptions" (translated)="getPassedData($event)">
+      <ng-template carouselSlide>
+        <div [ngClass]="activeSlide == 0 || activeSlide == 3 ? 'activeSlideItem' : 'slideItem'">
+          <div style="width: 100%; height: 600px;">
+            <div class="row slide-margin">
+              <div class="col-sm-4 hidden-xs avatar">
+                <div class="slider-img">
+                  <img src="assets/img1.png" class="img-responsive" style="height: 600px;"/>
+                </div>
+              </div>
+              <div class="col-sm-8">
+                <div class="carousel-content">
+                  <div class="row">
+                    <div class="container">
+                      <div class="tasaCard">
+                        <h2 class="mainContent">CULTIVATE</h2>
+                        <hr/>
+                        <p class="subContent">
+                          A vast network of African graduates and early-stage professionals via our superior professional networking platform.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="TasaPartners">
+                      <div style="font-weight: 400; font-size: 26px; color: white;">
+                        Our Partners
+                      </div>
+                      <div class="TasaPartnerLogo">
+                        <div style="width: auto; margin-right: 30px; margin-top: 10px; margin-bottom: 10px; float: left;">
+                          <img class="logo" src="assets/mitLogo.png" alt="MIT logo" style="height: 120x; width: 200px;" />
+                        </div>
+                        <div style="width: auto; margin-top: 10px; margin-bottom: 10px; float: left;">
+                          <img class="logo" src="assets/harvardLogo.png" alt="MIT logo" style="height: 120px; width: 200px;" />
+                        </div>
+                        <div style="clear: both;"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+      <ng-template carouselSlide>
+        <div [ngClass]="activeSlide == 1 ? 'activeSlideItem' : 'slideItem'">
+          <div style="width: 100%; height: 600px;">
+            <div class="row slide-margin">
+              <div class="col-sm-4 hidden-xs avatar">
+                <div class="slider-img">
+                  <img src="assets/img2.png" class="img-responsive" style="height: 600px;"/>
+                </div>
+              </div>
+              <div class="col-sm-8">
+                <div class="carousel-content">
+                  <div class="row">
+                    <div class="container">
+                      <div class="tasaCard">
+                        <h2 class="mainContent">ENHANCE</h2>
+                        <hr/>
+                        <p class="subContent">
+                          Their employability through access to affordably-priced online certificate courses
+                          from globally recognized Ivy-League and Tier-I Universities.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="TasaPartners">
+                      <div style="font-weight: 400; font-size: 26px; color: white;">
+                        Our Partners
+                      </div>
+                      <div class="TasaPartnerLogo">
+                        <div style="width: auto; margin-right: 30px; margin-top: 10px; margin-bottom: 10px; float: left;">
+                          <img class="logo" src="assets/mitLogo.png" alt="MIT logo" style="height: 120x; width: 200px;" />
+                        </div>
+                        <div style="width: auto; margin-top: 10px; margin-bottom: 10px; float: left;">
+                          <img class="logo" src="assets/harvardLogo.png" alt="MIT logo" style="height: 120px; width: 200px;" />
+                        </div>
+                        <div style="clear: both;"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+      <ng-template carouselSlide>
+        <div [ngClass]="activeSlide == 2 ? 'activeSlideItem' : 'slideItem'">
+          <div style="width: 100%; height: 600px;">
+            <div class="row slide-margin">
+              <div class="col-sm-4 hidden-xs avatar">
+                <div class="slider-img">
+                  <img src="assets/img3.png" class="img-responsive" style="height: 600px;"/>
+                </div>
+              </div>
+              <div class="col-sm-8">
+                <div class="carousel-content">
+                  <div class="row">
+                    <div class="container">
+                      <div class="tasaCard">
+                        <h2 class="mainContent">CONNECT</h2>
+                        <hr/>
+                        <p class="subContent">
+                          Our members with employers through our best-in-class jobs board.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="TasaPartners">
+                      <div style="font-weight: 400; font-size: 26px; color: white;">
+                        Our Partners
+                      </div>
+                      <div class="TasaPartnerLogo">
+                        <div style="width: auto; margin-right: 30px; margin-top: 10px; margin-bottom: 10px; float: left;">
+                          <img class="logo" src="assets/mitLogo.png" alt="MIT logo" style="height: 120x; width: 200px;" />
+                        </div>
+                        <div style="width: auto; margin-top: 10px; margin-bottom: 10px; float: left;">
+                          <img class="logo" src="assets/harvardLogo.png" alt="MIT logo" style="height: 120px; width: 200px;" />
+                        </div>
+                        <div style="clear: both;"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </owl-carousel-o>
+    <div class="row" style="background-color: red; height: 500px;">
+
+    </div>
   </div>
 </div>
