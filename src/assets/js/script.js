@@ -1,8 +1,8 @@
 (function ($) {
   'use strict';
-  $(document).ready(function () {
-    alert('Coming to js');
-  });
+  // $(document).ready(function () {
+  //   alert('Coming to js');
+  // });
   // $(document).ready(function() {
   //   !(function() {
   //     var t = (window.driftt = window.drift = window.driftt || []);
