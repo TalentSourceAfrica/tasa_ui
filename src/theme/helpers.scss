@@ -859,6 +859,9 @@ button:hover,
   height: auto !important;
   min-height: 48px;
 }
+.cdk-overlay-container {
+  z-index: 999999;
+}
 @keyframes pulse {
   0% {
     transform: scale(0.9);
