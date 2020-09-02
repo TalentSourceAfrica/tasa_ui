@@ -82,7 +82,8 @@ export class SignupPopupComponent implements OnInit {
     $t.sharedService.configService.post(apiUrl, payload).subscribe(
       (response) => {
         console.log(response);
-        $t.sharedService.uiService.showApiSuccessPopMsg('Account Created Successfully...!');
+        $t.sharedService.uiService.showApiSuccessPopMsg('Email has been send. Please do the verification...!');
+        $t.sharedService.uiService.closePopMsg();
       },
       (error) => {
         console.log(error);

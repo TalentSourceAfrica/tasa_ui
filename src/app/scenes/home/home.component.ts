@@ -48,6 +48,8 @@ export class HomeComponent implements OnInit {
   };
 
   customOption2: OwlOptions = {
+    animateOut: true,
+    animateIn: true,
     nav: true,
     loop: true,
     navText: ['<i class="fa fa-chevron-left"></i>', '<i class="fa fa-chevron-right"></i>'],

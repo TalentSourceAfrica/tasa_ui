@@ -749,7 +749,9 @@
 .no-pointer-events {
   pointer-events: none !important;
 }
-
+.mat-dialog-container {
+  padding: 0px !important;
+}
 //override bootstrap styles
 button,
 button:focus,
