@@ -16,16 +16,15 @@ import { SharedService } from '@app/services/shared.service';
 export class HomeComponent implements OnInit {
   quote: string | undefined;
   isLoading = false;
-  activeSlide: number = 3;
+  activeSlide: number = 0;
   news: Array<object> = [];
   posts: Array<object> = [];
   customOptions: OwlOptions = {
     loop: true,
-    animateIn: 'slide-in',
-    animateOut: 'slide-out',
+    animateOut: 'fadeOut',
     autoplay: true,
     autoplaySpeed: 5000,
-    autoplayHoverPause: false,
+    autoplayHoverPause: true,
     autoplayTimeout: 5000,
     center: true,
     dots: false,
@@ -42,9 +41,28 @@ export class HomeComponent implements OnInit {
         items: 1,
       },
     },
+  };
+
+  customOptionsCourses: OwlOptions = {
     nav: true,
-    navSpeed: 500,
+    loop: true,
     navText: ['<i class="fa fa-chevron-left"></i>', '<i class="fa fa-chevron-right"></i>'],
+    dots: false,
+    autoplay: true,
+    autoplaySpeed: 5000,
+    autoplayHoverPause: true,
+    autoplayTimeout: 5000,
+    responsive: {
+      0: {
+        items: 1,
+      },
+      400: {
+        items: 2,
+      },
+      740: {
+        items: 3,
+      },
+    },
   };
 
   customOption2: OwlOptions = {
@@ -98,8 +116,6 @@ export class HomeComponent implements OnInit {
   }
 
   getPassedData(data: SlidesOutputData) {
-    console.log('------ slide data -------', data);
     this.activeSlide = data.startPosition;
-    console.log('------- active slider -----', this.activeSlide);
   }
 }

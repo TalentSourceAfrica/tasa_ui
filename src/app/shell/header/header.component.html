@@ -1,49 +1,70 @@
-<header>
-  <nav class="navbar navbar-expand-lg" style="margin-bottom: 0px; padding-bottom: 0px;">
-    <!-- <a class="navbar-brand" href="https://github.com/ngx-rocket" translate>APP_NAME</a> -->
-    <img
-      class="logo"
-      src="assets/TSA_logo.small.jpg"
-      alt="TASA logo"
-      style="height: 80px; width: 90px; margin-left: 2%;"
-    />
-    <button class="rc-ExploreButton" aria-label="Explore our catalog" type="button" style="margin-left: 2%;">
-      <span class=""> Explore <i class="fa fa-chevron-down" aria-hidden="true"></i> </span>
-    </button>
-    <div role="combobox">
-      <input
-        type="text"
-        value=""
-        autocomplete="off"
-        placeholder="What do you want to learn?"
-        role="combobox"
-        style="margin-left: 15%; width: 240%; height: 5vh;"
-      />
-    </div>
-    <div id="navbar-menu" class="collapse navbar-collapse float-xs-none" [ngbCollapse]="menuHidden">
-      <div class="navbar-nav ml-auto">
-        <a class="nav-item nav-link" routerLink="/about" routerLinkActive="active">
-          <span translate style="text-transform: uppercase;">About</span>
-        </a>
-        <app-language-selector inNavbar="true" menuClass="dropdown-menu dropdown-menu-right"></app-language-selector>
-        <div class="nav-item" ngbDropdown>
-          <a id="user-dropdown" class="nav-link" ngbDropdownToggle>
-            <i class="fas fa-user-circle"></i>
-          </a>
-          <div ngbDropdownMenu aria-labelledby="user-dropdown" class="dropdown-menu dropdown-menu-right">
-            <h6 class="dropdown-header">
-              <span translate>Logged in as</span> <b>{{ username }}</b>
-            </h6>
-            <div class="dropdown-divider"></div>
-            <button class="dropdown-item" (click)="logout()" translate>Logout</button>
-            <div class="dropdown-divider"></div>
-            <button class="dropdown-item" (click)="login()" translate>login</button>
-            <button class="dropdown-item" (click)="signup()" translate>signup</button>
+<header role="banner" id="header" class="fixed-top navbar navbar-light bg-faded navbar-expand moodle-has-zindex">
+  <div class="container navbar-nav" style="margin-left: 0%;">
+    <div data-region="drawer-toggle" class="d-inline-block mr-3">
+      <ul class="navbar-nav d-lg-flex">
+        <li class="nav-item">
+          <img
+            class="logo"
+            src="assets/images/TSA_logo_new.small.png"
+            alt="TASA logo"
+            style="height: 95px; width: 125px; margin-left: 2%;"
+          />
+        </li>
+        <li class="nav-item" style="width: 35%;">
+          <h5 class="tasaTitle">Talent Source Africa</h5>
+        </li>
+        <li class="nav-item">
+          <button class="rc-ExploreButton" aria-label="Explore our catalog" type="button">
+            <span class=""> Explore <i class="fa fa-chevron-down" aria-hidden="true"></i> </span>
+          </button>
+        </li>
+        <li class="nav-item">
+          <div role="combobox">
+            <input
+              type="text"
+              value=""
+              autocomplete="off"
+              placeholder="What do you want to learn?"
+              role="combobox"
+              style="margin-left: 40%; width: 240%; height: 5vh; margin-top: 17%;"
+            />
           </div>
-        </div>
-        <!-- <div class="loginButton">Sign In </div>
-        <div class="registrationButton"> Sign Up </div> -->
-      </div>
+        </li>
+      </ul>
     </div>
-  </nav>
+    <div class="header-top" id="Mainmenu">
+      <ul class="nav navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-item nav-link" routerLink="/about" routerLinkActive="active">
+            <span translate style="text-transform: uppercase; color: #2a73cc; font-weight: bold;">About</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <app-language-selector inNavbar="true" menuClass="dropdown-menu dropdown-menu-right"></app-language-selector>
+        </li>
+        <li class="nav-item">
+          <button
+            class="rc-ExploreButton"
+            aria-label="Explore our catalog"
+            type="button"
+            style="margin-top: 5%; width: 150%;"
+            (click)="login()"
+          >
+            <span class=""> Sign In </span>
+          </button>
+        </li>
+        <li class="nav-item">
+          <button
+            class="rc-ExploreButton"
+            aria-label="Explore our catalog"
+            type="button"
+            style="margin-top: 5%; width: 150%; margin-left: 100%;"
+            (click)="signup()"
+          >
+            <span class=""> Sign Up </span>
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
 </header>

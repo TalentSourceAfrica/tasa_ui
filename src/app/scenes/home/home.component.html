@@ -1,97 +1,31 @@
-<div class="home-wrapper">
+<div class="container-fluid" style="margin-top: 125px;">
   <div
     class="TasaHomeBannerMainContainer"
     style="display: flex; -webkit-box-orient: vertical; -webkit-box-direction: normal; flex-direction: column;"
   >
-    <!-- <section class="TasaHomeBannerSection" style="height: 90vh; background-color: white;">
-      <div class="TasaHomeBannerWrapper" style="height: 90vh; display: flex;">
-        <div class="TasaHeader">
-          <h1 style="font-weight: bold; font-size: 36px; color: #333333; padding-top: 35px;">
-            <img
-              class="logo"
-              src="assets/logo/TSA_transparent_logo.png"
-              alt="TASA logo"
-              style="height: 230px; width: 200px;"
-            />
-            <span> Talent Source Africa </span>
-            <br />
-            <span translate>
-              Best Courses. Top Institutions. <br />
-              Learn anytime. Anywhere.
-            </span>
-            <div class="TasaLearnMore">Learn More &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b> -> </b></div>
-          </h1>
-        </div>
-        <div class="TasaContent">
-          <div class="TasaCarousel" style="height: 60vh;">
-            <img src="assets/carousel_1.jpg" alt="Carosel Pic 1" style="height: 400px;" />
-          </div>
-          <div class="TasaPartners">
-            <div style="font-weight: 300; font-size: 26px; color: #4f4f4f;">
-              Our Partners
-            </div>
-            <div class="TasaPartnerLogo">
-              <div style="width: auto; margin-right: 30px; margin-top: 10px; margin-bottom: 10px; float: left;">
-                <img class="logo" src="assets/mitLogo.png" alt="MIT logo" style="height: 120x; width: 200px;" />
-              </div>
-              <div style="width: auto; margin-top: 10px; margin-bottom: 10px; float: left;">
-                <img class="logo" src="assets/harvardLogo.png" alt="MIT logo" style="height: 120px; width: 200px;" />
-              </div>
-              <div style="clear: both;"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section> -->
     <owl-carousel-o [options]="customOptions" (translated)="getPassedData($event)">
       <ng-template carouselSlide>
-        <div [ngClass]="activeSlide == 0 || activeSlide == 3 ? 'activeSlideItem' : 'slideItem'">
+        <div [ngClass]="activeSlide == 0 ? 'activeSlideItem' : 'slideItem'">
           <div style="width: 100%; height: 600px;">
-            <div class="row slide-margin">
-              <div class="col-sm-4 hidden-xs avatar">
-                <div class="slider-img">
-                  <img src="assets/img1.png" class="img-responsive" style="height: 600px;" />
-                </div>
-              </div>
-              <div class="col-sm-8">
-                <div class="carousel-content">
-                  <div class="row">
-                    <div class="container">
-                      <div class="tasaCard">
-                        <h2 class="mainContent">CULTIVATE</h2>
-                        <hr />
-                        <p class="subContent">
-                          A vast network of African graduates and early-stage professionals via our superior
-                          professional networking platform.
-                        </p>
-                      </div>
-                    </div>
+            <div class="mainSlider slider1BG">
+              <div class="row slide-margin">
+                <div class="col-sm-4 hidden-xs avatar">
+                  <div class="slider-img">
+                    <img src="assets/images/avatar3_new.png" class="img-responsive avatarImg" />
                   </div>
-                  <div class="row">
-                    <div class="TasaPartners">
-                      <div style="font-weight: 400; font-size: 26px; color: white;">
-                        Our Partners
-                      </div>
-                      <div class="TasaPartnerLogo">
-                        <div
-                          style="width: auto; margin-right: 30px; margin-top: 10px; margin-bottom: 10px; float: left;"
-                        >
-                          <img
-                            class="logo"
-                            src="assets/mitLogo.png"
-                            alt="MIT logo"
-                            style="height: 120x; width: 200px;"
-                          />
-                        </div>
-                        <div style="width: auto; margin-top: 10px; margin-bottom: 10px; float: left;">
-                          <img
-                            class="logo"
-                            src="assets/harvardLogo.png"
-                            alt="MIT logo"
-                            style="height: 120px; width: 200px;"
-                          />
-                        </div>
-                        <div style="clear: both;"></div>
+                </div>
+                <div class="col-sm-8">
+                  <div class="carousel-content">
+                    <div class="row">
+                      <h2 class="sliderHeader">
+                        Our Vision
+                      </h2>
+                    </div>
+                    <div class="row">
+                      <div class="slideContainer">
+                        To upskill, network, & connect the millions of unemployed African college graduates with the job
+                        opportunities they need, and provide companies with access and visibility to the high-skilled
+                        talent-pool needed to meet their business goals on the continent.
                       </div>
                     </div>
                   </div>
@@ -104,51 +38,28 @@
       <ng-template carouselSlide>
         <div [ngClass]="activeSlide == 1 ? 'activeSlideItem' : 'slideItem'">
           <div style="width: 100%; height: 600px;">
-            <div class="row slide-margin">
-              <div class="col-sm-4 hidden-xs avatar">
-                <div class="slider-img">
-                  <img src="assets/img2.png" class="img-responsive" style="height: 600px;" />
-                </div>
-              </div>
-              <div class="col-sm-8">
-                <div class="carousel-content">
-                  <div class="row">
-                    <div class="container">
-                      <div class="tasaCard">
-                        <h2 class="mainContent">ENHANCE</h2>
-                        <hr />
-                        <p class="subContent">
-                          Their employability through access to affordably-priced online certificate courses from
-                          globally recognized Ivy-League and Tier-I Universities.
-                        </p>
-                      </div>
-                    </div>
+            <div class="mainSlider slider2BG">
+              <div class="row slide-margin">
+                <div class="col-sm-4 hidden-xs avatar">
+                  <div class="slider-img">
+                    <img src="assets/images/avatar1_new.png" class="img-responsive avatarImg" />
                   </div>
-                  <div class="row">
-                    <div class="TasaPartners">
-                      <div style="font-weight: 400; font-size: 26px; color: white;">
-                        Our Partners
-                      </div>
-                      <div class="TasaPartnerLogo">
-                        <div
-                          style="width: auto; margin-right: 30px; margin-top: 10px; margin-bottom: 10px; float: left;"
-                        >
-                          <img
-                            class="logo"
-                            src="assets/mitLogo.png"
-                            alt="MIT logo"
-                            style="height: 120x; width: 200px;"
-                          />
-                        </div>
-                        <div style="width: auto; margin-top: 10px; margin-bottom: 10px; float: left;">
-                          <img
-                            class="logo"
-                            src="assets/harvardLogo.png"
-                            alt="MIT logo"
-                            style="height: 120px; width: 200px;"
-                          />
-                        </div>
-                        <div style="clear: both;"></div>
+                </div>
+                <div class="col-sm-8">
+                  <div class="carousel-content">
+                    <div class="row">
+                      <h2 class="sliderHeader">
+                        There is a Problem
+                      </h2>
+                    </div>
+                    <div class="row">
+                      <div class="slideContainer" style="width: 70%; left: 17%;">
+                        Sub-saharan Africa (SSA) has one of the world's highest youth unemployment rates. Experts
+                        predict roughly 50% of its youth will be unemployed by 2025. What's more, unemployment is
+                        highest among university graduates (50% unemployment) even as firms struggle to find
+                        high-skilled talent. For graduates, difficulties finding employment detracts from lifetime
+                        earnings and entraps them in debilitating poverty. For firms, the labor-imbalance stifles
+                        innovation and prevents companies from meeting growth goals.
                       </div>
                     </div>
                   </div>
@@ -161,50 +72,32 @@
       <ng-template carouselSlide>
         <div [ngClass]="activeSlide == 2 ? 'activeSlideItem' : 'slideItem'">
           <div style="width: 100%; height: 600px;">
-            <div class="row slide-margin">
-              <div class="col-sm-4 hidden-xs avatar">
-                <div class="slider-img">
-                  <img src="assets/img3.png" class="img-responsive" style="height: 600px;" />
-                </div>
-              </div>
-              <div class="col-sm-8">
-                <div class="carousel-content">
-                  <div class="row">
-                    <div class="container">
-                      <div class="tasaCard">
-                        <h2 class="mainContent">CONNECT</h2>
-                        <hr />
-                        <p class="subContent">
-                          Our members with employers through our best-in-class jobs board.
-                        </p>
-                      </div>
-                    </div>
+            <div class="mainSlider slider3BG">
+              <div class="row slide-margin">
+                <div class="col-sm-4 hidden-xs avatar">
+                  <div class="slider-img">
+                    <img src="assets/images/avatar4_new.png" class="img-responsive avatarImg" />
                   </div>
-                  <div class="row">
-                    <div class="TasaPartners">
-                      <div style="font-weight: 400; font-size: 26px; color: white;">
-                        Our Partners
-                      </div>
-                      <div class="TasaPartnerLogo">
-                        <div
-                          style="width: auto; margin-right: 30px; margin-top: 10px; margin-bottom: 10px; float: left;"
-                        >
-                          <img
-                            class="logo"
-                            src="assets/mitLogo.png"
-                            alt="MIT logo"
-                            style="height: 120x; width: 200px;"
-                          />
-                        </div>
-                        <div style="width: auto; margin-top: 10px; margin-bottom: 10px; float: left;">
-                          <img
-                            class="logo"
-                            src="assets/harvardLogo.png"
-                            alt="MIT logo"
-                            style="height: 120px; width: 200px;"
-                          />
-                        </div>
-                        <div style="clear: both;"></div>
+                </div>
+                <div class="col-sm-8">
+                  <div class="carousel-content">
+                    <div class="row">
+                      <h2 class="sliderHeader">
+                        We have a Solution
+                      </h2>
+                    </div>
+                    <div class="row">
+                      <div class="slideContainer" style="width: 80%; left: 8%; top: 25%;">
+                        Many countries in SSA lack efficient systems for publicizing job opportunities; Moreover,
+                        Africa's job market is rife with patronage systems that entrench disadvantage. We will disrupt
+                        these inefficient patronage systems by: <br />
+                        <strong style="font-size: 30px;">CULTIVATE:</strong> a vast network of African graduates and
+                        early-stage professionals via our superior professional networking platform; <br />
+                        <strong style="font-size: 30px;">ENHANCE:</strong> their employability through access to
+                        affordably-priced online certificate courses from globally recognized Ivy-League and Tier-I
+                        Universities; <br />
+                        <strong style="font-size: 30px;">CONNECT:</strong> our members with employers through our
+                        best-in-class jobs board.
                       </div>
                     </div>
                   </div>
@@ -216,7 +109,450 @@
       </ng-template>
     </owl-carousel-o>
   </div>
-  <div class="testimonial-section bg-primary-light pt-4 mb-4">
+  <div class="sc_section custom_bg_2">
+    <div class="header_wrap">
+      <div style="overflow: hidden;">
+        <div class="sc_services sc_services_style_services-4 sc_services_type_icons_img margin_top_huge">
+          <h2 class="sc_services_title sc_item_title">Our Value Proposition...</h2>
+          <div class="sc_services_descr sc_item_descr">
+            “TaSA aims to harness the tremendous potential of Africa's brilliant youth for national and continental
+            development by annually connecting 5 million job-seekers with high-skill jobs in and outside SSA by 2040”.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sc_section custom_section_1">
+    <div class="row columns_wrap">
+      <div class="col-md-4 col-sm-4 col-xs-12" style="margin-bottom: 0%; height: 465px;">
+        <div class="sc_section margin_right_small margin_left_small aligncenter">
+          <div class="sc_section_inner">
+            <div class="sc_section_content_wrap">
+              <figure class="sc_image sc_image_shape_square">
+                <a href="#"><img alt="" src="assets/images/VP_College.png" style="height: 100px;" /></a>
+              </figure>
+              <div class="sc_empty_space" data-height="0.7em"></div>
+              <h4 class="sc_title sc_title_regular margin_top_tiny margin_bottom_tiny">
+                <a href="#">College Students</a>
+              </h4>
+              <h6 class="sc_custom_heading style_1 custom_cl_4" style="color: black !important;">
+                Get a leg up on the competition for academics and job search by:
+              </h6>
+              <span style="color: black !important; text-align: left;">
+                - get discounted access to credentialed courses from the most prestigious universities in the west
+                <br />
+                - enhance your employability with marketable skills and credentials <br />
+                - supplement your learning with access to instruction from leading academicians <br />
+                - enhance your social capital and position yourself for exciting work or business opportunities <br />
+                - develop the soft-skills and executive polish needed to succeed
+              </span>
+              <div class="sc_empty_space" data-height="1.1em"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="col-md-4 col-sm-4 col-xs-12"
+        style="margin-bottom: 0%; background-color: #e7e8e9 !important; height: 465px;"
+      >
+        <div class="sc_section margin_right_small margin_left_small aligncenter">
+          <div class="sc_section_inner">
+            <div class="sc_section_content_wrap">
+              <figure class="sc_image sc_image_shape_square">
+                <a href="#"><img alt="" src="assets/images/VP_University_new.png" style="height: 100px;" /></a>
+              </figure>
+              <div class="sc_empty_space" data-height="0.7em"></div>
+              <h4 class="sc_title sc_title_regular margin_top_tiny margin_bottom_tiny custom_cl_4">
+                <a href="#">Universities</a>
+              </h4>
+              <h6 class="sc_custom_heading style_1 custom_cl_4" style="color: black !important;">
+                Differentiate your Institution from the competition and enhance your institution's Prestige by:
+              </h6>
+              <span class="custom_cl_4" style="color: black !important; text-align: left;">
+                - offering students significantly discounted access to online courses <br />
+                - enhancing your graduates employability with certificates and credentials <br />
+                - increase the global competitiveness of your graduates with skills and certificates <br />
+                - easily track and tap into your alumni base for financial and in-kind support <br />
+                - market your Institution to the projected millions of prospective users
+              </span>
+              <div class="sc_empty_space" data-height="1.1em"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="col-md-4 col-sm-4 col-xs-12"
+        style="margin-bottom: 0%; background-color: #ced3d5 !important; height: 465px;"
+      >
+        <div class="sc_section margin_right_small margin_left_small aligncenter">
+          <div class="sc_section_inner">
+            <div class="sc_section_content_wrap">
+              <figure class="sc_image sc_image_shape_square">
+                <a href="#"><img alt="" src="assets/images/VP_Professional_new.png" style="height: 100px;" /></a>
+              </figure>
+              <div class="sc_empty_space" data-height="0.7em"></div>
+              <h4 class="sc_title sc_title_regular margin_top_tiny margin_bottom_tiny custom_cl_4">
+                <a href="#">Early Stage Professionals</a>
+              </h4>
+              <h6 class="sc_custom_heading style_1 custom_cl_4" style="color: black !important;">
+                Enhance your professional profile with marketable skills and certificates by:
+              </h6>
+              <span class="custom_cl_4" style="color: black !important; text-align: left;">
+                - professional certificates from trusted and recognizable institutions of higher education <br />
+                - enhance your social capital and position yourself for exciting work or business opportunities <br />
+                - gain easy access to scores of available job opportunities within your professional interest <br />
+                - gain access to cutting edge ideas at the frontier of your industry <br />
+                - demonstrate your competence and expertise by creating and curating content and ideas
+              </span>
+              <div class="sc_empty_space" data-height="1.1em"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sc_section" style="margin-top: 5%;">
+    <div
+      class="parallax-banner parallax100 parallax-bg"
+      style="text-align: center; padding-top: 135px; padding-bottom: 158px;"
+    >
+      <div class="row" style="margin-top: -5%;">
+        <div class="col-md-5 col-sm-5 col-xs-12" style="padding-left: 5%;">
+          <h5 style="color: #e7e8e9; font-weight: 500; text-align: left; padding-left: 6%;">Career Learning Path</h5>
+          <h2 style="color: #eac54f;">Explore Career Learning Path With TaSA</h2>
+          <p style="color: #e7e8e9; font-weight: 500;">
+            Build career-relevant skills with courses from top universities and companies
+          </p>
+        </div>
+        <div class="col-md-7 col-sm-7 col-xs-12">
+          <div class="row">
+            <h6 style="color: #eac54f; margin-left: 6.5%; font-weight: bold;">Find your next role</h6>
+          </div>
+          <div class="row">
+            <div class="col-md-4 col-sm-4 col-xs-6">
+              <a class="careerPathButton" href="#">
+                <div class="careerPathButtonText">Data Scientist</div>
+                <svg style="fill: rgb(42, 115, 204); height: 18px; width: 18px;" viewBox="0 0 48 48" role="img">
+                  <g transform="translate(4.000000, 4.000000)" role="presentation">
+                    <polygon
+                      points="20 0 18.586 1.414 36.172 19 0 19 0 21 36.172 21 18.586 38.586 20 40 40 20"
+                    ></polygon>
+                  </g>
+                </svg>
+              </a>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-6">
+              <a class="careerPathButton" href="#">
+                <div class="careerPathButtonText">UX/UI Designer</div>
+                <svg style="fill: rgb(42, 115, 204); height: 18px; width: 18px;" viewBox="0 0 48 48" role="img">
+                  <g transform="translate(4.000000, 4.000000)" role="presentation">
+                    <polygon
+                      points="20 0 18.586 1.414 36.172 19 0 19 0 21 36.172 21 18.586 38.586 20 40 40 20"
+                    ></polygon>
+                  </g>
+                </svg>
+              </a>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-6">
+              <a class="careerPathButton" href="#">
+                <div class="careerPathButtonText">Network Engineer</div>
+                <svg style="fill: rgb(42, 115, 204); height: 18px; width: 18px;" viewBox="0 0 48 48" role="img">
+                  <g transform="translate(4.000000, 4.000000)" role="presentation">
+                    <polygon
+                      points="20 0 18.586 1.414 36.172 19 0 19 0 21 36.172 21 18.586 38.586 20 40 40 20"
+                    ></polygon>
+                  </g>
+                </svg>
+              </a>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-6">
+              <a class="careerPathButton" href="#">
+                <div class="careerPathButtonText">Design Architect</div>
+                <svg style="fill: rgb(42, 115, 204); height: 18px; width: 18px;" viewBox="0 0 48 48" role="img">
+                  <g transform="translate(4.000000, 4.000000)" role="presentation">
+                    <polygon
+                      points="20 0 18.586 1.414 36.172 19 0 19 0 21 36.172 21 18.586 38.586 20 40 40 20"
+                    ></polygon>
+                  </g>
+                </svg>
+              </a>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-6">
+              <a class="careerPathButton" href="#">
+                <div class="careerPathButtonText">Data Engineer</div>
+                <svg style="fill: rgb(42, 115, 204); height: 18px; width: 18px;" viewBox="0 0 48 48" role="img">
+                  <g transform="translate(4.000000, 4.000000)" role="presentation">
+                    <polygon
+                      points="20 0 18.586 1.414 36.172 19 0 19 0 21 36.172 21 18.586 38.586 20 40 40 20"
+                    ></polygon>
+                  </g>
+                </svg>
+              </a>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-6">
+              <a class="careerPathButton" href="#">
+                <div class="careerPathButtonText">Java Developer</div>
+                <svg style="fill: rgb(42, 115, 204); height: 18px; width: 18px;" viewBox="0 0 48 48" role="img">
+                  <g transform="translate(4.000000, 4.000000)" role="presentation">
+                    <polygon
+                      points="20 0 18.586 1.414 36.172 19 0 19 0 21 36.172 21 18.586 38.586 20 40 40 20"
+                    ></polygon>
+                  </g>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sc_section custom_bg_2">
+    <div class="header_wrap">
+      <div style="overflow: hidden;">
+        <div class="sc_services sc_services_style_services-4 sc_services_type_icons_img margin_top_huge">
+          <h2 class="sc_services_title sc_item_title">Popular Courses...</h2>
+          <div class="sc_services_descr sc_item_descr">
+            “Discover the skills and learning programs that can help you launch or advance your career in your chosen
+            field with free Career Learning Paths.”.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sc_section">
+    <owl-carousel-o [options]="customOptionsCourses">
+      <ng-template carouselSlide>
+        <div class="courseCard">
+          <ul>
+            <li class="booking-card" style="background-image: url('assets/images/Popular_Course4.jpg');">
+              <div class="book-container">
+                <div class="content">
+                  <button class="btn">Apply Now</button>
+                </div>
+              </div>
+              <div class="informations-container">
+                <h2 class="title">Angular 8</h2>
+                <p class="sub-title">MIT</p>
+                <p class="price">
+                  <span>Price:</span> &nbsp;&nbsp; <span style="text-decoration: line-through;">$500</span> &nbsp;&nbsp;
+                  <span>Now at</span> &nbsp; <span style="color: red;">$450</span> &nbsp; <span>with TaSA</span>
+                </p>
+                <div class="more-information">
+                  <p class="disclaimer" style="color: #2a73cc;">
+                    <span>Course Description:</span> <span style="color: red;">Basics of Angular 8</span> <br />
+                    <span>Batch Start Date:</span> <span style="color: red;">Sept 30, 2020</span> <br />
+                    <span>Course Duration:</span> <span style="color: red;">3 months</span> <br />
+                    <span>Course Difficulty:</span> <span style="color: red;">Beginner</span> <br />
+                    <span>Subscribe with us</span>
+                  </p>
+                  <div class="info-and-date-container">
+                    <div class="box info" style="padding: 0px; margin-top: 0px; border-radius: 10%;">
+                      <h3 style="background-color: rgba(186, 166, 56, 0.5);" class="courseSubscription">$10/month</h3>
+                      <h3 style="background-color: rgba(159, 157, 157, 0.5);" class="courseSubscription">$15/month</h3>
+                      <h3 style="background-color: rgba(105, 44, 44, 0.5);" class="courseSubscription">$20/month</h3>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </ng-template>
+      <ng-template carouselSlide>
+        <div class="courseCard">
+          <ul>
+            <li class="booking-card" style="background-image: url('assets/images/Popular_Course5.jpg');">
+              <div class="book-container">
+                <div class="content">
+                  <button class="btn">Apply Now</button>
+                </div>
+              </div>
+              <div class="informations-container">
+                <h2 class="title">Data Structure & Algorithms</h2>
+                <p class="sub-title">MIT</p>
+                <p class="price">
+                  <span>Price:</span> &nbsp;&nbsp; <span style="text-decoration: line-through;">$500</span> &nbsp;&nbsp;
+                  <span>Now at</span> &nbsp; <span style="color: red;">$450</span> &nbsp; <span>with TaSA</span>
+                </p>
+                <div class="more-information">
+                  <p class="disclaimer" style="color: #2a73cc;">
+                    <span>Course Description:</span> <span style="color: red;">Data Structure Advanced</span> <br />
+                    <span>Batch Start Date:</span> <span style="color: red;">Sept 30, 2020</span> <br />
+                    <span>Course Duration:</span> <span style="color: red;">3 months</span> <br />
+                    <span>Course Difficulty:</span> <span style="color: red;">Advanced</span> <br />
+                    <span>Subscribe with us</span>
+                  </p>
+                  <div class="info-and-date-container">
+                    <div class="box info" style="padding: 0px; margin-top: 0px; border-radius: 10%;">
+                      <h3 style="background-color: rgba(186, 166, 56, 0.5);" class="courseSubscription">$10/month</h3>
+                      <h3 style="background-color: rgba(159, 157, 157, 0.5);" class="courseSubscription">$15/month</h3>
+                      <h3 style="background-color: rgba(105, 44, 44, 0.5);" class="courseSubscription">$20/month</h3>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </ng-template>
+      <ng-template carouselSlide>
+        <div class="courseCard">
+          <ul>
+            <li class="booking-card" style="background-image: url('assets/images/Popular_Course2.jpg');">
+              <div class="book-container">
+                <div class="content">
+                  <button class="btn">Apply Now</button>
+                </div>
+              </div>
+              <div class="informations-container">
+                <h2 class="title">Machine Learning</h2>
+                <p class="sub-title">MIT</p>
+                <p class="price">
+                  <span>Price:</span> &nbsp;&nbsp; <span style="text-decoration: line-through;">$500</span> &nbsp;&nbsp;
+                  <span>Now at</span> &nbsp; <span style="color: red;">$450</span> &nbsp; <span>with TaSA</span>
+                </p>
+                <div class="more-information">
+                  <p class="disclaimer" style="color: #2a73cc;">
+                    <span>Course Description:</span> <span style="color: red;">Machine Learning Basics</span> <br />
+                    <span>Batch Start Date:</span> <span style="color: red;">Sept 30, 2020</span> <br />
+                    <span>Course Duration:</span> <span style="color: red;">3 months</span> <br />
+                    <span>Course Difficulty:</span> <span style="color: red;">Beginner</span> <br />
+                    <span>Subscribe with us</span>
+                  </p>
+                  <div class="info-and-date-container">
+                    <div class="box info" style="padding: 0px; margin-top: 0px; border-radius: 10%;">
+                      <h3 style="background-color: rgba(186, 166, 56, 0.5);" class="courseSubscription">$10/month</h3>
+                      <h3 style="background-color: rgba(159, 157, 157, 0.5);" class="courseSubscription">$15/month</h3>
+                      <h3 style="background-color: rgba(105, 44, 44, 0.5);" class="courseSubscription">$20/month</h3>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </ng-template>
+      <ng-template carouselSlide>
+        <div class="courseCard">
+          <ul>
+            <li class="booking-card" style="background-image: url('assets/images/Popular_Course7.jpg');">
+              <div class="book-container">
+                <div class="content">
+                  <button class="btn">Apply Now</button>
+                </div>
+              </div>
+              <div class="informations-container">
+                <h2 class="title">Deep Learning</h2>
+                <p class="sub-title">MIT</p>
+                <p class="price">
+                  <span>Price:</span> &nbsp;&nbsp; <span style="text-decoration: line-through;">$500</span> &nbsp;&nbsp;
+                  <span>Now at</span> &nbsp; <span style="color: red;">$450</span> &nbsp; <span>with TaSA</span>
+                </p>
+                <div class="more-information">
+                  <p class="disclaimer" style="color: #2a73cc;">
+                    <span>Course Description:</span> <span style="color: red;">Basics of Deep Learning</span> <br />
+                    <span>Batch Start Date:</span> <span style="color: red;">Sept 30, 2020</span> <br />
+                    <span>Course Duration:</span> <span style="color: red;">3 months</span> <br />
+                    <span>Course Difficulty:</span> <span style="color: red;">Beginner</span> <br />
+                    <span>Subscribe with us</span>
+                  </p>
+                  <div class="info-and-date-container">
+                    <div class="box info" style="padding: 0px; margin-top: 0px; border-radius: 10%;">
+                      <h3 style="background-color: rgba(186, 166, 56, 0.5);" class="courseSubscription">$10/month</h3>
+                      <h3 style="background-color: rgba(159, 157, 157, 0.5);" class="courseSubscription">$15/month</h3>
+                      <h3 style="background-color: rgba(105, 44, 44, 0.5);" class="courseSubscription">$20/month</h3>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </ng-template>
+      <ng-template carouselSlide>
+        <div class="courseCard">
+          <ul>
+            <li class="booking-card" style="background-image: url('assets/images/Popular_Course3.jpg');">
+              <div class="book-container">
+                <div class="content">
+                  <button class="btn">Apply Now</button>
+                </div>
+              </div>
+              <div class="informations-container">
+                <h2 class="title">Java</h2>
+                <p class="sub-title">MIT</p>
+                <p class="price">
+                  <span>Price:</span> &nbsp;&nbsp; <span style="text-decoration: line-through;">$500</span> &nbsp;&nbsp;
+                  <span>Now at</span> &nbsp; <span style="color: red;">$450</span> &nbsp; <span>with TaSA</span>
+                </p>
+                <div class="more-information">
+                  <p class="disclaimer" style="color: #2a73cc;">
+                    <span>Course Description:</span> <span style="color: red;">Basics of Java</span> <br />
+                    <span>Batch Start Date:</span> <span style="color: red;">Sept 30, 2020</span> <br />
+                    <span>Course Duration:</span> <span style="color: red;">3 months</span> <br />
+                    <span>Course Difficulty:</span> <span style="color: red;">Beginner</span> <br />
+                    <span>Subscribe with us</span>
+                  </p>
+                  <div class="info-and-date-container">
+                    <div class="box info" style="padding: 0px; margin-top: 0px; border-radius: 10%;">
+                      <h3 style="background-color: rgba(186, 166, 56, 0.5);" class="courseSubscription">$10/month</h3>
+                      <h3 style="background-color: rgba(159, 157, 157, 0.5);" class="courseSubscription">$15/month</h3>
+                      <h3 style="background-color: rgba(105, 44, 44, 0.5);" class="courseSubscription">$20/month</h3>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </ng-template>
+      <ng-template carouselSlide>
+        <div class="courseCard">
+          <ul>
+            <li class="booking-card" style="background-image: url('assets/images/Popular_Course1.png');">
+              <div class="book-container">
+                <div class="content">
+                  <button class="btn">Apply Now</button>
+                </div>
+              </div>
+              <div class="informations-container">
+                <h2 class="title">Data Science</h2>
+                <p class="sub-title">MIT</p>
+                <p class="price">
+                  <span>Price:</span> &nbsp;&nbsp; <span style="text-decoration: line-through;">$500</span> &nbsp;&nbsp;
+                  <span>Now at</span> &nbsp; <span style="color: red;">$450</span> &nbsp; <span>with TaSA</span>
+                </p>
+                <div class="more-information">
+                  <p class="disclaimer" style="color: #2a73cc;">
+                    <span>Course Description:</span> <span style="color: red;">Basics of Data Science</span> <br />
+                    <span>Batch Start Date:</span> <span style="color: red;">Sept 30, 2020</span> <br />
+                    <span>Course Duration:</span> <span style="color: red;">3 months</span> <br />
+                    <span>Course Difficulty:</span> <span style="color: red;">Beginner</span> <br />
+                    <span>Subscribe with us</span>
+                  </p>
+                  <div class="info-and-date-container">
+                    <div class="box info" style="padding: 0px; margin-top: 0px; border-radius: 10%;">
+                      <h3 style="background-color: rgba(186, 166, 56, 0.5);" class="courseSubscription">$10/month</h3>
+                      <h3 style="background-color: rgba(159, 157, 157, 0.5);" class="courseSubscription">$15/month</h3>
+                      <h3 style="background-color: rgba(105, 44, 44, 0.5);" class="courseSubscription">$20/month</h3>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </ng-template>
+    </owl-carousel-o>
+  </div>
+  <div class="testimonial-section bg-primary-light pt-4 mb-4" style="margin-top: 5%;">
+    <div class="header_wrap" style="margin-top: 0%; margin-bottom: 5%;">
+      <div style="overflow: hidden;">
+        <div class="sc_services sc_services_style_services-4 sc_services_type_icons_img">
+          <h2 class="sc_services_title sc_item_title" style="color: white;">Our Testimonials...</h2>
+        </div>
+      </div>
+    </div>
     <div class="testimonial-carousel">
       <!--   Start Testimonials -->
       <owl-carousel-o [options]="customOption2">
@@ -240,6 +576,18 @@
           >
         </ng-container>
       </owl-carousel-o>
+    </div>
+  </div>
+  <div class="sc_section custom_bg_2">
+    <div class="header_wrap">
+      <div style="overflow: hidden;">
+        <div class="sc_services sc_services_style_services-4 sc_services_type_icons_img margin_top_huge">
+          <h2 class="sc_services_title sc_item_title">News and Insights...</h2>
+          <div class="sc_services_descr sc_item_descr">
+            “TaSA in news”.
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <div class="news-section">
