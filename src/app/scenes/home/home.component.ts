@@ -41,34 +41,28 @@ export class HomeComponent implements OnInit {
         items: 1,
       },
     },
-    nav: true,
-    navSpeed: 500,
-    navText: ['<i class="fa fa-chevron-left"></i>', '<i class="fa fa-chevron-right"></i>'],
   };
 
-  customOptionsCourses: {
-    loop: true;
-    mouseDrag: false;
-    touchDrag: false;
-    pullDrag: false;
-    dots: false;
-    navSpeed: 700;
-    navText: ["<i class='fa fa-angle-left'></i>", "<i class='fa fa-angle-right'></i>"];
+  customOptionsCourses: OwlOptions = {
+    nav: true,
+    loop: true,
+    navText: ['<i class="fa fa-chevron-left"></i>', '<i class="fa fa-chevron-right"></i>'],
+    dots: false,
+    autoplay: true,
+    autoplaySpeed: 5000,
+    autoplayHoverPause: true,
+    autoplayTimeout: 5000,
     responsive: {
       0: {
-        items: 1;
-      };
+        items: 1,
+      },
       400: {
-        items: 2;
-      };
+        items: 2,
+      },
       740: {
-        items: 3;
-      };
-      940: {
-        items: 4;
-      };
-    };
-    nav: true;
+        items: 3,
+      },
+    },
   };
 
   customOption2: OwlOptions = {
