@@ -55,7 +55,7 @@ export class LoginPopupComponent implements OnInit {
         },
         (error) => {
           console.log(error);
-          this.sharedService.uiService.closePopMsg();
+          this.sharedService.uiService.showApiErrorPopMsg(error.error.message);
         }
       );
     // login$

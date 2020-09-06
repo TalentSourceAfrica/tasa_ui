@@ -4,7 +4,6 @@ import { OwlOptions, SlidesOutputData } from 'ngx-owl-carousel-o';
 import { OwlDOMData } from 'ngx-owl-carousel-o/lib/models/owlDOM-data.model';
 
 // services
-import { DialogService } from '@app/services/dialog.service';
 import { SharedService } from '@app/services/shared.service';
 import { AuthenticationService } from '@app/auth';
 
@@ -352,9 +351,9 @@ export class HomeComponent implements OnInit {
       center: false,
       dots: false,
       navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>'],
-      autoplay: true,
+      autoplay: false,
       autoplayTimeout: 3000,
-      margin: 20,
+      margin: 80,
       responsiveClass: true,
       responsive: {
         0: {
@@ -382,7 +381,7 @@ export class HomeComponent implements OnInit {
       navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>'],
       autoplay: true,
       autoplayTimeout: 3000,
-      margin: 20,
+      margin: 80,
       responsiveClass: true,
       responsive: {
         0: {

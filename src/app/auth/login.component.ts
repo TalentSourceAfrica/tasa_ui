@@ -56,7 +56,6 @@ export class LoginComponent implements OnInit, OnDestroy {
           this.router.navigate([this.route.snapshot.queryParams.redirect || '/'], { replaceUrl: true });
         },
         (error) => {
-          log.debug(`Login error: ${error}`);
           this.sharedService.uiService.showApiErrorPopMsg(error.error.message);
         }
       );
