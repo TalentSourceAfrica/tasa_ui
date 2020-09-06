@@ -1,5 +1,12 @@
 /*! Basscss | http://basscss.com | MIT License */
 
+body {
+  font-family: "Poppins", sans-serif !important;
+  font-size: 14px !important;
+  line-height: 1.6em !important;
+  font-weight: 400 !important;
+}
+
 .no-underline {
   text-decoration: none;
 }
@@ -860,7 +867,7 @@ button:hover,
   min-height: 48px;
 }
 .cdk-overlay-container {
-  z-index: 999999;
+  z-index: 999;
 }
 @keyframes pulse {
   0% {

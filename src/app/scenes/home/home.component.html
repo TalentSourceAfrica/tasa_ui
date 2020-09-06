@@ -1,615 +1,529 @@
-<div class="container-fluid" style="margin-top: 125px;">
-  <div
-    class="TasaHomeBannerMainContainer"
-    style="display: flex; -webkit-box-orient: vertical; -webkit-box-direction: normal; flex-direction: column;"
-  >
-    <owl-carousel-o [options]="customOptions" (translated)="getPassedData($event)">
-      <ng-template carouselSlide>
-        <div [ngClass]="activeSlide == 0 ? 'activeSlideItem' : 'slideItem'">
-          <div style="width: 100%; height: 600px;">
-            <div class="mainSlider slider1BG">
-              <div class="row slide-margin">
-                <div class="col-sm-4 hidden-xs avatar">
-                  <div class="slider-img">
-                    <img src="assets/images/avatar3_new.png" class="img-responsive avatarImg" />
-                  </div>
-                </div>
-                <div class="col-sm-8">
-                  <div class="carousel-content">
-                    <div class="row">
-                      <h2 class="sliderHeader">
-                        Our Vision
-                      </h2>
-                    </div>
-                    <div class="row">
-                      <div class="slideContainer">
-                        To upskill, network, & connect the millions of unemployed African college graduates with the job
-                        opportunities they need, and provide companies with access and visibility to the high-skilled
-                        talent-pool needed to meet their business goals on the continent.
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </ng-template>
-      <ng-template carouselSlide>
-        <div [ngClass]="activeSlide == 1 ? 'activeSlideItem' : 'slideItem'">
-          <div style="width: 100%; height: 600px;">
-            <div class="mainSlider slider2BG">
-              <div class="row slide-margin">
-                <div class="col-sm-4 hidden-xs avatar">
-                  <div class="slider-img">
-                    <img src="assets/images/avatar1_new.png" class="img-responsive avatarImg" />
-                  </div>
-                </div>
-                <div class="col-sm-8">
-                  <div class="carousel-content">
-                    <div class="row">
-                      <h2 class="sliderHeader">
-                        There is a Problem
-                      </h2>
-                    </div>
-                    <div class="row">
-                      <div class="slideContainer" style="width: 70%; left: 17%;">
-                        Sub-saharan Africa (SSA) has one of the world's highest youth unemployment rates. Experts
-                        predict roughly 50% of its youth will be unemployed by 2025. What's more, unemployment is
-                        highest among university graduates (50% unemployment) even as firms struggle to find
-                        high-skilled talent. For graduates, difficulties finding employment detracts from lifetime
-                        earnings and entraps them in debilitating poverty. For firms, the labor-imbalance stifles
-                        innovation and prevents companies from meeting growth goals.
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </ng-template>
-      <ng-template carouselSlide>
-        <div [ngClass]="activeSlide == 2 ? 'activeSlideItem' : 'slideItem'">
-          <div style="width: 100%; height: 600px;">
-            <div class="mainSlider slider3BG">
-              <div class="row slide-margin">
-                <div class="col-sm-4 hidden-xs avatar">
-                  <div class="slider-img">
-                    <img src="assets/images/avatar4_new.png" class="img-responsive avatarImg" />
-                  </div>
-                </div>
-                <div class="col-sm-8">
-                  <div class="carousel-content">
-                    <div class="row">
-                      <h2 class="sliderHeader">
-                        We have a Solution
-                      </h2>
-                    </div>
-                    <div class="row">
-                      <div class="slideContainer" style="width: 80%; left: 8%; top: 25%;">
-                        Many countries in SSA lack efficient systems for publicizing job opportunities; Moreover,
-                        Africa's job market is rife with patronage systems that entrench disadvantage. We will disrupt
-                        these inefficient patronage systems by: <br />
-                        <strong style="font-size: 30px;">CULTIVATE:</strong> a vast network of African graduates and
-                        early-stage professionals via our superior professional networking platform; <br />
-                        <strong style="font-size: 30px;">ENHANCE:</strong> their employability through access to
-                        affordably-priced online certificate courses from globally recognized Ivy-League and Tier-I
-                        Universities; <br />
-                        <strong style="font-size: 30px;">CONNECT:</strong> our members with employers through our
-                        best-in-class jobs board.
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </ng-template>
-    </owl-carousel-o>
-  </div>
-  <div class="sc_section custom_bg_2">
-    <div class="header_wrap">
-      <div style="overflow: hidden;">
-        <div class="sc_services sc_services_style_services-4 sc_services_type_icons_img margin_top_huge">
-          <h2 class="sc_services_title sc_item_title">Our Value Proposition...</h2>
-          <div class="sc_services_descr sc_item_descr">
-            “TaSA aims to harness the tremendous potential of Africa's brilliant youth for national and continental
-            development by annually connecting 5 million job-seekers with high-skill jobs in and outside SSA by 2040”.
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="sc_section custom_section_1">
-    <div class="row columns_wrap">
-      <div class="col-md-4 col-sm-4 col-xs-12" style="margin-bottom: 0%; height: 465px;">
-        <div class="sc_section margin_right_small margin_left_small aligncenter">
-          <div class="sc_section_inner">
-            <div class="sc_section_content_wrap">
-              <figure class="sc_image sc_image_shape_square">
-                <a href="#"><img alt="" src="assets/images/VP_College.png" style="height: 100px;" /></a>
-              </figure>
-              <div class="sc_empty_space" data-height="0.7em"></div>
-              <h4 class="sc_title sc_title_regular margin_top_tiny margin_bottom_tiny">
-                <a href="#">College Students</a>
-              </h4>
-              <h6 class="sc_custom_heading style_1 custom_cl_4" style="color: black !important;">
-                Get a leg up on the competition for academics and job search by:
-              </h6>
-              <span style="color: black !important; text-align: left;">
-                - get discounted access to credentialed courses from the most prestigious universities in the west
-                <br />
-                - enhance your employability with marketable skills and credentials <br />
-                - supplement your learning with access to instruction from leading academicians <br />
-                - enhance your social capital and position yourself for exciting work or business opportunities <br />
-                - develop the soft-skills and executive polish needed to succeed
-              </span>
-              <div class="sc_empty_space" data-height="1.1em"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        class="col-md-4 col-sm-4 col-xs-12"
-        style="margin-bottom: 0%; background-color: #e7e8e9 !important; height: 465px;"
-      >
-        <div class="sc_section margin_right_small margin_left_small aligncenter">
-          <div class="sc_section_inner">
-            <div class="sc_section_content_wrap">
-              <figure class="sc_image sc_image_shape_square">
-                <a href="#"><img alt="" src="assets/images/VP_University_new.png" style="height: 100px;" /></a>
-              </figure>
-              <div class="sc_empty_space" data-height="0.7em"></div>
-              <h4 class="sc_title sc_title_regular margin_top_tiny margin_bottom_tiny custom_cl_4">
-                <a href="#">Universities</a>
-              </h4>
-              <h6 class="sc_custom_heading style_1 custom_cl_4" style="color: black !important;">
-                Differentiate your Institution from the competition and enhance your institution's Prestige by:
-              </h6>
-              <span class="custom_cl_4" style="color: black !important; text-align: left;">
-                - offering students significantly discounted access to online courses <br />
-                - enhancing your graduates employability with certificates and credentials <br />
-                - increase the global competitiveness of your graduates with skills and certificates <br />
-                - easily track and tap into your alumni base for financial and in-kind support <br />
-                - market your Institution to the projected millions of prospective users
-              </span>
-              <div class="sc_empty_space" data-height="1.1em"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        class="col-md-4 col-sm-4 col-xs-12"
-        style="margin-bottom: 0%; background-color: #ced3d5 !important; height: 465px;"
-      >
-        <div class="sc_section margin_right_small margin_left_small aligncenter">
-          <div class="sc_section_inner">
-            <div class="sc_section_content_wrap">
-              <figure class="sc_image sc_image_shape_square">
-                <a href="#"><img alt="" src="assets/images/VP_Professional_new.png" style="height: 100px;" /></a>
-              </figure>
-              <div class="sc_empty_space" data-height="0.7em"></div>
-              <h4 class="sc_title sc_title_regular margin_top_tiny margin_bottom_tiny custom_cl_4">
-                <a href="#">Early Stage Professionals</a>
-              </h4>
-              <h6 class="sc_custom_heading style_1 custom_cl_4" style="color: black !important;">
-                Enhance your professional profile with marketable skills and certificates by:
-              </h6>
-              <span class="custom_cl_4" style="color: black !important; text-align: left;">
-                - professional certificates from trusted and recognizable institutions of higher education <br />
-                - enhance your social capital and position yourself for exciting work or business opportunities <br />
-                - gain easy access to scores of available job opportunities within your professional interest <br />
-                - gain access to cutting edge ideas at the frontier of your industry <br />
-                - demonstrate your competence and expertise by creating and curating content and ideas
-              </span>
-              <div class="sc_empty_space" data-height="1.1em"></div>
+<!--START TOP AREA-->
+<!-- <header class="top-area" id="home"> -->
+<!--WELCOME SLIDER AREA-->
+<div class="welcome-slider-area white font16">
+  <div class="welcome-single-slide">
+    <div class="slide-bg-one slide-bg-overlay"></div>
+    <div class="welcome-area">
+      <div class="container">
+        <div class="row flex-v-center">
+          <div class="col-md-8 col-lg-7 col-sm-12 col-xs-12">
+            <div class="welcome-text">
+              <h1>Our Objective.</h1>
+              <p>
+                To upskill, network, & connect the millions of unemployed African college graduates with the job
+                opportunities they need, and provide companies with access and visibility to the high-skilled
+                talent-pool needed to meet their business goals on the continent.
+              </p>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="sc_section" style="margin-top: 5%;">
-    <div
-      class="parallax-banner parallax100 parallax-bg"
-      style="text-align: center; padding-top: 135px; padding-bottom: 158px;"
-    >
-      <div class="row" style="margin-top: -5%;">
-        <div class="col-md-5 col-sm-5 col-xs-12" style="padding-left: 5%;">
-          <h5 style="color: #e7e8e9; font-weight: 500; text-align: left; padding-left: 6%;">Career Learning Path</h5>
-          <h2 style="color: #eac54f;">Explore Career Learning Path With TaSA</h2>
-          <p style="color: #e7e8e9; font-weight: 500;">
-            Build career-relevant skills with courses from top universities and companies
-          </p>
-        </div>
-        <div class="col-md-7 col-sm-7 col-xs-12">
-          <div class="row">
-            <h6 style="color: #eac54f; margin-left: 6.5%; font-weight: bold;">Find your next role</h6>
-          </div>
-          <div class="row">
-            <div class="col-md-4 col-sm-4 col-xs-6">
-              <a class="careerPathButton" href="#">
-                <div class="careerPathButtonText">Data Scientist</div>
-                <svg style="fill: rgb(42, 115, 204); height: 18px; width: 18px;" viewBox="0 0 48 48" role="img">
-                  <g transform="translate(4.000000, 4.000000)" role="presentation">
-                    <polygon
-                      points="20 0 18.586 1.414 36.172 19 0 19 0 21 36.172 21 18.586 38.586 20 40 40 20"
-                    ></polygon>
-                  </g>
-                </svg>
-              </a>
-            </div>
-            <div class="col-md-4 col-sm-4 col-xs-6">
-              <a class="careerPathButton" href="#">
-                <div class="careerPathButtonText">UX/UI Designer</div>
-                <svg style="fill: rgb(42, 115, 204); height: 18px; width: 18px;" viewBox="0 0 48 48" role="img">
-                  <g transform="translate(4.000000, 4.000000)" role="presentation">
-                    <polygon
-                      points="20 0 18.586 1.414 36.172 19 0 19 0 21 36.172 21 18.586 38.586 20 40 40 20"
-                    ></polygon>
-                  </g>
-                </svg>
-              </a>
-            </div>
-            <div class="col-md-4 col-sm-4 col-xs-6">
-              <a class="careerPathButton" href="#">
-                <div class="careerPathButtonText">Network Engineer</div>
-                <svg style="fill: rgb(42, 115, 204); height: 18px; width: 18px;" viewBox="0 0 48 48" role="img">
-                  <g transform="translate(4.000000, 4.000000)" role="presentation">
-                    <polygon
-                      points="20 0 18.586 1.414 36.172 19 0 19 0 21 36.172 21 18.586 38.586 20 40 40 20"
-                    ></polygon>
-                  </g>
-                </svg>
-              </a>
-            </div>
-            <div class="col-md-4 col-sm-4 col-xs-6">
-              <a class="careerPathButton" href="#">
-                <div class="careerPathButtonText">Design Architect</div>
-                <svg style="fill: rgb(42, 115, 204); height: 18px; width: 18px;" viewBox="0 0 48 48" role="img">
-                  <g transform="translate(4.000000, 4.000000)" role="presentation">
-                    <polygon
-                      points="20 0 18.586 1.414 36.172 19 0 19 0 21 36.172 21 18.586 38.586 20 40 40 20"
-                    ></polygon>
-                  </g>
-                </svg>
-              </a>
-            </div>
-            <div class="col-md-4 col-sm-4 col-xs-6">
-              <a class="careerPathButton" href="#">
-                <div class="careerPathButtonText">Data Engineer</div>
-                <svg style="fill: rgb(42, 115, 204); height: 18px; width: 18px;" viewBox="0 0 48 48" role="img">
-                  <g transform="translate(4.000000, 4.000000)" role="presentation">
-                    <polygon
-                      points="20 0 18.586 1.414 36.172 19 0 19 0 21 36.172 21 18.586 38.586 20 40 40 20"
-                    ></polygon>
-                  </g>
-                </svg>
-              </a>
-            </div>
-            <div class="col-md-4 col-sm-4 col-xs-6">
-              <a class="careerPathButton" href="#">
-                <div class="careerPathButtonText">Java Developer</div>
-                <svg style="fill: rgb(42, 115, 204); height: 18px; width: 18px;" viewBox="0 0 48 48" role="img">
-                  <g transform="translate(4.000000, 4.000000)" role="presentation">
-                    <polygon
-                      points="20 0 18.586 1.414 36.172 19 0 19 0 21 36.172 21 18.586 38.586 20 40 40 20"
-                    ></polygon>
-                  </g>
-                </svg>
-              </a>
+  <div class="welcome-single-slide">
+    <div class="slide-bg-two slide-bg-overlay"></div>
+    <div class="welcome-area">
+      <div class="container">
+        <div class="row flex-v-center">
+          <div class="col-md-8 col-lg-7 col-sm-12 col-xs-12">
+            <div class="welcome-text">
+              <h1>The Problem.</h1>
+              <p>
+                50% of the 10 million annual college graduates in Sub-Saharan Africa over the past decade were unable to
+                find jobs sometimes 5-years after graduating from University
+              </p>
+              <p>
+                Meanwhile, the continent produced 10 million jobs per year within the same period and had a predicted
+                shortage of 31 million mid-high skill workers at the end of the decade.
+              </p>
+              <!-- <div class="home-button">
+                  <form action="#">
+                    <input type="search" name="search" id="search" placeholder="Search Courses" />
+                    <button type="submit"><i class="fa fa-search"></i></button>
+                  </form>
+                </div> -->
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="sc_section custom_bg_2">
-    <div class="header_wrap">
-      <div style="overflow: hidden;">
-        <div class="sc_services sc_services_style_services-4 sc_services_type_icons_img margin_top_huge">
-          <h2 class="sc_services_title sc_item_title">Popular Courses...</h2>
-          <div class="sc_services_descr sc_item_descr">
-            “Discover the skills and learning programs that can help you launch or advance your career in your chosen
-            field with free Career Learning Paths.”.
+  <div class="welcome-single-slide">
+    <div class="slide-bg-three slide-bg-overlay"></div>
+    <div class="welcome-area">
+      <div class="container">
+        <div class="row flex-v-center">
+          <div class="col-md-8 col-lg-7 col-sm-12 col-xs-12">
+            <div class="welcome-text">
+              <h1>Our Vision.</h1>
+              <p>
+                We aim to become Africa's #1 talent source by annually connecting 5 million job-seekers with high-skill
+                jobs in and outside SSA by 2040
+              </p>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="sc_section">
-    <owl-carousel-o [options]="customOptionsCourses">
-      <ng-template carouselSlide>
-        <div class="courseCard">
-          <ul>
-            <li class="booking-card" style="background-image: url('assets/images/Popular_Course4.jpg');">
-              <div class="book-container">
-                <div class="content">
-                  <button class="btn">Apply Now</button>
-                </div>
-              </div>
-              <div class="informations-container">
-                <h2 class="title">Angular 8</h2>
-                <p class="sub-title">MIT</p>
-                <p class="price">
-                  <span>Price:</span> &nbsp;&nbsp; <span style="text-decoration: line-through;">$500</span> &nbsp;&nbsp;
-                  <span>Now at</span> &nbsp; <span style="color: red;">$450</span> &nbsp; <span>with TaSA</span>
-                </p>
-                <div class="more-information">
-                  <p class="disclaimer" style="color: #2a73cc;">
-                    <span>Course Description:</span> <span style="color: red;">Basics of Angular 8</span> <br />
-                    <span>Batch Start Date:</span> <span style="color: red;">Sept 30, 2020</span> <br />
-                    <span>Course Duration:</span> <span style="color: red;">3 months</span> <br />
-                    <span>Course Difficulty:</span> <span style="color: red;">Beginner</span> <br />
-                    <span>Subscribe with us</span>
-                  </p>
-                  <div class="info-and-date-container">
-                    <div class="box info" style="padding: 0px; margin-top: 0px; border-radius: 10%;">
-                      <h3 style="background-color: rgba(186, 166, 56, 0.5);" class="courseSubscription">$10/month</h3>
-                      <h3 style="background-color: rgba(159, 157, 157, 0.5);" class="courseSubscription">$15/month</h3>
-                      <h3 style="background-color: rgba(105, 44, 44, 0.5);" class="courseSubscription">$20/month</h3>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </li>
-          </ul>
-        </div>
-      </ng-template>
-      <ng-template carouselSlide>
-        <div class="courseCard">
-          <ul>
-            <li class="booking-card" style="background-image: url('assets/images/Popular_Course5.jpg');">
-              <div class="book-container">
-                <div class="content">
-                  <button class="btn">Apply Now</button>
-                </div>
-              </div>
-              <div class="informations-container">
-                <h2 class="title">Data Structure & Algorithms</h2>
-                <p class="sub-title">MIT</p>
-                <p class="price">
-                  <span>Price:</span> &nbsp;&nbsp; <span style="text-decoration: line-through;">$500</span> &nbsp;&nbsp;
-                  <span>Now at</span> &nbsp; <span style="color: red;">$450</span> &nbsp; <span>with TaSA</span>
-                </p>
-                <div class="more-information">
-                  <p class="disclaimer" style="color: #2a73cc;">
-                    <span>Course Description:</span> <span style="color: red;">Data Structure Advanced</span> <br />
-                    <span>Batch Start Date:</span> <span style="color: red;">Sept 30, 2020</span> <br />
-                    <span>Course Duration:</span> <span style="color: red;">3 months</span> <br />
-                    <span>Course Difficulty:</span> <span style="color: red;">Advanced</span> <br />
-                    <span>Subscribe with us</span>
-                  </p>
-                  <div class="info-and-date-container">
-                    <div class="box info" style="padding: 0px; margin-top: 0px; border-radius: 10%;">
-                      <h3 style="background-color: rgba(186, 166, 56, 0.5);" class="courseSubscription">$10/month</h3>
-                      <h3 style="background-color: rgba(159, 157, 157, 0.5);" class="courseSubscription">$15/month</h3>
-                      <h3 style="background-color: rgba(105, 44, 44, 0.5);" class="courseSubscription">$20/month</h3>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </li>
-          </ul>
-        </div>
-      </ng-template>
-      <ng-template carouselSlide>
-        <div class="courseCard">
-          <ul>
-            <li class="booking-card" style="background-image: url('assets/images/Popular_Course2.jpg');">
-              <div class="book-container">
-                <div class="content">
-                  <button class="btn">Apply Now</button>
-                </div>
-              </div>
-              <div class="informations-container">
-                <h2 class="title">Machine Learning</h2>
-                <p class="sub-title">MIT</p>
-                <p class="price">
-                  <span>Price:</span> &nbsp;&nbsp; <span style="text-decoration: line-through;">$500</span> &nbsp;&nbsp;
-                  <span>Now at</span> &nbsp; <span style="color: red;">$450</span> &nbsp; <span>with TaSA</span>
-                </p>
-                <div class="more-information">
-                  <p class="disclaimer" style="color: #2a73cc;">
-                    <span>Course Description:</span> <span style="color: red;">Machine Learning Basics</span> <br />
-                    <span>Batch Start Date:</span> <span style="color: red;">Sept 30, 2020</span> <br />
-                    <span>Course Duration:</span> <span style="color: red;">3 months</span> <br />
-                    <span>Course Difficulty:</span> <span style="color: red;">Beginner</span> <br />
-                    <span>Subscribe with us</span>
-                  </p>
-                  <div class="info-and-date-container">
-                    <div class="box info" style="padding: 0px; margin-top: 0px; border-radius: 10%;">
-                      <h3 style="background-color: rgba(186, 166, 56, 0.5);" class="courseSubscription">$10/month</h3>
-                      <h3 style="background-color: rgba(159, 157, 157, 0.5);" class="courseSubscription">$15/month</h3>
-                      <h3 style="background-color: rgba(105, 44, 44, 0.5);" class="courseSubscription">$20/month</h3>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </li>
-          </ul>
-        </div>
-      </ng-template>
-      <ng-template carouselSlide>
-        <div class="courseCard">
-          <ul>
-            <li class="booking-card" style="background-image: url('assets/images/Popular_Course7.jpg');">
-              <div class="book-container">
-                <div class="content">
-                  <button class="btn">Apply Now</button>
-                </div>
-              </div>
-              <div class="informations-container">
-                <h2 class="title">Deep Learning</h2>
-                <p class="sub-title">MIT</p>
-                <p class="price">
-                  <span>Price:</span> &nbsp;&nbsp; <span style="text-decoration: line-through;">$500</span> &nbsp;&nbsp;
-                  <span>Now at</span> &nbsp; <span style="color: red;">$450</span> &nbsp; <span>with TaSA</span>
-                </p>
-                <div class="more-information">
-                  <p class="disclaimer" style="color: #2a73cc;">
-                    <span>Course Description:</span> <span style="color: red;">Basics of Deep Learning</span> <br />
-                    <span>Batch Start Date:</span> <span style="color: red;">Sept 30, 2020</span> <br />
-                    <span>Course Duration:</span> <span style="color: red;">3 months</span> <br />
-                    <span>Course Difficulty:</span> <span style="color: red;">Beginner</span> <br />
-                    <span>Subscribe with us</span>
-                  </p>
-                  <div class="info-and-date-container">
-                    <div class="box info" style="padding: 0px; margin-top: 0px; border-radius: 10%;">
-                      <h3 style="background-color: rgba(186, 166, 56, 0.5);" class="courseSubscription">$10/month</h3>
-                      <h3 style="background-color: rgba(159, 157, 157, 0.5);" class="courseSubscription">$15/month</h3>
-                      <h3 style="background-color: rgba(105, 44, 44, 0.5);" class="courseSubscription">$20/month</h3>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </li>
-          </ul>
-        </div>
-      </ng-template>
-      <ng-template carouselSlide>
-        <div class="courseCard">
-          <ul>
-            <li class="booking-card" style="background-image: url('assets/images/Popular_Course3.jpg');">
-              <div class="book-container">
-                <div class="content">
-                  <button class="btn">Apply Now</button>
-                </div>
-              </div>
-              <div class="informations-container">
-                <h2 class="title">Java</h2>
-                <p class="sub-title">MIT</p>
-                <p class="price">
-                  <span>Price:</span> &nbsp;&nbsp; <span style="text-decoration: line-through;">$500</span> &nbsp;&nbsp;
-                  <span>Now at</span> &nbsp; <span style="color: red;">$450</span> &nbsp; <span>with TaSA</span>
-                </p>
-                <div class="more-information">
-                  <p class="disclaimer" style="color: #2a73cc;">
-                    <span>Course Description:</span> <span style="color: red;">Basics of Java</span> <br />
-                    <span>Batch Start Date:</span> <span style="color: red;">Sept 30, 2020</span> <br />
-                    <span>Course Duration:</span> <span style="color: red;">3 months</span> <br />
-                    <span>Course Difficulty:</span> <span style="color: red;">Beginner</span> <br />
-                    <span>Subscribe with us</span>
-                  </p>
-                  <div class="info-and-date-container">
-                    <div class="box info" style="padding: 0px; margin-top: 0px; border-radius: 10%;">
-                      <h3 style="background-color: rgba(186, 166, 56, 0.5);" class="courseSubscription">$10/month</h3>
-                      <h3 style="background-color: rgba(159, 157, 157, 0.5);" class="courseSubscription">$15/month</h3>
-                      <h3 style="background-color: rgba(105, 44, 44, 0.5);" class="courseSubscription">$20/month</h3>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </li>
-          </ul>
-        </div>
-      </ng-template>
-      <ng-template carouselSlide>
-        <div class="courseCard">
-          <ul>
-            <li class="booking-card" style="background-image: url('assets/images/Popular_Course1.png');">
-              <div class="book-container">
-                <div class="content">
-                  <button class="btn">Apply Now</button>
-                </div>
-              </div>
-              <div class="informations-container">
-                <h2 class="title">Data Science</h2>
-                <p class="sub-title">MIT</p>
-                <p class="price">
-                  <span>Price:</span> &nbsp;&nbsp; <span style="text-decoration: line-through;">$500</span> &nbsp;&nbsp;
-                  <span>Now at</span> &nbsp; <span style="color: red;">$450</span> &nbsp; <span>with TaSA</span>
-                </p>
-                <div class="more-information">
-                  <p class="disclaimer" style="color: #2a73cc;">
-                    <span>Course Description:</span> <span style="color: red;">Basics of Data Science</span> <br />
-                    <span>Batch Start Date:</span> <span style="color: red;">Sept 30, 2020</span> <br />
-                    <span>Course Duration:</span> <span style="color: red;">3 months</span> <br />
-                    <span>Course Difficulty:</span> <span style="color: red;">Beginner</span> <br />
-                    <span>Subscribe with us</span>
-                  </p>
-                  <div class="info-and-date-container">
-                    <div class="box info" style="padding: 0px; margin-top: 0px; border-radius: 10%;">
-                      <h3 style="background-color: rgba(186, 166, 56, 0.5);" class="courseSubscription">$10/month</h3>
-                      <h3 style="background-color: rgba(159, 157, 157, 0.5);" class="courseSubscription">$15/month</h3>
-                      <h3 style="background-color: rgba(105, 44, 44, 0.5);" class="courseSubscription">$20/month</h3>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </li>
-          </ul>
-        </div>
-      </ng-template>
-    </owl-carousel-o>
-  </div>
-  <div class="testimonial-section bg-primary-light pt-4 mb-4" style="margin-top: 5%;">
-    <div class="header_wrap" style="margin-top: 0%; margin-bottom: 5%;">
-      <div style="overflow: hidden;">
-        <div class="sc_services sc_services_style_services-4 sc_services_type_icons_img">
-          <h2 class="sc_services_title sc_item_title" style="color: white;">Our Testimonials...</h2>
-        </div>
-      </div>
-    </div>
-    <div class="testimonial-carousel">
-      <!--   Start Testimonials -->
-      <owl-carousel-o [options]="customOption2">
-        <ng-container *ngFor="let item of posts">
-          <ng-template carouselSlide>
-            <div class="single-testimonial">
-              <div class="testimonials-wrapper">
-                <h4>
-                  {{ item.review }}
-                </h4>
-                <div class="testimonials-blob"></div>
-                <div class="testimonials-img"><img src="../../../assets/images/user.jpg" /></div>
-                <div class="testimonials-person-info">
-                  <p>
-                    <b> {{ item.name }}</b
-                    ><br />{{ item.orgPlaced }}
-                  </p>
-                </div>
-              </div>
-            </div></ng-template
-          >
-        </ng-container>
-      </owl-carousel-o>
-    </div>
-  </div>
-  <div class="sc_section custom_bg_2">
-    <div class="header_wrap">
-      <div style="overflow: hidden;">
-        <div class="sc_services sc_services_style_services-4 sc_services_type_icons_img margin_top_huge">
-          <h2 class="sc_services_title sc_item_title">News and Insights...</h2>
-          <div class="sc_services_descr sc_item_descr">
-            “TaSA in news”.
+  <div class="welcome-single-slide">
+    <div class="slide-bg-four slide-bg-overlay"></div>
+    <div class="welcome-area">
+      <div class="container">
+        <div class="row flex-v-center">
+          <div class="col-md-8 col-lg-7 col-sm-12 col-xs-12">
+            <div class="welcome-text">
+              <h1>Our Mission.</h1>
+              <p>
+                TaSA Inc. seeks to bridge the gap between young Africans’ unmet demand for high-skill work, and
+                employers' unfulfilled need for high-capacity talent in Sub-Saharan Africa.
+              </p>
+            </div>
           </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="news-section">
-    <div class="row w80 m-auto">
-      <div class="col-4 p-4" *ngFor="let item of news">
-        <div class="news-card mb-2">
-          <a [href]="item.externalLink" target="_blank">
-            <div class="d-flex align-items-center">
-              <img
-                src="../../../assets/images/news.png"
-                class="img-circle m-auto"
-                height="100"
-                width="100"
-                alt="TASA-News"
-              />
-            </div>
-            <div class="mt-6 p-4">
-              <h6>{{ item.description }}</h6>
-            </div>
-          </a>
         </div>
       </div>
     </div>
   </div>
 </div>
+<!--WELCOME SLIDER AREA END-->
+<!-- </header> -->
+<!--END TOP AREA-->
+
+<!--FEATURES TOP AREA-->
+<section class="features-top-area" id="features">
+  <div class="container">
+    <div class="row promo-content">
+      <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12">
+        <div class="text-icon-box mb20 xs-mb0 wow fadeInUp p-2" data-wow-delay="0.1s">
+          <div class="box-icon features-box-icon">
+            <i class="fa fa-graduation-cap"></i>
+          </div>
+          <h3 class="box-title">Cultivate</h3>
+          <p>
+            a vast network African graduates and early-stage professionals via our superior networking platform.
+          </p>
+        </div>
+      </div>
+      <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12">
+        <div class="text-icon-box relative mb20 xs-mb0 wow fadeInUp p-2" data-wow-delay="0.3s">
+          <div class="box-icon features-box-icon">
+            <i class="fa fa-rocket"></i>
+          </div>
+          <h3 class="box-title">Enhance</h3>
+          <p>
+            Their employability through access to affordably-priced online certificate courses from globally recognized
+            Ivy-League and Tier-I Universities.
+          </p>
+        </div>
+      </div>
+      <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12">
+        <div class="text-icon-box relative mb20 xs-mb0 wow fadeInUp p-2 visible-sm" data-wow-delay="0.4s">
+          <div class="box-icon features-box-icon">
+            <i class="fa fa-cog"></i>
+          </div>
+          <h3 class="box-title">Connect</h3>
+          <p>
+            Our members with employers through our best-in-class jobs board.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--FEATURES TOP AREA END-->
+
+<!--ABOUT TOP CONTENT AREA-->
+<section class="section-padding">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 col-lg-12 col-md-offset-2 col-lg-offset-2 col-sm-12 col-xs-12">
+        <div class="text-center wow fadeIn">
+          <h2 class="xs-font20">TaSA Students and Professionals will include.</h2>
+          <section id="timeline">
+            <div class="demo-card-wrapper">
+              <div class="demo-card demo-card--step1">
+                <div class="head">
+                  <div class="number-box">
+                    <span>01</span>
+                  </div>
+                  <h4>Free Sign-Up/Access to Courses</h4>
+                </div>
+                <div class="body">
+                  <p>
+                    Enhance your professional profile with marketable skills and professional certificates from trusted
+                    and recognizable institutions of Higher education like: Harvard, Cornell, Princeton, Brown,
+                    Stanford, Columbia etc.
+                  </p>
+                  <!-- <img src="http://placehold.it/1000x500" alt="Graphic" /> -->
+                </div>
+              </div>
+
+              <div class="demo-card demo-card--step2">
+                <div class="head">
+                  <div class="number-box">
+                    <span>02</span>
+                  </div>
+                  <h4>Network with Fellow TaSA Platform Users</h4>
+                </div>
+                <div class="body">
+                  <p>
+                    Enhance your social capital and position yourself for exciting work or business opportunities by
+                    networking with other professionals and executives in your professional domain.
+                  </p>
+                  <!-- <img src="http://placehold.it/1000x500" alt="Graphic" /> -->
+                </div>
+              </div>
+
+              <div class="demo-card demo-card--step3">
+                <div class="head">
+                  <div class="number-box">
+                    <span>03</span>
+                  </div>
+                  <h4>Connect with Recruiter</h4>
+                </div>
+                <div class="body">
+                  <p>
+                    Gain easy access to scores of available job opportunities within your field of study or professional
+                    interest through our best-in-class jobs board.
+                  </p>
+                  <!-- <img src="http://placehold.it/1000x500" alt="Graphic" /> -->
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--ABOUT TOP CONTENT AREA END-->
+
+<!--FUN FACT AREA AREA-->
+<section class="fun-fact-area center white relative padding-100-70" id="fact">
+  <div class="area-bg" data-stellar-background-ratio="0.6"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="single-fun-fact mb30 wow fadeInUp" data-wow-delay="0.1s">
+          <h3 class="font60 xs-font26"><span class="counter">20</span>k</h3>
+          <p class="font600">Graduated Students</p>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="single-fun-fact mb30 wow fadeInUp" data-wow-delay="0.2s">
+          <h3 class="font60 xs-font26"><span class="counter">124</span></h3>
+          <p class="font600">Expert Instructors</p>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="single-fun-fact mb30 wow fadeInUp" data-wow-delay="0.3s">
+          <h3 class="font60 xs-font26"><span class="counter">600</span>k</h3>
+          <p class="font600">Books in our library</p>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="single-fun-fact mb30 wow fadeInUp" data-wow-delay="0.4s">
+          <h3 class="font60 xs-font26"><span class="counter">15</span>k</h3>
+          <p class="font600">Students get employed</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--FUN FACT AREA AREA END-->
+
+<!--COURSE AREA-->
+<section class="course-area padding-top" id="courses">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-8 col-lg-12 col-md-offset-2 col-lg-offset-2 col-sm-12 col-xs-12">
+        <div class="area-title text-center wow fadeIn">
+          <h2 class="xs-font26">Our Trending Courses</h2>
+        </div>
+      </div>
+    </div>
+    <div class="row course-list">
+      <div class="">
+        <div class="single-course mb20">
+          <img src="../../../assets/images/course/blog-1.jpg" alt="" />
+          <div class="course-details p-3">
+            <h3 class="font18">JavaScript Fundamentals: A Course for Absolute Beginners</h3>
+            <p>
+              Learn JavaScript Fundamentals from the Scratch.The Complete Guide To Learn and Be Javascipt Developer...
+            </p>
+            <p class="mt30">
+              <a href="#" class="enroll-button">Enroll the Courses</a> <span class="course-price">$29.99</span>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="">
+        <div class="single-course mb20">
+          <img src="../../../assets/images/course/blog-2.jpg" alt="" />
+          <div class="course-details p-3">
+            <h3 class="font18">Node.js, Express, MongoDB & More: The Complete Bootcamp 2020</h3>
+            <p>
+              Master Node by building a real-world RESTful API and web app (with authentication, Node.js security,
+              payments & more)...
+            </p>
+            <p class="mt30">
+              <a href="#" class="enroll-button">Enroll the Courses</a> <span class="course-price">$29.99</span>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="">
+        <div class="single-course mb20">
+          <img src="../../../assets/images/course/blog-3.jpg" alt="" />
+          <div class="course-details p-3">
+            <h3 class="font18">Redux with React JS: Learn Redux with Modern React JS</h3>
+            <p>
+              Learn Redux, React Router and React Portals with my React JS Redux course. Master with Redux and create
+              React app...
+            </p>
+            <p class="mt30">
+              <a href="#" class="enroll-button">Enroll the Courses</a> <span class="course-price">$29.99</span>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="">
+        <div class="single-course mb20">
+          <img src="../../../assets/images/course/blog-4.jpg" alt="" />
+          <div class="course-details p-3">
+            <h3 class="font18">Oracle SQL Developer: Mastering its features + tips & tricks</h3>
+            <p>
+              Use Oracle SQL Developer like a Pro. Learn the features and tricks that will help you be the most
+              efficient developer....
+            </p>
+            <p class="mt30">
+              <a href="#" class="enroll-button">Enroll the Courses</a> <span class="course-price">$29.99</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--COURSE AREA END-->
+
+<!--ABOUT AREA-->
+<section class="section-padding about-area" id="about">
+  <div class="container">
+    <div class="row flex-v-center">
+      <div class="col-md-5 col-lg-5 col-sm-12 col-xs-12">
+        <div class="about-content xs-mb50 wow fadeIn">
+          <h3 class="xs-font20 mb30">Education is the foundation upon which we build our future.</h3>
+          <p>
+            A Google Docs scam that appears to be widespread began landing in users’ inboxes on Wednesday in what seemed
+            to be a sophisticated phishing or malware attack. The deceptive invitation to edit a Google Doc on Google
+            Docs with you.
+          </p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-6 col-md-offset-1 col-lg-offset-1 col-sm-12 col-xs-12">
+        <div class="video-promo-details wow fadeIn">
+          <div class="video-promo-content">
+            <span data-video-id="j1S66liv1t8" class="video-area-popup mb30"><i class="fa fa-play"></i></span>
+          </div>
+          <img src="../../../assets/images/about/about.jpg" alt="" />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--ABOUT AREA END-->
+
+<!--TESTMONIAL AREA AREA-->
+<section class="testmonial-area bg-theme section-padding" id="testmonial">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 col-lg-12 col-md-offset-2 col-lg-offset-2 col-sm-12 col-xs-12">
+        <div class="area-title text-center wow fadeIn">
+          <h2>What Our Customer Say</h2>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="testmonial-slider">
+          <div class="single-testmonial" *ngFor="let item of posts">
+            <div class="author-content mb20">
+              <div class="icon">
+                <i class="fas fa-quote-left"></i>
+              </div>
+              <p>
+                {{ item.review }}
+              </p>
+            </div>
+            <div class="author-name-image relative">
+              <div class="author-img">
+                <img src="../../../assets/images/user.jpg" />
+              </div>
+              <h4 class="mb-1">{{ item.name }}</h4>
+              <a>{{ item.orgPlaced }}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--TESTMONIAL AREA AREA END-->
+
+<!--BLOG AREA-->
+<section class="blog-feed-area padding-top" id="blog">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 col-lg-12 col-md-offset-2 col-lg-offset-2 col-sm-12 col-xs-12">
+        <div class="area-title text-center wow fadeIn">
+          <h2>From Our Blog</h2>
+        </div>
+      </div>
+    </div>
+
+    <div class="news-slider pb-2">
+      <div class="single-blog-item sm-mb30 xs-mb30 wow fadeInUp mb-2" data-wow-delay="0.2s" *ngFor="let item of news">
+        <div class="blog-thumb">
+          <a href="blog.html"><img src="../../../assets/images/blog/blog-3.jpg" alt="" /></a>
+        </div>
+        <div class="blog-details p-3">
+          <h6 class="blog-title">
+            <a [href]="item.externalLink" target="_blank">{{ item.description }}</a>
+          </h6>
+          <p class="blog-meta font14 mt-1">
+            <a>{{ item.createdOn | date: 'MM/dd/yyyy' }} </a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--BLOG AREA END-->
+
+<!--FAQS AREA-->
+<section class="faqs-area padding-100-50" id="faqs">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+        <div class="area-title text-center wow fadeIn">
+          <h2>FAQS</h2>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12">
+        <div class="text-icon-box relative mb50 wow fadeInUp" data-wow-delay="0.1s">
+          <h3 class="box-title">1.Two Very Different Australias?</h3>
+          <p>
+            A Google Docs scam that appears to be widespread began landing in users’ inboxes on Wednesday in what seemed
+            to be a sophisticated phishing.
+          </p>
+        </div>
+      </div>
+      <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12">
+        <div class="text-icon-box relative mb50 wow fadeInUp" data-wow-delay="0.2s">
+          <h3 class="box-title">2.What Does Darwin Mean to You?</h3>
+          <p>
+            A Google Docs scam that appears to be widespread began landing in users’ inboxes on Wednesday in what seemed
+            to be a sophisticated phishing.
+          </p>
+        </div>
+      </div>
+      <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12">
+        <div class="text-icon-box relative mb50 wow fadeInUp" data-wow-delay="0.3s">
+          <h3 class="box-title">3.Where Totem Poles Are a Living Art ?</h3>
+          <p>
+            A Google Docs scam that appears to be widespread began landing in users’ inboxes on Wednesday in what seemed
+            to be a sophisticated phishing.
+          </p>
+        </div>
+      </div>
+      <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12">
+        <div class="text-icon-box relative mb50 wow fadeInUp" data-wow-delay="0.1s">
+          <h3 class="box-title">1.Two Very Different Australias?</h3>
+          <p>
+            A Google Docs scam that appears to be widespread began landing in users’ inboxes on Wednesday in what seemed
+            to be a sophisticated phishing.
+          </p>
+        </div>
+      </div>
+      <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12">
+        <div class="text-icon-box relative mb50 wow fadeInUp" data-wow-delay="0.2s">
+          <h3 class="box-title">2.What Does Darwin Mean to You?</h3>
+          <p>
+            A Google Docs scam that appears to be widespread began landing in users’ inboxes on Wednesday in what seemed
+            to be a sophisticated phishing.
+          </p>
+        </div>
+      </div>
+      <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12">
+        <div class="text-icon-box relative mb50 wow fadeInUp" data-wow-delay="0.3s">
+          <h3 class="box-title">3.Where Totem Poles Are a Living Art ?</h3>
+          <p>
+            A Google Docs scam that appears to be widespread began landing in users’ inboxes on Wednesday in what seemed
+            to be a sophisticated phishing.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--FAQS AREA END-->
+
+<!--CLIENT AREA-->
+<div class="client-area padding-bottom mt100 sm-mt10 xs-mt0">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+        <div class="client-slider">
+          <div class="single-client">
+            <img src="../../../assets/images/client/client-1.png" height="50" alt="" />
+          </div>
+          <div class="single-client">
+            <img src="../../../assets/images/client/client-2.png" height="50" alt="" />
+          </div>
+          <div class="single-client">
+            <img src="../../../assets/images/client/client-3.png" height="50" alt="" />
+          </div>
+          <div class="single-client">
+            <img src="../../../assets/images/client/client-4.png" height="50" alt="" />
+          </div>
+          <div class="single-client">
+            <img src="../../../assets/images/client/client-5.png" height="50" alt="" />
+          </div>
+          <div class="single-client">
+            <img src="../../../assets/images/client/client-6.png" height="50" alt="" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--CLIENT AREA END-->
+
+<!--ADDMISSION AREA-->
+<section class="admition-area padding-50-50 bg-theme">
+  <div class="container">
+    <div class="row flex-v-center">
+      <div class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
+        <div class="admition-content xs-center xs-mb30">
+          <h3 class="xs-font20">Addmission are now open</h3>
+          <p>
+            Writers and stars of Veep have responded incredulously to the news an Australian politician required
+            stitches after knocking himself unconscious .
+          </p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
+        <div class="enroll-button right xs-center">
+          <button mat-flat-button color="primary" (click)="signup()" class="rounded-pill ml-2">
+            Sign Up Now
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--ADDMISSION AREA END-->

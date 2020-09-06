@@ -57,7 +57,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         },
         (error) => {
           log.debug(`Login error: ${error}`);
-          this.error = error;
+          this.sharedService.uiService.showApiErrorPopMsg(error.error.message);
         }
       );
   }

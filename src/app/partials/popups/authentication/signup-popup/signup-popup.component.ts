@@ -83,11 +83,10 @@ export class SignupPopupComponent implements OnInit {
       (response) => {
         console.log(response);
         $t.sharedService.uiService.showApiSuccessPopMsg('Email has been send. Please do the verification...!');
-        $t.sharedService.uiService.closePopMsg();
       },
-      (error) => {
+      (error: any) => {
         console.log(error);
-        $t.sharedService.uiService.closePopMsg();
+        $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
       }
     );
   }

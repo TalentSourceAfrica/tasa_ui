@@ -1,4 +1,4 @@
-<header role="banner" id="header" class="fixed-top navbar navbar-light bg-faded navbar-expand moodle-has-zindex">
+<!-- <header role="banner" id="header" class="fixed-top navbar navbar-light bg-faded navbar-expand moodle-has-zindex">
   <div class="container navbar-nav" style="margin-left: 0%;">
     <div data-region="drawer-toggle" class="d-inline-block mr-3">
       <ul class="navbar-nav d-lg-flex">
@@ -66,5 +66,57 @@
         </li>
       </ul>
     </div>
+  </div>
+</header> -->
+<header class="" id="home">
+  <div class="header-top-area" id="scroolup">
+    <!--MAINMENU AREA-->
+    <div class="mainmenu-area" id="mainmenu-area">
+      <div class="mainmenu-area-bg"></div>
+      <nav class="navbar">
+        <div class="container">
+          <div class="row w100">
+            <div class="col-md-2 col-xs-6">
+              <div class="navbar-header">
+                <a href="#home" class="navbar-brand img-responsive"
+                  ><img
+                    src="../../../assets/logo/TSA_transparent_logo.png"
+                    style="height: 65px; width: auto;"
+                    alt="logo"
+                /></a>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="p-0 pt-2">
+                <button mat-flat-button color="primary" (click)="signup()" class="rc-ExploreButton rounded-pill ml-2">
+                  <span class="pl-1"> Explore <i class="fa fa-chevron-down" aria-hidden="true"></i> </span>
+                </button>
+              </div>
+            </div>
+            <div class="col-md-7 col-xs-6">
+              <div id="main-nav" class="stellarnav">
+                <ul id="nav" class="nav navbar-nav pull-right">
+                  <li><a class="curPoint">About</a></li>
+                  <li>
+                    <a class="pt-0 curPoint">
+                      <app-language-selector
+                        inNavbar="true"
+                        menuClass="dropdown-menu dropdown-menu-right"
+                      ></app-language-selector
+                    ></a>
+                  </li>
+                  <li><a (click)="login()" class="curPoint">Sign In</a></li>
+                  <li><a (click)="signup()" class="curPoint">Sign Up</a></li>
+                  <!-- <li><a href="#blog">Blog</a></li>
+                  <li><a href="#faqs">Faqs</a></li>
+                  <li><a href="#contact">Contact</a></li> -->
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <!--END MAINMENU AREA END-->
   </div>
 </header>

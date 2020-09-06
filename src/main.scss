@@ -24,6 +24,12 @@
 // The mixins below must be included once so we separated them from the variables
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
+@import "assets/css/icons.css";
+@import "assets/css/plugins.css";
+@import "assets/css/responsive.css";
+@import "assets/css/theme.css";
+@import "assets/css/style.css";
+
 // helpers
 @import "theme/helpers";
 

@@ -7,7 +7,6 @@ import { SharedModule } from '@shared';
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
 
-import { QuoteService } from './quote.service';
 import { MaterialModule } from '@app/modules/material.module';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';

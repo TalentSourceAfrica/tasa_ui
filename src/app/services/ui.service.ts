@@ -73,7 +73,7 @@ export class UiService {
       allowOutsideClick: true,
       allowEscapeKey: true,
       allowEnterKey: true,
-      timer: 6000,
+      timer: 2000,
     });
   }
 
