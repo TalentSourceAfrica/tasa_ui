@@ -49,7 +49,8 @@ export class LoginPopupComponent implements OnInit {
         untilDestroyed(this)
       )
       .subscribe(
-        (response) => {
+        (response: any) => {
+          this.popupData.authenticationService.login(response.user);
           this.sharedService.uiService.showApiSuccessPopMsg('Login in successfully...');
           this.dialogRef.close();
         },
@@ -90,7 +91,7 @@ export class LoginPopupComponent implements OnInit {
 
   private createForm() {
     this.loginForm = this.formBuilder.group({
-      email: ['', Validators.required, Validators.email],
+      username: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
       // remember: true,
     });

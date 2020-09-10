@@ -43,7 +43,7 @@
               <input
                 id="email"
                 type="email"
-                formControlName="email"
+                formControlName="username"
                 class="form-control form-control-prepended"
                 placeholder="Type email"
               />
@@ -54,7 +54,7 @@
               </div>
             </div>
             <small
-              [hidden]="loginForm.controls.email.valid || loginForm.controls.email.untouched"
+              [hidden]="loginForm.controls.username.valid || loginForm.controls.username.untouched"
               class="text-danger"
               translate
             >

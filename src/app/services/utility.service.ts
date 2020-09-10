@@ -91,6 +91,15 @@ export class UtilityService {
     return enitity != null && enitity != '' ? enitity.replace(/&lt;/g, '<').replace(/&gt;/g, '>') : enitity;
   }
 
+  scrollToElement(_elementId: string) {
+    jQuery([document.documentElement, document.body]).animate(
+      {
+        scrollTop: jQuery('#' + _elementId).offset().top,
+      },
+      2000
+    );
+  }
+
   scrollToBottom(_parentId: any) {
     var objDiv = document.getElementById(_parentId);
     objDiv.scrollTop = objDiv.scrollHeight;

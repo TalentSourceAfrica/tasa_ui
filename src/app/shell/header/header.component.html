@@ -106,7 +106,8 @@
             <div class="col-md-6 col-xs-6">
               <div id="main-nav" class="stellarnav">
                 <ul id="nav" class="nav navbar-nav pull-right float-right">
-                  <li><a class="curPoint">About</a></li>
+                  <li><a class="curPoint" (click)="scrollToFaq('about')">About</a></li>
+                  <li><a (click)="scrollToFaq('faqs')" class="curPoint">Faqs</a></li>
                   <!-- <li>
                     <a class="pt-0 curPoint">
                       <app-language-selector
@@ -115,10 +116,15 @@
                       ></app-language-selector
                     ></a>
                   </li> -->
-                  <li><a (click)="login()" class="curPoint">Sign In</a></li>
-                  <li><a (click)="signup()" class="curPoint">Sign Up</a></li>
+                  <li *ngIf="user"><a (click)="logout()" class="curPoint">Logout</a></li>
+                  <li *ngIf="!user"><a (click)="login()" class="curPoint">Sign In</a></li>
+                  <li *ngIf="!user"><a (click)="signup()" class="curPoint">Sign Up</a></li>
+
+                  <li *ngIf="user">
+                    <a class="curPoint"><i class="far fa-user pr-1"></i>{{ user.username }}</a>
+                  </li>
                   <!-- <li><a href="#blog">Blog</a></li>
-                  <li><a href="#faqs">Faqs</a></li>
+                  
                   <li><a href="#contact">Contact</a></li> -->
                 </ul>
               </div>

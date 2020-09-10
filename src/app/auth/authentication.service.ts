@@ -9,11 +9,11 @@ import { SignupPopupComponent } from '@app/partials/popups/authentication/signup
 import { LoginPopupComponent } from '@app/partials/popups/authentication/login-popup/login-popup.component';
 import { ForgotPasswordPopupComponent } from '@app/partials/popups/authentication/forgot-password-popup/forgot-password-popup.component';
 
-export interface LoginContext {
-  username: string;
-  password: string;
-  remember?: boolean;
-}
+// export interface LoginContext {
+//   username: string;
+//   password: string;
+//   remember?: boolean;
+// }
 
 /**
  * Provides a base for authentication workflow.
@@ -30,13 +30,13 @@ export class AuthenticationService {
    * @param context The login parameters.
    * @return The user credentials.
    */
-  login(context: LoginContext): Observable<Credentials> {
+  login(context: any): Observable<Credentials> {
     // Replace by proper authentication call
     const data = {
       username: context.username,
       token: '123456',
     };
-    this.credentialsService.setCredentials(data, context.remember);
+    this.credentialsService.setCredentials(context, context.remember || false);
     return of(data);
   }
 

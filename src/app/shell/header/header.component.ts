@@ -5,8 +5,7 @@ import { Router } from '@angular/router';
 import { AuthenticationService, CredentialsService } from '@app/auth';
 import { SharedService } from '@app/services/shared.service';
 
-// // component
-// import { LoginComponent } from '@app/auth/login.component';
+declare var jQuery: any;
 
 @Component({
   selector: 'app-header',
@@ -23,14 +22,23 @@ export class HeaderComponent implements OnInit {
     private sharedService: SharedService
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log(this.user);
+  }
+
+  ngAfterViewInit(): void {
+    jQuery('#mainmenu-area').sticky({
+      topSpacing: 0,
+    });
+  }
 
   toggleMenu() {
     this.menuHidden = !this.menuHidden;
   }
 
   logout() {
-    this.authenticationService.logout().subscribe(() => this.router.navigate(['/login'], { replaceUrl: true }));
+    this.sharedService.uiService.showApiSuccessPopMsg('Logout Successfully...!');
+    this.authenticationService.logout().subscribe(() => this.router.navigate(['/home'], { replaceUrl: true }));
   }
 
   login() {
@@ -41,8 +49,12 @@ export class HeaderComponent implements OnInit {
     this.authenticationService.openSignupPopup();
   }
 
-  get username(): string | null {
+  scrollToFaq(_id: string) {
+    this.sharedService.utilityService.scrollToElement(_id);
+  }
+
+  get user(): any | null {
     const credentials = this.credentialsService.credentials;
-    return credentials ? credentials.username : null;
+    return credentials ? credentials : null;
   }
 }

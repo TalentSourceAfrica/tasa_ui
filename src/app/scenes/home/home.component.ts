@@ -131,13 +131,6 @@ export class HomeComponent implements OnInit {
       (function ($) {
         'use strict';
 
-        /*--------------------------
-          STICKY MAINMENU
-      ---------------------------*/
-        $('#mainmenu-area').sticky({
-          topSpacing: 0,
-        });
-
         /*---------------------------
           SMOOTH SCROLL
       -----------------------------*/
