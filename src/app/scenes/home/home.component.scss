@@ -47,7 +47,7 @@ Version: 1.0
 }
 
 .slide-bg-two {
-  background: rgba(0, 0, 0, 0) url("../../../assets/images/slider/slide-1.jpg") no-repeat scroll center center / cover;
+  background: rgba(0, 0, 0, 0) url("../../../assets/images/slider/slide_2.jpg") no-repeat scroll center center / cover;
 }
 
 .slide-bg-three {
@@ -145,6 +145,7 @@ Version: 1.0
   -webkit-box-shadow: 0 7px 7px #c7c7c7;
   box-shadow: 0 7px 7px #c7c7c7;
   overflow: hidden;
+  min-height: 450px;
 }
 
 a.enroll-button {
@@ -788,7 +789,7 @@ label.mt10.valid {
   border-color: $blue;
 }
 #timeline .demo-card--step2 {
-  background-color: $light-blue;
+  background-color: $blue;
 }
 #timeline .demo-card--step2 .head::after {
   border-color: $light-blue;

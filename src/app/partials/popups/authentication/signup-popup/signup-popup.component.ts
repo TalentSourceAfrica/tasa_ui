@@ -15,7 +15,7 @@ export class SignupPopupComponent implements OnInit {
   signupForm: FormGroup;
   popupData: any;
   signupType: any = [
-    { value: 0, viewValue: 'Mentee' },
+    { value: 0, viewValue: 'Student/Professional' },
     { value: 1, viewValue: 'Mentor' },
     { value: 2, viewValue: 'Recruiter' },
   ];
@@ -74,14 +74,12 @@ export class SignupPopupComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.signupForm.value);
     let $t = this;
     let apiUrl = $t.sharedService.urlService.simpleApiCall('signup');
     $t.sharedService.uiService.showApiStartPopMsg('Creating Account...');
     let payload = { ...$t.signupForm.value, type: $t.userType.viewValue };
     $t.sharedService.configService.post(apiUrl, payload).subscribe(
       (response) => {
-        console.log(response);
         $t.dialogRef.close();
         $t.sharedService.uiService.showApiSuccessPopMsg('Please check inbox for successful verification...!');
       },

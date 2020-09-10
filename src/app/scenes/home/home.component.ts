@@ -197,9 +197,10 @@ export class HomeComponent implements OnInit {
         var $homeSlider = $('.welcome-slider-area');
         $homeSlider.owlCarousel({
           merge: true,
-          smartSpeed: 1000,
+          smartSpeed: 3000,
           loop: true,
           nav: true,
+          autoplayHoverPause: true,
           navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>'],
           autoplay: true,
           autoplayTimeout: 3000,
@@ -253,10 +254,11 @@ export class HomeComponent implements OnInit {
           loop: true,
           nav: false,
           center: true,
+          autoplayHoverPause: true,
           navText: ['<i class="fa fa-long-arrow-left"></i> Prev', 'Next <i class="fa fa-long-arrow-right"></i>'],
           autoplay: true,
           autoplayTimeout: 3000,
-          margin: 30,
+          margin: 10,
           responsiveClass: true,
           responsive: {
             0: {
@@ -270,9 +272,6 @@ export class HomeComponent implements OnInit {
               items: 3,
             },
             1200: {
-              items: 3,
-            },
-            1900: {
               items: 4,
             },
           },
@@ -288,6 +287,7 @@ export class HomeComponent implements OnInit {
           loop: true,
           nav: false,
           center: true,
+          autoplayHoverPause: true,
           navText: ['<i class="fa fa-long-arrow-left"></i> Prev', 'Next <i class="fa fa-long-arrow-right"></i>'],
           autoplay: true,
           autoplayTimeout: 3000,
@@ -350,6 +350,7 @@ export class HomeComponent implements OnInit {
       nav: true,
       center: false,
       dots: false,
+      autoplayHoverPause: true,
       navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>'],
       autoplay: false,
       autoplayTimeout: 3000,
@@ -378,6 +379,7 @@ export class HomeComponent implements OnInit {
       nav: true,
       center: false,
       dots: false,
+      autoplayHoverPause: true,
       navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>'],
       autoplay: true,
       autoplayTimeout: 3000,
