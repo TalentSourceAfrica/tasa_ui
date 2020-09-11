@@ -1,7 +1,7 @@
 $font: "Sofia", sans-serif;
 $font-size: 16px;
-$blue: #2a73cc;
-$light-blue: #3075cda8;
+$blue: #523f6db3;
+$light-blue: #523f6d80;
 $blue2: #e3ebf1;
 $black: #000;
 $grey: #7d7d7d;
@@ -10,31 +10,6 @@ $grey3: #e8e7e7;
 $grey4: #fdfdfd;
 $bluegrey: #49606e;
 $orange: #ec992c;
-
-//------------------------------------------------------------------------------//
-
-/*--------------------------------------------------------------------------------------
-Theme Name: EDUCROWN
-Theme URI: http://quomodosoft.com
-Author URI: http://quomodosoft.com
-Description: 100% Responsive, Highly Customizable, SEO Friendly Education Based HTML5 template using Twitter Bootstrap Latest, Search Engine Friendly.
-Author: Mehedi Hasan Nahid
-Author Email: mehedidb@gmail.com
-Version: 1.0
-----------------------------------------------------------------------------------------
-    1. SLIDER AREA
-    2. FEATURES AREA
-    3. FUN FACT AREA
-    4. COURSE AERA
-    5. VIDEO AREA
-    6. TESTMONIAL AREA
-    7. BLOG AREA
-    8. FAQS AREA
-    9. CONTACT AREA
-    10. CLIENT AREA
-    11. FOOTER AREA
-    12. SCROLL TO TOP AREA
-----------------------------------------------------------------------------------------*/
 
 @import url("https://fonts.googleapis.com/css?family=Poppins:400,500,600,700");
 
@@ -113,7 +88,7 @@ Version: 1.0
 }
 
 .features-box-icon {
-  background: #d3ffea none repeat scroll 0 0;
+  background: #d9d5df none repeat scroll 0 0;
   border-radius: 5px;
   color: $blue;
   height: 70px;

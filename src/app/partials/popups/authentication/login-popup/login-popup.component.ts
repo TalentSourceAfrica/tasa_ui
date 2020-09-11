@@ -37,7 +37,6 @@ export class LoginPopupComponent implements OnInit {
   login() {
     this.isLoading = true;
     this.sharedService.uiService.showApiStartPopMsg('Logging you in...');
-    const login$ = this.popupData.authenticationService.login(this.loginForm.value);
     let apiUrl = this.sharedService.urlService.simpleApiCall('login');
     this.sharedService.configService
       .post(apiUrl, this.loginForm.value)
@@ -55,7 +54,6 @@ export class LoginPopupComponent implements OnInit {
           this.dialogRef.close();
         },
         (error) => {
-          console.log(error);
           this.sharedService.uiService.showApiErrorPopMsg(error.error.message);
         }
       );

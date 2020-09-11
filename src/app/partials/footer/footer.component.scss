@@ -1,5 +1,5 @@
 .footer-wrapper {
-  background: linear-gradient(0deg, #77a4de, #2a73cc);
+  background: linear-gradient(0deg, #a89fb6, #6c5b83);
   padding-top: 80px;
   padding-bottom: 40px;
   h1,
@@ -90,7 +90,6 @@
     text-transform: capitalize;
   }
   .single_footer ul li a:hover {
-    color: #ff3666;
   }
 
   .single_footer_address {
@@ -143,7 +142,7 @@
   .subscribe__btn {
     background-color: transparent;
     border-radius: 0 25px 25px 0;
-    color: #01c7e9;
+    color: #867899;
     cursor: pointer;
     display: block;
     font-size: 20px;
@@ -163,7 +162,7 @@
   }
 
   .subscribe__btn:hover i {
-    color: #ff3666;
+    color: #867899;
   }
   button {
     padding: 0;
@@ -215,25 +214,9 @@
     }
   }
   .social_profile ul li a:hover {
-    background: #ff3666;
-    border: 1px solid #ff3666;
+    background: #867899;
+    border: 1px solid #867899;
     color: #fff;
     border: 0px;
-  }
-  /*END SOCIAL PROFILE CSS*/
-  .copyright {
-    margin-top: 70px;
-    padding-top: 40px;
-    color: #fff;
-    font-size: 15px;
-    border-top: 1px solid rgba(255, 255, 255, 0.4);
-    text-align: center;
-  }
-  .copyright a {
-    color: #01c7e9;
-    transition: all 0.2s ease 0s;
-  }
-  .copyright a:hover {
-    color: #ff3666;
   }
 }

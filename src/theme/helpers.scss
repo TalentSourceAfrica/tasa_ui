@@ -744,6 +744,13 @@ body {
   white-space: nowrap;
 }
 
+a {
+  color: #867899;
+  &:hover {
+    color: #867899;
+  }
+}
+
 .theme-color {
   color: #1d5a76;
 }
@@ -776,6 +783,10 @@ button:hover,
 .btn:active {
   outline: none !important;
   box-shadow: none;
+}
+
+.btn-primary {
+  background-color: #867899 !important;
 }
 
 @-webkit-keyframes demo {
