@@ -36,7 +36,7 @@
       </div>
       <div class="card-footer text-center text-black-50">
         Already signed up?
-        <a class="text-black-70 pointer" style="text-decoration: underline;" (click)="login()">Login</a>
+        <a class="text-black-70 pointer curPoint" style="text-decoration: underline;" (click)="login()">Login</a>
       </div>
     </div>
   </div>
@@ -46,7 +46,7 @@
   <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" novalidate>
     <div class="min-vertical-h-50 max-vertical-h-50 stylishScroll flow-y-auto flow-x-hidden p-2">
       <div class="form-group">
-        <label class="form-label" for="name">First Name:</label>
+        <label class="form-label" for="name">First Name <sup class="text-danger">*</sup></label>
         <div class="input-group input-group-merge">
           <input
             id="name"
@@ -70,7 +70,7 @@
         </small>
       </div>
       <div class="form-group">
-        <label class="form-label" for="name">Last Name:</label>
+        <label class="form-label" for="name">Last Name <sup class="text-danger">*</sup></label>
         <div class="input-group input-group-merge">
           <input
             id="name"
@@ -94,7 +94,7 @@
         </small>
       </div>
       <div class="form-group">
-        <label class="form-label" for="name">Username:</label>
+        <label class="form-label" for="name">Username <sup class="text-danger">*</sup></label>
         <div class="input-group input-group-merge">
           <input
             id="name"
@@ -102,6 +102,8 @@
             formControlName="username"
             class="form-control form-control-prepended"
             placeholder="Your username"
+            (blur)="checkUsername()"
+            [ngClass]="{ 'ng-invalid ng-touched': !isUsernameAvailable }"
           />
           <div class="input-group-prepend">
             <div class="input-group-text">
@@ -116,9 +118,12 @@
         >
           Username is required
         </small>
+        <small [hidden]="isUsernameAvailable" class="text-danger" translate>
+          Username is not available
+        </small>
       </div>
       <div class="form-group">
-        <label class="form-label" for="email">Email address:</label>
+        <label class="form-label" for="email">Email address <sup class="text-danger">*</sup></label>
         <div class="input-group input-group-merge">
           <input
             id="email"
@@ -126,6 +131,8 @@
             formControlName="email"
             class="form-control form-control-prepended"
             placeholder="Your email address"
+            (blur)="checkEmail()"
+            [ngClass]="{ 'ng-invalid ng-touched': !isEmailAvailable }"
           />
           <div class="input-group-prepend">
             <div class="input-group-text">
@@ -140,9 +147,12 @@
         >
           Email is required
         </small>
+        <small [hidden]="isEmailAvailable" class="text-danger" translate>
+          Email is not available
+        </small>
       </div>
       <div class="form-group">
-        <label class="form-label" for="password">Password:</label>
+        <label class="form-label" for="password">Password <sup class="text-danger">*</sup></label>
         <div class="input-group input-group-merge">
           <input
             id="password"
@@ -166,7 +176,7 @@
         </small>
       </div>
       <div class="form-group">
-        <label class="form-label" for="password">Confirm Password:</label>
+        <label class="form-label" for="password">Confirm Password <sup class="text-danger">*</sup></label>
         <div class="input-group input-group-merge">
           <input
             id="confirmPassword"
@@ -202,7 +212,13 @@
         >
       </div>
     </div>
-    <button type="submit" [disabled]="signupForm.invalid" class="btn btn-primary btn-block">Sign Up</button>
+    <button
+      type="submit"
+      [disabled]="signupForm.invalid || !isUsernameAvailable || !isEmailAvailable"
+      class="btn btn-primary btn-block"
+    >
+      Sign Up
+    </button>
   </form>
 </ng-template>
 
@@ -210,7 +226,7 @@
   <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" novalidate>
     <div class="min-vertical-h-50 max-vertical-h-50 stylishScroll flow-y-auto flow-x-hidden p-2">
       <div class="form-group">
-        <label class="form-label" for="name">Organization Name:</label>
+        <label class="form-label" for="name">Organization Name <sup class="text-danger">*</sup></label>
         <div class="input-group input-group-merge">
           <input
             id="name"
@@ -234,7 +250,7 @@
         </small>
       </div>
       <div class="form-group">
-        <label class="form-label" for="name">Username:</label>
+        <label class="form-label" for="name">Username <sup class="text-danger">*</sup></label>
         <div class="input-group input-group-merge">
           <input
             id="name"
@@ -242,6 +258,8 @@
             formControlName="username"
             class="form-control form-control-prepended"
             placeholder="Your username"
+            (blur)="checkUsername()"
+            [ngClass]="{ 'ng-invalid ng-touched': !isUsernameAvailable }"
           />
           <div class="input-group-prepend">
             <div class="input-group-text">
@@ -256,9 +274,12 @@
         >
           Username is required
         </small>
+        <small [hidden]="isUsernameAvailable" class="text-danger" translate>
+          Username is not available
+        </small>
       </div>
       <div class="form-group">
-        <label class="form-label" for="email">Email address:</label>
+        <label class="form-label" for="email">Email address <sup class="text-danger">*</sup></label>
         <div class="input-group input-group-merge">
           <input
             id="email"
@@ -266,6 +287,8 @@
             formControlName="email"
             class="form-control form-control-prepended"
             placeholder="Your email address"
+            (blur)="checkEmail()"
+            [ngClass]="{ 'ng-invalid ng-touched': !isEmailAvailable }"
           />
           <div class="input-group-prepend">
             <div class="input-group-text">
@@ -280,9 +303,12 @@
         >
           Email is required
         </small>
+        <small [hidden]="isEmailAvailable" class="text-danger" translate>
+          Email is not available
+        </small>
       </div>
       <div class="form-group">
-        <label class="form-label" for="password">Password:</label>
+        <label class="form-label" for="password">Password <sup class="text-danger">*</sup></label>
         <div class="input-group input-group-merge">
           <input
             id="password"
@@ -306,7 +332,7 @@
         </small>
       </div>
       <div class="form-group">
-        <label class="form-label" for="password">Confirm Password:</label>
+        <label class="form-label" for="password">Confirm Password <sup class="text-danger">*</sup></label>
         <div class="input-group input-group-merge">
           <input
             id="confirmPassword"

@@ -13,4 +13,6 @@ export const urls: any = {
   getUsers: '/users', // G
   login: '/v1/login', // PO
   signup: '/v1/signup', // PO
+  checkUsername: '/v1/checkUserName/{userName}', // PO
+  checkEmail: '/v1/checkEmail/{email}', // PO
 };

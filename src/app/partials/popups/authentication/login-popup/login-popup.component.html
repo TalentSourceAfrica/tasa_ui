@@ -38,7 +38,7 @@
 
         <form (ngSubmit)="login()" [formGroup]="loginForm" novalidate>
           <div class="form-group">
-            <label class="form-label" for="email">Your email</label>
+            <label class="form-label" for="email">Your email <sup class="text-danger">*</sup></label>
             <div class="input-group input-group-merge">
               <input
                 id="email"
@@ -62,7 +62,7 @@
             </small>
           </div>
           <div class="form-group">
-            <label class="form-label" for="password">Your password:</label>
+            <label class="form-label" for="password">Your password <sup class="text-danger">*</sup></label>
             <div class="input-group input-group-merge">
               <input
                 id="password"
@@ -91,13 +91,15 @@
             </button>
           </div>
           <div class="text-center">
-            <a (click)="forgotPass()" class="text-black-70" style="text-decoration: underline;">Forgot Password?</a>
+            <a (click)="forgotPass()" class="text-black-70 curPoint" style="text-decoration: underline;"
+              >Forgot Password?</a
+            >
           </div>
         </form>
       </div>
       <div class="card-footer text-center text-black-50">
-        Not yet a student?
-        <a class="text-black-70 pointer" style="text-decoration: underline;" (click)="signup()">Signup</a>
+        Not yet a member?
+        <a class="text-black-70 pointer curPoint" style="text-decoration: underline;" (click)="signup()">Signup</a>
       </div>
     </div>
   </div>
