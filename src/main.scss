@@ -20,6 +20,8 @@
 // Theme customization
 @import "theme/theme";
 
+@import "~material-design-icons/iconfont/material-icons.css";
+
 // Angular Material custom theme
 // The mixins below must be included once so we separated them from the variables
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";

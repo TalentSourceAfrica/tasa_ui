@@ -368,6 +368,12 @@
         >
       </div>
     </div>
-    <button type="submit" [disabled]="signupForm.invalid" class="btn btn-primary btn-block">Sign Up</button>
+    <button
+      type="submit"
+      [disabled]="signupForm.invalid || !isUsernameAvailable || !isEmailAvailable"
+      class="btn btn-primary btn-block"
+    >
+      Sign Up
+    </button>
   </form>
 </ng-template>

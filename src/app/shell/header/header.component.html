@@ -119,7 +119,6 @@
                   <li *ngIf="user"><a (click)="logout()" class="curPoint">Logout</a></li>
                   <li *ngIf="!user"><a (click)="login()" class="curPoint">Sign In</a></li>
                   <li *ngIf="!user"><a (click)="signup()" class="curPoint">Sign Up</a></li>
-
                   <li *ngIf="user">
                     <a class="curPoint"><i class="far fa-user pr-1"></i>{{ user.username }}</a>
                   </li>

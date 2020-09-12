@@ -8,6 +8,7 @@ import { SharedService } from '@app/services/shared.service';
 import { SignupPopupComponent } from '@app/partials/popups/authentication/signup-popup/signup-popup.component';
 import { LoginPopupComponent } from '@app/partials/popups/authentication/login-popup/login-popup.component';
 import { ForgotPasswordPopupComponent } from '@app/partials/popups/authentication/forgot-password-popup/forgot-password-popup.component';
+import { UserDetailsPopupComponent } from '@app/partials/popups/authentication/user-details-popup/user-details-popup.component';
 
 // export interface LoginContext {
 //   username: string;
@@ -69,6 +70,14 @@ export class AuthenticationService {
   openForgotPassPopup() {
     this.sharedService.dialogService.open(ForgotPasswordPopupComponent, {
       width: '600px',
+      data: { authenticationService: this },
+      disableClose: false,
+    });
+  }
+
+  openUserDetailsPopup() {
+    this.sharedService.dialogService.open(UserDetailsPopupComponent, {
+      width: '900px',
       data: { authenticationService: this },
       disableClose: false,
     });

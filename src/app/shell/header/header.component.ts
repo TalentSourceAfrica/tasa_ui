@@ -49,6 +49,10 @@ export class HeaderComponent implements OnInit {
     this.authenticationService.openSignupPopup();
   }
 
+  userDetails() {
+    this.authenticationService.openUserDetailsPopup();
+  }
+
   scrollToFaq(_id: string) {
     this.sharedService.utilityService.scrollToElement(_id);
   }
