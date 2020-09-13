@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CredentialsService } from '@app/auth';
 
 @Component({
   selector: 'app-shell',
@@ -6,7 +7,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./shell.component.scss'],
 })
 export class ShellComponent implements OnInit {
-  constructor() {}
+  isHome: boolean = false;
+  constructor(private credentialsService: CredentialsService) {}
 
   ngOnInit() {}
+
+  get user(): any | null {
+    if (location.pathname != '/home') {
+      this.isHome = false;
+    } else {
+      this.isHome = true;
+    }
+    const credentials = this.credentialsService.credentials;
+    return credentials ? credentials : null;
+  }
 }

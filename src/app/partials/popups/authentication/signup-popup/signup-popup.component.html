@@ -116,10 +116,15 @@
           class="text-danger"
           translate
         >
-          Username is required
+          <span *ngIf="signupForm.controls.username.errors?.pattern; else elseError">
+            No Special characters allowed
+          </span>
+          <ng-template #elseError>
+            Username is required
+          </ng-template>
         </small>
         <small [hidden]="isUsernameAvailable" class="text-danger" translate>
-          Username is not available
+          Username already exists
         </small>
       </div>
       <div class="form-group">
@@ -148,7 +153,7 @@
           Email is required
         </small>
         <small [hidden]="isEmailAvailable" class="text-danger" translate>
-          Email is not available
+          Email Address already exists
         </small>
       </div>
       <div class="form-group">
@@ -275,7 +280,7 @@
           Username is required
         </small>
         <small [hidden]="isUsernameAvailable" class="text-danger" translate>
-          Username is not available
+          Username already exists
         </small>
       </div>
       <div class="form-group">
@@ -304,7 +309,7 @@
           Email is required
         </small>
         <small [hidden]="isEmailAvailable" class="text-danger" translate>
-          Email is not available
+          Email Address already exists
         </small>
       </div>
       <div class="form-group">

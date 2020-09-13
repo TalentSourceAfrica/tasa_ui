@@ -1,137 +1,204 @@
-<!-- <header role="banner" id="header" class="fixed-top navbar navbar-light bg-faded navbar-expand moodle-has-zindex">
-  <div class="container navbar-nav" style="margin-left: 0%;">
-    <div data-region="drawer-toggle" class="d-inline-block mr-3">
-      <ul class="navbar-nav d-lg-flex">
-        <li class="nav-item">
+<div class="page-wrapper chiller-theme position-absolute">
+  <a id="show-sidebar" class="btn btn-sm btn-dark">
+    <i class="fas fa-bars"></i>
+  </a>
+  <nav id="sidebar" class="sidebar-wrapper">
+    <div class="sidebar-content">
+      <div class="sidebar-brand">
+        <div id="close-sidebar">
+          <i class="fas fa-times"></i>
+        </div>
+      </div>
+      <div class="sidebar-header">
+        <div class="user-pic">
           <img
-            class="logo"
-            src="assets/images/TSA_logo_new.small.png"
-            alt="TASA logo"
-            style="height: 95px; width: 125px; margin-left: 2%;"
+            class="img-responsive img-rounded"
+            src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
+            alt="User picture"
           />
-        </li>
-        <li class="nav-item" style="width: 35%;">
-          <h5 class="tasaTitle">Talent Source Africa</h5>
-        </li>
-        <li class="nav-item">
-          <button class="rc-ExploreButton" aria-label="Explore our catalog" type="button">
-            <span class=""> Explore <i class="fa fa-chevron-down" aria-hidden="true"></i> </span>
-          </button>
-        </li>
-        <li class="nav-item">
-          <div role="combobox">
-            <input
-              type="text"
-              value=""
-              autocomplete="off"
-              placeholder="What do you want to learn?"
-              role="combobox"
-              style="margin-left: 40%; width: 240%; height: 5vh; margin-top: 17%;"
-            />
-          </div>
-        </li>
-      </ul>
-    </div>
-    <div class="header-top" id="Mainmenu">
-      <ul class="nav navbar-nav ml-auto">
-        <li class="nav-item">
-          <a class="nav-item nav-link" routerLink="/about" routerLinkActive="active">
-            <span translate style="text-transform: uppercase; color: #2a73cc; font-weight: bold;">About</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <app-language-selector inNavbar="true" menuClass="dropdown-menu dropdown-menu-right"></app-language-selector>
-        </li>
-        <li class="nav-item">
-          <button
-            class="rc-ExploreButton"
-            aria-label="Explore our catalog"
-            type="button"
-            style="margin-top: 5%; width: 150%;"
-            (click)="login()"
-          >
-            <span class=""> Sign In </span>
-          </button>
-        </li>
-        <li class="nav-item">
-          <button
-            class="rc-ExploreButton"
-            aria-label="Explore our catalog"
-            type="button"
-            style="margin-top: 5%; width: 150%; margin-left: 100%;"
-            (click)="signup()"
-          >
-            <span class=""> Sign Up </span>
-          </button>
-        </li>
-      </ul>
-    </div>
-  </div>
-</header> -->
-<header class="" id="home">
-  <div class="header-top-area" id="scroolup">
-    <!--MAINMENU AREA-->
-    <div class="mainmenu-area" id="mainmenu-area">
-      <div class="mainmenu-area-bg"></div>
-      <nav class="navbar">
-        <div class="container">
-          <div class="row w100">
-            <div class="col-md-2 col-xs-6">
-              <div class="navbar-header">
-                <a href="#home" class="navbar-brand img-responsive"
-                  ><img
-                    src="../../../assets/logo/TSA_transparent_logo.png"
-                    style="height: 65px; width: auto;"
-                    alt="logo"
-                /></a>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="p-0 pt-2 d-flex">
-                <button mat-flat-button color="primary" class="rc-ExploreButton rounded-pill ml-2">
-                  <span class="pl-1"> Explore <i class="fa fa-chevron-down" aria-hidden="true"></i> </span>
-                </button>
-                <!-- <div class="d-flex">
-                  <input type="search" name="search" id="search" placeholder="Search Courses" class="rounded-pill" />
-                  <button type="submit"><i class="fa fa-search"></i></button>
-                </div> -->
-                <div class="home-button ml-2 mt-3">
-                  <form>
-                    <input type="search" name="search" id="search" placeholder="Search Courses" />
-                    <button type="button"><i class="fa fa-search"></i></button>
-                  </form>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-6 col-xs-6">
-              <div id="main-nav" class="stellarnav">
-                <ul id="nav" class="nav navbar-nav pull-right float-right">
-                  <li><a class="curPoint" (click)="scrollToFaq('about')">About</a></li>
-                  <li><a (click)="scrollToFaq('faqs')" class="curPoint">Faqs</a></li>
-                  <!-- <li>
-                    <a class="pt-0 curPoint">
-                      <app-language-selector
-                        inNavbar="true"
-                        menuClass="dropdown-menu dropdown-menu-right"
-                      ></app-language-selector
-                    ></a>
-                  </li> -->
-                  <li *ngIf="user"><a (click)="logout()" class="curPoint">Logout</a></li>
-                  <li *ngIf="!user"><a (click)="login()" class="curPoint">Sign In</a></li>
-                  <li *ngIf="!user"><a (click)="signup()" class="curPoint">Sign Up</a></li>
-                  <li *ngIf="user">
-                    <a class="curPoint"><i class="far fa-user pr-1"></i>{{ user.username }}</a>
-                  </li>
-                  <!-- <li><a href="#blog">Blog</a></li>
-                  
-                  <li><a href="#contact">Contact</a></li> -->
-                </ul>
-              </div>
+        </div>
+        <div class="user-info">
+          <span class="user-name"
+            >{{ user.firstName }}
+            <strong>{{ user.LastName }}</strong>
+          </span>
+          <span class="user-role">Administrator</span>
+          <span class="user-status">
+            <i class="fa fa-circle"></i>
+            <span>Online</span>
+          </span>
+        </div>
+      </div>
+      <!-- sidebar-header  -->
+      <div class="sidebar-search">
+        <div>
+          <div class="input-group">
+            <input type="text" class="form-control search-menu" placeholder="Search..." />
+            <div class="input-group-append">
+              <span class="input-group-text">
+                <i class="fa fa-search" aria-hidden="true"></i>
+              </span>
             </div>
           </div>
         </div>
-      </nav>
+      </div>
+      <!-- sidebar-search  -->
+      <div class="sidebar-menu">
+        <ul>
+          <li class="header-menu">
+            <span>General</span>
+          </li>
+          <li class="sidebar-dropdown">
+            <a href="#">
+              <i class="fa fa-tachometer-alt"></i>
+              <span>Dashboard</span>
+              <span class="badge badge-pill badge-warning">New</span>
+            </a>
+            <div class="sidebar-submenu">
+              <ul>
+                <li>
+                  <a href="#"
+                    >Dashboard 1
+                    <span class="badge badge-pill badge-success">Pro</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#">Dashboard 2</a>
+                </li>
+                <li>
+                  <a href="#">Dashboard 3</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li class="sidebar-dropdown">
+            <a href="#">
+              <i class="fa fa-shopping-cart"></i>
+              <span>E-commerce</span>
+              <span class="badge badge-pill badge-danger">3</span>
+            </a>
+            <div class="sidebar-submenu">
+              <ul>
+                <li>
+                  <a href="#">Products </a>
+                </li>
+                <li>
+                  <a href="#">Orders</a>
+                </li>
+                <li>
+                  <a href="#">Credit cart</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li class="sidebar-dropdown">
+            <a href="#">
+              <i class="far fa-gem"></i>
+              <span>Components</span>
+            </a>
+            <div class="sidebar-submenu">
+              <ul>
+                <li>
+                  <a href="#">General</a>
+                </li>
+                <li>
+                  <a href="#">Panels</a>
+                </li>
+                <li>
+                  <a href="#">Tables</a>
+                </li>
+                <li>
+                  <a href="#">Icons</a>
+                </li>
+                <li>
+                  <a href="#">Forms</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li class="sidebar-dropdown">
+            <a href="#">
+              <i class="fa fa-chart-line"></i>
+              <span>Charts</span>
+            </a>
+            <div class="sidebar-submenu">
+              <ul>
+                <li>
+                  <a href="#">Pie chart</a>
+                </li>
+                <li>
+                  <a href="#">Line chart</a>
+                </li>
+                <li>
+                  <a href="#">Bar chart</a>
+                </li>
+                <li>
+                  <a href="#">Histogram</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li class="sidebar-dropdown">
+            <a href="#">
+              <i class="fa fa-globe"></i>
+              <span>Maps</span>
+            </a>
+            <div class="sidebar-submenu">
+              <ul>
+                <li>
+                  <a href="#">Google maps</a>
+                </li>
+                <li>
+                  <a href="#">Open street map</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li class="header-menu">
+            <span>Extra</span>
+          </li>
+          <li>
+            <a href="#">
+              <i class="fa fa-book"></i>
+              <span>Documentation</span>
+              <span class="badge badge-pill badge-primary">Beta</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <i class="fa fa-calendar"></i>
+              <span>Calendar</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <i class="fa fa-folder"></i>
+              <span>Examples</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <!-- sidebar-menu  -->
     </div>
-    <!--END MAINMENU AREA END-->
-  </div>
-</header>
+    <!-- sidebar-content  -->
+    <div class="sidebar-footer">
+      <a href="#">
+        <i class="fa fa-bell"></i>
+        <span class="badge badge-pill badge-warning notification">3</span>
+      </a>
+      <a href="#">
+        <i class="fa fa-envelope"></i>
+        <span class="badge badge-pill badge-success notification">7</span>
+      </a>
+      <a href="#">
+        <i class="fa fa-cog"></i>
+        <span class="badge-sonar"></span>
+      </a>
+      <a (click)="logout()">
+        <i class="fa fa-power-off"></i>
+      </a>
+    </div>
+  </nav>
+  <!-- sidebar-wrapper  -->
+</div>
+<!-- page-wrapper -->

@@ -745,14 +745,18 @@ body {
 }
 
 a {
-  color: #867899;
+  color: black;
   &:hover {
-    color: #867899;
+    color: black;
   }
 }
 
+.text-primary {
+  color: #523f6d !important;
+}
+
 .theme-color {
-  color: #1d5a76;
+  color: #523f6d;
 }
 
 .pointer-event-disabled {

@@ -1,5 +1,93 @@
 <!--START TOP AREA-->
-<!-- <header class="top-area" id="home"> -->
+<header class="" id="home">
+  <div class="header-top-area" id="scroolup">
+    <!--MAINMENU AREA-->
+    <div class="mainmenu-area" id="mainmenu-area">
+      <div class="mainmenu-area-bg"></div>
+      <nav class="navbar">
+        <div class="container">
+          <div class="row w100">
+            <div class="col-md-2 col-xs-6">
+              <div class="navbar-header">
+                <a href="#home" class="navbar-brand img-responsive"
+                  ><img
+                    src="../../../assets/logo/TSA_transparent_logo.png"
+                    style="height: 65px; width: auto;"
+                    alt="logo"
+                /></a>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="p-0 pt-3 d-flex align-items-center">
+                <button mat-flat-button color="default" class="rc-ExploreButton rounded-pill ml-2 bg-theme">
+                  <span class="pl-1"> Explore <i class="fa fa-chevron-down" aria-hidden="true"></i> </span>
+                </button>
+                <!-- <div class="d-flex">
+                  <input type="search" name="search" id="search" placeholder="Search Courses" class="rounded-pill" />
+                  <button type="submit"><i class="fa fa-search"></i></button>
+                </div> -->
+                <div class="home-button ml-2">
+                  <form>
+                    <input type="search" name="search" id="search" placeholder="Search Courses" />
+                    <button type="button"><i class="fa fa-search"></i></button>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 col-xs-6">
+              <div id="main-nav" class="stellarnav">
+                <ul id="nav" class="nav navbar-nav pull-right float-right">
+                  <li><a class="curPoint" (click)="scrollToFaq('about')">About</a></li>
+                  <li><a (click)="scrollToFaq('faqs')" class="curPoint">FAQ</a></li>
+                  <!-- <li>
+                    <a class="pt-0 curPoint">
+                      <app-language-selector
+                        inNavbar="true"
+                        menuClass="dropdown-menu dropdown-menu-right"
+                      ></app-language-selector
+                    ></a>
+                  </li> -->
+                  <li>
+                    <a [matMenuTriggerFor]="menu" class="curPoint"
+                      >Menu<i class="fas fa-caret-down pl-1"></i>
+                      <mat-menu #menu="matMenu">
+                        <button mat-menu-item [routerLink]="['/about-us']" class="h6">
+                          <i class="fas fa-address-card pr-3 text-primary"></i>About Us
+                        </button>
+                        <button mat-menu-item [routerLink]="['/contact-us']" class="h6">
+                          <i class="fas fa-address-book pr-3 text-primary"></i> Contact Us
+                        </button>
+                      </mat-menu>
+                    </a>
+                  </li>
+                  <li *ngIf="!user"><a (click)="login()" class="curPoint">Sign In</a></li>
+                  <li *ngIf="!user"><a (click)="signup()" class="curPoint">Sign Up</a></li>
+                  <li *ngIf="user">
+                    <a [matMenuTriggerFor]="userMenu" class="curPoint"
+                      ><i class="far fa-user pr-1"></i> {{ user.username }} <i class="fas fa-caret-down pl-1"></i>
+                      <mat-menu #userMenu="matMenu">
+                        <button mat-menu-item [routerLink]="['/dashboard']" class="h6">
+                          <i class="fas fa-chart-line pr-3 text-primary"></i> Dashboard
+                        </button>
+                        <button mat-menu-item (click)="logout()" class="h6">
+                          <i class="fa fa-power-off pr-3 text-primary"></i> Logout
+                        </button>
+                      </mat-menu>
+                    </a>
+                  </li>
+                  <!-- <li><a href="#blog">Blog</a></li>
+                  
+                  <li><a href="#contact">Contact</a></li> -->
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <!--END MAINMENU AREA END-->
+  </div>
+</header>
 <!--WELCOME SLIDER AREA-->
 <div class="welcome-slider-area white font16">
   <div class="welcome-single-slide">
@@ -327,53 +415,36 @@
 <!--COURSE AREA END-->
 
 <!-- Price Section -->
-
-<div id="generic_price_table">
+<!-- <div id="generic_price_table">
   <section>
     <div class="container">
       <div class="row">
         <div class="col-md-12">
-          <!--PRICE HEADING START-->
           <div class="price-heading clearfix">
             <h1>Our Awesome Pricing Plans For You</h1>
           </div>
-          <!--//PRICE HEADING END-->
         </div>
       </div>
     </div>
     <div class="container">
-      <!--BLOCK ROW START-->
       <div class="row">
         <div class="col-md-4">
-          <!--PRICE CONTENT START-->
           <div class="generic_content clearfix">
-            <!--HEAD PRICE DETAIL START-->
             <div class="generic_head_price clearfix">
-              <!--HEAD CONTENT START-->
               <div class="generic_head_content clearfix">
-                <!--HEAD START-->
                 <div class="head_bg"></div>
                 <div class="head">
                   <span>Bronze</span>
                 </div>
-                <!--//HEAD END-->
               </div>
-              <!--//HEAD CONTENT END-->
-
-              <!--PRICE START-->
               <div class="generic_price_tag clearfix">
                 <span class="price">
                   <span class="sign">$</span>
                   <span class="currency">59</span>
-                  <!-- <span class="cent">.99</span> -->
                   <span class="month">/MON</span>
                 </span>
               </div>
-              <!--//PRICE END-->
             </div>
-            <!--//HEAD PRICE DETAIL END-->
-
-            <!--FEATURE LIST START-->
             <div class="generic_feature_list">
               <ul>
                 <li>Access to 30 courses</li>
@@ -383,47 +454,29 @@
                 <li>Private Sessions</li>
               </ul>
             </div>
-            <!--//FEATURE LIST END-->
-
-            <!--BUTTON START-->
             <div class="generic_price_btn clearfix">
               <a class="" href="">Subscribe Now</a>
             </div>
-            <!--//BUTTON END-->
           </div>
-          <!--//PRICE CONTENT END-->
         </div>
 
         <div class="col-md-4">
-          <!--PRICE CONTENT START-->
           <div class="generic_content active clearfix">
-            <!--HEAD PRICE DETAIL START-->
             <div class="generic_head_price clearfix">
-              <!--HEAD CONTENT START-->
               <div class="generic_head_content clearfix">
-                <!--HEAD START-->
                 <div class="head_bg"></div>
                 <div class="head">
                   <span>Silver</span>
                 </div>
-                <!--//HEAD END-->
               </div>
-              <!--//HEAD CONTENT END-->
-
-              <!--PRICE START-->
               <div class="generic_price_tag clearfix">
                 <span class="price">
                   <span class="sign">$</span>
                   <span class="currency">79</span>
-                  <!-- <span class="cent">.99</span> -->
                   <span class="month">/MON</span>
                 </span>
               </div>
-              <!--//PRICE END-->
             </div>
-            <!--//HEAD PRICE DETAIL END-->
-
-            <!--FEATURE LIST START-->
             <div class="generic_feature_list">
               <ul>
                 <li>Access to 50 courses</li>
@@ -433,46 +486,28 @@
                 <li>Private Sessions</li>
               </ul>
             </div>
-            <!--//FEATURE LIST END-->
-
-            <!--BUTTON START-->
             <div class="generic_price_btn clearfix">
               <a class="" href="">Subscribe Now</a>
             </div>
-            <!--//BUTTON END-->
           </div>
-          <!--//PRICE CONTENT END-->
         </div>
         <div class="col-md-4">
-          <!--PRICE CONTENT START-->
           <div class="generic_content clearfix">
-            <!--HEAD PRICE DETAIL START-->
             <div class="generic_head_price clearfix">
-              <!--HEAD CONTENT START-->
               <div class="generic_head_content clearfix">
-                <!--HEAD START-->
                 <div class="head_bg"></div>
                 <div class="head">
                   <span>Gold</span>
                 </div>
-                <!--//HEAD END-->
               </div>
-              <!--//HEAD CONTENT END-->
-
-              <!--PRICE START-->
               <div class="generic_price_tag clearfix">
                 <span class="price">
                   <span class="sign">$</span>
                   <span class="currency">99</span>
-                  <!-- <span class="cent">.99</span> -->
                   <span class="month">/MON</span>
                 </span>
               </div>
-              <!--//PRICE END-->
             </div>
-            <!--//HEAD PRICE DETAIL END-->
-
-            <!--FEATURE LIST START-->
             <div class="generic_feature_list">
               <ul>
                 <li>Access to all courses</li>
@@ -482,25 +517,21 @@
                 <li>Private Sessions</li>
               </ul>
             </div>
-            <!--//FEATURE LIST END-->
 
-            <!--BUTTON START-->
             <div class="generic_price_btn clearfix">
               <a class="" href="">Subscribe Now</a>
             </div>
-            <!--//BUTTON END-->
+  
           </div>
-          <!--//PRICE CONTENT END-->
         </div>
       </div>
-      <!--//BLOCK ROW END-->
     </div>
   </section>
-</div>
+</div> -->
 <!-- Price Section-->
 
 <!--TESTMONIAL AREA AREA-->
-<section class="testmonial-area bg-theme section-padding" id="testmonial">
+<!-- <section class="testmonial-area bg-theme section-padding" id="testmonial">
   <div class="container">
     <div class="row">
       <div class="col-md-8 col-lg-12 col-md-offset-2 col-lg-offset-2 col-sm-12 col-xs-12">
@@ -533,11 +564,11 @@
       </div>
     </div>
   </div>
-</section>
+</section> -->
 <!--TESTMONIAL AREA AREA END-->
 
 <!--BLOG AREA-->
-<section class="blog-feed-area padding-top" id="blog">
+<section class="blog-feed-area padding-top bg-theme" id="blog">
   <div class="container">
     <div class="row">
       <div class="col-md-8 col-lg-12 col-md-offset-2 col-lg-offset-2 col-sm-12 col-xs-12">
@@ -554,6 +585,7 @@
         </div>
         <div class="blog-details p-3">
           <h6 class="blog-title">
+            <!-- <h3 class="font18">JavaScript Fundamentals: A Course for Absolute Beginners</h3> -->
             <a [href]="item.externalLink" target="_blank">{{ item.description }}</a>
           </h6>
           <p class="blog-meta font14 mt-1">

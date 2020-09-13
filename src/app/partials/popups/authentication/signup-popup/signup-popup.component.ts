@@ -19,7 +19,7 @@ export class SignupPopupComponent implements OnInit {
     { value: 1, viewValue: 'Mentor' },
     { value: 2, viewValue: 'Recruiter' },
   ];
-  userType = { value: 0, viewValue: 'Mentee' };
+  userType = { value: 0, viewValue: 'Student/Professional' };
   isUsernameAvailable = true;
   isEmailAvailable = true;
   unamePattern = '^[a-zA-Z0-9_.-]*$';
@@ -115,7 +115,6 @@ export class SignupPopupComponent implements OnInit {
         $t.sharedService.uiService.showApiSuccessPopMsg('Please check inbox for successful verification...!');
       },
       (error: any) => {
-        console.log(error);
         $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
       }
     );

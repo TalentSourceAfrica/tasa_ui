@@ -47,10 +47,9 @@
               "src/assets/js/owl.carousel.min.js",
               "src/assets/js/stellar.js",
               "src/assets/js/stellarnav.min.js",
-              "src/assets/js/waypoints.min.js",
-              "src/assets/js/jquery.counterup.min.js",
-              "src/assets/js/wow.min.js",
-              "src/assets/js/placeholdem.min.js"
+              "src/assets/js/vendor/dom-factory.js",
+              "src/assets/js/vendor/material-design-kit.js",
+              "src/assets/js/app.js"
             ]
           },
           "configurations": {

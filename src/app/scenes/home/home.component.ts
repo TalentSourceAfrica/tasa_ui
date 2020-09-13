@@ -5,7 +5,8 @@ import { OwlDOMData } from 'ngx-owl-carousel-o/lib/models/owlDOM-data.model';
 
 // services
 import { SharedService } from '@app/services/shared.service';
-import { AuthenticationService } from '@app/auth';
+import { AuthenticationService, CredentialsService } from '@app/auth';
+import { Router } from '@angular/router';
 
 declare var $: any;
 
@@ -21,71 +22,13 @@ export class HomeComponent implements OnInit {
   activeSlide: number = 0;
   news: Array<object> = [];
   posts: Array<object> = [];
-  customOptions: OwlOptions = {
-    loop: true,
-    animateOut: 'fadeOut',
-    autoplay: true,
-    autoplaySpeed: 5000,
-    autoplayHoverPause: true,
-    autoplayTimeout: 5000,
-    center: true,
-    dots: false,
-    autoHeight: true,
-    autoWidth: true,
-    responsive: {
-      0: {
-        items: 1,
-      },
-      600: {
-        items: 1,
-      },
-      1000: {
-        items: 1,
-      },
-    },
-  };
-
-  customOptionsCourses: OwlOptions = {
-    nav: true,
-    loop: true,
-    navText: ['<i class="fa fa-chevron-left"></i>', '<i class="fa fa-chevron-right"></i>'],
-    dots: false,
-    autoplay: true,
-    autoplaySpeed: 5000,
-    autoplayHoverPause: true,
-    autoplayTimeout: 5000,
-    responsive: {
-      0: {
-        items: 1,
-      },
-      400: {
-        items: 2,
-      },
-      740: {
-        items: 3,
-      },
-    },
-  };
-
-  customOption2: OwlOptions = {
-    animateOut: true,
-    animateIn: true,
-    nav: true,
-    loop: true,
-    navText: ['<i class="fa fa-chevron-left"></i>', '<i class="fa fa-chevron-right"></i>'],
-    dots: false,
-    autoplay: true,
-    autoplaySpeed: 3000,
-    responsive: {
-      0: {
-        items: 1,
-      },
-      750: {
-        items: 2,
-      },
-    },
-  };
-  constructor(private sharedService: SharedService, private authenticationService: AuthenticationService) {}
+  menuHidden = true;
+  constructor(
+    private router: Router,
+    private sharedService: SharedService,
+    private authenticationService: AuthenticationService,
+    private credentialsService: CredentialsService
+  ) {}
 
   signup() {
     this.authenticationService.openSignupPopup();
@@ -175,6 +118,10 @@ export class HomeComponent implements OnInit {
           }
         });
 
+        $('#mainmenu-area').sticky({
+          topSpacing: 0,
+        });
+
         /*--------------------------
          PARALLAX BACKGROUND
       ----------------------------*/
@@ -224,18 +171,6 @@ export class HomeComponent implements OnInit {
         $videoModal.modalVideo({
           channel: 'youtube',
         });
-
-        /*---------------------------
-          MICHIMP INTEGRATION
-      -----------------------------*/
-        // $('#mc-form').ajaxChimp({
-        //   url: 'http://intimissibd.us14.list-manage.com/subscribe/post?u=a77a312486b6e42518623c58a&amp;id=4af1f9af4c', //Set Your Mailchamp URL
-        //   callback: function (resp: any) {
-        //     if (resp.result === 'success') {
-        //       $('.subscriber-form input, .subscriber-form button').hide();
-        //     }
-        //   },
-        // });
 
         /*---------------------------
           COURSE SLIDER
@@ -308,10 +243,10 @@ export class HomeComponent implements OnInit {
         /*--------------------------
           FACT COUNTERING
       ---------------------------*/
-        $('.counter').counterUp({
-          delay: 10,
-          time: 1000,
-        });
+        // $('.counter').counterUp({
+        //   delay: 10,
+        //   time: 1000,
+        // });
 
         /*--------------------------
           ACTIVE WOW JS
@@ -332,6 +267,32 @@ export class HomeComponent implements OnInit {
       ----------------------------*/
       $('.preeloader').fadeOut(1000);
     });
+  }
+
+  toggleMenu() {
+    this.menuHidden = !this.menuHidden;
+  }
+
+  logout() {
+    this.sharedService.uiService.showApiSuccessPopMsg('Logout Successfully...!');
+    this.authenticationService.logout().subscribe(() => this.router.navigate(['/home'], { replaceUrl: true }));
+  }
+
+  login() {
+    this.authenticationService.openLoginPopup();
+  }
+
+  userDetails() {
+    this.authenticationService.openUserDetailsPopup();
+  }
+
+  scrollToFaq(_id: string) {
+    this.sharedService.utilityService.scrollToElement(_id);
+  }
+
+  get user(): any | null {
+    const credentials = this.credentialsService.credentials;
+    return credentials ? credentials : null;
   }
 
   newsSlider() {

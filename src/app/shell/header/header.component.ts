@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { AuthenticationService, CredentialsService } from '@app/auth';
 import { SharedService } from '@app/services/shared.service';
 
-declare var jQuery: any;
+declare var $: any;
 
 @Component({
   selector: 'app-header',
@@ -13,8 +13,6 @@ declare var jQuery: any;
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-  menuHidden = true;
-
   constructor(
     private router: Router,
     private authenticationService: AuthenticationService,
@@ -22,31 +20,39 @@ export class HeaderComponent implements OnInit {
     private sharedService: SharedService
   ) {}
 
-  ngOnInit() {
-    console.log(this.user);
-  }
+  ngOnInit() {}
 
   ngAfterViewInit(): void {
-    jQuery('#mainmenu-area').sticky({
-      topSpacing: 0,
+    $('.sidebar-dropdown > a').click(function () {
+      $('.sidebar-submenu').slideUp(200);
+      if ($(this).parent().hasClass('active')) {
+        $('.sidebar-dropdown').removeClass('active');
+        $(this).parent().removeClass('active');
+      } else {
+        $('.sidebar-dropdown').removeClass('active');
+        $(this).next('.sidebar-submenu').slideDown(200);
+        $(this).parent().addClass('active');
+      }
     });
-  }
 
-  toggleMenu() {
-    this.menuHidden = !this.menuHidden;
+    $('#close-sidebar').click(function () {
+      $('.page-wrapper').removeClass('toggled');
+    });
+    $('#show-sidebar').click(function () {
+      $('.page-wrapper').addClass('toggled');
+    });
   }
 
   logout() {
     this.sharedService.uiService.showApiSuccessPopMsg('Logout Successfully...!');
-    this.authenticationService.logout().subscribe(() => this.router.navigate(['/home'], { replaceUrl: true }));
+    setTimeout(() => {
+      this.sharedService.uiService.closePopMsg();
+      this.authenticationService.logout().subscribe(() => this.router.navigate(['/home'], { replaceUrl: true }));
+    }, 1500);
   }
 
   login() {
     this.authenticationService.openLoginPopup();
-  }
-
-  signup() {
-    this.authenticationService.openSignupPopup();
   }
 
   userDetails() {
