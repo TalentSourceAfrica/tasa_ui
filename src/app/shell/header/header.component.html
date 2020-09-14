@@ -1,4 +1,4 @@
-<div class="page-wrapper chiller-theme position-absolute">
+<div class="page-wrapper chiller-theme position-absolute toggled">
   <a id="show-sidebar" class="btn btn-sm btn-dark">
     <i class="fas fa-bars"></i>
   </a>
@@ -20,9 +20,9 @@
         <div class="user-info">
           <span class="user-name"
             >{{ user.firstName }}
-            <strong>{{ user.LastName }}</strong>
+            <strong>{{ user.lastName }}</strong>
           </span>
-          <span class="user-role">Administrator</span>
+          <span class="user-role">{{ user.type }}</span>
           <span class="user-status">
             <i class="fa fa-circle"></i>
             <span>Online</span>
@@ -46,9 +46,32 @@
       <div class="sidebar-menu">
         <ul>
           <li class="header-menu">
-            <span>General</span>
+            <span>Account</span>
           </li>
           <li class="sidebar-dropdown">
+            <a>
+              <i class="fas fa-unlock-alt"></i>
+              <span>My Account</span>
+            </a>
+            <div class="sidebar-submenu">
+              <ul>
+                <li>
+                  <a>Update Password</a>
+                </li>
+                <li>
+                  <a>Subscription</a>
+                </li>
+                <li>
+                  <a>Edit Account</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+
+          <!-- <li class="header-menu">
+            <span>General</span>
+          </li> -->
+          <!-- <li class="sidebar-dropdown">
             <a href="#">
               <i class="fa fa-tachometer-alt"></i>
               <span>Dashboard</span>
@@ -153,28 +176,65 @@
                 </li>
               </ul>
             </div>
-          </li>
+          </li> -->
           <li class="header-menu">
-            <span>Extra</span>
+            <span>My Profile</span>
           </li>
           <li>
-            <a href="#">
-              <i class="fa fa-book"></i>
-              <span>Documentation</span>
-              <span class="badge badge-pill badge-primary">Beta</span>
+            <a>
+              <i class="fas fa-graduation-cap"></i>
+              <span> My Courses</span>
+              <!-- <span class="badge badge-pill badge-primary">Beta</span> -->
+            </a>
+          </li>
+
+          <li>
+            <a>
+              <i class="fa fa-search"></i>
+              <span>Browse Course</span>
+              <!-- <span class="badge badge-pill badge-primary">Beta</span> -->
             </a>
           </li>
           <li>
-            <a href="#">
-              <i class="fa fa-calendar"></i>
-              <span>Calendar</span>
+            <a>
+              <i class="material-icons">class</i>
+              <span>Take Course</span>
             </a>
           </li>
           <li>
-            <a href="#">
-              <i class="fa fa-folder"></i>
-              <span>Examples</span>
+            <a>
+              <i class="material-icons">dvr</i>
+              <span>Take a Quiz</span>
             </a>
+          </li>
+          <li>
+            <a>
+              <i class="material-icons">poll</i>
+              <span> Quiz Results</span>
+            </a>
+          </li>
+          <li class="sidebar-dropdown">
+            <a>
+              <i class="far fa-comment-alt"></i>
+              <span>Community</span>
+              <span class="badge badge-pill badge-warning">New</span>
+            </a>
+            <div class="sidebar-submenu">
+              <ul>
+                <li>
+                  <a
+                    >Forum
+                    <!-- <span class="badge badge-pill badge-success">Pro</span> -->
+                  </a>
+                </li>
+                <li>
+                  <a>Discussion</a>
+                </li>
+                <li>
+                  <a>Ask Question</a>
+                </li>
+              </ul>
+            </div>
           </li>
         </ul>
       </div>
@@ -182,15 +242,15 @@
     </div>
     <!-- sidebar-content  -->
     <div class="sidebar-footer">
-      <a href="#">
+      <a>
         <i class="fa fa-bell"></i>
         <span class="badge badge-pill badge-warning notification">3</span>
       </a>
-      <a href="#">
+      <a>
         <i class="fa fa-envelope"></i>
         <span class="badge badge-pill badge-success notification">7</span>
       </a>
-      <a href="#">
+      <a>
         <i class="fa fa-cog"></i>
         <span class="badge-sonar"></span>
       </a>

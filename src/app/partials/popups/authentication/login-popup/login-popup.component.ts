@@ -52,7 +52,7 @@ export class LoginPopupComponent implements OnInit {
           this.popupData.authenticationService.login(response.user);
           this.sharedService.uiService.showApiSuccessPopMsg('Login in successfully...');
           this.dialogRef.close();
-          if (response.user.address1 != null) {
+          if (response.user.address1 == null) {
             this.popupData.authenticationService.openUserDetailsPopup();
           } else {
             this.router.navigate(['/dashboard'], { replaceUrl: true });

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { CredentialsService } from '@app/auth';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,11 +9,16 @@ import { Router } from '@angular/router';
 })
 export class DashboardComponent implements OnInit {
   showFiller = false;
-  constructor(private router: Router) {}
+  constructor(private router: Router, private credentialsService: CredentialsService) {}
 
   ngOnInit(): void {}
 
   goToHome() {
     this.router.navigate(['/home'], { replaceUrl: true });
+  }
+
+  get user(): any | null {
+    const credentials = this.credentialsService.credentials;
+    return credentials ? credentials : null;
   }
 }
