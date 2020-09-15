@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 // services
 import { AuthenticationService, CredentialsService } from '@app/auth';
 import { SharedService } from '@app/services/shared.service';
+import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs/operators';
 
 declare var $: any;
 
@@ -13,7 +15,9 @@ declare var $: any;
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
+  @ViewChild('file', { static: false }) public file: any;
   constructor(
+    private httpClient: HttpClient,
     private router: Router,
     private authenticationService: AuthenticationService,
     private credentialsService: CredentialsService,
@@ -61,6 +65,38 @@ export class HeaderComponent implements OnInit {
 
   scrollToFaq(_id: string) {
     this.sharedService.utilityService.scrollToElement(_id);
+  }
+
+  callUpload() {
+    this.file.nativeElement.click();
+  }
+
+  handleFileInput(event: any) {
+    let $t = this;
+    $t.sharedService.uiService.showApiStartPopMsg('Updating User Avatar...');
+    let files = event.target.files;
+    var form = new FormData();
+    form.append('file', files[0], files[0].name);
+
+    var settings = {
+      url: `http://35.247.161.145/tasaapi/v1/uploadImage/${$t.user.email}`,
+      method: 'POST',
+      timeout: 0,
+      processData: false,
+      mimeType: 'multipart/form-data',
+      contentType: false,
+      data: form,
+      error: function (xhr: any, ajaxOptions: any, thrownError: any) {
+        $t.sharedService.uiService.showApiErrorPopMsg('Please Try Again After Sometime...');
+      },
+    };
+
+    $.ajax(settings).done(function (response: any) {
+      console.log(response);
+      $t.sharedService.uiService.showApiSuccessPopMsg('User Avatar Updated...');
+      $t.user.image = JSON.parse(response).data;
+      $t.authenticationService.login($t.user);
+    });
   }
 
   get user(): any | null {

@@ -12,10 +12,20 @@
       <div class="sidebar-header">
         <div class="user-pic">
           <img
-            class="img-responsive img-rounded"
+            *ngIf="!user.image"
+            class="img-responsive img-rounded curPoint"
+            (click)="callUpload()"
             src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
             alt="User picture"
           />
+          <img
+            *ngIf="user.image"
+            class="img-responsive img-rounded curPoint"
+            (click)="callUpload()"
+            [src]="user.image"
+            alt="User picture"
+          />
+          <!-- <a class="text-white curPoint upload-text" (click)="callUpload()">&nbsp;Upload</a> -->
         </div>
         <div class="user-info">
           <span class="user-name"
@@ -261,4 +271,6 @@
   </nav>
   <!-- sidebar-wrapper  -->
 </div>
+
+<input type="file" #file class="d-none" id="imageUpload" (change)="handleFileInput($event)" />
 <!-- page-wrapper -->

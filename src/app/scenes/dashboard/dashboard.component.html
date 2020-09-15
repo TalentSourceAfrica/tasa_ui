@@ -1,4 +1,4 @@
-<div class="dashboard-wrapper mt-10">
+<div class="dashboard-wrapper">
   <div class="page__header">
     <div class="navbar bg-dark navbar-dark navbar-expand-sm d-none2 d-md-flex2">
       <div class="container-fluid">
@@ -7,8 +7,15 @@
             <li class="nav-item dropdown active">
               <div class="d-flex">
                 <img
+                  *ngIf="!user.image"
                   class="user-pic img-responsive img-circle"
                   src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
+                  alt="User picture"
+                />
+                <img
+                  *ngIf="user.image"
+                  class="user-pic img-responsive img-circle"
+                  [src]="user.image"
                   alt="User picture"
                 />
                 <span class="mt-2">{{ user.username }}</span>

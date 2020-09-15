@@ -66,6 +66,8 @@ ul#nav li a {
   text-transform: capitalize;
   -webkit-transition: all 0.3s ease 0s;
   transition: all 0.3s ease 0s;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
 /*---------------------------

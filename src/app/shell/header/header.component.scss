@@ -478,3 +478,10 @@ body {
 .chiller-theme .sidebar-footer > a:last-child {
   border-right: none;
 }
+
+.upload-text {
+  color: #b8bfce;
+  &:hover {
+    color: white;
+  }
+}

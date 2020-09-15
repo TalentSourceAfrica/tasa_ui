@@ -16,8 +16,7 @@ const routes: Routes = [
       },
       {
         path: 'dashboard',
-        loadChildren: () =>
-          import('@app/scenes/dashboard/dashboard-routing.module').then((m) => m.DashboardRoutingModule),
+        loadChildren: () => import('@app/scenes/dashboard/dashboard.module').then((m) => m.DashboardModule),
       },
       { path: '', redirectTo: '/home', pathMatch: 'full' },
     ],

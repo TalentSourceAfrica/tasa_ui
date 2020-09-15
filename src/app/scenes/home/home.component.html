@@ -37,7 +37,7 @@
             <div class="col-md-6 col-xs-6">
               <div id="main-nav" class="stellarnav">
                 <ul id="nav" class="nav navbar-nav pull-right float-right">
-                  <li><a class="curPoint" (click)="scrollToFaq('about')">About</a></li>
+                  <li><a class="curPoint welcome-text">Partner With us</a></li>
                   <li><a (click)="scrollToFaq('faqs')" class="curPoint">FAQ</a></li>
                   <!-- <li>
                     <a class="pt-0 curPoint">
@@ -51,7 +51,7 @@
                     <a [matMenuTriggerFor]="menu" class="curPoint"
                       >Menu<i class="fas fa-caret-down pl-1"></i>
                       <mat-menu #menu="matMenu">
-                        <button mat-menu-item [routerLink]="['/about-us']" class="h6">
+                        <button mat-menu-item (click)="scrollToFaq('about')" class="h6">
                           <i class="fas fa-address-card pr-3 text-primary"></i>About Us
                         </button>
                         <button mat-menu-item [routerLink]="['/contact-us']" class="h6">
