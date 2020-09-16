@@ -5,7 +5,7 @@
     <div class="mainmenu-area" id="mainmenu-area">
       <div class="mainmenu-area-bg"></div>
       <nav class="navbar">
-        <div class="container">
+        <div class="container-fluid">
           <div class="row w100">
             <div class="col-md-2 col-xs-6">
               <div class="navbar-header">
@@ -19,8 +19,8 @@
             </div>
             <div class="col-md-4">
               <div class="p-0 pt-3 d-flex align-items-center">
-                <button mat-flat-button color="default" class="rc-ExploreButton rounded-pill ml-2 bg-theme">
-                  <span class="pl-1"> Explore <i class="fa fa-chevron-down" aria-hidden="true"></i> </span>
+                <button mat-flat-button color="default" class="rc-ExploreButton rounded-pill ml-2 bg-theme m-auto pl-5">
+                  <span> Explore <i class="fa fa-chevron-down" aria-hidden="true"></i> </span>
                 </button>
                 <!-- <div class="d-flex">
                   <input type="search" name="search" id="search" placeholder="Search Courses" class="rounded-pill" />
@@ -37,7 +37,11 @@
             <div class="col-md-6 col-xs-6">
               <div id="main-nav" class="stellarnav">
                 <ul id="nav" class="nav navbar-nav pull-right float-right">
-                  <li><a class="curPoint welcome-text">Partner With us</a></li>
+                  <li>
+                    <a class="curPoint welcome-text border rounded-pill" [routerLink]="['/contact-us']"
+                      >Partner With us</a
+                    >
+                  </li>
                   <li><a (click)="scrollToFaq('faqs')" class="curPoint">FAQ</a></li>
                   <!-- <li>
                     <a class="pt-0 curPoint">
@@ -181,7 +185,7 @@
 <!--FEATURES TOP AREA-->
 <section class="features-top-area" id="features">
   <div class="container">
-    <div class="row promo-content">
+    <div class="row promo-content" data-aos="flip-up" data-aos-duration="2000">
       <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12">
         <div class="text-icon-box mb20 xs-mb0 wow fadeInUp p-2" data-wow-delay="0.1s">
           <div class="box-icon features-box-icon">
@@ -230,7 +234,7 @@
           <h2 class="xs-font20">Offerings for TaSA Students and Professionals.</h2>
           <section id="timeline">
             <div class="demo-card-wrapper">
-              <div class="demo-card demo-card--step1">
+              <div class="demo-card demo-card--step1" data-aos="fade-right">
                 <div class="head">
                   <div class="number-box">
                     <span>01</span>
@@ -247,7 +251,7 @@
                 </div>
               </div>
 
-              <div class="demo-card demo-card--step2">
+              <div class="demo-card demo-card--step2" data-aos="fade-left">
                 <div class="head">
                   <div class="number-box">
                     <span>02</span>
@@ -263,7 +267,7 @@
                 </div>
               </div>
 
-              <div class="demo-card demo-card--step3">
+              <div class="demo-card demo-card--step3" data-aos="fade-right">
                 <div class="head">
                   <div class="number-box">
                     <span>03</span>
@@ -325,7 +329,7 @@
 <section class="section-padding about-area bg-theme" id="about">
   <div class="container">
     <div class="row flex-v-center">
-      <div class="col-md-5 col-lg-5 col-sm-12 col-xs-12">
+      <div class="col-md-5 col-lg-5 col-sm-12 col-xs-12" data-aos="zoom-in-right">
         <div class="about-content xs-mb50 wow fadeIn">
           <h3 class="xs-font20 mb30">About Us.</h3>
           <p>
@@ -335,7 +339,7 @@
           </p>
         </div>
       </div>
-      <div class="col-md-6 col-lg-6 col-md-offset-1 col-lg-offset-1 col-sm-12 col-xs-12">
+      <div class="col-md-6 col-lg-6 col-md-offset-1 col-lg-offset-1 col-sm-12 col-xs-12" data-aos="zoom-in-left">
         <div class="video-promo-details wow fadeIn">
           <div class="video-promo-content">
             <span data-video-id="j1S66liv1t8" class="video-area-popup mb30"><i class="fa fa-play"></i></span>
@@ -360,7 +364,7 @@
     </div>
     <div class="row course-list">
       <div class="">
-        <div class="single-course mb20 w80">
+        <div class="single-course mb20 w80 curPoint" [routerLink]="['/course/1']">
           <img src="../../../assets/images/course/blog-1.jpg" alt="" />
           <div class="course-details p-3">
             <h3 class="font18">JavaScript Fundamentals: A Course for Absolute Beginners</h3>
@@ -372,7 +376,7 @@
         </div>
       </div>
       <div class="">
-        <div class="single-course mb20 w80">
+        <div class="single-course mb20 w80 curPoint" [routerLink]="['/course/1']">
           <img src="../../../assets/images/course/blog-2.jpg" alt="" />
           <div class="course-details p-3">
             <h3 class="font18">Node.js, Express, MongoDB and More: The Complete Bootcamp</h3>
@@ -384,7 +388,7 @@
         </div>
       </div>
       <div class="">
-        <div class="single-course mb20 w80">
+        <div class="single-course mb20 w80 curPoint" [routerLink]="['/course/1']">
           <img src="../../../assets/images/course/blog-3.jpg" alt="" />
           <div class="course-details p-3">
             <h3 class="font18">Redux with React JS: Learn Redux with Modern React JS</h3>
@@ -397,7 +401,7 @@
         </div>
       </div>
       <div class="">
-        <div class="single-course mb20 w80">
+        <div class="single-course mb20 w80 curPoint" [routerLink]="['/course/1']">
           <img src="../../../assets/images/course/blog-4.jpg" alt="" />
           <div class="course-details p-3">
             <h3 class="font18">Oracle SQL Developer: Mastering its features + tips and tricks</h3>

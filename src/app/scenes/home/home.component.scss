@@ -33,46 +33,6 @@ $orange: #ec992c;
   background: rgba(0, 0, 0, 0) url("../../../assets/images/slider/slide_4.jpg") no-repeat scroll center center / cover;
 }
 
-.welcome-slider-area .owl-controls {
-  margin-top: -80px;
-  position: absolute;
-  right: 7%;
-  top: 50%;
-  opacity: 0;
-  -webkit-transition: 0.3s;
-  transition: 0.3s;
-}
-
-.welcome-slider-area:hover .owl-controls {
-  right: 10%;
-  opacity: 1;
-}
-
-.navbar-nav {
-  flex-direction: inherit !important;
-}
-
-.welcome-slider-area .owl-nav > div {
-  background: #d3ffea none repeat scroll 0 0 !important;
-  border-radius: 50% !important;
-  bottom: 0 !important;
-  color: $blue !important;
-  font-size: 40px !important;
-  height: 50px !important;
-  margin: 10px 0 !important;
-  padding-top: 5px !important;
-  right: 0 !important;
-  text-align: center;
-  -webkit-transition: all 0.3s ease 0s;
-  transition: all 0.3s ease 0s;
-  width: 50px;
-}
-
-.welcome-slider-area .owl-nav > div:hover {
-  background: $blue none repeat scroll 0 0 !important;
-  color: #ffffff !important;
-}
-
 /*--------------------------------
     2. FEATURES AREA
 ---------------------------------*/
@@ -121,6 +81,10 @@ $orange: #ec992c;
   box-shadow: 0 7px 7px #c7c7c7;
   overflow: hidden;
   min-height: 450px;
+}
+
+.single-course:hover {
+  box-shadow: 0 19px 38px $blue, 0 15px 12px $light-blue;
 }
 
 a.enroll-button {
@@ -1218,7 +1182,6 @@ label.mt10.valid {
 
 .rc-ExploreButton {
   margin-left: 40%;
-  margin-top: 5%;
   background: none;
   border: none;
   height: 34px;
@@ -1234,6 +1197,12 @@ label.mt10.valid {
   cursor: default;
   padding: 0;
   position: relative;
+}
+
+.rc-ExploreButton {
+  .mat-button-wrapper {
+    margin: auto !important;
+  }
 }
 
 .rc-ExploreButton span {

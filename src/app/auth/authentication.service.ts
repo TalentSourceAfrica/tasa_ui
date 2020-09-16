@@ -78,7 +78,7 @@ export class AuthenticationService {
   openUserDetailsPopup() {
     this.sharedService.dialogService.open(UserDetailsPopupComponent, {
       width: '900px',
-      data: { authenticationService: this },
+      data: { authenticationService: this, credentialsService: this.credentialsService },
       disableClose: true,
     });
   }

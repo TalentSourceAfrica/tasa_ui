@@ -4,7 +4,6 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 //service
 import { SharedService } from '@app/services/shared.service';
-import { CredentialsService } from '@app/auth';
 import { Router } from '@angular/router';
 
 @Component({
@@ -21,7 +20,6 @@ export class UserDetailsPopupComponent implements OnInit {
     private formBuilder: FormBuilder,
     private dialogRef: MatDialogRef<UserDetailsPopupComponent>,
     private sharedService: SharedService,
-    private credentialsService: CredentialsService,
     private router: Router
   ) {
     this.popupData = data;
@@ -101,7 +99,6 @@ export class UserDetailsPopupComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.userDetailsForm.value);
     let $t = this;
     $t.sharedService.uiService.showApiStartPopMsg('Adding Details...');
     let apiUrl = $t.sharedService.urlService.simpleApiCall('getUsers');
@@ -155,7 +152,7 @@ export class UserDetailsPopupComponent implements OnInit {
   }
 
   get user(): any | null {
-    const credentials = this.credentialsService.credentials;
+    const credentials = this.popupData.credentialsService.credentials;
     return credentials ? credentials : null;
   }
 

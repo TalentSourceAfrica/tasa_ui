@@ -1,0 +1,127 @@
+<div class="contact-us-wrapper container w65">
+  <ol class="breadcrumb mt-3">
+    <li class="breadcrumb-item curPoint pr-2"><a [routerLink]="['/home']">Home</a></li>
+    <li class="breadcrumb-item active">Contact Us</li>
+  </ol>
+  <section class="contact-page-section">
+    <div>
+      <div class="sec-title">
+        <div class="title">Contact Us</div>
+        <h2>Let's Get in Touch.</h2>
+      </div>
+      <div class="inner-container" data-aos="flip-left" data-aos-duration="1500">
+        <div class="row no-gutters clearfix">
+          <!--Form Column-->
+          <div class="form-column col-md-8 col-sm-12 col-xs-12">
+            <div class="inner-column">
+              <!--Contact Form-->
+              <div class="contact-form">
+                <form (ngSubmit)="submit()" [formGroup]="contactUsForm" id="contact-form" novalidate>
+                  <div class="row clearfix">
+                    <div class="form-group col-md-6 col-sm-6 co-xs-12">
+                      <input type="text" name="name" formControlName="firstName" placeholder="First Name" required />
+                      <small
+                        [hidden]="contactUsForm.controls.firstName.valid || contactUsForm.controls.firstName.untouched"
+                        class="text-danger"
+                        translate
+                      >
+                        First Name is required
+                      </small>
+                    </div>
+                    <div class="form-group col-md-6 col-sm-6 co-xs-12">
+                      <input type="text" name="name" formControlName="lastName" placeholder="Last Name" required />
+                      <small
+                        [hidden]="contactUsForm.controls.lastName.valid || contactUsForm.controls.lastName.untouched"
+                        class="text-danger"
+                        translate
+                      >
+                        Last Name is required
+                      </small>
+                    </div>
+                    <div class="form-group col-md-6 col-sm-6 co-xs-12">
+                      <input type="email" name="email" value="" formControlName="email" placeholder="Email" required />
+                      <small
+                        [hidden]="contactUsForm.controls.email.valid || contactUsForm.controls.email.untouched"
+                        class="text-danger"
+                        translate
+                      >
+                        Email is required
+                      </small>
+                    </div>
+                    <div class="form-group col-md-6 col-sm-6 co-xs-12">
+                      <input type="text" name="phone" formControlName="contactNumber" placeholder="Phone" required />
+                      <small
+                        [hidden]="
+                          contactUsForm.controls.contactNumber.valid || contactUsForm.controls.contactNumber.untouched
+                        "
+                        class="text-danger"
+                        translate
+                      >
+                        Contact Number is required
+                      </small>
+                    </div>
+                    <div class="form-group col-md-12 col-sm-12 co-xs-12">
+                      <textarea name="message" formControlName="message" placeholder="Message"></textarea>
+                      <small
+                        [hidden]="contactUsForm.controls.message.valid || contactUsForm.controls.message.untouched"
+                        class="text-danger"
+                        translate
+                      >
+                        Message is required
+                      </small>
+                    </div>
+                    <div class="form-group col-md-12 col-sm-12 co-xs-12">
+                      <button
+                        mat-flat-button
+                        color="primary"
+                        [disabled]="contactUsForm.invalid"
+                        type="submit"
+                        class="rounded-pill ml-2"
+                      >
+                        Send Now
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <!--End Contact Form-->
+            </div>
+          </div>
+
+          <!--Info Column-->
+          <div class="info-column col-md-4 col-sm-12 col-xs-12">
+            <div class="inner-column">
+              <h2>Contact Info</h2>
+              <ul class="list-info">
+                <li><i class="fas fa-globe"></i>TaSA.in. 15000 Potomac Town Place Suite 100554 Woodbridge, VA 22191</li>
+                <li><i class="far fa-envelope"></i>info@talentsourceafrica.com</li>
+                <li>
+                  <i class="fas fa-phone"></i>1-234-567-890 <br />
+                  1-234-567-890
+                </li>
+              </ul>
+              <ul class="social-icon-four">
+                <li class="follow">Follow on:</li>
+                <li>
+                  <a><i class="fab fa-facebook-f"></i></a>
+                </li>
+                <li>
+                  <a><i class="fab fa-twitter"></i></a>
+                </li>
+                <li>
+                  <a><i class="fab fa-google-plus-g"></i></a>
+                </li>
+                <li>
+                  <a><i class="fab fa-dribbble"></i></a>
+                </li>
+                <li>
+                  <a><i class="fab fa-pinterest-p"></i></a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

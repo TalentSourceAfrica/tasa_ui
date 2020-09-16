@@ -18,6 +18,14 @@ const routes: Routes = [
         path: 'dashboard',
         loadChildren: () => import('@app/scenes/dashboard/dashboard.module').then((m) => m.DashboardModule),
       },
+      {
+        path: 'contact-us',
+        loadChildren: () => import('@app/scenes/contact-us/contact-us.module').then((m) => m.ContactUsModule),
+      },
+      {
+        path: 'course/:id',
+        loadChildren: () => import('@app/scenes/course/course.module').then((m) => m.CourseModule),
+      },
       { path: '', redirectTo: '/home', pathMatch: 'full' },
     ],
     data: { reuse: true },

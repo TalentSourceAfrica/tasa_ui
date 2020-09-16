@@ -73,30 +73,34 @@ export class HeaderComponent implements OnInit {
 
   handleFileInput(event: any) {
     let $t = this;
-    $t.sharedService.uiService.showApiStartPopMsg('Updating User Avatar...');
+
     let files = event.target.files;
     var form = new FormData();
     form.append('file', files[0], files[0].name);
+    if ($t.sharedService.utilityService.ValidateImageUpload(files[0].name)) {
+      $t.sharedService.uiService.showApiStartPopMsg('Updating User Avatar...');
+      var settings = {
+        url: `http://35.247.161.145/tasaapi/v1/uploadImage/${$t.user.email}`,
+        method: 'POST',
+        timeout: 0,
+        processData: false,
+        mimeType: 'multipart/form-data',
+        contentType: false,
+        data: form,
+        error: function (xhr: any, ajaxOptions: any, thrownError: any) {
+          $t.sharedService.uiService.showApiErrorPopMsg('Please Try Again After Sometime...');
+        },
+      };
 
-    var settings = {
-      url: `http://35.247.161.145/tasaapi/v1/uploadImage/${$t.user.email}`,
-      method: 'POST',
-      timeout: 0,
-      processData: false,
-      mimeType: 'multipart/form-data',
-      contentType: false,
-      data: form,
-      error: function (xhr: any, ajaxOptions: any, thrownError: any) {
-        $t.sharedService.uiService.showApiErrorPopMsg('Please Try Again After Sometime...');
-      },
-    };
-
-    $.ajax(settings).done(function (response: any) {
-      console.log(response);
-      $t.sharedService.uiService.showApiSuccessPopMsg('User Avatar Updated...');
-      $t.user.image = JSON.parse(response).data;
-      $t.authenticationService.login($t.user);
-    });
+      $.ajax(settings).done(function (response: any) {
+        console.log(response);
+        $t.sharedService.uiService.showApiSuccessPopMsg('User Avatar Updated...');
+        $t.user.image = JSON.parse(response).data;
+        $t.authenticationService.login($t.user);
+      });
+    } else {
+      $t.sharedService.uiService.showMessage('Please Select An Image');
+    }
   }
 
   get user(): any | null {

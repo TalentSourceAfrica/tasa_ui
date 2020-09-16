@@ -1,5 +1,8 @@
 /*! Basscss | http://basscss.com | MIT License */
 
+$blue: #523f6d;
+$light-blue: #523f6d80;
+
 body {
   font-family: "Poppins", sans-serif !important;
   font-size: 14px !important;
@@ -755,6 +758,10 @@ a {
   color: #523f6d !important;
 }
 
+.badge-primary {
+  background-color: #523f6d;
+}
+
 .theme-color {
   color: #523f6d;
 }
@@ -901,6 +908,21 @@ button:hover,
   }
 }
 
+.breadcrumb {
+  background-color: #a39ab238 !important;
+}
+
+.breadcrumb-item.active {
+  color: #523f6d !important;
+}
+
+.list-group-item.active {
+  z-index: 2;
+  color: #fff;
+  background-color: #523f6d !important;
+  border-color: #523f6d !important;
+}
+
 // ---- home testimonial css ------- //
 .testimonial-section {
   @keyframes anim {
@@ -1036,3 +1058,47 @@ button:hover,
   }
 }
 // ---- home testimonial css ------- //
+
+// --- home top css ------------- //
+
+.welcome-slider-area .owl-controls {
+  margin-top: -80px;
+  position: absolute;
+  right: 7%;
+  top: 50%;
+  opacity: 0;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+.welcome-slider-area:hover .owl-controls {
+  right: 10%;
+  opacity: 1;
+}
+
+.navbar-nav {
+  flex-direction: inherit !important;
+}
+
+.welcome-slider-area .owl-nav > div {
+  background: #d3ffea none repeat scroll 0 0 !important;
+  border-radius: 50% !important;
+  bottom: 0 !important;
+  color: $blue !important;
+  font-size: 40px !important;
+  height: 50px !important;
+  margin: 10px 0 !important;
+  padding-top: 5px !important;
+  right: 0 !important;
+  text-align: center;
+  -webkit-transition: all 0.3s ease 0s;
+  transition: all 0.3s ease 0s;
+  width: 50px;
+}
+
+.welcome-slider-area .owl-nav > div:hover {
+  background: $blue none repeat scroll 0 0 !important;
+  color: #ffffff !important;
+}
+
+// --- home top css ------------- //

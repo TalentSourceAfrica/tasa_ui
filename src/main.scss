@@ -4,6 +4,7 @@
  */
 
 // Theme variables, must be included before the libraries to allow overriding defaults
+
 @import "theme/theme-variables";
 
 // 3rd party libraries
@@ -37,7 +38,7 @@
 // style common for application
 
 .ng-invalid.ng-touched:not(form) {
-  border-left: 4px solid theme-color("danger");
+  border-left: 4px solid theme-color("danger") !important;
 }
 
 .mat-form-field-appearance-fill .mat-form-field-flex {

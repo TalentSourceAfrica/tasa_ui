@@ -105,6 +105,17 @@ export class UtilityService {
     objDiv.scrollTop = objDiv.scrollHeight;
   }
 
+  ValidateImageUpload(FileUploadPath: any) {
+    //To check if user upload any file
+    var Extension = FileUploadPath.substring(FileUploadPath.lastIndexOf('.') + 1).toLowerCase();
+    //The file uploaded is an image
+    if (Extension == 'gif' || Extension == 'png' || Extension == 'bmp' || Extension == 'jpeg' || Extension == 'jpg') {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   isValidIframeUrl(_urlString: string) {
     var regexQuery = this.CustomValidators.iframeUrl;
     var url = new RegExp(regexQuery, 'i');

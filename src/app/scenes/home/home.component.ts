@@ -8,13 +8,14 @@ import { SharedService } from '@app/services/shared.service';
 import { AuthenticationService, CredentialsService } from '@app/auth';
 import { Router } from '@angular/router';
 
+// extra
 declare var $: any;
+import * as AOS from 'aos';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
-  encapsulation: ViewEncapsulation.None,
 })
 export class HomeComponent implements OnInit {
   quote: string | undefined;
@@ -267,6 +268,8 @@ export class HomeComponent implements OnInit {
       ----------------------------*/
       $('.preeloader').fadeOut(1000);
     });
+
+    AOS.init();
   }
 
   toggleMenu() {

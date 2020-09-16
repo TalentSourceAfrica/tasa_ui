@@ -18,4 +18,7 @@ export const urls: any = {
   checkUsername: '/v1/checkUserName/{userName}', // PO
   checkEmail: '/v1/checkEmail/{email}', // PO
   uploadUserImage: '​/v1​/uploadImage​/{email}', // PO
+
+  // Contact us
+  contactUs: '/v1/contact-us', //Po
 };
