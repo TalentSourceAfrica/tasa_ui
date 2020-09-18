@@ -11,8 +11,6 @@ export class DashboardComponent implements OnInit {
   showFiller = false;
   constructor(private router: Router, private credentialsService: CredentialsService) {}
 
-  ngOnInit(): void {}
-
   goToHome() {
     this.router.navigate(['/home'], { replaceUrl: true });
   }
@@ -20,5 +18,9 @@ export class DashboardComponent implements OnInit {
   get user(): any | null {
     const credentials = this.credentialsService.credentials;
     return credentials ? credentials : null;
+  }
+
+  ngOnInit(): void {
+    window.scrollTo(0, 0);
   }
 }

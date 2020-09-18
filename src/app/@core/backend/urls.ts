@@ -17,7 +17,8 @@ export const urls: any = {
   signup: '/v1/signup', // PO
   checkUsername: '/v1/checkUserName/{userName}', // PO
   checkEmail: '/v1/checkEmail/{email}', // PO
-  uploadUserImage: '​/v1​/uploadImage​/{email}', // PO
+  uploadUserImage: '/v1/uploadImage/{email}', // PO
+  forgotPassword: '/v1/auth/forgot-password/{email}', //PO
 
   // Contact us
   contactUs: '/v1/contact-us', //Po

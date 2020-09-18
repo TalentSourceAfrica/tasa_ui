@@ -13,6 +13,8 @@
         <div class="user-pic">
           <img
             *ngIf="!user.image"
+            matTooltipPosition="below"
+            matTooltip="Upload Avatar"
             class="img-responsive img-rounded curPoint"
             (click)="callUpload()"
             src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
@@ -20,6 +22,8 @@
           />
           <img
             *ngIf="user.image"
+            matTooltipPosition="below"
+            matTooltip="Upload Avatar"
             class="img-responsive img-rounded curPoint"
             (click)="callUpload()"
             [src]="user.image"
@@ -28,7 +32,7 @@
           <!-- <a class="text-white curPoint upload-text" (click)="callUpload()">&nbsp;Upload</a> -->
         </div>
         <div class="user-info">
-          <span class="user-name"
+          <span class="user-name text-white"
             >{{ user.firstName }}
             <strong>{{ user.lastName }}</strong>
           </span>
@@ -42,8 +46,8 @@
       <!-- sidebar-header  -->
       <div class="sidebar-search">
         <div>
-          <div class="input-group">
-            <input type="text" class="form-control search-menu" placeholder="Search..." />
+          <div class="input-group bg-white">
+            <input type="text" class="form-control search-menu" placeholder="Search Course..." />
             <div class="input-group-append">
               <span class="input-group-text">
                 <i class="fa fa-search" aria-hidden="true"></i>
@@ -59,14 +63,14 @@
             <span>Account</span>
           </li>
           <li class="sidebar-dropdown">
-            <a>
+            <a class="curPoint">
               <i class="fas fa-unlock-alt"></i>
               <span>My Account</span>
             </a>
             <div class="sidebar-submenu">
               <ul>
                 <li>
-                  <a>Update Password</a>
+                  <a [routerLink]="['/reset-password']">Update Password</a>
                 </li>
                 <li>
                   <a>Subscription</a>
@@ -191,7 +195,7 @@
             <span>My Profile</span>
           </li>
           <li>
-            <a>
+            <a class="curPoint">
               <i class="fas fa-graduation-cap"></i>
               <span> My Courses</span>
               <!-- <span class="badge badge-pill badge-primary">Beta</span> -->
@@ -199,32 +203,32 @@
           </li>
 
           <li>
-            <a>
+            <a class="curPoint">
               <i class="fa fa-search"></i>
               <span>Browse Course</span>
               <!-- <span class="badge badge-pill badge-primary">Beta</span> -->
             </a>
           </li>
           <li>
-            <a>
+            <a class="curPoint">
               <i class="material-icons">class</i>
               <span>Take Course</span>
             </a>
           </li>
           <li>
-            <a>
+            <a class="curPoint">
               <i class="material-icons">dvr</i>
               <span>Take a Quiz</span>
             </a>
           </li>
           <li>
-            <a>
+            <a class="curPoint">
               <i class="material-icons">poll</i>
               <span> Quiz Results</span>
             </a>
           </li>
           <li class="sidebar-dropdown">
-            <a>
+            <a class="curPoint">
               <i class="far fa-comment-alt"></i>
               <span>Community</span>
               <span class="badge badge-pill badge-warning">New</span>
@@ -232,16 +236,16 @@
             <div class="sidebar-submenu">
               <ul>
                 <li>
-                  <a
+                  <a class="curPoint"
                     >Forum
                     <!-- <span class="badge badge-pill badge-success">Pro</span> -->
                   </a>
                 </li>
                 <li>
-                  <a>Discussion</a>
+                  <a class="curPoint">Discussion</a>
                 </li>
                 <li>
-                  <a>Ask Question</a>
+                  <a class="curPoint">Ask Question</a>
                 </li>
               </ul>
             </div>
@@ -251,26 +255,74 @@
       <!-- sidebar-menu  -->
     </div>
     <!-- sidebar-content  -->
-    <div class="sidebar-footer">
-      <a>
-        <i class="fa fa-bell"></i>
-        <span class="badge badge-pill badge-warning notification">3</span>
-      </a>
-      <a>
-        <i class="fa fa-envelope"></i>
-        <span class="badge badge-pill badge-success notification">7</span>
-      </a>
-      <a>
-        <i class="fa fa-cog"></i>
-        <span class="badge-sonar"></span>
-      </a>
-      <a (click)="logout()">
-        <i class="fa fa-power-off"></i>
-      </a>
-    </div>
   </nav>
   <!-- sidebar-wrapper  -->
 </div>
+<div class="page__header">
+  <div class="navbar bg-dark navbar-dark navbar-expand-sm d-none2 d-md-flex2">
+    <div class="container-fluid">
+      <div class="navbar-collapse collapse justify-content-end" id="navbarsExample03">
+        <div class="sidebar-footer mr-2">
+          <a matTooltipPosition="below" matTooltip="Notification">
+            <i class="fa fa-bell"></i>
+            <span class="badge badge-pill badge-warning notification">3</span>
+          </a>
+          <a matTooltipPosition="below" matTooltip="Messages">
+            <i class="fa fa-envelope"></i>
+            <span class="badge badge-pill badge-success notification">7</span>
+          </a>
+          <a (click)="logout()" class="curPoint" matTooltipPosition="below" matTooltip="Logout">
+            <i class="fa fa-power-off text-white"></i>
+          </a>
+          <a matTooltipPosition="below" matTooltip="Menu" [matMenuTriggerFor]="menu" class="curPoint">
+            <i class="fas fa-ellipsis-v text-white"></i>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item class="h6"><i class="fas fa-address-card pr-3 text-primary"></i>About Us</button>
+              <button mat-menu-item [routerLink]="['/contact-us']" class="h6">
+                <i class="fas fa-address-book pr-3 text-primary"></i> Contact Us
+              </button>
+            </mat-menu>
+          </a>
+          <!--  -->
+        </div>
+        <ul class="nav navbar-nav">
+          <li class="nav-item">
+            <div class="d-flex">
+              <img
+                *ngIf="!user.image"
+                class="user-pic img-responsive img-circle"
+                src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
+                alt="User picture"
+              />
+              <img
+                *ngIf="user.image"
+                class="user-pic img-responsive img-circle"
+                [src]="user.image"
+                alt="User picture"
+              />
+              <span class="mt-2">{{ user.username }}</span>
+            </div>
+            <!-- <a class="nav-link dropdown-toggle" data-toggle="dropdown">Student</a>
+            <div class="dropdown-menu">
+              <a class="dropdown-item active" href="fixed-student-dashboard.html">Dashboard</a>
+              <a class="dropdown-item" href="fixed-student-browse-courses.html">Browse Courses</a>
+              <a class="dropdown-item" href="fixed-student-view-course.html">View Course</a>
+              <a class="dropdown-item" href="fixed-student-take-course.html">Take Course</a>
+              <a class="dropdown-item" href="fixed-student-take-quiz.html">Take a Quiz</a>
+              <a class="dropdown-item" href="fixed-student-quiz-results.html">Quiz Results</a>
+              <a class="dropdown-item" href="fixed-student-my-courses.html">My Courses</a>
+              <a class="dropdown-item" href="fixed-student-billing.html">Billing</a>
+              <a class="dropdown-item" href="fixed-student-pay.html">Payment</a>
+            </div> -->
+          </li>
+        </ul>
+      </div>
 
+      <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarsExample03" type="button">
+        <span class="material-icons">menu</span>
+      </button>
+    </div>
+  </div>
+</div>
 <input type="file" #file class="d-none" id="imageUpload" (change)="handleFileInput($event)" />
 <!-- page-wrapper -->

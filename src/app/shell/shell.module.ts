@@ -4,6 +4,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ShellRoutingModule } from './shell-routing.module';
+import { MaterialModule } from '@app/modules/material.module';
 
 import { I18nModule } from '@app/i18n';
 import { AuthModule } from '@app/auth';
@@ -12,7 +13,16 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from '@app/partials/footer/footer.component';
 
 @NgModule({
-  imports: [CommonModule, TranslateModule, NgbModule, AuthModule, I18nModule, RouterModule, ShellRoutingModule],
+  imports: [
+    CommonModule,
+    TranslateModule,
+    NgbModule,
+    AuthModule,
+    I18nModule,
+    RouterModule,
+    MaterialModule,
+    ShellRoutingModule,
+  ],
   declarations: [HeaderComponent, ShellComponent, FooterComponent],
 })
 export class ShellModule {}

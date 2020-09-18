@@ -7,6 +7,7 @@ export interface Credentials {
 }
 
 const credentialsKey = 'credentials';
+const tokenKey = 'access_token';
 
 /**
  * Provides storage for authentication credentials.
@@ -17,6 +18,7 @@ const credentialsKey = 'credentials';
 })
 export class CredentialsService {
   private _credentials: Credentials | null = null;
+  private _token: any = null;
 
   constructor() {
     const savedCredentials = sessionStorage.getItem(credentialsKey) || localStorage.getItem(credentialsKey);
@@ -42,6 +44,14 @@ export class CredentialsService {
   }
 
   /**
+   * Gets the user credentials.
+   * @return The user credentials or null if the user is not authenticated.
+   */
+  get token(): Credentials | null {
+    return this._credentials;
+  }
+
+  /**
    * Sets the user credentials.
    * The credentials may be persisted across sessions by setting the `remember` parameter to true.
    * Otherwise, the credentials are only persisted for the current session.
@@ -57,6 +67,18 @@ export class CredentialsService {
     } else {
       sessionStorage.removeItem(credentialsKey);
       localStorage.removeItem(credentialsKey);
+    }
+  }
+
+  setToken(token: any) {
+    this._token = token || null;
+
+    if (token) {
+      const storage = sessionStorage;
+      storage.setItem(tokenKey, JSON.stringify(token));
+    } else {
+      sessionStorage.removeItem(tokenKey);
+      localStorage.removeItem(tokenKey);
     }
   }
 }

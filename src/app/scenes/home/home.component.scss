@@ -1168,8 +1168,33 @@ label.mt10.valid {
 //-----------------------------price section --------------------------------//
 
 //--------------------------- Header section ----------------------------------//
-@import "src/theme/theme-variables";
 
+@media only screen and (max-width: 600px) {
+  .explore-section {
+    display: none;
+  }
+  .explore-li {
+    display: block;
+  }
+  .tasa-logo {
+    display: none;
+  }
+  .tasa-logo-text {
+    display: block;
+  }
+}
+
+.tasa-logo-text {
+  display: none;
+}
+
+.tasa-logo {
+  display: block;
+}
+
+.explore-li {
+  display: none;
+}
 .tasaTitle {
   margin-top: 18%;
   margin-left: 4%;
@@ -1185,7 +1210,7 @@ label.mt10.valid {
   background: none;
   border: none;
   height: 34px;
-  width: 40%;
+  width: 30%;
   display: -ms-flexbox;
   display: box;
   display: flex;
@@ -1195,7 +1220,6 @@ label.mt10.valid {
   background-color: white;
   /* font-weight: 700; */
   cursor: default;
-  padding: 0;
   position: relative;
 }
 

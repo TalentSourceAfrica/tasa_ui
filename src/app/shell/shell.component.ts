@@ -13,7 +13,7 @@ export class ShellComponent implements OnInit {
   ngOnInit() {}
 
   get user(): any | null {
-    if (location.pathname != '/home') {
+    if (location.hash != '#/home') {
       this.isHome = false;
     } else {
       this.isHome = true;

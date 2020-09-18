@@ -64,7 +64,7 @@ export class UiService {
     });
   }
 
-  showApiSuccessPopMsg(msg: any): void {
+  showApiSuccessPopMsg(msg: any, timer?: number): void {
     Swal.fire({
       title: msg, // title of the modal
       text: '', // description of the modal
@@ -73,7 +73,7 @@ export class UiService {
       allowOutsideClick: true,
       allowEscapeKey: true,
       allowEnterKey: true,
-      timer: 2000,
+      timer: timer || 2000,
     });
   }
 

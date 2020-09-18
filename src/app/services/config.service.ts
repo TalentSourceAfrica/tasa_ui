@@ -44,6 +44,12 @@ export class ConfigService {
       Expires: 'Sat, 01 Jan 2000 00:00:00 GMT',
       'If-Modified-Since': '0',
     };
+    if (sessionStorage.getItem('access_token')) {
+      this.apiHeaders = this.apiHeaders.set(
+        'Authorization',
+        `Bearer ${JSON.parse(sessionStorage.getItem('access_token'))}`
+      );
+    }
     Object.keys(commonheaders).forEach((c) => {
       this.apiHeaders = this.apiHeaders.set(c, commonheaders[c]);
     });

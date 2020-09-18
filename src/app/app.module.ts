@@ -23,6 +23,7 @@ import { LoginPopupComponent } from './partials/popups/authentication/login-popu
 import { UserDetailsPopupComponent } from './partials/popups/authentication/user-details-popup/user-details-popup.component';
 import { ContactUsModule } from './scenes/contact-us/contact-us.module';
 import { CourseModule } from './scenes/course/course.module';
+import { ResetPasswordModule } from './scenes/reset-password/reset-password.module';
 
 @NgModule({
   imports: [
@@ -44,6 +45,7 @@ import { CourseModule } from './scenes/course/course.module';
     AppRoutingModule, // must be imported as the last module as it contains the fallback route
     ContactUsModule,
     CourseModule,
+    ResetPasswordModule,
   ],
   declarations: [AppComponent, LoginPopupComponent, UserDetailsPopupComponent],
   providers: [],

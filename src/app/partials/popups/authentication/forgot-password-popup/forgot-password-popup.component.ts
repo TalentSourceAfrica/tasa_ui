@@ -36,6 +36,22 @@ export class ForgotPasswordPopupComponent implements OnInit {
 
   onSubmit() {
     console.log(this.forgortPassForm.value);
+    let $t = this;
+    $t.sharedService.uiService.showApiStartPopMsg('Submitting The Request');
+    let apiUrl = $t.sharedService.urlService.apiCallWithParams('forgotPassword', {
+      '{email}': $t.forgortPassForm.value.email,
+    });
+    $t.sharedService.configService.post(apiUrl).subscribe(
+      (response: any) => {
+        console.log(response);
+        $t.forgortPassForm.reset();
+        $t.dialogRef.close();
+        $t.sharedService.uiService.showApiSuccessPopMsg(response.message);
+      },
+      (error) => {
+        $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
+      }
+    );
   }
 
   ngOnInit(): void {}

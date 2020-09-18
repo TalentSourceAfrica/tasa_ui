@@ -44,7 +44,6 @@ export class BaseConfig {
       this.env = 'PLAYGROUND';
     }
     this.restPath = this.restHost + '/tasaapi';
-    // this.restSocketPath = this.localSocketRestHost + '/amazeRest' + this.envExtension;
 
     this.globals = {
       baseRestPath: this.restPath,

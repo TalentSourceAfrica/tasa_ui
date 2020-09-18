@@ -5,11 +5,11 @@ import { SharedService } from '@app/services/shared.service';
 import * as AOS from 'aos';
 
 @Component({
-  selector: 'app-contact-us',
-  templateUrl: './contact-us.component.html',
-  styleUrls: ['./contact-us.component.scss'],
+  selector: 'app-reset-password',
+  templateUrl: './reset-password.component.html',
+  styleUrls: ['./reset-password.component.scss'],
 })
-export class ContactUsComponent implements OnInit {
+export class ResetPasswordComponent implements OnInit {
   contactUsForm!: FormGroup;
   constructor(private formBuilder: FormBuilder, private sharedService: SharedService) {}
 
@@ -32,7 +32,7 @@ export class ContactUsComponent implements OnInit {
     $t.sharedService.uiService.showApiStartPopMsg('Sending...');
     $t.sharedService.configService.post(apiUrl, $t.contactUsForm.value).subscribe(
       (response) => {
-        $t.sharedService.uiService.showApiSuccessPopMsg('Thank you for contacting Talent Source Africa', 6000);
+        $t.sharedService.uiService.showApiSuccessPopMsg('Thank you for contacting Talent Source Africa');
         $t.contactUsForm.reset();
       },
       (error) => {

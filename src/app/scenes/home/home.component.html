@@ -7,19 +7,22 @@
       <nav class="navbar">
         <div class="container-fluid">
           <div class="row w100">
-            <div class="col-md-2 col-xs-6">
-              <div class="navbar-header">
-                <a href="#home" class="navbar-brand img-responsive"
+            <div class="col-4 col-md-2">
+              <div class="navbar-header p-0 border-none">
+                <a [routerLink]="['/home']" class="navbar-brand img-responsive p-0"
                   ><img
                     src="../../../assets/logo/TSA_transparent_logo.png"
                     style="height: 65px; width: auto;"
                     alt="logo"
-                /></a>
+                    class="tasa-logo"
+                  />
+                  <span class="tasa-logo-text">TaSA</span></a
+                >
               </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 explore-section">
               <div class="p-0 pt-3 d-flex align-items-center">
-                <button mat-flat-button color="default" class="rc-ExploreButton rounded-pill ml-2 bg-theme m-auto pl-5">
+                <button mat-flat-button color="default" class="rc-ExploreButton rounded-pill ml-2 bg-theme">
                   <span> Explore <i class="fa fa-chevron-down" aria-hidden="true"></i> </span>
                 </button>
                 <!-- <div class="d-flex">
@@ -34,14 +37,13 @@
                 </div>
               </div>
             </div>
-            <div class="col-md-6 col-xs-6">
+            <div class="col-8 col-md-6">
               <div id="main-nav" class="stellarnav">
                 <ul id="nav" class="nav navbar-nav pull-right float-right">
                   <li>
-                    <a class="curPoint welcome-text border rounded-pill" [routerLink]="['/contact-us']"
-                      >Partner With us</a
-                    >
+                    <a class="curPoint welcome-text" [routerLink]="['/contact-us']">Partner With us</a>
                   </li>
+                  <li class="explore-li"><a class="curPoint">Explore</a></li>
                   <li><a (click)="scrollToFaq('faqs')" class="curPoint">FAQ</a></li>
                   <!-- <li>
                     <a class="pt-0 curPoint">

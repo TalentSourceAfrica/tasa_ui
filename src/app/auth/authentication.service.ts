@@ -33,12 +33,14 @@ export class AuthenticationService {
    */
   login(context: any): Observable<Credentials> {
     // Replace by proper authentication call
-    const data = {
-      username: context.username,
-      token: '123456',
-    };
     this.credentialsService.setCredentials(context, context.remember || false);
-    return of(data);
+    return of(context);
+  }
+
+  setToken(token: any): Observable<Credentials> {
+    // Replace by proper authentication call
+    this.credentialsService.setToken(token);
+    return of(token);
   }
 
   /**

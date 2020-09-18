@@ -23,6 +23,11 @@ const routes: Routes = [
         loadChildren: () => import('@app/scenes/contact-us/contact-us.module').then((m) => m.ContactUsModule),
       },
       {
+        path: 'reset-password',
+        loadChildren: () =>
+          import('@app/scenes/reset-password/reset-password.module').then((m) => m.ResetPasswordModule),
+      },
+      {
         path: 'course/:id',
         loadChildren: () => import('@app/scenes/course/course.module').then((m) => m.CourseModule),
       },
