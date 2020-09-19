@@ -70,6 +70,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
+    $('.mainmenu-area').css({ background: 'transparent' });
     $(document).on(
       'ready',
       (function ($) {
@@ -117,10 +118,6 @@ export class HomeComponent implements OnInit {
           } else {
             $scrollToTop.css('bottom', '20px');
           }
-        });
-
-        $('#mainmenu-area').sticky({
-          topSpacing: 0,
         });
 
         /*--------------------------
@@ -276,21 +273,8 @@ export class HomeComponent implements OnInit {
     this.menuHidden = !this.menuHidden;
   }
 
-  logout() {
-    this.sharedService.uiService.showApiSuccessPopMsg('Logout Successfully...!');
-    this.authenticationService.logout().subscribe(() => this.router.navigate(['/home'], { replaceUrl: true }));
-  }
-
-  login() {
-    this.authenticationService.openLoginPopup();
-  }
-
   userDetails() {
     this.authenticationService.openUserDetailsPopup();
-  }
-
-  scrollToFaq(_id: string) {
-    this.sharedService.utilityService.scrollToElement(_id);
   }
 
   get user(): any | null {

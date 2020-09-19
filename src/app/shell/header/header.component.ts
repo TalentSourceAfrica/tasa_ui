@@ -52,7 +52,7 @@ export class HeaderComponent implements OnInit {
     setTimeout(() => {
       this.sharedService.uiService.closePopMsg();
       this.authenticationService.logout().subscribe(() => this.router.navigate(['/home'], { replaceUrl: true }));
-    }, 1500);
+    }, 1000);
   }
 
   login() {

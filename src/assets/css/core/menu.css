@@ -83,7 +83,7 @@ ul#nav li a {
 }
 
 .is-sticky .mainmenu-area {
-  background: #867899;
+  background: #867899 !important;
 }
 
 ul#nav li a {

@@ -1,7 +1,6 @@
 <!--START TOP AREA-->
-<header class="" id="home">
+<!-- <header class="" id="home">
   <div class="header-top-area" id="scroolup">
-    <!--MAINMENU AREA-->
     <div class="mainmenu-area" id="mainmenu-area">
       <div class="mainmenu-area-bg"></div>
       <nav class="navbar">
@@ -25,10 +24,6 @@
                 <button mat-flat-button color="default" class="rc-ExploreButton rounded-pill ml-2 bg-theme">
                   <span> Explore <i class="fa fa-chevron-down" aria-hidden="true"></i> </span>
                 </button>
-                <!-- <div class="d-flex">
-                  <input type="search" name="search" id="search" placeholder="Search Courses" class="rounded-pill" />
-                  <button type="submit"><i class="fa fa-search"></i></button>
-                </div> -->
                 <div class="home-button ml-2">
                   <form>
                     <input type="search" name="search" id="search" placeholder="Search Courses" />
@@ -41,18 +36,10 @@
               <div id="main-nav" class="stellarnav">
                 <ul id="nav" class="nav navbar-nav pull-right float-right">
                   <li>
-                    <a class="curPoint welcome-text" [routerLink]="['/contact-us']">Partner With us</a>
+                    <a class="curPoint welcome-text" (click)="partnerWithUs()">Partner With us</a>
                   </li>
                   <li class="explore-li"><a class="curPoint">Explore</a></li>
                   <li><a (click)="scrollToFaq('faqs')" class="curPoint">FAQ</a></li>
-                  <!-- <li>
-                    <a class="pt-0 curPoint">
-                      <app-language-selector
-                        inNavbar="true"
-                        menuClass="dropdown-menu dropdown-menu-right"
-                      ></app-language-selector
-                    ></a>
-                  </li> -->
                   <li>
                     <a [matMenuTriggerFor]="menu" class="curPoint"
                       >Menu<i class="fas fa-caret-down pl-1"></i>
@@ -81,9 +68,6 @@
                       </mat-menu>
                     </a>
                   </li>
-                  <!-- <li><a href="#blog">Blog</a></li>
-                  
-                  <li><a href="#contact">Contact</a></li> -->
                 </ul>
               </div>
             </div>
@@ -91,9 +75,16 @@
         </div>
       </nav>
     </div>
-    <!--END MAINMENU AREA END-->
   </div>
-</header>
+</header> -->
+<!-- <li>
+                    <a class="pt-0 curPoint">
+                      <app-language-selector
+                        inNavbar="true"
+                        menuClass="dropdown-menu dropdown-menu-right"
+                      ></app-language-selector
+                    ></a>
+                  </li> -->
 <!--WELCOME SLIDER AREA-->
 <div class="welcome-slider-area white font16">
   <div class="welcome-single-slide">

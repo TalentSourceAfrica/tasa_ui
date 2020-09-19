@@ -11,6 +11,7 @@ import { AuthModule } from '@app/auth';
 import { ShellComponent } from './shell.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from '@app/partials/footer/footer.component';
+import { HomeHeaderComponent } from '@app/partials/home-header/home-header.component';
 
 @NgModule({
   imports: [
@@ -23,6 +24,6 @@ import { FooterComponent } from '@app/partials/footer/footer.component';
     MaterialModule,
     ShellRoutingModule,
   ],
-  declarations: [HeaderComponent, ShellComponent, FooterComponent],
+  declarations: [HeaderComponent, ShellComponent, FooterComponent, HomeHeaderComponent],
 })
 export class ShellModule {}

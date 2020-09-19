@@ -66,6 +66,7 @@ export class CredentialsService {
       storage.setItem(credentialsKey, JSON.stringify(credentials));
     } else {
       sessionStorage.removeItem(credentialsKey);
+      sessionStorage.removeItem(tokenKey);
       localStorage.removeItem(credentialsKey);
     }
   }

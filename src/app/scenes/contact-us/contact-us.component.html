@@ -1,12 +1,14 @@
 <div class="contact-us-wrapper container w65">
   <ol class="breadcrumb mt-3">
     <li class="breadcrumb-item curPoint pr-2"><a [routerLink]="['/home']">Home</a></li>
-    <li class="breadcrumb-item active">Contact Us</li>
+    <li class="breadcrumb-item active" *ngIf="!isPartnerWithUs">Contact Us</li>
+    <li class="breadcrumb-item active" *ngIf="isPartnerWithUs">Partner With Us</li>
   </ol>
   <section class="contact-page-section">
     <div>
       <div class="sec-title">
-        <div class="title">Contact Us</div>
+        <div class="title" *ngIf="!isPartnerWithUs">Contact Us</div>
+        <div class="title" *ngIf="isPartnerWithUs">Partner With Us</div>
         <h2>Let's Get in Touch.</h2>
       </div>
       <div class="inner-container" data-aos="flip-left" data-aos-duration="1500">

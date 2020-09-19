@@ -3,6 +3,8 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { SharedService } from '@app/services/shared.service';
 
 import * as AOS from 'aos';
+import { MustMatch } from '@app/auth/must-match';
+import { CredentialsService } from '@app/auth';
 
 @Component({
   selector: 'app-reset-password',
@@ -11,34 +13,46 @@ import * as AOS from 'aos';
 })
 export class ResetPasswordComponent implements OnInit {
   contactUsForm!: FormGroup;
-  constructor(private formBuilder: FormBuilder, private sharedService: SharedService) {}
+  userDetails: any;
+  constructor(
+    private formBuilder: FormBuilder,
+    private sharedService: SharedService,
+    private credentialsService: CredentialsService
+  ) {
+    this.userDetails = this.user;
+  }
 
   initForm() {
-    this.contactUsForm = this.formBuilder.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      contactNumber: [
-        '',
-        [Validators.required, Validators.pattern(this.sharedService.utilityService.CustomValidators.onlyNumber)],
-      ],
-      email: ['', [Validators.required, Validators.email]],
-      message: ['', Validators.required],
-    });
+    this.contactUsForm = this.formBuilder.group(
+      {
+        password: ['', [Validators.required]],
+        confirmPassword: ['', [Validators.required]],
+      },
+      {
+        validator: MustMatch('password', 'confirmPassword'),
+      }
+    );
   }
 
   submit() {
     let $t = this;
-    let apiUrl = this.sharedService.urlService.simpleApiCall('contactUs');
-    $t.sharedService.uiService.showApiStartPopMsg('Sending...');
-    $t.sharedService.configService.post(apiUrl, $t.contactUsForm.value).subscribe(
+    let apiUrl = $t.sharedService.urlService.simpleApiCall('updatePassword');
+    $t.sharedService.uiService.showApiStartPopMsg('Updating Password...');
+    $t.userDetails.password = $t.contactUsForm.value.password;
+    $t.sharedService.configService.post(apiUrl, $t.userDetails).subscribe(
       (response) => {
-        $t.sharedService.uiService.showApiSuccessPopMsg('Thank you for contacting Talent Source Africa');
+        $t.sharedService.uiService.showApiSuccessPopMsg('Password Updated...');
         $t.contactUsForm.reset();
       },
       (error) => {
         $t.sharedService.uiService.showApiErrorPopMsg('Something Went Wrong, Please Try Again After Sometime...');
       }
     );
+  }
+
+  get user(): any | null {
+    const credentials = this.credentialsService.credentials;
+    return credentials ? credentials : null;
   }
 
   ngOnInit(): void {

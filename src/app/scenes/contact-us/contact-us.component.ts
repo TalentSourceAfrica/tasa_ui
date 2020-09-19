@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { SharedService } from '@app/services/shared.service';
+import { delay } from 'rxjs/operators';
+import { untilDestroyed } from '@app/@core';
 
+//extra
 import * as AOS from 'aos';
+declare var jQuery: any;
 
 @Component({
   selector: 'app-contact-us',
@@ -11,6 +15,7 @@ import * as AOS from 'aos';
 })
 export class ContactUsComponent implements OnInit {
   contactUsForm!: FormGroup;
+  isPartnerWithUs: boolean = false;
   constructor(private formBuilder: FormBuilder, private sharedService: SharedService) {}
 
   initForm() {
@@ -42,8 +47,20 @@ export class ContactUsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    jQuery('.mainmenu-area').css({ background: '#867899' });
+
     window.scrollTo(0, 0);
     this.initForm();
     AOS.init();
+
+    this.sharedService.utilityService.currentMessage.pipe(delay(10), untilDestroyed(this)).subscribe((message) => {
+      if (message == 'PARTNER-WITH-US') {
+        this.isPartnerWithUs = true;
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.sharedService.utilityService.changeMessage('default message');
   }
 }

@@ -1,3 +1,4 @@
+<app-home-header *ngIf="user == null"></app-home-header>
 <app-header *ngIf="user != null && !isHome"></app-header>
 <router-outlet></router-outlet>
 <app-footer *ngIf="user == null"></app-footer>
