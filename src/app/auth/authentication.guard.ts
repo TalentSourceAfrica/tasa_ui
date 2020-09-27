@@ -13,13 +13,11 @@ export class AuthenticationGuard implements CanActivate {
   constructor(private router: Router, private credentialsService: CredentialsService) {}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    // if (this.credentialsService.isAuthenticated()) {
-    //   return true;
-    // }
-
-    // log.debug('Not authenticated, redirecting and adding redirect url...');
-    // this.router.navigate(['/login'], { queryParams: { redirect: state.url }, replaceUrl: true });
-    // return false;
-    return true;
+    if (this.credentialsService.isAuthenticated()) {
+      return true;
+    }
+    //queryParams: { redirect: state.url }
+    this.router.navigate(['/home'], { replaceUrl: true });
+    return false;
   }
 }

@@ -1,0 +1,44 @@
+<div class="all-course-wrapper container">
+  <ol class="breadcrumb mt-3">
+    <li class="breadcrumb-item curPoint"><a [routerLink]="['/home']">Home</a></li>
+    <li class="breadcrumb-item active">All Course</li>
+  </ol>
+  <section class="All-course-page-section">
+    <div class="row no-gutters">
+      <ng-container *ngIf="isLoading">
+        <div class="col-md-4 col-lg-4 col-sm-6 animated fadeIn" *ngFor="let item of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]">
+          <div class="card">
+            <div class="card-img skeleton">
+              <!-- waiting for img to load from javascript -->
+            </div>
+            <div class="card-body">
+              <h2 class="card-title skeleton">
+                <!-- wating for title to load from javascript -->
+              </h2>
+              <p class="card-intro skeleton">
+                <!-- waiting for intro to load from Javascript -->
+              </p>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="!isLoading">
+        <div class="col-md-4 col-lg-4 col-sm-6 animated fadeIn" *ngFor="let course of allCourse">
+          <div class="card curPoint">
+            <div class="card-img">
+              <img [src]="course.image_url" />
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">
+                {{ course.title }}
+              </h5>
+              <p class="card-intro">
+                {{ course.subjects[0] }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </section>
+</div>

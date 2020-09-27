@@ -91,7 +91,9 @@ export class HeaderComponent implements OnInit {
         }
       );
     } else {
-      $t.sharedService.uiService.showMessage('Please Select An Image');
+      $t.sharedService.uiService.showApiErrorPopMsg(
+        'Uploaded File is not a Valid Image. Only JPG, PNG and JPEG files are allowed.'
+      );
     }
   }
 

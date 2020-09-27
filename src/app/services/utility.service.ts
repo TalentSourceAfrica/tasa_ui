@@ -153,4 +153,9 @@ export class UtilityService {
     });
     return manipulatedDataEntry;
   }
+
+  public requiredStyleForHomeHeader() {
+    jQuery('.mainmenu-area').css({ background: '#867899' });
+    jQuery('.header-top-area').css({ position: 'relative' });
+  }
 }

@@ -34,9 +34,9 @@
           <ng-container *ngTemplateOutlet="recuiterForm"></ng-container>
         </div>
       </div>
-      <div class="card-footer text-center text-black-50">
+      <div class="card-footer text-center text-black-50 h6 text-muted">
         Already signed up?
-        <a class="text-black-70 pointer curPoint" style="text-decoration: underline;" (click)="login()">Login</a>
+        <a class="text-black-70 pointer curPoint h6 p-2" style="text-decoration: underline;" (click)="login()">Login</a>
       </div>
     </div>
   </div>
@@ -197,7 +197,7 @@
           </div>
         </div>
         <small
-          *ngIf="!signupForm.controls.password.untouched && signupForm.controls.confirmPassword.errors?.required"
+          *ngIf="!signupForm.controls.confirmPassword.untouched && signupForm.controls.confirmPassword.errors?.required"
           class="text-danger"
           translate
         >
@@ -217,13 +217,17 @@
         >
       </div>
     </div>
-    <button
-      type="submit"
-      [disabled]="signupForm.invalid || !isUsernameAvailable || !isEmailAvailable"
-      class="btn btn-primary btn-block"
-    >
-      Sign Up
-    </button>
+    <div class="form-group text-center">
+      <button
+        mat-flat-button
+        color="primary"
+        type="submit"
+        [disabled]="signupForm.invalid || !isUsernameAvailable || !isEmailAvailable"
+        class="rounded-pill ml-2 w50"
+      >
+        Sign Up
+      </button>
+    </div>
   </form>
 </ng-template>
 
@@ -373,12 +377,17 @@
         >
       </div>
     </div>
-    <button
-      type="submit"
-      [disabled]="signupForm.invalid || !isUsernameAvailable || !isEmailAvailable"
-      class="btn btn-primary btn-block"
-    >
-      Sign Up
-    </button>
+
+    <div class="form-group text-center">
+      <button
+        mat-flat-button
+        color="primary"
+        type="submit"
+        [disabled]="signupForm.invalid || !isUsernameAvailable || !isEmailAvailable"
+        class="rounded-pill ml-2 w50"
+      >
+        Sign Up
+      </button>
+    </div>
   </form>
 </ng-template>

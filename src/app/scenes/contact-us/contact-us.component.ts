@@ -47,8 +47,7 @@ export class ContactUsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    jQuery('.mainmenu-area').css({ background: '#867899' });
-
+    this.sharedService.utilityService.requiredStyleForHomeHeader();
     window.scrollTo(0, 0);
     this.initForm();
     AOS.init();

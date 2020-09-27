@@ -15,11 +15,11 @@ export class SignupPopupComponent implements OnInit {
   signupForm: FormGroup;
   popupData: any;
   signupType: any = [
-    { value: 0, viewValue: 'Student/Professional' },
+    { value: 0, viewValue: 'Student / Professional' },
     { value: 1, viewValue: 'Mentor' },
     { value: 2, viewValue: 'Recruiter' },
   ];
-  userType = { value: 0, viewValue: 'Student/Professional' };
+  userType = { value: 0, viewValue: 'Student / Professional' };
   isUsernameAvailable = true;
   isEmailAvailable = true;
   unamePattern = '^[a-zA-Z0-9_.-]*$';

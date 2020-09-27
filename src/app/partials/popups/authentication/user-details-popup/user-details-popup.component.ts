@@ -15,6 +15,7 @@ export class UserDetailsPopupComponent implements OnInit {
   userDetailsForm: FormGroup;
   popupData: any;
   userDetails: any;
+  countries: any = [];
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private formBuilder: FormBuilder,
@@ -156,7 +157,17 @@ export class UserDetailsPopupComponent implements OnInit {
     return credentials ? credentials : null;
   }
 
+  getCountry() {
+    let $t = this;
+    let apiUrl = $t.sharedService.urlService.simpleApiCall('getCountry');
+
+    $t.sharedService.configService.get(apiUrl).subscribe((response) => {
+      $t.countries = response;
+    });
+  }
+
   ngOnInit(): void {
+    this.getCountry();
     this.initForm(this.user.type);
   }
 }

@@ -1,0 +1,38 @@
+<div class="user-course-wrapper container">
+  <ol class="breadcrumb mt-3">
+    <li class="breadcrumb-item curPoint"><a [routerLink]="['/home']">Home</a></li>
+    <li class="breadcrumb-item active">My Course</li>
+  </ol>
+  <div id="happy-sad-container" class="d-flex align-items-center">
+    <!-- <div id="success-box">
+        <div class="dot"></div>
+        <div class="dot two"></div>
+        <div class="happy-face">
+          <div class="eye"></div>
+          <div class="eye right"></div>
+          <div class="mouth happy"></div>
+        </div>
+        <div class="shadow scale"></div>
+        <div class="message">
+          <h1 class="alert">Success!</h1>
+          <p>yay, everything is working.</p>
+        </div>
+        <button class="button-box"><h1 class="green">continue</h1></button>
+      </div> -->
+    <div id="error-box">
+      <div class="dot"></div>
+      <div class="dot two"></div>
+      <div class="sad-face">
+        <div class="eye"></div>
+        <div class="eye right"></div>
+        <div class="mouth sad"></div>
+      </div>
+      <div class="shadow move"></div>
+      <div class="message">
+        <h1 class="alert">You Haven't Subscribed To Any Course Yet</h1>
+        <h5 class="text-white">Trust Us ! We offer best Courses</h5>
+      </div>
+      <button class="button-box" [routerLink]="['/all-course']"><h1 class="text-primary">All Course</h1></button>
+    </div>
+  </div>
+</div>

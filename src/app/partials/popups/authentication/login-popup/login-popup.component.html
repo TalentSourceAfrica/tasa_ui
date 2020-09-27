@@ -85,21 +85,29 @@
               Password is required
             </small>
           </div>
-          <div class="form-group d-flex align-items-center">
-            <button type="submit" [disabled]="loginForm.invalid" class="btn btn-primary btn-block" mat-stroked-button>
+          <div class="form-group text-center">
+            <button
+              mat-flat-button
+              color="primary"
+              type="submit"
+              [disabled]="loginForm.invalid"
+              class="rounded-pill ml-2 w50"
+            >
               Login
             </button>
           </div>
           <div class="text-center">
-            <a (click)="forgotPass()" class="text-black-70 curPoint" style="text-decoration: underline;"
+            <a (click)="forgotPass()" class="text-black-70 curPoint h6 p-2" style="text-decoration: underline;"
               >Forgot Password?</a
             >
           </div>
         </form>
       </div>
-      <div class="card-footer text-center text-black-50">
+      <div class="card-footer text-center text-black-50 h6 text-muted">
         Not yet a member?
-        <a class="text-black-70 pointer curPoint" style="text-decoration: underline;" (click)="signup()">Signup</a>
+        <a class="text-black-70 pointer curPoint h6 p-2" style="text-decoration: underline;" (click)="signup()"
+          >Signup</a
+        >
       </div>
     </div>
   </div>

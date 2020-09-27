@@ -8,7 +8,7 @@ const routes: Routes = [
     path: '',
     component: CourseComponent,
     data: {
-      title: extract('TaSA | Course'),
+      title: extract('TaSA | My Course'),
     },
   },
 ];

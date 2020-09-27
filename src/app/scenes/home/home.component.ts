@@ -23,6 +23,7 @@ export class HomeComponent implements OnInit {
   activeSlide: number = 0;
   news: Array<object> = [];
   posts: Array<object> = [];
+  courses: Array<object> = [];
   menuHidden = true;
   constructor(
     private router: Router,
@@ -63,14 +64,148 @@ export class HomeComponent implements OnInit {
     );
   }
 
+  getCourses() {
+    let apiUrl = this.sharedService.urlService.simpleApiCall('getAllCourse');
+    this.sharedService.configService.get(apiUrl).subscribe(
+      (response: any) => {
+        this.courses = response.splice(0, 10);
+        setTimeout(() => {
+          this.courseSlider();
+        }, 500);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+  toggleMenu() {
+    this.menuHidden = !this.menuHidden;
+  }
+
+  userDetails() {
+    this.authenticationService.openUserDetailsPopup();
+  }
+
+  newsSlider() {
+    var $newsSlider = $('.news-slider');
+    $newsSlider.owlCarousel({
+      merge: true,
+      smartSpeed: 1000,
+      loop: true,
+      nav: true,
+      center: false,
+      dots: false,
+      autoplayHoverPause: true,
+      navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>'],
+      autoplay: false,
+      autoplayTimeout: 3000,
+      margin: 80,
+      responsiveClass: true,
+      responsive: {
+        0: {
+          items: 1,
+        },
+        600: {
+          items: 2,
+        },
+        1000: {
+          items: 3,
+        },
+      },
+    });
+  }
+
+  testimonialSlider() {
+    var $testmonialCarousel = $('.testmonial-slider');
+    $testmonialCarousel.owlCarousel({
+      merge: true,
+      smartSpeed: 1000,
+      loop: true,
+      nav: true,
+      center: false,
+      dots: false,
+      autoplayHoverPause: true,
+      navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>'],
+      autoplay: true,
+      autoplayTimeout: 3000,
+      margin: 80,
+      responsiveClass: true,
+      responsive: {
+        0: {
+          items: 1,
+        },
+        600: {
+          items: 2,
+        },
+        1000: {
+          items: 2,
+        },
+        1200: {
+          items: 2,
+        },
+      },
+    });
+  }
+
+  courseSlider() {
+    /*---------------------------
+          COURSE SLIDER
+      -----------------------------*/
+    var $courseCarousel = $('.course-list');
+    $courseCarousel.owlCarousel({
+      merge: true,
+      smartSpeed: 1000,
+      loop: true,
+      nav: false,
+      center: true,
+      autoplayHoverPause: true,
+      navText: ['<i class="fa fa-long-arrow-left"></i> Prev', 'Next <i class="fa fa-long-arrow-right"></i>'],
+      autoplay: true,
+      autoplayTimeout: 3000,
+      margin: 10,
+      responsiveClass: true,
+      responsive: {
+        0: {
+          items: 1,
+          margin: 0,
+        },
+        600: {
+          items: 2,
+        },
+        1000: {
+          items: 3,
+        },
+        1200: {
+          items: 4,
+        },
+      },
+    });
+  }
+
+  getPassedData(data: SlidesOutputData) {
+    this.activeSlide = data.startPosition;
+  }
+
+  enroll(_course: any) {
+    this.router.navigate(['/course/' + _course.enroll], { replaceUrl: true });
+  }
+
+  get user(): any | null {
+    const credentials = this.credentialsService.credentials;
+    return credentials ? credentials : null;
+  }
+
   ngOnInit() {
     this.isLoading = true;
+    this.getCourses();
     this.getPosts();
     this.getNews();
   }
 
   ngAfterViewInit(): void {
     $('.mainmenu-area').css({ background: 'transparent' });
+    $('.header-top-area').css({ position: 'absolute' });
     $(document).on(
       'ready',
       (function ($) {
@@ -171,39 +306,6 @@ export class HomeComponent implements OnInit {
         });
 
         /*---------------------------
-          COURSE SLIDER
-      -----------------------------*/
-        var $courseCarousel = $('.course-list');
-        $courseCarousel.owlCarousel({
-          merge: true,
-          smartSpeed: 1000,
-          loop: true,
-          nav: false,
-          center: true,
-          autoplayHoverPause: true,
-          navText: ['<i class="fa fa-long-arrow-left"></i> Prev', 'Next <i class="fa fa-long-arrow-right"></i>'],
-          autoplay: true,
-          autoplayTimeout: 3000,
-          margin: 10,
-          responsiveClass: true,
-          responsive: {
-            0: {
-              items: 1,
-              margin: 0,
-            },
-            600: {
-              items: 2,
-            },
-            1000: {
-              items: 3,
-            },
-            1200: {
-              items: 4,
-            },
-          },
-        });
-
-        /*---------------------------
           CLIENT SLIDER
       -----------------------------*/
         var $clientCarousel = $('.client-slider');
@@ -267,83 +369,5 @@ export class HomeComponent implements OnInit {
     });
 
     AOS.init();
-  }
-
-  toggleMenu() {
-    this.menuHidden = !this.menuHidden;
-  }
-
-  userDetails() {
-    this.authenticationService.openUserDetailsPopup();
-  }
-
-  get user(): any | null {
-    const credentials = this.credentialsService.credentials;
-    return credentials ? credentials : null;
-  }
-
-  newsSlider() {
-    var $newsSlider = $('.news-slider');
-    $newsSlider.owlCarousel({
-      merge: true,
-      smartSpeed: 1000,
-      loop: true,
-      nav: true,
-      center: false,
-      dots: false,
-      autoplayHoverPause: true,
-      navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>'],
-      autoplay: false,
-      autoplayTimeout: 3000,
-      margin: 80,
-      responsiveClass: true,
-      responsive: {
-        0: {
-          items: 1,
-        },
-        600: {
-          items: 2,
-        },
-        1000: {
-          items: 3,
-        },
-      },
-    });
-  }
-
-  testimonialSlider() {
-    var $testmonialCarousel = $('.testmonial-slider');
-    $testmonialCarousel.owlCarousel({
-      merge: true,
-      smartSpeed: 1000,
-      loop: true,
-      nav: true,
-      center: false,
-      dots: false,
-      autoplayHoverPause: true,
-      navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>'],
-      autoplay: true,
-      autoplayTimeout: 3000,
-      margin: 80,
-      responsiveClass: true,
-      responsive: {
-        0: {
-          items: 1,
-        },
-        600: {
-          items: 2,
-        },
-        1000: {
-          items: 2,
-        },
-        1200: {
-          items: 2,
-        },
-      },
-    });
-  }
-
-  getPassedData(data: SlidesOutputData) {
-    this.activeSlide = data.startPosition;
   }
 }

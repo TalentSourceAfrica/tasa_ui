@@ -19,11 +19,13 @@ import { ShellModule } from './shell/shell.module';
 import { AboutModule } from './about/about.module';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { LoginPopupComponent } from './partials/popups/authentication/login-popup/login-popup.component';
-import { UserDetailsPopupComponent } from './partials/popups/authentication/user-details-popup/user-details-popup.component';
 import { ContactUsModule } from './scenes/contact-us/contact-us.module';
 import { CourseModule } from './scenes/course/course.module';
 import { ResetPasswordModule } from './scenes/reset-password/reset-password.module';
+
+//component
+import { LoginPopupComponent } from './partials/popups/authentication/login-popup/login-popup.component';
+import { UserDetailsPopupComponent } from './partials/popups/authentication/user-details-popup/user-details-popup.component';
 
 @NgModule({
   imports: [

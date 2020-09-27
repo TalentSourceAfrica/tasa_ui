@@ -32,13 +32,16 @@
           <div class="form-group">
             <label class="form-label" for="country">Country <sup class="text-danger">*</sup></label>
             <div class="input-group input-group-merge">
-              <input
-                id="country"
-                type="text"
+              <mat-select
                 formControlName="country"
-                class="form-control form-control-prepended"
                 placeholder="Your Country"
-              />
+                required
+                class="form-control form-control-prepended"
+              >
+                <mat-option *ngFor="let country of countries" [value]="country.code">
+                  {{ country.title }}
+                </mat-option>
+              </mat-select>
               <div class="input-group-prepend">
                 <div class="input-group-text">
                   <span class="far fa-flag"></span>

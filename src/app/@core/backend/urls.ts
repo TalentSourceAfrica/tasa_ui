@@ -20,7 +20,16 @@ export const urls: any = {
   uploadUserImage: '/v1/uploadImage/{email}', // PO
   updatePassword: '/v1/auth/update-password', // PO
   forgotPassword: '/v1/auth/forgot-password/{email}', //PO
+  resetPassword: '/v1/auth/reset-password', // PO
+
+  // location
+
+  getCountry: '/v1/locations', // G
+  getCities: '/v1/locations/{countryCode}/cities', // G
 
   // Contact us
-  contactUs: '/v1/contact-us', //Po
+  contactUs: '/v1/contact-us', // PO
+
+  // course
+  getAllCourse: '/courses/all', // G
 };

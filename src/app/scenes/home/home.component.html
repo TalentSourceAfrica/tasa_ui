@@ -356,19 +356,21 @@
       </div>
     </div>
     <div class="row course-list">
-      <div class="">
-        <div class="single-course mb20 w80 curPoint" [routerLink]="['/course/1']">
-          <img src="../../../assets/images/course/blog-1.jpg" alt="" />
-          <div class="course-details p-3">
-            <h3 class="font18">JavaScript Fundamentals: A Course for Absolute Beginners</h3>
-            <p>
-              Learn JavaScript Fundamentals from the Scratch.The Complete Guide To Learn and Be Javascipt Developer...
-            </p>
-            <p class="mt30"><a href="#" class="enroll-button">Enroll</a> <span class="course-price">$29.99</span></p>
+      <div *ngFor="let course of courses">
+        <div class="single-course mb20 w80 curPoint">
+          <img [src]="course.image_url" alt="" />
+          <div class="course-details p-3 min-vertical-h-30">
+            <h3 class="font18">{{ course.title }}</h3>
+            <div [innerHTML]="course.short_description"></div>
+          </div>
+          <div class="text-center position-relative mb-1">
+            <button mat-flat-button color="primary" (click)="enroll(course)" class="rounded-pill ml-2">
+              ENROLL
+            </button>
           </div>
         </div>
       </div>
-      <div class="">
+      <!-- <div class="">
         <div class="single-course mb20 w80 curPoint" [routerLink]="['/course/1']">
           <img src="../../../assets/images/course/blog-2.jpg" alt="" />
           <div class="course-details p-3">
@@ -405,127 +407,11 @@
             <p class="mt30"><a href="#" class="enroll-button">Enroll</a> <span class="course-price">$29.99</span></p>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </section>
 <!--COURSE AREA END-->
-
-<!-- Price Section -->
-<!-- <div id="generic_price_table">
-  <section>
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="price-heading clearfix">
-            <h1>Our Awesome Pricing Plans For You</h1>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="container">
-      <div class="row">
-        <div class="col-md-4">
-          <div class="generic_content clearfix">
-            <div class="generic_head_price clearfix">
-              <div class="generic_head_content clearfix">
-                <div class="head_bg"></div>
-                <div class="head">
-                  <span>Bronze</span>
-                </div>
-              </div>
-              <div class="generic_price_tag clearfix">
-                <span class="price">
-                  <span class="sign">$</span>
-                  <span class="currency">59</span>
-                  <span class="month">/MON</span>
-                </span>
-              </div>
-            </div>
-            <div class="generic_feature_list">
-              <ul>
-                <li>Access to 30 courses</li>
-                <li>Example code available</li>
-                <li>Low quality video</li>
-                <li>Certificate after completion</li>
-                <li>Private Sessions</li>
-              </ul>
-            </div>
-            <div class="generic_price_btn clearfix">
-              <a class="" href="">Subscribe Now</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-4">
-          <div class="generic_content active clearfix">
-            <div class="generic_head_price clearfix">
-              <div class="generic_head_content clearfix">
-                <div class="head_bg"></div>
-                <div class="head">
-                  <span>Silver</span>
-                </div>
-              </div>
-              <div class="generic_price_tag clearfix">
-                <span class="price">
-                  <span class="sign">$</span>
-                  <span class="currency">79</span>
-                  <span class="month">/MON</span>
-                </span>
-              </div>
-            </div>
-            <div class="generic_feature_list">
-              <ul>
-                <li>Access to 50 courses</li>
-                <li>Example code available</li>
-                <li>Medium quality video</li>
-                <li>Certificate after completion</li>
-                <li>Private Sessions</li>
-              </ul>
-            </div>
-            <div class="generic_price_btn clearfix">
-              <a class="" href="">Subscribe Now</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="generic_content clearfix">
-            <div class="generic_head_price clearfix">
-              <div class="generic_head_content clearfix">
-                <div class="head_bg"></div>
-                <div class="head">
-                  <span>Gold</span>
-                </div>
-              </div>
-              <div class="generic_price_tag clearfix">
-                <span class="price">
-                  <span class="sign">$</span>
-                  <span class="currency">99</span>
-                  <span class="month">/MON</span>
-                </span>
-              </div>
-            </div>
-            <div class="generic_feature_list">
-              <ul>
-                <li>Access to all courses</li>
-                <li>Example code available</li>
-                <li>High resolution video</li>
-                <li>Certificate after completion</li>
-                <li>Private Sessions</li>
-              </ul>
-            </div>
-
-            <div class="generic_price_btn clearfix">
-              <a class="" href="">Subscribe Now</a>
-            </div>
-  
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-</div> -->
-<!-- Price Section-->
 
 <!--TESTMONIAL AREA AREA-->
 <!-- <section class="testmonial-area bg-theme section-padding" id="testmonial">
