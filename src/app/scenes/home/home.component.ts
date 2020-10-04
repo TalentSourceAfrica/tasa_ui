@@ -65,10 +65,13 @@ export class HomeComponent implements OnInit {
   }
 
   getCourses() {
-    let apiUrl = this.sharedService.urlService.simpleApiCall('getAllCourse');
+    let apiUrl = this.sharedService.urlService.apiCallWithParams('getCourse', {
+      '{page}': 1,
+      '{size}': 10,
+    });
     this.sharedService.configService.get(apiUrl).subscribe(
       (response: any) => {
-        this.courses = response.splice(0, 10);
+        this.courses = response.responseObj;
         setTimeout(() => {
           this.courseSlider();
         }, 500);
@@ -188,7 +191,7 @@ export class HomeComponent implements OnInit {
   }
 
   enroll(_course: any) {
-    this.router.navigate(['/course/' + _course.enroll], { replaceUrl: true });
+    this.router.navigate(['/course/' + _course.key], { replaceUrl: true });
   }
 
   get user(): any | null {

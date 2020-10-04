@@ -16,6 +16,7 @@ export class ResetPasswordComponent implements OnInit {
   contactUsForm: FormGroup;
   userDetails: any;
   isToken: boolean = false;
+  isSubmit: boolean = true;
   constructor(
     private formBuilder: FormBuilder,
     private sharedService: SharedService,
@@ -28,6 +29,26 @@ export class ResetPasswordComponent implements OnInit {
     } else {
       this.isToken = false;
     }
+  }
+
+  checkCurrentPassword(event: any) {
+    let $t = this;
+
+    let apiUrl = $t.sharedService.urlService.apiCallWithParams('checkCurrentPassword', {
+      '{email}': $t.user.email,
+      '{currentPassword}': event.target.value,
+    });
+
+    $t.sharedService.configService.post(apiUrl).subscribe(
+      (response: any) => {
+        if (response.data == 'Y') {
+          $t.isSubmit = true;
+        } else {
+          $t.isSubmit = false;
+        }
+      },
+      (error) => {}
+    );
   }
 
   initForm() {

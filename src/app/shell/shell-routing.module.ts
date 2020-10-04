@@ -30,7 +30,7 @@ const routes: Routes = [
           import('@app/scenes/reset-password/reset-password.module').then((m) => m.ResetPasswordModule),
       },
       {
-        path: 'course/:id',
+        path: 'course/:key',
         loadChildren: () => import('@app/scenes/course/course.module').then((m) => m.CourseModule),
       },
       {

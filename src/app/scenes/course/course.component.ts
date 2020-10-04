@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SharedService } from '@app/services/shared.service';
+import { ActivatedRoute } from '@angular/router';
+import { CredentialsService, AuthenticationService } from '@app/auth';
 
 @Component({
   selector: 'app-course',
@@ -7,10 +9,56 @@ import { SharedService } from '@app/services/shared.service';
   styleUrls: ['./course.component.scss'],
 })
 export class CourseComponent implements OnInit {
-  constructor(private sharedService: SharedService) {}
+  courseConfig: any = {
+    courseKey: '',
+    course: undefined,
+    fetchingCourse: true,
+  };
+
+  constructor(
+    private sharedService: SharedService,
+    public route: ActivatedRoute,
+    public credentialsService: CredentialsService,
+    public authenticationService: AuthenticationService
+  ) {
+    console.log(this.route.snapshot.params.id);
+    this.courseConfig.courseKey = this.route.snapshot.params.key;
+  }
+
+  getCourseDetail() {
+    let $t = this;
+    $t.courseConfig.fetchingCourse = true;
+    let apiUrl = $t.sharedService.urlService.apiCallWithParams('getCourseDetails', {
+      '{courseKey}': $t.courseConfig.courseKey,
+    });
+    $t.sharedService.configService.get(apiUrl).subscribe(
+      (response: any) => {
+        $t.courseConfig.course = response.responseObj;
+        $t.courseConfig.fetchingCourse = false;
+      },
+      (error) => {
+        $t.courseConfig.fetchingCourse = false;
+      }
+    );
+  }
+
+  addToCart() {
+    let $t = this;
+    if (typeof $t.user === 'undefined') {
+      $t.authenticationService.openLoginPopup();
+    } else {
+      // call the cart
+    }
+  }
 
   ngOnInit(): void {
+    this.getCourseDetail();
     window.scrollTo(0, 0);
     this.sharedService.utilityService.requiredStyleForHomeHeader();
+  }
+
+  get user(): any | null {
+    const credentials = this.credentialsService.credentials;
+    return credentials ? credentials : null;
   }
 }

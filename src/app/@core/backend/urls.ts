@@ -7,8 +7,8 @@
 export const urls: any = {
   // home
 
-  getNews: '/news', // G
-  gePost: '/posts', // G
+  getNews: '/v1/news', // G
+  gePost: '/v1/posts', // G
 
   // Authentication
 
@@ -21,6 +21,7 @@ export const urls: any = {
   updatePassword: '/v1/auth/update-password', // PO
   forgotPassword: '/v1/auth/forgot-password/{email}', //PO
   resetPassword: '/v1/auth/reset-password', // PO
+  checkCurrentPassword: '/v1/checkPassword/{email}/{currentPassword}', // PO
 
   // location
 
@@ -31,5 +32,7 @@ export const urls: any = {
   contactUs: '/v1/contact-us', // PO
 
   // course
-  getAllCourse: '/courses/all', // G
+  getAllCourse: '/v1/courses/all', // G
+  getCourseDetails: '/v1/courses/{courseKey}', // G
+  getCourse: '/v1/courses/page/{page}/{size}', // G
 };

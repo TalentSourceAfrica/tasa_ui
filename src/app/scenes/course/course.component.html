@@ -1,30 +1,35 @@
 <div class="course-wrapper container mt-4 mb-4">
   <div class="page">
-    <div class="container page__container">
+    <div class="text-center" *ngIf="fetchingCourse">
+      <img src="../../../assets/loaders/swal-loader.gif" height="200" width="200" />
+    </div>
+    <div class="container page__container animated fadeIn" *ngIf="!fetchingCourse">
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a [routerLink]="['/home']">Home</a></li>
-        <li class="breadcrumb-item"><a>Courses</a></li>
-        <li class="breadcrumb-item active">The MVC architectural pattern</li>
+        <li class="breadcrumb-item"><a [routerLink]="['/all-course']">All Courses</a></li>
+        <li class="breadcrumb-item active text-truncate">{{ courseConfig.course.title }}</li>
       </ol>
-      <h1 class="h2">The MVC architectural pattern</h1>
+      <h1 class="h2">{{ courseConfig.course.title }}</h1>
       <div class="row">
         <div class="col-md-8">
           <div class="card mt-2">
             <div class="embed-responsive embed-responsive-16by9">
-              <iframe
+              <!-- <iframe
                 class="embed-responsive-item"
                 src="https://player.vimeo.com/video/97243285?title=0&amp;byline=0&amp;portrait=0"
                 allowfullscreen=""
-              ></iframe>
+              ></iframe> -->
+              <img [src]="courseConfig.course.image_url" class="embed-responsive-item" alt="course" />
             </div>
             <div class="card-body">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum dicta eius enim inventoreus optio ratione
-              veritatis. Beatae deserunt illum ipsam magniima mollitia officiis quia tempora!
+              <h5>{{ courseConfig.course.subjects[0].name }}</h5>
+              <div [innerHTML]="courseConfig.course.short_description"></div>
             </div>
           </div>
 
           <!-- Lessons -->
-          <ul class="card mt-2 list-group list-group-fit">
+          <div class="card p-2 mt-2 list-group list-group-fit" [innerHTML]="courseConfig.course.full_description"></div>
+          <ul class="card mt-2 list-group list-group-fit d-none">
             <li class="list-group-item">
               <div class="media">
                 <div class="media-left">
@@ -107,18 +112,20 @@
           <div class="card mt-2">
             <div class="card-body text-center">
               <p>
-                <a href="fixed-student-cart.html" class="btn btn-success btn-block flex-column">
-                  Get All Courses
-                  <strong>9 / month</strong>
-                </a>
+                <button mat-flat-button color="primary" (click)="addToCart()" class="rounded-pill ml-2">
+                  Get Course
+                  <strong
+                    ><span>{{ courseConfig.course.entitlements[0].price | currency: 'USD' }}</span></strong
+                  >
+                </button>
               </p>
-              <div class="page-separator">
+              <!-- <div class="page-separator">
                 <div class="page-separator__text">or</div>
-              </div>
-              <a href="fixed-student-cart.html" class="btn btn-white btn-block flex-column">
+              </div> -->
+              <!-- <a href="fixed-student-cart.html" class="btn btn-white btn-block flex-column">
                 Purchase Course
                 <strong>25 USD</strong>
-              </a>
+              </a> -->
             </div>
           </div>
           <div class="card mt-2">
@@ -126,26 +133,27 @@
               <div class="media align-items-center">
                 <div class="media-left">
                   <img
-                    src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
-                    alt="About Adrian"
-                    width="50"
+                    [src]="courseConfig.course.owners[0].logo_image_url"
+                    [alt]="courseConfig.course.owners[0].name"
                     class="rounded-circle"
                   />
                 </div>
-                <div class="media-body">
-                  <h4 class="card-title"><a href="fixed-student-profile.html">Adrian Demian</a></h4>
-                  <p class="card-subtitle">Instructor</p>
-                </div>
+                <!-- <div class="media-body">
+                  <h4 class="card-title"><a></a></h4>
+                  <p class="card-subtitle">{{ courseConfig.course.owners[0].name }}</p>
+                </div> -->
               </div>
             </div>
-            <div class="card-body">
-              <p>
-                Having over 12 years exp. Adrian is one of the lead UI designers in the industry Lorem ipsum dolor sit
-                amet, consectetur adipisicing elit. Facere, aut.
-              </p>
-              <a href="" class="btn btn-light"><i class="fab fa-facebook"></i></a>
-              <a href="" class="btn btn-light"><i class="fab fa-twitter"></i></a>
-              <a href="" class="btn btn-light"><i class="fab fa-github"></i></a>
+            <div class="card-body p-2">
+              <p
+                class="min-vertical-h-50 max-vertical-h-50 stylishScroll flow-y-auto flow-x-hidden p-2"
+                [innerHTML]="courseConfig.course.owners[0].description"
+              ></p>
+              <div class="border-top pt-2 text-center">
+                <a href="" class="btn btn-light"><i class="fab fa-facebook"></i></a>
+                <a href="" class="btn btn-light"><i class="fab fa-twitter"></i></a>
+                <a href="" class="btn btn-light"><i class="fab fa-github"></i></a>
+              </div>
             </div>
           </div>
           <div class="card mt-2">
@@ -156,7 +164,7 @@
                     <i class="material-icons text-muted-light">assessment</i>
                   </div>
                   <div class="media-body">
-                    Beginner
+                    {{ courseConfig.course.level_type }}
                   </div>
                 </div>
               </li>

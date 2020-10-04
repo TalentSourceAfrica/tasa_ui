@@ -49,11 +49,11 @@ export class LoginPopupComponent implements OnInit {
       )
       .subscribe(
         (response: any) => {
-          this.popupData.authenticationService.login(response.user);
+          this.popupData.authenticationService.login(response.responseObj);
           this.popupData.authenticationService.setToken(JSON.parse(response.data).access_token);
           this.sharedService.uiService.showApiSuccessPopMsg('Login in successfully...');
           this.dialogRef.close();
-          if (response.user.address1 == null) {
+          if (response.responseObj.address1 == null) {
             this.popupData.authenticationService.openUserDetailsPopup();
           } else {
             this.router.navigate(['/dashboard'], { replaceUrl: true });
