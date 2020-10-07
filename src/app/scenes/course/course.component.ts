@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SharedService } from '@app/services/shared.service';
 import { ActivatedRoute } from '@angular/router';
 import { CredentialsService, AuthenticationService } from '@app/auth';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-course',
@@ -19,7 +20,8 @@ export class CourseComponent implements OnInit {
     private sharedService: SharedService,
     public route: ActivatedRoute,
     public credentialsService: CredentialsService,
-    public authenticationService: AuthenticationService
+    public authenticationService: AuthenticationService,
+    private sanitizer: DomSanitizer
   ) {
     console.log(this.route.snapshot.params.id);
     this.courseConfig.courseKey = this.route.snapshot.params.key;
@@ -44,11 +46,16 @@ export class CourseComponent implements OnInit {
 
   addToCart() {
     let $t = this;
-    if (typeof $t.user === 'undefined') {
+    if ($t.user == null) {
       $t.authenticationService.openLoginPopup();
     } else {
       // call the cart
     }
+  }
+
+  getCourseVideo(_url: any) {
+    // return 'https://www.youtube.com/embed/tgbNymZ7vqY';
+    return this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/watch?v=OiRfkH5_MSM');
   }
 
   ngOnInit(): void {

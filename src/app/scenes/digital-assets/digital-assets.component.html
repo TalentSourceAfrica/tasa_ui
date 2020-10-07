@@ -1,0 +1,85 @@
+<div class="da-wrapper container">
+  <ol class="breadcrumb mt-3">
+    <li class="breadcrumb-item curPoint"><a [routerLink]="['/home']">Home</a></li>
+    <li class="breadcrumb-item active">Documents</li>
+  </ol>
+  <section>
+    <div class="upload-box text-center">
+      <div
+        class="supportedFormatCarousel d-block mt-5 mb-3 mx-auto w50"
+        [ngClass]="{ w100: sharedService.deviceDetectorService.isMobile() }"
+      >
+        <button mat-flat-button color="primary" (click)="callUpload()" class="rounded-pill ml-2">
+          <span class="material-icons pr-2">
+            cloud_upload
+          </span>
+          Upload File
+        </button>
+        <div class="format-slideshow mt-4">
+          <div class="slider">
+            <div class="slide-track pl-3">
+              <div class="slide">
+                <div *ngFor="let s of suppFiles" class="file-icon mx-2" [attr.data-type]="s"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="my-2 small text-center text-muted">
+          ( Currently Supported File Formats )
+        </p>
+      </div>
+    </div>
+  </section>
+  <section>
+    <ng-container *ngIf="user.gcpdocument && user.gcpdocument.length > 0">
+      <div class="row min-vertical-h-50 max-vertical-h-50 stylishScroll flow-y-auto flow-x-hidden">
+        <div class="col-md-4 col-lg-4 col-sm-6 animated fadeIn" *ngFor="let doc of user.gcpdocument">
+          <div class="card d-flex align-items-center">
+            <div class="card-body" [ngSwitch]="doc.type">
+              <img [src]="doc.url" *ngSwitchCase="'.png'" class="doc-aspect-ratio-css" />
+              <img [src]="doc.url" *ngSwitchCase="'.jpeg'" class="doc-aspect-ratio-css" />
+              <img [src]="doc.url" *ngSwitchCase="'.jpg'" class="doc-aspect-ratio-css" />
+              <img [src]="doc.url" *ngSwitchCase="'.webp'" class="doc-aspect-ratio-css" />
+              <div *ngSwitchCase="'.pdf'" class="doc-aspect-ratio-css">
+                <i class="far fa-file-pdf fa-3x text-primary" style="font-size: 95px;"></i>
+              </div>
+              <div *ngSwitchDefault class="doc-aspect-ratio-css">
+                <i class="fas fa-file-alt fa-5x text-primary" style="font-size: 95px;"></i>
+              </div>
+            </div>
+            <div class="text-primary p-1">
+              <span [title]="doc.name" class="text-truncate">{{ doc.name }}</span>
+            </div>
+            <div class="w100 border-top p-2">
+              <div class="text-center">
+                <a
+                  [href]="doc.url"
+                  target="_blank"
+                  mat-mini-fab
+                  color="primary"
+                  class="mr-2"
+                  download
+                  matTooltipPosition="below"
+                  matTooltip="Download"
+                >
+                  <mat-icon>cloud_download</mat-icon>
+                </a>
+                <button
+                  mat-mini-fab
+                  color="primary"
+                  matTooltipPosition="below"
+                  matTooltip="Delete"
+                  (click)="deleteDoc(doc)"
+                >
+                  <mat-icon>clear</mat-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </section>
+</div>
+
+<input type="file" #dafile class="d-none" id="imageUpload" multiple (change)="handleFileInput($event)" />

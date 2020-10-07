@@ -13,6 +13,7 @@ declare var jQuery: any;
 })
 export class HomeHeaderComponent implements OnInit {
   menuHidden = true;
+  searchCourseText: string = '';
   constructor(
     private router: Router,
     private sharedService: SharedService,
@@ -48,6 +49,11 @@ export class HomeHeaderComponent implements OnInit {
 
   scrollToFaq(_id: string) {
     this.sharedService.utilityService.scrollToElement(_id);
+  }
+
+  onCourseSearch() {
+    localStorage.setItem('tasa-search-course-text', this.searchCourseText);
+    this.router.navigate(['/all-course'], { replaceUrl: true });
   }
 
   get user(): any | null {

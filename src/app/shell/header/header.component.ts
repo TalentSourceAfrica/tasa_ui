@@ -16,6 +16,7 @@ declare var $: any;
 })
 export class HeaderComponent implements OnInit {
   @ViewChild('file', { static: false }) public file: any;
+  searchCourseText: string = '';
   constructor(
     private httpClient: HttpClient,
     private router: Router,
@@ -24,7 +25,16 @@ export class HeaderComponent implements OnInit {
     private sharedService: SharedService
   ) {}
 
-  ngOnInit() {}
+  onCourseSearch() {
+    localStorage.setItem('tasa-search-course-text', this.searchCourseText);
+    this.router.navigate(['/all-course'], { replaceUrl: true });
+  }
+
+  ngOnInit() {
+    if (this.sharedService.deviceDetectorService.isMobile()) {
+      $('.page-wrapper').removeClass('toggled');
+    }
+  }
 
   ngAfterViewInit(): void {
     $('.sidebar-dropdown > a').click(function () {

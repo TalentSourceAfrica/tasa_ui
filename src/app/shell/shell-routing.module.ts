@@ -52,7 +52,6 @@ const routes: Routes = [
       },
       {
         path: 'all-course',
-        canActivate: [AuthenticationGuard],
         loadChildren: () => import('@app/scenes/all-course/all-course.module').then((m) => m.AllCourseModule),
       },
       {
@@ -60,7 +59,12 @@ const routes: Routes = [
         canActivate: [AuthenticationGuard],
         loadChildren: () => import('@app/scenes/user-course/user-course.module').then((m) => m.UserCourseModule),
       },
-
+      {
+        path: 'digital-assets',
+        canActivate: [AuthenticationGuard],
+        loadChildren: () =>
+          import('@app/scenes/digital-assets/digital-assets.module').then((m) => m.DigitalAssetsModule),
+      },
       { path: '', redirectTo: '/home', pathMatch: 'full' },
     ],
     data: { reuse: true },
@@ -68,7 +72,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [RouterModule.forRoot(routes, { useHash: true, onSameUrlNavigation: 'reload' })],
   exports: [RouterModule],
 })
 export class ShellRoutingModule {}

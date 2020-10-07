@@ -18,7 +18,6 @@ import * as AOS from 'aos';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  quote: string | undefined;
   isLoading = false;
   activeSlide: number = 0;
   news: Array<object> = [];

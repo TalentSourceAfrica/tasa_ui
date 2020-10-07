@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { UiService } from '@app/services/ui.service';
 import { UtilityService } from '@app/services/utility.service';
 import { DialogService } from './dialog.service';
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 // jquery & extras
 import * as moment from 'moment';
@@ -30,7 +31,8 @@ export class SharedService {
     public router: Router,
     public dialogService: DialogService,
     public configService: ConfigService,
-    public urlService: UrlService
+    public urlService: UrlService,
+    public deviceDetectorService: DeviceDetectorService
   ) {
     this.initPlugins();
   }

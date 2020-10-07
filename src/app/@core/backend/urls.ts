@@ -6,12 +6,10 @@
 // where D  stands for DELETE api request
 export const urls: any = {
   // home
-
   getNews: '/v1/news', // G
   gePost: '/v1/posts', // G
 
   // Authentication
-
   getUsers: '/users', // G
   login: '/v1/login', // PO
   signup: '/v1/signup', // PO
@@ -24,7 +22,6 @@ export const urls: any = {
   checkCurrentPassword: '/v1/checkPassword/{email}/{currentPassword}', // PO
 
   // location
-
   getCountry: '/v1/locations', // G
   getCities: '/v1/locations/{countryCode}/cities', // G
 
@@ -35,4 +32,15 @@ export const urls: any = {
   getAllCourse: '/v1/courses/all', // G
   getCourseDetails: '/v1/courses/{courseKey}', // G
   getCourse: '/v1/courses/page/{page}/{size}', // G
+  getCourseCount: '/v1/courses/count', // G
+  searchCourse: '/v1/courses/search', // PO
+
+  // tiers
+  getTiers: '/v1/tiers', // G
+
+  // upload
+  uploadMultiFile: '/v1/uploadMultipleDocuments/{email}', // PO
+
+  // lovs
+  getLovs: '/v1/lov/{group}', // G
 };

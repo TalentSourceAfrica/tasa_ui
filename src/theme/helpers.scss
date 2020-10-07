@@ -762,6 +762,31 @@ a {
   background-color: #523f6d;
 }
 
+.bg-primary {
+  background-color: #523f6d;
+}
+
+.mat-flat-button.mat-primary,
+.mat-raised-button.mat-primary,
+.mat-fab.mat-primary,
+.mat-mini-fab.mat-primary {
+  background-color: #fff;
+  border: 2px solid #523f6d;
+  color: #523f6d;
+  font-weight: 700;
+}
+
+.mat-flat-button.mat-primary,
+.mat-raised-button.mat-primary,
+.mat-fab.mat-primary,
+.mat-mini-fab.mat-primary {
+  &:hover {
+    background-color: #523f6d;
+    color: #fff;
+    box-shadow: 0 5px 10px 0 rgba(#000, 0.15);
+  }
+}
+
 .theme-color {
   color: #523f6d;
 }
@@ -1104,16 +1129,16 @@ button:hover,
 
 // --- home top css ------------- //
 
-.mat-form-field-underline {
-  display: none !important;
-}
+// .mat-form-field-underline {
+//   display: none !important;
+// }
 .mat-form-field-infix {
   border-top: none;
-  padding: 0 !important;
+  padding: 10 !important;
 }
-.mat-select-placeholder {
-  color: rgb(134 142 150) !important;
-}
+// .mat-select-placeholder {
+//   color: rgb(134 142 150) !important;
+// }
 
 @media (min-width: 1200px) {
   .container-xl,
@@ -1199,4 +1224,7 @@ button:hover,
     min-height: 28px;
     border-radius: 4px;
   }
+}
+.mat-paginator-range-actions {
+  margin-top: -10px;
 }
