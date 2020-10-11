@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Directive } from '@angular/core';
 import { SharedService } from '@app/services/shared.service';
 import { ActivatedRoute } from '@angular/router';
 import { CredentialsService, AuthenticationService } from '@app/auth';
@@ -23,7 +23,6 @@ export class CourseComponent implements OnInit {
     public authenticationService: AuthenticationService,
     private sanitizer: DomSanitizer
   ) {
-    console.log(this.route.snapshot.params.id);
     this.courseConfig.courseKey = this.route.snapshot.params.key;
   }
 

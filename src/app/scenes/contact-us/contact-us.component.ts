@@ -5,7 +5,6 @@ import { delay } from 'rxjs/operators';
 import { untilDestroyed } from '@app/@core';
 
 //extra
-import * as AOS from 'aos';
 declare var jQuery: any;
 
 @Component({
@@ -50,7 +49,6 @@ export class ContactUsComponent implements OnInit {
     this.sharedService.utilityService.requiredStyleForHomeHeader();
     window.scrollTo(0, 0);
     this.initForm();
-    AOS.init();
 
     this.sharedService.utilityService.currentMessage.pipe(delay(10), untilDestroyed(this)).subscribe((message) => {
       if (message == 'PARTNER-WITH-US') {

@@ -1,7 +1,8 @@
 <div class="course-wrapper container mt-4 mb-4">
   <div class="page">
-    <div class="text-center" *ngIf="courseConfig.fetchingCourse">
-      <img src="../../../assets/loaders/swal-loader.gif" height="200" width="200" />
+    <div class="text-center m-auto min-vertical-h-50" *ngIf="courseConfig.fetchingCourse">
+      <img src="../../../assets/loaders/swal-loader.gif" height="150" width="150" />
+      <h5 class="text-primary">Fetching Courses...</h5>
     </div>
     <div class="container page__container animated fadeIn" *ngIf="!courseConfig.fetchingCourse">
       <ol class="breadcrumb">
@@ -46,7 +47,7 @@
                 <button mat-flat-button color="primary" (click)="addToCart()" class="rounded-pill ml-2">
                   Get Course
                   <strong
-                    ><span>{{ courseConfig.course.entitlements[0].price | currency: 'USD' }}</span></strong
+                    ><span>{{ (courseConfig.course?.entitlements)[0]?.price | currency: 'USD' }}</span></strong
                   >
                 </button>
               </p>

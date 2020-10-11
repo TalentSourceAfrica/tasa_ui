@@ -1,6 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+
+//service
 import { SharedService } from '@app/services/shared.service';
 import { AuthenticationService, CredentialsService } from '@app/auth';
+
+//extra
+import { Gallery } from 'angular-gallery';
 
 @Component({
   selector: 'app-digital-assets',
@@ -9,11 +14,14 @@ import { AuthenticationService, CredentialsService } from '@app/auth';
 })
 export class DigitalAssetsComponent implements OnInit {
   suppFiles: any;
+  doc = '';
   @ViewChild('dafile', { static: false }) public dafile: any;
+  galleryImages: any;
   constructor(
     public sharedService: SharedService,
     public authenticationService: AuthenticationService,
-    public credentialsService: CredentialsService
+    public credentialsService: CredentialsService,
+    private gallery: Gallery
   ) {
     console.log(this.user);
   }
@@ -25,6 +33,25 @@ export class DigitalAssetsComponent implements OnInit {
 
   callUpload() {
     this.dafile.nativeElement.click();
+  }
+
+  showGallery(doc: any) {
+    let prop: any = {
+      images: [],
+    };
+    prop.images = this.user.gcpdocument.map((doc: any) => {
+      if (doc.type == '.png' || doc.type == '.jpeg' || doc.type == '.jpg' || doc.type == '.webp') {
+        return { path: doc.url };
+      }
+    });
+    prop.images = prop.images.filter((d: any) => typeof d != 'undefined');
+    const index = this.sharedService.plugins.undSco.findIndex(prop.images, (d: any) => d.path == doc.url);
+    prop = { ...prop, index };
+    this.gallery.load(prop);
+  }
+
+  showDocViewer(doc: any) {
+    this.doc = doc.url;
   }
 
   handleFileInput(event: any) {
@@ -62,5 +89,15 @@ export class DigitalAssetsComponent implements OnInit {
   ngOnInit(): void {
     window.scrollTo(0, 0);
     this.prepareSupportedNames();
+
+    // Get the modal
+    var modal = document.getElementById('myModal');
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = (event: any) => {
+      if (event.target == modal) {
+        modal.style.display = 'none';
+      }
+    };
   }
 }

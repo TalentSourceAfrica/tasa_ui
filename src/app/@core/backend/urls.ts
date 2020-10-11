@@ -33,7 +33,7 @@ export const urls: any = {
   getCourseDetails: '/v1/courses/{courseKey}', // G
   getCourse: '/v1/courses/page/{page}/{size}', // G
   getCourseCount: '/v1/courses/count', // G
-  searchCourse: '/v1/courses/search', // PO
+  searchCourse: '/v1/courses/search/{page}/{size}', // PO
 
   // tiers
   getTiers: '/v1/tiers', // G
@@ -43,4 +43,5 @@ export const urls: any = {
 
   // lovs
   getLovs: '/v1/lov/{group}', // G
+  getFiltersData: '/v1/courses/filters', // G
 };

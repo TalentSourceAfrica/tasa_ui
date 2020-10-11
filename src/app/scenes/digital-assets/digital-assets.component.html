@@ -33,7 +33,7 @@
   <section>
     <ng-container *ngIf="user.gcpdocument && user.gcpdocument.length > 0">
       <div class="row min-vertical-h-50 max-vertical-h-50 stylishScroll flow-y-auto flow-x-hidden">
-        <div class="col-md-4 col-lg-4 col-sm-6 animated fadeIn" *ngFor="let doc of user.gcpdocument">
+        <div class="col-md-4 col-lg-4 col-sm-6 animated fadeIn" *ngFor="let doc of user.gcpdocument; let i = index">
           <div class="card d-flex align-items-center">
             <div class="card-body" [ngSwitch]="doc.type">
               <img [src]="doc.url" *ngSwitchCase="'.png'" class="doc-aspect-ratio-css" />
@@ -52,6 +52,28 @@
             </div>
             <div class="w100 border-top p-2">
               <div class="text-center">
+                <button
+                  mat-mini-fab
+                  color="primary"
+                  matTooltipPosition="below"
+                  class="mr-2"
+                  matTooltip="View"
+                  *ngIf="doc.type == '.png' || doc.type == '.jpeg' || doc.type == '.jpg' || doc.type == '.webp'"
+                  (click)="showGallery(doc)"
+                >
+                  <mat-icon>remove_red_eye</mat-icon>
+                </button>
+                <button
+                  mat-mini-fab
+                  color="primary"
+                  matTooltipPosition="below"
+                  class="mr-2"
+                  matTooltip="View"
+                  *ngIf="doc.type != '.png' && doc.type != '.jpeg' && doc.type != '.jpg' && doc.type != '.webp'"
+                  (click)="showDocViewer(doc)"
+                >
+                  <mat-icon>remove_red_eye</mat-icon>
+                </button>
                 <a
                   [href]="doc.url"
                   target="_blank"
@@ -81,5 +103,13 @@
     </ng-container>
   </section>
 </div>
-
 <input type="file" #dafile class="d-none" id="imageUpload" multiple (change)="handleFileInput($event)" />
+
+<!-- The Modal -->
+<div id="myModal" class="modal" [ngClass]="{ 'd-block': doc != '' }">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close" (click)="doc = ''">&times;</span>
+    <ngx-doc-viewer [url]="doc" viewer="google" style="width: 100%; height: 100%;"></ngx-doc-viewer>
+  </div>
+</div>

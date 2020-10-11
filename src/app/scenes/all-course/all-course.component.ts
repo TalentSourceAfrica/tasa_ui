@@ -20,16 +20,20 @@ export class AllCourseComponent implements OnInit {
   filterData: any = {
     tiers: [],
     categories: [],
-    level: ['Introductory', 'Beginner', 'Intermediate', 'Advanced'],
+    levels: ['Introductory', 'Beginner', 'Intermediate', 'Advanced'],
+    languages: [],
+    subjects: [],
   };
   searchConfig: any = {
     text: '',
     tier: '',
-    level: '',
-    subject: '',
+    levels: '',
+    subjects: '',
     category: '',
-    language: '',
+    languages: '',
     program: '',
+    discountStart: 0,
+    discountEnd: 0,
   };
 
   constructor(public sharedService: SharedService, public router: Router) {}
@@ -71,6 +75,22 @@ export class AllCourseComponent implements OnInit {
   getFilterData() {
     this.getTiers();
     this.getCategories();
+    this.remaningData();
+  }
+
+  remaningData() {
+    let $t = this;
+    let apiUrl = $t.sharedService.urlService.simpleApiCall('getFiltersData');
+    $t.sharedService.configService.get(apiUrl).subscribe(
+      (response: any) => {
+        $t.filterData.levels = response.responseObj.levels;
+        $t.filterData.languages = response.responseObj.languages;
+        $t.filterData.subjects = response.responseObj.subjects;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
   getTiers() {
@@ -99,17 +119,20 @@ export class AllCourseComponent implements OnInit {
     );
   }
 
-  applyFilter() {
+  applyFilter(_pageIndex?: number) {
     let $t = this;
     if ($t.sharedService.deviceDetectorService.isMobile()) {
       $t.filterDrawer.toggle();
     }
     $t.isLoading = true;
-    let apiUrl = $t.sharedService.urlService.simpleApiCall('searchCourse');
+    let apiUrl = $t.sharedService.urlService.apiCallWithParams('searchCourse', {
+      '{page}': _pageIndex || 1,
+      '{size}': this.pageSize,
+    });
     $t.sharedService.configService.post(apiUrl, $t.searchConfig).subscribe(
       (response: any) => {
-        $t.allCourse = response.responseObj;
-        $t.length = response.responseObj.length;
+        $t.allCourse = response.responseObj.courses;
+        $t.length = response.responseObj.count;
         $t.isLoading = false;
       },
       (error) => {
@@ -126,10 +149,10 @@ export class AllCourseComponent implements OnInit {
     this.searchConfig = {
       text: '',
       tier: '',
-      level: '',
-      subject: '',
+      levels: '',
+      subjects: '',
       category: '',
-      language: '',
+      languages: '',
       program: '',
     };
 
@@ -139,7 +162,11 @@ export class AllCourseComponent implements OnInit {
 
   pagination(event: any): any {
     this.pageSize = event.pageSize;
-    this.getCourses(event.pageIndex + 1);
+    if (this.checkFilter()) {
+      this.applyFilter(event.pageIndex + 1);
+    } else {
+      this.getCourses(event.pageIndex + 1);
+    }
   }
 
   courseView(_key: any) {

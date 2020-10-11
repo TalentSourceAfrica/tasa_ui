@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -9,6 +9,8 @@ import { MaterialModule } from '@app/modules/material.module';
 import { RouterModule } from '@angular/router';
 import { DigitalAssetsRoutingModule } from './digital-assets-routing.module';
 import { DigitalAssetsComponent } from './digital-assets.component';
+import { IvyGalleryModule } from 'angular-gallery';
+import { NgxDocViewerModule } from 'ngx-doc-viewer';
 
 @NgModule({
   imports: [
@@ -20,7 +22,10 @@ import { DigitalAssetsComponent } from './digital-assets.component';
     MaterialModule,
     RouterModule,
     DigitalAssetsRoutingModule,
+    IvyGalleryModule,
+    NgxDocViewerModule,
   ],
   declarations: [DigitalAssetsComponent],
+  schemas: [NO_ERRORS_SCHEMA],
 })
 export class DigitalAssetsModule {}

@@ -5,7 +5,7 @@
   "scripts": {
     "ng": "ng",
     "build": "npm run env -s && ng build --prod",
-    "start": "npm run env -s && ng serve --proxy-config proxy.conf.js && node server.js",
+    "start": "npm run env -s && ng serve --proxy-config proxy.conf.js",
     "serve:sw": "npm run build -s && npx http-server ./dist -p 4200",
     "lint": "ng lint && stylelint \"src/**/*.scss\" --syntax scss && htmlhint \"src\" --config .htmlhintrc",
     "test": "npm run env -s && ng test",
@@ -16,7 +16,7 @@
     "env": "ngx-scripts env npm_package_version",
     "prettier": "prettier --write \"./{src,e2e}/**/*.{ts,js,html,scss}\"",
     "prettier:check": "prettier --list-different \"./{src,e2e}/**/*.{ts,js,html,scss}\"",
-    "postinstall": "npm run prettier -s",
+    "postinstall": "npm run prettier -s && ngcc",
     "generate": "ng generate"
   },
   "engines": {
@@ -44,6 +44,7 @@
     "@types/jquery": "^3.5.1",
     "@types/lodash": "^4.14.159",
     "@types/underscore": "^1.10.22",
+    "angular-gallery": "^1.0.2",
     "animate.css": "^4.1.0",
     "aos": "^2.3.4",
     "bootstrap": "^4.1.1",
@@ -51,6 +52,8 @@
     "firebase": "^7.13.1",
     "material-design-icons": "^3.0.1",
     "ngx-device-detector": "^2.0.0",
+    "ngx-doc-viewer": "^1.3.1",
+    "ngx-gallery": "^5.10.0",
     "ngx-owl-carousel-o": "^4.0.0",
     "rxjs": "^6.5.5",
     "tslib": "^1.10.1",
