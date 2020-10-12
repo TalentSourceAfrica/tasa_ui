@@ -23,6 +23,7 @@ export class AllCourseComponent implements OnInit {
     levels: ['Introductory', 'Beginner', 'Intermediate', 'Advanced'],
     languages: [],
     subjects: [],
+    programs: [],
   };
   searchConfig: any = {
     text: '',
@@ -31,7 +32,7 @@ export class AllCourseComponent implements OnInit {
     subjects: '',
     category: '',
     languages: '',
-    program: '',
+    programs: '',
     discountStart: 0,
     discountEnd: 0,
   };
@@ -86,6 +87,7 @@ export class AllCourseComponent implements OnInit {
         $t.filterData.levels = response.responseObj.levels;
         $t.filterData.languages = response.responseObj.languages;
         $t.filterData.subjects = response.responseObj.subjects;
+        $t.filterData.programs = response.responseObj.programs;
       },
       (error) => {
         console.log(error);
