@@ -23,26 +23,13 @@ export class HomeComponent implements OnInit {
   news: Array<object> = [];
   posts: Array<object> = [];
   courses: Array<object> = [];
-  public visitor: { name: string; email: string };
-  public params: { name: string; value: string }[];
   menuHidden = true;
   constructor(
     private router: Router,
     private sharedService: SharedService,
     private authenticationService: AuthenticationService,
     private credentialsService: CredentialsService
-  ) {
-    this.visitor = {
-      name: 'John Doe',
-      email: 'john@doe.com',
-    };
-
-    this.params = [
-      { name: 'Login', value: 'joe_public' },
-      { name: 'Account ID', value: 'ABCD1234' },
-      { name: 'Total order value', value: '$123' },
-    ];
-  }
+  ) {}
 
   signup() {
     this.authenticationService.openSignupPopup();

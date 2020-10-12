@@ -2,7 +2,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { SharedService } from '@app/services/shared.service';
 import { Router, RouterEvent, NavigationEnd } from '@angular/router';
 import { PageEvent } from '@angular/material/paginator';
-import { filter } from 'rxjs/operators';
+import { filter, delay } from 'rxjs/operators';
+import { courseSearchData } from '@app/models/constants';
+import { untilDestroyed } from '@app/@core';
 
 @Component({
   selector: 'app-all-course',
@@ -25,19 +27,11 @@ export class AllCourseComponent implements OnInit {
     subjects: [],
     programs: [],
   };
-  searchConfig: any = {
-    text: '',
-    tier: '',
-    levels: '',
-    subjects: '',
-    category: '',
-    languages: '',
-    programs: '',
-    discountStart: 0,
-    discountEnd: 0,
-  };
+  searchConfig: any = {};
 
-  constructor(public sharedService: SharedService, public router: Router) {}
+  constructor(public sharedService: SharedService, public router: Router) {
+    this.searchConfig = courseSearchData;
+  }
 
   getCourses(_pageIndex: any) {
     this.isLoading = true;
@@ -148,16 +142,7 @@ export class AllCourseComponent implements OnInit {
   }
 
   removeFilter() {
-    this.searchConfig = {
-      text: '',
-      tier: '',
-      levels: '',
-      subjects: '',
-      category: '',
-      languages: '',
-      program: '',
-    };
-
+    this.searchConfig = courseSearchData;
     this.getTotalCourseCount();
     this.getCourses(1);
   }
@@ -177,11 +162,13 @@ export class AllCourseComponent implements OnInit {
 
   init() {
     this.getFilterData();
-    if (localStorage.getItem('tasa-search-course-text')) {
-      this.searchConfig.text = localStorage.getItem('tasa-search-course-text');
-      localStorage.removeItem('tasa-search-course-text');
+    if (localStorage.getItem('tasa-search-course')) {
+      this.searchConfig = JSON.parse(localStorage.getItem('tasa-search-course'));
+      localStorage.removeItem('tasa-search-course');
       this.applyFilter();
-      this.filterDrawer.open();
+      setTimeout(() => {
+        this.filterDrawer.open();
+      }, 500);
     } else {
       this.getTotalCourseCount();
       this.getCourses(1);
@@ -191,9 +178,16 @@ export class AllCourseComponent implements OnInit {
   ngOnInit(): void {
     this.sharedService.utilityService.requiredStyleForHomeHeader();
     window.scrollTo(0, 0);
-    this.router.events.pipe(filter((event: RouterEvent) => event instanceof NavigationEnd)).subscribe(() => {
-      this.init();
-    });
     this.init();
+
+    this.sharedService.utilityService.currentMessage.pipe(delay(10), untilDestroyed(this)).subscribe((message) => {
+      if (message == 'TRIGGER-COURSE-SEARCH') {
+        this.init();
+      }
+    });
+  }
+  ngOnDestroy(): void {
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
   }
 }

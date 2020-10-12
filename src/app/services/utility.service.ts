@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { HttpClient, HttpRequest, HttpEventType, HttpResponse } from '@angular/common/http';
+import { courseSearchData } from '@app/models/constants';
+import { Router } from '@angular/router';
 declare var jQuery: any;
 
 @Injectable({
@@ -27,7 +29,7 @@ export class UtilityService {
     iframeUrl:
       '^(https?://)?(www\\.)?([-a-z0-9]{1,63}\\.)*?[a-z0-9][-a-z0-9]{0,61}[a-z0-9]\\.[a-z]{2,6}(/[-\\w@\\+\\.~#\\?&/=%]*)?$',
   };
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   changeMessage(message: string) {
     this.messageSource.next(message);
@@ -157,5 +159,20 @@ export class UtilityService {
   public requiredStyleForHomeHeader() {
     jQuery('.mainmenu-area').css({ background: '#867899' });
     jQuery('.header-top-area').css({ position: 'relative' });
+  }
+
+  public onCourseSearch(_searchText: string, _type: string) {
+    const _courseSearchData = JSON.parse(JSON.stringify(courseSearchData));
+    switch (_type) {
+      case 'text':
+        _courseSearchData.text = _searchText;
+        break;
+      case 'subject':
+        _courseSearchData.subjects = _searchText;
+        break;
+    }
+    this.router.navigate(['/all-course'], { replaceUrl: true });
+    localStorage.setItem('tasa-search-course', JSON.stringify(_courseSearchData));
+    this.changeMessage('TRIGGER-COURSE-SEARCH');
   }
 }

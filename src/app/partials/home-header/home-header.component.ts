@@ -52,8 +52,7 @@ export class HomeHeaderComponent implements OnInit {
   }
 
   onCourseSearch() {
-    localStorage.setItem('tasa-search-course-text', this.searchCourseText);
-    this.router.navigate(['/all-course'], { replaceUrl: true });
+    this.sharedService.utilityService.onCourseSearch(this.searchCourseText, 'text');
   }
 
   get user(): any | null {
