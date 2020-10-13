@@ -1,0 +1,108 @@
+<div class="da-wrapper container">
+  <ol class="breadcrumb mt-3">
+    <li class="breadcrumb-item curPoint"><a [routerLink]="['/home']">Home</a></li>
+    <li class="breadcrumb-item active">News</li>
+  </ol>
+  <div class="sec-title">
+    <div class="title">All News</div>
+  </div>
+  <section>
+    <div class="upload-box text-center">
+      <div class="supportedFormatCarousel d-block mb-3 mx-auto w50">
+        <button mat-flat-button color="primary" (click)="addNews()" class="rounded-pill ml-2">
+          <span class="material-icons pr-2">
+            add
+          </span>
+          ADD
+        </button>
+      </div>
+    </div>
+  </section>
+  <section>
+    <ng-container>
+      <div class="row min-vertical-h-80 max-vertical-h-80 stylishScroll flow-y-auto flow-x-hidden">
+        <div class="col-md-6 col-xl-6 col-sm-12 animated fadeIn" *ngFor="let item of newsData; let i = index">
+          <div class="card d-flex align-items-center">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-12">
+                  <mat-form-field class="pb-2 w100">
+                    <mat-label>Desription</mat-label>
+                    <input matInput placeholder="Desription" value="" [(ngModel)]="item.description" />
+                  </mat-form-field>
+                </div>
+                <div class="col-12">
+                  <mat-form-field class="pb-2 w100">
+                    <mat-label>Full Article</mat-label>
+                    <input matInput placeholder="Article" value="" [(ngModel)]="item.fullArticle" />
+                  </mat-form-field>
+                </div>
+                <div class="col-12">
+                  <mat-form-field class="pb-2 w100">
+                    <mat-label>Published By</mat-label>
+                    <input matInput placeholder="Name" value="" [(ngModel)]="item.publishedBy" />
+                  </mat-form-field>
+                </div>
+                <div class="col-12">
+                  <mat-form-field class="pb-2 w100">
+                    <mat-label>External Link</mat-label>
+                    <input matInput placeholder="Link" value="" [(ngModel)]="item.externalLink" />
+                  </mat-form-field>
+                </div>
+                <div class="col-12 d-flex">
+                  <mat-form-field class="pb-2 w100">
+                    <mat-label>Image</mat-label>
+                    <input
+                      matInput
+                      placeholder="Image"
+                      value=""
+                      [disabled]="true"
+                      type="text"
+                      [(ngModel)]="item.image"
+                    />
+                  </mat-form-field>
+                  <span class="material-icons pl-2 text-primary curPoint" (click)="uploadImage(item)">
+                    cloud_upload
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="w100 border-top p-2">
+              <div class="text-center">
+                <button
+                  mat-flat-button
+                  color="primary"
+                  *ngIf="item.id == 0"
+                  (click)="saveNews(item)"
+                  class="rounded-pill ml-2"
+                >
+                  Save
+                </button>
+                <button
+                  mat-flat-button
+                  color="primary"
+                  *ngIf="item.id != 0"
+                  (click)="updateNews(item)"
+                  class="rounded-pill ml-2"
+                >
+                  Update
+                </button>
+                <button
+                  mat-mini-fab
+                  color="primary"
+                  matTooltipPosition="below"
+                  matTooltip="Delete"
+                  (click)="deleteNews(item, i)"
+                  class="ml-2"
+                >
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </section>
+</div>
+<input type="file" #newsfile class="d-none" id="imageUpload" multiple (change)="handleFileInput($event)" />

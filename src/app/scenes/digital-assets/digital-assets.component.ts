@@ -86,6 +86,7 @@ export class DigitalAssetsComponent implements OnInit {
     const credentials = this.credentialsService.credentials;
     return credentials ? credentials : null;
   }
+
   ngOnInit(): void {
     window.scrollTo(0, 0);
     this.prepareSupportedNames();

@@ -6,7 +6,6 @@
 // where D  stands for DELETE api request
 export const urls: any = {
   // home
-  getNews: '/v1/news', // G
   gePost: '/v1/posts', // G
 
   // Authentication
@@ -49,4 +48,10 @@ export const urls: any = {
   // lovs
   getLovs: '/v1/lov/{group}', // G
   getFiltersData: '/v1/courses/filters', // G
+
+  // News
+  getNews: '/v1/news', // G
+  addNews: '/v1/news', // PO
+  updateNews: '/v1/news', // PU
+  deleteNews: '/v1/news/{newsId}',
 };

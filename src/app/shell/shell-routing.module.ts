@@ -77,6 +77,11 @@ const routes: Routes = [
         loadChildren: () =>
           import('@app/scenes/admin/deactive-user/deactive-user.module').then((m) => m.DeactiveUserModule),
       },
+      {
+        path: 'admin/news',
+        canActivate: [AuthenticationGuard, AdminGuard],
+        loadChildren: () => import('@app/scenes/admin/news/news.module').then((m) => m.NewsModule),
+      },
       { path: '', redirectTo: '/home', pathMatch: 'full' },
     ],
     data: { reuse: true },

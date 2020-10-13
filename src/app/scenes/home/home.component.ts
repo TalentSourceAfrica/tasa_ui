@@ -100,7 +100,7 @@ export class HomeComponent implements OnInit {
       dots: false,
       autoplayHoverPause: true,
       navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>'],
-      autoplay: false,
+      autoplay: true,
       autoplayTimeout: 3000,
       margin: 80,
       responsiveClass: true,
