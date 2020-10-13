@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { ShellComponent } from '@app/shell/shell.component';
 import { AuthenticationGuard } from '@app/auth';
+import { AdminGuard } from '@app/auth/guard/admin.guard';
 // import { extract } from '@app/core';
 // import { PublicGuard, ProtectedGuard } from 'ngx-auth';
 
@@ -64,6 +65,11 @@ const routes: Routes = [
         canActivate: [AuthenticationGuard],
         loadChildren: () =>
           import('@app/scenes/digital-assets/digital-assets.module').then((m) => m.DigitalAssetsModule),
+      },
+      {
+        path: 'admin/tier',
+        canActivate: [AuthenticationGuard, AdminGuard],
+        loadChildren: () => import('@app/scenes/admin/tier/tier.module').then((m) => m.TierModule),
       },
       { path: '', redirectTo: '/home', pathMatch: 'full' },
     ],

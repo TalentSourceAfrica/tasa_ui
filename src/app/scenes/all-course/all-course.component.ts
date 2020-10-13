@@ -175,6 +175,16 @@ export class AllCourseComponent implements OnInit {
     }
   }
 
+  checkOffset() {
+    if (
+      jQuery('#filterContent').offset().top + jQuery('#filterContent').height() >=
+      jQuery('.footer-wrapper').offset().top - 10
+    )
+      jQuery('#filterContent').css('position', 'absolute');
+    if (jQuery(document).scrollTop() + window.innerHeight < jQuery('.footer-wrapper').offset().top)
+      jQuery('#filterContent').css('position', 'fixed');
+  }
+
   ngOnInit(): void {
     this.sharedService.utilityService.requiredStyleForHomeHeader();
     window.scrollTo(0, 0);
@@ -184,6 +194,10 @@ export class AllCourseComponent implements OnInit {
       if (message == 'TRIGGER-COURSE-SEARCH') {
         this.init();
       }
+    });
+
+    jQuery(document).scroll(() => {
+      this.checkOffset();
     });
   }
   ngOnDestroy(): void {

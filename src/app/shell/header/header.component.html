@@ -12,7 +12,7 @@
       <div class="sidebar-header d-flex">
         <div class="">
           <img
-            *ngIf="!user.image"
+            *ngIf="!user.image || user.image == 'string'"
             matTooltipPosition="below"
             matTooltip="Upload Avatar"
             class="user-pic img-responsive img-circle curPoint"
@@ -21,7 +21,7 @@
             alt="User picture"
           />
           <img
-            *ngIf="user.image"
+            *ngIf="user.image && user.image != 'string'"
             matTooltipPosition="below"
             matTooltip="Upload Avatar"
             class="user-pic img-responsive img-circle curPoint"
@@ -29,7 +29,6 @@
             [src]="user.image"
             alt="User picture"
           />
-          <!-- <a class="text-white curPoint upload-text" (click)="callUpload()">&nbsp;Upload</a> -->
         </div>
         <div class="user-info">
           <span class="user-name text-white"
@@ -62,207 +61,13 @@
         </div>
       </div>
       <!-- sidebar-search  -->
-      <div class="sidebar-menu">
-        <ul>
-          <li class="header-menu">
-            <span>My Account</span>
-          </li>
-          <li class="sidebar-dropdown">
-            <a class="curPoint">
-              <i class="fas fa-unlock-alt"></i>
-              <span>Account</span>
-            </a>
-            <div class="sidebar-submenu">
-              <ul>
-                <li>
-                  <a [routerLink]="['/reset-password']">Update Password</a>
-                </li>
-                <li>
-                  <a [routerLink]="['/user/profile']">Edit Profile</a>
-                </li>
-              </ul>
-            </div>
-          </li>
-          <li>
-            <a class="curPoint" [routerLink]="['/subscription-plans']">
-              <i class="fa fa-tags"></i>
-              <span>Subscription Plans</span>
-            </a>
-          </li>
-
-          <!-- <li class="header-menu">
-            <span>General</span>
-          </li> -->
-          <!-- <li class="sidebar-dropdown">
-            <a href="#">
-              <i class="fa fa-tachometer-alt"></i>
-              <span>Dashboard</span>
-              <span class="badge badge-pill badge-warning">New</span>
-            </a>
-            <div class="sidebar-submenu">
-              <ul>
-                <li>
-                  <a href="#"
-                    >Dashboard 1
-                    <span class="badge badge-pill badge-success">Pro</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">Dashboard 2</a>
-                </li>
-                <li>
-                  <a href="#">Dashboard 3</a>
-                </li>
-              </ul>
-            </div>
-          </li>
-          <li class="sidebar-dropdown">
-            <a href="#">
-              <i class="fa fa-shopping-cart"></i>
-              <span>E-commerce</span>
-              <span class="badge badge-pill badge-danger">3</span>
-            </a>
-            <div class="sidebar-submenu">
-              <ul>
-                <li>
-                  <a href="#">Products </a>
-                </li>
-                <li>
-                  <a href="#">Orders</a>
-                </li>
-                <li>
-                  <a href="#">Credit cart</a>
-                </li>
-              </ul>
-            </div>
-          </li>
-          <li class="sidebar-dropdown">
-            <a href="#">
-              <i class="far fa-gem"></i>
-              <span>Components</span>
-            </a>
-            <div class="sidebar-submenu">
-              <ul>
-                <li>
-                  <a href="#">General</a>
-                </li>
-                <li>
-                  <a href="#">Panels</a>
-                </li>
-                <li>
-                  <a href="#">Tables</a>
-                </li>
-                <li>
-                  <a href="#">Icons</a>
-                </li>
-                <li>
-                  <a href="#">Forms</a>
-                </li>
-              </ul>
-            </div>
-          </li>
-          <li class="sidebar-dropdown">
-            <a href="#">
-              <i class="fa fa-chart-line"></i>
-              <span>Charts</span>
-            </a>
-            <div class="sidebar-submenu">
-              <ul>
-                <li>
-                  <a href="#">Pie chart</a>
-                </li>
-                <li>
-                  <a href="#">Line chart</a>
-                </li>
-                <li>
-                  <a href="#">Bar chart</a>
-                </li>
-                <li>
-                  <a href="#">Histogram</a>
-                </li>
-              </ul>
-            </div>
-          </li>
-          <li class="sidebar-dropdown">
-            <a href="#">
-              <i class="fa fa-globe"></i>
-              <span>Maps</span>
-            </a>
-            <div class="sidebar-submenu">
-              <ul>
-                <li>
-                  <a href="#">Google maps</a>
-                </li>
-                <li>
-                  <a href="#">Open street map</a>
-                </li>
-              </ul>
-            </div>
-          </li> -->
-          <li class="header-menu">
-            <span>My Community</span>
-          </li>
-          <li class="sidebar-dropdown">
-            <a class="curPoint">
-              <i class="far fa-comment-alt"></i>
-              <span>Community</span>
-              <span class="badge badge-pill badge-warning">New</span>
-            </a>
-            <div class="sidebar-submenu">
-              <ul>
-                <li>
-                  <a class="curPoint"
-                    >Forum
-                    <!-- <span class="badge badge-pill badge-success">Pro</span> -->
-                  </a>
-                </li>
-                <li>
-                  <a class="curPoint">Discussion</a>
-                </li>
-                <li>
-                  <a class="curPoint">Ask Question</a>
-                </li>
-              </ul>
-            </div>
-          </li>
-          <li class="header-menu">
-            <span>My Profile</span>
-          </li>
-          <li>
-            <a class="curPoint" [routerLink]="['/dashboard']">
-              <i class="fas fa-chart-line"></i>
-              <span>Dashboard</span>
-              <!-- <span class="badge badge-pill badge-primary">Beta</span> -->
-            </a>
-          </li>
-          <li>
-            <a class="curPoint" [routerLink]="['/user/course']">
-              <i class="fas fa-graduation-cap"></i>
-              <span>Courses</span>
-              <!-- <span class="badge badge-pill badge-primary">Beta</span> -->
-            </a>
-          </li>
-
-          <li>
-            <a class="curPoint" [routerLink]="['/all-course']">
-              <i class="fa fa-search"></i>
-              <span>All Courses</span>
-              <!-- <span class="badge badge-pill badge-primary">Beta</span> -->
-            </a>
-          </li>
-          <li>
-            <a class="curPoint" [routerLink]="['/my-plan']">
-              <i class="fa fa-money-check"></i>
-              <span>Subscription</span>
-            </a>
-          </li>
-          <li>
-            <a class="curPoint" [routerLink]="['/digital-assets']">
-              <i class="fa fa-folder-open"></i>
-              <span>Documents</span>
-            </a>
-          </li>
-        </ul>
+      <div class="sidebar-menu min-vertical-h-70 max-vertical-h-70 stylishScroll flow-y-auto flow-x-hidden">
+        <ng-container>
+          <ng-template *ngTemplateOutlet="studentMenu"></ng-template>
+        </ng-container>
+        <ng-container *ngIf="user.type == 'Admin'">
+          <ng-template *ngTemplateOutlet="adminMenu"></ng-template>
+        </ng-container>
       </div>
       <!-- sidebar-menu  -->
     </div>
@@ -325,4 +130,233 @@
   </div>
 </div>
 <input type="file" #file class="d-none" id="imageUpload" (change)="handleFileInput($event)" />
-<!-- page-wrapper -->
+<ng-template #studentMenu>
+  <ul>
+    <li class="header-menu">
+      <span>My Account</span>
+    </li>
+    <li class="sidebar-dropdown">
+      <a class="curPoint">
+        <i class="fas fa-unlock-alt"></i>
+        <span>Account</span>
+      </a>
+      <div class="sidebar-submenu">
+        <ul>
+          <li>
+            <a [routerLink]="['/reset-password']">Update Password</a>
+          </li>
+          <li>
+            <a [routerLink]="['/user/profile']">Edit Profile</a>
+          </li>
+        </ul>
+      </div>
+    </li>
+    <li>
+      <a class="curPoint" [routerLink]="['/subscription-plans']">
+        <i class="fa fa-tags"></i>
+        <span>Subscription Plans</span>
+      </a>
+    </li>
+
+    <!-- <li class="header-menu">
+      <span>General</span>
+    </li> -->
+    <!-- <li class="sidebar-dropdown">
+      <a href="#">
+        <i class="fa fa-tachometer-alt"></i>
+        <span>Dashboard</span>
+        <span class="badge badge-pill badge-warning">New</span>
+      </a>
+      <div class="sidebar-submenu">
+        <ul>
+          <li>
+            <a href="#"
+              >Dashboard 1
+              <span class="badge badge-pill badge-success">Pro</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">Dashboard 2</a>
+          </li>
+          <li>
+            <a href="#">Dashboard 3</a>
+          </li>
+        </ul>
+      </div>
+    </li>
+    <li class="sidebar-dropdown">
+      <a href="#">
+        <i class="fa fa-shopping-cart"></i>
+        <span>E-commerce</span>
+        <span class="badge badge-pill badge-danger">3</span>
+      </a>
+      <div class="sidebar-submenu">
+        <ul>
+          <li>
+            <a href="#">Products </a>
+          </li>
+          <li>
+            <a href="#">Orders</a>
+          </li>
+          <li>
+            <a href="#">Credit cart</a>
+          </li>
+        </ul>
+      </div>
+    </li>
+    <li class="sidebar-dropdown">
+      <a href="#">
+        <i class="far fa-gem"></i>
+        <span>Components</span>
+      </a>
+      <div class="sidebar-submenu">
+        <ul>
+          <li>
+            <a href="#">General</a>
+          </li>
+          <li>
+            <a href="#">Panels</a>
+          </li>
+          <li>
+            <a href="#">Tables</a>
+          </li>
+          <li>
+            <a href="#">Icons</a>
+          </li>
+          <li>
+            <a href="#">Forms</a>
+          </li>
+        </ul>
+      </div>
+    </li>
+    <li class="sidebar-dropdown">
+      <a href="#">
+        <i class="fa fa-chart-line"></i>
+        <span>Charts</span>
+      </a>
+      <div class="sidebar-submenu">
+        <ul>
+          <li>
+            <a href="#">Pie chart</a>
+          </li>
+          <li>
+            <a href="#">Line chart</a>
+          </li>
+          <li>
+            <a href="#">Bar chart</a>
+          </li>
+          <li>
+            <a href="#">Histogram</a>
+          </li>
+        </ul>
+      </div>
+    </li>
+    <li class="sidebar-dropdown">
+      <a href="#">
+        <i class="fa fa-globe"></i>
+        <span>Maps</span>
+      </a>
+      <div class="sidebar-submenu">
+        <ul>
+          <li>
+            <a href="#">Google maps</a>
+          </li>
+          <li>
+            <a href="#">Open street map</a>
+          </li>
+        </ul>
+      </div>
+    </li> -->
+    <li class="header-menu">
+      <span>My Community</span>
+    </li>
+    <li class="sidebar-dropdown">
+      <a class="curPoint">
+        <i class="far fa-comment-alt"></i>
+        <span>Community</span>
+        <span class="badge badge-pill badge-warning">New</span>
+      </a>
+      <div class="sidebar-submenu">
+        <ul>
+          <li>
+            <a class="curPoint"
+              >Forum
+              <!-- <span class="badge badge-pill badge-success">Pro</span> -->
+            </a>
+          </li>
+          <li>
+            <a class="curPoint">Discussion</a>
+          </li>
+          <li>
+            <a class="curPoint">Ask Question</a>
+          </li>
+        </ul>
+      </div>
+    </li>
+    <li class="header-menu">
+      <span>My Profile</span>
+    </li>
+    <li>
+      <a class="curPoint" [routerLink]="['/dashboard']">
+        <i class="fas fa-chart-line"></i>
+        <span>Dashboard</span>
+        <!-- <span class="badge badge-pill badge-primary">Beta</span> -->
+      </a>
+    </li>
+    <li>
+      <a class="curPoint" [routerLink]="['/user/course']">
+        <i class="fas fa-graduation-cap"></i>
+        <span>Courses</span>
+        <!-- <span class="badge badge-pill badge-primary">Beta</span> -->
+      </a>
+    </li>
+    <li>
+      <a class="curPoint" [routerLink]="['/all-course']">
+        <i class="fa fa-search"></i>
+        <span>All Courses</span>
+        <!-- <span class="badge badge-pill badge-primary">Beta</span> -->
+      </a>
+    </li>
+    <li>
+      <a class="curPoint" [routerLink]="['/my-plan']">
+        <i class="fa fa-money-check"></i>
+        <span>Subscription</span>
+      </a>
+    </li>
+    <li>
+      <a class="curPoint" [routerLink]="['/digital-assets']">
+        <i class="fa fa-folder-open"></i>
+        <span>Documents</span>
+      </a>
+    </li>
+  </ul>
+</ng-template>
+<ng-template #adminMenu>
+  <ul>
+    <li class="header-menu">
+      <span>My Operations</span>
+    </li>
+    <li class="sidebar-dropdown">
+      <a class="curPoint">
+        <i class="fas fa-unlock-alt"></i>
+        <span>Operations</span>
+      </a>
+      <div class="sidebar-submenu">
+        <ul>
+          <li>
+            <a [routerLink]="">Deactive User</a>
+          </li>
+          <li>
+            <a [routerLink]="['/admin/tier']">Tier</a>
+          </li>
+          <li>
+            <a [routerLink]="">Category</a>
+          </li>
+          <li>
+            <a [routerLink]="">News</a>
+          </li>
+        </ul>
+      </div>
+    </li>
+  </ul>
+</ng-template>

@@ -1,0 +1,145 @@
+<div class="da-wrapper container">
+  <ol class="breadcrumb mt-3">
+    <li class="breadcrumb-item curPoint"><a [routerLink]="['/home']">Home</a></li>
+    <li class="breadcrumb-item active">Tier</li>
+  </ol>
+  <section>
+    <div class="upload-box text-center">
+      <div class="supportedFormatCarousel d-block mt-5 mb-3 mx-auto w50">
+        <button mat-flat-button color="primary" (click)="addTier()" class="rounded-pill ml-2">
+          <span class="material-icons pr-2">
+            add
+          </span>
+          ADD
+        </button>
+      </div>
+    </div>
+  </section>
+  <section>
+    <ng-container>
+      <div class="row min-vertical-h-80 max-vertical-h-80 stylishScroll flow-y-auto flow-x-hidden">
+        <div class="col-md-6 col-xl-6 col-sm-12 animated fadeIn" *ngFor="let item of tierData; let i = index">
+          <div class="card d-flex align-items-center">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-12 col-xl-6">
+                  <mat-form-field class="pb-2">
+                    <mat-label>Name</mat-label>
+                    <input matInput placeholder="Ex. Silver" value="" [(ngModel)]="item.name" />
+                  </mat-form-field>
+                </div>
+                <div class="col-12 col-xl-6">
+                  <mat-form-field class="pb-2">
+                    <mat-label>Duration</mat-label>
+                    <input matInput placeholder="Ex. Month" value="" [(ngModel)]="item.duration" />
+                  </mat-form-field>
+                </div>
+                <div class="col-12 col-xl-6">
+                  <mat-form-field class="pb-2">
+                    <mat-label>Currency</mat-label>
+                    <input matInput placeholder="Ex. USD" value="" [(ngModel)]="item.currency" />
+                  </mat-form-field>
+                </div>
+                <div class="col-12 col-xl-6">
+                  <mat-form-field class="pb-2">
+                    <mat-label>Price</mat-label>
+                    <input matInput placeholder="Ex. 100" value="" type="number" min="0" [(ngModel)]="item.price" />
+                  </mat-form-field>
+                </div>
+                <div class="col-12 text-right">
+                  <span
+                    class="material-icons curPoint"
+                    matTooltipPosition="above"
+                    matTooltip="Add Feature"
+                    (click)="addFeature(item)"
+                  >
+                    add_circle_outline
+                  </span>
+                </div>
+                <div class="min-vertical-h-30 max-vertical-h-30 stylishScroll flow-y-auto flow-x-hidden w100">
+                  <ng-container *ngFor="let feat of item.feature; let j = index">
+                    <div class="col-12 col-xl-12 d-flex">
+                      <mat-form-field class="pt-3 w100">
+                        <mat-label>Feature</mat-label>
+                        <input
+                          matInput
+                          placeholder="Ex. Free One-One Mentoring"
+                          value=""
+                          [(ngModel)]="feat.description"
+                        />
+                      </mat-form-field>
+                      <span
+                        class="material-icons pt-2 curPoint"
+                        matTooltipPosition="below"
+                        matTooltip="Remove Feature"
+                        (click)="removeFeature(item, j)"
+                      >
+                        remove_circle_outline
+                      </span>
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+            <div class="w100 border-top p-2">
+              <div class="text-center">
+                <button
+                  mat-flat-button
+                  color="primary"
+                  *ngIf="item.id == 0"
+                  (click)="saveTier(item)"
+                  class="rounded-pill ml-2"
+                >
+                  Save
+                </button>
+                <button
+                  mat-flat-button
+                  color="primary"
+                  *ngIf="item.id != 0"
+                  (click)="updateTier(item)"
+                  class="rounded-pill ml-2"
+                >
+                  Update
+                </button>
+
+                <!-- <button
+                    mat-mini-fab
+                    color="primary"
+                    matTooltipPosition="below"
+                    class="mr-2"
+                    matTooltip="View"
+                    *ngIf="doc.type != '.png' && doc.type != '.jpeg' && doc.type != '.jpg' && doc.type != '.webp'"
+                    (click)="showDocViewer(doc)"
+                  >
+                    <mat-icon>remove_red_eye</mat-icon>
+                  </button>
+                  <a
+                    [href]="doc.url"
+                    target="_blank"
+                    mat-mini-fab
+                    color="primary"
+                    class="mr-2"
+                    download
+                    matTooltipPosition="below"
+                    matTooltip="Download"
+                  >
+                    <mat-icon>cloud_download</mat-icon>
+                  </a> -->
+                <button
+                  mat-mini-fab
+                  color="primary"
+                  matTooltipPosition="below"
+                  matTooltip="Delete"
+                  (click)="deleteTier(item, i)"
+                  class="ml-2"
+                >
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </section>
+</div>

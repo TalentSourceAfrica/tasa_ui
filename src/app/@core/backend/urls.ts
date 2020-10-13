@@ -10,7 +10,7 @@ export const urls: any = {
   gePost: '/v1/posts', // G
 
   // Authentication
-  getUsers: '/users', // G
+  getUsers: '/v1/users', // G
   login: '/v1/login', // PO
   signup: '/v1/signup', // PO
   checkUsername: '/v1/checkUserName/{userName}', // PO
@@ -37,6 +37,9 @@ export const urls: any = {
 
   // tiers
   getTiers: '/v1/tiers', // G
+  addTier: '/v1/tiers', // PO
+  deleteTier: '/v1/tiers/{tierId}', // DE
+  updateTier: '/v1/tiers', // PU
 
   // upload
   uploadMultiFile: '/v1/uploadMultipleDocuments/{email}', // PO
