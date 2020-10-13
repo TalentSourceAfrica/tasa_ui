@@ -71,6 +71,12 @@ const routes: Routes = [
         canActivate: [AuthenticationGuard, AdminGuard],
         loadChildren: () => import('@app/scenes/admin/tier/tier.module').then((m) => m.TierModule),
       },
+      {
+        path: 'admin/deactive-user',
+        canActivate: [AuthenticationGuard, AdminGuard],
+        loadChildren: () =>
+          import('@app/scenes/admin/deactive-user/deactive-user.module').then((m) => m.DeactiveUserModule),
+      },
       { path: '', redirectTo: '/home', pathMatch: 'full' },
     ],
     data: { reuse: true },

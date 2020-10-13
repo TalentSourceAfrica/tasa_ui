@@ -1228,3 +1228,38 @@ button:hover,
 .mat-paginator-range-actions {
   margin-top: -10px;
 }
+
+.sec-title {
+  position: relative;
+  padding-bottom: 20px;
+}
+.sec-title .title {
+  position: relative;
+  color: #523f6d;
+  font-size: 18px;
+  font-weight: 700;
+  padding-right: 50px;
+  margin-bottom: 5px;
+  display: inline-block;
+  text-transform: capitalize;
+}
+.sec-title .title:before {
+  position: absolute;
+  content: "";
+  right: 0;
+  bottom: 7px;
+  width: 40px;
+  height: 1px;
+  background-color: #bbb;
+}
+.sec-title h2 {
+  position: relative;
+  color: #252525;
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 1.5em;
+  display: block;
+}
+.sec-title.light h2 {
+  color: #fff;
+}

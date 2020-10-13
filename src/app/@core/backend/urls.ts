@@ -20,6 +20,8 @@ export const urls: any = {
   forgotPassword: '/v1/auth/forgot-password/{email}', //PO
   resetPassword: '/v1/auth/reset-password', // PO
   checkCurrentPassword: '/v1/checkPassword/{email}/{currentPassword}', // PO
+  activateUser: '/v1/users/activate/{userId}', // PO
+  deactivateUser: '/v1/users/deactivate/{userId}', // PO
 
   // location
   getCountry: '/v1/locations', // G

@@ -1,376 +1,291 @@
 <!--START TOP AREA-->
-<!-- <header class="" id="home">
-  <div class="header-top-area" id="scroolup">
-    <div class="mainmenu-area" id="mainmenu-area">
-      <div class="mainmenu-area-bg"></div>
-      <nav class="navbar">
-        <div class="container-fluid">
-          <div class="row w100">
-            <div class="col-4 col-md-2">
-              <div class="navbar-header p-0 border-none">
-                <a [routerLink]="['/home']" class="navbar-brand img-responsive p-0"
-                  ><img
-                    src="../../../assets/logo/TSA_transparent_logo.png"
-                    style="height: 65px; width: auto;"
-                    alt="logo"
-                    class="tasa-logo"
-                  />
-                  <span class="tasa-logo-text">TaSA</span></a
-                >
+<div class="home-wrapper">
+  <!--WELCOME SLIDER AREA-->
+  <div class="welcome-slider-area white font16">
+    <div class="welcome-single-slide">
+      <div class="slide-bg-one slide-bg-overlay"></div>
+      <div class="welcome-area">
+        <div class="container">
+          <div class="row flex-v-center">
+            <div class="col-md-8 col-lg-7 col-sm-12 col-xs-12">
+              <div class="welcome-text">
+                <h1>Our Objective</h1>
+                <p>
+                  To upskill, network and connect the millions of unemployed African college graduates with the job
+                  opportunities they need, and provide companies with access and visibility to the high-skilled
+                  talent-pool needed to meet their business goals on the continent.
+                </p>
               </div>
-            </div>
-            <div class="col-md-4 explore-section">
-              <div class="p-0 pt-3 d-flex align-items-center">
-                <button mat-flat-button color="default" class="rc-ExploreButton rounded-pill ml-2 bg-theme">
-                  <span> Explore <i class="fa fa-chevron-down" aria-hidden="true"></i> </span>
-                </button>
-                <div class="home-button ml-2">
-                  <form>
-                    <input type="search" name="search" id="search" placeholder="Search Courses" />
-                    <button type="button"><i class="fa fa-search"></i></button>
-                  </form>
-                </div>
-              </div>
-            </div>
-            <div class="col-8 col-md-6">
-              <div id="main-nav" class="stellarnav">
-                <ul id="nav" class="nav navbar-nav pull-right float-right">
-                  <li>
-                    <a class="curPoint welcome-text" (click)="partnerWithUs()">Partner With us</a>
-                  </li>
-                  <li class="explore-li"><a class="curPoint">Explore</a></li>
-                  <li><a (click)="scrollToFaq('faqs')" class="curPoint">FAQ</a></li>
-                  <li>
-                    <a [matMenuTriggerFor]="menu" class="curPoint"
-                      >Menu<i class="fas fa-caret-down pl-1"></i>
-                      <mat-menu #menu="matMenu">
-                        <button mat-menu-item (click)="scrollToFaq('about')" class="h6">
-                          <i class="fas fa-address-card pr-3 text-primary"></i>About Us
-                        </button>
-                        <button mat-menu-item [routerLink]="['/contact-us']" class="h6">
-                          <i class="fas fa-address-book pr-3 text-primary"></i> Contact Us
-                        </button>
-                      </mat-menu>
-                    </a>
-                  </li>
-                  <li *ngIf="!user"><a (click)="login()" class="curPoint">Sign In</a></li>
-                  <li *ngIf="!user"><a (click)="signup()" class="curPoint">Sign Up</a></li>
-                  <li *ngIf="user">
-                    <a [matMenuTriggerFor]="userMenu" class="curPoint"
-                      ><i class="far fa-user pr-1"></i> {{ user.username }} <i class="fas fa-caret-down pl-1"></i>
-                      <mat-menu #userMenu="matMenu">
-                        <button mat-menu-item [routerLink]="['/dashboard']" class="h6">
-                          <i class="fas fa-chart-line pr-3 text-primary"></i> Dashboard
-                        </button>
-                        <button mat-menu-item (click)="logout()" class="h6">
-                          <i class="fa fa-power-off pr-3 text-primary"></i> Logout
-                        </button>
-                      </mat-menu>
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </nav>
-    </div>
-  </div>
-</header> -->
-<!-- <li>
-                    <a class="pt-0 curPoint">
-                      <app-language-selector
-                        inNavbar="true"
-                        menuClass="dropdown-menu dropdown-menu-right"
-                      ></app-language-selector
-                    ></a>
-                  </li> -->
-<!--WELCOME SLIDER AREA-->
-<div class="welcome-slider-area white font16">
-  <div class="welcome-single-slide">
-    <div class="slide-bg-one slide-bg-overlay"></div>
-    <div class="welcome-area">
-      <div class="container">
-        <div class="row flex-v-center">
-          <div class="col-md-8 col-lg-7 col-sm-12 col-xs-12">
-            <div class="welcome-text">
-              <h1>Our Objective</h1>
-              <p>
-                To upskill, network and connect the millions of unemployed African college graduates with the job
-                opportunities they need, and provide companies with access and visibility to the high-skilled
-                talent-pool needed to meet their business goals on the continent.
-              </p>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="welcome-single-slide">
-    <div class="slide-bg-two slide-bg-overlay"></div>
-    <div class="welcome-area">
-      <div class="container">
-        <div class="row flex-v-center">
-          <div class="col-md-8 col-lg-7 col-sm-12 col-xs-12">
-            <div class="welcome-text">
-              <h1>The Gap</h1>
-              <p>
-                50% of the 10 million annual college graduates in Sub-Saharan Africa over the past decade were unable to
-                find jobs sometimes 5-years after graduating from University.
-              </p>
-              <p>
-                Meanwhile, the continent produced 10 million jobs per year within the same period and had a predicted
-                shortage of 31 million mid-high skill workers at the end of the decade.
-              </p>
-              <!-- <div class="home-button">
+    <div class="welcome-single-slide">
+      <div class="slide-bg-two slide-bg-overlay"></div>
+      <div class="welcome-area">
+        <div class="container">
+          <div class="row flex-v-center">
+            <div class="col-md-8 col-lg-7 col-sm-12 col-xs-12">
+              <div class="welcome-text">
+                <h1>The Gap</h1>
+                <p>
+                  50% of the 10 million annual college graduates in Sub-Saharan Africa over the past decade were unable
+                  to find jobs sometimes 5-years after graduating from University.
+                </p>
+                <p>
+                  Meanwhile, the continent produced 10 million jobs per year within the same period and had a predicted
+                  shortage of 31 million mid-high skill workers at the end of the decade.
+                </p>
+                <!-- <div class="home-button">
                   <form action="#">
                     <input type="search" name="search" id="search" placeholder="Search Courses" />
                     <button type="submit"><i class="fa fa-search"></i></button>
                   </form>
                 </div> -->
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="welcome-single-slide">
-    <div class="slide-bg-three slide-bg-overlay"></div>
-    <div class="welcome-area">
-      <div class="container">
-        <div class="row flex-v-center">
-          <div class="col-md-8 col-lg-7 col-sm-12 col-xs-12">
-            <div class="welcome-text">
-              <h1>Our Vision</h1>
-              <p>
-                We aim to become Africa's #1 talent source by annually connecting 5 million job-seekers with high-skill
-                jobs in and outside SSA by 2040.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="welcome-single-slide">
-    <div class="slide-bg-four slide-bg-overlay"></div>
-    <div class="welcome-area">
-      <div class="container">
-        <div class="row flex-v-center">
-          <div class="col-md-8 col-lg-7 col-sm-12 col-xs-12">
-            <div class="welcome-text">
-              <h1>Our Mission.</h1>
-              <p>
-                TaSA Inc. seeks to bridge the gap between young Africans’ unmet demand for high-skill work, and
-                employers' unfulfilled need for high-capacity talent in Sub-Saharan Africa.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<!--WELCOME SLIDER AREA END-->
-<!-- </header> -->
-<!--END TOP AREA-->
-
-<!--FEATURES TOP AREA-->
-<section class="features-top-area" id="features">
-  <div class="container">
-    <div class="row promo-content" data-aos="flip-up" data-aos-duration="2000">
-      <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12">
-        <div class="text-icon-box mb20 xs-mb0 wow fadeInUp p-2" data-wow-delay="0.1s">
-          <div class="box-icon features-box-icon">
-            <i class="fa fa-graduation-cap"></i>
-          </div>
-          <h3 class="box-title">Cultivate</h3>
-          <p>
-            A vast network African graduates and early-stage professionals via our superior networking platform.
-          </p>
-        </div>
-      </div>
-      <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12">
-        <div class="text-icon-box relative mb20 xs-mb0 wow fadeInUp p-2" data-wow-delay="0.3s">
-          <div class="box-icon features-box-icon">
-            <i class="fa fa-rocket"></i>
-          </div>
-          <h3 class="box-title">Enhance</h3>
-          <p>
-            Their employability through access to affordably-priced online certificate courses from globally recognized
-            Ivy-League and Tier-I Universities.
-          </p>
-        </div>
-      </div>
-      <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12">
-        <div class="text-icon-box relative mb20 xs-mb0 wow fadeInUp p-2 visible-sm" data-wow-delay="0.4s">
-          <div class="box-icon features-box-icon">
-            <i class="fa fa-cog"></i>
-          </div>
-          <h3 class="box-title">Connect</h3>
-          <p>
-            Our members with employers through our best-in-class jobs board.
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-<!--FEATURES TOP AREA END-->
-
-<!--ABOUT TOP CONTENT AREA-->
-<section class="section-padding">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-8 col-lg-12 col-md-offset-2 col-lg-offset-2 col-sm-12 col-xs-12">
-        <div class="text-center wow fadeIn">
-          <h2 class="xs-font20">Offerings for TaSA Students and Professionals.</h2>
-          <section id="timeline">
-            <div class="demo-card-wrapper">
-              <div class="demo-card demo-card--step1" data-aos="fade-right">
-                <div class="head">
-                  <div class="number-box">
-                    <span>01</span>
-                  </div>
-                  <h5>Free Sign-Up/Access to Courses</h5>
-                </div>
-                <div class="body">
-                  <p>
-                    Enhance your professional profile with marketable skills and professional certificates from trusted
-                    and recognizable institutions of Higher education like: Harvard, Cornell, Princeton, Brown,
-                    Stanford, Columbia etc.
-                  </p>
-                  <!-- <img src="http://placehold.it/1000x500" alt="Graphic" /> -->
-                </div>
-              </div>
-
-              <div class="demo-card demo-card--step2" data-aos="fade-left">
-                <div class="head">
-                  <div class="number-box">
-                    <span>02</span>
-                  </div>
-                  <h5>Network with Fellow TaSA Platform Users</h5>
-                </div>
-                <div class="body">
-                  <p>
-                    Enhance your social capital and position yourself for exciting work or business opportunities by
-                    networking with other professionals and executives in your professional domain.
-                  </p>
-                  <!-- <img src="http://placehold.it/1000x500" alt="Graphic" /> -->
-                </div>
-              </div>
-
-              <div class="demo-card demo-card--step3" data-aos="fade-right">
-                <div class="head">
-                  <div class="number-box">
-                    <span>03</span>
-                  </div>
-                  <h5>Connect with Recruiters</h5>
-                </div>
-                <div class="body">
-                  <p>
-                    Gain easy access to scores of available job opportunities within your field of study or professional
-                    interest through our best-in-class jobs board.
-                  </p>
-                  <!-- <img src="http://placehold.it/1000x500" alt="Graphic" /> -->
-                </div>
               </div>
             </div>
-          </section>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="welcome-single-slide">
+      <div class="slide-bg-three slide-bg-overlay"></div>
+      <div class="welcome-area">
+        <div class="container">
+          <div class="row flex-v-center">
+            <div class="col-md-8 col-lg-7 col-sm-12 col-xs-12">
+              <div class="welcome-text">
+                <h1>Our Vision</h1>
+                <p>
+                  We aim to become Africa's #1 talent source by annually connecting 5 million job-seekers with
+                  high-skill jobs in and outside SSA by 2040.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="welcome-single-slide">
+      <div class="slide-bg-four slide-bg-overlay"></div>
+      <div class="welcome-area">
+        <div class="container">
+          <div class="row flex-v-center">
+            <div class="col-md-8 col-lg-7 col-sm-12 col-xs-12">
+              <div class="welcome-text">
+                <h1>Our Mission.</h1>
+                <p>
+                  TaSA Inc. seeks to bridge the gap between young Africans’ unmet demand for high-skill work, and
+                  employers' unfulfilled need for high-capacity talent in Sub-Saharan Africa.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</section>
-<!--ABOUT TOP CONTENT AREA END-->
+  <!--WELCOME SLIDER AREA END-->
+  <!-- </header> -->
+  <!--END TOP AREA-->
 
-<!--FUN FACT AREA AREA-->
-<section class="fun-fact-area center white relative padding-100-70" id="fact">
-  <div class="area-bg" data-stellar-background-ratio="0.6"></div>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-3 col-sm-6 col-xs-12">
-        <div class="single-fun-fact mb30 wow fadeInUp" data-wow-delay="0.1s">
-          <h3 class="font60 xs-font26"><span class="counter">20</span>k</h3>
-          <p class="font600">Graduated Students</p>
-        </div>
-      </div>
-      <div class="col-md-3 col-sm-6 col-xs-12">
-        <div class="single-fun-fact mb30 wow fadeInUp" data-wow-delay="0.2s">
-          <h3 class="font60 xs-font26"><span class="counter">124</span></h3>
-          <p class="font600">Expert Instructors</p>
-        </div>
-      </div>
-      <div class="col-md-3 col-sm-6 col-xs-12">
-        <div class="single-fun-fact mb30 wow fadeInUp" data-wow-delay="0.3s">
-          <h3 class="font60 xs-font26"><span class="counter">600</span>k</h3>
-          <p class="font600">Books in our library</p>
-        </div>
-      </div>
-      <div class="col-md-3 col-sm-6 col-xs-12">
-        <div class="single-fun-fact mb30 wow fadeInUp" data-wow-delay="0.4s">
-          <h3 class="font60 xs-font26"><span class="counter">15</span>k</h3>
-          <p class="font600">Students get employed</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-<!--FUN FACT AREA AREA END-->
-
-<!--ABOUT AREA-->
-<section class="section-padding about-area bg-theme" id="about">
-  <div class="container">
-    <div class="row flex-v-center">
-      <div class="col-md-5 col-lg-5 col-sm-12 col-xs-12" data-aos="zoom-in-right">
-        <div class="about-content xs-mb50 wow fadeIn">
-          <h3 class="xs-font20 mb30">About Us.</h3>
-          <p>
-            To upskill, network and connect the millions of unemployed African college graduates with the job
-            opportunities they need, and provide companies with access and visibility to the high-skilled talent-pool
-            needed to meet their business goals on the continent.
-          </p>
-        </div>
-      </div>
-      <div class="col-md-6 col-lg-6 col-md-offset-1 col-lg-offset-1 col-sm-12 col-xs-12" data-aos="zoom-in-left">
-        <div class="video-promo-details wow fadeIn">
-          <div class="video-promo-content">
-            <span data-video-id="j1S66liv1t8" class="video-area-popup mb30"><i class="fa fa-play"></i></span>
+  <!--FEATURES TOP AREA-->
+  <section class="features-top-area" id="features">
+    <div class="container">
+      <div class="row promo-content" data-aos="flip-up" data-aos-duration="2000">
+        <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12">
+          <div class="text-icon-box mb20 xs-mb0 wow fadeInUp p-2" data-wow-delay="0.1s">
+            <div class="box-icon features-box-icon">
+              <i class="fa fa-graduation-cap"></i>
+            </div>
+            <h3 class="box-title">Cultivate</h3>
+            <p>
+              A vast network African graduates and early-stage professionals via our superior networking platform.
+            </p>
           </div>
-          <img src="../../../assets/images/about/about.jpg" alt="" />
         </div>
-      </div>
-    </div>
-  </div>
-</section>
-<!--ABOUT AREA END-->
-
-<!--COURSE AREA-->
-<section class="course-area padding-top" id="courses">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-8 col-lg-12 col-md-offset-2 col-lg-offset-2 col-sm-12 col-xs-12">
-        <div class="area-title text-center wow fadeIn">
-          <h2 class="xs-font26">Our Trending Courses</h2>
-        </div>
-      </div>
-    </div>
-    <div class="row course-list">
-      <div *ngFor="let course of courses">
-        <div class="single-course mb20 w80 curPoint">
-          <img [src]="course.image_url" alt="" />
-          <div class="course-details p-3 min-vertical-h-30">
-            <h3 class="font18">{{ course.title }}</h3>
-            <div [innerHTML]="course.short_description"></div>
+        <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12">
+          <div class="text-icon-box relative mb20 xs-mb0 wow fadeInUp p-2" data-wow-delay="0.3s">
+            <div class="box-icon features-box-icon">
+              <i class="fa fa-rocket"></i>
+            </div>
+            <h3 class="box-title">Enhance</h3>
+            <p>
+              Their employability through access to affordably-priced online certificate courses from globally
+              recognized Ivy-League and Tier-I Universities.
+            </p>
           </div>
-          <div class="text-center position-relative mb-1">
-            <button mat-flat-button color="primary" (click)="enroll(course)" class="rounded-pill ml-2">
-              ENROLL
-            </button>
+        </div>
+        <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12">
+          <div class="text-icon-box relative mb20 xs-mb0 wow fadeInUp p-2 visible-sm" data-wow-delay="0.4s">
+            <div class="box-icon features-box-icon">
+              <i class="fa fa-cog"></i>
+            </div>
+            <h3 class="box-title">Connect</h3>
+            <p>
+              Our members with employers through our best-in-class jobs board.
+            </p>
           </div>
         </div>
       </div>
-      <!-- <div class="">
+    </div>
+  </section>
+  <!--FEATURES TOP AREA END-->
+
+  <!--ABOUT TOP CONTENT AREA-->
+  <section class="section-padding">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 col-lg-12 col-md-offset-2 col-lg-offset-2 col-sm-12 col-xs-12">
+          <div class="text-center wow fadeIn">
+            <h2 class="xs-font20">Offerings for TaSA Students and Professionals.</h2>
+            <section id="timeline">
+              <div class="demo-card-wrapper">
+                <div class="demo-card demo-card--step1" data-aos="fade-right">
+                  <div class="head">
+                    <div class="number-box">
+                      <span>01</span>
+                    </div>
+                    <h5>Free Sign-Up/Access to Courses</h5>
+                  </div>
+                  <div class="body">
+                    <p>
+                      Enhance your professional profile with marketable skills and professional certificates from
+                      trusted and recognizable institutions of Higher education like: Harvard, Cornell, Princeton,
+                      Brown, Stanford, Columbia etc.
+                    </p>
+                    <!-- <img src="http://placehold.it/1000x500" alt="Graphic" /> -->
+                  </div>
+                </div>
+
+                <div class="demo-card demo-card--step2" data-aos="fade-left">
+                  <div class="head">
+                    <div class="number-box">
+                      <span>02</span>
+                    </div>
+                    <h5>Network with Fellow TaSA Platform Users</h5>
+                  </div>
+                  <div class="body">
+                    <p>
+                      Enhance your social capital and position yourself for exciting work or business opportunities by
+                      networking with other professionals and executives in your professional domain.
+                    </p>
+                    <!-- <img src="http://placehold.it/1000x500" alt="Graphic" /> -->
+                  </div>
+                </div>
+
+                <div class="demo-card demo-card--step3" data-aos="fade-right">
+                  <div class="head">
+                    <div class="number-box">
+                      <span>03</span>
+                    </div>
+                    <h5>Connect with Recruiters</h5>
+                  </div>
+                  <div class="body">
+                    <p>
+                      Gain easy access to scores of available job opportunities within your field of study or
+                      professional interest through our best-in-class jobs board.
+                    </p>
+                    <!-- <img src="http://placehold.it/1000x500" alt="Graphic" /> -->
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--ABOUT TOP CONTENT AREA END-->
+
+  <!--FUN FACT AREA AREA-->
+  <section class="fun-fact-area center white relative padding-100-70" id="fact">
+    <div class="area-bg" data-stellar-background-ratio="0.6"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="single-fun-fact mb30 wow fadeInUp" data-wow-delay="0.1s">
+            <h3 class="font60 xs-font26"><span class="counter">20</span>k</h3>
+            <p class="font600">Graduated Students</p>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="single-fun-fact mb30 wow fadeInUp" data-wow-delay="0.2s">
+            <h3 class="font60 xs-font26"><span class="counter">124</span></h3>
+            <p class="font600">Expert Instructors</p>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="single-fun-fact mb30 wow fadeInUp" data-wow-delay="0.3s">
+            <h3 class="font60 xs-font26"><span class="counter">600</span>k</h3>
+            <p class="font600">Books in our library</p>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="single-fun-fact mb30 wow fadeInUp" data-wow-delay="0.4s">
+            <h3 class="font60 xs-font26"><span class="counter">15</span>k</h3>
+            <p class="font600">Students get employed</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--FUN FACT AREA AREA END-->
+
+  <!--ABOUT AREA-->
+  <section class="section-padding about-area bg-theme" id="about">
+    <div class="container">
+      <div class="row flex-v-center">
+        <div class="col-md-5 col-lg-5 col-sm-12 col-xs-12" data-aos="zoom-in-right">
+          <div class="about-content xs-mb50 wow fadeIn">
+            <h3 class="xs-font20 mb30">About Us.</h3>
+            <p>
+              To upskill, network and connect the millions of unemployed African college graduates with the job
+              opportunities they need, and provide companies with access and visibility to the high-skilled talent-pool
+              needed to meet their business goals on the continent.
+            </p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-6 col-md-offset-1 col-lg-offset-1 col-sm-12 col-xs-12" data-aos="zoom-in-left">
+          <div class="video-promo-details wow fadeIn">
+            <div class="video-promo-content">
+              <span data-video-id="j1S66liv1t8" class="video-area-popup mb30"><i class="fa fa-play"></i></span>
+            </div>
+            <img src="../../../assets/images/about/about.jpg" alt="" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--ABOUT AREA END-->
+
+  <!--COURSE AREA-->
+  <section class="course-area padding-top" id="courses">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-8 col-lg-12 col-md-offset-2 col-lg-offset-2 col-sm-12 col-xs-12">
+          <div class="area-title text-center wow fadeIn">
+            <h2 class="xs-font26">Our Trending Courses</h2>
+          </div>
+        </div>
+      </div>
+      <div class="row course-list">
+        <div *ngFor="let course of courses">
+          <div class="single-course mb20 w80 curPoint">
+            <img [src]="course.image_url" alt="" />
+            <div class="course-details p-3 min-vertical-h-30">
+              <h3 class="font18">{{ course.title }}</h3>
+              <div [innerHTML]="course.short_description"></div>
+            </div>
+            <div class="text-center position-relative mb-1">
+              <button mat-flat-button color="primary" (click)="enroll(course)" class="rounded-pill ml-2">
+                ENROLL
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="">
         <div class="single-course mb20 w80 curPoint" [routerLink]="['/course/1']">
           <img src="../../../assets/images/course/blog-2.jpg" alt="" />
           <div class="course-details p-3">
@@ -408,13 +323,13 @@
           </div>
         </div>
       </div> -->
+      </div>
     </div>
-  </div>
-</section>
-<!--COURSE AREA END-->
+  </section>
+  <!--COURSE AREA END-->
 
-<!--TESTMONIAL AREA AREA-->
-<!-- <section class="testmonial-area bg-theme section-padding" id="testmonial">
+  <!--TESTMONIAL AREA AREA-->
+  <!-- <section class="testmonial-area bg-theme section-padding" id="testmonial">
   <div class="container">
     <div class="row">
       <div class="col-md-8 col-lg-12 col-md-offset-2 col-lg-offset-2 col-sm-12 col-xs-12">
@@ -448,161 +363,162 @@
     </div>
   </div>
 </section> -->
-<!--TESTMONIAL AREA AREA END-->
+  <!--TESTMONIAL AREA AREA END-->
 
-<!--BLOG AREA-->
-<section class="blog-feed-area padding-top bg-theme" id="blog">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-8 col-lg-12 col-md-offset-2 col-lg-offset-2 col-sm-12 col-xs-12">
-        <div class="area-title text-center wow fadeIn">
-          <h2>News and Insights</h2>
+  <!--BLOG AREA-->
+  <section class="blog-feed-area padding-top bg-theme" id="blog">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 col-lg-12 col-md-offset-2 col-lg-offset-2 col-sm-12 col-xs-12">
+          <div class="area-title text-center wow fadeIn">
+            <h2>News and Insights</h2>
+          </div>
+        </div>
+      </div>
+
+      <div class="news-slider pb-2">
+        <div class="single-blog-item sm-mb30 xs-mb30 wow fadeInUp mb-2" data-wow-delay="0.2s" *ngFor="let item of news">
+          <div class="blog-thumb">
+            <a href="blog.html"><img src="../../../assets/images/blog/blog-3.jpg" alt="" /></a>
+          </div>
+          <div class="blog-details p-3">
+            <h6 class="blog-title">
+              <!-- <h3 class="font18">JavaScript Fundamentals: A Course for Absolute Beginners</h3> -->
+              <a [href]="item.externalLink" target="_blank">{{ item.description }}</a>
+            </h6>
+            <p class="blog-meta font14 mt-1">
+              <a>{{ item.createdOn | date: 'MM/dd/yyyy' }} </a>
+            </p>
+          </div>
         </div>
       </div>
     </div>
+  </section>
+  <!--BLOG AREA END-->
 
-    <div class="news-slider pb-2">
-      <div class="single-blog-item sm-mb30 xs-mb30 wow fadeInUp mb-2" data-wow-delay="0.2s" *ngFor="let item of news">
-        <div class="blog-thumb">
-          <a href="blog.html"><img src="../../../assets/images/blog/blog-3.jpg" alt="" /></a>
+  <!--FAQS AREA-->
+  <section class="faqs-area padding-100-50" id="faqs">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+          <div class="area-title text-center wow fadeIn">
+            <h2>FAQS</h2>
+          </div>
         </div>
-        <div class="blog-details p-3">
-          <h6 class="blog-title">
-            <!-- <h3 class="font18">JavaScript Fundamentals: A Course for Absolute Beginners</h3> -->
-            <a [href]="item.externalLink" target="_blank">{{ item.description }}</a>
-          </h6>
-          <p class="blog-meta font14 mt-1">
-            <a>{{ item.createdOn | date: 'MM/dd/yyyy' }} </a>
-          </p>
+      </div>
+      <div class="row">
+        <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12">
+          <div class="text-icon-box relative mb50 wow fadeInUp" data-wow-delay="0.1s">
+            <h3 class="box-title">1.Two Very Different Australias?</h3>
+            <p>
+              A Google Docs scam that appears to be widespread began landing in users’ inboxes on Wednesday in what
+              seemed to be a sophisticated phishing.
+            </p>
+          </div>
+        </div>
+        <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12">
+          <div class="text-icon-box relative mb50 wow fadeInUp" data-wow-delay="0.2s">
+            <h3 class="box-title">2.What Does Darwin Mean to You?</h3>
+            <p>
+              A Google Docs scam that appears to be widespread began landing in users’ inboxes on Wednesday in what
+              seemed to be a sophisticated phishing.
+            </p>
+          </div>
+        </div>
+        <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12">
+          <div class="text-icon-box relative mb50 wow fadeInUp" data-wow-delay="0.3s">
+            <h3 class="box-title">3.Where Totem Poles Are a Living Art ?</h3>
+            <p>
+              A Google Docs scam that appears to be widespread began landing in users’ inboxes on Wednesday in what
+              seemed to be a sophisticated phishing.
+            </p>
+          </div>
+        </div>
+        <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12">
+          <div class="text-icon-box relative mb50 wow fadeInUp" data-wow-delay="0.1s">
+            <h3 class="box-title">1.Two Very Different Australias?</h3>
+            <p>
+              A Google Docs scam that appears to be widespread began landing in users’ inboxes on Wednesday in what
+              seemed to be a sophisticated phishing.
+            </p>
+          </div>
+        </div>
+        <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12">
+          <div class="text-icon-box relative mb50 wow fadeInUp" data-wow-delay="0.2s">
+            <h3 class="box-title">2.What Does Darwin Mean to You?</h3>
+            <p>
+              A Google Docs scam that appears to be widespread began landing in users’ inboxes on Wednesday in what
+              seemed to be a sophisticated phishing.
+            </p>
+          </div>
+        </div>
+        <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12">
+          <div class="text-icon-box relative mb50 wow fadeInUp" data-wow-delay="0.3s">
+            <h3 class="box-title">3.Where Totem Poles Are a Living Art ?</h3>
+            <p>
+              A Google Docs scam that appears to be widespread began landing in users’ inboxes on Wednesday in what
+              seemed to be a sophisticated phishing.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--FAQS AREA END-->
+
+  <!--CLIENT AREA-->
+  <div class="client-area padding-bottom mt100 sm-mt10 xs-mt0">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+          <div class="client-slider">
+            <div class="single-client">
+              <img src="../../../assets/images/client/client-1.png" height="50" alt="" />
+            </div>
+            <div class="single-client">
+              <img src="../../../assets/images/client/client-2.png" height="50" alt="" />
+            </div>
+            <div class="single-client">
+              <img src="../../../assets/images/client/client-3.png" height="50" alt="" />
+            </div>
+            <div class="single-client">
+              <img src="../../../assets/images/client/client-4.png" height="50" alt="" />
+            </div>
+            <div class="single-client">
+              <img src="../../../assets/images/client/client-5.png" height="50" alt="" />
+            </div>
+            <div class="single-client">
+              <img src="../../../assets/images/client/client-6.png" height="50" alt="" />
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</section>
-<!--BLOG AREA END-->
+  <!--CLIENT AREA END-->
 
-<!--FAQS AREA-->
-<section class="faqs-area padding-100-50" id="faqs">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
-        <div class="area-title text-center wow fadeIn">
-          <h2>FAQS</h2>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12">
-        <div class="text-icon-box relative mb50 wow fadeInUp" data-wow-delay="0.1s">
-          <h3 class="box-title">1.Two Very Different Australias?</h3>
-          <p>
-            A Google Docs scam that appears to be widespread began landing in users’ inboxes on Wednesday in what seemed
-            to be a sophisticated phishing.
-          </p>
-        </div>
-      </div>
-      <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12">
-        <div class="text-icon-box relative mb50 wow fadeInUp" data-wow-delay="0.2s">
-          <h3 class="box-title">2.What Does Darwin Mean to You?</h3>
-          <p>
-            A Google Docs scam that appears to be widespread began landing in users’ inboxes on Wednesday in what seemed
-            to be a sophisticated phishing.
-          </p>
-        </div>
-      </div>
-      <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12">
-        <div class="text-icon-box relative mb50 wow fadeInUp" data-wow-delay="0.3s">
-          <h3 class="box-title">3.Where Totem Poles Are a Living Art ?</h3>
-          <p>
-            A Google Docs scam that appears to be widespread began landing in users’ inboxes on Wednesday in what seemed
-            to be a sophisticated phishing.
-          </p>
-        </div>
-      </div>
-      <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12">
-        <div class="text-icon-box relative mb50 wow fadeInUp" data-wow-delay="0.1s">
-          <h3 class="box-title">1.Two Very Different Australias?</h3>
-          <p>
-            A Google Docs scam that appears to be widespread began landing in users’ inboxes on Wednesday in what seemed
-            to be a sophisticated phishing.
-          </p>
-        </div>
-      </div>
-      <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12">
-        <div class="text-icon-box relative mb50 wow fadeInUp" data-wow-delay="0.2s">
-          <h3 class="box-title">2.What Does Darwin Mean to You?</h3>
-          <p>
-            A Google Docs scam that appears to be widespread began landing in users’ inboxes on Wednesday in what seemed
-            to be a sophisticated phishing.
-          </p>
-        </div>
-      </div>
-      <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12">
-        <div class="text-icon-box relative mb50 wow fadeInUp" data-wow-delay="0.3s">
-          <h3 class="box-title">3.Where Totem Poles Are a Living Art ?</h3>
-          <p>
-            A Google Docs scam that appears to be widespread began landing in users’ inboxes on Wednesday in what seemed
-            to be a sophisticated phishing.
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-<!--FAQS AREA END-->
-
-<!--CLIENT AREA-->
-<div class="client-area padding-bottom mt100 sm-mt10 xs-mt0">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
-        <div class="client-slider">
-          <div class="single-client">
-            <img src="../../../assets/images/client/client-1.png" height="50" alt="" />
+  <!--ADDMISSION AREA-->
+  <section class="admition-area padding-50-50 bg-theme">
+    <div class="container">
+      <div class="row flex-v-center">
+        <div class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
+          <div class="admition-content xs-center xs-mb30">
+            <h3 class="xs-font20">Addmission are now open</h3>
+            <p>
+              Writers and stars of Veep have responded incredulously to the news an Australian politician required
+              stitches after knocking himself unconscious.
+            </p>
           </div>
-          <div class="single-client">
-            <img src="../../../assets/images/client/client-2.png" height="50" alt="" />
-          </div>
-          <div class="single-client">
-            <img src="../../../assets/images/client/client-3.png" height="50" alt="" />
-          </div>
-          <div class="single-client">
-            <img src="../../../assets/images/client/client-4.png" height="50" alt="" />
-          </div>
-          <div class="single-client">
-            <img src="../../../assets/images/client/client-5.png" height="50" alt="" />
-          </div>
-          <div class="single-client">
-            <img src="../../../assets/images/client/client-6.png" height="50" alt="" />
+        </div>
+        <div class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
+          <div class="enroll-button right xs-center">
+            <button mat-flat-button color="primary" (click)="signup()" class="rounded-pill ml-2">
+              Sign Up Now
+            </button>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  </section>
+  <!--ADDMISSION AREA END-->
 </div>
-<!--CLIENT AREA END-->
-
-<!--ADDMISSION AREA-->
-<section class="admition-area padding-50-50 bg-theme">
-  <div class="container">
-    <div class="row flex-v-center">
-      <div class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
-        <div class="admition-content xs-center xs-mb30">
-          <h3 class="xs-font20">Addmission are now open</h3>
-          <p>
-            Writers and stars of Veep have responded incredulously to the news an Australian politician required
-            stitches after knocking himself unconscious.
-          </p>
-        </div>
-      </div>
-      <div class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
-        <div class="enroll-button right xs-center">
-          <button mat-flat-button color="primary" (click)="signup()" class="rounded-pill ml-2">
-            Sign Up Now
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-<!--ADDMISSION AREA END-->
