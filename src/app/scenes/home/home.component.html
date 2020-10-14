@@ -379,9 +379,11 @@
       <div class="news-slider pb-2">
         <div class="single-blog-item sm-mb30 xs-mb30 wow fadeInUp mb-2" data-wow-delay="0.2s" *ngFor="let item of news">
           <div class="blog-thumb">
-            <a *ngIf="item.image != '' && item.image != 'string'"><img [src]="item.image" alt="News" /></a>
+            <a *ngIf="item.image != '' && item.image != 'string'"
+              ><img [src]="item.image" style="height: 180;" alt="News"
+            /></a>
             <a *ngIf="item.image == '' || item.image == 'string'"
-              ><img src="../../../assets/images/blog/blog-3.jpg" alt=""
+              ><img src="../../../assets/images/blog/blog-3.jpg" style="height: 180;" alt="News"
             /></a>
           </div>
           <div class="blog-details p-3">

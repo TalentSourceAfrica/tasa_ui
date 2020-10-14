@@ -1,4 +1,4 @@
-<div class="d-flex align-items-center no-gutters">
+<div class="d-flex align-items-center no-gutters signup-wrapper">
   <div class="col-sm-8 col-md-12 col-lg-12 mx-auto">
     <!-- <div class="text-center mt-5 mb-1">
       <div class="avatar avatar-lg">
@@ -210,10 +210,17 @@
     </div>
 
     <div class="form-group text-center mb-0">
-      <div class="custom-control custom-checkbox mb-2">
+      <div class="custom-control custom-checkbox mb-2 pt-2">
         <input id="terms" type="checkbox" class="custom-control-input" formControlName="termsCond" required="" />
         <label for="terms" class="custom-control-label text-black-70"
-          >I agree to the <a class="text-black-70" style="text-decoration: underline;">Terms and Condition</a></label
+          >I agree to the
+          <a class="text-black-70 curPoint" (click)="openTerms()" style="text-decoration: underline;"
+            >Terms and Condition</a
+          >
+          And
+          <a class="text-black-70 curPoint" (click)="openTerms()" style="text-decoration: underline;"
+            >Privacy & Policy.</a
+          ></label
         >
       </div>
     </div>
@@ -391,3 +398,13 @@
     </div>
   </form>
 </ng-template>
+
+<div class="signup-modal">
+  <div id="myModal" class="modal" [ngClass]="{ 'd-block': doc != '' }">
+    <!-- Modal content -->
+    <div class="modal-content">
+      <span class="close curPoint" (click)="doc = ''">&times;</span>
+      <ngx-doc-viewer [url]="doc" viewer="pdf" style="width: 100%; height: 100%;"></ngx-doc-viewer>
+    </div>
+  </div>
+</div>

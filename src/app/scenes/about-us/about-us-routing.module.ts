@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { extract } from '@app/i18n';
-import { DeactiveUserComponent } from './deactive-user.component';
+import { AboutUsComponent } from './about-us.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: DeactiveUserComponent,
+    component: AboutUsComponent,
     data: {
-      title: extract('TaSA | Admin-Active / Deactive User'),
+      title: extract('TaSA | About Us'),
     },
   },
 ];
@@ -17,4 +17,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class DeactiveUserRoutingModule {}
+export class AboutUsRoutingModule {}

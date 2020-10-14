@@ -46,7 +46,11 @@ export const urls: any = {
   uploadMultiFile: '/v1/uploadMultipleDocuments/{email}', // PO
 
   // lovs
-  getLovs: '/v1/lov/{group}', // G
+  getLovsByGroup: '/v1/lov/{group}', // G
+  getLovs: '/v1/lov', // G
+  addLov: '/v1/lov', // PO
+  updateLov: '/v1/lov', // PU
+  deleteLov: '/v1/lov/{lovId}', // DE
   getFiltersData: '/v1/courses/filters', // G
 
   // News

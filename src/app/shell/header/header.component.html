@@ -94,7 +94,9 @@
           <a matTooltipPosition="below" matTooltip="Menu" [matMenuTriggerFor]="menu" class="curPoint">
             <i class="fas fa-ellipsis-v text-white"></i>
             <mat-menu #menu="matMenu">
-              <button mat-menu-item class="h6"><i class="fas fa-address-card pr-3 text-primary"></i>About Us</button>
+              <button mat-menu-item class="h6" [routerLink]="['/about-us']">
+                <i class="fas fa-address-card pr-3 text-primary"></i>About Us
+              </button>
               <button mat-menu-item [routerLink]="['/contact-us']" class="h6">
                 <i class="fas fa-address-book pr-3 text-primary"></i> Contact Us
               </button>
@@ -338,7 +340,7 @@
     </li>
     <li class="sidebar-dropdown">
       <a class="curPoint">
-        <i class="fas fa-unlock-alt"></i>
+        <i class="fas fa-tools"></i>
         <span>Operations</span>
       </a>
       <div class="sidebar-submenu">
@@ -350,7 +352,7 @@
             <a [routerLink]="['/admin/tier']">Tier</a>
           </li>
           <li>
-            <a [routerLink]="">Category</a>
+            <a [routerLink]="['/admin/lovs']">Category</a>
           </li>
           <li>
             <a [routerLink]="['/admin/news']">News</a>

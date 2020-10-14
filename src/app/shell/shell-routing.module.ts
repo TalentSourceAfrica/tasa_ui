@@ -67,6 +67,10 @@ const routes: Routes = [
           import('@app/scenes/digital-assets/digital-assets.module').then((m) => m.DigitalAssetsModule),
       },
       {
+        path: 'about-us',
+        loadChildren: () => import('@app/scenes/about-us/about-us.module').then((m) => m.AboutUsModule),
+      },
+      {
         path: 'admin/tier',
         canActivate: [AuthenticationGuard, AdminGuard],
         loadChildren: () => import('@app/scenes/admin/tier/tier.module').then((m) => m.TierModule),
@@ -81,6 +85,11 @@ const routes: Routes = [
         path: 'admin/news',
         canActivate: [AuthenticationGuard, AdminGuard],
         loadChildren: () => import('@app/scenes/admin/news/news.module').then((m) => m.NewsModule),
+      },
+      {
+        path: 'admin/lovs',
+        canActivate: [AuthenticationGuard, AdminGuard],
+        loadChildren: () => import('@app/scenes/admin/lov/lov.module').then((m) => m.LovModule),
       },
       { path: '', redirectTo: '/home', pathMatch: 'full' },
     ],

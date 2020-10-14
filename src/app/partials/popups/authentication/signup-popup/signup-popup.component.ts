@@ -13,6 +13,8 @@ import { MustMatch } from '@app/auth/must-match';
 })
 export class SignupPopupComponent implements OnInit {
   signupForm: FormGroup;
+  doc = '';
+  termsAndCondition = 'https://www.fleetster.net/legal/standard-terms-and-conditions.pdf';
   popupData: any;
   signupType: any = [
     { value: 0, viewValue: 'Student / Professional' },
@@ -118,6 +120,10 @@ export class SignupPopupComponent implements OnInit {
         $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
       }
     );
+  }
+
+  openTerms() {
+    this.doc = this.termsAndCondition;
   }
 
   ngOnInit(): void {}
