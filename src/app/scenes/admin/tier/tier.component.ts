@@ -39,12 +39,13 @@ export class TierComponent implements OnInit {
     tier.feature.splice(featIndex, 1);
   }
 
-  saveTier(tier: any) {
+  saveTier(tier: any, tierIndex: number) {
     let $t = this;
     $t.sharedService.uiService.showApiStartPopMsg('Adding Tier...!');
     let apiUrl = $t.sharedService.urlService.simpleApiCall('updateTier');
     $t.sharedService.configService.post(apiUrl, tier).subscribe(
       (response: any) => {
+        $t.tierData[tierIndex] = response;
         $t.sharedService.uiService.showApiSuccessPopMsg('Tier Added...!');
       },
       (error) => {
@@ -69,17 +70,21 @@ export class TierComponent implements OnInit {
 
   deleteTier(tier: any, tierIndex: any) {
     let $t = this;
-    $t.sharedService.uiService.showApiStartPopMsg('Deleting Tier...!');
-    let apiUrl = $t.sharedService.urlService.apiCallWithParams('deleteTier', { '{tierId}': tier.id });
-    $t.sharedService.configService.delete(apiUrl).subscribe(
-      (response: any) => {
-        $t.tierData.splice(tierIndex, 1);
-        $t.sharedService.uiService.showApiSuccessPopMsg('Tier Deleted...!');
-      },
-      (error) => {
-        $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
-      }
-    );
+    if (tier.id != '') {
+      $t.sharedService.uiService.showApiStartPopMsg('Deleting Tier...!');
+      let apiUrl = $t.sharedService.urlService.apiCallWithParams('deleteTier', { '{tierId}': tier.id });
+      $t.sharedService.configService.delete(apiUrl).subscribe(
+        (response: any) => {
+          $t.tierData.splice(tierIndex, 1);
+          $t.sharedService.uiService.showApiSuccessPopMsg('Tier Deleted...!');
+        },
+        (error) => {
+          $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
+        }
+      );
+    } else {
+      $t.tierData.splice(tierIndex, 1);
+    }
   }
 
   getTiers() {

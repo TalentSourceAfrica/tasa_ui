@@ -8,27 +8,29 @@ import { SharedService } from '@app/services/shared.service';
 })
 export class LovComponent implements OnInit {
   selectedNews: any;
-  newsData: any = [];
+  lovsData: any = [];
   constructor(public sharedService: SharedService) {}
 
   addNews() {
-    this.newsData.push({
+    this.lovsData.push({
       id: '',
-      image: '',
-      description: '',
-      fullArticle: '',
-      externalLink: '',
-      publishedBy: '',
+      group: '',
+      code: '',
+      desc: '',
+      subValue1: '',
+      subValue2: '',
+      subValue3: '',
     });
   }
 
-  saveNews(news: any) {
+  saveLovs(lov: any, lovIndex: number) {
     let $t = this;
-    $t.sharedService.uiService.showApiStartPopMsg('Adding News...!');
-    let apiUrl = $t.sharedService.urlService.simpleApiCall('addNews');
-    $t.sharedService.configService.post(apiUrl, news).subscribe(
+    $t.sharedService.uiService.showApiStartPopMsg('Adding LOV...!');
+    let apiUrl = $t.sharedService.urlService.simpleApiCall('addLov');
+    $t.sharedService.configService.post(apiUrl, lov).subscribe(
       (response: any) => {
-        $t.sharedService.uiService.showApiSuccessPopMsg('news Added...!');
+        $t.lovsData[lovIndex] = response;
+        $t.sharedService.uiService.showApiSuccessPopMsg('LOV Added...!');
       },
       (error) => {
         $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
@@ -36,13 +38,13 @@ export class LovComponent implements OnInit {
     );
   }
 
-  updateNews(news: any) {
+  updateLov(lov: any) {
     let $t = this;
-    $t.sharedService.uiService.showApiStartPopMsg('Updating News...!');
-    let apiUrl = $t.sharedService.urlService.simpleApiCall('updateNews');
-    $t.sharedService.configService.put(apiUrl, news).subscribe(
+    $t.sharedService.uiService.showApiStartPopMsg('Updating LOV...!');
+    let apiUrl = $t.sharedService.urlService.simpleApiCall('updateLov');
+    $t.sharedService.configService.put(apiUrl, lov).subscribe(
       (response: any) => {
-        $t.sharedService.uiService.showApiSuccessPopMsg('News Updated...!');
+        $t.sharedService.uiService.showApiSuccessPopMsg('LOV Updated...!');
       },
       (error) => {
         $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
@@ -50,19 +52,23 @@ export class LovComponent implements OnInit {
     );
   }
 
-  deleteNews(news: any, newsIndex: any) {
+  deleteLov(lov: any, lovIndex: any) {
     let $t = this;
-    $t.sharedService.uiService.showApiStartPopMsg('Deleting News...!');
-    let apiUrl = $t.sharedService.urlService.apiCallWithParams('deleteNews', { '{newsId}': news.id });
-    $t.sharedService.configService.delete(apiUrl).subscribe(
-      (response: any) => {
-        $t.newsData.splice(newsIndex, 1);
-        $t.sharedService.uiService.showApiSuccessPopMsg('News Deleted...!');
-      },
-      (error) => {
-        $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
-      }
-    );
+    if (lov.id) {
+      $t.sharedService.uiService.showApiStartPopMsg('Deleting LOV...!');
+      let apiUrl = $t.sharedService.urlService.apiCallWithParams('deleteLov', { '{lovId}': lov.id });
+      $t.sharedService.configService.delete(apiUrl).subscribe(
+        (response: any) => {
+          $t.lovsData.splice(lovIndex, 1);
+          $t.sharedService.uiService.showApiSuccessPopMsg('News Deleted...!');
+        },
+        (error) => {
+          $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
+        }
+      );
+    } else {
+      $t.lovsData.splice(lovIndex, 1);
+    }
   }
 
   getLovs() {
@@ -70,7 +76,7 @@ export class LovComponent implements OnInit {
     let apiUrl = $t.sharedService.urlService.simpleApiCall('getLovs');
     $t.sharedService.configService.get(apiUrl).subscribe(
       (response: any) => {
-        $t.newsData = response;
+        $t.lovsData = response;
       },
       (error) => {
         console.log(error);

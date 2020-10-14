@@ -37,10 +37,10 @@ export const urls: any = {
   searchCourse: '/v1/courses/search/{page}/{size}', // PO
 
   // tiers
-  getTiers: '/v1/tiers', // G
-  addTier: '/v1/tiers', // PO
-  deleteTier: '/v1/tiers/{tierId}', // DE
-  updateTier: '/v1/tiers', // PU
+  getTiers: '/v1/tier', // G
+  addTier: '/v1/tier', // PO
+  deleteTier: '/v1/tier/{tierId}', // DE
+  updateTier: '/v1/tier', // PU
 
   // upload
   uploadMultiFile: '/v1/uploadMultipleDocuments/{email}', // PO

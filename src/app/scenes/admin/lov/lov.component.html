@@ -4,7 +4,10 @@
     <li class="breadcrumb-item active">Lovs</li>
   </ol>
   <div class="sec-title">
-    <div class="title">All List Of Values</div>
+    <div class="title" *ngIf="lovsData.length == 0">All List Of Values</div>
+    <div class="title" *ngIf="lovsData.length">
+      All List Of Values : <strong>{{ lovsData.length }} Records Found</strong>
+    </div>
   </div>
   <section>
     <div class="upload-box text-center">
@@ -18,35 +21,29 @@
       </div>
     </div>
   </section>
-  <section class="d-none">
+  <section>
     <ng-container>
       <div class="row min-vertical-h-80 max-vertical-h-80 stylishScroll flow-y-auto flow-x-hidden">
-        <div class="col-md-6 col-xl-6 col-sm-12 animated fadeIn" *ngFor="let item of newsData; let i = index">
+        <div class="col-md-6 col-xl-6 col-sm-12 animated fadeIn" *ngFor="let item of lovsData; let i = index">
           <div class="card d-flex align-items-center">
-            <div class="card-body">
+            <div class="card-body pt-5">
               <div class="row">
                 <div class="col-12">
                   <mat-form-field class="pb-2 w100">
+                    <mat-label>Code</mat-label>
+                    <input matInput placeholder="Article" value="" [(ngModel)]="item.code" />
+                  </mat-form-field>
+                </div>
+                <div class="col-12">
+                  <mat-form-field class="pb-2 w100">
                     <mat-label>Desription</mat-label>
-                    <input matInput placeholder="Desription" value="" [(ngModel)]="item.description" />
+                    <input matInput placeholder="Desription" value="" [(ngModel)]="item.desc" />
                   </mat-form-field>
                 </div>
                 <div class="col-12">
                   <mat-form-field class="pb-2 w100">
-                    <mat-label>Full Article</mat-label>
-                    <input matInput placeholder="Article" value="" [(ngModel)]="item.fullArticle" />
-                  </mat-form-field>
-                </div>
-                <div class="col-12">
-                  <mat-form-field class="pb-2 w100">
-                    <mat-label>Published By</mat-label>
-                    <input matInput placeholder="Name" value="" [(ngModel)]="item.publishedBy" />
-                  </mat-form-field>
-                </div>
-                <div class="col-12">
-                  <mat-form-field class="pb-2 w100">
-                    <mat-label>External Link</mat-label>
-                    <input matInput placeholder="Link" value="" [(ngModel)]="item.externalLink" />
+                    <mat-label>Group</mat-label>
+                    <input matInput placeholder="Name" value="" [(ngModel)]="item.group" />
                   </mat-form-field>
                 </div>
               </div>
@@ -57,7 +54,7 @@
                   mat-flat-button
                   color="primary"
                   *ngIf="item.id == 0"
-                  (click)="saveNews(item)"
+                  (click)="saveLovs(item, i)"
                   class="rounded-pill ml-2"
                 >
                   Save
@@ -66,7 +63,7 @@
                   mat-flat-button
                   color="primary"
                   *ngIf="item.id != 0"
-                  (click)="updateNews(item)"
+                  (click)="updateLov(item)"
                   class="rounded-pill ml-2"
                 >
                   Update
@@ -76,7 +73,7 @@
                   color="primary"
                   matTooltipPosition="below"
                   matTooltip="Delete"
-                  (click)="deleteNews(item, i)"
+                  (click)="deleteLov(item, i)"
                   class="ml-2"
                 >
                   <mat-icon>delete</mat-icon>

@@ -4,7 +4,10 @@
     <li class="breadcrumb-item active">Active or Deactive User</li>
   </ol>
   <div class="sec-title">
-    <div class="title">All Users</div>
+    <div class="title" *ngIf="userData.length == 0">All Users</div>
+    <div class="title" *ngIf="userData.length">
+      All Users : <strong>{{ userData.length }} Records Found</strong>
+    </div>
   </div>
   <section>
     <ng-container>

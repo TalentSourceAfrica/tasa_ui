@@ -54,12 +54,13 @@ export class NewsComponent implements OnInit {
     }
   }
 
-  saveNews(news: any) {
+  saveNews(news: any, newsIndex: number) {
     let $t = this;
     $t.sharedService.uiService.showApiStartPopMsg('Adding News...!');
     let apiUrl = $t.sharedService.urlService.simpleApiCall('addNews');
     $t.sharedService.configService.post(apiUrl, news).subscribe(
       (response: any) => {
+        $t.newsData[newsIndex] = response;
         $t.sharedService.uiService.showApiSuccessPopMsg('news Added...!');
       },
       (error) => {
@@ -84,17 +85,21 @@ export class NewsComponent implements OnInit {
 
   deleteNews(news: any, newsIndex: any) {
     let $t = this;
-    $t.sharedService.uiService.showApiStartPopMsg('Deleting News...!');
-    let apiUrl = $t.sharedService.urlService.apiCallWithParams('deleteNews', { '{newsId}': news.id });
-    $t.sharedService.configService.delete(apiUrl).subscribe(
-      (response: any) => {
-        $t.newsData.splice(newsIndex, 1);
-        $t.sharedService.uiService.showApiSuccessPopMsg('News Deleted...!');
-      },
-      (error) => {
-        $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
-      }
-    );
+    if (news.id != '') {
+      $t.sharedService.uiService.showApiStartPopMsg('Deleting News...!');
+      let apiUrl = $t.sharedService.urlService.apiCallWithParams('deleteNews', { '{newsId}': news.id });
+      $t.sharedService.configService.delete(apiUrl).subscribe(
+        (response: any) => {
+          $t.newsData.splice(newsIndex, 1);
+          $t.sharedService.uiService.showApiSuccessPopMsg('News Deleted...!');
+        },
+        (error) => {
+          $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
+        }
+      );
+    } else {
+      $t.newsData.splice(newsIndex, 1);
+    }
   }
 
   getNews() {
