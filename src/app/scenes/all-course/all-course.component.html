@@ -79,6 +79,21 @@
             >
             </mat-paginator>
 
+            <div class="col-12 text-center mt-3" *ngIf="user.type.toLowerCase() == 'admin'">
+              <button
+                mat-flat-button
+                color="primary"
+                [disabled]="checkDisable()"
+                (click)="openEditCourse()"
+                class="rounded-pill ml-2"
+              >
+                <span class="material-icons pr-2">
+                  edit
+                </span>
+                Edit Course
+              </button>
+            </div>
+
             <ng-container *ngIf="!isLoading && allCourse.length">
               <div
                 class="col-md-4 col-lg-4 col-sm-6 animated fadeIn"
@@ -93,8 +108,20 @@
                     class="position-absolute mt-2"
                     matTooltipPosition="below"
                     matTooltip="Add To Favorite"
+                    *ngIf="user.type.toLowerCase() != 'admin'"
                   >
                     <mat-icon>favorite_border</mat-icon>
+                  </button>
+                  <button
+                    mat-mini-fab
+                    color="primary"
+                    style="z-index: 9; right: 10px;"
+                    class="position-absolute mt-2"
+                    [ngClass]="{ 'text-success': course.isSelected }"
+                    (click)="selectCourse($event, course)"
+                    *ngIf="user.type.toLowerCase() == 'admin'"
+                  >
+                    <mat-icon>check_circle_outline</mat-icon>
                   </button>
                   <div class="card-img">
                     <img [src]="course.image_url" />

@@ -73,6 +73,10 @@ $light-blue: #523f6d80;
   .team-member,
   .team-member .team-img {
     position: relative;
+    img {
+      height: 200px;
+      width: 250px;
+    }
   }
   .team-member {
     overflow: hidden;

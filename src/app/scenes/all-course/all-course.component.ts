@@ -1,10 +1,16 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { SharedService } from '@app/services/shared.service';
 import { Router, RouterEvent, NavigationEnd } from '@angular/router';
 import { PageEvent } from '@angular/material/paginator';
 import { filter, delay } from 'rxjs/operators';
 import { courseSearchData } from '@app/models/constants';
 import { untilDestroyed } from '@app/@core';
+
+// service
+import { SharedService } from '@app/services/shared.service';
+
+// component
+import { EditCoursePopupComponent } from '@app/partials/popups/course/edit-course-popup/edit-course-popup.component';
+import { CredentialsService } from '@app/auth';
 
 @Component({
   selector: 'app-all-course',
@@ -13,8 +19,9 @@ import { untilDestroyed } from '@app/@core';
 })
 export class AllCourseComponent implements OnInit {
   @ViewChild('filterDrawer', { static: false }) filterDrawer: any;
-  allCourse: any;
+  allCourse: any = [];
   isLoading: boolean = true;
+  selectedCourse: any = [];
   length = 100;
   pageSize = 20;
   pageSizeOptions: number[] = [5, 10, 25, 100];
@@ -29,7 +36,11 @@ export class AllCourseComponent implements OnInit {
   };
   searchConfig: any = {};
 
-  constructor(public sharedService: SharedService, public router: Router) {
+  constructor(
+    public sharedService: SharedService,
+    public router: Router,
+    public credentialsService: CredentialsService
+  ) {
     this.searchConfig = courseSearchData;
   }
 
@@ -160,6 +171,35 @@ export class AllCourseComponent implements OnInit {
     this.router.navigate(['/course/' + _key], { replaceUrl: true });
   }
 
+  checkDisable() {
+    return this.allCourse.length ? this.allCourse.filter((d: any) => d.isSelected).length == 0 : true;
+  }
+
+  selectCourse(event: any, course: any) {
+    event.stopPropagation();
+    event.preventDefault();
+    course['isSelected'] = course['isSelected'] ? !course['isSelected'] : true;
+  }
+
+  openEditCourse() {
+    this.sharedService.dialogService.open(EditCoursePopupComponent, {
+      width: '100%',
+      data: {
+        courses: this.allCourse.filter((d: any) => d.isSelected),
+        tiers: this.filterData.tiers,
+        user: this.user,
+        onSubmit: (_fromDialog: any) => {
+          this.editCourse(_fromDialog);
+        },
+      },
+      disableClose: false,
+    });
+  }
+
+  editCourse(_courseData: any) {
+    console.log(_courseData);
+  }
+
   init() {
     this.getFilterData();
     if (localStorage.getItem('tasa-search-course')) {
@@ -185,6 +225,11 @@ export class AllCourseComponent implements OnInit {
       jQuery('#filterContent').css('position', 'fixed');
   }
 
+  get user(): any | null {
+    const credentials = this.credentialsService.credentials;
+    return credentials ? credentials : null;
+  }
+
   ngOnInit(): void {
     this.sharedService.utilityService.requiredStyleForHomeHeader();
     window.scrollTo(0, 0);
@@ -196,12 +241,15 @@ export class AllCourseComponent implements OnInit {
       }
     });
 
-    jQuery(document).scroll(() => {
-      this.checkOffset();
-    });
+    if (!this.sharedService.deviceDetectorService.isMobile()) {
+      jQuery(document).scroll(() => {
+        if (jQuery('.footer-wrapper').length) {
+          this.checkOffset();
+        } else {
+          jQuery('#filterContent').css('position', 'fixed');
+        }
+      });
+    }
   }
-  ngOnDestroy(): void {
-    //Called once, before the instance is destroyed.
-    //Add 'implements OnDestroy' to the class.
-  }
+  ngOnDestroy(): void {}
 }

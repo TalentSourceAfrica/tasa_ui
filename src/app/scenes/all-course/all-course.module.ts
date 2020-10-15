@@ -10,6 +10,7 @@ import { MaterialModule } from '@app/modules/material.module';
 import { RouterModule } from '@angular/router';
 import { AllCourseRoutingModule } from './all-course-routing.module';
 import { AllCourseComponent } from './all-course.component';
+import { EditCoursePopupComponent } from '@app/partials/popups/course/edit-course-popup/edit-course-popup.component';
 
 @NgModule({
   imports: [
@@ -23,7 +24,8 @@ import { AllCourseComponent } from './all-course.component';
     RouterModule,
     AllCourseRoutingModule,
   ],
-  declarations: [AllCourseComponent],
+  declarations: [AllCourseComponent, EditCoursePopupComponent],
+  entryComponents: [EditCoursePopupComponent],
   schemas: [NO_ERRORS_SCHEMA],
 })
 export class AllCourseModule {}

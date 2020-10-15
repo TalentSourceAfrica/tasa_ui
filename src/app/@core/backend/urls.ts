@@ -35,6 +35,7 @@ export const urls: any = {
   getCourse: '/v1/courses/page/{page}/{size}', // G
   getCourseCount: '/v1/courses/count', // G
   searchCourse: '/v1/courses/search/{page}/{size}', // PO
+  updateCourse: '/v1/courses/bulk/{userId}', // PO
 
   // tiers
   getTiers: '/v1/tier', // G
