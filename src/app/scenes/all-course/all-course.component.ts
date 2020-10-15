@@ -188,16 +188,9 @@ export class AllCourseComponent implements OnInit {
         courses: this.allCourse.filter((d: any) => d.isSelected),
         tiers: this.filterData.tiers,
         user: this.user,
-        onSubmit: (_fromDialog: any) => {
-          this.editCourse(_fromDialog);
-        },
       },
       disableClose: false,
     });
-  }
-
-  editCourse(_courseData: any) {
-    console.log(_courseData);
   }
 
   init() {

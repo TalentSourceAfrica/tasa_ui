@@ -16,7 +16,9 @@
         <div class="single_footer single_footer_address">
           <h4>Page Link</h4>
           <ul>
-            <li class="curPoint"><a (click)="scrollToFaq('about')">About Us</a></li>
+            <li class="curPoint"><a [routerLink]="['/about-us']">About Us</a></li>
+            <li class="curPoint"><a [routerLink]="['/our-process']">Our Process</a></li>
+            <li class="curPoint"><a [routerLink]="['/our-partner']">Our Partner</a></li>
             <li class="curPoint"><a [routerLink]="['/contact-us']">Contact Us</a></li>
             <li class="curPoint"><a (click)="partnerWithUs()">Partner With Us </a></li>
           </ul>

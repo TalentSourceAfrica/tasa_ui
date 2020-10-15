@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SharedService } from '@app/services/shared.service';
 //extra
 declare var jQuery: any;
 
@@ -8,9 +9,12 @@ declare var jQuery: any;
   styleUrls: ['./about-us.component.scss'],
 })
 export class AboutUsComponent implements OnInit {
-  constructor() {}
+  constructor(public sharedService: SharedService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.sharedService.utilityService.requiredStyleForHomeHeader();
+    window.scrollTo(0, 0);
+  }
 
   ngAfterViewInit(): void {
     var $videoModal = jQuery('.video-area-popup');

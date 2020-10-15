@@ -79,7 +79,7 @@
             >
             </mat-paginator>
 
-            <div class="col-12 text-center mt-3" *ngIf="user.type.toLowerCase() == 'admin'">
+            <div class="col-12 text-center mt-3" *ngIf="user && user.type.toLowerCase() == 'admin'">
               <button
                 mat-flat-button
                 color="primary"
@@ -108,7 +108,7 @@
                     class="position-absolute mt-2"
                     matTooltipPosition="below"
                     matTooltip="Add To Favorite"
-                    *ngIf="user.type.toLowerCase() != 'admin'"
+                    *ngIf="user && user.type.toLowerCase() != 'admin'"
                   >
                     <mat-icon>favorite_border</mat-icon>
                   </button>
@@ -119,7 +119,7 @@
                     class="position-absolute mt-2"
                     [ngClass]="{ 'text-success': course.isSelected }"
                     (click)="selectCourse($event, course)"
-                    *ngIf="user.type.toLowerCase() == 'admin'"
+                    *ngIf="user && user.type.toLowerCase() == 'admin'"
                   >
                     <mat-icon>check_circle_outline</mat-icon>
                   </button>
