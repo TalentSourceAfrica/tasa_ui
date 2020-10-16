@@ -25,7 +25,7 @@ export class LovComponent implements OnInit {
     this.selectedLovsData = this.lovsData.find((d: any) => d.group == this.selectedGroup);
   }
 
-  addVal(lov: any) {
+  addVal() {
     this.selectedLovsData.value.push({ code: '', desc: '', subValue1: '', subValue2: '', subValue3: '' });
   }
 

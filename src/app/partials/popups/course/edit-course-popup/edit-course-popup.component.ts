@@ -16,7 +16,6 @@ export class EditCoursePopupComponent implements OnInit {
     private sharedService: SharedService
   ) {
     this.popupData = data;
-    console.log(this.popupData);
   }
 
   onDiscountChange(event: any, course: any) {

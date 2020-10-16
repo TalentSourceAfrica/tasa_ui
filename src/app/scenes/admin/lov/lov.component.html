@@ -12,9 +12,7 @@
   <section>
     <mat-tab-group mat-align-tabs="start">
       <mat-tab label="Add Group"> <ng-template [ngTemplateOutlet]="addGroup"></ng-template></mat-tab>
-      <mat-tab label="Add Values in Group" (selectedTabChange)="tabClick($event)">
-        <ng-template [ngTemplateOutlet]="addValueInGroup"></ng-template
-      ></mat-tab>
+      <mat-tab label="Add Values in Group"> <ng-template [ngTemplateOutlet]="addValueInGroup"></ng-template></mat-tab>
     </mat-tab-group>
   </section>
 </div>
