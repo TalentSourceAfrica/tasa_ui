@@ -9,22 +9,32 @@ import { SharedService } from '@app/services/shared.service';
 export class LovComponent implements OnInit {
   selectedNews: any;
   lovsData: any = [];
+  selectedGroup: any = '';
+  selectedLovsData: any;
   constructor(public sharedService: SharedService) {}
 
-  addNews() {
+  addGrp() {
     this.lovsData.push({
       id: '',
       group: '',
-      code: '',
-      desc: '',
-      subValue1: '',
-      subValue2: '',
-      subValue3: '',
+      value: [],
     });
+  }
+
+  afterGrpChange() {
+    this.selectedLovsData = this.lovsData.find((d: any) => d.group == this.selectedGroup);
+  }
+
+  addVal(lov: any) {
+    this.selectedLovsData.value.push({ code: '', desc: '', subValue1: '', subValue2: '', subValue3: '' });
   }
 
   saveLovs(lov: any, lovIndex: number) {
     let $t = this;
+    if ($t.lovsData.map((d: any) => d.group.toLowerCase()).includes(lov.group.toLowerCase())) {
+      $t.sharedService.uiService.showApiErrorPopMsg('Group Name Must be Unique');
+      return;
+    }
     $t.sharedService.uiService.showApiStartPopMsg('Adding LOV...!');
     let apiUrl = $t.sharedService.urlService.simpleApiCall('addLov');
     $t.sharedService.configService.post(apiUrl, lov).subscribe(
@@ -38,13 +48,22 @@ export class LovComponent implements OnInit {
     );
   }
 
-  updateLov(lov: any) {
+  updateLov(lov: any, _isDeleteVal?: boolean) {
     let $t = this;
-    $t.sharedService.uiService.showApiStartPopMsg('Updating LOV...!');
+    let apiStartMsg = '';
+    let apiEndMsg = '';
+    if (_isDeleteVal) {
+      apiStartMsg = 'Deleting Value...!';
+      apiEndMsg = 'Value Deleted...!';
+    } else {
+      apiStartMsg = 'Updating LOV...!';
+      apiEndMsg = 'LOV Updated...!';
+    }
+    $t.sharedService.uiService.showApiStartPopMsg(apiStartMsg);
     let apiUrl = $t.sharedService.urlService.simpleApiCall('updateLov');
     $t.sharedService.configService.put(apiUrl, lov).subscribe(
       (response: any) => {
-        $t.sharedService.uiService.showApiSuccessPopMsg('LOV Updated...!');
+        $t.sharedService.uiService.showApiSuccessPopMsg(apiEndMsg);
       },
       (error) => {
         $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
@@ -52,7 +71,12 @@ export class LovComponent implements OnInit {
     );
   }
 
-  deleteLov(lov: any, lovIndex: any) {
+  deleteVal(selectedLov: any, selectedLovIndex: number) {
+    selectedLov.value.splice(selectedLovIndex, 1);
+    this.updateLov(selectedLov, true);
+  }
+
+  deleteLov(lov: any, lovIndex: number) {
     let $t = this;
     if (lov.id) {
       $t.sharedService.uiService.showApiStartPopMsg('Deleting LOV...!');
@@ -60,7 +84,7 @@ export class LovComponent implements OnInit {
       $t.sharedService.configService.delete(apiUrl).subscribe(
         (response: any) => {
           $t.lovsData.splice(lovIndex, 1);
-          $t.sharedService.uiService.showApiSuccessPopMsg('News Deleted...!');
+          $t.sharedService.uiService.showApiSuccessPopMsg('LOV Deleted...!');
         },
         (error) => {
           $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);

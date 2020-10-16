@@ -9,6 +9,7 @@ import { SharedService } from '@app/services/shared.service';
 })
 export class EditCoursePopupComponent implements OnInit {
   popupData: any;
+  categoryList = ['abc', '123'];
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<EditCoursePopupComponent>,
@@ -16,6 +17,10 @@ export class EditCoursePopupComponent implements OnInit {
   ) {
     this.popupData = data;
     console.log(this.popupData);
+  }
+
+  onDiscountChange(event: any, course: any) {
+    course.offerPrice = course.entitlements[0].price * ((100 - parseInt(event.target.value)) / 100);
   }
 
   submit() {

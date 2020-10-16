@@ -824,6 +824,9 @@ button:hover,
 .mat-icon {
   height: 25px;
 }
+.mat-mini-fab .mat-button-wrapper {
+  padding: 0 !important;
+}
 
 .btn-primary {
   background-color: #867899 !important;

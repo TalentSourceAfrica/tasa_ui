@@ -118,7 +118,7 @@ export class AllCourseComponent implements OnInit {
     let apiUrl = $t.sharedService.urlService.apiCallWithParams('getLovsByGroup', { '{group}': 'categories' });
     $t.sharedService.configService.get(apiUrl).subscribe(
       (response: any) => {
-        $t.filterData.categories = response;
+        $t.filterData.categories = response[0].value;
       },
       (error) => {
         console.log(error);
@@ -187,6 +187,7 @@ export class AllCourseComponent implements OnInit {
       data: {
         courses: this.allCourse.filter((d: any) => d.isSelected),
         tiers: this.filterData.tiers,
+        categoryList: this.filterData.categories,
         user: this.user,
       },
       disableClose: false,

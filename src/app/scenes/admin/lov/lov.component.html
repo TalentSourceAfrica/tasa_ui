@@ -10,39 +10,38 @@
     </div>
   </div>
   <section>
+    <mat-tab-group mat-align-tabs="start">
+      <mat-tab label="Add Group"> <ng-template [ngTemplateOutlet]="addGroup"></ng-template></mat-tab>
+      <mat-tab label="Add Values in Group" (selectedTabChange)="tabClick($event)">
+        <ng-template [ngTemplateOutlet]="addValueInGroup"></ng-template
+      ></mat-tab>
+    </mat-tab-group>
+  </section>
+</div>
+
+<ng-template #addGroup>
+  <section class="mt-2">
     <div class="upload-box text-center">
       <div class="supportedFormatCarousel d-block mb-3 mx-auto w50">
-        <button mat-flat-button color="primary" (click)="addNews()" class="rounded-pill ml-2">
+        <button mat-flat-button color="primary" (click)="addGrp()" class="rounded-pill ml-2">
           <span class="material-icons pr-2">
             add
           </span>
-          ADD
+          Add Group
         </button>
       </div>
     </div>
   </section>
   <section>
     <ng-container>
-      <div class="row min-vertical-h-80 max-vertical-h-80 stylishScroll flow-y-auto flow-x-hidden">
-        <div class="col-md-6 col-xl-6 col-sm-12 animated fadeIn" *ngFor="let item of lovsData; let i = index">
+      <div class="row no-gutters max-vertical-h-60 stylishScroll flow-y-auto flow-x-hidden">
+        <div class="animated fadeIn" *ngFor="let item of lovsData; let i = index">
           <div class="card d-flex align-items-center">
             <div class="card-body pt-5">
               <div class="row">
                 <div class="col-12">
                   <mat-form-field class="pb-2 w100">
-                    <mat-label>Code</mat-label>
-                    <input matInput placeholder="Article" value="" [(ngModel)]="item.code" />
-                  </mat-form-field>
-                </div>
-                <div class="col-12">
-                  <mat-form-field class="pb-2 w100">
-                    <mat-label>Desription</mat-label>
-                    <input matInput placeholder="Desription" value="" [(ngModel)]="item.desc" />
-                  </mat-form-field>
-                </div>
-                <div class="col-12">
-                  <mat-form-field class="pb-2 w100">
-                    <mat-label>Group</mat-label>
+                    <mat-label>Group Name</mat-label>
                     <input matInput placeholder="Name" value="" [(ngModel)]="item.group" />
                   </mat-form-field>
                 </div>
@@ -85,4 +84,101 @@
       </div>
     </ng-container>
   </section>
-</div>
+</ng-template>
+
+<ng-template #addValueInGroup>
+  <div class="text-center mt-4">
+    <mat-form-field class="pb-2 w30">
+      <mat-label>Select group</mat-label>
+      <mat-select [(ngModel)]="selectedGroup" (selectionChange)="afterGrpChange()" ngDefaultControl>
+        <mat-option value="">None</mat-option>
+        <mat-option [value]="item.group" *ngFor="let item of lovsData">{{ item.group }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <section>
+      <div class="upload-box text-center">
+        <div class="supportedFormatCarousel d-block mb-3 mx-auto w50">
+          <button
+            mat-flat-button
+            color="primary"
+            [disabled]="selectedGroup == ''"
+            (click)="addVal()"
+            class="rounded-pill ml-2"
+          >
+            <span class="material-icons pr-2">
+              add
+            </span>
+            Add Values
+          </button>
+        </div>
+      </div>
+    </section>
+  </div>
+  <section>
+    <ng-container *ngIf="selectedLovsData?.value">
+      <div class="row no-gutters min-vertical-h-80 max-vertical-h-80 stylishScroll flow-y-auto flow-x-hidden">
+        <div
+          class="col-md-6 col-xl-6 col-sm-12 animated fadeIn"
+          *ngFor="let item of selectedLovsData.value; let i = index"
+        >
+          <div class="card d-flex align-items-center">
+            <div class="card-body pt-5">
+              <div class="row">
+                <div class="col-12">
+                  <mat-form-field class="pb-2 w100">
+                    <mat-label>Code</mat-label>
+                    <input matInput placeholder="Code" value="" [(ngModel)]="item.code" />
+                  </mat-form-field>
+                </div>
+                <div class="col-12">
+                  <mat-form-field class="pb-2 w100">
+                    <mat-label>Desription</mat-label>
+                    <input matInput placeholder="Desription" value="" [(ngModel)]="item.desc" />
+                  </mat-form-field>
+                </div>
+                <div class="col-12">
+                  <mat-form-field class="pb-2 w100">
+                    <mat-label>Group</mat-label>
+                    <input
+                      matInput
+                      placeholder="Name"
+                      value=""
+                      [disabled]="'true'"
+                      [(ngModel)]="selectedLovsData.group"
+                    />
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+            <div class="w100 border-top p-2">
+              <div class="text-center">
+                <!-- <button
+                  mat-flat-button
+                  color="primary"
+                  *ngIf="item.id == 0"
+                  (click)="saveLovs(item, i)"
+                  class="rounded-pill ml-2"
+                >
+                  Save
+                </button> -->
+                <button mat-flat-button color="primary" (click)="updateLov(selectedLovsData)" class="rounded-pill ml-2">
+                  Update
+                </button>
+                <button
+                  mat-mini-fab
+                  color="primary"
+                  matTooltipPosition="below"
+                  matTooltip="Delete"
+                  (click)="deleteVal(selectedLovsData, i)"
+                  class="ml-2"
+                >
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </section>
+</ng-template>

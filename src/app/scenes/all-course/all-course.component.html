@@ -76,10 +76,11 @@
               [pageSize]="pageSize"
               [pageSizeOptions]="pageSizeOptions"
               (page)="pageEvent = pagination($event)"
+              *ngIf="!isLoading"
             >
             </mat-paginator>
 
-            <div class="col-12 text-center mt-3" *ngIf="user && user.type.toLowerCase() == 'admin'">
+            <div class="col-12 text-center mt-3" *ngIf="user && user.type.toLowerCase() == 'admin' && !isLoading">
               <button
                 mat-flat-button
                 color="primary"
@@ -101,6 +102,9 @@
                 *ngFor="let course of allCourse"
               >
                 <div class="card curPoint">
+                  <span class="flag-discount" *ngIf="course.discountPercentage > 0"
+                    >{{ course.discountPercentage }}% Off</span
+                  >
                   <button
                     mat-mini-fab
                     color="primary"
@@ -126,12 +130,16 @@
                   <div class="card-img">
                     <img [src]="course.image_url" />
                   </div>
-                  <div class="card-body">
+                  <div class="card-body pl-3 pr-3">
                     <h5 class="card-title">
                       {{ course.title }}
                     </h5>
                     <p class="card-intro">
                       {{ course.subjects[0].name }}
+                    </p>
+                    <p class="card-intro" *ngIf="user && user.type.toLowerCase() == 'admin'">
+                      <strong>edx price : </strong>{{ course.entitlements[0]?.price | currency: 'USD' }} &nbsp;
+                      <strong>tasa price : </strong> {{ course.offerPrice | currency: 'USD' }}
                     </p>
                   </div>
                 </div>

@@ -31,7 +31,7 @@ export class NewsComponent implements OnInit {
 
   handleFileInput(event: any) {
     let $t = this;
-    let apiUrl = $t.sharedService.urlService.apiCallWithParams('uploadUserImage', { '{email}': $t.user.email });
+    let apiUrl = $t.sharedService.urlService.apiCallWithParams('uploadSingle', { '{email}': $t.user.email });
     let files = event.target.files;
     var form = new FormData();
     form.append('file', files[0], files[0].name);
