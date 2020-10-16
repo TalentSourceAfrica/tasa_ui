@@ -32,6 +32,7 @@ export class EditCoursePopupComponent implements OnInit {
     $t.sharedService.configService.post(apiUrl, this.popupData.courses).subscribe(
       (response) => {
         $t.sharedService.uiService.showApiSuccessPopMsg('Course Updated...!');
+        $t.sharedService.utilityService.changeMessage('TRIGGER-COURSE-SEARCH');
       },
       (error) => {
         $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
