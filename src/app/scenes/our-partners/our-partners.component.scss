@@ -1,0 +1,21 @@
+/* Lazy Load Styles */
+.card-image {
+  display: block;
+  min-height: 20rem; /* layout hack */
+  background: #fff center center no-repeat;
+  background-size: cover;
+}
+
+.card-image {
+  img {
+    display: block;
+    width: 100%;
+    max-height: 200px;
+    text-align: center;
+  }
+}
+
+.card-image.is-loaded {
+  filter: none; /* remove the blur on fullres image */
+  transition: filter 1s;
+}
