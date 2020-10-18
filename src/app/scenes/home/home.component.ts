@@ -51,7 +51,7 @@ export class HomeComponent implements OnInit {
   }
 
   getPosts() {
-    let apiUrl = this.sharedService.urlService.simpleApiCall('gePost');
+    let apiUrl = this.sharedService.urlService.simpleApiCall('getPost');
     this.sharedService.configService.get(apiUrl).subscribe(
       (response: any) => {
         this.posts = response;

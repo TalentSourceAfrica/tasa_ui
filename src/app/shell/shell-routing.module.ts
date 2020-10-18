@@ -79,6 +79,11 @@ const routes: Routes = [
         loadChildren: () => import('@app/scenes/our-partners/our-partners.module').then((m) => m.OurPartnersModule),
       },
       {
+        path: 'testimonial',
+        canActivate: [AuthenticationGuard],
+        loadChildren: () => import('@app/scenes/testimonials/testimonials.module').then((m) => m.TestimonialsModule),
+      },
+      {
         path: 'admin/tier',
         canActivate: [AuthenticationGuard, AdminGuard],
         loadChildren: () => import('@app/scenes/admin/tier/tier.module').then((m) => m.TierModule),

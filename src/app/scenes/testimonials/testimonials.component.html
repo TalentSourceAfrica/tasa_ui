@@ -1,0 +1,148 @@
+<div class="da-wrapper container">
+  <ol class="breadcrumb mt-3">
+    <li class="breadcrumb-item curPoint"><a [routerLink]="['/home']">Home</a></li>
+    <li class="breadcrumb-item active">Testimonials</li>
+  </ol>
+  <div class="sec-title">
+    <div class="title" *ngIf="postData.length == 0">All Testimonial</div>
+    <div class="title" *ngIf="postData.length">
+      All Testimonial : <strong>{{ postData.length }} Records Found</strong>
+    </div>
+  </div>
+  <section>
+    <div class="upload-box text-center">
+      <div class="supportedFormatCarousel d-block mb-3 mx-auto w50">
+        <button mat-flat-button color="primary" (click)="addPost()" class="rounded-pill ml-2">
+          <span class="material-icons pr-2">
+            add
+          </span>
+          ADD
+        </button>
+      </div>
+    </div>
+  </section>
+  <section class="row min-vertical-h-80 max-vertical-h-80 stylishScroll flow-y-auto flow-x-hidden">
+    <ng-container *ngIf="postData.length">
+      <div class="col-md-6 col-xl-6 col-sm-12 animated fadeIn" *ngFor="let item of postData; let i = index">
+        <div class="card">
+          <!-- <div class="card-img max-vertical-h-5">
+            <img [src]="item.image" />
+          </div> -->
+          <!-- <h5 class="card-title">
+                    {{ course.title }}
+                  </h5> -->
+          <!-- <p class="card-intro">
+                    {{ course.subjects[0].name }}
+                  </p> -->
+          <div class="row m-0">
+            <div class="p-2 w100 text-center bg-theme mb-3">
+              <strong class="text-primary ls-1" *ngIf="item.status == 'Submitted'">IN REVIEW</strong>
+              <strong class="text-success ls-1" *ngIf="item.status == 'Approved'">APPROVED</strong>
+              <strong class="text-danger ls-1" *ngIf="item.status == 'Rejected'">REJECTED</strong>
+            </div>
+            <div class="col-12 text-center pb-4">
+              <ngb-rating
+                [max]="5"
+                style="font-size: 40px; color: #ffc107;"
+                [(rate)]="item.rating"
+                [readonly]="isAdmin"
+              ></ngb-rating>
+            </div>
+            <div class="col-12">
+              <mat-form-field class="pb-2 w100">
+                <mat-label>Course Name</mat-label>
+                <input matInput placeholder="Name" [disabled]="isAdmin" value="" [(ngModel)]="item.courseName" />
+              </mat-form-field>
+            </div>
+            <div class="col-12">
+              <mat-form-field class="pb-2 w100">
+                <mat-label>Mentor Name</mat-label>
+                <input matInput placeholder="Name" [disabled]="isAdmin" value="" [(ngModel)]="item.mentorName" />
+              </mat-form-field>
+            </div>
+            <div class="col-12">
+              <mat-form-field class="pb-2 w100">
+                <mat-label>Review</mat-label>
+                <textarea
+                  [disabled]="isAdmin"
+                  matInput
+                  placeholder="Ex. I am hugely benefited by the Python Course"
+                  value=""
+                  [(ngModel)]="item.review"
+                ></textarea>
+              </mat-form-field>
+            </div>
+            <div class="col-12 w100 border-top p-2">
+              <ng-container *ngIf="!isAdmin">
+                <ng-template
+                  [ngTemplateOutlet]="userActions"
+                  [ngTemplateOutletContext]="{ post: item, postIndex: i }"
+                ></ng-template>
+              </ng-container>
+              <ng-container *ngIf="isAdmin">
+                <ng-template [ngTemplateOutlet]="adminActions" [ngTemplateOutletContext]="{ post: item }"></ng-template>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </section>
+</div>
+
+<ng-template #userActions let-post="post" let-postIndex="postIndex">
+  <div class="text-center">
+    <button
+      mat-flat-button
+      color="primary"
+      *ngIf="post.id == 0"
+      (click)="savePost(post, postIndex)"
+      class="rounded-pill ml-2"
+    >
+      Save
+    </button>
+    <button mat-flat-button color="primary" *ngIf="post.id != 0" (click)="updatePost(post)" class="rounded-pill ml-2">
+      Update
+    </button>
+    <button
+      mat-mini-fab
+      color="primary"
+      matTooltipPosition="below"
+      matTooltip="Delete"
+      (click)="deletePost(post, postIndex)"
+      class="ml-2"
+    >
+      <mat-icon>delete</mat-icon>
+    </button>
+  </div>
+</ng-template>
+<ng-template #adminActions let-post="post">
+  <div class="text-center">
+    <button
+      mat-mini-fab
+      color="primary"
+      matTooltipPosition="below"
+      [disabled]="post.status == 'Approved'"
+      matTooltip="Approve"
+      (click)="postAction(post, 'Approved')"
+      class="ml-2"
+    >
+      <span class="material-icons">
+        thumb_up
+      </span>
+    </button>
+    <button
+      mat-mini-fab
+      color="primary"
+      matTooltipPosition="below"
+      matTooltip="Reject"
+      [disabled]="post.status == 'Rejected'"
+      (click)="postAction(post, 'Rejected')"
+      class="ml-2"
+    >
+      <span class="material-icons">
+        thumb_down
+      </span>
+    </button>
+  </div>
+</ng-template>

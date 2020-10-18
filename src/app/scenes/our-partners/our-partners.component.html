@@ -10,12 +10,12 @@
   <section class="section-padding bg-theme mb-2 p-2" id="about">
     <!--CLIENT AREA-->
     <div class="client-area padding-bottom">
-      <div class="row">
+      <div class="row animated fadeIn">
         <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
           <owl-carousel-o [options]="customOptions">
             <ng-container *ngFor="let item of partners; let i = index">
               <ng-template carouselSlide [id]="i"
-                ><div class="single-client text-center card">
+                ><div class="single-client text-center animated fadeIn card">
                   <div class="card-image p-2">
                     <img src="../../../assets/images/client/{{ item }}" alt="" />
                   </div>

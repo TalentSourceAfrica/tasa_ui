@@ -5,9 +5,6 @@
 // where PA stands for PATCH api request
 // where D  stands for DELETE api request
 export const urls: any = {
-  // home
-  gePost: '/v1/posts', // G
-
   // Authentication
   getUsers: '/v1/users', // G
   login: '/v1/login', // PO
@@ -42,6 +39,13 @@ export const urls: any = {
   addTier: '/v1/tier', // PO
   deleteTier: '/v1/tier/{tierId}', // DE
   updateTier: '/v1/tier', // PU
+
+  // post
+  addPost: '/v1/posts', // PO
+  getPost: '/v1/posts', // G
+  updatePost: '/v1/posts', // PU
+  deletePost: '/v1/posts/{postId}', // DE
+  changePostStatus: '/v1/posts/{postId}/{status}', //PO
 
   // upload
   uploadMultiFile: '/v1/uploadMultipleDocuments/{email}', // PO
