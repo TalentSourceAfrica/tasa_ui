@@ -6,791 +6,558 @@
   <div class="sec-title">
     <div class="title">Profile Details</div>
   </div>
-  <mat-vertical-stepper [linear]="'false'" #stepper>
-    <form [formGroup]="userDetailsForm" novalidate>
+  <mat-horizontal-stepper [linear]="'false'" #stepper>
       <mat-step>
-        <ng-template matStepLabel>Personal Details</ng-template>
-
-        <div class="pt-5 pl-2 pr-2 pb-2 card p-3 animated fadeIn">
-          <div class="form-group">
-            <label class="form-label" for="address">Address line 1 <sup class="text-danger">*</sup></label>
-            <div class="input-group input-group-merge">
-              <input
-                id="address"
-                type="text"
-                formControlName="addressLine1"
-                class="form-control form-control-prepended"
-                placeholder="Your Address"
-              />
-              <div class="input-group-prepend">
-                <div class="input-group-text">
-                  <span class="far fa-address-card"></span>
+        <form [formGroup]="personalDetailsForm" novalidate>
+          <ng-template matStepLabel>Personal Details</ng-template>
+          <div class="pt-5 pl-2 pr-2 pb-2 card p-3 animated fadeIn">
+            <div class="px-3 max-vertical-h-50 overflow-x-hidden stylishScroll">
+              <div class="form-group" *ngFor="let entry of personalDetails; let index = i;">
+                <label 
+                  *ngIf="entry.id != 'ein'" 
+                  class="form-label" for="{{ entry.id }}">{{ entry.label }} <sup *ngIf="entry.mandatory" class="text-danger">*</sup></label>
+                <label 
+                  *ngIf="entry.id == 'ein' && user.type == 'Recruiter'" 
+                  class="form-label" for="{{ entry.id }}">{{ entry.label }} <sup *ngIf="entry.mandatory" class="text-danger">*</sup></label>
+                <div *ngIf="entry.id != 'ein'" class="input-group input-group-merge">
+                  <input
+                    *ngIf="entry.id != 'country' && entry.id != 'suffix' && entry.id != 'bio' && entry.id != 'ein'"
+                    id="{{ entry.id }}"
+                    type="{{ entry.type }}"
+                    formControlName="{{ entry.formControlName }}"
+                    class="form-control form-control-prepended"
+                    placeholder="{{ entry.placeholder }}"
+                  />
+                  <input
+                    *ngIf="entry.id == 'ein' && user.type == 'Recruiter'"
+                    id="{{ entry.id }}"
+                    type="{{ entry.type }}"
+                    formControlName="{{ entry.formControlName }}"
+                    class="form-control form-control-prepended"
+                    placeholder="{{ entry.placeholder }}"
+                  />
+                  <mat-select 
+                    *ngIf="entry.id == 'suffix'"
+                    formControlName="{{ entry.formControlName }}"
+                    placeholder="{{ entry.placeholder }}"
+                    class="form-control form-control-prepended">
+                    <mat-option *ngFor="let opt of suffixes" [value]="opt.code">
+                      {{ opt.label }}
+                    </mat-option>
+                  </mat-select>   
+                  <mat-select
+                    *ngIf="entry.id == 'country'"
+                    formControlName="{{ entry.formControlName }}"
+                    placeholder="{{ entry.placeholder }}"
+                    class="form-control form-control-prepended">
+                    <mat-option *ngFor="let country of countries" [value]="country.code">
+                      {{ country.title }}
+                    </mat-option>
+                  </mat-select>
+                  <textarea 
+                    *ngIf="entry.id == 'bio'"
+                    formControlName="{{ entry.formControlName }}"
+                    placeholder="{{ entry.placeholder }}"
+                    rows="5"
+                    class="form-control form-control-prepended">
+                  </textarea>
+                  <div *ngIf="entry.id != 'ein'" class="input-group-prepend">
+                    <div class="input-group-text">
+                      <span class="{{ entry.prepend }}"></span>
+                    </div>
+                  </div>
                 </div>
+                <small 
+                  *ngIf="entry.id == 'address1'"
+                  [hidden]="personalDetailsForm.controls.addressLine1.valid || personalDetailsForm.controls.addressLine1.untouched" 
+                  class="text-danger"
+                  translate>
+                  Address is required            
+                </small>
+                <small
+                  *ngIf="entry.id == 'country'"
+                  [hidden]="personalDetailsForm.controls.country.valid || personalDetailsForm.controls.country.untouched"
+                  class="text-danger"
+                  translate>
+                  Country is required
+                </small>
+                <small
+                  *ngIf="entry.id == 'state'"
+                  [hidden]="personalDetailsForm.controls.state.valid || personalDetailsForm.controls.state.untouched"
+                  class="text-danger"
+                  translate>
+                  State is required
+                </small>
+                <small
+                  *ngIf="entry.id == 'city'"
+                  [hidden]="personalDetailsForm.controls.city.valid || personalDetailsForm.controls.city.untouched"
+                  class="text-danger"
+                  translate>
+                  City is required
+                </small>
+                <small
+                  *ngIf="entry.id == 'postalCode'"
+                  [hidden]="personalDetailsForm.controls.postalCode.valid || personalDetailsForm.controls.postalCode.untouched"
+                  class="text-danger"
+                  translate>
+                  Postal Code is required
+                </small>
               </div>
             </div>
-            <small
-              [hidden]="userDetailsForm.controls.addressLine1.valid || userDetailsForm.controls.addressLine1.untouched"
-              class="text-danger"
-              translate
-            >
-              Address is required
-            </small>
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="country">Country <sup class="text-danger">*</sup></label>
-            <div class="input-group input-group-merge">
-              <input
-                id="country"
-                type="text"
-                formControlName="country"
-                class="form-control form-control-prepended"
-                placeholder="Your Country"
-              />
-              <div class="input-group-prepend">
-                <div class="input-group-text">
-                  <span class="far fa-flag"></span>
-                </div>
-              </div>
+            <div class="text-center">
+              <button
+                [disabled]="personalDetailsForm.invalid" 
+                mat-flat-button 
+                color="primary" 
+                matStepperNext 
+                class="rounded-pill ml-2">
+                Next
+              </button>
             </div>
-            <small
-              [hidden]="userDetailsForm.controls.country.valid || userDetailsForm.controls.country.untouched"
-              class="text-danger"
-              translate
-            >
-              Country is required
-            </small>
           </div>
-          <div class="form-group">
-            <label class="form-label" for="state">State <sup class="text-danger">*</sup></label>
-            <div class="input-group input-group-merge">
-              <input
-                id="state"
-                type="text"
-                formControlName="state"
-                class="form-control form-control-prepended"
-                placeholder="Your State"
-              />
-              <div class="input-group-prepend">
-                <div class="input-group-text">
-                  <span class="far fa-flag"></span>
-                </div>
-              </div>
-            </div>
-            <small
-              [hidden]="userDetailsForm.controls.state.valid || userDetailsForm.controls.state.untouched"
-              class="text-danger"
-              translate
-            >
-              State is required
-            </small>
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="city">City <sup class="text-danger">*</sup></label>
-            <div class="input-group input-group-merge">
-              <input
-                id="city"
-                formControlName="city"
-                class="form-control form-control-prepended"
-                placeholder="Your City"
-              />
-              <div class="input-group-prepend">
-                <div class="input-group-text">
-                  <span class="far fa-flag"></span>
-                </div>
-              </div>
-            </div>
-            <small
-              [hidden]="userDetailsForm.controls.city.valid || userDetailsForm.controls.city.untouched"
-              class="text-danger"
-              translate
-            >
-              City is required
-            </small>
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="postalCode">Postal Code <sup class="text-danger">*</sup></label>
-            <div class="input-group input-group-merge">
-              <input
-                id="postalCode"
-                formControlName="postalCode"
-                class="form-control form-control-prepended"
-                placeholder="Your Postal Code"
-              />
-              <div class="input-group-prepend">
-                <div class="input-group-text">
-                  <span class="far fa-envelope"></span>
-                </div>
-              </div>
-            </div>
-            <small
-              [hidden]="userDetailsForm.controls.postalCode.valid || userDetailsForm.controls.postalCode.untouched"
-              class="text-danger"
-              translate
-            >
-              Postal Code is required
-            </small>
-          </div>
-          <div class="text-center">
-            <button mat-flat-button color="primary" matStepperNext class="rounded-pill ml-2">
-              Next
-            </button>
-          </div>
-        </div>
+        </form> 
       </mat-step>
       <mat-step label="Education Details" *ngIf="user.type != 'Recruiter'">
-        <div class="pt-5 pl-2 pr-2 pb-2 card p-3 animated fadeIn">
-          <div class="form-group">
-            <label class="form-label" for="highestDegree">Highest Degree <sup class="text-danger">*</sup></label>
-            <div class="input-group input-group-merge">
-              <input
-                id="highestDegree"
-                formControlName="highestDegree"
-                class="form-control form-control-prepended"
-                placeholder="Your Highest Degree"
-              />
-              <div class="input-group-prepend">
-                <div class="input-group-text">
-                  <span class="fas fa-graduation-cap w10"></span>
+        <form [formGroup]="educationDetailsForm" novalidate>
+          <div class="pt-5 pl-2 pr-2 pb-2 card p-3 animated fadeIn">
+            <div class="px-3 max-vertical-h-50 overflow-x-hidden stylishScroll">
+              <div class="form-group" *ngFor="let entry of educationDetails; let index = i;">
+                <label class="form-label" for="{{ entry.id }}">{{ entry.label }} <sup *ngIf="entry.mandatory" class="text-danger">*</sup></label>
+                <div class="input-group input-group-merge">
+                  <input
+                    id="{{ entry.id }}"
+                    formControlName="{{ entry.formControlName }}"
+                    class="form-control form-control-prepended"
+                    placeholder="{{ entry.placeholder }}"
+                  />
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">
+                      <span class="{{ entry.prepend }}"></span>
+                    </div>
+                  </div>
                 </div>
+                <small
+                  *ngIf="entry.id == 'highestDegree'"
+                  [hidden]="educationDetailsForm.controls.highestDegree.valid || educationDetailsForm.controls.highestDegree.untouched"
+                  class="text-danger"
+                  translate>
+                  Highest Degree is required
+                </small>
+                <small
+                  *ngIf="entry.id == 'college'"
+                  [hidden]="educationDetailsForm.controls.college.valid || educationDetailsForm.controls.college.untouched"
+                  class="text-danger"
+                  translate>
+                  College is required
+                </small>
+                <small
+                  *ngIf="entry.id == 'university'"
+                  [hidden]="educationDetailsForm.controls.university.valid || educationDetailsForm.controls.university.untouched"
+                  class="text-danger"
+                  translate>
+                  University is required
+                </small>
+                <small
+                  *ngIf="entry.id == 'major'"
+                  [hidden]="educationDetailsForm.controls.major.valid || educationDetailsForm.controls.major.untouched"
+                  class="text-danger"
+                  translate>
+                  Major is required
+                </small>
+                <small
+                  *ngIf="entry.id == 'certificate'"
+                  [hidden]="educationDetailsForm.controls.certificate.valid || educationDetailsForm.controls.certificate.untouched"
+                  class="text-danger"
+                  translate>
+                  Certificates are required
+                </small>
               </div>
-            </div>
-            <small
-              [hidden]="
-                userDetailsForm.controls.highestDegree.valid || userDetailsForm.controls.highestDegree.untouched
-              "
-              class="text-danger"
-              translate
-            >
-              Highest Degree is required
-            </small>
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="college">College <sup class="text-danger">*</sup></label>
-            <div class="input-group input-group-merge">
-              <input
-                id="college"
-                formControlName="college"
-                class="form-control form-control-prepended"
-                placeholder="Your College"
-              />
-              <div class="input-group-prepend">
-                <div class="input-group-text">
-                  <span class="fas fa-school w10"></span>
-                </div>
-              </div>
-            </div>
-            <small
-              [hidden]="userDetailsForm.controls.college.valid || userDetailsForm.controls.college.untouched"
-              class="text-danger"
-              translate
-            >
-              College is required
-            </small>
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="university">University <sup class="text-danger">*</sup></label>
-            <div class="input-group input-group-merge">
-              <input
-                id="university"
-                formControlName="university"
-                class="form-control form-control-prepended"
-                placeholder="Your University"
-              />
-              <div class="input-group-prepend">
-                <div class="input-group-text">
-                  <span class="fas fa-university w10"></span>
-                </div>
-              </div>
-            </div>
-            <small
-              [hidden]="userDetailsForm.controls.university.valid || userDetailsForm.controls.university.untouched"
-              class="text-danger"
-              translate
-            >
-              University is required
-            </small>
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="major">Major <sup class="text-danger">*</sup></label>
-            <div class="input-group input-group-merge">
-              <input
-                id="major"
-                formControlName="major"
-                class="form-control form-control-prepended"
-                placeholder="Your Major"
-              />
-              <div class="input-group-prepend">
-                <div class="input-group-text">
-                  <span class="fas fa-user-graduate w10"></span>
-                </div>
-              </div>
-            </div>
-            <small
-              [hidden]="userDetailsForm.controls.major.valid || userDetailsForm.controls.major.untouched"
-              class="text-danger"
-              translate
-            >
-              Major is required
-            </small>
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="certificate">Certificate</label>
-            <div class="input-group input-group-merge">
-              <input
-                id="certificate"
-                formControlName="certificate"
-                class="form-control form-control-prepended"
-                placeholder="Your Certificate"
-              />
-              <div class="input-group-prepend">
-                <div class="input-group-text">
-                  <span class="fas fa-award w10"></span>
-                </div>
-              </div>
+            </div>  
+            <div class="text-center">
+              <button mat-flat-button color="default" matStepperPrevious class="rounded-pill ml-2 bg-theme">
+                Back
+              </button>
+              <button 
+                [disabled]="educationDetailsForm.invalid"
+                mat-flat-button 
+                color="primary" 
+                matStepperNext 
+                class="rounded-pill ml-2">
+                Next
+              </button>
             </div>
           </div>
-
-          <div class="text-center">
-            <button mat-flat-button color="default" matStepperPrevious class="rounded-pill ml-2 bg-theme">
-              Back
-            </button>
-            <button mat-flat-button color="primary" matStepperNext class="rounded-pill ml-2">
-              Next
-            </button>
-          </div>
-        </div>
+        </form>  
       </mat-step>
       <mat-step *ngIf="user.type != 'Recruiter'">
-        <ng-template matStepLabel>Experience Details</ng-template>
-        <div class="pt-5 pl-2 pr-2 pb-2 card p-3 animated fadeIn">
-          <div class="form-group">
-            <label class="form-label" for="experience">Experience</label>
-            <div class="input-group input-group-merge">
-              <input
-                id="experience"
-                formControlName="experience"
-                class="form-control form-control-prepended"
-                placeholder="Your Experience"
-              />
-              <div class="input-group-prepend">
-                <div class="input-group-text">
-                  <span class="fas fa-briefcase"></span>
+        <form [formGroup]="experienceDetailsForm" novalidate>
+          <ng-template matStepLabel>Experience Details</ng-template>
+          <div class="pt-5 pl-2 pr-2 pb-2 card p-3 animated fadeIn">
+            <div class="px-3 max-vertical-h-50 overflow-x-hidden stylishScroll">
+              <div class="form-group" *ngFor="let entry of experienceDetails; let index = i;">
+                <label class="form-label" for="{{ entry.id }}">{{ entry.label }} <sup *ngIf="entry.mandatory" class="text-danger">*</sup></label>
+                <div class="input-group input-group-merge">
+                  <input
+                    id="{{ entry.id }}"
+                    formControlName="{{ entry.formControlName }}"
+                    class="form-control form-control-prepended"
+                    placeholder="{{ entry.placeholder }}"
+                  />
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">
+                      <span class="{{ entry.prepend }}"></span>
+                    </div>
+                  </div>
                 </div>
+                <small
+                  *ngIf="entry.id == 'experience'"
+                  [hidden]="experienceDetailsForm.controls.experience.valid || experienceDetailsForm.controls.experience.untouched"
+                  class="text-danger"
+                  translate>
+                  Experience is required
+                </small>
+                <small
+                  *ngIf="entry.id == 'organization'"
+                  [hidden]="experienceDetailsForm.controls.organization.valid || experienceDetailsForm.controls.organization.untouched"
+                  class="text-danger"
+                  translate>
+                  Organization is required
+                </small>
+                <small
+                  *ngIf="entry.id == 'currentRole'"
+                  [hidden]="experienceDetailsForm.controls.currentRole.valid || experienceDetailsForm.controls.currentRole.untouched"
+                  class="text-danger"
+                  translate>
+                  Current Role is required
+                </small>
               </div>
             </div>
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="organization">Organization</label>
-            <div class="input-group input-group-merge">
-              <input
-                id="organization"
-                formControlName="organization"
-                class="form-control form-control-prepended"
-                placeholder="Your Organization"
-              />
-              <div class="input-group-prepend">
-                <div class="input-group-text">
-                  <span class="far fa-building"></span>
-                </div>
-              </div>
+            <div class="text-center">
+              <button mat-flat-button color="default" matStepperPrevious class="rounded-pill ml-2 bg-theme">
+                Back
+              </button>
+              <button
+                [disabled]="experienceDetailsForm.invalid" 
+                mat-flat-button 
+                color="primary" 
+                matStepperNext 
+                class="rounded-pill ml-2">
+                Next
+              </button>
             </div>
           </div>
-          <div class="form-group">
-            <label class="form-label" for="currentRole">Current Role</label>
-            <div class="input-group input-group-merge">
-              <input
-                id="currentRole"
-                formControlName="currentRole"
-                class="form-control form-control-prepended"
-                placeholder="Your Current Role"
-              />
-              <div class="input-group-prepend">
-                <div class="input-group-text">
-                  <span class="fas fa-user-tie"></span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="text-center">
-            <button mat-flat-button color="default" matStepperPrevious class="rounded-pill ml-2 bg-theme">
-              Back
-            </button>
-            <button mat-flat-button color="primary" matStepperNext class="rounded-pill ml-2">
-              Next
-            </button>
-          </div>
-        </div>
+        </form> 
       </mat-step>
       <mat-step *ngIf="user.type == 'Mentor'">
-        <ng-template matStepLabel>Teaching Experience</ng-template>
-        <div class="pt-5 pl-2 pr-2 pb-2 card p-3 animated fadeIn">
-          <div class="form-group">
-            <label class="form-label" for="teachingExperience">Teaching Experience</label>
-            <div class="input-group input-group-merge">
-              <input
-                id="teachingExperience"
-                formControlName="teachingExperience"
-                class="form-control form-control-prepended"
-                placeholder="Your Teaching Experience"
-              />
-              <div class="input-group-prepend">
-                <div class="input-group-text">
-                  <span class="fas fa-briefcase"></span>
-                </div>
-              </div>
-              <small
-                [hidden]="
-                  userDetailsForm.controls.teachingExperience.valid ||
-                  userDetailsForm.controls.teachingExperience.untouched
-                "
-                class="text-danger"
-                translate
-              >
-                Teaching Experience is required
-              </small>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="universityTought">University Tought</label>
-            <div class="input-group input-group-merge">
-              <input
-                id="universityTought"
-                formControlName="universityTought"
-                class="form-control form-control-prepended"
-                placeholder="Your University Tought"
-              />
-              <div class="input-group-prepend">
-                <div class="input-group-text">
-                  <span class="far fa-building"></span>
+        <form [formGroup]="teachingExperienceForm" novalidate>
+          <ng-template matStepLabel>Teaching Experience</ng-template>
+          <div class="pt-5 pl-2 pr-2 pb-2 card p-3 animated fadeIn">
+            <div class="px-3 max-vertical-h-50 overflow-x-hidden stylishScroll">
+              <div class="form-group" *ngFor="let entry of teachingExperienceDetails; let index = i;" >
+                <label class="form-label" for="{{ entry.id }}">{{ entry.label }} <sup *ngIf="entry.mandatory" class="text-danger">*</sup></label>
+                <div class="input-group input-group-merge">
+                  <input
+                    id="{{ entry.id }}"
+                    formControlName="{{ entry.formControlName }}"
+                    class="form-control form-control-prepended"
+                    placeholder="{{ entry.placeholder }}"
+                  />
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">
+                      <span class="{{ entry.prepend }}"></span>
+                    </div>
+                  </div>
+                  <small
+                    *ngIf="entry.id == 'teachingExperience'"
+                    [hidden]="teachingExperienceForm.controls.teachingExperience.valid || teachingExperienceForm.controls.teachingExperience.untouched"
+                    class="text-danger"
+                    translate>
+                    Teaching Experience is required
+                  </small>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="collegeTought">College Tought</label>
-            <div class="input-group input-group-merge">
-              <input
-                id="collegeTought"
-                formControlName="collegeTought"
-                class="form-control form-control-prepended"
-                placeholder="Your College Tought"
-              />
-              <div class="input-group-prepend">
-                <div class="input-group-text">
-                  <span class="fas fa-user-tie"></span>
-                </div>
-              </div>
+            <div class="text-center">
+              <button mat-flat-button color="default" matStepperPrevious class="rounded-pill ml-2 bg-theme">
+                Back
+              </button>
+              <button 
+                [disabled]="teachingExperienceForm.invalid"
+                mat-flat-button 
+                color="primary" 
+                matStepperNext 
+                class="rounded-pill ml-2">
+                Next
+              </button>
             </div>
           </div>
-          <div class="form-group">
-            <label class="form-label" for="specialization">Specialization</label>
-            <div class="input-group input-group-merge">
-              <input
-                id="specialization"
-                formControlName="specialization"
-                class="form-control form-control-prepended"
-                placeholder="Your Specialization"
-              />
-              <div class="input-group-prepend">
-                <div class="input-group-text">
-                  <span class="fas fa-user-tie"></span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="licenseNo">License No</label>
-            <div class="input-group input-group-merge">
-              <input
-                id="licenseNo"
-                formControlName="licenseNo"
-                class="form-control form-control-prepended"
-                placeholder="Your License No"
-              />
-              <div class="input-group-prepend">
-                <div class="input-group-text">
-                  <span class="fas fa-user-tie"></span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="text-center">
-            <button mat-flat-button color="default" matStepperPrevious class="rounded-pill ml-2 bg-theme">
-              Back
-            </button>
-            <button mat-flat-button color="primary" matStepperNext class="rounded-pill ml-2">
-              Next
-            </button>
-          </div>
-        </div>
+        </form>
       </mat-step>
       <mat-step *ngIf="user.type != 'Recruiter'">
-        <ng-template matStepLabel>Career Preference Details</ng-template>
-        <div class="pt-5 pl-2 pr-2 pb-2 card p-3 animated fadeIn">
-          <div class="form-group">
-            <label class="form-label" for="areaOfPreference">Area Of Preference <sup class="text-danger">*</sup></label>
-            <div class="input-group input-group-merge">
-              <input
-                id="areaOfPreference"
-                formControlName="areaOfPreference"
-                class="form-control form-control-prepended"
-                placeholder="Your Area of Preference"
-              />
-              <div class="input-group-prepend">
-                <div class="input-group-text">
-                  <span class="fas fa-chalkboard-teacher"></span>
+        <form [formGroup]="careerPreferenceDetailsForm" novalidate>
+          <ng-template matStepLabel>Career Preference Details</ng-template>
+          <div class="pt-5 pl-2 pr-2 pb-2 card p-3 animated fadeIn">
+            <div class="px-3 max-vertical-h-50 overflow-x-hidden stylishScroll">
+              <div class="form-group" *ngFor="let entry of careerPreferenceDetails; let index = i;">
+                <label class="form-label" for="{{ entry.id }}">{{ entry.label }} <sup *ngIf="entry.mandatory" class="text-danger">*</sup></label>
+                <div class="input-group input-group-merge">
+                  <input
+                    id="{{ entry.id }}"
+                    formControlName="{{ entry.formControlName }}"
+                    class="form-control form-control-prepended"
+                    placeholder="{{ entry.placeholder }}"
+                  />
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">
+                      <span class="{{ entry.prepend }}"></span>
+                    </div>
+                  </div>
                 </div>
+                <small
+                  *ngIf="entry.id == 'areaOfPreference'"
+                  [hidden]="careerPreferenceDetailsForm.controls.areaOfPreference.valid || careerPreferenceDetailsForm.controls.areaOfPreference.untouched"
+                  class="text-danger"
+                  translate>
+                  Area Of Preference is required
+                </small>
+                <small
+                  *ngIf="entry.id == 'preferredRole'"
+                  [hidden]="careerPreferenceDetailsForm.controls.preferredRole.valid || careerPreferenceDetailsForm.controls.preferredRole.untouched"
+                  class="text-danger"
+                  translate>
+                  Preferred Role is required
+                </small>
+                <small
+                  *ngIf="entry.id == 'careerGoals'"
+                  [hidden]="careerPreferenceDetailsForm.controls.careerGoals.valid || careerPreferenceDetailsForm.controls.careerGoals.untouched"
+                  class="text-danger"
+                  translate>
+                  Career Goal is required
+                </small>
               </div>
+            </div>  
+            <div class="text-center">
+              <button mat-flat-button color="default" matStepperPrevious class="rounded-pill ml-2 bg-theme">
+                Back
+              </button>
             </div>
-            <small
-              [hidden]="
-                userDetailsForm.controls.areaOfPreference.valid || userDetailsForm.controls.areaOfPreference.untouched
-              "
-              class="text-danger"
-              translate
-            >
-              Area Of Preference is required
-            </small>
           </div>
-          <div class="form-group">
-            <label class="form-label" for="preferredRole">Preferred Role <sup class="text-danger">*</sup></label>
-            <div class="input-group input-group-merge">
-              <input
-                id="preferredRole"
-                formControlName="preferredRole"
-                class="form-control form-control-prepended"
-                placeholder="Your Preferred Role"
-              />
-              <div class="input-group-prepend">
-                <div class="input-group-text">
-                  <span class="fas fa-user-tie"></span>
-                </div>
-              </div>
-            </div>
-            <small
-              [hidden]="
-                userDetailsForm.controls.preferredRole.valid || userDetailsForm.controls.preferredRole.untouched
-              "
-              class="text-danger"
-              translate
-            >
-              Preferred Role is required
-            </small>
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="careerGoals">Career Goal <sup class="text-danger">*</sup></label>
-            <div class="input-group input-group-merge">
-              <input
-                id="careerGoals"
-                formControlName="careerGoals"
-                class="form-control form-control-prepended"
-                placeholder="Your Career Goal"
-              />
-              <div class="input-group-prepend">
-                <div class="input-group-text">
-                  <span class="fas fa-bullseye"></span>
-                </div>
-              </div>
-            </div>
-            <small
-              [hidden]="userDetailsForm.controls.careerGoals.valid || userDetailsForm.controls.careerGoals.untouched"
-              class="text-danger"
-              translate
-            >
-              Career Goal is required
-            </small>
-          </div>
-
-          <div class="text-center">
-            <button mat-flat-button color="default" matStepperPrevious class="rounded-pill ml-2 bg-theme">
-              Back
-            </button>
-            <button
-              mat-flat-button
-              [disabled]="userDetailsForm.invalid"
-              color="primary"
-              (click)="onSubmit()"
-              type="submit"
-              class="rounded-pill ml-2"
-            >
-              Add Details
-            </button>
-          </div>
-        </div>
+        </form>  
       </mat-step>
       <mat-step *ngIf="user.type == 'Recruiter'">
-        <ng-template matStepLabel>Organization Details</ng-template>
-
-        <div class="pt-5 pl-2 pr-2 pb-2 card p-3 animated fadeIn">
-          <div class="form-group">
-            <label class="form-label" for="location">Location <sup class="text-danger">*</sup></label>
-            <div class="input-group input-group-merge">
-              <input
-                id="location"
-                type="text"
-                formControlName="location"
-                class="form-control form-control-prepended"
-                placeholder="Your location"
-              />
-              <div class="input-group-prepend">
-                <div class="input-group-text">
-                  <span class="far fa-address-card"></span>
+        <form [formGroup]="organizationDetailsForm" novalidate>
+          <ng-template matStepLabel>Organization Details</ng-template>
+          <div class="pt-5 pl-2 pr-2 pb-2 card p-3 animated fadeIn">
+            <div class="px-3 max-vertical-h-50 overflow-x-hidden stylishScroll">
+              <div class="form-group" *ngFor="let entry of organizationDetails; let index = i;">
+                <label class="form-label" for="{{ entry.id }}">{{ entry.label }} <sup *ngIf="entry.mandatory" class="text-danger">*</sup></label>
+                <div class="input-group input-group-merge">
+                  <input
+                    id="{{ entry.id }}"
+                    type="{{ entry.type }}"
+                    formControlName="{{ entry.formControlName }}"
+                    class="form-control form-control-prepended"
+                    placeholder="{{ entry.placeholder }}"
+                  />
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">
+                      <span class="{{ entry.placeholder }}"></span>
+                    </div>
+                  </div>
                 </div>
+                <small
+                  *ngIf="entry.id == 'organizationName'"
+                  [hidden]="organizationDetailsForm.controls.organizationName.valid || organizationDetailsForm.controls.organizationName.untouched"
+                  class="text-danger"
+                  translate>
+                  Organization Name is required
+                </small>
+                <small
+                  *ngIf="entry.id == 'location'"
+                  [hidden]="organizationDetailsForm.controls.location.valid || organizationDetailsForm.controls.location.untouched"
+                  class="text-danger"
+                  translate>
+                  Location is required
+                </small>
+                <small
+                  *ngIf="entry.id == 'description'"
+                  [hidden]="organizationDetailsForm.controls.description.valid || organizationDetailsForm.controls.description.untouched"
+                  class="text-danger"
+                  translate>
+                  Description is required
+                </small>
+                <small
+                  *ngIf="entry.id == 'about'"
+                  [hidden]="organizationDetailsForm.controls.about.valid || organizationDetailsForm.controls.about.untouched"
+                  class="text-danger"
+                  translate>
+                  About is required
+                </small>
+                <small
+                  *ngIf="entry.id == 'noEmp'"
+                  [hidden]="organizationDetailsForm.controls.noEmp.valid || organizationDetailsForm.controls.noEmp.untouched"
+                  class="text-danger"
+                  translate>
+                  No of Employee is required
+                </small>
+                <small
+                  *ngIf="entry.id == 'industry'"
+                  [hidden]="organizationDetailsForm.controls.industry.valid || organizationDetailsForm.controls.industry.untouched"
+                  class="text-danger"
+                  translate>
+                  Industry is required
+                </small>
               </div>
+            </div>  
+            <div class="text-center">
+              <button mat-flat-button color="default" matStepperPrevious class="rounded-pill ml-2 bg-theme">
+                Back
+              </button>
+              <button
+                [disabled]="organizationDetailsForm.invalid" 
+                mat-flat-button 
+                color="primary" 
+                matStepperNext 
+                class="rounded-pill ml-2">
+                Next
+              </button>
             </div>
-            <small
-              [hidden]="userDetailsForm.controls.location.valid || userDetailsForm.controls.location.untouched"
-              class="text-danger"
-              translate
-            >
-              Location is required
-            </small>
           </div>
-          <div class="form-group">
-            <label class="form-label" for="description">Description <sup class="text-danger">*</sup></label>
-            <div class="input-group input-group-merge">
-              <input
-                id="description"
-                type="text"
-                formControlName="description"
-                class="form-control form-control-prepended"
-                placeholder="Your Description"
-              />
-              <div class="input-group-prepend">
-                <div class="input-group-text">
-                  <span class="far fa-flag"></span>
-                </div>
-              </div>
-            </div>
-            <small
-              [hidden]="userDetailsForm.controls.description.valid || userDetailsForm.controls.description.untouched"
-              class="text-danger"
-              translate
-            >
-              Description is required
-            </small>
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="about">About <sup class="text-danger">*</sup></label>
-            <div class="input-group input-group-merge">
-              <input
-                id="about"
-                type="text"
-                formControlName="about"
-                class="form-control form-control-prepended"
-                placeholder="Your About"
-              />
-              <div class="input-group-prepend">
-                <div class="input-group-text">
-                  <span class="far fa-flag"></span>
-                </div>
-              </div>
-            </div>
-            <small
-              [hidden]="userDetailsForm.controls.about.valid || userDetailsForm.controls.about.untouched"
-              class="text-danger"
-              translate
-            >
-              About is required
-            </small>
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="noEmp">No of Employee <sup class="text-danger">*</sup></label>
-            <div class="input-group input-group-merge">
-              <input
-                id="noEmp"
-                formControlName="noEmp"
-                class="form-control form-control-prepended"
-                placeholder="Your No of Employee"
-              />
-              <div class="input-group-prepend">
-                <div class="input-group-text">
-                  <span class="far fa-flag"></span>
-                </div>
-              </div>
-            </div>
-            <small
-              [hidden]="userDetailsForm.controls.noEmp.valid || userDetailsForm.controls.noEmp.untouched"
-              class="text-danger"
-              translate
-            >
-              No of Employee is required
-            </small>
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="industry">Industry <sup class="text-danger">*</sup></label>
-            <div class="input-group input-group-merge">
-              <input
-                id="industry"
-                formControlName="industry"
-                class="form-control form-control-prepended"
-                placeholder="Your Postal Code"
-              />
-              <div class="input-group-prepend">
-                <div class="input-group-text">
-                  <span class="far fa-envelope"></span>
-                </div>
-              </div>
-            </div>
-            <small
-              [hidden]="userDetailsForm.controls.industry.valid || userDetailsForm.controls.industry.untouched"
-              class="text-danger"
-              translate
-            >
-              Industry is required
-            </small>
-          </div>
-          <div class="text-center">
-            <button mat-flat-button color="default" matStepperPrevious class="rounded-pill ml-2 bg-theme">
-              Back
-            </button>
-            <button mat-flat-button color="primary" matStepperNext class="rounded-pill ml-2">
-              Next
-            </button>
-          </div>
-        </div>
+        </form>  
       </mat-step>
       <mat-step *ngIf="user.type == 'Recruiter'">
-        <ng-template matStepLabel>Social Details</ng-template>
-
-        <div class="pt-5 pl-2 pr-2 pb-2 card p-3 animated fadeIn">
-          <div class="form-group">
-            <label class="form-label" for="contactNo">Contact Number <sup class="text-danger">*</sup></label>
-            <div class="input-group input-group-merge">
-              <input
-                id="contactNo"
-                type="text"
-                formControlName="contactNo"
-                class="form-control form-control-prepended"
-                placeholder="Your Contact Number"
-              />
-              <div class="input-group-prepend">
-                <div class="input-group-text">
-                  <span class="far fa-address-card"></span>
+        <form [formGroup]="careerOpeningDetailsForm" novalidate>
+          <ng-template matStepLabel>Career Opening Details</ng-template>
+          <div class="pt-5 pl-2 pr-2 pb-2 card p-3 animated fadeIn">
+            <div class="px-3 max-vertical-h-50 overflow-x-hidden stylishScroll">
+              <div class="form-group" *ngFor="let entry of careerOpeningDetails; let index = i;">
+                <label class="form-label" for="{{ entry.id }}">{{ entry.label }} <sup *ngIf="entry.mandatory" class="text-danger">*</sup></label>
+                <div class="input-group input-group-merge">
+                  <input
+                    id="{{ entry.id }}"
+                    type="{{ entry.type }}"
+                    formControlName="{{ entry.formControlName }}"
+                    class="form-control form-control-prepended"
+                    placeholder="{{ entry.placeholder }}"
+                  />
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">
+                      <span class="{{ entry.placeholder }}"></span>
+                    </div>
+                  </div>
                 </div>
               </div>
+            </div>  
+            <div class="text-center">
+              <button mat-flat-button color="default" matStepperPrevious class="rounded-pill ml-2 bg-theme">
+                Back
+              </button>
+              <button
+                [disabled]="organizationDetailsForm.invalid" 
+                mat-flat-button 
+                color="primary" 
+                matStepperNext 
+                class="rounded-pill ml-2">
+                Next
+              </button>
             </div>
-            <small
-              [hidden]="userDetailsForm.controls.contactNo.valid || userDetailsForm.controls.contactNo.untouched"
-              class="text-danger"
-              translate
-            >
-              Contact Number is required
-            </small>
           </div>
-          <div class="form-group">
-            <label class="form-label" for="contactEmail">Contact Email address <sup class="text-danger">*</sup></label>
-            <div class="input-group input-group-merge">
-              <input
-                id="contactEmail"
-                type="contactEmail"
-                formControlName="contactEmail"
-                class="form-control form-control-prepended"
-                placeholder="Your email address"
-              />
-              <div class="input-group-prepend">
-                <div class="input-group-text">
-                  <span class="far fa-envelope"></span>
-                </div>
-              </div>
-            </div>
-            <small
-              [hidden]="userDetailsForm.controls.contactEmail.valid || userDetailsForm.controls.contactEmail.untouched"
-              class="text-danger"
-              translate
-            >
-              Contact Email is required
-            </small>
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="website">Website <sup class="text-danger">*</sup></label>
-            <div class="input-group input-group-merge">
-              <input
-                id="website"
-                type="text"
-                formControlName="website"
-                class="form-control form-control-prepended"
-                placeholder="Your Website"
-              />
-              <div class="input-group-prepend">
-                <div class="input-group-text">
-                  <span class="far fa-flag"></span>
-                </div>
-              </div>
-            </div>
-            <small
-              [hidden]="userDetailsForm.controls.website.valid || userDetailsForm.controls.website.untouched"
-              class="text-danger"
-              translate
-            >
-              Website is required
-            </small>
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="linkedin">Linkedin <sup class="text-danger">*</sup></label>
-            <div class="input-group input-group-merge">
-              <input
-                id="linkedin"
-                type="text"
-                formControlName="linkedin"
-                class="form-control form-control-prepended"
-                placeholder="Your Linkedin"
-              />
-              <div class="input-group-prepend">
-                <div class="input-group-text">
-                  <span class="far fa-flag"></span>
-                </div>
-              </div>
-            </div>
-            <small
-              [hidden]="userDetailsForm.controls.linkedin.valid || userDetailsForm.controls.linkedin.untouched"
-              class="text-danger"
-              translate
-            >
-              Linkedin is required
-            </small>
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="twitter">Twitter <sup class="text-danger">*</sup></label>
-            <div class="input-group input-group-merge">
-              <input
-                id="twitter"
-                formControlName="twitter"
-                class="form-control form-control-prepended"
-                placeholder="Your Twitter"
-              />
-              <div class="input-group-prepend">
-                <div class="input-group-text">
-                  <span class="far fa-flag"></span>
-                </div>
-              </div>
-            </div>
-            <small
-              [hidden]="userDetailsForm.controls.twitter.valid || userDetailsForm.controls.twitter.untouched"
-              class="text-danger"
-              translate
-            >
-              Twitter is required
-            </small>
-          </div>
-          <div class="text-center">
-            <button mat-flat-button color="default" matStepperPrevious class="rounded-pill ml-2 bg-theme">
-              Back
-            </button>
-            <button
-              mat-flat-button
-              [disabled]="userDetailsForm.invalid"
-              color="primary"
-              (click)="onSubmit()"
-              type="submit"
-              class="rounded-pill ml-2"
-            >
-              Add Details
-            </button>
-          </div>
-        </div>
+        </form>  
       </mat-step>
-    </form>
-  </mat-vertical-stepper>
+      <mat-step *ngIf="user.type == 'Recruiter'">
+        <form [formGroup]="socialDetailsForm" novalidate> 
+          <ng-template matStepLabel>Social Details</ng-template>
+          <div class="pt-5 pl-2 pr-2 pb-2 card p-3 animated fadeIn">
+            <div class="px-3 max-vertical-h-50 overflow-x-hidden stylishScroll">
+              <div class="form-group" *ngFor="let entry of socialDetails; let index = i;" >
+                <label class="form-label" for="{{ entry.id }}">{{ entry.label }} <sup *ngIf="entry.mandatory" class="text-danger">*</sup></label>
+                <div class="input-group input-group-merge">
+                  <input
+                    id="{{ entry.id }}"
+                    type="{{ entry.type }}"
+                    formControlName="{{ entry.formControlName }}"
+                    class="form-control form-control-prepended"
+                    placeholder="{{ entry.placeholder }}"
+                  />
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">
+                      <span class="{{ entry.prepend }}"></span>
+                    </div>
+                  </div>
+                </div>
+                <small
+                  *ngIf="entry.id == 'contactNo'"
+                  [hidden]="socialDetailsForm.controls.contactNo.valid || socialDetailsForm.controls.contactNo.untouched"
+                  class="text-danger"
+                  translate>
+                  Contact Number is required
+                </small>
+                <small
+                  *ngIf="entry.id == 'contactEmail'"
+                  [hidden]="socialDetailsForm.controls.contactEmail.valid || socialDetailsForm.controls.contactEmail.untouched"
+                  class="text-danger"
+                  translate>
+                  Contact Email is required
+                </small>
+                <small
+                  *ngIf="entry.id == 'website'"
+                  [hidden]="socialDetailsForm.controls.website.valid || socialDetailsForm.controls.website.untouched"
+                  class="text-danger"
+                  translate>
+                  Website is required
+                </small>
+                <small
+                  *ngIf="entry.id == 'linkedin'"
+                  [hidden]="socialDetailsForm.controls.linkedin.valid || socialDetailsForm.controls.linkedin.untouched"
+                  class="text-danger"
+                  translate>
+                  Linkedin is required
+                </small>
+                <small
+                  *ngIf="entry.id == 'twitter'"
+                  [hidden]="socialDetailsForm.controls.twitter.valid || socialDetailsForm.controls.twitter.untouched"
+                  class="text-danger"
+                  translate>
+                  Twitter is required
+                </small>
+              </div>
+            </div>  
+            <div class="text-center">
+              <button mat-flat-button color="default" matStepperPrevious class="rounded-pill ml-2 bg-theme">
+                Back
+              </button>
+            </div>
+          </div>
+        </form>  
+      </mat-step>
+  </mat-horizontal-stepper>
+  <div *ngIf="showMandatoryMessage" class="text-danger text-center">
+   <h5>Please fill out all the mandatory fields (*) before updating.</h5>
+  </div>
+  <div class="text-center">
+     <button
+      *ngIf="user.type == 'Student / Professional'"
+      mat-flat-button
+      color="primary"
+      (click)="submitDetails('Mentee')"
+      class="rounded-pill ml-2">
+      Add Details
+    </button>
+    <button
+      *ngIf="user.type == 'Mentor'"
+      mat-flat-button
+      color="primary"
+      (click)="submitDetails('Mentor')"
+      class="rounded-pill ml-2">
+      Add Details
+    </button>
+     <button
+      *ngIf="user.type == 'Recruiter'"
+      mat-flat-button
+      color="primary"
+      (click)="submitDetails('Recruiter')"
+      class="rounded-pill ml-2">
+      Add Details
+    </button>
+  </div> 
 </div>
