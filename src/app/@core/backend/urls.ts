@@ -49,7 +49,7 @@ export const urls: any = {
 
   // upload
   uploadMultiFile: '/v1/uploadMultipleDocuments/{email}', // PO
-  uploadSingle: '/v1/uploadNewsImage/{email}', // PO
+  uploadSingle: '/v1/commonImageUpload/{email}', // PO
 
   // lovs
   getLovsByGroup: '/v1/lov/{group}', // G
