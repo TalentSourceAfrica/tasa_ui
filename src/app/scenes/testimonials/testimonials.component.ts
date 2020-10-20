@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { SharedService } from '@app/services/shared.service';
-import { StarRatingComponent } from 'ng-starrating';
 import { CredentialsService } from '@app/auth';
 
 @Component({
