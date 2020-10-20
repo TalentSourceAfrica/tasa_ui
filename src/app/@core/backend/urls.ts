@@ -69,6 +69,7 @@ export const urls: any = {
 
   // Jobs
   getAllJobs: '/jobs/page/{page}/{size}', // G
+  getRecruiterPostedJobs: '/jobs/recruiter/{recruiterId}/{status}', // G
   getJob: '/job/{jobId}', // G
   updateJob: '/job/{jobId}', // PA
   deleteJob: '/job/{jobId}', // DE

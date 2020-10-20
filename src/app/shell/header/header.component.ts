@@ -16,6 +16,7 @@ declare var $: any;
 })
 export class HeaderComponent implements OnInit {
   @ViewChild('file', { static: false }) public file: any;
+  isAdmin: boolean = false;
   searchCourseText: string = '';
   constructor(
     private httpClient: HttpClient,
@@ -23,7 +24,9 @@ export class HeaderComponent implements OnInit {
     private authenticationService: AuthenticationService,
     private credentialsService: CredentialsService,
     private sharedService: SharedService
-  ) {}
+  ) {
+    this.user.type.toLowerCase() == 'admin' ? (this.isAdmin = true) : (this.isAdmin = false);
+  }
 
   onCourseSearch() {
     this.sharedService.utilityService.onCourseSearch(this.searchCourseText, 'text');

@@ -158,7 +158,7 @@
           <li>
             <a [routerLink]="['/user/profile']">Edit Profile</a>
           </li>
-          <li>
+          <li *ngIf="!isAdmin">
             <a [routerLink]="['/testimonial']">Add Testimonial</a>
           </li>
         </ul>

@@ -18,8 +18,8 @@ export class TestimonialsComponent implements OnInit {
   addPost() {
     this.postData.push({
       id: '',
-      name: '',
-      image: '',
+      name: this.user.firstName + ' ' + this.user.lastName,
+      image: this.user.image,
       review: '',
       courseName: '',
       mentorName: '',
@@ -76,7 +76,10 @@ export class TestimonialsComponent implements OnInit {
     let $t = this;
     $t.sharedService.uiService.showApiStartPopMsg('Updating Post...!');
     post.status = 'Submitted';
+    post.image = this.user.image;
+    post.name = this.user.firstName + ' ' + this.user.lastName;
     let apiUrl = $t.sharedService.urlService.simpleApiCall('updatePost');
+
     $t.sharedService.configService.put(apiUrl, post).subscribe(
       (response: any) => {
         $t.sharedService.uiService.showApiSuccessPopMsg('Post Updated...!');

@@ -17,9 +17,8 @@ import { courseSearchData } from '@app/models/constants';
   styleUrls: ['./jobs.component.scss'],
 })
 export class JobsComponent implements OnInit {
-  @ViewChild('filterDrawer', { static: false }) filterDrawer: any;
   uds: any;
-  allCourse: any = [];
+  allJobs: any = [];
   isLoading: boolean = true;
   selectedCourse: any = [];
   length = 100;
@@ -53,13 +52,13 @@ export class JobsComponent implements OnInit {
   selDeAll(_type: string) {
     switch (_type) {
       case 'select':
-        this.uds.each(this.allCourse, (d: any) => {
+        this.uds.each(this.allJobs, (d: any) => {
           d['isSelected'] = true;
         });
         this.sharedService.uiService.showMessage('All Course Are Selected');
         break;
       case 'deselect':
-        this.uds.each(this.allCourse, (d: any) => {
+        this.uds.each(this.allJobs, (d: any) => {
           d['isSelected'] = false;
         });
         this.sharedService.uiService.showMessage('All Course Are Deselected');
@@ -67,21 +66,20 @@ export class JobsComponent implements OnInit {
     }
   }
 
-  getCourses(_pageIndex: any) {
+  getJobs(_pageIndex: any) {
     this.isLoading = true;
-    let apiUrl = this.sharedService.urlService.apiCallWithParams('getCourse', {
+    // let apiUrl = this.sharedService.urlService.apiCallWithParams('getRecruiterPostedJobs', {
+    //   '{recruiterId}': this.user.email,
+    //   '{status}': 'active',
+    // });
+    let apiUrl = this.sharedService.urlService.apiCallWithParams('getAllJobs', {
       '{page}': _pageIndex,
       '{size}': this.pageSize,
     });
     this.sharedService.configService.get(apiUrl).subscribe(
       (response: any) => {
-        this.allCourse = response.responseObj;
+        this.allJobs = response.responseObj;
         this.isLoading = false;
-        setTimeout(() => {
-          if (!this.sharedService.deviceDetectorService.isMobile()) {
-            this.filterDrawer.open();
-          }
-        }, 500);
       },
       (error) => {
         console.log(error);
@@ -151,9 +149,6 @@ export class JobsComponent implements OnInit {
 
   applyFilter(_pageIndex?: number) {
     let $t = this;
-    if ($t.sharedService.deviceDetectorService.isMobile()) {
-      $t.filterDrawer.toggle();
-    }
     $t.isLoading = true;
     let apiUrl = $t.sharedService.urlService.apiCallWithParams('searchCourse', {
       '{page}': _pageIndex || 1,
@@ -161,7 +156,7 @@ export class JobsComponent implements OnInit {
     });
     $t.sharedService.configService.post(apiUrl, $t.searchConfig).subscribe(
       (response: any) => {
-        $t.allCourse = response.responseObj.courses;
+        $t.allJobs = response.responseObj.courses;
         $t.length = response.responseObj.count;
         $t.isLoading = false;
       },
@@ -178,7 +173,7 @@ export class JobsComponent implements OnInit {
   removeFilter() {
     this.searchConfig = courseSearchData;
     this.getTotalCourseCount();
-    this.getCourses(1);
+    this.getJobs(1);
   }
 
   pagination(event: any): any {
@@ -186,7 +181,7 @@ export class JobsComponent implements OnInit {
     if (this.checkFilter()) {
       this.applyFilter(event.pageIndex + 1);
     } else {
-      this.getCourses(event.pageIndex + 1);
+      this.getJobs(event.pageIndex + 1);
     }
   }
 
@@ -195,7 +190,7 @@ export class JobsComponent implements OnInit {
   }
 
   checkDisable() {
-    return this.allCourse.length ? this.allCourse.filter((d: any) => d.isSelected).length == 0 : true;
+    return this.allJobs.length ? this.allJobs.filter((d: any) => d.isSelected).length == 0 : true;
   }
 
   selectCourse(event: any, course: any) {
@@ -208,7 +203,7 @@ export class JobsComponent implements OnInit {
     // this.sharedService.dialogService.open(EditCoursePopupComponent, {
     //   width: '100%',
     //   data: {
-    //     courses: this.allCourse.filter((d: any) => d.isSelected),
+    //     courses: this.allJobs.filter((d: any) => d.isSelected),
     //     tiers: this.filterData.tiers,
     //     categoryList: this.filterData.categories,
     //     user: this.user,
@@ -218,18 +213,20 @@ export class JobsComponent implements OnInit {
   }
 
   init() {
-    this.getFilterData();
-    if (localStorage.getItem('tasa-search-course')) {
-      this.searchConfig = JSON.parse(localStorage.getItem('tasa-search-course'));
-      localStorage.removeItem('tasa-search-course');
-      this.applyFilter();
-      setTimeout(() => {
-        this.filterDrawer.open();
-      }, 500);
-    } else {
-      this.getTotalCourseCount();
-      this.getCourses(1);
-    }
+    // this.getFilterData();
+    // if (localStorage.getItem('tasa-search-course')) {
+    //   this.searchConfig = JSON.parse(localStorage.getItem('tasa-search-course'));
+    //   localStorage.removeItem('tasa-search-course');
+    //   this.applyFilter();
+    //   setTimeout(() => {
+    //     this.filterDrawer.open();
+    //   }, 500);
+    // } else {
+    //   this.getTotalCourseCount();
+    //   this.getJobs(1);
+    // }
+    // this.getTotalCourseCount();
+    this.getJobs(1);
   }
 
   checkOffset() {
@@ -252,11 +249,11 @@ export class JobsComponent implements OnInit {
     window.scrollTo(0, 0);
     this.init();
 
-    this.sharedService.utilityService.currentMessage.pipe(delay(10), untilDestroyed(this)).subscribe((message) => {
-      if (message == 'TRIGGER-COURSE-SEARCH') {
-        this.init();
-      }
-    });
+    // this.sharedService.utilityService.currentMessage.pipe(delay(10), untilDestroyed(this)).subscribe((message) => {
+    //   if (message == 'TRIGGER-COURSE-SEARCH') {
+    //     this.init();
+    //   }
+    // });
 
     if (!this.sharedService.deviceDetectorService.isMobile()) {
       jQuery(document).scroll(() => {
