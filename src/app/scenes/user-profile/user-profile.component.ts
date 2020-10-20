@@ -908,7 +908,11 @@ export class UserProfileComponent implements OnInit {
         }
         break;
       case 'Recruiter':
-        if ($t.personalDetailsForm.invalid || $t.organizationDetailsForm.invalid || $t.socialDetailsForm.invalid) {
+        if (
+          $t.personalDetailsForm.invalid || 
+          $t.organizationDetailsForm.invalid || 
+          $t.socialDetailsForm.invalid ||
+          $t.careerOpeningDetailsForm.invalid) {
           $t.showMandatoryMessage = true;
           return;
         } else {
