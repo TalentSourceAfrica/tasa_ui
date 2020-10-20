@@ -68,6 +68,9 @@
         <ng-container *ngIf="user.type == 'Admin'">
           <ng-template *ngTemplateOutlet="adminMenu"></ng-template>
         </ng-container>
+        <ng-container *ngIf="user.type == 'Recruiter'">
+          <ng-template *ngTemplateOutlet="recruiterMenu"></ng-template>
+        </ng-container>
       </div>
       <!-- sidebar-menu  -->
     </div>
@@ -124,7 +127,6 @@
           </li>
         </ul> -->
       </div>
-
       <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarsExample03" type="button">
         <span class="material-icons">menu</span>
       </button>
@@ -151,7 +153,7 @@
             <a [routerLink]="['/user/profile']">Edit Profile</a>
           </li>
           <li>
-            <a [routerLink]="['/testimonial']">Testimonial</a>
+            <a [routerLink]="['/testimonial']">Add Testimonial</a>
           </li>
         </ul>
       </div>
@@ -362,6 +364,26 @@
           </li>
           <li>
             <a [routerLink]="['/testimonial']">Testimonial</a>
+          </li>
+        </ul>
+      </div>
+    </li>
+  </ul>
+</ng-template>
+<ng-template #recruiterMenu>
+  <ul>
+    <li class="header-menu">
+      <span>My Operations</span>
+    </li>
+    <li class="sidebar-dropdown">
+      <a class="curPoint">
+        <i class="fas fa-tools"></i>
+        <span>Operations</span>
+      </a>
+      <div class="sidebar-submenu">
+        <ul>
+          <li>
+            <a>Jobs</a>
           </li>
         </ul>
       </div>

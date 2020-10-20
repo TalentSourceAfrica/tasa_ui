@@ -43,32 +43,67 @@
                 </div>
               </div>
             </ng-container>
+            <div class="position-absolute mt-2 ml-2">
+              <button
+                mat-mini-fab
+                color="primary"
+                style="z-index: 9;"
+                class="mr-1"
+                (click)="filterDrawer.open()"
+                matTooltipPosition="below"
+                matTooltip="Show Filter"
+                *ngIf="!isLoading"
+              >
+                <mat-icon>filter_list</mat-icon>
+              </button>
 
-            <button
-              mat-mini-fab
-              color="primary"
-              class="position-absolute mt-2 ml-2"
-              style="z-index: 9;"
-              (click)="filterDrawer.open()"
-              matTooltipPosition="below"
-              matTooltip="Show Filter"
-              *ngIf="!isLoading"
-            >
-              <mat-icon>filter_list</mat-icon>
-            </button>
+              <button
+                mat-mini-fab
+                color="primary"
+                style="z-index: 9;"
+                class="mr-1"
+                *ngIf="!isLoading && checkFilter() != 0"
+                matTooltipPosition="below"
+                matTooltip="Remove Filter"
+                (click)="removeFilter()"
+              >
+                <mat-icon>clear</mat-icon>
+              </button>
 
-            <button
-              mat-mini-fab
-              color="primary"
-              style="z-index: 9; margin-left: 60px;"
-              class="position-absolute mt-2"
-              *ngIf="!isLoading && checkFilter() != 0"
-              matTooltipPosition="below"
-              matTooltip="Remove Filter"
-              (click)="removeFilter()"
-            >
-              <mat-icon>clear</mat-icon>
-            </button>
+              <button
+                mat-mini-fab
+                color="primary"
+                style="z-index: 9;"
+                class="mr-1"
+                *ngIf="user && user.type.toLowerCase() == 'admin' && !isLoading"
+                matTooltipPosition="below"
+                matTooltip="Select / Deselect"
+                [matMenuTriggerFor]="menu"
+              >
+                <mat-icon>menu</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="selDeAll('select')" class="h6">
+                  Select All
+                </button>
+                <button mat-menu-item (click)="selDeAll('deselect')" class="h6">
+                  Deselect All
+                </button>
+              </mat-menu>
+              <button
+                mat-mini-fab
+                color="primary"
+                style="z-index: 9;"
+                class="mr-1"
+                *ngIf="user && user.type.toLowerCase() == 'admin' && !isLoading"
+                matTooltipPosition="below"
+                matTooltip="Edit Course"
+                [disabled]="checkDisable()"
+                (click)="openEditCourse()"
+              >
+                <mat-icon>edit</mat-icon>
+              </button>
+            </div>
 
             <mat-paginator
               class="col-12"
@@ -79,7 +114,7 @@
               *ngIf="!isLoading"
             >
             </mat-paginator>
-
+            <!-- 
             <div class="col-12 text-center mt-3" *ngIf="user && user.type.toLowerCase() == 'admin' && !isLoading">
               <button
                 mat-flat-button
@@ -93,54 +128,56 @@
                 </span>
                 Edit Course
               </button>
-            </div>
+            </div> -->
 
             <ng-container *ngIf="!isLoading && allCourse.length">
-              <div
-                class="col-md-4 col-lg-4 col-sm-6 animated fadeIn"
-                (click)="courseView(course.key)"
-                *ngFor="let course of allCourse"
-              >
-                <div class="card curPoint">
-                  <span class="flag-discount" *ngIf="course.discountPercentage > 0"
-                    >{{ course.discountPercentage }}% Off</span
-                  >
-                  <button
-                    mat-mini-fab
-                    color="primary"
-                    style="z-index: 9; right: 10px;"
-                    class="position-absolute mt-2"
-                    matTooltipPosition="below"
-                    matTooltip="Add To Favorite"
-                    *ngIf="user && user.type.toLowerCase() != 'admin'"
-                  >
-                    <mat-icon>favorite_border</mat-icon>
-                  </button>
-                  <button
-                    mat-mini-fab
-                    color="primary"
-                    style="z-index: 9; right: 10px;"
-                    class="position-absolute mt-2"
-                    [ngClass]="{ 'text-success': course.isSelected }"
-                    (click)="selectCourse($event, course)"
-                    *ngIf="user && user.type.toLowerCase() == 'admin'"
-                  >
-                    <mat-icon>check_circle_outline</mat-icon>
-                  </button>
-                  <div class="card-img">
-                    <img [src]="course.image_url" />
-                  </div>
-                  <div class="card-body pl-3 pr-3">
-                    <h5 class="card-title">
-                      {{ course.title }}
-                    </h5>
-                    <p class="card-intro">
-                      {{ course.subjects[0].name }}
-                    </p>
-                    <p class="card-intro" *ngIf="user && user.type.toLowerCase() == 'admin'">
-                      <strong>edx price : </strong>{{ course.entitlements[0]?.price | currency: 'USD' }} &nbsp;
-                      <strong>tasa price : </strong> {{ course.offerPrice | currency: 'USD' }}
-                    </p>
+              <div class="row max-vertical-h-80 stylishSlimScroll flow-y-auto flow-x-hidden">
+                <div
+                  class="col-md-4 col-lg-4 col-sm-6 animated fadeIn"
+                  (click)="courseView(course.key)"
+                  *ngFor="let course of allCourse"
+                >
+                  <div class="card curPoint">
+                    <span class="flag-discount" *ngIf="course.discountPercentage > 0"
+                      >{{ course.discountPercentage }}% Off</span
+                    >
+                    <button
+                      mat-mini-fab
+                      color="primary"
+                      style="z-index: 9; right: 10px;"
+                      class="position-absolute mt-2"
+                      matTooltipPosition="below"
+                      matTooltip="Add To Favorite"
+                      *ngIf="user && user.type.toLowerCase() != 'admin'"
+                    >
+                      <mat-icon>favorite_border</mat-icon>
+                    </button>
+                    <button
+                      mat-mini-fab
+                      color="primary"
+                      style="z-index: 9; right: 10px;"
+                      class="position-absolute mt-2"
+                      [ngClass]="{ 'text-success': course.isSelected }"
+                      (click)="selectCourse($event, course)"
+                      *ngIf="user && user.type.toLowerCase() == 'admin'"
+                    >
+                      <mat-icon>check_circle_outline</mat-icon>
+                    </button>
+                    <div class="card-img">
+                      <img [src]="course.image_url" />
+                    </div>
+                    <div class="card-body pl-3 pr-3">
+                      <h5 class="card-title">
+                        {{ course.title }}
+                      </h5>
+                      <p class="card-intro">
+                        {{ course.subjects[0].name }}
+                      </p>
+                      <p class="card-intro" *ngIf="user && user.type.toLowerCase() == 'admin'">
+                        <strong>edx : </strong>{{ course.entitlements[0]?.price | currency: 'USD' }} &nbsp;
+                        <strong>TaSA : </strong> {{ course.offerPrice | currency: 'USD' }}
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>

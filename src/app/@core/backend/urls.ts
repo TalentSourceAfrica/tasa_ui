@@ -43,6 +43,8 @@ export const urls: any = {
   // post
   addPost: '/v1/posts', // PO
   getPost: '/v1/posts', // G
+  getPostByUser: '/v1/posts/user', // G
+  getAdminPosts: '/v1/admin/posts', // G
   updatePost: '/v1/posts', // PU
   deletePost: '/v1/posts/{postId}', // DE
   changePostStatus: '/v1/posts/{postId}/{status}', //PO

@@ -15,7 +15,7 @@ export class EditCoursePopupComponent implements OnInit {
     private dialogRef: MatDialogRef<EditCoursePopupComponent>,
     private sharedService: SharedService
   ) {
-    this.popupData = data;
+    this.popupData = JSON.parse(JSON.stringify(data));
   }
 
   onDiscountChange(event: any, course: any) {

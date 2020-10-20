@@ -19,6 +19,7 @@ import { CredentialsService } from '@app/auth';
 })
 export class AllCourseComponent implements OnInit {
   @ViewChild('filterDrawer', { static: false }) filterDrawer: any;
+  uds: any;
   allCourse: any = [];
   isLoading: boolean = true;
   selectedCourse: any = [];
@@ -34,6 +35,11 @@ export class AllCourseComponent implements OnInit {
     subjects: [],
     programs: [],
   };
+
+  signupType = [
+    { value: 'Select All', id: 1 },
+    { value: 'Deselect All', id: 2 },
+  ];
   searchConfig: any = {};
 
   constructor(
@@ -42,6 +48,24 @@ export class AllCourseComponent implements OnInit {
     public credentialsService: CredentialsService
   ) {
     this.searchConfig = courseSearchData;
+    this.uds = this.sharedService.plugins.undSco;
+  }
+
+  selDeAll(_type: string) {
+    switch (_type) {
+      case 'select':
+        this.uds.each(this.allCourse, (d: any) => {
+          d['isSelected'] = true;
+        });
+        this.sharedService.uiService.showMessage('All Course Are Selected');
+        break;
+      case 'deselect':
+        this.uds.each(this.allCourse, (d: any) => {
+          d['isSelected'] = false;
+        });
+        this.sharedService.uiService.showMessage('All Course Are Deselected');
+        break;
+    }
   }
 
   getCourses(_pageIndex: any) {

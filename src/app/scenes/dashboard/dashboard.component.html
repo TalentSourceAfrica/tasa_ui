@@ -11,13 +11,18 @@
         <div class="card-body">
           <div class="media flex-wrap align-items-center">
             <div class="media-left">
-              <i class="material-icons text-muted-light">credit_card</i>
+              <i class="material-icons text-muted-light text-primary">credit_card</i>
             </div>
-            <div class="media-body" style="min-width: 180px;">
+            <!-- <div class="media-body" style="min-width: 180px;">
               Your subscription ends on <strong>25 February 2015</strong>
+            </div> -->
+            <div class="media-body pl-3 h6" style="min-width: 180px;">
+              YOU HAVEN'T SUBSCRIBED TO ANY PLAN <strong>Trust Us ! We offer best plans</strong>
             </div>
             <div class="media-right mt-2 mt-xs-plus-0">
-              <a class="btn btn-success" href="fixed-student-account-billing-upgrade.html">Upgrade</a>
+              <button mat-flat-button color="primary" [routerLink]="['/subscription-plans']" class="rounded-pill ml-2">
+                Subscribe Now
+              </button>
             </div>
           </div>
         </div>
@@ -26,27 +31,80 @@
         <div class="col-lg-7">
           <div class="card mt-2">
             <div class="card-header d-flex align-items-center">
-              <div class="h2 mb-0 mr-3 text-primary">116</div>
+              <div class="h2 mb-0 mr-3 text-primary">60</div>
               <div class="flex">
-                <h4 class="card-title">Angular</h4>
-                <p class="card-subtitle">Best score</p>
+                <h4 class="card-title mt-3">Recomended Courses</h4>
+                <!-- <p class="card-subtitle">Best score</p> -->
               </div>
-              <div class="dropdown">
-                <a href="#" class="dropdown-toggle text-black-70" data-toggle="dropdown">Popular Topics</a>
-                <div class="dropdown-menu dropdown-menu-right">
-                  <a href="" class="dropdown-item">Popular Topics</a>
-                  <a href="" class="dropdown-item">Web Design</a>
+            </div>
+            <div class="card-body p-2">
+              <div
+                class="row pr-1 no-gutters min-vertical-h-30 max-vertical-h-30 stylishSlimScroll flow-y-auto flow-x-hidden"
+              >
+                <div
+                  class="col-12 border mb-1 curPoint courseList"
+                  (click)="courseView(course.key)"
+                  *ngFor="let course of courses"
+                >
+                  <div class="row">
+                    <span class="flag-discount" *ngIf="course.discountPercentage > 0"
+                      >{{ course.discountPercentage }}% Off</span
+                    >
+                    <div class="col-4">
+                      <img [src]="course.image_url" alt="Course picture" />
+                    </div>
+                    <div class="col-8 p-2">
+                      <h6 class="card-title text-truncate" [title]="course.title">
+                        {{ course.title }}
+                      </h6>
+                      <p class="card-intro">
+                        {{ course.subjects[0].name }}
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-            <div class="card-body">
-              <div class="chart" style="height: 319px;">
-                <canvas id="topicIqChart" class="chart-canvas"></canvas>
+          </div>
+          <div class="card mt-2">
+            <div class="card-header d-flex align-items-center">
+              <div class="h2 mb-0 mr-3 text-primary">20</div>
+              <div class="flex">
+                <h4 class="card-title mt-3">Favourite Courses</h4>
+                <!-- <p class="card-subtitle">Best score</p> -->
+              </div>
+            </div>
+            <div class="card-body p-2">
+              <div
+                class="row pr-1 no-gutters min-vertical-h-30 max-vertical-h-30 stylishSlimScroll flow-y-auto flow-x-hidden"
+              >
+                <div
+                  class="col-12 border mb-1 courseList curPoint"
+                  (click)="courseView(course.key)"
+                  *ngFor="let course of courses"
+                >
+                  <div class="row">
+                    <span class="flag-discount" *ngIf="course.discountPercentage > 0"
+                      >{{ course.discountPercentage }}% Off</span
+                    >
+                    <div class="col-4">
+                      <img [src]="course.image_url" alt="Course picture" />
+                    </div>
+                    <div class="col-8 p-2">
+                      <h6 class="card-title text-truncate" [title]="course.title">
+                        {{ course.title }}
+                      </h6>
+                      <p class="card-intro">
+                        {{ course.subjects[0].name }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
 
-          <div class="card mt-2">
+          <!-- <div class="card mt-2">
             <div class="card-header">
               <div class="media align-items-center">
                 <div class="media-body">
@@ -160,8 +218,8 @@
                 </div>
               </li>
             </ul>
-          </div>
-
+          </div> -->
+          <!-- 
           <div class="card mt-2">
             <div class="card-header">
               <div class="media align-items-center">
@@ -230,26 +288,44 @@
                 </div>
               </li>
             </ul>
-          </div>
+          </div> -->
         </div>
         <div class="col-lg-5">
           <div class="card mt-2">
             <div class="card-header d-flex align-items-center">
-              <div class="h2 mb-0 mr-3 text-primary">432</div>
+              <div class="h2 mb-0 mr-3 text-primary">15</div>
               <div class="flex">
-                <h4 class="card-title">Experience IQ</h4>
-                <p class="card-subtitle">4 days streak this week</p>
+                <h4 class="card-title mt-3">Jobs Applied</h4>
+                <!-- <p class="card-subtitle">4 days streak this week</p> -->
               </div>
-              <i class="material-icons text-muted ml-2">trending_up</i>
             </div>
-            <div class="card-body">
-              <div class="chart" style="height: 154px;">
-                <canvas id="iqChart" class="chart-canvas"></canvas>
+            <div class="card-body p-2 jobs">
+              <div
+                class="row pr-1 no-gutters min-vertical-h-30 max-vertical-h-30 stylishSlimScroll flow-y-auto flow-x-hidden"
+              >
+                <div class="col-12 border mb-1 curPoint job-list" *ngFor="let job of jobList">
+                  <div class="col-12 p-2">
+                    <div class="d-flex">
+                      <span>
+                        <h6 class="card-title text-truncate" [title]="job.jobTitle">
+                          {{ job.jobTitle }}
+                        </h6>
+                      </span>
+                      <span class="pl-2 text-right">
+                        <span class="badge badge-success" *ngIf="job.jobStatus == 'Active'">{{ job.jobStatus }}</span>
+                        <span class="badge badge-danger" *ngIf="job.jobStatus == 'Inactive'">{{ job.jobStatus }}</span>
+                      </span>
+                    </div>
+                    <div class="card-intro">
+                      <span class="badge badge-info p-1 ml-1" *ngFor="let item of job.jobTags">{{ item }}</span>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
 
-          <div class="card card-2by1 mt-2">
+          <!-- <div class="card card-2by1 mt-2">
             <div class="card-header">
               <h4 class="card-title">Rewards</h4>
               <p class="card-subtitle">Your latest achievements</p>
@@ -261,24 +337,24 @@
               <div class="btn btn-warning btn-circle"><i class="material-icons">keyboard_voice</i></div>
               <div class="btn btn-info btn-circle"><i class="material-icons">event_available</i></div>
             </div>
-          </div>
+          </div> -->
 
           <div class="card mt-2">
             <div class="card-header">
               <div class="media align-items-center">
                 <div class="media-body">
-                  <h4 class="card-title">Forum Activity</h4>
-                  <p class="card-subtitle">Latest forum topics &amp; replies</p>
+                  <h4 class="card-title">Messages</h4>
+                  <!-- <p class="card-subtitle">Latest forum topics &amp; replies</p> -->
                 </div>
-                <div class="media-right">
-                  <a class="btn btn-sm btn-primary" href="fixed-student-forum.html">
-                    <i class="material-icons">keyboard_arrow_right</i></a
-                  >
+                <div class="media-right text-center">
+                  <a class="btn btn-sm btn-primary"> <i class="material-icons">keyboard_arrow_right</i></a>
                 </div>
               </div>
             </div>
 
-            <ul class="list-group list-group-fit">
+            <ul
+              class="list-group list-group-fit min-vertical-h-30 max-vertical-h-30 stylishSlimScroll flow-y-auto flow-x-hidden"
+            >
               <li class="list-group-item forum-thread">
                 <div class="media align-items-center">
                   <div class="media-left">
@@ -350,6 +426,47 @@
           </div>
         </div>
       </div>
+
+      <!--TESTMONIAL AREA AREA-->
+      <section class="testmonial-area">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="testmonial-slider card">
+              <owl-carousel-o [options]="postOptions">
+                <ng-container *ngFor="let item of postData; let i = index">
+                  <ng-template carouselSlide [id]="i">
+                    <div class="main-gallery">
+                      <div class="gallery-cell">
+                        <div class="testimonial m-4">
+                          <div class="d-flex" style="justify-content: center;">
+                            <img
+                              class="testimonial-avatar"
+                              *ngIf="item.image != '' && item.image != 'string'"
+                              src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/128.jpg"
+                              alt="User picture"
+                            />
+                            <img
+                              class="testimonial-avatar"
+                              src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
+                              alt="User picture"
+                            />
+                          </div>
+                          <span class="testimonial-author text-primary p-2 h5">{{ item.name }}</span>
+                          <q class="testimonial-quote pb-2">{{ item.review }}</q>
+                          <span class="testimonial-author" *ngIf="item.orgPlaced != ''"
+                            >Placed At : {{ item.orgPlaced }}</span
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </ng-template>
+                </ng-container>
+              </owl-carousel-o>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!--TESTMONIAL AREA AREA END-->
     </div>
   </div>
 </div>

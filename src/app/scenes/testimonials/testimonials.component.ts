@@ -27,7 +27,7 @@ export class TestimonialsComponent implements OnInit {
       ratingTotal: 5,
       orgPlaced: '',
       jobLocation: '',
-      status: 'Submitted',
+      status: '',
       createdOn: '',
       updatedOn: '',
       updatedBy: '',
@@ -45,6 +45,7 @@ export class TestimonialsComponent implements OnInit {
       '{postId}': post.id,
       '{status}': status,
     });
+    post.status = 'Submitted';
     $t.sharedService.configService.post(apiUrl).subscribe(
       (response: any) => {
         post.status = status;
@@ -107,7 +108,13 @@ export class TestimonialsComponent implements OnInit {
 
   getPosts() {
     let $t = this;
-    let apiUrl = $t.sharedService.urlService.simpleApiCall('getPost');
+    let apiUrl = '';
+    if ($t.isAdmin) {
+      apiUrl = $t.sharedService.urlService.simpleApiCall('getAdminPosts');
+    } else {
+      apiUrl = $t.sharedService.urlService.simpleApiCall('getPostByUser');
+    }
+
     $t.sharedService.configService.get(apiUrl).subscribe(
       (response: any) => {
         $t.postData = response;

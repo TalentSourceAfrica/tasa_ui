@@ -35,9 +35,9 @@
           <!-- <p class="card-intro">
             {{ course.subjects[0].name }}
           </p> -->
-          <p class="card-intro">
+          <p class="card-intro small">
             <strong>edx price : </strong>{{ (course?.entitlements)[0]?.price | currency: 'USD' }} &nbsp;
-            <strong>tasa price : </strong> {{ course.offerPrice | currency: 'USD' }}
+            <strong>TaSA price : </strong> {{ course.offerPrice | currency: 'USD' }}
           </p>
           <div class="row mt-4">
             <div class="col-12">
