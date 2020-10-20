@@ -4,6 +4,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { ShellComponent } from '@app/shell/shell.component';
 import { AuthenticationGuard } from '@app/auth';
 import { AdminGuard } from '@app/auth/guard/admin.guard';
+import { RecruiterGuard } from '@app/auth/guard/recruiter.guard';
+
 // import { extract } from '@app/core';
 // import { PublicGuard, ProtectedGuard } from 'ngx-auth';
 
@@ -103,6 +105,11 @@ const routes: Routes = [
         path: 'admin/lovs',
         canActivate: [AuthenticationGuard, AdminGuard],
         loadChildren: () => import('@app/scenes/admin/lov/lov.module').then((m) => m.LovModule),
+      },
+      {
+        path: 'recruiter/jobs',
+        canActivate: [AuthenticationGuard, RecruiterGuard],
+        loadChildren: () => import('@app/scenes/recruiter/jobs/jobs.module').then((m) => m.JobsModule),
       },
       { path: '', redirectTo: '/home', pathMatch: 'full' },
     ],

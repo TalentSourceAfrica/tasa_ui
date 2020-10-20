@@ -6,64 +6,70 @@
 // where D  stands for DELETE api request
 export const urls: any = {
   // Authentication
-  getUsers: '/v1/users', // G
-  login: '/v1/login', // PO
-  signup: '/v1/signup', // PO
-  checkUsername: '/v1/checkUserName/{userName}', // PO
-  checkEmail: '/v1/checkEmail/{email}', // PO
-  uploadUserImage: '/v1/uploadImage/{email}', // PO
-  updatePassword: '/v1/auth/update-password', // PO
-  forgotPassword: '/v1/auth/forgot-password/{email}', //PO
-  resetPassword: '/v1/auth/reset-password', // PO
-  checkCurrentPassword: '/v1/checkPassword/{email}/{currentPassword}', // PO
-  activateUser: '/v1/users/activate/{userId}', // PO
-  deactivateUser: '/v1/users/deactivate/{userId}', // PO
+  getUsers: '/users', // G
+  login: '/login', // PO
+  signup: '/signup', // PO
+  checkUsername: '/checkUserName/{userName}', // PO
+  checkEmail: '/checkEmail/{email}', // PO
+  uploadUserImage: '/uploadImage/{email}', // PO
+  updatePassword: '/auth/update-password', // PO
+  forgotPassword: '/auth/forgot-password/{email}', //PO
+  resetPassword: '/auth/reset-password', // PO
+  checkCurrentPassword: '/checkPassword/{email}/{currentPassword}', // PO
+  activateUser: '/users/activate/{userId}', // PO
+  deactivateUser: '/users/deactivate/{userId}', // PO
 
   // location
-  getCountry: '/v1/locations', // G
-  getCities: '/v1/locations/{countryCode}/cities', // G
+  getCountry: '/locations', // G
+  getCities: '/locations/{countryCode}/cities', // G
 
   // Contact us
-  contactUs: '/v1/contact-us', // PO
+  contactUs: '/contact-us', // PO
 
   // course
-  getAllCourse: '/v1/courses/all', // G
-  getCourseDetails: '/v1/courses/{courseKey}', // G
-  getCourse: '/v1/courses/page/{page}/{size}', // G
-  getCourseCount: '/v1/courses/count', // G
-  searchCourse: '/v1/courses/search/{page}/{size}', // PO
-  updateCourse: '/v1/courses/bulk/{userId}', // PO
+  getAllCourse: '/courses/all', // G
+  getCourseDetails: '/courses/{courseKey}', // G
+  getCourse: '/courses/page/{page}/{size}', // G
+  getCourseCount: '/courses/count', // G
+  searchCourse: '/courses/search/{page}/{size}', // PO
+  updateCourse: '/courses/bulk/{userId}', // PO
 
   // tiers
-  getTiers: '/v1/tier', // G
-  addTier: '/v1/tier', // PO
-  deleteTier: '/v1/tier/{tierId}', // DE
-  updateTier: '/v1/tier', // PU
+  getTiers: '/tier', // G
+  addTier: '/tier', // PO
+  deleteTier: '/tier/{tierId}', // DE
+  updateTier: '/tier', // PU
 
   // post
-  addPost: '/v1/posts', // PO
-  getPost: '/v1/posts', // G
-  getPostByUser: '/v1/posts/user', // G
-  getAdminPosts: '/v1/admin/posts', // G
-  updatePost: '/v1/posts', // PU
-  deletePost: '/v1/posts/{postId}', // DE
-  changePostStatus: '/v1/posts/{postId}/{status}', //PO
+  addPost: '/posts', // PO
+  getPost: '/posts', // G
+  getPostByUser: '/posts/user', // G
+  getAdminPosts: '/admin/posts', // G
+  updatePost: '/posts', // PU
+  deletePost: '/posts/{postId}', // DE
+  changePostStatus: '/posts/{postId}/{status}', //PO
 
   // upload
-  uploadMultiFile: '/v1/uploadMultipleDocuments/{email}', // PO
-  uploadSingle: '/v1/commonImageUpload/{email}', // PO
+  uploadMultiFile: '/uploadMultipleDocuments/{email}', // PO
+  uploadSingle: '/commonImageUpload/{email}', // PO
 
   // lovs
-  getLovsByGroup: '/v1/lov/{group}', // G
-  getLovs: '/v1/lov', // G
-  addLov: '/v1/lov', // PO
-  updateLov: '/v1/lov', // PU
-  deleteLov: '/v1/lov/{lovId}', // DE
-  getFiltersData: '/v1/courses/filters', // G
+  getLovsByGroup: '/lov/{group}', // G
+  getLovs: '/lov', // G
+  addLov: '/lov', // PO
+  updateLov: '/lov', // PU
+  deleteLov: '/lov/{lovId}', // DE
+  getFiltersData: '/courses/filters', // G
 
   // News
-  getNews: '/v1/news', // G
-  addNews: '/v1/news', // PO
-  updateNews: '/v1/news', // PU
-  deleteNews: '/v1/news/{newsId}',
+  getNews: '/news', // G
+  addNews: '/news', // PO
+  updateNews: '/news', // PU
+  deleteNews: '/news/{newsId}', // DE
+
+  // Jobs
+  getAllJobs: '/jobs/page/{page}/{size}', // G
+  getJob: '/job/{jobId}', // G
+  updateJob: '/job/{jobId}', // PA
+  deleteJob: '/job/{jobId}', // DE
 };

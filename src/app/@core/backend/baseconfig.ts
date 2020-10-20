@@ -43,7 +43,7 @@ export class BaseConfig {
       this.envExtension = '-playground';
       this.env = 'PLAYGROUND';
     }
-    this.restPath = this.restHost + '/tasaapi';
+    this.restPath = this.restHost + '/tasaapi/v1';
 
     this.globals = {
       baseRestPath: this.restPath,
