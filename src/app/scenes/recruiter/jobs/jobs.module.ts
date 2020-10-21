@@ -11,6 +11,7 @@ import { RouterModule } from '@angular/router';
 
 import { JobsRoutingModule } from './jobs-routing.module';
 import { JobsComponent } from './jobs.component';
+import { ShowApplicantsComponent } from '@app/partials/popups/recruiter/show-applicants/show-applicants.component';
 
 @NgModule({
   imports: [
@@ -24,8 +25,8 @@ import { JobsComponent } from './jobs.component';
     RouterModule,
     JobsRoutingModule,
   ],
-  declarations: [JobsComponent],
-  entryComponents: [],
+  declarations: [JobsComponent, ShowApplicantsComponent],
+  entryComponents: [ShowApplicantsComponent],
   schemas: [NO_ERRORS_SCHEMA],
 })
 export class JobsModule {}

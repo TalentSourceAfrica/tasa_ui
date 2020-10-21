@@ -3,6 +3,8 @@ import { delay } from 'rxjs/operators';
 import { untilDestroyed } from '@app/@core';
 import { PageEvent } from '@angular/material/paginator';
 import { Router } from '@angular/router';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { MatChipInputEvent } from '@angular/material/chips';
 
 // service
 import { SharedService } from '@app/services/shared.service';
@@ -10,6 +12,7 @@ import { CredentialsService } from '@app/auth';
 
 // constant
 import { courseSearchData } from '@app/models/constants';
+import { ShowApplicantsComponent } from '@app/partials/popups/recruiter/show-applicants/show-applicants.component';
 
 @Component({
   selector: 'app-jobs',
@@ -22,23 +25,15 @@ export class JobsComponent implements OnInit {
   isLoading: boolean = true;
   selectedCourse: any = [];
   length = 100;
-  pageSize = 20;
-  pageSizeOptions: number[] = [5, 10, 25, 100];
-  pageEvent: PageEvent;
-  filterData: any = {
-    tiers: [],
-    categories: [],
-    levels: ['Introductory', 'Beginner', 'Intermediate', 'Advanced'],
-    languages: [],
-    subjects: [],
-    programs: [],
-  };
-
-  signupType = [
-    { value: 'Select All', id: 1 },
-    { value: 'Deselect All', id: 2 },
-  ];
+  pageSize = 100;
   searchConfig: any = {};
+  countries: any = [];
+  // chip var
+  visible = true;
+  selectable = true;
+  removable = true;
+  addOnBlur = true;
+  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
   constructor(
     public sharedService: SharedService,
@@ -49,31 +44,100 @@ export class JobsComponent implements OnInit {
     this.uds = this.sharedService.plugins.undSco;
   }
 
-  selDeAll(_type: string) {
-    switch (_type) {
-      case 'select':
-        this.uds.each(this.allJobs, (d: any) => {
-          d['isSelected'] = true;
-        });
-        this.sharedService.uiService.showMessage('All Course Are Selected');
-        break;
-      case 'deselect':
-        this.uds.each(this.allJobs, (d: any) => {
-          d['isSelected'] = false;
-        });
-        this.sharedService.uiService.showMessage('All Course Are Deselected');
-        break;
+  add(event: MatChipInputEvent, job: any): void {
+    const input = event.input;
+    const value = event.value;
+    if ((value || '').trim()) {
+      job.tags.push(value.trim());
+    }
+    // Reset the input value
+    if (input) {
+      input.value = '';
+    }
+  }
+
+  remove(jobs: any, tagIndex: number): void {
+    jobs.tags.splice(tagIndex, 1);
+  }
+
+  addJob() {
+    this.allJobs.unshift({
+      id: '',
+      description: '',
+      title: '',
+      status: '',
+      publishOn: '',
+      expireOn: '',
+      tags: [],
+      applicants: [],
+      location: '',
+      minimumReq: '',
+      countOfOpenings: 0,
+      experieneceFrom: 0,
+      experienceTo: 0,
+      createdOn: '',
+      updatedOn: '',
+      createdBy: this.user.firstName + ' ' + this.user.lastName,
+      updatedBy: '',
+    });
+    // setTimeout(() => {
+    //   this.sharedService.utilityService.scrollToElement(`jobPanel-${this.allJobs.length}`);
+    // }, 2000);
+  }
+
+  createJob(job: any) {
+    let $t = this;
+    $t.sharedService.uiService.showApiStartPopMsg('Adding Job...');
+    let apiUrl = $t.sharedService.urlService.simpleApiCall('createJob');
+    $t.sharedService.configService.post(apiUrl, job).subscribe(
+      (response: any) => {
+        $t.sharedService.uiService.showApiSuccessPopMsg('Jobs Added...');
+      },
+      (error) => {
+        $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
+      }
+    );
+  }
+
+  updateJob(job: any) {
+    let $t = this;
+    $t.sharedService.uiService.showApiStartPopMsg('Updating Job...');
+    let apiUrl = $t.sharedService.urlService.apiCallWithParams('updateJob', { '{jobId}': job.id });
+    $t.sharedService.configService.put(apiUrl, job).subscribe(
+      (response: any) => {
+        $t.sharedService.uiService.showApiSuccessPopMsg('Jobs updated...');
+      },
+      (error) => {
+        $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
+      }
+    );
+  }
+
+  deleteJob(job: any, jobIndex: number) {
+    let $t = this;
+    if (job.id != '') {
+      $t.sharedService.uiService.showApiStartPopMsg('Deleting Job...!');
+      let apiUrl = $t.sharedService.urlService.apiCallWithParams('deleteJob', { '{jobId}': job.id });
+      $t.sharedService.configService.delete(apiUrl).subscribe(
+        (response: any) => {
+          $t.allJobs.splice(jobIndex, 1);
+          $t.sharedService.uiService.showApiSuccessPopMsg('Job Deleted...!');
+        },
+        (error) => {
+          $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
+        }
+      );
+    } else {
+      $t.allJobs.splice(jobIndex, 1);
     }
   }
 
   getJobs(_pageIndex: any) {
     this.isLoading = true;
-    // let apiUrl = this.sharedService.urlService.apiCallWithParams('getRecruiterPostedJobs', {
-    //   '{recruiterId}': this.user.email,
-    //   '{status}': 'active',
-    // });
-    let apiUrl = this.sharedService.urlService.apiCallWithParams('getAllJobs', {
-      '{page}': _pageIndex,
+    let apiUrl = this.sharedService.urlService.apiCallWithParams('getRecruiterPostedJobs', {
+      '{recruiterId}': this.user.email,
+      '{status}': 'All',
+      '{page}': 1,
       '{size}': this.pageSize,
     });
     this.sharedService.configService.get(apiUrl).subscribe(
@@ -92,54 +156,6 @@ export class JobsComponent implements OnInit {
     this.sharedService.configService.get(apiUrl).subscribe(
       (response: any) => {
         this.length = response.responseObj;
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-  }
-
-  getFilterData() {
-    this.getTiers();
-    this.getCategories();
-    this.remaningData();
-  }
-
-  remaningData() {
-    let $t = this;
-    let apiUrl = $t.sharedService.urlService.simpleApiCall('getFiltersData');
-    $t.sharedService.configService.get(apiUrl).subscribe(
-      (response: any) => {
-        $t.filterData.levels = response.responseObj.levels;
-        $t.filterData.languages = response.responseObj.languages;
-        $t.filterData.subjects = response.responseObj.subjects;
-        $t.filterData.programs = response.responseObj.programs;
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-  }
-
-  getTiers() {
-    let $t = this;
-    let apiUrl = $t.sharedService.urlService.simpleApiCall('getTiers');
-    $t.sharedService.configService.get(apiUrl).subscribe(
-      (response: any) => {
-        $t.filterData.tiers = response;
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-  }
-
-  getCategories() {
-    let $t = this;
-    let apiUrl = $t.sharedService.urlService.apiCallWithParams('getLovsByGroup', { '{group}': 'categories' });
-    $t.sharedService.configService.get(apiUrl).subscribe(
-      (response: any) => {
-        $t.filterData.categories = response[0].value;
       },
       (error) => {
         console.log(error);
@@ -199,17 +215,17 @@ export class JobsComponent implements OnInit {
     course['isSelected'] = course['isSelected'] ? !course['isSelected'] : true;
   }
 
-  openEditCourse() {
-    // this.sharedService.dialogService.open(EditCoursePopupComponent, {
-    //   width: '100%',
-    //   data: {
-    //     courses: this.allJobs.filter((d: any) => d.isSelected),
-    //     tiers: this.filterData.tiers,
-    //     categoryList: this.filterData.categories,
-    //     user: this.user,
-    //   },
-    //   disableClose: false,
-    // });
+  showApplicants(job: any, event: any) {
+    event.stopPropagation();
+    event.preventDefault();
+    this.sharedService.dialogService.open(ShowApplicantsComponent, {
+      width: '80%',
+      data: {
+        job: job,
+        user: this.user,
+      },
+      disableClose: false,
+    });
   }
 
   init() {
@@ -244,10 +260,20 @@ export class JobsComponent implements OnInit {
     return credentials ? credentials : null;
   }
 
+  getCountry() {
+    let $t = this;
+    let apiUrl = $t.sharedService.urlService.simpleApiCall('getCountry');
+
+    $t.sharedService.configService.get(apiUrl).subscribe((response) => {
+      $t.countries = response;
+    });
+  }
+
   ngOnInit(): void {
     this.sharedService.utilityService.requiredStyleForHomeHeader();
     window.scrollTo(0, 0);
     this.init();
+    this.getCountry();
 
     // this.sharedService.utilityService.currentMessage.pipe(delay(10), untilDestroyed(this)).subscribe((message) => {
     //   if (message == 'TRIGGER-COURSE-SEARCH') {

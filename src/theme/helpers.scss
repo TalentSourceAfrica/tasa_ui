@@ -1279,5 +1279,18 @@ button:hover,
 }
 
 .mat-expansion-panel-header {
-  background-color: aliceblue;
+  background-color: #ebe9ee;
+}
+.mat-expansion-panel-header.mat-expanded:focus,
+.mat-expansion-panel-header.mat-expanded:hover {
+  background-color: #ebe9ee !important;
+}
+.badge-info {
+  background-color: $blue !important;
+  padding: 5px;
+}
+.mat-standard-chip {
+  background-color: $blue !important;
+  color: white !important;
+  border-radius: 7px !important;
 }

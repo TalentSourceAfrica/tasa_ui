@@ -11,7 +11,7 @@
       <form [formGroup]="personalDetailsForm" novalidate>
         <ng-template matStepLabel>Personal Details</ng-template>
         <div class="pt-5 pl-2 pr-2 pb-2 card p-3 animated fadeIn">
-          <div class="px-3 max-vertical-h-50 overflow-x-hidden stylishScroll">
+          <div class="px-3 max-vertical-h-50 overflow-x-hidden stylishSlimScroll">
             <div class="form-group" *ngFor="let entry of personalDetails; let index = i">
               <label *ngIf="entry.id != 'ein'" class="form-label" for="{{ entry.id }}"
                 >{{ entry.label }} <sup *ngIf="entry.mandatory" class="text-danger">*</sup></label
@@ -133,7 +133,7 @@
     <mat-step label="Education Details" *ngIf="user.type != 'Recruiter'">
       <form [formGroup]="educationDetailsForm" novalidate>
         <div class="pt-5 pl-2 pr-2 pb-2 card p-3 animated fadeIn">
-          <div class="px-3 max-vertical-h-50 overflow-x-hidden stylishScroll">
+          <div class="px-3 max-vertical-h-50 overflow-x-hidden stylishSlimScroll">
             <div class="form-group" *ngFor="let entry of educationDetails; let index = i">
               <label class="form-label" for="{{ entry.id }}"
                 >{{ entry.label }} <sup *ngIf="entry.mandatory" class="text-danger">*</sup></label
@@ -223,7 +223,7 @@
       <form [formGroup]="experienceDetailsForm" novalidate>
         <ng-template matStepLabel>Experience Details</ng-template>
         <div class="pt-5 pl-2 pr-2 pb-2 card p-3 animated fadeIn">
-          <div class="px-3 max-vertical-h-50 overflow-x-hidden stylishScroll">
+          <div class="px-3 max-vertical-h-50 overflow-x-hidden stylishSlimScroll">
             <div class="form-group" *ngFor="let entry of experienceDetails; let index = i">
               <label class="form-label" for="{{ entry.id }}"
                 >{{ entry.label }} <sup *ngIf="entry.mandatory" class="text-danger">*</sup></label
@@ -296,7 +296,7 @@
       <form [formGroup]="teachingExperienceForm" novalidate>
         <ng-template matStepLabel>Teaching Experience</ng-template>
         <div class="pt-5 pl-2 pr-2 pb-2 card p-3 animated fadeIn">
-          <div class="px-3 max-vertical-h-50 overflow-x-hidden stylishScroll">
+          <div class="px-3 max-vertical-h-50 overflow-x-hidden stylishSlimScroll">
             <div class="form-group" *ngFor="let entry of teachingExperienceDetails; let index = i">
               <label class="form-label" for="{{ entry.id }}"
                 >{{ entry.label }} <sup *ngIf="entry.mandatory" class="text-danger">*</sup></label
@@ -348,7 +348,7 @@
       <form [formGroup]="careerPreferenceDetailsForm" novalidate>
         <ng-template matStepLabel>Career Preference Details</ng-template>
         <div class="pt-5 pl-2 pr-2 pb-2 card p-3 animated fadeIn">
-          <div class="px-3 max-vertical-h-50 overflow-x-hidden stylishScroll">
+          <div class="px-3 max-vertical-h-50 overflow-x-hidden stylishSlimScroll">
             <div class="form-group" *ngFor="let entry of careerPreferenceDetails; let index = i">
               <label class="form-label" for="{{ entry.id }}"
                 >{{ entry.label }} <sup *ngIf="entry.mandatory" class="text-danger">*</sup></label
@@ -413,7 +413,7 @@
       <form [formGroup]="organizationDetailsForm" novalidate>
         <ng-template matStepLabel>Organization Details</ng-template>
         <div class="pt-5 pl-2 pr-2 pb-2 card p-3 animated fadeIn">
-          <div class="px-3 max-vertical-h-50 overflow-x-hidden stylishScroll">
+          <div class="px-3 max-vertical-h-50 overflow-x-hidden stylishSlimScroll">
             <div class="form-group" *ngFor="let entry of organizationDetails; let index = i">
               <label class="form-label" for="{{ entry.id }}"
                 >{{ entry.label }} <sup *ngIf="entry.mandatory" class="text-danger">*</sup></label
@@ -517,7 +517,7 @@
       <form [formGroup]="careerOpeningDetailsForm" novalidate>
         <ng-template matStepLabel>Career Opening Details</ng-template>
         <div class="pt-5 pl-2 pr-2 pb-2 card p-3 animated fadeIn">
-          <div class="px-3 max-vertical-h-50 overflow-x-hidden stylishScroll">
+          <div class="px-3 max-vertical-h-50 overflow-x-hidden stylishSlimScroll">
             <div class="form-group" *ngFor="let entry of careerOpeningDetails; let index = i">
               <label class="form-label" for="{{ entry.id }}"
                 >{{ entry.label }} <sup *ngIf="entry.mandatory" class="text-danger">*</sup></label
@@ -559,7 +559,7 @@
       <form [formGroup]="socialDetailsForm" novalidate>
         <ng-template matStepLabel>Social Details</ng-template>
         <div class="pt-5 pl-2 pr-2 pb-2 card p-3 animated fadeIn">
-          <div class="px-3 max-vertical-h-50 overflow-x-hidden stylishScroll">
+          <div class="px-3 max-vertical-h-50 overflow-x-hidden stylishSlimScroll">
             <div class="form-group" *ngFor="let entry of socialDetails; let index = i">
               <label class="form-label" for="{{ entry.id }}"
                 >{{ entry.label }} <sup *ngIf="entry.mandatory" class="text-danger">*</sup></label
@@ -634,7 +634,7 @@
   <div *ngIf="showMandatoryMessage" class="text-danger text-center">
     <h5>Please fill out all the mandatory fields (*) before updating.</h5>
   </div>
-  <div class="text-center">
+  <div class="text-center mb-2">
     <button
       *ngIf="user.type != 'Mentee' && user.type != 'Recruiter'"
       mat-flat-button
