@@ -32,6 +32,34 @@ export class DashboardComponent implements OnInit {
     },
   };
 
+  courseOptions: OwlOptions = {
+    loop: true,
+    autoplay: true,
+    center: true,
+    smartSpeed: 1000,
+    dots: true,
+    autoHeight: true,
+    autoWidth: true,
+    autoplayHoverPause: true,
+    nav: false,
+    navText: ["<i class='fas fa-3x fa-chevron-circle-left'></i>", "<i class='fas fa-3x fa-chevron-circle-right'></i>"],
+    autoplayTimeout: 3000,
+    responsive: {
+      0: {
+        items: 1,
+      },
+      300: {
+        items: 2,
+      },
+      600: {
+        items: 3,
+      },
+      900: {
+        items: 4,
+      },
+    },
+  };
+
   jobList = [
     {
       jobTitle: 'Frontend Developer',
@@ -68,7 +96,9 @@ export class DashboardComponent implements OnInit {
     public sharedService: SharedService,
     private router: Router,
     private credentialsService: CredentialsService
-  ) {}
+  ) {
+    console.log(this.user);
+  }
 
   goToHome() {
     this.router.navigate(['/home'], { replaceUrl: true });

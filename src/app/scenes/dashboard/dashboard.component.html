@@ -430,11 +430,58 @@
         </div>
       </div>
 
+      <!--RECENTLY VIEWED COURSE AREA AREA-->
+      <section class="recently-viewed-course card" *ngIf="user?.recentlyViewedCourse?.length">
+        <div class="card-header d-flex align-items-center">
+          <div class="h2 mb-0 mr-3 text-primary">{{ user.recentlyViewedCourse.length }}</div>
+          <div class="flex">
+            <h4 class="card-title mt-3">Recently Viewed Course</h4>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <owl-carousel-o [options]="courseOptions">
+              <ng-container *ngFor="let course of user.recentlyViewedCourse; let i = index">
+                <ng-template carouselSlide [id]="i">
+                  <div class="card curPoint" (click)="courseView(course.key)">
+                    <span class="flag-discount" style="width: 25%;" *ngIf="course.discountPercentage > 0"
+                      >{{ course.discountPercentage }}% Off</span
+                    >
+                    <div class="card-img">
+                      <img [src]="course.image_url" />
+                    </div>
+                    <div class="card-body pl-3 pr-3">
+                      <h5 class="card-title text-truncate" [title]="course.title">
+                        {{ course.title }}
+                      </h5>
+                      <p class="card-intro">
+                        {{ course.subjectsName }}
+                      </p>
+                      <!-- <div class="text-right">
+                        <span class="badge badge-info p-2" style="font-size: 12px;">{{
+                          (course?.entitlements)[0]?.price | currency: 'USD'
+                        }}</span>
+                      </div> -->
+                    </div>
+                  </div>
+                </ng-template>
+              </ng-container>
+            </owl-carousel-o>
+          </div>
+        </div>
+      </section>
+      <!--RECENTLY VIEWED COURSE AREA AREA-->
+
       <!--TESTMONIAL AREA AREA-->
       <section class="testmonial-area">
         <div class="row">
           <div class="col-md-12">
             <div class="testmonial-slider card">
+              <div class="card-header d-flex align-items-center">
+                <div class="flex">
+                  <h4 class="card-title mt-3">What Fellow Tasa Member Says</h4>
+                </div>
+              </div>
               <owl-carousel-o [options]="postOptions">
                 <ng-container *ngFor="let item of postData; let i = index">
                   <ng-template carouselSlide [id]="i">

@@ -229,19 +229,6 @@ export class JobsComponent implements OnInit {
   }
 
   init() {
-    // this.getFilterData();
-    // if (localStorage.getItem('tasa-search-course')) {
-    //   this.searchConfig = JSON.parse(localStorage.getItem('tasa-search-course'));
-    //   localStorage.removeItem('tasa-search-course');
-    //   this.applyFilter();
-    //   setTimeout(() => {
-    //     this.filterDrawer.open();
-    //   }, 500);
-    // } else {
-    //   this.getTotalCourseCount();
-    //   this.getJobs(1);
-    // }
-    // this.getTotalCourseCount();
     this.getJobs(1);
   }
 
@@ -275,11 +262,11 @@ export class JobsComponent implements OnInit {
     this.init();
     this.getCountry();
 
-    // this.sharedService.utilityService.currentMessage.pipe(delay(10), untilDestroyed(this)).subscribe((message) => {
-    //   if (message == 'TRIGGER-COURSE-SEARCH') {
-    //     this.init();
-    //   }
-    // });
+    this.sharedService.utilityService.currentMessage.pipe(delay(10), untilDestroyed(this)).subscribe((message) => {
+      if (message == 'TRIGGER-RECRUITER-JOBS') {
+        this.init();
+      }
+    });
 
     if (!this.sharedService.deviceDetectorService.isMobile()) {
       jQuery(document).scroll(() => {

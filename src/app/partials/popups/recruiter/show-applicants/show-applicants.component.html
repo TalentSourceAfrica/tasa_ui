@@ -11,9 +11,9 @@
       </div>
       <div class="card-footer">
         <div class="col-12 text-center mt-3">
-          <!--   <button mat-flat-button color="primary" (click)="submit()" class="rounded-pill ml-2">
-              Edit
-            </button> -->
+          <button mat-flat-button color="primary" (click)="editApplicantJob()" class="rounded-pill ml-2">
+            Edit Status
+          </button>
           <button mat-flat-button color="primary" mat-dialog-close="true" class="rounded-pill ml-2">
             Cancel
           </button>
@@ -52,11 +52,8 @@
       <div class="mt-2">
         <mat-form-field class="pb-2 w100">
           <mat-select placeholder="Applicant Status" [(ngModel)]="user.status">
-            <mat-option [value]="'Active'">
-              Active
-            </mat-option>
-            <mat-option [value]="'Inactive'">
-              Inactive
+            <mat-option [disabled]="item == 'Submitted'" *ngFor="let item of applicantJobStatus" [value]="item">
+              {{ item }}
             </mat-option>
           </mat-select>
         </mat-form-field>
@@ -75,17 +72,6 @@
           >
             <mat-icon>cloud_download</mat-icon>
           </a>
-          <!-- <button
-            mat-mini-fab
-            color="primary"
-            matTooltipPosition="below"
-            matTooltip="Deactive User"
-            [disabled]="user.active != 'Y'"
-            (click)="deactiveUser(user)"
-            class="ml-2"
-          >
-            <i class="fas fa-user-minus"></i>
-          </button> -->
           <!-- <button
             mat-mini-fab
             color="primary"

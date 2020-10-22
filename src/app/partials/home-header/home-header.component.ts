@@ -12,6 +12,9 @@ declare var jQuery: any;
   styleUrls: ['./home-header.component.scss'],
 })
 export class HomeHeaderComponent implements OnInit {
+  courseConfig: any = {
+    subjects: [],
+  };
   menuHidden = true;
   searchCourseText: string = '';
   constructor(
@@ -51,8 +54,12 @@ export class HomeHeaderComponent implements OnInit {
     this.sharedService.utilityService.scrollToElement(_id);
   }
 
-  onCourseSearch() {
-    this.sharedService.utilityService.onCourseSearch(this.searchCourseText, 'text');
+  onCourseSearch(_type: string, _val?: string) {
+    if (_type == 'text') {
+      this.sharedService.utilityService.onCourseSearch(this.searchCourseText, _type);
+    } else {
+      this.sharedService.utilityService.onCourseSearch(_val, _type);
+    }
   }
 
   get user(): any | null {
@@ -60,7 +67,22 @@ export class HomeHeaderComponent implements OnInit {
     return credentials ? credentials : null;
   }
 
-  ngOnInit(): void {}
+  fetchCourseFilter() {
+    let $t = this;
+    let apiUrl = $t.sharedService.urlService.simpleApiCall('getFiltersData');
+    $t.sharedService.configService.get(apiUrl).subscribe(
+      (response: any) => {
+        $t.courseConfig.subjects = response.responseObj.subjects;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+  ngOnInit(): void {
+    this.fetchCourseFilter();
+  }
 
   ngAfterViewInit(): void {
     jQuery('#mainmenu-area').sticky({

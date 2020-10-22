@@ -10,7 +10,7 @@ import { SharedService } from '@app/services/shared.service';
 
 // component
 import { EditCoursePopupComponent } from '@app/partials/popups/course/edit-course-popup/edit-course-popup.component';
-import { CredentialsService } from '@app/auth';
+import { CredentialsService, AuthenticationService } from '@app/auth';
 
 @Component({
   selector: 'app-all-course',
@@ -35,7 +35,7 @@ export class AllCourseComponent implements OnInit {
     subjects: [],
     programs: [],
   };
-
+  isAdmin: boolean = false;
   signupType = [
     { value: 'Select All', id: 1 },
     { value: 'Deselect All', id: 2 },
@@ -45,10 +45,12 @@ export class AllCourseComponent implements OnInit {
   constructor(
     public sharedService: SharedService,
     public router: Router,
-    public credentialsService: CredentialsService
+    public credentialsService: CredentialsService,
+    public authenticationService: AuthenticationService
   ) {
-    this.searchConfig = courseSearchData;
+    this.searchConfig = JSON.parse(JSON.stringify(courseSearchData));
     this.uds = this.sharedService.plugins.undSco;
+    this.user && this.user.type.toLowerCase() == 'admin' ? (this.isAdmin = true) : (this.isAdmin = false);
   }
 
   selDeAll(_type: string) {
@@ -81,6 +83,16 @@ export class AllCourseComponent implements OnInit {
         setTimeout(() => {
           if (!this.sharedService.deviceDetectorService.isMobile()) {
             this.filterDrawer.open();
+
+            // if (!this.sharedService.deviceDetectorService.isMobile()) {
+            //   jQuery(document).scroll(() => {
+            //     if (jQuery('.footer-wrapper').length) {
+            //       this.checkOffset();
+            //     } else {
+            //       jQuery('#filterContent').css('position', 'fixed');
+            //     }
+            //   });
+            // }
           }
         }, 500);
       },
@@ -191,8 +203,24 @@ export class AllCourseComponent implements OnInit {
     }
   }
 
-  courseView(_key: any) {
-    this.router.navigate(['/course/' + _key], { replaceUrl: true });
+  courseView(_course: any) {
+    this.router.navigate(['/course/' + _course.key], { replaceUrl: true });
+    if (this.user) {
+      if (typeof this.user['recentlyViewedCourse'] == 'undefined') {
+        this.user['recentlyViewedCourse'] = [];
+      }
+      this.user['recentlyViewedCourse'].push({
+        image_url: _course.image_url,
+        key: _course.key,
+        subjectsName: _course.subjects[0].name,
+        title: _course.title,
+        discountPercentage: _course.discountPercentage,
+      });
+      this.user['recentlyViewedCourse'] = this.uds.uniq(this.user['recentlyViewedCourse'], (d: any) => {
+        return d.key;
+      });
+      this.authenticationService.login(this.user);
+    }
   }
 
   checkDisable() {
@@ -258,16 +286,6 @@ export class AllCourseComponent implements OnInit {
         this.init();
       }
     });
-
-    if (!this.sharedService.deviceDetectorService.isMobile()) {
-      jQuery(document).scroll(() => {
-        if (jQuery('.footer-wrapper').length) {
-          this.checkOffset();
-        } else {
-          jQuery('#filterContent').css('position', 'fixed');
-        }
-      });
-    }
   }
   ngOnDestroy(): void {}
 }
