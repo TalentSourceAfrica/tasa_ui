@@ -111,6 +111,11 @@ const routes: Routes = [
         canActivate: [AuthenticationGuard, RecruiterGuard],
         loadChildren: () => import('@app/scenes/recruiter/jobs/jobs.module').then((m) => m.JobsModule),
       },
+      {
+        path: 'jobs/listings',
+        canActivate: [AuthenticationGuard],
+        loadChildren: () => import('@app/scenes/all-job-listings/all-job-listings.module').then((m) => m.AllJobListingsModule),
+      },
       { path: '', redirectTo: '/home', pathMatch: 'full' },
     ],
     data: { reuse: true },

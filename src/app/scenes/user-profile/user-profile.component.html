@@ -19,7 +19,7 @@
               <label *ngIf="entry.id == 'ein' && user.type == 'Recruiter'" class="form-label" for="{{ entry.id }}"
                 >{{ entry.label }} <sup *ngIf="entry.mandatory" class="text-danger">*</sup></label
               >
-              <div *ngIf="entry.id != 'ein'" class="input-group input-group-merge">
+              <div  class="input-group input-group-merge">
                 <input
                   *ngIf="entry.id != 'country' && entry.id != 'suffix' && entry.id != 'bio' && entry.id != 'ein'"
                   id="{{ entry.id }}"
