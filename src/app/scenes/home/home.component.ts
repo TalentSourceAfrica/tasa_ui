@@ -16,7 +16,7 @@ import * as AOS from 'aos';
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class HomeComponent implements OnInit {
   isLoading = false;
@@ -24,6 +24,7 @@ export class HomeComponent implements OnInit {
   news: Array<object> = [];
   posts: Array<object> = [];
   courses: Array<object> = [];
+  panelOpenState = false;
   menuHidden = true;
   constructor(
     private router: Router,

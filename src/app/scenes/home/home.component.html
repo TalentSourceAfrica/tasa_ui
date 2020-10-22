@@ -373,135 +373,175 @@
       </div>
       <mat-tab-group [selectedIndex]="0">
         <mat-tab label="For Individuals" class="font-weight-bold">
-          <div class="min-vertical-h-60 max-vertical-h-60 stylishSlimScroll flow-y-auto flow-x-hidden">
-            <div class="mx-auto w60 text-justify pt-5 fontStyle">
-              <div class="text-icon-box relative mb50 wow fadeInUp" data-wow-delay="0.1s">
-                <h3 class="box-title">Do I have to pay to sign up for a TaSA account?</h3>
-                <p>
+          <div class="mt-4">
+            <mat-accordion>
+              <mat-expansion-panel class="mb-3">
+                <mat-expansion-panel-header>
+                  <mat-panel-title class="text-primary">
+                    <strong>Do I have to pay to sign up for a TaSA account?</strong>
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <p class="pt-2">
                   NO, you can sign up for a FREE TaSA account and immediately access all of our basic features including
                   auditable edX courses from prestigious universities such as Harvard, MIT, Columbia, Stanford etc. We
                   also offer premium membership options which enable access to certificate courses from Tier 1 and Ivy
                   League institutions, as well as other enhanced job search and networking features.
                 </p>
-              </div>
-            </div>
-            <div class="mx-auto w60 text-justify fontStyle">
-              <div class="text-icon-box relative mb50 wow fadeInUp" data-wow-delay="0.1s">
-                <h3 class="box-title">What are the benefits of signing up for a TaSA account?</h3>
-                <p>
+              </mat-expansion-panel>
+              <mat-expansion-panel class="mb-3" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                <mat-expansion-panel-header>
+                  <mat-panel-title class="text-primary">
+                    <strong>What are the benefits of signing up for a TaSA account?</strong>
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <p class="pt-2">
                   Through our partnership with edX you get up to a 40% DISCOUNT on online Professional Certificate
                   courses from some of the world’s most prestigious universities, such as: Harvard, MIT, Columbia,
                   Cornell, Dartmouth, Stanford etc. <br />
                   You get FREE access to:<br /><br />
                 </p>
-
-                <ul>
-                  <li>Available job and internship opportunities in your community.</li>
-                  <li>Career Mentors within your industry and community</li>
-                  <li>
-                    Network with executives and other professionals to help enhance your career and business prospects.
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div class="mx-auto w60 text-justify fontStyle">
-              <div class="text-icon-box relative mb50 wow fadeInUp" data-wow-delay="0.1s">
-                <h3 class="box-title">
-                  Do I have to be a college student or young professional in Africa to sign up for an account?
-                </h3>
-                <p>
+              </mat-expansion-panel>
+              <mat-expansion-panel class="mb-3" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                <mat-expansion-panel-header>
+                  <mat-panel-title class="text-primary">
+                    <strong
+                      >Do I have to be a college student or young professional in Africa to sign up for an
+                      account?</strong
+                    >
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <p class="pt-2">
                   NO! TaSA was designed for continental and Diaspora Africans (see AU definition of Diaspora Africans)
                   at all stages of their professional journey regardless of their country of birth or country of
                   residence. So whether you're an African American that was born and raised in the U.S.; An
                   Afro-Caribbean that hails from the Islands; or an Afro-Latinx from Central or South America, we
                   consider you a part of the global African talent pool, and therefore TaSA is for you.
                 </p>
-              </div>
-            </div>
-            <div class="mx-auto w60 text-justify fontStyle">
-              <div class="text-icon-box relative mb50 wow fadeInUp" data-wow-delay="0.1s">
-                <h3 class="box-title">Do I have to sign up for a TaSA account to access edX courses?</h3>
-                <p>
+              </mat-expansion-panel>
+              <mat-expansion-panel class="mb-3" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                <mat-expansion-panel-header>
+                  <mat-panel-title class="text-primary">
+                    <strong>Do I have to sign up for a TaSA account to access edX courses?</strong>
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <p class="pt-2">
                   NO! Though the discounted access to edX courses are only available to TaSA members/people with a TaSA
                   account.
                 </p>
-              </div>
-            </div>
+              </mat-expansion-panel>
+            </mat-accordion>
           </div>
         </mat-tab>
         <mat-tab label="For College / University Partners">
-          <div class="min-vertical-h-60 max-vertical-h-60 stylishSlimScroll flow-y-auto flow-x-hidden">
-            <div class="mx-auto w60 text-justify mt-5 fontStyle">
-              <div class="text-icon-box relative mb50 wow fadeInUp" data-wow-delay="0.1s">
-                <h3 class="box-title">Do our students or alumni have to pay to sign up for TaSA accounts?</h3>
-                <p>
+          <div class="mt-4">
+            <mat-accordion>
+              <mat-expansion-panel class="mb-3">
+                <mat-expansion-panel-header>
+                  <mat-panel-title class="text-primary">
+                    <strong>Do our students or alumni have to pay to sign up for TaSA accounts?</strong>
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <p class="pt-2">
                   NO. Any Continental or Diaspora African can sign up for a FREE TaSA account and immediately access all
                   of our basic features including auditable edX courses from prestigious universities such as Harvard,
                   MIT, Columbia, Stanford etc.
                 </p>
-              </div>
-            </div>
-            <div class="mx-auto w60 text-justify fontStyle">
-              <div class="text-icon-box relative mb50 wow fadeInUp" data-wow-delay="0.1s">
-                <h3 class="box-title">How will a partnership with TaSA benefit our University?</h3>
-                <p>Benefits of a TaSA partnership include but are not limited to:<br /></p>
-
-                <ul>
-                  <li>
-                    Your students will receive discounts of up to 40% on online Professional Certificate courses from
-                    Tier 1 and Ivy League Universities such as Harvard, MIT, Columbia, Stanford etc.
-                  </li>
-                  <li>Enhance your institutional profile and increase enrollment demand and yield.</li>
-                  <li>Significantly enhance the 21st Century job-readiness skills of your graduates.</li>
-                  <li>Increase your Institutions visibility to millions of prospective TaSA members.</li>
-                </ul>
-              </div>
-            </div>
-            <div class="mx-auto w60 text-justify fontStyle">
-              <div class="text-icon-box relative mb50 wow fadeInUp" data-wow-delay="0.1s">
-                <h3 class="box-title">How will a partnership with TaSA benefit our University?</h3>
-                <p>
+              </mat-expansion-panel>
+              <mat-expansion-panel class="mb-3" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                <mat-expansion-panel-header>
+                  <mat-panel-title class="text-primary">
+                    <strong>How will a partnership with TaSA benefit our University?</strong>
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="pt-2">
+                  <p>Benefits of a TaSA partnership include but are not limited to:</p>
+                  <ul>
+                    <li>
+                      Your students will receive discounts of up to 40% on online Professional Certificate courses from
+                      Tier 1 and Ivy League Universities such as Harvard, MIT, Columbia, Stanford etc.
+                    </li>
+                    <li>Enhance your institutional profile and increase enrollment demand and yield.</li>
+                    <li>Significantly enhance the 21st Century job-readiness skills of your graduates.</li>
+                    <li>Increase your Institutions visibility to millions of prospective TaSA members.</li>
+                  </ul>
+                </div>
+              </mat-expansion-panel>
+              <mat-expansion-panel class="mb-3" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                <mat-expansion-panel-header>
+                  <mat-panel-title class="text-primary">
+                    <strong
+                      >Do I have to be a college student or young professional in Africa to sign up for an
+                      account?</strong
+                    >
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <p class="pt-2">
+                  NO! TaSA was designed for continental and Diaspora Africans (see AU definition of Diaspora Africans)
+                  at all stages of their professional journey regardless of their country of birth or country of
+                  residence. So whether you're an African American that was born and raised in the U.S.; An
+                  Afro-Caribbean that hails from the Islands; or an Afro-Latinx from Central or South America, we
+                  consider you a part of the global African talent pool, and therefore TaSA is for you.
+                </p>
+              </mat-expansion-panel>
+              <mat-expansion-panel class="mb-3" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                <mat-expansion-panel-header>
+                  <mat-panel-title class="text-primary">
+                    <strong>How will a partnership with TaSA benefit our University?</strong>
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <p class="pt-2">
                   Your Institution will have access to the entire edX course catalogue and we can filter courses to
                   match your institutional preference.
                 </p>
-              </div>
-            </div>
-            <div class="mx-auto w60 text-justify fontStyle">
-              <div class="text-icon-box relative mb50 wow fadeInUp" data-wow-delay="0.1s">
-                <h3 class="box-title">When do courses start and end?</h3>
-                <p>
+              </mat-expansion-panel>
+              <mat-expansion-panel class="mb-3" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                <mat-expansion-panel-header>
+                  <mat-panel-title class="text-primary">
+                    <strong>When do courses start and end?</strong>
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <p class="pt-2">
                   Course start and end dates are determined by the course provider. That said, we work closely with edX
                   and our University partners to optimize alignment between our University partners' academic calendar
                   and the start and end date of select course offerings.
                 </p>
-              </div>
-            </div>
-            <div class="mx-auto w60 text-justify fontStyle">
-              <div class="text-icon-box relative mb50 wow fadeInUp" data-wow-delay="0.1s">
-                <h3 class="box-title">
-                  Will our students have to pay an additional cost for their certificates once they've completed a
-                  course?
-                </h3>
-                <p>No.</p>
-              </div>
-            </div>
-            <div class="mx-auto w60 text-justify fontStyle">
-              <div class="text-icon-box relative mb50 wow fadeInUp" data-wow-delay="0.1s">
-                <h3 class="box-title">
-                  What happens is a student does not complete their assigned course within the allotted timeframe?
-                </h3>
-                <p>
+              </mat-expansion-panel>
+              <mat-expansion-panel class="mb-3" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                <mat-expansion-panel-header>
+                  <mat-panel-title class="text-primary">
+                    <strong
+                      >Will our students have to pay an additional cost for their certificates once they've completed a
+                      course?</strong
+                    >
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <p class="pt-2">
+                  No.
+                </p>
+              </mat-expansion-panel>
+              <mat-expansion-panel class="mb-3" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                <mat-expansion-panel-header>
+                  <mat-panel-title class="text-primary">
+                    <strong
+                      >What happens is a student does not complete their assigned course within the allotted
+                      timeframe?</strong
+                    >
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <p class="pt-2">
                   To incentivize timely course completion, we strongly encourage partners to offer our provided courses
                   as co-requisites alongside existing curricula offerings. A student who fails to complete a course
                   within the allotted time in this scenario will be subject to institutional policies regarding this
                   course outcome.
                 </p>
-              </div>
-            </div>
-            <div class="mx-auto w60 text-justify fontStyle">
-              <div class="text-icon-box relative mb50 wow fadeInUp" data-wow-delay="0.1s">
-                <h3 class="box-title">What will it cost our institution to purchase a package of courses?</h3>
-                <p>
+              </mat-expansion-panel>
+              <mat-expansion-panel class="mb-3" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                <mat-expansion-panel-header>
+                  <mat-panel-title class="text-primary">
+                    <strong>What will it cost our institution to purchase a package of courses?</strong>
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <p class="pt-2">
                   The price of courses will vary based on a variety of factors including whether or not it is a
                   certificate granting course. For this reason, pricing will be based on the suite of courses you
                   choose.
@@ -510,25 +550,31 @@
                     up to a 40% discount (to university partners) on the actual value of edX provided courses.</b
                   >
                 </p>
-              </div>
-            </div>
+              </mat-expansion-panel>
+            </mat-accordion>
           </div>
         </mat-tab>
         <mat-tab label="For Business">
-          <div class="min-vertical-h-60 max-vertical-h-60 stylishSlimScroll flow-y-auto flow-x-hidden">
-            <div class="mx-auto w60 text-justify mt-5 fontStyle">
-              <div class="text-icon-box relative mb50 wow fadeInUp" data-wow-delay="0.1s">
-                <h3 class="box-title">Do I have to pay to start a company account on TaSA?</h3>
-                <p>
+          <div class="mt-4">
+            <mat-accordion>
+              <mat-expansion-panel class="mb-3">
+                <mat-expansion-panel-header>
+                  <mat-panel-title class="text-primary">
+                    <strong>Do I have to pay to start a company account on TaSA?</strong>
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <p class="pt-2">
                   No. You can start a company account and create a company profile on TaSA for free. We also offer
                   premium membership accounts.
                 </p>
-              </div>
-            </div>
-            <div class="mx-auto w60 text-justify fontStyle">
-              <div class="text-icon-box relative mb50 wow fadeInUp" data-wow-delay="0.1s">
-                <h3 class="box-title">How will signing up for a TaSA account benefit my company?</h3>
-                <p>Benefits of a TaSA account to your company are as follows:<br /></p>
+              </mat-expansion-panel>
+              <mat-expansion-panel class="mb-3" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                <mat-expansion-panel-header>
+                  <mat-panel-title class="text-primary">
+                    <strong>How will signing up for a TaSA account benefit my company?</strong>
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <p class="mt-2">Benefits of a TaSA account to your company are as follows:<br /></p>
 
                 <ul>
                   <li>
@@ -543,32 +589,36 @@
                     Africans.
                   </li>
                 </ul>
-              </div>
-            </div>
-            <div class="mx-auto w60 text-justify fontStyle">
-              <div class="text-icon-box relative mb50 wow fadeInUp" data-wow-delay="0.1s">
-                <h3 class="box-title">
-                  How is TaSA different from LinkedIn or other professional networking or job search sites?
-                </h3>
-                <p>
+              </mat-expansion-panel>
+              <mat-expansion-panel class="mb-3" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                <mat-expansion-panel-header>
+                  <mat-panel-title class="text-primary">
+                    <strong
+                      >How is TaSA different from LinkedIn or other professional networking or job search sites?</strong
+                    >
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <p class="pt-2">
                   TaSA (Talent Source Africa) aims to cultivate the largest network of African and diaspora talent in
                   the world. So whether you're looking to hire, market to, connect with, learn from, or simply breathe
                   with Black and African people on the continent and in the diaspora, look no further than TaSA.
                 </p>
-              </div>
-            </div>
-            <div class="mx-auto w60 text-justify fontStyle">
-              <div class="text-icon-box relative mb50 wow fadeInUp" data-wow-delay="0.1s">
-                <h3 class="box-title">How much does it cost to post a job opening on TaSA?</h3>
-                <p>
-                  ni,kThe cost of job postings on TaSA are variable with factors such as length (how long you want it to
+              </mat-expansion-panel>
+              <mat-expansion-panel class="mb-3" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                <mat-expansion-panel-header>
+                  <mat-panel-title class="text-primary">
+                    <strong>How much does it cost to post a job opening on TaSA?</strong>
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <p class="pt-2">
+                  NO, The cost of job postings on TaSA are variable with factors such as length (how long you want it to
                   be up) of posting; the level of targeting (do you want it to go to a particular audience) and industry
                   impacting pricing. We do offer client-friendly pricing options including per-per-click postings (you
                   pay only when job seekers click on your posting). To get a quote based on your precise needs please
                   click here.
                 </p>
-              </div>
-            </div>
+              </mat-expansion-panel>
+            </mat-accordion>
           </div>
         </mat-tab>
       </mat-tab-group>

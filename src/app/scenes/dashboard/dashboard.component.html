@@ -431,7 +431,7 @@
       </div>
 
       <!--RECENTLY VIEWED COURSE AREA AREA-->
-      <section class="recently-viewed-course card" *ngIf="user?.recentlyViewedCourse?.length">
+      <section class="recently-viewed-course card" *ngIf="user?.recentlyViewedCourse?.length > 2">
         <div class="card-header d-flex align-items-center">
           <div class="h2 mb-0 mr-3 text-primary">{{ user.recentlyViewedCourse.length }}</div>
           <div class="flex">
