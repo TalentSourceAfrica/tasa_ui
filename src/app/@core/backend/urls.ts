@@ -74,4 +74,5 @@ export const urls: any = {
   updateJob: '/job/{jobId}', // PA
   deleteJob: '/job/{jobId}', // DE
   createJob: '/job', // PO
+  applyJob: '/jobs/apply/{jobId}',
 };

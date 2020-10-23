@@ -7,8 +7,10 @@ import { untilDestroyed } from '@app/@core';
 
 // service
 import { SharedService } from '@app/services/shared.service';
-
 import { CredentialsService, AuthenticationService } from '@app/auth';
+
+//popups
+import { JobsApplyPopupComponent } from '@app/partials/popups/jobs/jobs-apply-popup/jobs-apply-popup.component';
 
 @Component({
   selector: 'app-all-job-listings',
@@ -283,7 +285,14 @@ export class AllJobListingsComponent implements OnInit {
   }
 
   applyForJob(_course: any, _event: any) {
-    console.log(_event);
+    this.sharedService.dialogService.open(JobsApplyPopupComponent, {
+      width: '50%',
+      data: {
+        applyingForJob: _course,
+        user: this.user,
+        waitTillSubmit: true,
+      },
+    });
   }
 
   ngOnInit(): void {

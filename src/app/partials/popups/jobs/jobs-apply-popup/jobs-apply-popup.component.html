@@ -1,0 +1,56 @@
+<div class="d-flex align-items-center no-gutters">
+  <div class="col-sm-8 col-md-12 col-lg-12 mx-auto">
+    <div class="">
+      <div class="card-header text-center">
+        <h4 class="card-title">
+          Applying For - <strong class="text-primary">{{ popupData.applyingForJob.title }}</strong>
+        </h4>
+      </div>
+      <div class="p-4 no-gutters max-vertical-h-80 stylishSlimScroll flow-y-auto flow-x-hidden">
+        <div class="text-center">
+          <mat-form-field class="d-block mx-auto pb-2 w30">
+            <mat-label>Name</mat-label>
+            <input matInput [value]="popupData.user.firstName + ' ' + popupData.user.lastName" readonly />
+          </mat-form-field>
+          <mat-form-field class="d-block mx-auto pb-2 w30">
+            <mat-label>E-Mail</mat-label>
+            <input matInput [value]="popupData.user.email" readonly />
+          </mat-form-field>
+          <div class="row d-block text-center">
+            <a *ngIf="resumeLink != ''" [href]="resumeLink" class="pr-2" target="_blank" readonly
+              >Your Uploaded Resume</a
+            >
+            <span
+              color="primary"
+              class="align-middle curPoint mr-2"
+              type="file"
+              upload
+              (click)="triggerUpload()"
+              matTooltipPosition="below"
+              matTooltip="Upload Resume"
+            >
+              <mat-icon>cloud_upload</mat-icon>
+            </span>
+          </div>
+        </div>
+        <input id="resumeUpload" class="d-none" #uploadResume type="file" (change)="uploadFile($event)" />
+      </div>
+      <div class="card-footer">
+        <div class="col-12 text-center mt-3">
+          <button
+            [disabled]="resumeLink == ''"
+            mat-flat-button
+            color="primary"
+            class="rounded-pill ml-2"
+            (click)="applyForJob()"
+          >
+            Apply
+          </button>
+          <button mat-flat-button color="primary" mat-dialog-close class="rounded-pill ml-2">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
