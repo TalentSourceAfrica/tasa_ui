@@ -75,4 +75,5 @@ export const urls: any = {
   deleteJob: '/job/{jobId}', // DE
   createJob: '/job', // PO
   applyJob: '/jobs/apply/{jobId}',
+  searchJobs: '/job/search/{page}/{size}', // PO
 };

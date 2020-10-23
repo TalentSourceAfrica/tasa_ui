@@ -12,4 +12,12 @@ export const courseSearchData = {
   priceEnd: 0,
 };
 
+export const jobsSearchData = {
+  text: '',
+  tag: '',
+  location: '',
+  experienceFrom: 0,
+  experienceto: 0,
+};
+
 export const applicantJobStatus = ['Submitted', 'Under Review', 'Accepted', 'Rejected'];

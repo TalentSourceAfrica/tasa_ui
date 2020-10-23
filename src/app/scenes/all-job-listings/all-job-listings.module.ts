@@ -1,6 +1,7 @@
 import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
+import { FormsModule } from '@angular/forms';
 
 import { SharedModule } from '@shared';
 import { AllJobListingsRoutingModule } from './all-job-listings-routing.module';
@@ -10,7 +11,7 @@ import { JobsApplyPopupComponent } from '@app/partials/popups/jobs/jobs-apply-po
 import { MaterialModule } from '@app/modules/material.module';
 
 @NgModule({
-  imports: [CommonModule, TranslateModule, SharedModule, AllJobListingsRoutingModule, MaterialModule],
+  imports: [CommonModule, TranslateModule, FormsModule, SharedModule, AllJobListingsRoutingModule, MaterialModule],
   declarations: [AllJobListingsComponent, JobsApplyPopupComponent],
   entryComponents: [JobsApplyPopupComponent],
   schemas: [NO_ERRORS_SCHEMA],

@@ -189,7 +189,7 @@ export class AllCourseComponent implements OnInit {
   }
 
   removeFilter() {
-    this.searchConfig = courseSearchData;
+    this.searchConfig = JSON.parse(JSON.stringify(courseSearchData));
     this.getTotalCourseCount();
     this.getCourses(1);
   }
