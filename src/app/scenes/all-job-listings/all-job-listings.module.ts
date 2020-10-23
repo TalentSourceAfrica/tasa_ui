@@ -5,6 +5,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from '@shared';
 import { AllJobListingsRoutingModule } from './all-job-listings-routing.module';
 import { AllJobListingsComponent } from './all-job-listings.component';
+import { JobsApplyPopupComponent } from '@app/partials/popups/jobs/jobs-apply-popup/jobs-apply-popup.component';
 
 import { MaterialModule } from '@app/modules/material.module';
 
@@ -16,7 +17,8 @@ import { MaterialModule } from '@app/modules/material.module';
     AllJobListingsRoutingModule,
     MaterialModule
   ],
-  declarations: [AllJobListingsComponent],
+  declarations: [AllJobListingsComponent, JobsApplyPopupComponent],
+  entryComponents: [JobsApplyPopupComponent],
   schemas: [NO_ERRORS_SCHEMA],
 })
 export class AllJobListingsModule {}
