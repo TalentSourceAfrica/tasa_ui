@@ -13,10 +13,9 @@ import { CredentialsService, AuthenticationService } from '@app/auth';
 @Component({
   selector: 'app-all-job-listings',
   templateUrl: './all-job-listings.component.html',
-  styleUrls: ['./all-job-listings.component.scss']
+  styleUrls: ['./all-job-listings.component.scss'],
 })
 export class AllJobListingsComponent implements OnInit {
-
   @ViewChild('filterDrawer', { static: false }) filterDrawer: any;
   uds: any;
   allCourse: any = [];
@@ -26,6 +25,7 @@ export class AllJobListingsComponent implements OnInit {
   pageSize = 5;
   pageSizeOptions: number[] = [5, 10, 25, 100];
   pageEvent: PageEvent;
+  removable: false;
   filterData: any = {
     tiers: [],
     categories: [],
@@ -236,7 +236,7 @@ export class AllJobListingsComponent implements OnInit {
   }
 
   init() {
-  	this.getJobs(1);
+    this.getJobs(1);
     this.getFilterData();
     this.getCountry();
   }
@@ -256,7 +256,7 @@ export class AllJobListingsComponent implements OnInit {
     return credentials ? credentials : null;
   }
 
-   getJobs(_pageIndex: any) {
+  getJobs(_pageIndex: any) {
     this.isLoading = true;
     let apiUrl = this.sharedService.urlService.apiCallWithParams('getAllJobs', {
       '{page}': 1,
@@ -283,7 +283,7 @@ export class AllJobListingsComponent implements OnInit {
   }
 
   applyForJob(_course: any, _event: any) {
-  	console.log(_event);
+    console.log(_event);
   }
 
   ngOnInit(): void {
