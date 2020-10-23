@@ -76,4 +76,5 @@ export const urls: any = {
   createJob: '/job', // PO
   applyJob: '/jobs/apply/{jobId}',
   searchJobs: '/job/search/{page}/{size}', // PO
+  getJobsCount: '/job/count', // G
 };

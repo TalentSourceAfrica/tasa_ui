@@ -19,7 +19,7 @@
         </div>
       </div>
     </section>
-    <section class="All-course-page-section min-vertical-h-100">
+    <section class="All-jobs-page-section min-vertical-h-100">
       <div class="row no-gutters">
         <ng-container *ngIf="isLoading">
           <div class="col-12 animated fadeIn" *ngFor="let item of [1, 2, 3, 4, 5]">
@@ -41,27 +41,32 @@
       </div>
       <ng-container *ngIf="!isLoading && allJobs.length">
         <div class="row" id="jobsArea">
-          <div
-            class="col-12 animated fadeIn mb-4 w100"
-            id="jobPanel-{{ i }}"
-            *ngFor="let course of allJobs; let i = index"
-          >
-            <mat-accordion multi>
-              <mat-expansion-panel class="jobs-panel" [expanded]="i == 0">
+          <mat-accordion>
+            <div
+              class="col-12 animated fadeIn mb-4 w100"
+              id="jobPanel-{{ i }}"
+              *ngFor="let job of allJobs; let i = index"
+            >
+              <mat-expansion-panel
+                (afterExpand)="onPublishDateChange(job)"
+                (opened)="panelOpenState = true"
+                (closed)="panelOpenState = false"
+                class="jobs-panel"
+              >
                 <mat-expansion-panel-header class="d-flex align-items-center">
                   <mat-panel-title class="pt-3">
-                    <h6 class="text-primary mt-2">{{ course.title }}</h6>
+                    <h6 class="text-primary mt-2">{{ job.title }}</h6>
                     <button
                       mat-mini-fab
                       color="primary"
                       matTooltipPosition="below"
                       matTooltip="Applicants"
-                      *ngIf="course.applicants.length"
+                      *ngIf="job.applicants.length"
                       class="ml-2"
-                      [matBadge]="course.applicants.length"
+                      [matBadge]="job.applicants.length"
                       matBadgePosition="after"
                       matBadgeColor="accent"
-                      (click)="showApplicants(course, $event)"
+                      (click)="showApplicants(job, $event)"
                     >
                       <span class="material-icons">
                         supervisor_account
@@ -70,7 +75,7 @@
                   </mat-panel-title>
                   <mat-panel-description>
                     <div class="text-right mr-2 pt-3">
-                      <span class="card-intro pr-1 p-1" *ngFor="let item of course.tags"
+                      <span class="card-intro pr-1 p-1" *ngFor="let item of job.tags"
                         ><badge class="badge badge-info">{{ item }}</badge></span
                       >
                     </div>
@@ -81,24 +86,55 @@
                     <div class="col-12 col-md-6">
                       <mat-form-field class="pb-2 w100">
                         <mat-label>Name</mat-label>
-                        <input matInput placeholder="Ex. Frontend Developer" value="" [(ngModel)]="course.title" />
+                        <input matInput placeholder="Ex. Frontend Developer" value="" [(ngModel)]="job.title" />
                       </mat-form-field>
                     </div>
                     <div class="col-12 col-md-6">
                       <mat-form-field class="pb-2 w100">
                         <mat-label>Created By</mat-label>
-                        <input
-                          matInput
-                          [disabled]="true"
-                          placeholder="Ex. Adam"
-                          value=""
-                          [(ngModel)]="course.createdBy"
-                        />
+                        <input matInput [disabled]="true" placeholder="Ex. Adam" value="" [(ngModel)]="job.createdBy" />
                       </mat-form-field>
+                    </div>
+                    <div class="col-12">
+                      <div class="row">
+                        <div class="col-6">
+                          <mat-form-field class="pb-2 w100">
+                            <mat-label>Publish On</mat-label>
+                            <input
+                              matInput
+                              [matDatepicker]="picker1"
+                              readonly
+                              (dateChange)="onPublishDateChange(job)"
+                              [min]="minPublisOn"
+                              [(ngModel)]="job.publishOn"
+                            />
+                            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                            <mat-datepicker #picker1 color="primary"></mat-datepicker>
+                          </mat-form-field>
+                        </div>
+                        <div class="col-6">
+                          <mat-form-field class="pb-2 w100">
+                            <mat-label>Expired On</mat-label>
+                            <input
+                              matInput
+                              [matDatepicker]="picker2"
+                              readonly
+                              [min]="minExpireOn"
+                              [(ngModel)]="job.expireOn"
+                            />
+                            <mat-datepicker-toggle
+                              matSuffix
+                              [disabled]="job.publishOn == ''"
+                              [for]="picker2"
+                            ></mat-datepicker-toggle>
+                            <mat-datepicker #picker2 color="primary"></mat-datepicker>
+                          </mat-form-field>
+                        </div>
+                      </div>
                     </div>
                     <div class="col-12 col-md-6">
                       <mat-form-field class="pb-2 w100">
-                        <mat-select placeholder="Job Location" [(ngModel)]="course.location">
+                        <mat-select placeholder="Job Location" [(ngModel)]="job.location">
                           <mat-option *ngFor="let country of countries" [value]="country.title">
                             {{ country.title }}
                           </mat-option>
@@ -107,7 +143,7 @@
                     </div>
                     <div class="col-12 col-md-6">
                       <mat-form-field class="pb-2 w100">
-                        <mat-select placeholder="Job Status" [(ngModel)]="course.status">
+                        <mat-select placeholder="Job Status" [(ngModel)]="job.status">
                           <mat-option [value]="'Active'">
                             Active
                           </mat-option>
@@ -120,17 +156,17 @@
                     <div class="col-12">
                       <mat-form-field class="pb-2 w100">
                         <mat-label>Description</mat-label>
-                        <textarea matInput placeholder="Job Description" [(ngModel)]="course.description"></textarea>
+                        <textarea matInput placeholder="Job Description" [(ngModel)]="job.description"></textarea>
                       </mat-form-field>
                     </div>
                     <div class="col-12">
                       <mat-form-field class="example-chip-list pb-2 w100">
                         <mat-chip-list #chipList aria-label="Fruit selection">
                           <mat-chip
-                            *ngFor="let item of course.tags; let tagIndex = index"
+                            *ngFor="let item of job.tags; let tagIndex = index"
                             [selectable]="selectable"
                             [removable]="removable"
-                            (removed)="remove(course, tagIndex)"
+                            (removed)="remove(job, tagIndex)"
                           >
                             {{ item }}
                             <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
@@ -140,7 +176,7 @@
                             [matChipInputFor]="chipList"
                             [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                             [matChipInputAddOnBlur]="addOnBlur"
-                            (matChipInputTokenEnd)="add($event, course)"
+                            (matChipInputTokenEnd)="add($event, job)"
                           />
                         </mat-chip-list>
                       </mat-form-field>
@@ -152,8 +188,8 @@
                           <button
                             mat-flat-button
                             color="primary"
-                            *ngIf="course.id == ''"
-                            (click)="createJob(course)"
+                            *ngIf="job.id == ''"
+                            (click)="createJob(job)"
                             class="rounded-pill ml-2"
                           >
                             Save
@@ -161,8 +197,8 @@
                           <button
                             mat-flat-button
                             color="primary"
-                            *ngIf="course.id != ''"
-                            (click)="updateJob(course)"
+                            *ngIf="job.id != ''"
+                            (click)="updateJob(job)"
                             class="rounded-pill ml-2"
                           >
                             Update
@@ -172,53 +208,34 @@
                             color="primary"
                             matTooltipPosition="below"
                             matTooltip="Delete"
-                            (click)="deleteJob(course, i)"
+                            (click)="deleteJob(job, i)"
                             class="ml-2"
                           >
                             <mat-icon>delete</mat-icon>
+                          </button>
+                          <button
+                            mat-flat-button
+                            color="primary"
+                            *ngIf="job.id != ''"
+                            (click)="updateJob(job, 'status')"
+                            class="rounded-pill ml-2"
+                          >
+                            Unlist Posting
                           </button>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-
-                <!-- <mat-form-field>
-                    <mat-label>First name</mat-label>
-                    <input matInput />
-                  </mat-form-field>
-
-                  <mat-form-field>
-                    <mat-label>Age</mat-label>
-                    <input matInput type="number" min="1" />
-                  </mat-form-field> -->
               </mat-expansion-panel>
-            </mat-accordion>
-
-            <!-- <div class="card curPoint">
-                <div class="card-body pl-3 pr-3">
-                  <h5 class="card-title">
-                    {{ course.title }}
-                  </h5>
-                  <p class="card-intro">
-                    {{ course.description }}
-                  </p>
-                  <span class="card-intro pr-1 p-1" *ngFor="let item of course.tags"
-                    ><badge class="badge badge-info">{{ item }}</badge></span
-                  >
-                </div>
-              </div> -->
-          </div>
+            </div>
+          </mat-accordion>
         </div>
       </ng-container>
       <ng-container *ngIf="!isLoading && allJobs.length == 0">
         <div class="text-center m-auto animated fadeIn">
           <div class="col-12 min-vertical-h-90 max-vertical-h-90 flow-hidden text-center">
             <img src="../../../assets/images/NoRecordFound.png" class="img-fluid d-block mx-auto w100 mt-5" />
-
-            <!-- <button mat-flat-button color="primary" (click)="removeFilter()" class="rounded-pill ml-2">
-              Remove All Filters
-            </button> -->
           </div>
         </div>
       </ng-container>

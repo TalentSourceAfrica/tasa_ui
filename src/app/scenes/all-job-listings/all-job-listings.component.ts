@@ -22,8 +22,8 @@ export class AllJobListingsComponent implements OnInit {
   uds: any;
   isLoading: boolean = true;
   length = 100;
-  pageSize = 5;
-  pageSizeOptions: number[] = [5, 10, 25, 100];
+  pageSize = 20;
+  pageSizeOptions: number[] = [10, 20, 50, 100];
   pageEvent: PageEvent;
   filterData: any = {
     tiers: [],
@@ -62,7 +62,7 @@ export class AllJobListingsComponent implements OnInit {
     });
     $t.sharedService.configService.post(apiUrl, $t.searchConfig).subscribe(
       (response: any) => {
-        $t.allJobs = response.responseObj.courses;
+        $t.allJobs = response.responseObj.jobs;
         $t.length = response.responseObj.count;
         $t.isLoading = false;
       },
@@ -98,12 +98,25 @@ export class AllJobListingsComponent implements OnInit {
 
   init() {
     this.getJobs(1);
+    this.getJobCount();
     this.getCountry();
   }
 
   get user(): any | null {
     const credentials = this.credentialsService.credentials;
     return credentials ? credentials : null;
+  }
+
+  getJobCount() {
+    let apiUrl = this.sharedService.urlService.simpleApiCall('getJobsCount');
+    this.sharedService.configService.get(apiUrl).subscribe(
+      (response: any) => {
+        this.length = response.responseObj;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
   getJobs(_pageIndex: any) {

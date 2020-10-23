@@ -21,6 +21,7 @@ import { ShowApplicantsComponent } from '@app/partials/popups/recruiter/show-app
 })
 export class JobsComponent implements OnInit {
   uds: any;
+  mom: any;
   allJobs: any = [];
   isLoading: boolean = true;
   selectedCourse: any = [];
@@ -28,6 +29,12 @@ export class JobsComponent implements OnInit {
   pageSize = 100;
   searchConfig: any = {};
   countries: any = [];
+  currentYear: any;
+
+  minPublisOn: any;
+  minExpireOn: any;
+  panelOpenState: boolean = false;
+
   // chip var
   visible = true;
   selectable = true;
@@ -42,7 +49,24 @@ export class JobsComponent implements OnInit {
   ) {
     this.searchConfig = courseSearchData;
     this.uds = this.sharedService.plugins.undSco;
+    this.mom = this.sharedService.plugins.mom;
+
+    this.currentYear = this.mom().year();
+    this.minPublisOn = new Date();
   }
+
+  onPublishDateChange(job: any) {
+    if (job.publishOn != '') {
+      var date = new Date(job.publishOn);
+      date.setDate(date.getDate() + 1);
+      this.minExpireOn = date;
+    }
+  }
+
+  myDateFilter = (m: any | null): boolean => {
+    const year = (m || this.mom()).year();
+    return year >= this.currentYear - 1;
+  };
 
   add(event: MatChipInputEvent, job: any): void {
     const input = event.input;
@@ -80,9 +104,6 @@ export class JobsComponent implements OnInit {
       createdBy: this.user.firstName + ' ' + this.user.lastName,
       updatedBy: '',
     });
-    // setTimeout(() => {
-    //   this.sharedService.utilityService.scrollToElement(`jobPanel-${this.allJobs.length}`);
-    // }, 2000);
   }
 
   createJob(job: any) {
@@ -99,9 +120,12 @@ export class JobsComponent implements OnInit {
     );
   }
 
-  updateJob(job: any) {
+  updateJob(job: any, _extraParams?: any) {
     let $t = this;
     $t.sharedService.uiService.showApiStartPopMsg('Updating Job...');
+    if (_extraParams == 'status') {
+      job.status = 'Inactive';
+    }
     let apiUrl = $t.sharedService.urlService.apiCallWithParams('updateJob', { '{jobId}': job.id });
     $t.sharedService.configService.put(apiUrl, job).subscribe(
       (response: any) => {
