@@ -1,0 +1,135 @@
+<div class="my-job-applications-wrapper">
+  <div class="container">
+    <ol class="breadcrumb mt-3">
+        <li class="breadcrumb-item curPoint"><a [routerLink]="['/home']">Home</a></li>
+        <li class="breadcrumb-item active"><a>My Job Applications</a></li>
+    </ol>
+    <ng-container *ngIf="isLoading">
+      <div class="col-12 animated fadeIn" *ngFor="let item of [1, 2, 3, 4, 5, 6]">
+        <div class="card ml-0 mr-0 my-4" style="height: 100px !important;">
+          <div class="card-img skeleton"></div>
+        </div>
+      </div>
+    </ng-container>
+    <mat-tab-group *ngIf="!isLoading && jobApplications.length" class="pt-3">
+    	<mat-tab *ngFor="let status of jobStatus; let index = i;" label="{{ status[0] }}">
+    		<section class="my-job-applications-page-section min-vertical-h-100">
+				<div class="row no-gutters">
+					<ng-container>
+					  <div class="row max-vertical-h-70 stylishSlimScroll flow-y-auto flow-x-hidden mt-4" id="jobsArea">
+					    <mat-accordion>
+					      <div
+					        class="col-12 animated fadeIn w100 mt-4 mb-1"
+					        id="my-job-applications-panel-{{ j }}"
+					        *ngFor="let course of (status[1] == 'all' ? all : 
+					        		(status[1] == 'underReview' ? underReview : 
+					        		(status[1] == 'accepted' ? accepted : rejected))); let j = index"
+					      >
+					        <mat-expansion-panel
+					          (opened)="panelOpenState = true"
+					          (closed)="panelOpenState = false"
+					          class="my-job-applications-panel">
+					          <mat-expansion-panel-header class="d-flex align-items-center">
+					            <mat-panel-title class="pt-3">
+					              <h6 class="text-primary mt-2 pb-2">{{ course.title }}</h6> &nbsp; &nbsp;
+					              <span 
+					              	class="badge pt-2 mt-1 badge-pill" 
+					              	style="height: 28px"
+					              	[ngClass]="{'badge-warning': checkStatus(course) == 'All',
+					              				'badge-danger': checkStatus(course) == 'Rejected',
+					              				'badge-succes': checkStatus(course) == 'Accepted',
+					              				'badge-info': checkStatus(course) == 'Under Review'}">{{ checkStatus(course) }}</span>
+					            </mat-panel-title>
+					            <mat-panel-description>
+					              <div class="text-right w100 mr-2 pt-4">
+					                <span class="pr-1 p-1" *ngFor="let item of course.tags"
+					                  ><badge class="badge badge-info">{{ item }}</badge></span
+					                >
+					              </div>
+					            </mat-panel-description>
+					          </mat-expansion-panel-header>
+					          <div class="mt-4">
+					            <div class="row">
+					              <div class="col-12 p-2">
+					                <div class="row">
+					                  <div class="col-3 text-primary text-bold caps">
+					                    Title :
+					                  </div>
+					                  <div class="col-9 h6">
+					                    {{ course.title }}
+					                  </div>
+					                </div>
+					              </div>
+					              <div class="col-12 p-2">
+					                <div class="row">
+					                  <div class="col-3 text-primary text-bold caps">
+					                    Experience :
+					                  </div>
+					                  <div class="col-9 h6">{{ course.experienceFrom }} - {{ course.experienceTo }} Year</div>
+					                </div>
+					              </div>
+					              <div class="col-12 p-2">
+					                <div class="row">
+					                  <div class="col-3 text-primary text-bold caps">
+					                    Description :
+					                  </div>
+					                  <div class="col-9 h6">
+					                    {{ course.description }}
+					                  </div>
+					                </div>
+					              </div>
+					              <div class="col-12 p-2">
+					                <div class="row">
+					                  <div class="col-3 text-primary text-bold caps">
+					                    Created By :
+					                  </div>
+					                  <div class="col-9 h6">
+					                    {{ course.createdBy }}
+					                  </div>
+					                </div>
+					              </div>
+					              <div class="col-12 p-2">
+					                <div class="row">
+					                  <div class="col-3 text-primary text-bold caps">
+					                    Job Location :
+					                  </div>
+					                  <div class="col-9 h6">
+					                    {{ course.location }}
+					                  </div>
+					                </div>
+					              </div>
+					              <div class="col-12 p-2">
+					                <div class="row">
+					                  <div class="col-3 text-primary text-bold caps">
+					                    Job Status :
+					                  </div>
+					                  <div class="col-9 h6">
+					                    {{ course.status }}
+					                  </div>
+					                </div>
+					              </div>
+					              <div class="col-12 p-2">
+					                <div class="row">
+					                  <div class="col-3 text-primary text-bold caps">
+					                    Tags :
+					                  </div>
+					                  <div class="col-9 h6">
+					                    <span class="card-intro pr-1 p-1" *ngFor="let item of course.tags"
+					                      ><badge class="badge badge-info">{{ item }}</badge></span
+					                    >
+					                  </div>
+					                </div>
+					              </div>
+					            </div>
+					          </div>
+					        </mat-expansion-panel>
+					      </div>
+					    </mat-accordion>
+					  </div>
+					</ng-container>
+				</div>
+			</section>
+    	</mat-tab>
+    </mat-tab-group>
+  </div>
+</div>
