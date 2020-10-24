@@ -67,13 +67,11 @@
               <mat-form-field class="w100">
                 <mat-label>Category</mat-label>
                 <mat-select multiple [(value)]="course.categories">
-                  <mat-option *ngFor="let item of popupData.categoryList" [value]="item">{{ item }}</mat-option>
+                  <mat-option *ngFor="let item of popupData.categoryList" [value]="item.code">{{
+                    item.code
+                  }}</mat-option>
                 </mat-select>
               </mat-form-field>
-              <!-- <mat-form-field class="pb-2 w100">
-                <mat-label></mat-label>
-                <input matInput placeholder="Article" value="" [(ngModel)]="item.categories[0]" />
-              </mat-form-field> -->
             </div>
           </div>
         </div>

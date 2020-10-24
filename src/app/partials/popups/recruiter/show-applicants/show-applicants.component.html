@@ -11,9 +11,6 @@
       </div>
       <div class="card-footer">
         <div class="col-12 text-center mt-3">
-          <button mat-flat-button color="primary" (click)="editApplicantJob()" class="rounded-pill ml-2">
-            Edit Status
-          </button>
           <button mat-flat-button color="primary" mat-dialog-close="true" class="rounded-pill ml-2">
             Cancel
           </button>
@@ -23,8 +20,62 @@
   </div>
 </div>
 <ng-template #applicants>
+  <div class="col-12">
+    <div class="border">
+      <div class="d-flex p-2">
+        <button
+          mat-mini-fab
+          color="primary"
+          style="z-index: 9;"
+          class="mr-4"
+          matTooltipPosition="below"
+          matTooltip="Select / Deselect Applicants"
+          [matMenuTriggerFor]="menu"
+        >
+          <mat-icon>menu</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="selDeAll('select')" class="h6">
+            Select All
+          </button>
+          <button mat-menu-item (click)="selDeAll('deselect')" class="h6">
+            Deselect All
+          </button>
+        </mat-menu>
+        <div class="text-center mt-2 mr-3">
+          <mat-form-field class="pb-2 w100">
+            <mat-select placeholder="Selected Applicant Status" (selectionChange)="afterStatusChange($event.value)">
+              <mat-option [disabled]="item == 'Submitted'" *ngFor="let item of applicantJobStatus" [value]="item">
+                {{ item }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <button
+          mat-flat-button
+          color="primary"
+          [disabled]="checkDisable() || bulkStatus == ''"
+          (click)="editApplicantJob(true)"
+          class="m-2 rounded-pill ml-2 w25"
+        >
+          Change Status For Selected Applicant
+        </button>
+      </div>
+    </div>
+  </div>
+
   <div class="col-md-4 col-xl-3 col-sm-12 animated fadeIn" *ngFor="let user of popupData.job.applicants; let i = index">
     <div class="card d-flex align-items-center">
+      <button
+        mat-mini-fab
+        color="primary"
+        style="z-index: 9; right: 10px;"
+        class="position-absolute mt-2"
+        [ngClass]="{ 'text-success': user.isSelected }"
+        (click)="selectApplicant($event, user)"
+      >
+        <mat-icon>check_circle_outline</mat-icon>
+      </button>
       <!-- <div class="p-3 text-center">
             <img
               *ngIf="!user.image || user.image == 'string'"
@@ -51,7 +102,11 @@
       </div>
       <div class="mt-2">
         <mat-form-field class="pb-2 w100">
-          <mat-select placeholder="Applicant Status" [(ngModel)]="user.status">
+          <mat-select
+            placeholder="Change Applicant Status"
+            (selectionChange)="editApplicantJob()"
+            [(ngModel)]="user.status"
+          >
             <mat-option [disabled]="item == 'Submitted'" *ngFor="let item of applicantJobStatus" [value]="item">
               {{ item }}
             </mat-option>

@@ -99,6 +99,36 @@
                       <div class="row">
                         <div class="col-6">
                           <mat-form-field class="pb-2 w100">
+                            <mat-label>Experience From</mat-label>
+                            <input
+                              type="number"
+                              matInput
+                              [(ngModel)]="job.experienceFrom"
+                              min="0"
+                              step="1"
+                              oninput="validity.valid||(value='');"
+                            />
+                          </mat-form-field>
+                        </div>
+                        <div class="col-6">
+                          <mat-form-field class="pb-2 w100">
+                            <mat-label>Experience To</mat-label>
+                            <input
+                              type="number"
+                              matInput
+                              [(ngModel)]="job.experienceTo"
+                              min="0"
+                              step="1"
+                              oninput="validity.valid||(value='');"
+                            />
+                          </mat-form-field>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <div class="row">
+                        <div class="col-6">
+                          <mat-form-field class="pb-2 w100">
                             <mat-label>Publish On</mat-label>
                             <input
                               matInput

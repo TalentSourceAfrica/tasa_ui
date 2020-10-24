@@ -21,7 +21,7 @@
       </div>
     </div>
   </section>
-  <section class="row min-vertical-h-80 max-vertical-h-80 stylishScroll flow-y-auto flow-x-hidden">
+  <section class="row min-vertical-h-80 max-vertical-h-80 stylishSlimScroll flow-y-auto flow-x-hidden">
     <ng-container *ngIf="postData.length">
       <div class="col-md-6 col-xl-6 col-sm-12 animated fadeIn" *ngFor="let item of postData; let i = index">
         <div class="card">
@@ -86,7 +86,10 @@
                 ></ng-template>
               </ng-container>
               <ng-container *ngIf="isAdmin">
-                <ng-template [ngTemplateOutlet]="adminActions" [ngTemplateOutletContext]="{ post: item }"></ng-template>
+                <ng-template
+                  [ngTemplateOutlet]="adminActions"
+                  [ngTemplateOutletContext]="{ post: item, postIndex: i }"
+                ></ng-template>
               </ng-container>
             </div>
           </div>
@@ -122,7 +125,7 @@
     </button>
   </div>
 </ng-template>
-<ng-template #adminActions let-post="post">
+<ng-template #adminActions let-post="post" let-postIndex="postIndex">
   <div class="text-center">
     <button
       mat-mini-fab
@@ -149,6 +152,16 @@
       <span class="material-icons">
         thumb_down
       </span>
+    </button>
+    <button
+      mat-mini-fab
+      color="primary"
+      matTooltipPosition="below"
+      matTooltip="Delete"
+      (click)="deletePost(post, postIndex)"
+      class="ml-2"
+    >
+      <mat-icon>delete</mat-icon>
     </button>
   </div>
 </ng-template>
