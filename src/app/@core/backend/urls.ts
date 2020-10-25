@@ -77,5 +77,6 @@ export const urls: any = {
   applyJob: '/jobs/apply/{jobId}',
   searchJobs: '/job/search/{page}/{size}', // PO
   getJobsCount: '/job/count', // G
-  getJobApplications: '/job/applicant/{userId}/{page}/{size}' // G
+  getJobApplications: '/job/applicant/{userId}/{page}/{size}', // G
+  withdrawFromJob: '/jobs/withdraw/{jobId}', // PO
 };

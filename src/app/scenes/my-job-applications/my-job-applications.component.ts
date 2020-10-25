@@ -122,6 +122,21 @@ export class MyJobApplicationsComponent implements OnInit {
     );
   }
 
+  withdraw(job: any, jobIndex: number) {
+    let $t = this;
+    let apiUrl = this.sharedService.urlService.apiCallWithParams('withdrawFromJob', { '{jobId}': job.id });
+    $t.sharedService.uiService.showApiStartPopMsg('Withdrawing From Job');
+    $t.sharedService.configService.post(apiUrl).subscribe(
+      (response) => {
+        $t.sharedService.uiService.showApiSuccessPopMsg('Withdrawn From Job');
+        $t.getJobsApplications();
+      },
+      (error) => {
+        $t.sharedService.uiService.showApiErrorPopMsg(error.error);
+      }
+    );
+  }
+
   ngOnInit(): void {
     this.sharedService.utilityService.requiredStyleForHomeHeader();
     window.scrollTo(0, 0);
