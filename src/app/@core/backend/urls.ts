@@ -67,6 +67,12 @@ export const urls: any = {
   updateNews: '/news', // PU
   deleteNews: '/news/{newsId}', // DE
 
+  // Partner
+  getPartner: '/partner', //G
+  deletePartner: '/partner/{partnerId}', //DE
+  addPartner: '/partner', //PO
+  updatePartner: '/partner', // PA
+
   // Jobs
   getAllJobs: '/jobs/page/{page}/{size}', // G
   getRecruiterPostedJobs: '/jobs/recruiter/{recruiterId}/{status}/{page}/{size}', // G

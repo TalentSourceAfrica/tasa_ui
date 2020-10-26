@@ -1,12 +1,12 @@
-<div class="da-wrapper container">
+<div id="partner-wrapper" class="container">
   <ol class="breadcrumb mt-3">
     <li class="breadcrumb-item curPoint"><a [routerLink]="['/home']">Home</a></li>
-    <li class="breadcrumb-item active">News</li>
+    <li class="breadcrumb-item active">Partners</li>
   </ol>
   <div class="sec-title">
-    <div class="title" *ngIf="newsData.length == 0">All News</div>
-    <div class="title" *ngIf="newsData.length">
-      All News : <strong>{{ newsData.length }} Records Found</strong>
+    <div class="title" *ngIf="partnerData.length == 0">All Partners</div>
+    <div class="title" *ngIf="partnerData.length">
+      All Partners : <strong>{{ partnerData.length }} Partners Found</strong>
     </div>
   </div>
   <section>
@@ -22,34 +22,60 @@
     </div>
   </section>
   <section>
-    <ng-container>
+    <ng-container *ngIf="isLoading">
+      <div class="row no-gutters">
+        <div
+          class="col-md-4 col-lg-6 col-sm-6 animated fadeIn"
+          *ngFor="let item of [1, 2, 3, 4]">
+          <div class="card">
+            <div class="card-body">
+              <h2 
+                class="card-title skeleton"
+                *ngFor="let item of [1, 2, 3, 4, 5, 6, 7, 8]">
+              </h2>
+              <p class="card-intro skeleton">
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="!isLoading">
       <div class="row min-vertical-h-80 max-vertical-h-80 stylishScroll flow-y-auto flow-x-hidden">
-        <div class="col-md-6 col-xl-6 col-sm-12 animated fadeIn" *ngFor="let item of newsData; let i = index">
+        <div class="col-md-6 col-xl-6 col-sm-12 animated fadeIn" *ngFor="let item of partnerData; let i = index">
           <div class="card d-flex align-items-center">
-            <div class="card-body pt-5">
+            <div class="card-body pt-5 pb-0">
               <div class="row">
                 <div class="col-12">
                   <mat-form-field class="pb-2 w100">
+                    <mat-label>Name</mat-label>
+                    <input matInput placeholder="Name" [(ngModel)]="item.partnerName">
+                  </mat-form-field> 
+                  <mat-form-field class="pb-2 w100">
                     <mat-label>Description</mat-label>
-                    <input matInput placeholder="Description" value="" [(ngModel)]="item.description" />
+                    <input matInput placeholder="Description" value="" [(ngModel)]="item.partnerDesc" />
+                  </mat-form-field>
+                  <mat-form-field class="pb-2 w100">
+                    <mat-label>Since</mat-label>
+                    <input matInput placeholder="Since" [(ngModel)]="item.partnerSince" />
+                  </mat-form-field> 
+                </div>
+                <div class="col-12">
+                  <mat-form-field class="pb-2 w100">
+                    <mat-label>Address</mat-label>
+                    <textarea matInput placeholder="Article" value="" [(ngModel)]="item.partnerAddress"></textarea>
                   </mat-form-field>
                 </div>
                 <div class="col-12">
                   <mat-form-field class="pb-2 w100">
-                    <mat-label>Full Article</mat-label>
-                    <textarea matInput placeholder="Article" value="" [(ngModel)]="item.fullArticle"></textarea>
-                  </mat-form-field>
-                </div>
-                <div class="col-12">
-                  <mat-form-field class="pb-2 w100">
-                    <mat-label>Published By</mat-label>
-                    <input matInput placeholder="Name" value="" [(ngModel)]="item.publishedBy" />
+                    <mat-label>Contact</mat-label>
+                    <input matInput placeholder="Name" value="" [(ngModel)]="item.partnerContact" />
                   </mat-form-field>
                 </div>
                 <div class="col-12">
                   <mat-form-field class="pb-2 w100">
                     <mat-label>External Link</mat-label>
-                    <input matInput placeholder="Link" value="" [(ngModel)]="item.externalLink" />
+                    <input matInput placeholder="Link" value="" [(ngModel)]="item.partnerURL" />
                   </mat-form-field>
                 </div>
                 <div class="col-12 d-flex">
@@ -61,10 +87,11 @@
                       value=""
                       [disabled]="true"
                       type="text"
-                      [(ngModel)]="item.image"
+                      [(ngModel)]="item.partnerImage"
                     />
                   </mat-form-field>
-                  <span class="material-icons pl-2 text-primary curPoint" (click)="uploadImage(item)">
+                  <span class="material-icons pl-2 text-primary curPoint" (click)="uploadImage(item)"
+                        matTooltip="Upload Image" matTooltipPosition="below">
                     cloud_upload
                   </span>
                 </div>
@@ -75,18 +102,22 @@
                 <button
                   mat-flat-button
                   color="primary"
-                  *ngIf="item.id == 0"
-                  (click)="saveNews(item, i)"
+                  *ngIf="item.partnerId == 0"
+                  (click)="savePartner(item, i)"
                   class="rounded-pill ml-2"
+                  matTooltip="Save Partner"
+                  matTooltipPosition="below"
                 >
                   Save
                 </button>
                 <button
                   mat-flat-button
                   color="primary"
-                  *ngIf="item.id != 0"
-                  (click)="updateNews(item)"
+                  *ngIf="item.partnerId != 0"
+                  (click)="updatePartner(item)"
                   class="rounded-pill ml-2"
+                  matTooltip="Update Partner"
+                  matTooltipPosition="below"
                 >
                   Update
                 </button>
@@ -94,8 +125,8 @@
                   mat-mini-fab
                   color="primary"
                   matTooltipPosition="below"
-                  matTooltip="Delete"
-                  (click)="deleteNews(item, i)"
+                  matTooltip="Delete Partner"
+                  (click)="deletePartner(item, i)"
                   class="ml-2"
                 >
                   <mat-icon class="mb-1">delete</mat-icon>
@@ -108,4 +139,4 @@
     </ng-container>
   </section>
 </div>
-<input type="file" #newsfile class="d-none" id="imageUpload" multiple (change)="handleFileInput($event)" />
+<input type="file" #partnerFile class="d-none" id="imageUpload" multiple (change)="handleFileInput($event)" />
