@@ -87,4 +87,7 @@ export const urls: any = {
   getJobsCount: '/job/count', // G
   getJobApplications: '/job/applicant/{userId}/{page}/{size}', // G
   withdrawFromJob: '/jobs/withdraw/{jobId}', // PO
+
+  // Dashboard
+  getRecommendedCourse: '/users/recommended/{userId}', // G
 };

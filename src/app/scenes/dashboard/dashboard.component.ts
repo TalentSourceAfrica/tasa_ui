@@ -13,6 +13,8 @@ export class DashboardComponent implements OnInit {
   showFiller = false;
   postData: any = [];
   courses: any = [];
+  recommendedCourses: any = [];
+  jobApplications: any = [];
   postOptions: OwlOptions = {
     loop: true,
     autoplay: true,
@@ -137,6 +139,36 @@ export class DashboardComponent implements OnInit {
     this.router.navigate(['/course/' + _key], { replaceUrl: true });
   }
 
+  getJobsApplications() {
+    let apiUrl = this.sharedService.urlService.apiCallWithParams('getJobApplications', {
+      '{userId}': this.user.email,
+      '{page}': 0,
+      '{size}': 0,
+    });
+    this.sharedService.configService.get(apiUrl).subscribe(
+      (response: any) => {
+        this.jobApplications = response.responseObj;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+  getRecommendedCourse() {
+    let $t = this;
+    let apiUrl = '';
+    apiUrl = $t.sharedService.urlService.apiCallWithParams('getRecommendedCourse', { '{userId}': $t.user.email });
+    $t.sharedService.configService.get(apiUrl).subscribe(
+      (response: any) => {
+        $t.recommendedCourses = response.responseObj;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
   get user(): any | null {
     const credentials = this.credentialsService.credentials;
     return credentials ? credentials : null;
@@ -146,5 +178,7 @@ export class DashboardComponent implements OnInit {
     window.scrollTo(0, 0);
     this.getPosts();
     this.getCourses();
+    this.getRecommendedCourse();
+    this.getJobsApplications();
   }
 }

@@ -24,24 +24,18 @@
   <section>
     <ng-container *ngIf="isLoading">
       <div class="row no-gutters">
-        <div
-          class="col-md-4 col-lg-6 col-sm-6 animated fadeIn"
-          *ngFor="let item of [1, 2, 3, 4]">
+        <div class="col-md-4 col-lg-6 col-sm-6 animated fadeIn" *ngFor="let item of [1, 2, 3, 4]">
           <div class="card">
             <div class="card-body">
-              <h2 
-                class="card-title skeleton"
-                *ngFor="let item of [1, 2, 3, 4, 5, 6, 7, 8]">
-              </h2>
-              <p class="card-intro skeleton">
-              </p>
+              <h2 class="card-title skeleton" *ngFor="let item of [1, 2, 3, 4, 5, 6, 7, 8]"></h2>
+              <p class="card-intro skeleton"></p>
             </div>
           </div>
         </div>
       </div>
     </ng-container>
     <ng-container *ngIf="!isLoading">
-      <div class="row min-vertical-h-80 max-vertical-h-80 stylishScroll flow-y-auto flow-x-hidden">
+      <div class="row min-vertical-h-80 max-vertical-h-80 stylishSlimScroll flow-y-auto flow-x-hidden">
         <div class="col-md-6 col-xl-6 col-sm-12 animated fadeIn" *ngFor="let item of partnerData; let i = index">
           <div class="card d-flex align-items-center">
             <div class="card-body pt-5 pb-0">
@@ -49,8 +43,8 @@
                 <div class="col-12">
                   <mat-form-field class="pb-2 w100">
                     <mat-label>Name</mat-label>
-                    <input matInput placeholder="Name" [(ngModel)]="item.partnerName">
-                  </mat-form-field> 
+                    <input matInput placeholder="Name" [(ngModel)]="item.partnerName" />
+                  </mat-form-field>
                   <mat-form-field class="pb-2 w100">
                     <mat-label>Description</mat-label>
                     <input matInput placeholder="Description" value="" [(ngModel)]="item.partnerDesc" />
@@ -58,7 +52,7 @@
                   <mat-form-field class="pb-2 w100">
                     <mat-label>Since</mat-label>
                     <input matInput placeholder="Since" [(ngModel)]="item.partnerSince" />
-                  </mat-form-field> 
+                  </mat-form-field>
                 </div>
                 <div class="col-12">
                   <mat-form-field class="pb-2 w100">
@@ -90,8 +84,12 @@
                       [(ngModel)]="item.partnerImage"
                     />
                   </mat-form-field>
-                  <span class="material-icons pl-2 text-primary curPoint" (click)="uploadImage(item)"
-                        matTooltip="Upload Image" matTooltipPosition="below">
+                  <span
+                    class="material-icons pl-2 text-primary curPoint"
+                    (click)="uploadImage(item)"
+                    matTooltip="Upload Image"
+                    matTooltipPosition="below"
+                  >
                     cloud_upload
                   </span>
                 </div>
