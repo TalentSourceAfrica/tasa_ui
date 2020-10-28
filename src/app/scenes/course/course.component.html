@@ -31,9 +31,16 @@
               <div [innerHTML]="courseConfig.course.short_description"></div>
             </div>
           </div>
-
           <!-- Lessons -->
           <div class="card p-2 mt-2 list-group list-group-fit" [innerHTML]="courseConfig.course.full_description"></div>
+          <div class="card mt-2" *ngIf="courseConfig.course?.prerequisites_raw != ''">
+            <div class="card-header">
+              <h4 class="card-title">Prerequisites</h4>
+            </div>
+            <div class="card-body">
+              <div [innerHTML]="courseConfig.course?.prerequisites_raw"></div>
+            </div>
+          </div>
           <div
             class="card p-2 mt-2 list-group list-group-fit"
             *ngIf="courseConfig.course.syllabus_raw != ''"

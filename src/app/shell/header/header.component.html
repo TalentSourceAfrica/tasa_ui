@@ -35,7 +35,8 @@
             >{{ user.firstName }}
             <strong>{{ user.lastName }}</strong>
           </span>
-          <span class="user-role">{{ user.type }}</span>
+          <span class="user-role" *ngIf="user.type == 'Mentee'">Student/Professional</span>
+          <span class="user-role" *ngIf="user.type != 'Mentee'">{{ user.type }}</span>
           <span class="user-status">
             <i class="fa fa-circle"></i>
             <span>Online</span>
@@ -342,18 +343,18 @@
         <span>Documents</span>
       </a>
     </li>
-    <li>
+    <li *ngIf="user.type == 'Mentee'">
       <a class="curPoint" [routerLink]="['/jobs/my-applications']">
         <i class="fas fa-file"></i>
         <span>My Job Applications</span>
-      </a>  
-    </li>  
-    <li>
+      </a>
+    </li>
+    <li *ngIf="user.type == 'Mentee'">
       <a class="curPoint" [routerLink]="['/jobs/listings']">
         <i class="fas fa-briefcase"></i>
         <span>All Job Listings</span>
       </a>
-     </li>
+    </li>
   </ul>
 </ng-template>
 <ng-template #adminMenu>

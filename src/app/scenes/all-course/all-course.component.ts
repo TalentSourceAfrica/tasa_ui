@@ -246,6 +246,27 @@ export class AllCourseComponent implements OnInit {
     });
   }
 
+  addToFavorite(_type: boolean, _key: string, event: any) {
+    event.stopPropagation();
+    event.preventDefault();
+    let $t = this;
+    if (_type) {
+      $t.sharedService.uiService.showApiStartPopMsg('Adding To Favorite...');
+      let apiUrl = $t.sharedService.urlService.apiCallWithParams('favCourse', {
+        '{userId}': $t.user.email,
+        '{courseKey}': _key,
+      });
+      $t.sharedService.configService.get(apiUrl).subscribe(
+        (response: any) => {
+          $t.sharedService.uiService.showApiSuccessPopMsg('Added To Favorite...');
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    }
+  }
+
   init() {
     this.getFilterData();
     if (localStorage.getItem('tasa-search-course')) {

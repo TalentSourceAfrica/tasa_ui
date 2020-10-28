@@ -115,7 +115,7 @@
             >
             </mat-paginator>
             <ng-container *ngIf="!isLoading && allCourse.length">
-              <div class="row max-vertical-h-80 stylishSlimScroll flow-y-auto flow-x-hidden">
+              <div class="row w100 max-vertical-h-80 stylishSlimScroll flow-y-auto flow-x-hidden">
                 <div
                   class="col-md-4 col-lg-4 col-sm-6 animated fadeIn"
                   (click)="courseView(course)"
@@ -132,6 +132,7 @@
                       class="position-absolute mt-2"
                       matTooltipPosition="below"
                       matTooltip="Add To Favorite"
+                      (click)="addToFavorite(true, course.key, $event)"
                       *ngIf="user && user.type.toLowerCase() != 'admin'"
                     >
                       <mat-icon>favorite_border</mat-icon>

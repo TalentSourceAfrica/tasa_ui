@@ -17,11 +17,11 @@ export class SignupPopupComponent implements OnInit {
   termsAndCondition = 'https://www.fleetster.net/legal/standard-terms-and-conditions.pdf';
   popupData: any;
   signupType: any = [
-    { value: 0, viewValue: 'Student / Professional' },
-    { value: 1, viewValue: 'Mentor' },
-    { value: 2, viewValue: 'Recruiter' },
+    { value: 0, dbValue: 'Mentee', viewValue: 'Student / Professional' },
+    { value: 1, dbValue: 'Mentor', viewValue: 'Mentor' },
+    { value: 2, dbValue: 'Mentor', viewValue: 'Recruiter' },
   ];
-  userType = { value: 0, viewValue: 'Student / Professional' };
+  userType = { value: 0, dbValue: 'Mentee', viewValue: 'Student / Professional' };
   isUsernameAvailable = true;
   isEmailAvailable = true;
   unamePattern = '^[a-zA-Z0-9_.-]*$';
@@ -110,7 +110,7 @@ export class SignupPopupComponent implements OnInit {
     let $t = this;
     let apiUrl = $t.sharedService.urlService.simpleApiCall('signup');
     $t.sharedService.uiService.showApiStartPopMsg('Creating Account...');
-    let payload = { ...$t.signupForm.value, type: $t.userType.viewValue };
+    let payload = { ...$t.signupForm.value, type: $t.userType.dbValue };
     $t.sharedService.configService.post(apiUrl, payload).subscribe(
       (response) => {
         $t.dialogRef.close();

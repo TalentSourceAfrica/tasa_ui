@@ -32,7 +32,7 @@
   </section>
   <section>
     <ng-container *ngIf="user.gcpdocument && user.gcpdocument.length > 0">
-      <div class="row min-vertical-h-50 max-vertical-h-50 stylishScroll flow-y-auto flow-x-hidden">
+      <div class="row min-vertical-h-60 max-vertical-h-60 stylishSlimScroll flow-y-auto flow-x-hidden">
         <div class="col-md-4 col-lg-4 col-sm-6 animated fadeIn" *ngFor="let doc of user.gcpdocument; let i = index">
           <div class="card d-flex align-items-center">
             <div class="card-body" [ngSwitch]="doc.type">

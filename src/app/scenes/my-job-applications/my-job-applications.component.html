@@ -159,5 +159,14 @@
         </section>
       </mat-tab>
     </mat-tab-group>
+    <div class="text-center m-auto animated fadeIn" *ngIf="jobApplications.length == 0">
+      <div class="col-12 text-center">
+        <img src="../../../assets/images/no-record.gif" style="height: 300px;" class="d-block m-auto" />
+        <h6 class="text-primary">You Haven't Applied To Any Jobs Yet...!</h6>
+        <button mat-flat-button color="primary" [routerLink]="['/jobs/listings']" class="rounded-pill ml-2">
+          Go To All Jobs
+        </button>
+      </div>
+    </div>
   </div>
 </div>

@@ -33,6 +33,8 @@ export const urls: any = {
   getCourseCount: '/courses/count', // G
   searchCourse: '/courses/search/{page}/{size}', // PO
   updateCourse: '/courses/bulk/{userId}', // PO
+  favCourse: '/users/favorite/{userId}/{courseKey}', // G
+  unfavCourse: '/users/unfavorite/{userId}/{courseKey}', // G
 
   // tiers
   getTiers: '/tier', // G

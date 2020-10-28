@@ -723,6 +723,7 @@ export class UserProfileComponent implements OnInit {
         break;
       default:
         this.personalDetailsForm = this.formBuilder.group({
+          type: ['Mentee'],
           suffix: [this.user.suffix],
           firstName: [this.user.firstName],
           middleName: [this.user.middleName],
@@ -799,6 +800,7 @@ export class UserProfileComponent implements OnInit {
   setUserDetailsObjValues(_type: string) {
     let $t = this;
     let personalDetailsValues = $t.personalDetailsForm.value;
+    $t.userDetails.type = personalDetailsValues.type;
     $t.userDetails.suffix = personalDetailsValues.suffix;
     $t.userDetails.firstName = personalDetailsValues.firstName;
     $t.userDetails.middleName = personalDetailsValues.middleName;
@@ -909,10 +911,11 @@ export class UserProfileComponent implements OnInit {
         break;
       case 'Recruiter':
         if (
-          $t.personalDetailsForm.invalid || 
-          $t.organizationDetailsForm.invalid || 
+          $t.personalDetailsForm.invalid ||
+          $t.organizationDetailsForm.invalid ||
           $t.socialDetailsForm.invalid ||
-          $t.careerOpeningDetailsForm.invalid) {
+          $t.careerOpeningDetailsForm.invalid
+        ) {
           $t.showMandatoryMessage = true;
           return;
         } else {
