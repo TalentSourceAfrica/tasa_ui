@@ -121,6 +121,11 @@ const routes: Routes = [
         canActivate: [AuthenticationGuard],
         loadChildren: () => import('@app/scenes/my-job-applications/my-job-applications.module').then((m) => m.MyJobApplicationsModule),
       },
+      {
+        path: 'admin/partners',
+        canActivate: [AuthenticationGuard],
+        loadChildren: () => import('@app/scenes/admin/partners/partners.module').then((m) => m.PartnersModule),
+      },
       { path: '', redirectTo: '/home', pathMatch: 'full' },
     ],
     data: { reuse: true },
