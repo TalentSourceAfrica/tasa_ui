@@ -205,22 +205,6 @@ export class AllCourseComponent implements OnInit {
 
   courseView(_course: any) {
     this.router.navigate(['/course/' + _course.key], { replaceUrl: true });
-    if (this.user) {
-      if (typeof this.user['recentlyViewedCourse'] == 'undefined') {
-        this.user['recentlyViewedCourse'] = [];
-      }
-      this.user['recentlyViewedCourse'].push({
-        image_url: _course.image_url,
-        key: _course.key,
-        subjectsName: _course.subjects[0].name,
-        title: _course.title,
-        discountPercentage: _course.discountPercentage,
-      });
-      this.user['recentlyViewedCourse'] = this.uds.uniq(this.user['recentlyViewedCourse'], (d: any) => {
-        return d.key;
-      });
-      this.authenticationService.login(this.user);
-    }
   }
 
   checkDisable() {
@@ -246,7 +230,7 @@ export class AllCourseComponent implements OnInit {
     });
   }
 
-  addToFavorite(_type: boolean, _key: string, event: any) {
+  addToFavorite(_type: boolean, _course: any, event: any) {
     event.stopPropagation();
     event.preventDefault();
     let $t = this;
@@ -254,11 +238,40 @@ export class AllCourseComponent implements OnInit {
       $t.sharedService.uiService.showApiStartPopMsg('Adding To Favorite...');
       let apiUrl = $t.sharedService.urlService.apiCallWithParams('favCourse', {
         '{userId}': $t.user.email,
-        '{courseKey}': _key,
+        '{courseKey}': _course.key,
       });
       $t.sharedService.configService.get(apiUrl).subscribe(
         (response: any) => {
+          _course['isFav'] = true;
+          $t.user['favoriteCourses'].push({
+            image_url: _course.image_url,
+            key: _course.key,
+            subject: _course.subjects[0].name,
+            title: _course.title,
+            program: _course.programs.length ? _course.programs[0].title : '',
+          });
+          $t.user['favoriteCourses'] = $t.uds.uniq($t.user['favoriteCourses'], (d: any) => {
+            return d.key;
+          });
+          $t.authenticationService.login(this.user);
           $t.sharedService.uiService.showApiSuccessPopMsg('Added To Favorite...');
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    } else {
+      $t.sharedService.uiService.showApiStartPopMsg('Removing From Favorite...');
+      let apiUrl = $t.sharedService.urlService.apiCallWithParams('unfavCourse', {
+        '{userId}': $t.user.email,
+        '{courseKey}': _course.key,
+      });
+      $t.sharedService.configService.get(apiUrl).subscribe(
+        (response: any) => {
+          _course['isFav'] = false;
+          $t.user['favoriteCourses'] = $t.user['favoriteCourses'].filter((d: any) => d.key != _course.key);
+          $t.authenticationService.login(this.user);
+          $t.sharedService.uiService.showApiSuccessPopMsg('Removed From Favorite...');
         },
         (error) => {
           console.log(error);

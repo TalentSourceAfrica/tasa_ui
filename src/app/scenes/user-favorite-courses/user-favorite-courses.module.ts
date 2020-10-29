@@ -8,11 +8,8 @@ import { I18nModule } from '@app/i18n';
 import { AuthModule } from '@app/auth';
 import { MaterialModule } from '@app/modules/material.module';
 import { RouterModule } from '@angular/router';
-import { NgxDocViewerModule } from 'ngx-doc-viewer';
-
-import { JobsRoutingModule } from './jobs-routing.module';
-import { JobsComponent } from './jobs.component';
-import { ShowApplicantsComponent } from '@app/partials/popups/recruiter/show-applicants/show-applicants.component';
+import { UserFavoriteCoursesRoutingModule } from './user-favorite-courses-routing.module';
+import { UserFavoriteCoursesComponent } from './user-favorite-courses.component';
 
 @NgModule({
   imports: [
@@ -24,11 +21,10 @@ import { ShowApplicantsComponent } from '@app/partials/popups/recruiter/show-app
     I18nModule,
     MaterialModule,
     RouterModule,
-    JobsRoutingModule,
-    NgxDocViewerModule,
+    UserFavoriteCoursesRoutingModule,
   ],
-  declarations: [JobsComponent, ShowApplicantsComponent],
-  entryComponents: [ShowApplicantsComponent],
+  declarations: [UserFavoriteCoursesComponent],
+  entryComponents: [],
   schemas: [NO_ERRORS_SCHEMA],
 })
-export class JobsModule {}
+export class UserFavoriteCoursesModule {}

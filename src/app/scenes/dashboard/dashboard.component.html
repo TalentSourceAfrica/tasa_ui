@@ -37,7 +37,7 @@
                 {{ recommendedCourses.length }}
               </div>
               <div class="flex">
-                <h4 class="card-title mt-3">Recomended Courses</h4>
+                <h4 class="card-title mt-3">Recommended Courses</h4>
                 <!-- <p class="card-subtitle">Best score</p> -->
               </div>
             </div>
@@ -356,7 +356,13 @@
                   <div class="col-12 text-center">
                     <img src="../../../assets/images/no-record.gif" style="height: 190px;" class="d-block m-auto" />
                     <h6 class="text-primary">No Applied Jobs Yet...!</h6>
-                    <button mat-flat-button color="primary" [routerLink]="['/jobs/listings']" class="rounded-pill ml-2">
+                    <button
+                      mat-flat-button
+                      color="primary"
+                      *ngIf="!isAdmin"
+                      [routerLink]="['/jobs/listings']"
+                      class="rounded-pill ml-2"
+                    >
                       Go To All Jobs
                     </button>
                   </div>

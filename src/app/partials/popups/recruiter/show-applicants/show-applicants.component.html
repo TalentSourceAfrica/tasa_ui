@@ -127,19 +127,27 @@
           >
             <mat-icon>cloud_download</mat-icon>
           </a>
-          <!-- <button
+          <button
             mat-mini-fab
             color="primary"
             matTooltipPosition="below"
-            matTooltip="Active User"
-            [disabled]="user.active == 'Y'"
-            (click)="activeUser(user)"
+            matTooltip="Show Resume"
+            (click)="showResume(user)"
             class="ml-2"
           >
-            <i class="fas fa-user-plus"></i>
-          </button> -->
+            <mat-icon> remove_red_eye</mat-icon>
+          </button>
         </div>
       </div>
     </div>
   </div>
 </ng-template>
+
+<!-- The Modal -->
+<div id="myModal" class="modal" [ngClass]="{ 'd-block': doc != '' }">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close" (click)="doc = ''">&times;</span>
+    <ngx-doc-viewer [url]="doc" viewer="google" style="width: 100%; height: 100%;"></ngx-doc-viewer>
+  </div>
+</div>

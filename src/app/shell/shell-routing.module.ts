@@ -63,6 +63,14 @@ const routes: Routes = [
         loadChildren: () => import('@app/scenes/user-course/user-course.module').then((m) => m.UserCourseModule),
       },
       {
+        path: 'user/fav-course',
+        canActivate: [AuthenticationGuard],
+        loadChildren: () =>
+          import('@app/scenes/user-favorite-courses/user-favorite-courses.module').then(
+            (m) => m.UserFavoriteCoursesModule
+          ),
+      },
+      {
         path: 'digital-assets',
         canActivate: [AuthenticationGuard],
         loadChildren: () =>
@@ -114,17 +122,24 @@ const routes: Routes = [
       {
         path: 'jobs/listings',
         canActivate: [AuthenticationGuard],
-        loadChildren: () => import('@app/scenes/all-job-listings/all-job-listings.module').then((m) => m.AllJobListingsModule),
+        loadChildren: () =>
+          import('@app/scenes/all-job-listings/all-job-listings.module').then((m) => m.AllJobListingsModule),
       },
       {
         path: 'jobs/my-applications',
         canActivate: [AuthenticationGuard],
-        loadChildren: () => import('@app/scenes/my-job-applications/my-job-applications.module').then((m) => m.MyJobApplicationsModule),
+        loadChildren: () =>
+          import('@app/scenes/my-job-applications/my-job-applications.module').then((m) => m.MyJobApplicationsModule),
       },
       {
         path: 'admin/partners',
         canActivate: [AuthenticationGuard],
         loadChildren: () => import('@app/scenes/admin/partners/partners.module').then((m) => m.PartnersModule),
+      },
+      {
+        path: 'social-network/profile',
+        canActivate: [AuthenticationGuard],
+        loadChildren: () => import('@app/scenes/social-network/profile/profile.module').then((m) => m.ProfileModule),
       },
       { path: '', redirectTo: '/home', pathMatch: 'full' },
     ],

@@ -64,7 +64,7 @@ export class JobsApplyPopupComponent implements OnInit {
         $t.dialogRef.close();
       },
       (error) => {
-        $t.sharedService.uiService.showApiErrorPopMsg('Something Went Wrong, Please Try Again After Sometime...');
+        $t.sharedService.uiService.showApiErrorPopMsg(error.error);
       }
     );
   }

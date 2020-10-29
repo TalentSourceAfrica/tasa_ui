@@ -10,7 +10,7 @@ import { OwlOptions } from 'ngx-owl-carousel-o';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
-  showFiller = false;
+  isAdmin: boolean = false;
   postData: any = [];
   courses: any = [];
   recommendedCourses: any = [];
@@ -62,44 +62,12 @@ export class DashboardComponent implements OnInit {
     },
   };
 
-  jobList = [
-    {
-      jobTitle: 'Frontend Developer',
-      jobStatus: 'Active',
-      jobTags: ['javascript', 'Angular', 'HTML5'],
-      jobLocation: 'Africa',
-    },
-    {
-      jobTitle: 'Devops Developer',
-      jobStatus: 'Active',
-      jobTags: ['Jenkins', 'Aws', 'Elastic Search'],
-      jobLocation: 'Africa',
-    },
-    {
-      jobTitle: 'Backend Developer',
-      jobStatus: 'Inactive',
-      jobTags: ['Java', 'MongoDb', 'Socket'],
-      jobLocation: 'Africa',
-    },
-    {
-      jobTitle: 'Devops Developer',
-      jobStatus: 'Active',
-      jobTags: ['Jenkins', 'Aws', 'Elastic Search'],
-      jobLocation: 'Africa',
-    },
-    {
-      jobTitle: 'Backend Developer',
-      jobStatus: 'Inactive',
-      jobTags: ['Java', 'MongoDb', 'Socket'],
-      jobLocation: 'Africa',
-    },
-  ];
   constructor(
     public sharedService: SharedService,
     private router: Router,
     private credentialsService: CredentialsService
   ) {
-    console.log(this.user);
+    this.user.type.toLowerCase() == 'admin' ? (this.isAdmin = true) : (this.isAdmin = false);
   }
 
   goToHome() {

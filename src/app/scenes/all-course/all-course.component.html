@@ -128,12 +128,24 @@
                     <button
                       mat-mini-fab
                       color="primary"
+                      style="z-index: 9; right: 10px; color: orangered;"
+                      class="position-absolute mt-2"
+                      matTooltipPosition="below"
+                      matTooltip="Remove From Favorite"
+                      (click)="addToFavorite(false, course, $event)"
+                      *ngIf="user && user.type.toLowerCase() != 'admin' && course.isFav"
+                    >
+                      <mat-icon>favorite</mat-icon>
+                    </button>
+                    <button
+                      mat-mini-fab
+                      color="primary"
                       style="z-index: 9; right: 10px;"
                       class="position-absolute mt-2"
                       matTooltipPosition="below"
                       matTooltip="Add To Favorite"
-                      (click)="addToFavorite(true, course.key, $event)"
-                      *ngIf="user && user.type.toLowerCase() != 'admin'"
+                      (click)="addToFavorite(true, course, $event)"
+                      *ngIf="user && user.type.toLowerCase() != 'admin' && !course.isFav"
                     >
                       <mat-icon>favorite_border</mat-icon>
                     </button>

@@ -10,6 +10,7 @@ import { SharedService } from '@app/services/shared.service';
 })
 export class ShowApplicantsComponent implements OnInit {
   uds: any;
+  doc: any = '';
   popupData: any;
   applicantJobStatus = applicantJobStatus;
   bulkStatus = '';
@@ -37,6 +38,10 @@ export class ShowApplicantsComponent implements OnInit {
         this.sharedService.uiService.showMessage('All Applicants Are Deselected');
         break;
     }
+  }
+
+  showResume(user: any) {
+    this.doc = user.resumeLink;
   }
 
   checkDisable() {
