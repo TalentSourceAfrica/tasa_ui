@@ -108,7 +108,11 @@
             <div class="status box">
               <div class="status-main">
                 <img [src]="user.image" class="status-img" />
-                <textarea class="status-textarea" placeholder="Write something to Quan Ha.."></textarea>
+                <textarea
+                  class="status-textarea"
+                  [(ngModel)]="socialConfig.newPost.content"
+                  placeholder="Write something to Quan Ha.."
+                ></textarea>
               </div>
               <div class="status-actions">
                 <div class="row no-gutters">
@@ -134,12 +138,20 @@
                     </button>
                   </div>
                   <div class="col-4 text-right">
-                    <button mat-flat-button color="primary" class="rounded-pill ml-2">Share</button>
+                    <button
+                      mat-flat-button
+                      color="primary"
+                      [disabled]="socialConfig.newPost.content == ''"
+                      (click)="createSocialPost()"
+                      class="rounded-pill ml-2"
+                    >
+                      Share
+                    </button>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="album box" *ngFor="let post of posts">
+            <div class="album box" *ngFor="let post of socialConfig.allSocialPost">
               <div class="status-main">
                 <img [src]="post.userImageUrl" class="status-img" />
                 <div class="album-detail">
@@ -169,7 +181,7 @@
                   </svg>
                   87
                 </a>
-                <a href="#" class="album-action">
+                <a (click)="(post.isCommentShow != post.isCommentShow)" class="album-action">
                   <svg
                     stroke="currentColor"
                     stroke-width="2"
@@ -199,6 +211,37 @@
                   </svg>
                   13
                 </a>
+              </div>
+              <div class="album-comments border-top pt-4 pb-4" *ngIf="post.isCommentShow">
+                <div class="row no-gutters text-center">
+                  <div class="col-2 text-right">
+                    <img
+                      *ngIf="user.image && user.image != 'string'"
+                      matTooltipPosition="below"
+                      matTooltip="Upload Avatar"
+                      class="status-img img-responsive img-circle"
+                      [src]="user.image"
+                      alt="User picture"
+                    />
+                  </div>
+                  <div class="col-8">
+                    <mat-form-field class="w100">
+                      <mat-label>Comment</mat-label>
+                      <textarea type="text" matInput></textarea>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-2">
+                    <button
+                      mat-mini-fab
+                      color="primary"
+                      style="z-index: 9;"
+                      matTooltipPosition="below"
+                      matTooltip="Add Comment"
+                    >
+                      <mat-icon>comment</mat-icon>
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

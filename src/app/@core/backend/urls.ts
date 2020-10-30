@@ -90,4 +90,10 @@ export const urls: any = {
 
   // Dashboard
   getRecommendedCourse: '/users/recommended/{userId}', // G
+
+  // Social Network
+  getAllPosts: '/socialPost', // G
+  addSocialPost: '/socialPost', // PO
+  deleteSocialPost: '/post/{postId}', // DE
+  updateSocialPost: '/post', // PU
 };

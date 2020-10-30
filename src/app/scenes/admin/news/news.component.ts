@@ -10,11 +10,12 @@ import { CredentialsService } from '@app/auth';
 export class NewsComponent implements OnInit {
   @ViewChild('newsfile', { static: false }) public newsfile: any;
   selectedNews: any;
+  suportedImage = ['.gif', '.png', '.bmp', '.jpeg', '.jpg'];
   newsData: any = [];
   constructor(public sharedService: SharedService, public credentialsService: CredentialsService) {}
 
   addNews() {
-    this.newsData.push({
+    this.newsData.unshift({
       id: '',
       image: '',
       description: '',

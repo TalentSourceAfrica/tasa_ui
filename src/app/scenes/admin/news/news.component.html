@@ -23,7 +23,7 @@
   </section>
   <section>
     <ng-container>
-      <div class="row min-vertical-h-80 max-vertical-h-80 stylishScroll flow-y-auto flow-x-hidden">
+      <div class="row min-vertical-h-80 max-vertical-h-80 stylishSlimScroll flow-y-auto flow-x-hidden">
         <div class="col-md-6 col-xl-6 col-sm-12 animated fadeIn" *ngFor="let item of newsData; let i = index">
           <div class="card d-flex align-items-center">
             <div class="card-body pt-5">
@@ -52,21 +52,29 @@
                     <input matInput placeholder="Link" value="" [(ngModel)]="item.externalLink" />
                   </mat-form-field>
                 </div>
-                <div class="col-12 d-flex">
-                  <mat-form-field class="pb-2 w100">
-                    <mat-label>Image</mat-label>
-                    <input
-                      matInput
-                      placeholder="Image"
-                      value=""
-                      [disabled]="true"
-                      type="text"
-                      [(ngModel)]="item.image"
-                    />
-                  </mat-form-field>
-                  <span class="material-icons pl-2 text-primary curPoint" (click)="uploadImage(item)">
-                    cloud_upload
-                  </span>
+                <div class="col-12">
+                  <div class="d-flex">
+                    <mat-form-field class="w100">
+                      <mat-label>Image</mat-label>
+                      <input
+                        matInput
+                        placeholder="Image"
+                        value=""
+                        [disabled]="true"
+                        type="text"
+                        [(ngModel)]="item.image"
+                      />
+                    </mat-form-field>
+                    <span class="material-icons pl-2 text-primary curPoint" (click)="uploadImage(item)">
+                      cloud_upload
+                    </span>
+                  </div>
+                  <div>
+                    <p>
+                      <strong>Supported Image :</strong>
+                      <span class="text-muted ml-2" *ngFor="let item of suportedImage">{{ item }}</span>
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
