@@ -1,4 +1,4 @@
-import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -7,8 +7,9 @@ import { I18nModule } from '@app/i18n';
 import { AuthModule } from '@app/auth';
 import { MaterialModule } from '@app/modules/material.module';
 import { RouterModule } from '@angular/router';
-import { ProfileRoutingModule } from './profile-routing.module';
-import { ProfileComponent } from './profile.component';
+
+import { SocialPostsRoutingModule } from './social-posts-routing.module';
+import { SocialPostsComponent } from './social-posts.component';
 
 @NgModule({
   imports: [
@@ -21,9 +22,8 @@ import { ProfileComponent } from './profile.component';
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
-    ProfileRoutingModule,
+    SocialPostsRoutingModule,
   ],
-  declarations: [ProfileComponent],
-  schemas: [NO_ERRORS_SCHEMA],
+  declarations: [SocialPostsComponent],
 })
-export class ProfileModule {}
+export class SocialPostsModule {}

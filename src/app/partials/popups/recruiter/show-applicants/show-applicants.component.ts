@@ -83,5 +83,19 @@ export class ShowApplicantsComponent implements OnInit {
     );
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    switch (this.popupData.applicantStatus) {
+      case 'All':
+        break;
+      case 'Accepted':
+        this.popupData.job.applicants = this.popupData.job.applicants.filter((d: any) => d.status == 'Accepted');
+        break;
+      case 'Under Review':
+        this.popupData.job.applicants = this.popupData.job.applicants.filter((d: any) => d.status == 'Under Review');
+        break;
+      case 'Rejected':
+        this.popupData.job.applicants = this.popupData.job.applicants.filter((d: any) => d.status == 'Rejected');
+        break;
+    }
+  }
 }

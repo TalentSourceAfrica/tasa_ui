@@ -141,6 +141,12 @@ const routes: Routes = [
         canActivate: [AuthenticationGuard],
         loadChildren: () => import('@app/scenes/social-network/profile/profile.module').then((m) => m.ProfileModule),
       },
+      {
+        path: 'social-network/posts',
+        canActivate: [AuthenticationGuard],
+        loadChildren: () =>
+          import('@app/scenes/social-network/social-posts/social-posts.module').then((m) => m.SocialPostsModule),
+      },
       { path: '', redirectTo: '/home', pathMatch: 'full' },
     ],
     data: { reuse: true },

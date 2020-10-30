@@ -1,0 +1,407 @@
+<div class="container">
+  <ol class="breadcrumb mt-3">
+    <li class="breadcrumb-item curPoint pr-2"><a [routerLink]="['/home']">Home</a></li>
+    <li class="breadcrumb-item active">Social Posts</li>
+  </ol>
+  <div class="sec-title">
+    <div class="title">All Post</div>
+  </div>
+</div>
+<div class="profile-wrapper mb-4">
+  <div class="container">
+    <div class="main">
+      <!-- <div class="search-bar">
+                <input type="text" placeholder="Search" />
+                <button class="right-side-button">
+                   <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                </button>
+              </div> -->
+      <div class="main-container">
+        <div class="profile d-none">
+          <div class="profile-avatar">
+            <!-- <img
+                *ngIf="!user.image || user.image == 'string'"
+                src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
+                alt=""
+                class="profile-img"
+              /> -->
+            <img *ngIf="user.image || user.image != 'string'" [src]="user.image" alt="" class="profile-img" />
+            <div class="profile-name">{{ user.firstName }} {{ user.lastName }}</div>
+          </div>
+          <img
+            src="https://images.unsplash.com/photo-1432821596592-e2c18b78144f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80"
+            alt=""
+            class="profile-cover"
+          />
+          <!-- <div class="profile-menu">
+              <a class="profile-menu-link active">Timeline</a>
+              <a class="profile-menu-link">About</a>
+              <a class="profile-menu-link">Friends</a>
+              <a class="profile-menu-link">Photos</a>
+              <a class="profile-menu-link">More</a>
+            </div> -->
+        </div>
+        <div class="timeline pl-2">
+          <div class="timeline-left">
+            <div class="intro box p-0">
+              <div class="user-profile text-center">
+                <img *ngIf="user.image || user.image != 'string'" [src]="user.image" alt="" class="profile-img p-1" />
+              </div>
+              <div class="info p-3">
+                <div class="info-item mt-2">
+                  <i class="fas fa-user pr-3 text-primary"></i><strong>{{ user.firstName }} {{ user.lastName }}</strong>
+                </div>
+                <div class="info-item mt-2">
+                  <i class="fas fa-briefcase pr-3 text-primary"></i><strong>Product Designer at Bravebist</strong>
+                </div>
+                <div class="info-item mt-2">
+                  <i class="fas fa-home pr-3 text-primary"></i><strong>Lives In Mumbai</strong>
+                </div>
+              </div>
+            </div>
+            <div class="event box">
+              <div class="event-wrapper">
+                <img
+                  src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80"
+                  class="event-img"
+                />
+                <div class="event-date">
+                  <div class="event-month">Jan</div>
+                  <div class="event-day">01</div>
+                </div>
+                <div class="event-title">Winter Wonderland</div>
+                <div class="event-subtitle">01st Jan, 2019 07:00AM</div>
+              </div>
+            </div>
+            <div class="pages box">
+              <div class="intro-title">
+                Your pages
+                <button class="intro-menu"></button>
+              </div>
+              <div class="user">
+                <img
+                  src="https://images.unsplash.com/photo-1549068106-b024baf5062d?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0f"
+                  alt=""
+                  class="user-img"
+                />
+                <div class="username">Chandelio</div>
+              </div>
+              <div class="user">
+                <img
+                  src="https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&s=d5849d81af587a09dbcf3f11f6fa122f"
+                  alt=""
+                  class="user-img"
+                />
+                <div class="username">Janet Jolie</div>
+              </div>
+              <div class="user">
+                <img
+                  src="https://images.unsplash.com/photo-1546539782-6fc531453083?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
+                  alt=""
+                  class="user-img"
+                />
+                <div class="username">Patrick Watsons</div>
+              </div>
+            </div>
+          </div>
+          <div class="timeline-right mb-4 min-vertical-h-65 max-vertical-h-65 overflow-x-hidden stylishSlimScroll">
+            <div class="status box">
+              <div class="status-main">
+                <img [src]="user.image" class="status-img" />
+                <textarea class="status-textarea" placeholder="Write something to Quan Ha.."></textarea>
+              </div>
+              <div class="status-actions">
+                <div class="row no-gutters">
+                  <div class="col-8">
+                    <button
+                      mat-mini-fab
+                      color="primary"
+                      style="z-index: 9;"
+                      class="mr-2"
+                      matTooltipPosition="below"
+                      matTooltip="Add Image"
+                    >
+                      <mat-icon>add_a_photo</mat-icon>
+                    </button>
+                    <button
+                      mat-mini-fab
+                      color="primary"
+                      style="z-index: 9;"
+                      matTooltipPosition="below"
+                      matTooltip="Add Video"
+                    >
+                      <mat-icon>video_library</mat-icon>
+                    </button>
+                  </div>
+                  <div class="col-4 text-right">
+                    <button mat-flat-button color="primary" class="rounded-pill ml-2">Share</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="album box" *ngFor="let post of posts">
+              <div class="status-main">
+                <img [src]="post.userImageUrl" class="status-img" />
+                <div class="album-detail">
+                  <div class="album-title">
+                    <strong>{{ post.userName }}</strong>
+                  </div>
+                  <div class="album-date">6 hours ago</div>
+                </div>
+                <button class="intro-menu"></button>
+              </div>
+              <div class="album-content">
+                {{ post.content }}
+              </div>
+              <div class="album-actions">
+                <a href="#" class="album-action">
+                  <svg
+                    stroke="currentColor"
+                    stroke-width="2"
+                    fill="none"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"
+                    />
+                  </svg>
+                  87
+                </a>
+                <a href="#" class="album-action">
+                  <svg
+                    stroke="currentColor"
+                    stroke-width="2"
+                    fill="none"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="css-i6dzq1"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" />
+                  </svg>
+                  20
+                </a>
+                <a href="#" class="album-action">
+                  <svg
+                    stroke="currentColor"
+                    stroke-width="2"
+                    fill="none"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="css-i6dzq1"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M17 1l4 4-4 4" />
+                    <path d="M3 11V9a4 4 0 014-4h14M7 23l-4-4 4-4" />
+                    <path d="M21 13v2a4 4 0 01-4 4H3" />
+                  </svg>
+                  13
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="right-side d-none">
+      <div class="account">
+        <button class="account-button">
+          <svg
+            stroke="currentColor"
+            stroke-width="2"
+            fill="none"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="css-i6dzq1"
+            viewBox="0 0 24 24"
+          >
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+            <path d="M22 6l-10 7L2 6" />
+          </svg>
+        </button>
+        <button class="account-button">
+          <svg
+            stroke="currentColor"
+            stroke-width="2"
+            fill="none"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="css-i6dzq1"
+            viewBox="0 0 24 24"
+          >
+            <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0" />
+          </svg>
+        </button>
+        <span class="account-user"
+          >Quan Ha
+          <img
+            src="https://images.genius.com/2326b69829d58232a2521f09333da1b3.1000x1000x1.jpg"
+            alt=""
+            class="account-profile"
+            alt=""
+          />
+          <span>▼</span>
+        </span>
+      </div>
+      <div class="side-wrapper stories">
+        <div class="side-title">STORIES</div>
+        <div class="user">
+          <img src="https://pbs.twimg.com/profile_images/1102351320567164931/ZCkJgJIH.png" alt="" class="user-img" />
+          <div class="username">
+            Lisandro Matos
+            <div class="album-date">12 hours ago</div>
+          </div>
+        </div>
+        <div class="user">
+          <img src="https://pbs.twimg.com/profile_images/1153966095444992000/1lpIyHaQ.jpg" alt="" class="user-img" />
+          <div class="username">
+            Gvozden Boskovsky
+            <div class="album-date">29 minutes ago</div>
+          </div>
+        </div>
+        <div class="user">
+          <img src="https://pbs.twimg.com/profile_images/1157046181698011136/xZ4wg2Xj.jpg" alt="" class="user-img" />
+          <div class="username">
+            Hnek Fortuin
+            <div class="album-date">3 hours ago</div>
+          </div>
+        </div>
+        <div class="user">
+          <img src="https://pbs.twimg.com/profile_images/1108443816565059590/Te-0H20q.png" alt="" class="user-img" />
+          <div class="username">
+            Lubomir Dvorak
+            <div class="album-date">18 hours ago</div>
+          </div>
+        </div>
+      </div>
+      <div class="side-wrapper contacts">
+        <div class="side-title">CONTACTS</div>
+        <div class="user">
+          <img src="https://randomuser.me/api/portraits/men/1.jpg" class="user-img" />
+          <div class="username">
+            Andrei Mashrin
+            <div class="user-status"></div>
+          </div>
+        </div>
+        <div class="user">
+          <img
+            src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&s=046c29138c1335ef8edee7daf521ba50"
+            class="user-img"
+          />
+          <div class="username">
+            Aryn Jacobssen
+            <div class="user-status offline"></div>
+          </div>
+        </div>
+        <div class="user">
+          <img
+            src="https://images.unsplash.com/photo-1575084713138-342cae5f8d00?ixlib=rb-1.2.1&auto=format&fit=crop&w=958&q=80"
+            class="user-img"
+          />
+          <div class="username">
+            Carole Landu
+            <div class="user-status offline"></div>
+          </div>
+        </div>
+        <div class="user">
+          <img
+            src="https://images.pexels.com/photos/598745/pexels-photo-598745.jpeg?h=350&auto=compress&cs=tinysrgb"
+            class="user-img"
+          />
+          <div class="username">
+            Chineze Afa
+            <div class="user-status"></div>
+          </div>
+        </div>
+        <div class="user">
+          <img src="https://pbs.twimg.com/profile_images/2452384114/noplz47r59v1uxvyg8ku.png" class="user-img" />
+          <div class="username">
+            Mok Kwang
+            <div class="user-status"></div>
+          </div>
+        </div>
+        <div class="user">
+          <img src="https://randomuser.me/api/portraits/women/63.jpg" class="user-img" />
+          <div class="username">
+            Naomi Yepes
+            <div class="user-status"></div>
+          </div>
+        </div>
+        <div class="user">
+          <img
+            src="https://images.unsplash.com/photo-1476493279419-b785d41e38d8?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&s=61eaea85f1aa3d065400179c78163f15"
+            class="user-img"
+          />
+          <div class="username">
+            Shaamikh Ale
+            <div class="user-status"></div>
+          </div>
+        </div>
+        <div class="user">
+          <img
+            src="https://m.media-amazon.com/images/M/MV5BMjI4NDcyNjQxNl5BMl5BanBnXkFtZTgwMzI4OTM3NjM@._V1_UY256_CR13,0,172,256_AL_.jpg"
+            class="user-img"
+          />
+          <div class="username">
+            Sofia Alcocer
+            <div class="user-status idle"></div>
+          </div>
+        </div>
+        <div class="user">
+          <img
+            src="https://images.unsplash.com/photo-1509380836717-c4320ccf1a6f?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&s=e01c8c45a063daaf6d6e571a32bd6c90"
+            class="user-img"
+          />
+          <div class="username">
+            Wen Yahui
+            <div class="user-status"></div>
+          </div>
+        </div>
+        <div class="user">
+          <img src="https://pbs.twimg.com/profile_images/737221709267374081/sdwta9Oh.jpg" alt="" class="user-img" />
+          <div class="username">
+            Leslee Moss
+            <div class="user-status idle"></div>
+          </div>
+        </div>
+      </div>
+      <div class="search-bar right-search">
+        <input type="text" placeholder="Search" />
+        <div class="search-bar-svgs">
+          <svg
+            stroke="currentColor"
+            stroke-width="2"
+            fill="none"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="css-i6dzq1"
+            viewBox="0 0 24 24"
+          >
+            <circle cx="12" cy="12" r="3" />
+            <path
+              d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"
+            />
+          </svg>
+          <svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 469.34 469.34">
+            <path
+              d="M456.84 76.17l-64-64.06c-16.13-16.13-44.18-16.17-60.37.04L45.77 301.67a10.73 10.73 0 00-2.7 4.59L.41 455.73a10.68 10.68 0 0013.19 13.2l149.33-42.7c1.73-.5 3.3-1.42 4.58-2.7l289.33-286.98c8.06-8.07 12.5-18.78 12.5-30.19s-4.44-22.12-12.5-30.2zM285.99 89.74L325.25 129l-205 205-14.7-29.44a10.67 10.67 0 00-9.55-5.9H78.92L286 89.75zM26.2 443.14l13.9-48.64 34.74 34.74-48.64 13.9zm123.14-35.18L98.3 422.54l-51.5-51.5L61.38 320H89.4l18.38 36.77a10.67 10.67 0 004.77 4.77l36.78 18.39v28.03zm21.33-17.54v-17.09c0-4.04-2.28-7.72-5.9-9.54l-29.43-14.7 205-205 39.26 39.26-208.93 207.07zm271.11-268.7l-47.03 46.61L301 74.6l46.59-47c8.06-8.07 22.1-8.07 30.16 0l64 64c4.03 4.03 6.25 9.38 6.25 15.08s-2.22 11.05-6.22 15.05z"
+            />
+          </svg>
+          <svg
+            stroke="currentColor"
+            stroke-width="2"
+            fill="none"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            viewBox="0 0 24 24"
+          >
+            <path d="M12 5v14M5 12h14" />
+          </svg>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="overlay" @click="rightSide = false; leftSide = false" :class="{ 'active': rightSide || leftSide }"></div> -->
+  </div>
+</div>

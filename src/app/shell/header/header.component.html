@@ -293,29 +293,22 @@
       <div class="sidebar-submenu">
         <ul>
           <li>
-            <a class="curPoint"
-              >Forum
-              <!-- <span class="badge badge-pill badge-success">Pro</span> -->
+            <a class="curPoint" [routerLink]="['/social-network/posts']"
+              >All Post
+              <span class="badge badge-pill badge-success">Pro</span>
             </a>
           </li>
           <li>
-            <a class="curPoint">Discussion</a>
+            <a [routerLink]="['/social-network/profile']" class="curPoint"> My profile</a>
           </li>
           <li>
-            <a class="curPoint">Ask Question</a>
+            <a class="curPoint">Network</a>
           </li>
         </ul>
       </div>
     </li>
     <li class="header-menu">
       <span>My Profile</span>
-    </li>
-    <li>
-      <a class="curPoint" [routerLink]="['/social-network/profile']">
-        <i class="far fa-user-circle"></i>
-        <span>Profile</span>
-        <span class="badge badge-pill badge-warning">New</span>
-      </a>
     </li>
 
     <li>

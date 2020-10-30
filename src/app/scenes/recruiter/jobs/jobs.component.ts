@@ -14,6 +14,9 @@ import { CredentialsService } from '@app/auth';
 import { courseSearchData } from '@app/models/constants';
 import { ShowApplicantsComponent } from '@app/partials/popups/recruiter/show-applicants/show-applicants.component';
 
+//extra
+declare var jQuery: any;
+
 @Component({
   selector: 'app-jobs',
   templateUrl: './jobs.component.html',
@@ -56,6 +59,9 @@ export class JobsComponent implements OnInit {
   }
 
   onPublishDateChange(job: any) {
+    job['acceptedCount'] = job.applicants.filter((d: any) => d.status == 'Accepted').length;
+    job['rejectedCount'] = job.applicants.filter((d: any) => d.status == 'Rejected').length;
+    job['underReviewCount'] = job.applicants.filter((d: any) => d.status == 'Under Review').length;
     if (job.publishOn != '') {
       var date = new Date(job.publishOn);
       date.setDate(date.getDate() + 1);
@@ -168,6 +174,9 @@ export class JobsComponent implements OnInit {
       (response: any) => {
         this.allJobs = response.responseObj;
         this.isLoading = false;
+        setTimeout(() => {
+          jQuery('.floating-actions .action').toggleClass('visible');
+        }, 1000);
       },
       (error) => {
         console.log(error);
@@ -239,7 +248,7 @@ export class JobsComponent implements OnInit {
     course['isSelected'] = course['isSelected'] ? !course['isSelected'] : true;
   }
 
-  showApplicants(job: any, event: any) {
+  showApplicants(job: any, event: any, applicantStatus: String) {
     event.stopPropagation();
     event.preventDefault();
     this.sharedService.dialogService.open(ShowApplicantsComponent, {
@@ -247,6 +256,7 @@ export class JobsComponent implements OnInit {
       data: {
         job: job,
         user: this.user,
+        applicantStatus: applicantStatus,
       },
       disableClose: false,
     });
@@ -302,5 +312,7 @@ export class JobsComponent implements OnInit {
       });
     }
   }
+
+  ngAfterViewInit(): void {}
   ngOnDestroy(): void {}
 }
