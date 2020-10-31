@@ -46,6 +46,7 @@ export class DeactiveUserComponent implements OnInit {
     $t.sharedService.configService.get(apiUrl).subscribe(
       (response: any) => {
         $t.userData = response;
+        $t.userData = $t.userData.filter((d: any) => d.type != 'Admin');
       },
       (error) => {
         $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);

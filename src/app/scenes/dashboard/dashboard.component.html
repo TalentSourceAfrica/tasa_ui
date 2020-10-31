@@ -332,7 +332,7 @@
             <div class="card-body p-2 jobs">
               <div
                 *ngIf="jobApplications.length"
-                class="row pr-1 no-gutters min-vertical-h-30 max-vertical-h-30 stylishSlimScroll flow-y-auto flow-x-hidden"
+                class="row pr-1 no-gutters min-vertical-h-35 max-vertical-h-35 stylishSlimScroll flow-y-auto flow-x-hidden"
               >
                 <div class="col-12 border mb-1 curPoint job-list p-2" *ngFor="let job of jobApplications">
                   <div class="d-flex">
@@ -398,96 +398,65 @@
           <div class="card mt-2">
             <div class="card-header">
               <div class="media align-items-center">
-                <div class="h2 mb-0 mr-3 text-primary">5</div>
+                <div class="h2 mb-0 mr-3 text-primary" *ngIf="recommendedJobs.length">{{ recommendedJobs.length }}</div>
                 <div class="flex">
-                  <h4 class="card-title mt-3">Messages</h4>
+                  <h4 class="card-title mt-3">Recommended Jobs</h4>
                   <!-- <p class="card-subtitle">4 days streak this week</p> -->
                 </div>
-                <div class="media-right ml-5">
+                <!-- <div class="media-right ml-5">
                   <a class="btn btn-sm btn-primary"> <i class="material-icons">keyboard_arrow_right</i></a>
+                </div> -->
+              </div>
+            </div>
+            <div class="card-body p-2 jobs">
+              <div
+                *ngIf="recommendedJobs.length"
+                class="row pr-1 no-gutters min-vertical-h-30 max-vertical-h-30 stylishSlimScroll flow-y-auto flow-x-hidden"
+              >
+                <div class="col-12 border mb-1 curPoint job-list p-2" *ngFor="let job of recommendedJobs">
+                  <div class="d-flex">
+                    <span>
+                      <h6 class="card-title text-truncate" [title]="job.title">
+                        {{ job.title }}
+                      </h6>
+                    </span>
+                    <span class="pl-2 text-right">
+                      <span class="badge badge-warning p-1" *ngIf="job.jobStatus == 'Submitted'">{{
+                        job.jobStatus
+                      }}</span>
+                      <span class="badge badge-dark p-1" *ngIf="job.jobStatus == 'Under Review'">{{
+                        job.jobStatus
+                      }}</span>
+                      <span class="badge badge-success p-1" *ngIf="job.jobStatus == 'Accepted'">{{
+                        job.jobStatus
+                      }}</span>
+                      <span class="badge badge-danger p-1" *ngIf="job.jobStatus == 'Rejected'">{{
+                        job.jobStatus
+                      }}</span>
+                    </span>
+                  </div>
+                  <div class="card-intro">
+                    <span class="badge badge-info p-1 ml-1" *ngFor="let item of job.tags">{{ item }}</span>
+                  </div>
+                </div>
+              </div>
+              <div *ngIf="recommendedJobs.length == 0">
+                <div class="text-center m-auto animated fadeIn">
+                  <div class="col-12 text-center">
+                    <img src="../../../assets/images/no-record.gif" style="height: 190px;" class="d-block m-auto" />
+                    <h6 class="text-primary">No Recommended Jobs Yet...!</h6>
+                  </div>
                 </div>
               </div>
             </div>
-
-            <ul
-              class="list-group list-group-fit min-vertical-h-30 max-vertical-h-30 stylishSlimScroll flow-y-auto flow-x-hidden"
-            >
-              <li class="list-group-item forum-thread">
-                <div class="media align-items-center">
-                  <div class="media-left">
-                    <div class="forum-icon-wrapper">
-                      <a href="fixed-student-forum-thread.html" class="forum-thread-icon">
-                        <i class="material-icons">description</i>
-                      </a>
-                      <a href="fixed-student-profile.html" class="forum-thread-user">
-                        <img src="assets/images/people/50/guy-1.jpg" alt="" width="20" class="rounded-circle" />
-                      </a>
-                    </div>
-                  </div>
-                  <div class="media-body">
-                    <div class="d-flex align-items-center">
-                      <a href="fixed-student-profile.html" class="text-body"><strong>Luci Bryant</strong></a>
-                      <small class="ml-auto text-muted">5 min ago</small>
-                    </div>
-                    <a class="text-black-70" href="fixed-student-forum-thread.html">Am I learning the right way?</a>
-                  </div>
-                </div>
-              </li>
-
-              <li class="list-group-item forum-thread">
-                <div class="media align-items-center">
-                  <div class="media-left">
-                    <div class="forum-icon-wrapper">
-                      <a href="fixed-student-forum-thread.html" class="forum-thread-icon">
-                        <i class="material-icons">description</i>
-                      </a>
-                      <a href="fixed-student-profile.html" class="forum-thread-user">
-                        <img src="assets/images/people/50/guy-2.jpg" alt="" width="20" class="rounded-circle" />
-                      </a>
-                    </div>
-                  </div>
-                  <div class="media-body">
-                    <div class="d-flex align-items-center">
-                      <a href="fixed-student-profile.html" class="text-body"><strong>Magnus Goldsmith</strong></a>
-                      <small class="ml-auto text-muted">7 min ago</small>
-                    </div>
-                    <a class="text-black-70" href="fixed-student-forum-thread.html"
-                      >Can someone help me with the basic Setup?</a
-                    >
-                  </div>
-                </div>
-              </li>
-
-              <li class="list-group-item forum-thread">
-                <div class="media align-items-center">
-                  <div class="media-left">
-                    <div class="forum-icon-wrapper">
-                      <a href="fixed-student-forum-thread.html" class="forum-thread-icon">
-                        <i class="material-icons">description</i>
-                      </a>
-                      <a href="fixed-student-profile.html" class="forum-thread-user">
-                        <img src="assets/images/people/50/woman-1.jpg" alt="" width="20" class="rounded-circle" />
-                      </a>
-                    </div>
-                  </div>
-                  <div class="media-body">
-                    <div class="d-flex align-items-center">
-                      <a href="fixed-student-profile.html" class="text-body"><strong>Katelyn Rankin</strong></a>
-                      <small class="ml-auto text-muted">12 min ago</small>
-                    </div>
-                    <a class="text-black-70" href="fixed-student-forum-thread.html">I think this is the right way?</a>
-                  </div>
-                </div>
-              </li>
-            </ul>
           </div>
         </div>
       </div>
 
       <!--RECENTLY VIEWED COURSE AREA AREA-->
-      <section class="recently-viewed-course card" *ngIf="user?.recentlyViewedCourse?.length > 2">
+      <section class="recently-viewed-course card" *ngIf="user?.recentlyViewed?.length > 2">
         <div class="card-header d-flex align-items-center">
-          <div class="h2 mb-0 mr-3 text-primary">{{ user.recentlyViewedCourse.length }}</div>
+          <div class="h2 mb-0 mr-3 text-primary">{{ user.recentlyViewed.length }}</div>
           <div class="flex">
             <h4 class="card-title mt-3">Recently Viewed Course</h4>
           </div>
@@ -495,7 +464,7 @@
         <div class="row">
           <div class="col-12">
             <owl-carousel-o [options]="courseOptions">
-              <ng-container *ngFor="let course of user.recentlyViewedCourse; let i = index">
+              <ng-container *ngFor="let course of user.recentlyViewed; let i = index">
                 <ng-template carouselSlide [id]="i">
                   <div class="card curPoint" (click)="courseView(course.key)">
                     <span class="flag-discount" style="width: 25%;" *ngIf="course.discountPercentage > 0"

@@ -15,6 +15,7 @@ export class DashboardComponent implements OnInit {
   postData: any = [];
   courses: any = [];
   recommendedCourses: any = [];
+  recommendedJobs: any = [];
   jobApplications: any = [];
   postOptions: OwlOptions = {
     loop: true,

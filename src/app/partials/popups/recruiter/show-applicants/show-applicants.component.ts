@@ -76,6 +76,9 @@ export class ShowApplicantsComponent implements OnInit {
           $t.sharedService.utilityService.changeMessage('TRIGGER-RECRUITER-JOBS');
         });
         $t.sharedService.uiService.showApiSuccessPopMsg('Applicants Status updated...');
+        if (_bulk) {
+          $t.dialogRef.close();
+        }
       },
       (error) => {
         $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
