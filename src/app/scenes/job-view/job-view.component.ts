@@ -35,7 +35,7 @@ export class JobViewComponent implements OnInit {
     );
   }
 
-  applyForJob(_course: any, _event: any) {
+  applyForJob() {
     // this.sharedService.dialogService.open(JobsApplyPopupComponent, {
     //   width: '50%',
     //   data: {
