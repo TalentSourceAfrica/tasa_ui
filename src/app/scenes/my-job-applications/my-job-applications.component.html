@@ -48,10 +48,11 @@
                             class="badge pt-2 mt-1 badge-pill"
                             style="height: 28px;"
                             [ngClass]="{
-                              'badge-warning text-white': checkStatus(job) == 'Submitted',
+                              'badge-warning text-white': checkStatus(job) == 'Applied',
                               'badge-danger': checkStatus(job) == 'Rejected',
                               'badge-success': checkStatus(job) == 'Accepted',
-                              'badge-dark': checkStatus(job) == 'Under Review'
+                              'badge-dark': checkStatus(job) == 'Under Review',
+                              'badge-secondary': checkStatus(job) == 'Withdrawn'
                             }"
                             >{{ checkStatus(job) }}</span
                           >
@@ -141,12 +142,24 @@
                           <button
                             mat-flat-button
                             color="primary"
+                            *ngIf="checkStatus(job) != 'Withdrawn' && checkStatus(job) != 'Rejected'"
                             matTooltipPosition="below"
-                            matTooltip="withdraw For This Job"
+                            matTooltip="Withdraw from this job"
                             class="rounded-pill ml-2"
                             (click)="withdraw(job, j)"
                           >
                             <span>Withdraw</span>
+                          </button>
+                          <button
+                            mat-flat-button
+                            color="primary"
+                            *ngIf="checkStatus(job) == 'Withdrawn' || checkStatus(job) == 'Rejected'"
+                            matTooltipPosition="below"
+                            matTooltip="Apply For this Job"
+                            class="rounded-pill ml-2"
+                            (click)="applyTo(job, j)"
+                          >
+                            <span>Apply</span>
                           </button>
                         </div>
                       </div>

@@ -9,6 +9,8 @@ import { untilDestroyed } from '@app/@core';
 import { SharedService } from '@app/services/shared.service';
 import { CredentialsService, AuthenticationService } from '@app/auth';
 
+import { JobsApplyPopupComponent } from '@app/partials/popups/jobs/jobs-apply-popup/jobs-apply-popup.component';
+
 @Component({
   selector: 'app-my-job-applications',
   templateUrl: './my-job-applications.component.html',
@@ -58,7 +60,8 @@ export class MyJobApplicationsComponent implements OnInit {
       data.applicants.filter((d: any) => {
         if (d.userId == this.user.email) {
           switch (d.status) {
-            case 'Submitted':
+            case 'Applied':
+            case 'Withdrawn':
               this.all.push(data);
               break;
             case 'Under Review':
@@ -84,16 +87,11 @@ export class MyJobApplicationsComponent implements OnInit {
     _course.applicants.forEach((d: any) => {
       if (d.userId == this.user.email) {
         switch (d.status) {
-          case 'Submitted':
-            displayText = 'Submitted';
-            break;
+          case 'Applied':
           case 'Under Review':
-            displayText = d.status;
-            break;
           case 'Accepted':
-            displayText = d.status;
-            break;
           case 'Rejected':
+          case 'Withdrawn':
             displayText = d.status;
             break;
         }
@@ -103,6 +101,10 @@ export class MyJobApplicationsComponent implements OnInit {
   }
 
   getJobsApplications() {
+    this.all = [];
+    this.underReview = [];
+    this.accepted = [];
+    this.rejected = [];
     this.isLoading = true;
     let apiUrl = this.sharedService.urlService.apiCallWithParams('getJobApplications', {
       '{userId}': this.user.email,
@@ -129,12 +131,27 @@ export class MyJobApplicationsComponent implements OnInit {
     $t.sharedService.configService.post(apiUrl).subscribe(
       (response) => {
         $t.sharedService.uiService.showApiSuccessPopMsg('Withdrawn From Job');
-        $t.getJobsApplications();
+        $t.all[jobIndex].applicants.forEach((candidate: any) => {
+          if (candidate.userId == $t.user.email) {
+            candidate['status'] = 'Withdrawn';
+          }
+        });
       },
       (error) => {
         $t.sharedService.uiService.showApiErrorPopMsg(error.error);
       }
     );
+  }
+
+  applyTo(_job: any, _jobIndex: number) {
+     this.sharedService.dialogService.open(JobsApplyPopupComponent, {
+      width: '50%',
+      data: {
+        applyingForJob: _job,
+        user: this.user,
+        waitTillSubmit: true,
+      },
+    });
   }
 
   ngOnInit(): void {

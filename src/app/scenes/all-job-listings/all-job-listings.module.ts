@@ -6,14 +6,14 @@ import { FormsModule } from '@angular/forms';
 import { SharedModule } from '@shared';
 import { AllJobListingsRoutingModule } from './all-job-listings-routing.module';
 import { AllJobListingsComponent } from './all-job-listings.component';
-import { JobsApplyPopupComponent } from '@app/partials/popups/jobs/jobs-apply-popup/jobs-apply-popup.component';
+import { JobsApplyPopupModule } from '@app/partials/popups/jobs/jobs-apply-popup/jobs-apply-popup.module';
 
 import { MaterialModule } from '@app/modules/material.module';
 
 @NgModule({
-  imports: [CommonModule, TranslateModule, FormsModule, SharedModule, AllJobListingsRoutingModule, MaterialModule],
-  declarations: [AllJobListingsComponent, JobsApplyPopupComponent],
-  entryComponents: [JobsApplyPopupComponent],
+  imports: [CommonModule, TranslateModule, FormsModule, SharedModule, AllJobListingsRoutingModule, MaterialModule, JobsApplyPopupModule],
+  declarations: [AllJobListingsComponent],
+  entryComponents: [],
   schemas: [NO_ERRORS_SCHEMA],
 })
 export class AllJobListingsModule {}

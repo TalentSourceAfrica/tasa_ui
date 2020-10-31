@@ -20,4 +20,4 @@ export const jobsSearchData = {
   experienceto: 0,
 };
 
-export const applicantJobStatus = ['Submitted', 'Under Review', 'Accepted', 'Rejected'];
+export const applicantJobStatus = ['Applied', 'Under Review', 'Accepted', 'Rejected', 'Withdrawn'];

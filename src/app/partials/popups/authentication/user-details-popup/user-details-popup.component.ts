@@ -78,6 +78,7 @@ export class UserDetailsPopupComponent implements OnInit {
         break;
       default:
         this.userDetailsForm = this.formBuilder.group({
+          type: ['Mentee'],
           addressLine1: ['', [Validators.required]],
           country: ['', [Validators.required]],
           state: ['', [Validators.required]],
@@ -104,6 +105,7 @@ export class UserDetailsPopupComponent implements OnInit {
     $t.sharedService.uiService.showApiStartPopMsg('Adding Details...');
     let apiUrl = $t.sharedService.urlService.simpleApiCall('getUsers');
     const user = $t.userDetailsForm.value;
+    $t.userDetails.type = user.type;
     $t.userDetails.address1 = user.addressLine1;
     $t.userDetails.country = user.country;
     $t.userDetails.state = user.state;
@@ -111,8 +113,8 @@ export class UserDetailsPopupComponent implements OnInit {
     $t.userDetails.postalCode = user.postalCode;
 
     $t.userDetails.highestDegree = user.highestDegree;
-    $t.userDetails.college = user.college;
-    $t.userDetails.university = user.university;
+    $t.userDetails.college = [user.college];
+    $t.userDetails.university = [user.university];
     $t.userDetails.major = user.major;
     $t.userDetails.certificates = user.certificates;
 
