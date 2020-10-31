@@ -4,7 +4,23 @@
       justify-content: flex-end;
     }
   }
-
+  #toggleBar button.current {
+    background-color: #523f6d;
+    border-color: #523f6d;
+    color: #fff !important;
+  }
+  .card-img {
+    padding-bottom: 56.25%;
+    position: relative;
+    img {
+      position: absolute;
+      width: 100%;
+    }
+  }
+  .card-body {
+    background: #fff;
+    z-index: 1;
+  }
   // THE LOADING EFFECT
   .skeleton {
     background-color: #e2e5e7;

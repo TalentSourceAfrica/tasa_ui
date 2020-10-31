@@ -11,6 +11,7 @@ import { OwlOptions } from 'ngx-owl-carousel-o';
 })
 export class DashboardComponent implements OnInit {
   isAdmin: boolean = false;
+  uds: any;
   postData: any = [];
   courses: any = [];
   recommendedCourses: any = [];
@@ -68,6 +69,7 @@ export class DashboardComponent implements OnInit {
     private credentialsService: CredentialsService
   ) {
     this.user.type.toLowerCase() == 'admin' ? (this.isAdmin = true) : (this.isAdmin = false);
+    this.uds = this.sharedService.plugins.undSco;
   }
 
   goToHome() {
@@ -116,6 +118,9 @@ export class DashboardComponent implements OnInit {
     this.sharedService.configService.get(apiUrl).subscribe(
       (response: any) => {
         this.jobApplications = response.responseObj;
+        this.uds.each(this.jobApplications, (d: any) => {
+          d['jobStatus'] = d.applicants.find((app: any) => app.userId == this.user.email).status;
+        });
       },
       (error) => {
         console.log(error);

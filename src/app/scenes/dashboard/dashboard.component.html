@@ -341,10 +341,20 @@
                         {{ job.title }}
                       </h6>
                     </span>
-                    <!-- <span class="pl-2 text-right">
-                        <span class="badge badge-success" *ngIf="job.jobStatus == 'Active'">{{ job.jobStatus }}</span>
-                        <span class="badge badge-danger" *ngIf="job.jobStatus == 'Inactive'">{{ job.jobStatus }}</span>
-                      </span> -->
+                    <span class="pl-2 text-right">
+                      <span class="badge badge-warning p-1" *ngIf="job.jobStatus == 'Submitted'">{{
+                        job.jobStatus
+                      }}</span>
+                      <span class="badge badge-dark p-1" *ngIf="job.jobStatus == 'Under Review'">{{
+                        job.jobStatus
+                      }}</span>
+                      <span class="badge badge-success p-1" *ngIf="job.jobStatus == 'Accepted'">{{
+                        job.jobStatus
+                      }}</span>
+                      <span class="badge badge-danger p-1" *ngIf="job.jobStatus == 'Rejected'">{{
+                        job.jobStatus
+                      }}</span>
+                    </span>
                   </div>
                   <div class="card-intro">
                     <span class="badge badge-info p-1 ml-1" *ngFor="let item of job.tags">{{ item }}</span>

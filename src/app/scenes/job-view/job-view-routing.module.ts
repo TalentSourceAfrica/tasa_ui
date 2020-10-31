@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { extract } from '@app/i18n';
-import { CourseComponent } from './course.component';
+import { JobViewComponent } from './job-view.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: CourseComponent,
+    component: JobViewComponent,
     data: {
-      title: extract('TaSA | Course'),
+      title: extract('TaSA | Job'),
     },
   },
 ];
@@ -17,4 +17,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class CourseRoutingModule {}
+export class JobViewRoutingModule {}

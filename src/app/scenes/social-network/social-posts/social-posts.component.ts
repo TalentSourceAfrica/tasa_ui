@@ -264,6 +264,7 @@ export class SocialPostsComponent implements OnInit {
     $t.sharedService.configService.post(apiUrl, $t.socialConfig.newPost).subscribe(
       (response: any) => {
         $t.sharedService.uiService.showApiSuccessPopMsg('Post Added...');
+        $t.socialConfig.allSocialPost.push(response.responseObj);
       },
       (error) => {
         $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);

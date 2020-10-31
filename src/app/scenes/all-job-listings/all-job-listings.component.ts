@@ -38,7 +38,7 @@ export class AllJobListingsComponent implements OnInit {
   panelOpenState: boolean = false;
   allJobs: any = [];
   countries: any = [];
-
+  currentView = 1;
   constructor(
     public sharedService: SharedService,
     public router: Router,
@@ -48,6 +48,19 @@ export class AllJobListingsComponent implements OnInit {
     this.searchConfig = JSON.parse(JSON.stringify(jobsSearchData));
     this.uds = this.sharedService.plugins.undSco;
     this.user && this.user.type.toLowerCase() == 'admin' ? (this.isAdmin = true) : (this.isAdmin = false);
+  }
+
+  changeAssetView(_view: number) {
+    this.currentView = _view;
+    setTimeout(() => {
+      if (this.currentView == 1) {
+      } else if (this.currentView == 2) {
+      }
+    }, 1);
+  }
+
+  viewJob(job: any) {
+    this.router.navigate(['/job/' + job.id], { replaceUrl: true });
   }
 
   applyFilter(_pageIndex?: number) {

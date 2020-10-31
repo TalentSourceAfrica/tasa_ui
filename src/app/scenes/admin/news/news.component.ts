@@ -41,7 +41,7 @@ export class NewsComponent implements OnInit {
 
       $t.sharedService.configService.post(apiUrl, form).subscribe(
         (response: any) => {
-          $t.selectedNews.image = response.data;
+          $t.selectedNews.image = response.url;
           $t.sharedService.uiService.showApiSuccessPopMsg('Image Added...');
         },
         (error) => {

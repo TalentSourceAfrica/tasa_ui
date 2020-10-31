@@ -631,6 +631,7 @@ $button: #8f98a9;
   }
 
   .album-action {
+    cursor: pointer;
     margin-right: 20px;
     text-decoration: none;
     color: #a2a4b4;
@@ -638,7 +639,7 @@ $button: #8f98a9;
     align-items: center;
     font-weight: 600;
     &:hover {
-      color: #fff;
+      color: #523f6d;
     }
     svg {
       width: 16px;

@@ -1,0 +1,130 @@
+<div class="job-view-wrapper container mt-4 mb-4">
+  <div class="page">
+    <div class="text-center m-auto min-vertical-h-50" *ngIf="jobConfig.fetchingJob">
+      <img src="../../../assets/loaders/swal-loader.gif" height="150" width="150" />
+      <h5 class="text-primary">Fetching Courses...</h5>
+    </div>
+    <div class="container page__container animated fadeIn" *ngIf="!jobConfig.fetchingJob">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a [routerLink]="['/home']">Home</a></li>
+        <li class="breadcrumb-item"><a [routerLink]="['/all-course']">All Jobs</a></li>
+        <li class="breadcrumb-item active text-truncate">{{ jobConfig.job.title }}</li>
+      </ol>
+      <h1 class="h2">{{ jobConfig.job.title }}</h1>
+      <div class="row">
+        <div class="col-md-8">
+          <div class="card mt-2">
+            <div class="embed-responsive embed-responsive-16by9">
+              <img src="../../../assets/images/TSA_logo_new.small.png" class="embed-responsive-item" alt="course" />
+            </div>
+            <div class="card-body">
+              <h5>{{ jobConfig.job.title }}</h5>
+              <div>{{ jobConfig.job.description }}</div>
+            </div>
+          </div>
+          <!-- Lessons -->
+        </div>
+        <div class="col-md-4">
+          <div class="card mt-2">
+            <div class="card-body text-center">
+              <p>
+                <button mat-flat-button color="primary" (click)="applyForJob()" class="rounded-pill ml-2">
+                  Apply
+                  <strong><span></span></strong>
+                </button>
+              </p>
+              <!-- <div class="page-separator">
+                  <div class="page-separator__text">or</div>
+                </div> -->
+              <!-- <a href="fixed-student-cart.html" class="btn btn-white btn-block flex-column">
+                  Purchase Course
+                  <strong>25 USD</strong>
+                </a> -->
+            </div>
+          </div>
+          <!-- <div class="card mt-2">
+              <div class="card-header">
+                <div class="media align-items-center">
+                  <div class="media-left">
+                    <a [href]="jobConfig.course.owners[0].marketing_url" target="_blank">
+                      <img
+                        [src]="jobConfig.course.owners[0].logo_image_url"
+                        [alt]="jobConfig.course.owners[0].name"
+                        class="rounded-circle"
+                      />
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body p-2">
+                <p
+                  class="min-vertical-h-50 max-vertical-h-50 stylishScroll flow-y-auto flow-x-hidden p-2"
+                  [innerHTML]="jobConfig.course.owners[0].description"
+                ></p>
+                <div class="border-top pt-2 text-center">
+                  <a href="" class="btn btn-light"><i class="fab fa-facebook"></i></a>
+                  <a href="" class="btn btn-light"><i class="fab fa-twitter"></i></a>
+                  <a href="" class="btn btn-light"><i class="fab fa-github"></i></a>
+                </div>
+              </div>
+            </div>
+            <div class="card mt-2">
+              <ul class="list-group list-group-fit">
+                <li class="list-group-item">
+                  <div class="media align-items-center">
+                    <div class="media-left">
+                      <i class="material-icons text-muted-light text-primary">assessment</i>
+                    </div>
+                    <div class="media-body ml-2">
+                      {{ jobConfig.course.level_type }}
+                    </div>
+                  </div>
+                </li>
+                <li class="list-group-item">
+                  <div class="media align-items-center">
+                    <div class="media-left">
+                      <i class="material-icons text-muted-light text-primary">schedule</i>
+                    </div>
+                    <div class="media-body ml-2">
+                      <div>
+                        <span>
+                          {{ jobConfig.course.courseRuns[0].estimated_hours }}
+                          hrs</span
+                        >
+                      </div>
+                      <div>
+                        <span>
+                          {{ jobConfig.course.courseRuns[0].weeks_to_complete }}
+                          Weeks</span
+                        >
+                      </div>
+                      <div>
+                        <span>
+                          {{ jobConfig.course.courseRuns[0].pacing_type }}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="card mt-2">
+              <div class="card-header">
+                <h4 class="card-title">Ratings</h4>
+              </div>
+              <div class="card-body">
+                <div class="rating">
+                  <i class="material-icons">star</i>
+                  <i class="material-icons">star</i>
+                  <i class="material-icons">star</i>
+                  <i class="material-icons">star</i>
+                  <i class="material-icons">star_border</i>
+                </div>
+                <small class="text-muted">20 ratings</small>
+              </div>
+            </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
