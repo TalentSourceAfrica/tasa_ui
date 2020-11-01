@@ -32,6 +32,9 @@ export class CourseComponent implements OnInit {
     let apiUrl = $t.sharedService.urlService.apiCallWithParams('getCourseDetails', {
       '{courseKey}': $t.courseConfig.courseKey,
     });
+    if ($t.user) {
+      apiUrl = $t.sharedService.urlService.addQueryStringParm(apiUrl, 'user', $t.user.email);
+    }
     $t.sharedService.configService.get(apiUrl).subscribe(
       (response: any) => {
         $t.courseConfig.course = response.responseObj;

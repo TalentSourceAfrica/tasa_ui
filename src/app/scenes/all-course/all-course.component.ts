@@ -204,6 +204,18 @@ export class AllCourseComponent implements OnInit {
   }
 
   courseView(_course: any) {
+    let $t = this;
+    $t.user['recentlyViewed'].push({
+      image_url: _course.image_url,
+      key: _course.key,
+      subject: _course.subjects[0].name,
+      title: _course.title,
+      program: _course.programs.length ? _course.programs[0].title : '',
+    });
+    $t.user['recentlyViewed'] = $t.uds.uniq($t.user['recentlyViewed'], (d: any) => {
+      return d.key;
+    });
+    $t.authenticationService.login(this.user);
     this.router.navigate(['/course/' + _course.key], { replaceUrl: true });
   }
 

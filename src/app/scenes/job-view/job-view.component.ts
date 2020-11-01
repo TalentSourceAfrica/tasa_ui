@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SharedService } from '@app/services/shared.service';
+import { CredentialsService } from '@app/auth';
 
 @Component({
   selector: 'app-job-view',
@@ -14,7 +15,11 @@ export class JobViewComponent implements OnInit {
     fetchingJob: true,
   };
 
-  constructor(private sharedService: SharedService, public route: ActivatedRoute) {
+  constructor(
+    private sharedService: SharedService,
+    public route: ActivatedRoute,
+    public credentialsService: CredentialsService
+  ) {
     this.jobConfig.jobId = this.route.snapshot.params.jobId;
   }
 
@@ -24,6 +29,9 @@ export class JobViewComponent implements OnInit {
     let apiUrl = $t.sharedService.urlService.apiCallWithParams('getJob', {
       '{jobId}': $t.jobConfig.jobId,
     });
+    if ($t.user) {
+      apiUrl = $t.sharedService.urlService.addQueryStringParm(apiUrl, 'user', $t.user.email);
+    }
     $t.sharedService.configService.get(apiUrl).subscribe(
       (response: any) => {
         $t.jobConfig.job = response.responseObj;
@@ -48,5 +56,10 @@ export class JobViewComponent implements OnInit {
 
   ngOnInit(): void {
     this.getJobDetail();
+  }
+
+  get user(): any | null {
+    const credentials = this.credentialsService.credentials;
+    return credentials ? credentials : null;
   }
 }
