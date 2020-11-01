@@ -756,8 +756,8 @@ export class UserProfileComponent implements OnInit {
           highestDegree: [this.user.highestDegree, [Validators.required]],
           // college: [this.user.college, [Validators.required]],
           // university: [this.user.university, [Validators.required]],
-          college: this.formBuilder.array([this.initFA('college')]),
-          university: this.formBuilder.array([this.initFA('university')]),
+          college: this.initFA('college'),
+          university: this.initFA('university'),
           major: [this.user.major, [Validators.required]],
           minor1: [this.user.minor1],
           minor2: [this.user.minor2],
@@ -778,10 +778,16 @@ export class UserProfileComponent implements OnInit {
           careerGoals: [this.user.careerGoals, [Validators.required]],
         });
     }
+    console.log(this.educationDetailsForm.value);
   }
 
   initFA(_arrName: string) {
-    return this.formBuilder.group([this.user[_arrName]], [Validators.required]);
+    const newFA = new FormArray([]);
+    this.user[_arrName].forEach((arr: any) => {
+      newFA.push(this.formBuilder.group(arr, [Validators.required]));
+    });
+    return newFA;
+    // return this.formBuilder.group(this.user[_arrName].map((arr: any) => {return arr}), [Validators.required]) as FormArray;
   }
 
   getCountry() {

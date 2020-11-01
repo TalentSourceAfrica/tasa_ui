@@ -13,7 +13,7 @@
       <h1 class="h2">{{ jobConfig.job.title }}</h1>
       <div class="row">
         <div class="col-md-8">
-          <div class="card mt-2">
+          <div class="card my-4 m-0">
             <div class="embed-responsive embed-responsive-16by9">
               <img src="../../../assets/images/TSA_logo_new.small.png" class="embed-responsive-item" alt="course" />
             </div>
@@ -23,38 +23,148 @@
             </div>
           </div>
           <!-- Lessons -->
-          <!-- <div class="zoomCard col-md-4 col-lg-4 col-sm-6 animated fadeIn">
-           <div class="card curPoint">
-            <div class="card-header">
+          <div class="row">
+            <div class="zoomCard col-md-3 col-lg-3 col-sm-6 animated fadeIn">
+             <div class="card curPoint m-0">
+              <div class="card-header">
+                <h5 class="card-title m-0">
+                  Location
+                </h5>
+              </div>
+              <div class="card-body pl-3 pr-3 ml-1">       
+               <!-- <p class="text-muted m-0"></p> -->
+               <p class="text-wrap"> {{ jobConfig.job.location }} </p>
+              </div>
+             </div>
             </div>
-            <div class="card-body pl-3 pr-3">
-              <h5 class="card-title m-0">
-                Experience
-              </h5> -->
-              <!-- <p class="text-muted m-0"></p> -->
-              <<!-- p class="text-muted"> {{ jobConfig.job.experienceFrom }}  - {{ jobConfig.job.experienceTo }} Years</p>
+            <div class="zoomCard col-md-3 col-lg-3 col-sm-6 animated fadeIn">
+             <div class="card curPoint m-0">
+              <div class="card-header pr-1">
+                <h5 class="card-title m-0">
+                  Experience
+                </h5>
+              </div>
+              <div class="card-body pl-3 pr-3 ml-1">       
+               <!-- <p class="text-muted m-0"></p> -->
+               <p class="text-wrap"> {{ jobConfig.job.experienceFrom }}  - {{ jobConfig.job.experienceTo }} Years</p>
+              </div>
+             </div>
+            </div>
+           <!--  <div class="zoomCard col-md-6 col-lg-6 col-sm-6 animated fadeIn">
+             <div class="card curPoint m-0">
+              <div class="card-header">
+                <h5 class="card-title m-0">
+                  Description
+                </h5>
+              </div>
+              <div class="card-body pl-3 pr-3 ml-1">
+               <p class="text-wrap"> {{ jobConfig.job.description }} </p>
+              </div>
+             </div>
+            </div> -->
+             <div class="zoomCard col-md-3 col-lg-3 col-sm-6 animated fadeIn">
+             <div class="card curPoint m-0">
+              <div class="card-header">
+                <h5 class="card-title m-0">
+                  Status
+                </h5>
+              </div>
+              <div class="card-body pl-3 pr-3 ml-1">       
+               <!-- <p class="text-muted m-0"></p> -->
+               <p class="text-wrap"> {{ jobConfig.job.status }} </p>
+              </div>
+             </div>
             </div>
           </div>
-        </div> -->
+          <div class="row my-3">
+            <div class="zoomCard col-md-4 col-lg-4 col-sm-6 animated fadeIn">
+             <div class="card curPoint m-0">
+              <div class="card-header">
+                <h5 class="card-title m-0">
+                  No. Of Openings
+                </h5>
+              </div>
+              <div class="card-body pl-3 pr-3 ml-1">       
+               <!-- <p class="text-muted m-0"></p> -->
+               <p class="text-wrap"> {{ jobConfig.job.countOfOpenings }} </p>
+              </div>
+             </div>
+            </div>
+            <div class="zoomCard col-md-5 col-lg-5 col-sm-6 animated fadeIn">
+             <div class="card curPoint m-0">
+              <div class="card-header">
+                <h5 class="card-title m-0">
+                  Created By
+                </h5>
+              </div>
+              <div class="card-body pl-3 pr-3 ml-1">       
+               <!-- <p class="text-muted m-0"></p> -->
+               <p class="text-wrap"><a href="mailto:{{ jobConfig.job.createdBy }}">{{ jobConfig.job.createdBy }}</a></p>
+              </div>
+             </div>
+            </div>
+          </div>
         </div>
-        <div class="col-md-4">
-          <div class="card mt-2">
-            <div class="card-body text-center">
-              <p>
-                <button mat-flat-button color="primary" (click)="applyForJob()" class="rounded-pill ml-2">
-                  Apply
-                  <strong><span></span></strong>
-                </button>
-              </p>
-              <!-- <div class="page-separator">
-                  <div class="page-separator__text">or</div>
-                </div> -->
-              <!-- <a href="fixed-student-cart.html" class="btn btn-white btn-block flex-column">
-                  Purchase Course
-                  <strong>25 USD</strong>
-                </a> -->
+        <!-- <div class="zoomCard col-md-3 col-lg-3 col-sm-6 animated fadeIn">
+           <div class="card curPoint m-0">
+            <div class="card-header">
+              <h5 class="card-title m-0">
+                Status
+              </h5>
             </div>
+            <div class="card-body pl-3 pr-3 ml-1">       
+             <p class="text-wrap"> {{ jobConfig.job.status }} </p>
+            </div>
+           </div>
           </div>
+         <div class="zoomCard col-md-4 col-lg-4 col-sm-6 animated fadeIn">
+           <div class="card curPoint m-0">
+            <div class="card-header">
+              <h5 class="card-title m-0">
+                Location
+              </h5>
+            </div>
+            <div class="card-body pl-3 pr-3 ml-1">
+             <p class="text-wrap"> {{ jobConfig.job.location }} </p>
+            </div>
+           </div>
+          </div> -->
+        <div class="col-md-4">
+           <div class="zoomCard my-4 col-lg-12 col-sm-12 animated fadeIn">
+             <div class="card curPoint m-0">
+              <div class="card-header">
+                <h5 class="card-title m-0">
+                  Description
+                </h5>
+              </div>
+              <div class="card-body pl-3 pr-3 ml-1">       
+               <!-- <p class="text-muted m-0"></p> -->
+               <p class="text-wrap"> {{ jobConfig.job.description }} </p>
+              </div>
+             </div>
+            </div>
+            <div class="card">
+              <div class="card-body text-center">
+                <p>
+                  <button 
+                    mat-flat-button 
+                    color="primary" 
+                    (click)="applyForJob()" 
+                    class="rounded-pill ml-2">
+                    Apply
+                    <strong><span></span></strong>
+                  </button>
+                </p>
+                <!-- <div class="page-separator">
+                    <div class="page-separator__text">or</div>
+                  </div> -->
+                <!-- <a href="fixed-student-cart.html" class="btn btn-white btn-block flex-column">
+                    Purchase Course
+                    <strong>25 USD</strong>
+                  </a> -->
+              </div>
+            </div>
+          </div>            
           <!-- <div class="card mt-2">
               <div class="card-header">
                 <div class="media align-items-center">
@@ -140,4 +250,3 @@
       </div>
     </div>
   </div>
-</div>
