@@ -76,17 +76,17 @@ export const urls: any = {
   updatePartner: '/partner', // PA
 
   // Jobs
-  getAllJobs: '/jobs/page/{page}/{size}', // G
-  getRecruiterPostedJobs: '/jobs/recruiter/{recruiterId}/{status}/{page}/{size}', // G
+  getAllJobs: '/job/page/{page}/{size}', // G
+  getRecruiterPostedJobs: '/job/recruiter/{recruiterId}/{status}/{page}/{size}', // G
   getJob: '/job/{jobId}', // G
   updateJob: '/job/{jobId}', // PA
   deleteJob: '/job/{jobId}', // DE
   createJob: '/job', // PO
-  applyJob: '/jobs/apply/{jobId}',
+  applyJob: '/job/apply/{jobId}',
   searchJobs: '/job/search/{page}/{size}', // PO
   getJobsCount: '/job/count', // G
   getJobApplications: '/job/applicant/{userId}/{page}/{size}', // G
-  withdrawFromJob: '/jobs/withdraw/{jobId}', // PO
+  withdrawFromJob: '/job/withdraw/{jobId}', // PO
 
   // Dashboard
   getRecommendedCourse: '/users/recommended/{userId}', // G
