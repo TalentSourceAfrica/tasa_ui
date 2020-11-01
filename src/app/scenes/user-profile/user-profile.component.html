@@ -69,6 +69,11 @@
                     <span class="{{ entry.prepend }}"></span>
                   </div>
                 </div>
+                <div *ngIf="entry.id == 'ein' && user.type == 'Recruiter'" class="input-group-prepend">
+                  <div class="input-group-text">
+                    <span class="{{ entry.prepend }}"></span>
+                  </div>
+                </div>
               </div>
               <small
                 *ngIf="entry.id == 'address1'"
@@ -138,19 +143,63 @@
               <label class="form-label" for="{{ entry.id }}"
                 >{{ entry.label }} <sup *ngIf="entry.mandatory" class="text-danger">*</sup></label
               >
-              <div class="input-group input-group-merge">
+              <div *ngIf="entry.id != 'college' && entry.id != 'university'" class="input-group input-group-merge">
                 <input
+                  *ngIf="entry.id != 'certificate'"
                   id="{{ entry.id }}"
                   formControlName="{{ entry.formControlName }}"
                   class="form-control form-control-prepended"
                   placeholder="{{ entry.placeholder }}"
                 />
+                <input
+                  *ngIf="entry.id == 'certificate'"
+                  id="{{ entry.id }}"
+                  formControlName="{{ entry.formControlName }}"
+                  (click)="triggerUpload()"
+                  class="form-control curPoint form-control-prepended"
+                  placeholder="{{ entry.placeholder }}"
+                  readonly
+                />
+                <input *ngIf="entry.id == 'certificate'" id="certificateUpload" class="d-none" #uploadCertificate type="file" (change)="uploadFile($event)" />
                 <div class="input-group-prepend">
                   <div class="input-group-text">
-                    <span class="{{ entry.prepend }}"></span>
+                    <span *ngIf="entry.id != 'certificate'" class="{{ entry.prepend }}"></span>
+                    <span 
+                      *ngIf="entry.id == 'certificate'"
+                      class="px-1 material-icons curPoint">cloud_upload</span>
                   </div>
                 </div>
               </div>
+              <ng-container *ngIf="entry.id == 'college'" formArrayName="college">
+                <div class="input-group input-group-merge" *ngFor="let val of getFA('college'); let v = index;" formGroupName="0">
+                   <input
+                      id="{{ entry.id }}"
+                      [formControlName]="v"
+                      class="form-control form-control-prepended"
+                      placeholder="{{ entry.placeholder }}"
+                    />
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">
+                      <span class="{{ entry.prepend }}"></span>
+                    </div>
+                  </div>
+                </div> 
+              </ng-container>
+              <ng-container *ngIf="entry.id == 'university'" formArrayName="university">
+                <div class="input-group input-group-merge" *ngFor="let val of getFA('university'); let u = index;" formGroupName="0">
+                   <input
+                      id="{{ entry.id }}"
+                      [formControlName]="u"
+                      class="form-control form-control-prepended"
+                      placeholder="{{ entry.placeholder }}"
+                    />
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">
+                      <span class="{{ entry.prepend }}"></span>
+                    </div>
+                  </div>
+                </div> 
+              </ng-container>
               <small
                 *ngIf="entry.id == 'highestDegree'"
                 [hidden]="
@@ -428,7 +477,7 @@
                 />
                 <div class="input-group-prepend">
                   <div class="input-group-text">
-                    <span class="{{ entry.placeholder }}"></span>
+                    <span class="{{ entry.prepend }}"></span>
                   </div>
                 </div>
               </div>
@@ -532,7 +581,7 @@
                 />
                 <div class="input-group-prepend">
                   <div class="input-group-text">
-                    <span class="{{ entry.placeholder }}"></span>
+                    <span class="{{ entry.prepend }}"></span>
                   </div>
                 </div>
               </div>

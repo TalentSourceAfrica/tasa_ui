@@ -52,7 +52,7 @@ export class JobsApplyPopupComponent implements OnInit {
       name: $t.popupData.user.firstName + ' ' + $t.popupData.user.lastName,
       resumeLink: $t.resumeLink,
       appliedOn: '',
-      status: 'Submitted',
+      status: 'Applied',
       userId: $t.popupData.user.email,
       referrer: '',
       referred: false,

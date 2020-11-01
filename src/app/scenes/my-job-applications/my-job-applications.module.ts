@@ -8,9 +8,10 @@ import { MyJobApplicationsRoutingModule } from './my-job-applications-routing.mo
 import { MyJobApplicationsComponent } from './my-job-applications.component';
 
 import { MaterialModule } from '@app/modules/material.module';
+import { JobsApplyPopupModule } from '@app/partials/popups/jobs/jobs-apply-popup/jobs-apply-popup.module';
 
 @NgModule({
-  imports: [CommonModule, TranslateModule, FormsModule, SharedModule, MyJobApplicationsRoutingModule , MaterialModule],
+  imports: [CommonModule, TranslateModule, FormsModule, SharedModule, MyJobApplicationsRoutingModule , MaterialModule, JobsApplyPopupModule],
   declarations: [MyJobApplicationsComponent],
   schemas: [NO_ERRORS_SCHEMA],
 })

@@ -1,5 +1,5 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { Component, ViewChild, OnInit, Inject } from '@angular/core';
+import { FormBuilder, Validators, FormArray, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 //service
@@ -13,6 +13,7 @@ import { AuthenticationService, CredentialsService } from '@app/auth';
   styleUrls: ['./user-profile.component.scss'],
 })
 export class UserProfileComponent implements OnInit {
+  @ViewChild('uploadCertificate', { static: false }) public upCert: any;
   userDetailsForm: FormGroup;
   personalDetailsForm: FormGroup;
   educationDetailsForm: FormGroup;
@@ -25,6 +26,9 @@ export class UserProfileComponent implements OnInit {
   userDetails: any;
   showMandatoryMessage: boolean = false;
   countries: any = [];
+  college: any = [];
+  university: any = [];
+
   constructor(
     private formBuilder: FormBuilder,
     private sharedService: SharedService,
@@ -597,7 +601,7 @@ export class UserProfileComponent implements OnInit {
     },
     {
       id: 'collaborator',
-      label: 'Collaboator',
+      label: 'Collaborator',
       type: 'text',
       formControlName: 'collaborator',
       placeholder: 'Your Collaborators',
@@ -645,6 +649,8 @@ export class UserProfileComponent implements OnInit {
           highestDegree: ['', [Validators.required]],
           college: ['', [Validators.required]],
           university: ['', [Validators.required]],
+          // college: new FormArray([], [Validators.required]),
+          // university: new FormArray([], [Validators.required]),
           major: ['', [Validators.required]],
           minor1: [''],
           minor2: [''],
@@ -748,13 +754,15 @@ export class UserProfileComponent implements OnInit {
         });
         this.educationDetailsForm = this.formBuilder.group({
           highestDegree: [this.user.highestDegree, [Validators.required]],
-          college: [this.user.college, [Validators.required]],
-          university: [this.user.university, [Validators.required]],
+          // college: [this.user.college, [Validators.required]],
+          // university: [this.user.university, [Validators.required]],
+          college: this.formBuilder.array([this.initFA('college')]),
+          university: this.formBuilder.array([this.initFA('university')]),
           major: [this.user.major, [Validators.required]],
           minor1: [this.user.minor1],
           minor2: [this.user.minor2],
           minor3: [this.user.minor3],
-          certificate: [this.user.certificate, [Validators.required]],
+          certificate: [this.user.certificates, [Validators.required]],
         });
         this.experienceDetailsForm = this.formBuilder.group({
           experience: [this.user.experience, [Validators.required]],
@@ -770,6 +778,10 @@ export class UserProfileComponent implements OnInit {
           careerGoals: [this.user.careerGoals, [Validators.required]],
         });
     }
+  }
+
+  initFA(_arrName: string) {
+    return this.formBuilder.group([this.user[_arrName]], [Validators.required]);
   }
 
   getCountry() {
@@ -831,7 +843,7 @@ export class UserProfileComponent implements OnInit {
       $t.userDetails.minor1 = educationDetailsValues.minor1;
       $t.userDetails.minor2 = educationDetailsValues.minor2;
       $t.userDetails.minor3 = educationDetailsValues.minor3;
-      $t.userDetails.certificate = educationDetailsValues.certificate;
+      $t.userDetails.certificates = educationDetailsValues.certificate;
       let experienceDetailsValues = $t.experienceDetailsForm.value;
       $t.userDetails.experience = experienceDetailsValues.experience;
       $t.userDetails.organization = experienceDetailsValues.organization;
@@ -867,7 +879,7 @@ export class UserProfileComponent implements OnInit {
       $t.userDetails.website = socialDetailsValues.website;
       $t.userDetails.linkedin = socialDetailsValues.linkedin;
       $t.userDetails.twitter = socialDetailsValues.twitter;
-      let careerOpeningDetailsValues = $t.careerPreferenceDetailsForm.value;
+      let careerOpeningDetailsValues = $t.careerOpeningDetailsForm.value;
       $t.userDetails.noOfOpenings = careerOpeningDetailsValues.noOfOpenings;
       $t.userDetails.natureOfOpening = careerOpeningDetailsValues.natureOfOpening;
       $t.userDetails.clients = careerOpeningDetailsValues.clients;
@@ -875,6 +887,32 @@ export class UserProfileComponent implements OnInit {
       $t.userDetails.dateOfEstablishment = careerOpeningDetailsValues.dateOfEstablishment;
     }
     console.log($t.userDetails);
+  }
+
+  triggerUpload() {
+    this.upCert.nativeElement.click();
+  }
+
+  uploadFile(_event: any) {
+    let $t = this;
+    let apiUrl = $t.sharedService.urlService.apiCallWithParams('uploadSingle', { '{email}': $t.user.email });
+    let files = _event.target.files;
+    var form = new FormData();
+    form.append('file', files[0], files[0].name);
+    $t.sharedService.uiService.showApiStartPopMsg('Uploading Certificate...');
+    $t.sharedService.configService.post(apiUrl, form).subscribe(
+      (response: any) => {
+        $t.educationDetailsForm.get('certificate').patchValue(response.data);
+        $t.sharedService.uiService.showApiSuccessPopMsg('Certificate Uploaded...');
+      },
+      (error) => {
+        $t.sharedService.uiService.showApiErrorPopMsg('Something Went Wrong, Please Try Again After Sometime...');
+      }
+    );
+  }
+
+  getFA(_controlName: string) {
+    return this.educationDetailsForm.get(_controlName)['controls'];
   }
 
   submitDetails(_type: string) {
