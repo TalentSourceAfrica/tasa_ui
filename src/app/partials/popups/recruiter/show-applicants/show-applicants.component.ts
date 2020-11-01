@@ -2,6 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { applicantJobStatus } from '@app/models/constants';
 import { SharedService } from '@app/services/shared.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-show-applicants',
@@ -17,7 +18,8 @@ export class ShowApplicantsComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<ShowApplicantsComponent>,
-    public sharedService: SharedService
+    public sharedService: SharedService,
+    public sanitizer: DomSanitizer
   ) {
     this.uds = this.sharedService.plugins.undSco;
     this.popupData = JSON.parse(JSON.stringify(data));

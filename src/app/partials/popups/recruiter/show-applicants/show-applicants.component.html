@@ -144,7 +144,7 @@
 </ng-template>
 
 <!-- The Modal -->
-<div id="myModal" class="modal" [ngClass]="{ 'd-block': doc != '' }">
+<div id="myModal" *ngIf="doc != ''" class="modal d-block">
   <!-- Modal content -->
   <div class="modal-content">
     <span class="close" (click)="doc = ''">&times;</span>

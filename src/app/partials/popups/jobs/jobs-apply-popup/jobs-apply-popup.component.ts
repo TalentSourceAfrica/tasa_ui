@@ -34,7 +34,7 @@ export class JobsApplyPopupComponent implements OnInit {
     $t.sharedService.uiService.showApiStartPopMsg('Uploading Resume...');
     $t.sharedService.configService.post(apiUrl, form).subscribe(
       (response: any) => {
-        $t.resumeLink = response.data;
+        $t.resumeLink = response.url;
         $t.sharedService.uiService.showApiSuccessPopMsg('Resume Uploaded...');
       },
       (error) => {
