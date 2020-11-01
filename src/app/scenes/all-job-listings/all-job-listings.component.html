@@ -157,7 +157,14 @@
       <div class="card-body pl-3 pr-3">
         <h5 class="card-title m-0">
           {{ job.title }}
+          <span class="pl-2 text-right" *ngIf="job.isApplied">
+            <span class="badge badge-warning p-1" *ngIf="job.applicantStatus == 'Applied'">{{ job.jobStatus }}</span>
+            <span class="badge badge-dark p-1" *ngIf="job.applicantStatus == 'Under Review'">{{ job.jobStatus }}</span>
+            <span class="badge badge-success p-1" *ngIf="job.applicantStatus == 'Accepted'">{{ job.jobStatus }}</span>
+            <span class="badge badge-danger p-1" *ngIf="job.applicantStatus == 'Rejected'">{{ job.jobStatus }}</span>
+          </span>
         </h5>
+
         <p class="text-muted m-0">{{ job.location }}</p>
         <p class="text-muted">Experience : {{ job.experienceFrom }} - {{ job.experienceTo }} Year</p>
         <marquee class="card-intro mt-2" style="display: flex;">
@@ -179,12 +186,14 @@
             >
               <mat-icon class="mb-1">remove_red_eye</mat-icon>
             </button>
+
             <button
               mat-flat-button
               color="primary"
               matTooltipPosition="below"
               matTooltip="Apply For This Job"
               class="rounded-pill ml-2"
+              *ngIf="!job.isApplied"
               (click)="applyForJob(job, $event)"
             >
               <span>Apply</span>

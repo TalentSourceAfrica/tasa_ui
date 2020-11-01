@@ -103,7 +103,7 @@ export class JobsComponent implements OnInit {
       location: '',
       minimumReq: '',
       countOfOpenings: 0,
-      experieneceFrom: 0,
+      experienceFrom: 0,
       experienceTo: 0,
       createdOn: '',
       updatedOn: '',

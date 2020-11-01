@@ -48,7 +48,9 @@ export class UserFavoriteCoursesComponent implements OnInit {
     this.router.navigate(['/course/' + _course.key], { replaceUrl: true });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    window.scrollTo(0, 0);
+  }
 
   get user(): any | null {
     const credentials = this.credentialsService.credentials;

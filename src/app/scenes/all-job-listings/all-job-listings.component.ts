@@ -141,6 +141,13 @@ export class AllJobListingsComponent implements OnInit {
     this.sharedService.configService.get(apiUrl).subscribe(
       (response: any) => {
         this.allJobs = response.responseObj;
+
+        this.uds.each(this.allJobs, (d: any) => {
+          this.uds.each(d.applicants, (app: any) => {
+            d['isApplied'] = app.userId == this.user.email && app.status != 'Withdrawn';
+            app.userId == this.user.email ? (d['applicantStatus'] = app.status) : null;
+          });
+        });
         this.length = response.responseObj.length;
         this.isLoading = false;
         if (!this.sharedService.deviceDetectorService.isMobile()) {
