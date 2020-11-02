@@ -402,11 +402,11 @@
           <div class="card mt-2">
             <div class="card-header">
               <div class="media align-items-center">
-                <div class="h2 mb-0 mr-3 text-primary" *ngIf="user?.recentlyViewedJobs?.length">
-                  {{ user.recentlyViewedJobs.length }}
+                <div class="h2 mb-0 mr-3 text-primary" *ngIf="recommendedJobs?.length">
+                  {{ recommendedJobs.length }}
                 </div>
                 <div class="flex">
-                  <h4 class="card-title mt-3">Recently Viewed Jobs</h4>
+                  <h4 class="card-title mt-3">Recommended Jobs</h4>
                   <!-- <p class="card-subtitle">4 days streak this week</p> -->
                 </div>
                 <!-- <div class="media-right ml-5">
@@ -416,13 +416,13 @@
             </div>
             <div class="card-body p-2 jobs">
               <div
-                *ngIf="user?.recentlyViewedJobs?.length"
+                *ngIf="recommendedJobs?.length"
                 class="row pr-1 no-gutters min-vertical-h-30 max-vertical-h-30 stylishSlimScroll flow-y-auto flow-x-hidden"
               >
                 <div
                   class="col-12 border mb-1 curPoint job-list p-2"
                   [routerLink]="['/job/', job.id]"
-                  *ngFor="let job of user.recentlyViewedJobs"
+                  *ngFor="let job of recommendedJobs"
                 >
                   <div class="d-flex">
                     <span>
@@ -436,11 +436,11 @@
                   </div>
                 </div>
               </div>
-              <div *ngIf="user?.recentlyViewedJobs.length == 0">
+              <div *ngIf="recommendedJobs.length == 0">
                 <div class="text-center m-auto animated fadeIn">
                   <div class="col-12 text-center">
                     <img src="../../../assets/images/no-record.gif" style="height: 190px;" class="d-block m-auto" />
-                    <h6 class="text-primary">No Recently Viewed Jobs Yet...!</h6>
+                    <h6 class="text-primary">No Recommended Jobs...!</h6>
                   </div>
                 </div>
               </div>
@@ -492,14 +492,13 @@
       <!--RECENTLY VIEWED COURSE AREA AREA-->
 
       <!--TESTMONIAL AREA AREA-->
-      <section class="testmonial-area">
-        <div class="row">
+      <br />
+      <section class="testmonial-area mt-3">
+        <div class="row no-gutters">
           <div class="col-md-12">
-            <div class="testmonial-slider card">
-              <div class="card-header d-flex align-items-center">
-                <div class="flex">
-                  <h4 class="card-title mt-3">What Fellow Tasa Member Says</h4>
-                </div>
+            <div class="testmonial-slider">
+              <div class="sec-title text-center">
+                <div class="title">What Fellow Tasa Member Says</div>
               </div>
               <owl-carousel-o [options]="postOptions">
                 <ng-container *ngFor="let item of postData; let i = index">

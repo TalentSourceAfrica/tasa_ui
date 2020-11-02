@@ -783,8 +783,8 @@ export class UserProfileComponent implements OnInit {
 
   initFA(_arrName: string) {
     const newFA = new FormArray([]);
-    this.user[_arrName].forEach((arr: any) => {
-      newFA.push(this.formBuilder.group(arr, [Validators.required]));
+    this.user[_arrName].forEach((d: any) => {
+      newFA.push(this.formBuilder.group({ name: [d, [Validators.required]] }));
     });
     return newFA;
     // return this.formBuilder.group(this.user[_arrName].map((arr: any) => {return arr}), [Validators.required]) as FormArray;
@@ -843,8 +843,8 @@ export class UserProfileComponent implements OnInit {
     if (_type != 'Recruiter') {
       let educationDetailsValues = $t.educationDetailsForm.value;
       $t.userDetails.highestDegree = educationDetailsValues.highestDegree;
-      $t.userDetails.college = educationDetailsValues.college;
-      $t.userDetails.university = educationDetailsValues.university;
+      $t.userDetails.college = educationDetailsValues.college.map((d: any) => d.name);
+      $t.userDetails.university = educationDetailsValues.university.map((d: any) => d.name);
       $t.userDetails.major = educationDetailsValues.major;
       $t.userDetails.minor1 = educationDetailsValues.minor1;
       $t.userDetails.minor2 = educationDetailsValues.minor2;
@@ -908,7 +908,7 @@ export class UserProfileComponent implements OnInit {
     $t.sharedService.uiService.showApiStartPopMsg('Uploading Certificate...');
     $t.sharedService.configService.post(apiUrl, form).subscribe(
       (response: any) => {
-        $t.educationDetailsForm.get('certificate').patchValue(response.data);
+        $t.educationDetailsForm.get('certificate').patchValue(response.url);
         $t.sharedService.uiService.showApiSuccessPopMsg('Certificate Uploaded...');
       },
       (error) => {

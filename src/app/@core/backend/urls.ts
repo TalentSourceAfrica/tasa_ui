@@ -89,7 +89,8 @@ export const urls: any = {
   withdrawFromJob: '/job/withdraw/{jobId}', // PO
 
   // Dashboard
-  getRecommendedCourse: '/users/recommended/{userId}', // G
+  getRecommendedCourses: '/recs/courses/{userId}', // G
+  getRecommendedJobs: '/recs/jobs/{userId}', // G
 
   // Social Network
   getAllPosts: '/socialPost', // G

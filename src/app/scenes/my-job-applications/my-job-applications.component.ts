@@ -144,7 +144,7 @@ export class MyJobApplicationsComponent implements OnInit {
   }
 
   applyTo(_job: any, _jobIndex: number) {
-     this.sharedService.dialogService.open(JobsApplyPopupComponent, {
+    this.sharedService.dialogService.open(JobsApplyPopupComponent, {
       width: '50%',
       data: {
         applyingForJob: _job,

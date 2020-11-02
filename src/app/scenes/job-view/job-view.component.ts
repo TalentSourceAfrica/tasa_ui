@@ -1,5 +1,5 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SharedService } from '@app/services/shared.service';
 import { CredentialsService } from '@app/auth';
 
@@ -21,6 +21,7 @@ export class JobViewComponent implements OnInit {
   constructor(
     private sharedService: SharedService,
     public route: ActivatedRoute,
+    public router: Router,
     public credentialsService: CredentialsService
   ) {
     this.jobConfig.jobId = this.route.snapshot.params.jobId;
@@ -51,6 +52,11 @@ export class JobViewComponent implements OnInit {
       },
       (error) => {
         $t.jobConfig.fetchingJob = false;
+        $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
+        setTimeout(() => {
+          $t.sharedService.uiService.closePopMsg();
+          $t.router.navigate(['/jobs/listings'], { replaceUrl: true });
+        }, 2000);
       }
     );
   }
@@ -98,7 +104,7 @@ export class JobViewComponent implements OnInit {
         $t.applied = true;
       },
       (error) => {
-        $t.sharedService.uiService.showApiErrorPopMsg(error.error);
+        $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
       }
     );
   }

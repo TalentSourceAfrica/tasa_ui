@@ -160,45 +160,58 @@
                   placeholder="{{ entry.placeholder }}"
                   readonly
                 />
-                <input *ngIf="entry.id == 'certificate'" id="certificateUpload" class="d-none" #uploadCertificate type="file" (change)="uploadFile($event)" />
+                <input
+                  *ngIf="entry.id == 'certificate'"
+                  id="certificateUpload"
+                  class="d-none"
+                  #uploadCertificate
+                  type="file"
+                  (change)="uploadFile($event)"
+                />
                 <div class="input-group-prepend">
                   <div class="input-group-text">
                     <span *ngIf="entry.id != 'certificate'" class="{{ entry.prepend }}"></span>
-                    <span 
-                      *ngIf="entry.id == 'certificate'"
-                      class="px-1 material-icons curPoint">cloud_upload</span>
+                    <span *ngIf="entry.id == 'certificate'" class="px-1 material-icons curPoint">cloud_upload</span>
                   </div>
                 </div>
               </div>
               <ng-container *ngIf="entry.id == 'college'" formArrayName="college">
-                <div class="input-group input-group-merge" *ngFor="let val of getFA('college'); let v = index;" formGroupName="0">
-                   <input
-                      id="{{ entry.id }}"
-                      [formControlName]="v"
-                      class="form-control form-control-prepended"
-                      placeholder="{{ entry.placeholder }}"
-                    />
+                <div
+                  class="input-group input-group-merge"
+                  *ngFor="let val of getFA('college'); let v = index"
+                  formGroupName="0"
+                >
+                  <input
+                    id="{{ entry.id }}"
+                    formControlName="name"
+                    class="form-control form-control-prepended"
+                    placeholder="{{ entry.placeholder }}"
+                  />
                   <div class="input-group-prepend">
                     <div class="input-group-text">
                       <span class="{{ entry.prepend }}"></span>
                     </div>
                   </div>
-                </div> 
+                </div>
               </ng-container>
               <ng-container *ngIf="entry.id == 'university'" formArrayName="university">
-                <div class="input-group input-group-merge" *ngFor="let val of getFA('university'); let u = index;" formGroupName="0">
-                   <input
-                      id="{{ entry.id }}"
-                      [formControlName]="u"
-                      class="form-control form-control-prepended"
-                      placeholder="{{ entry.placeholder }}"
-                    />
+                <div
+                  class="input-group input-group-merge"
+                  *ngFor="let val of getFA('university'); let u = index"
+                  formGroupName="0"
+                >
+                  <input
+                    id="{{ entry.id }}"
+                    formControlName="name"
+                    class="form-control form-control-prepended"
+                    placeholder="{{ entry.placeholder }}"
+                  />
                   <div class="input-group-prepend">
                     <div class="input-group-text">
                       <span class="{{ entry.prepend }}"></span>
                     </div>
                   </div>
-                </div> 
+                </div>
               </ng-container>
               <small
                 *ngIf="entry.id == 'highestDegree'"
@@ -691,7 +704,7 @@
       (click)="submitDetails('Mentee')"
       class="rounded-pill ml-2"
     >
-      Add Details
+      Edit Details
     </button>
     <button
       *ngIf="user.type == 'Mentor'"
@@ -700,7 +713,7 @@
       (click)="submitDetails('Mentor')"
       class="rounded-pill ml-2"
     >
-      Add Details
+      Edit Details
     </button>
     <button
       *ngIf="user.type == 'Recruiter'"
@@ -709,7 +722,7 @@
       (click)="submitDetails('Recruiter')"
       class="rounded-pill ml-2"
     >
-      Add Details
+      Edit Details
     </button>
   </div>
 </div>

@@ -129,13 +129,27 @@ export class DashboardComponent implements OnInit {
     );
   }
 
-  getRecommendedCourse() {
+  getRecommendedCourses() {
     let $t = this;
     let apiUrl = '';
-    apiUrl = $t.sharedService.urlService.apiCallWithParams('getRecommendedCourse', { '{userId}': $t.user.email });
+    apiUrl = $t.sharedService.urlService.apiCallWithParams('getRecommendedCourses', { '{userId}': $t.user.email });
     $t.sharedService.configService.get(apiUrl).subscribe(
       (response: any) => {
         $t.recommendedCourses = response.responseObj;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+  getRecommendedJobs() {
+    let $t = this;
+    let apiUrl = '';
+    apiUrl = $t.sharedService.urlService.apiCallWithParams('getRecommendedJobs', { '{userId}': $t.user.email });
+    $t.sharedService.configService.get(apiUrl).subscribe(
+      (response: any) => {
+        $t.recommendedJobs = response.responseObj;
       },
       (error) => {
         console.log(error);
@@ -152,7 +166,8 @@ export class DashboardComponent implements OnInit {
     window.scrollTo(0, 0);
     this.getPosts();
     this.getCourses();
-    this.getRecommendedCourse();
+    this.getRecommendedCourses();
+    this.getRecommendedJobs();
     this.getJobsApplications();
   }
 }
