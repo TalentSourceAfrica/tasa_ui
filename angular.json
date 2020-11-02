@@ -37,6 +37,7 @@
               "node_modules/aos/dist/aos.css"
             ],
             "scripts": [
+              "node_modules/mammoth/mammoth.browser.min.js",
               "node_modules/jquery/dist/jquery.js",
               "src/assets/js/vendor/bootstrap.min.js",
               "src/assets/js/jquery.sticky.js",

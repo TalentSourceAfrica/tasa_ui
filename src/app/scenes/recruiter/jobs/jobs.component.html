@@ -126,6 +126,17 @@
                       <i class="fas fa-users fa-lg"></i>
                     </div>
                   </a>
+                  <a class="ml-2 text-white" matTooltipPosition="below" matTooltip="Show All Applicants">
+                    <div
+                      class="action bg-secondary"
+                      [matBadge]="job.withdrawnCount"
+                      matBadgePosition="after"
+                      matBadgeColor="accent"
+                      (click)="showApplicants(job, $event, 'Withdrawn')"
+                    >
+                      <i class="fas fa-users fa-lg"></i>
+                    </div>
+                  </a>
                 </div>
                 <div class="mt-4">
                   <div class="row">

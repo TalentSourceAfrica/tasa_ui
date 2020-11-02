@@ -29,15 +29,23 @@ export class ShowApplicantsComponent implements OnInit {
     switch (_type) {
       case 'select':
         this.uds.each(this.popupData.job.applicants, (d: any) => {
-          d['isSelected'] = true;
+          if (d.status != 'Withdrawn') {
+            d['isSelected'] = true;
+          }
         });
-        this.sharedService.uiService.showMessage('All Applicants Are Selected');
+
+        if (this.popupData.job.applicants.filter((d: any) => d.isSelected).length) {
+          this.sharedService.uiService.showMessage('Applicants Are Selected');
+        } else {
+          this.sharedService.uiService.showMessage('Applicants Cannot be Selected');
+        }
+
         break;
       case 'deselect':
         this.uds.each(this.popupData.job.applicants, (d: any) => {
           d['isSelected'] = false;
         });
-        this.sharedService.uiService.showMessage('All Applicants Are Deselected');
+        this.sharedService.uiService.showMessage('Applicants Are Deselected');
         break;
     }
   }

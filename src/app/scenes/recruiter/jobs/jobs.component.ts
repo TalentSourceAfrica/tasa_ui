@@ -60,6 +60,7 @@ export class JobsComponent implements OnInit {
 
   onPublishDateChange(job: any) {
     job['acceptedCount'] = job.applicants.filter((d: any) => d.status == 'Accepted').length;
+    job['withdrawnCount'] = job.applicants.filter((d: any) => d.status == 'Withdrawn').length;
     job['rejectedCount'] = job.applicants.filter((d: any) => d.status == 'Rejected').length;
     job['underReviewCount'] = job.applicants.filter((d: any) => d.status == 'Under Review').length;
     if (job.publishOn != '') {
@@ -118,7 +119,8 @@ export class JobsComponent implements OnInit {
     let apiUrl = $t.sharedService.urlService.simpleApiCall('createJob');
     $t.sharedService.configService.post(apiUrl, job).subscribe(
       (response: any) => {
-        $t.sharedService.uiService.showApiSuccessPopMsg('Jobs Added...');
+        job.id = response.responseObj.id;
+        $t.sharedService.uiService.showApiSuccessPopMsg('Job Added...');
       },
       (error) => {
         $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);

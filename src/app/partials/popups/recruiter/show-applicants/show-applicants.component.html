@@ -20,7 +20,7 @@
   </div>
 </div>
 <ng-template #applicants>
-  <div class="col-12">
+  <div class="col-12" *ngIf="popupData.applicantStatus != 'Withdrawn'">
     <div class="border">
       <div class="d-flex p-2">
         <button
@@ -37,6 +37,7 @@
         <mat-menu #menu="matMenu">
           <button mat-menu-item (click)="selDeAll('select')" class="h6">
             Select All
+            <small class="text-muted" title="Without Withdrawn Applicants"><i>(Without Withdrawn Applicants)</i></small>
           </button>
           <button mat-menu-item (click)="selDeAll('deselect')" class="h6">
             Deselect All
@@ -73,6 +74,7 @@
         class="position-absolute mt-2"
         [ngClass]="{ 'text-success': user.isSelected }"
         (click)="selectApplicant($event, user)"
+        *ngIf="popupData.applicantStatus != 'Withdrawn' && user.status != 'Withdrawn'"
       >
         <mat-icon>check_circle_outline</mat-icon>
       </button>
@@ -106,6 +108,7 @@
             placeholder="Change Applicant Status"
             (selectionChange)="editApplicantJob()"
             [(ngModel)]="user.status"
+            [disabled]="popupData.applicantStatus == 'Withdrawn' || user.status == 'Withdrawn'"
           >
             <mat-option [disabled]="item == 'Applied'" *ngFor="let item of applicantJobStatus" [value]="item">
               {{ item }}

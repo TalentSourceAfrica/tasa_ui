@@ -34,6 +34,12 @@
             </span>
             Upload Resume / CV
           </button>
+          <div class="mt-1">
+            <p>
+              <strong>Supported File :</strong>
+              <span class="text-muted ml-2" *ngFor="let item of suportedFile">{{ item }}</span>
+            </p>
+          </div>
         </div>
       </div>
       <input id="resumeUpload" class="d-none" #uploadResume type="file" (change)="uploadFile($event)" />

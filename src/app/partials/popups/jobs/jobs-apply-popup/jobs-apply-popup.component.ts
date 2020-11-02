@@ -12,6 +12,7 @@ export class JobsApplyPopupComponent implements OnInit {
   @ViewChild('uploadResume', { static: false }) public upResume: any;
   popupData: any;
   resumeLink: string = '';
+  suportedFile = ['.pdf', '.doc', '.docx', '.psd'];
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -31,6 +32,10 @@ export class JobsApplyPopupComponent implements OnInit {
     let files = _event.target.files;
     var form = new FormData();
     form.append('file', files[0], files[0].name);
+    if (!$t.sharedService.utilityService.ValidateResumeUpload(files[0].name)) {
+      $t.sharedService.uiService.showApiErrorPopMsg('Uploaded File is not a Valid File.');
+      return;
+    }
     $t.sharedService.uiService.showApiStartPopMsg('Uploading Resume...');
     $t.sharedService.configService.post(apiUrl, form).subscribe(
       (response: any) => {
