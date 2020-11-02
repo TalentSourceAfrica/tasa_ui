@@ -729,7 +729,6 @@ export class UserProfileComponent implements OnInit {
         break;
       default:
         this.personalDetailsForm = this.formBuilder.group({
-          type: ['Mentee'],
           suffix: [this.user.suffix],
           firstName: [this.user.firstName],
           middleName: [this.user.middleName],
@@ -778,7 +777,6 @@ export class UserProfileComponent implements OnInit {
           careerGoals: [this.user.careerGoals, [Validators.required]],
         });
     }
-    console.log(this.educationDetailsForm.value);
   }
 
   initFA(_arrName: string) {
@@ -793,9 +791,9 @@ export class UserProfileComponent implements OnInit {
   getCountry() {
     let $t = this;
     let apiUrl = $t.sharedService.urlService.simpleApiCall('getCountry');
-
     $t.sharedService.configService.get(apiUrl).subscribe((response) => {
       $t.countries = response;
+      $t.initForm(this.user.type);
     });
   }
 
@@ -892,7 +890,6 @@ export class UserProfileComponent implements OnInit {
       $t.userDetails.collaborator = careerOpeningDetailsValues.collaborator;
       $t.userDetails.dateOfEstablishment = careerOpeningDetailsValues.dateOfEstablishment;
     }
-    console.log($t.userDetails);
   }
 
   triggerUpload() {
@@ -977,7 +974,6 @@ export class UserProfileComponent implements OnInit {
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
-    this.initForm(this.user.type);
     this.getCountry();
   }
 }

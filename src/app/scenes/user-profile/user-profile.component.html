@@ -6,7 +6,7 @@
   <div class="sec-title">
     <div class="title">Profile Details</div>
   </div>
-  <mat-horizontal-stepper [linear]="'false'" #stepper>
+  <mat-horizontal-stepper *ngIf="personalDetailsForm" [linear]="'false'" #stepper>
     <mat-step>
       <form [formGroup]="personalDetailsForm" novalidate>
         <ng-template matStepLabel>Personal Details</ng-template>
