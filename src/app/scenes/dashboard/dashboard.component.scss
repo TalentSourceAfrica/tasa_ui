@@ -10,12 +10,21 @@
     width: 100%;
   }
 
+  .card-body {
+    background: #fff;
+    z-index: 1;
+  }
+
   .testimonial {
     text-align: center;
     max-width: 850px;
     margin: 100px auto 130px auto;
     padding: 0 20px;
     justify-content: center;
+  }
+
+  .testmonial-area {
+    background: #ebe9ee !important;
   }
 
   .testimonial-avatar {

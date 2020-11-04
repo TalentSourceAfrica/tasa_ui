@@ -95,7 +95,7 @@ export class HeaderComponent implements OnInit {
       $t.sharedService.configService.post(apiUrl, form).subscribe(
         (response: any) => {
           $t.sharedService.uiService.showApiSuccessPopMsg('User Avatar Updated...');
-          $t.user.image = response.data;
+          $t.user.image = response.url;
           $t.authenticationService.login($t.user);
         },
         (error) => {

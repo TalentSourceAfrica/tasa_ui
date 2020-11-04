@@ -41,17 +41,14 @@
                 <!-- <p class="card-subtitle">Best score</p> -->
               </div>
             </div>
-            <div class="card-body p-2">
-              <div
-                *ngIf="recommendedCourses.length"
-                class="row pr-1 no-gutters min-vertical-h-30 max-vertical-h-30 stylishSlimScroll flow-y-auto flow-x-hidden"
-              >
+            <div class="card-body p-2 min-vertical-h-30 max-vertical-h-30 stylishSlimScroll flow-y-auto flow-x-hidden">
+              <div *ngIf="recommendedCourses.length" class="row pr-1 no-gutters">
                 <div
                   class="col-12 border mb-1 curPoint courseList"
                   (click)="courseView(course.key)"
                   *ngFor="let course of recommendedCourses"
                 >
-                  <div class="row">
+                  <div class="row no-gutters">
                     <!-- <span class="flag-discount" *ngIf="course.discountPercentage > 0"
                       >{{ course.discountPercentage }}% Off</span
                     > -->
@@ -92,17 +89,14 @@
                 <!-- <p class="card-subtitle">Best score</p> -->
               </div>
             </div>
-            <div class="card-body p-2">
-              <div
-                *ngIf="user.favoriteCourses.length"
-                class="row pr-1 no-gutters min-vertical-h-30 max-vertical-h-30 stylishSlimScroll flow-y-auto flow-x-hidden"
-              >
+            <div class="card-body p-2 min-vertical-h-30 max-vertical-h-30 stylishSlimScroll flow-y-auto flow-x-hidden">
+              <div *ngIf="user.favoriteCourses.length" class="row pr-1 no-gutters">
                 <div
                   class="col-12 border mb-1 courseList curPoint"
                   (click)="courseView(course.key)"
                   *ngFor="let course of user.favoriteCourses"
                 >
-                  <div class="row">
+                  <div class="row no-gutters">
                     <!-- <span class="flag-discount" *ngIf="course.discountPercentage > 0"
                       >{{ course.discountPercentage }}% Off</span
                     > -->
@@ -133,7 +127,6 @@
               </div>
             </div>
           </div>
-
           <!-- <div class="card mt-2">
             <div class="card-header">
               <div class="media align-items-center">
@@ -329,17 +322,23 @@
                 <!-- <p class="card-subtitle">4 days streak this week</p> -->
               </div>
             </div>
-            <div class="card-body p-2 jobs">
-              <div
-                *ngIf="jobApplications.length"
-                class="row pr-1 no-gutters min-vertical-h-35 max-vertical-h-35 stylishSlimScroll flow-y-auto flow-x-hidden"
-              >
+            <div
+              class="card-body p-2 jobs min-vertical-h-30 max-vertical-h-30 stylishSlimScroll flow-y-auto flow-x-hidden"
+            >
+              <div *ngIf="jobApplications.length" class="row pr-1 no-gutters">
                 <div
                   class="col-12 border mb-1 curPoint job-list p-2"
                   [routerLink]="['/job/', job.id]"
                   *ngFor="let job of jobApplications"
                 >
                   <div class="d-flex">
+                    <span>
+                      <img
+                        class="user-pic img-responsive img-circle curPoint"
+                        src="../../../assets/images/TSA_logo_new.small.png"
+                        alt="Job"
+                      />
+                    </span>
                     <span>
                       <h6 class="card-title text-truncate" [title]="job.title">
                         {{ job.title }}
@@ -368,7 +367,7 @@
               <div *ngIf="jobApplications.length == 0">
                 <div class="text-center m-auto animated fadeIn">
                   <div class="col-12 text-center">
-                    <img src="../../../assets/images/no-record.gif" style="height: 190px;" class="d-block m-auto" />
+                    <img src="../../../assets/images/no-record.gif" style="height: 170px;" class="d-block m-auto" />
                     <h6 class="text-primary">No Applied Jobs Yet...!</h6>
                     <button
                       mat-flat-button
@@ -384,21 +383,6 @@
               </div>
             </div>
           </div>
-
-          <!-- <div class="card card-2by1 mt-2">
-            <div class="card-header">
-              <h4 class="card-title">Rewards</h4>
-              <p class="card-subtitle">Your latest achievements</p>
-            </div>
-            <div class="card-body text-center">
-              <div class="btn btn-primary btn-circle"><i class="material-icons">thumb_up</i></div>
-              <div class="btn btn-danger btn-circle"><i class="material-icons">grade</i></div>
-              <div class="btn btn-success btn-circle"><i class="material-icons">bubble_chart</i></div>
-              <div class="btn btn-warning btn-circle"><i class="material-icons">keyboard_voice</i></div>
-              <div class="btn btn-info btn-circle"><i class="material-icons">event_available</i></div>
-            </div>
-          </div> -->
-
           <div class="card mt-2">
             <div class="card-header">
               <div class="media align-items-center">
@@ -409,22 +393,25 @@
                   <h4 class="card-title mt-3">Recommended Jobs</h4>
                   <!-- <p class="card-subtitle">4 days streak this week</p> -->
                 </div>
-                <!-- <div class="media-right ml-5">
-                  <a class="btn btn-sm btn-primary"> <i class="material-icons">keyboard_arrow_right</i></a>
-                </div> -->
               </div>
             </div>
-            <div class="card-body p-2 jobs">
-              <div
-                *ngIf="recommendedJobs?.length"
-                class="row pr-1 no-gutters min-vertical-h-30 max-vertical-h-30 stylishSlimScroll flow-y-auto flow-x-hidden"
-              >
+            <div
+              class="card-body p-2 jobs min-vertical-h-30 max-vertical-h-30 stylishSlimScroll flow-y-auto flow-x-hidden"
+            >
+              <div *ngIf="recommendedJobs?.length" class="row pr-1 no-gutters">
                 <div
-                  class="col-12 border mb-1 curPoint job-list p-2"
+                  class="recommended-jobs col-12 border mb-1 curPoint job-list p-2"
                   [routerLink]="['/job/', job.id]"
                   *ngFor="let job of recommendedJobs"
                 >
                   <div class="d-flex">
+                    <span>
+                      <img
+                        class="user-pic img-responsive img-circle curPoint"
+                        src="../../../assets/images/TSA_logo_new.small.png"
+                        alt="Job"
+                      />
+                    </span>
                     <span>
                       <h6 class="card-title text-truncate" [title]="job.title">
                         {{ job.title }}
@@ -446,19 +433,90 @@
               </div>
             </div>
           </div>
+          <!-- <div class="card mt-2" *ngIf="user.recentlyViewedJobs?.length">
+            <div class="card-header">
+              <div class="media align-items-center">
+                <div class="h2 mb-0 mr-3 text-primary">
+                  {{ user.recentlyViewedJobs.length }}
+                </div>
+                <div class="flex">
+                  <h4 class="card-title mt-3">Recently Viewed Jobs</h4>
+                </div>
+              </div>
+            </div>
+            <div class="card-body p-2 jobs">
+              <div
+                *ngIf="user.recentlyViewedJobs?.length"
+                class="row pr-1 no-gutters min-vertical-h-30 max-vertical-h-30 stylishSlimScroll flow-y-auto flow-x-hidden"
+              >
+                <div
+                  class="col-12 border mb-1 curPoint job-list p-2"
+                  [routerLink]="['/job/', job.id]"
+                  *ngFor="let job of user.recentlyViewedJobs"
+                >
+                  <div class="d-flex">
+                    <span>
+                      <h6 class="card-title text-truncate" [title]="job.title">
+                        {{ job.title }}
+                      </h6>
+                    </span>
+                  </div>
+                  <div class="card-intro">
+                    <span class="badge badge-info p-1 ml-1" *ngFor="let item of job.tags">{{ item }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> -->
         </div>
       </div>
 
-      <!--RECENTLY VIEWED COURSE AREA AREA-->
-      <section class="recently-viewed-course card" *ngIf="user?.recentlyViewed?.length > 2">
-        <div class="card-header d-flex align-items-center">
-          <div class="h2 mb-0 mr-3 text-primary">{{ user.recentlyViewed.length }}</div>
-          <div class="flex">
-            <h4 class="card-title mt-3">Recently Viewed Course</h4>
+      <!--RECENTLY VIEWED JOBS AREA AREA-->
+      <br />
+      <section class="recently-viewed-course" *ngIf="user?.recentlyViewedJobs?.length">
+        <div class="row no-gutters">
+          <div class="col-12">
+            <div class="sec-title text-center">
+              <div class="title">
+                <span class="mt-3 h4 text-bold">{{ user.recentlyViewedJobs.length }} Recently Viewed Jobs</span>
+              </div>
+            </div>
+            <owl-carousel-o [options]="courseOptions">
+              <ng-container *ngFor="let job of user.recentlyViewedJobs; let i = index">
+                <ng-template carouselSlide [id]="i">
+                  <div class="card curPoint" [routerLink]="['/job/', job.id]">
+                    <div class="card-img">
+                      <img src="../../../assets/images/TSA_logo_new.small.png" alt="Logo" />
+                    </div>
+                    <div class="card-body pl-3 pr-3">
+                      <h5 class="card-title text-truncate" [title]="job.title">
+                        {{ job.title }}
+                      </h5>
+                      <p class="card-intro">
+                        <marquee behavior="" direction="">
+                          <span class="badge badge-info p-1 ml-1" *ngFor="let item of job.tags">{{ item }}</span>
+                        </marquee>
+                      </p>
+                    </div>
+                  </div>
+                </ng-template>
+              </ng-container>
+            </owl-carousel-o>
           </div>
         </div>
-        <div class="row">
+      </section>
+      <!--RECENTLY VIEWED JOBS AREA AREA-->
+
+      <!--RECENTLY VIEWED COURSE AREA AREA-->
+      <br />
+      <section class="recently-viewed-course" *ngIf="user?.recentlyViewed?.length">
+        <div class="row no-gutters">
           <div class="col-12">
+            <div class="sec-title text-center">
+              <div class="title">
+                <span class="mt-3 h4 text-bold">{{ user.recentlyViewed.length }} Recently Viewed Course</span>
+              </div>
+            </div>
             <owl-carousel-o [options]="courseOptions">
               <ng-container *ngFor="let course of user.recentlyViewed; let i = index">
                 <ng-template carouselSlide [id]="i">
@@ -476,11 +534,6 @@
                       <p class="card-intro">
                         {{ course.subject }}
                       </p>
-                      <!-- <div class="text-right">
-                        <span class="badge badge-info p-2" style="font-size: 12px;">{{
-                          (course?.entitlements)[0]?.price | currency: 'USD'
-                        }}</span>
-                      </div> -->
                     </div>
                   </div>
                 </ng-template>
@@ -493,12 +546,12 @@
 
       <!--TESTMONIAL AREA AREA-->
       <br />
-      <section class="testmonial-area mt-3">
+      <section class="testmonial-area mt-3 pt-3">
         <div class="row no-gutters">
           <div class="col-md-12">
             <div class="testmonial-slider">
               <div class="sec-title text-center">
-                <div class="title">What Fellow Tasa Member Says</div>
+                <div class="title h4 text-bold">What Fellow Tasa Member Says</div>
               </div>
               <owl-carousel-o [options]="postOptions">
                 <ng-container *ngFor="let item of postData; let i = index">

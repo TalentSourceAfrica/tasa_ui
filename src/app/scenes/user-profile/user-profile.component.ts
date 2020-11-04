@@ -799,13 +799,13 @@ export class UserProfileComponent implements OnInit {
 
   onObjSubmit(_type: string) {
     let $t = this;
-    $t.sharedService.uiService.showApiStartPopMsg('Adding Details...');
+    $t.sharedService.uiService.showApiStartPopMsg('Editing Details...');
     let apiUrl = $t.sharedService.urlService.simpleApiCall('getUsers');
     $t.setUserDetailsObjValues(_type);
     $t.sharedService.configService.put(apiUrl, $t.userDetails).subscribe(
       (response: any) => {
         $t.authenticationService.login(response);
-        $t.sharedService.uiService.showApiSuccessPopMsg('Details Added Successfully');
+        $t.sharedService.uiService.showApiSuccessPopMsg('Details Edited Successfully...');
       },
       (error: any) => {
         $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
@@ -816,7 +816,7 @@ export class UserProfileComponent implements OnInit {
   setUserDetailsObjValues(_type: string) {
     let $t = this;
     let personalDetailsValues = $t.personalDetailsForm.value;
-    $t.userDetails.type = personalDetailsValues.type;
+    // $t.userDetails.type = personalDetailsValues.type;
     $t.userDetails.suffix = personalDetailsValues.suffix;
     $t.userDetails.firstName = personalDetailsValues.firstName;
     $t.userDetails.middleName = personalDetailsValues.middleName;
