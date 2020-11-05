@@ -79,7 +79,7 @@ export class JobsComponent implements OnInit {
     const input = event.input;
     const value = event.value;
     if ((value || '').trim()) {
-      job.tags.push(value.trim());
+      job.tags.push(value.trim().toLocaleUpperCase());
     }
     // Reset the input value
     if (input) {

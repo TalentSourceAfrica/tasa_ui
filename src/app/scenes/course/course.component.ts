@@ -1,6 +1,6 @@
 import { Component, OnInit, Directive } from '@angular/core';
 import { SharedService } from '@app/services/shared.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CredentialsService, AuthenticationService } from '@app/auth';
 import { DomSanitizer } from '@angular/platform-browser';
 
@@ -10,6 +10,7 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrls: ['./course.component.scss'],
 })
 export class CourseComponent implements OnInit {
+  uds: any;
   courseConfig: any = {
     courseKey: '',
     course: undefined,
@@ -21,9 +22,11 @@ export class CourseComponent implements OnInit {
     public route: ActivatedRoute,
     public credentialsService: CredentialsService,
     public authenticationService: AuthenticationService,
+    public router: Router,
     private sanitizer: DomSanitizer
   ) {
     this.courseConfig.courseKey = this.route.snapshot.params.key;
+    this.uds = this.sharedService.plugins.undSco;
   }
 
   getCourseDetail() {
@@ -38,10 +41,27 @@ export class CourseComponent implements OnInit {
     $t.sharedService.configService.get(apiUrl).subscribe(
       (response: any) => {
         $t.courseConfig.course = response.responseObj;
+        if ($t.user) {
+          $t.user['recentlyViewed'].push({
+            image_url: response.responseObj.image_url,
+            key: response.responseObj.key,
+            subject: response.responseObj.subjects[0].name,
+            title: response.responseObj.title,
+            program: response.responseObj.programs.length ? response.responseObj.programs[0].title : '',
+          });
+          $t.user['recentlyViewed'] = $t.uds.uniq($t.user['recentlyViewed'], (d: any) => {
+            return d.key;
+          });
+          $t.authenticationService.login(this.user);
+        }
         $t.courseConfig.fetchingCourse = false;
       },
       (error) => {
         $t.courseConfig.fetchingCourse = false;
+        $t.sharedService.uiService.showApiErrorPopMsg(error.error);
+        setTimeout(() => {
+          $t.router.navigate(['/all-course'], { replaceUrl: true });
+        }, 1000);
       }
     );
   }

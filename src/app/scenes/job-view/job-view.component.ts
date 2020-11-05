@@ -1,7 +1,7 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SharedService } from '@app/services/shared.service';
-import { CredentialsService } from '@app/auth';
+import { CredentialsService, AuthenticationService } from '@app/auth';
 
 @Component({
   selector: 'app-job-view',
@@ -10,6 +10,7 @@ import { CredentialsService } from '@app/auth';
 })
 export class JobViewComponent implements OnInit {
   @ViewChild('uploadResume', { static: false }) public upResume: any;
+  uds: any;
   resumeLink: string = '';
   jobConfig: any = {
     jobId: '',
@@ -22,9 +23,11 @@ export class JobViewComponent implements OnInit {
     private sharedService: SharedService,
     public route: ActivatedRoute,
     public router: Router,
-    public credentialsService: CredentialsService
+    public credentialsService: CredentialsService,
+    public authenticationService: AuthenticationService
   ) {
     this.jobConfig.jobId = this.route.snapshot.params.jobId;
+    this.uds = this.sharedService.plugins.undSco;
   }
 
   getJobDetail() {
@@ -40,6 +43,23 @@ export class JobViewComponent implements OnInit {
       (response: any) => {
         $t.jobConfig.job = response.responseObj;
         $t.jobConfig.fetchingJob = false;
+
+        if ($t.user) {
+          $t.user['recentlyViewedJobs'].push({
+            description: response.responseObj.description,
+            experienceFrom: response.responseObj.experienceFrom,
+            experienceTo: response.responseObj.experienceTo,
+            id: response.responseObj.id,
+            location: response.responseObj.location,
+            tags: response.responseObj.tags,
+            title: response.responseObj.title,
+          });
+          $t.user['recentlyViewedJobs'] = $t.uds.uniq($t.user['recentlyViewedJobs'], (d: any) => {
+            return d.id;
+          });
+          $t.authenticationService.login(this.user);
+        }
+
         response.responseObj.applicants.forEach((candidate: any) => {
           if (candidate.userId == $t.user.email) {
             if (candidate.status == 'Applied') {

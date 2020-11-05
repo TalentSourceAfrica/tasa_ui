@@ -360,7 +360,21 @@
                     </span>
                   </div>
                   <div class="card-intro">
-                    <span class="badge badge-info p-1 ml-1" *ngFor="let item of job.tags">{{ item }}</span>
+                    <div class="d-flex">
+                      <span class="text-muted pl-1 d-flex text-bold" style="justify-content: center;"
+                        ><span class="material-icons pr-1 text-primary">
+                          work
+                        </span>
+                        {{ job.experienceFrom }} - {{ job.experienceTo }} Year</span
+                      >
+                      <span class="text-muted pl-2 d-flex text-bold" style="justify-content: center;"
+                        ><span class="material-icons pr-1 text-primary">
+                          location_city
+                        </span>
+                        {{ job.location }}</span
+                      >
+                    </div>
+                    <span class="badge badge-info p-1 ml-1 mt-2" *ngFor="let item of job.tags">{{ item }}</span>
                   </div>
                 </div>
               </div>
@@ -412,14 +426,28 @@
                         alt="Job"
                       />
                     </span>
-                    <span>
-                      <h6 class="card-title text-truncate" [title]="job.title">
+                    <span class="d-flex">
+                      <h6 class="card-title text-truncate mt-2" [title]="job.title">
                         {{ job.title }}
                       </h6>
                     </span>
                   </div>
                   <div class="card-intro">
-                    <span class="badge badge-info p-1 ml-1" *ngFor="let item of job.tags">{{ item }}</span>
+                    <div class="d-flex">
+                      <span class="text-muted pl-1 d-flex text-bold" style="justify-content: center;"
+                        ><span class="material-icons pr-1 text-primary">
+                          work
+                        </span>
+                        {{ job.experienceFrom }} - {{ job.experienceTo }} Year</span
+                      >
+                      <span class="text-muted pl-2 d-flex text-bold" style="justify-content: center;"
+                        ><span class="material-icons pr-1 text-primary">
+                          location_city
+                        </span>
+                        {{ job.location }}</span
+                      >
+                    </div>
+                    <span class="badge badge-info p-1 ml-1 mt-2" *ngFor="let item of job.tags">{{ item }}</span>
                   </div>
                 </div>
               </div>

@@ -149,18 +149,12 @@
 <ng-template #jobsGridView>
   <div class="col-md-4 col-lg-4 col-sm-6 animated fadeIn" *ngFor="let job of allJobs">
     <div class="card curPoint">
-      <!-- <button
-      mat-mini-fab
-      color="primary"
-      style="z-index: 9; right: 10px; color: orangered;"
-      class="position-absolute mt-2"
-      matTooltipPosition="below"
-      matTooltip="Remove From Favorite"
-      (click)="addToFavorite(false, course, $event)"
-      *ngIf="user && user.type.toLowerCase() != 'admin' && course.isFav"
-    >
-      <mat-icon>favorite</mat-icon>
-    </button> -->
+      <span
+        *ngIf="job.isApplied"
+        class="badge badge-success p-2 ml-1 mt-2 position-absolute mt-2"
+        style="z-index: 9; right: 10px;"
+        >Applied</span
+      >
       <div class="card-img">
         <img src="../../../assets/images/TSA_logo_new.small.png" />
       </div>
@@ -214,6 +208,7 @@
     </div>
   </div>
 </ng-template>
+
 <ng-template #jobsListView>
   <mat-accordion>
     <div class="col-12 animated fadeIn w100 mt-4 mb-1" id="jobPanel-{{ i }}" *ngFor="let job of allJobs; let i = index">
@@ -222,6 +217,9 @@
           <mat-panel-title class="pt-3">
             <h6 class="text-primary mt-2 pb-2">
               {{ job.title }} <span class="text-muted ml-1">({{ job.location }})</span>
+              <span *ngIf="job.isApplied" class="badge badge-success p-2 ml-1 mt-2" style="z-index: 9; right: 10px;"
+                >Applied</span
+              >
             </h6>
           </mat-panel-title>
           <mat-panel-description>
@@ -320,6 +318,7 @@
               matTooltipPosition="below"
               matTooltip="Apply For This Job"
               class="rounded-pill ml-2"
+              *ngIf="!job.isApplied"
               (click)="applyForJob(job, $event)"
             >
               <span>Apply</span>
