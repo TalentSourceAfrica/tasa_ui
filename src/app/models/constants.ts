@@ -1,10 +1,10 @@
 export const courseSearchData = {
   text: '',
   tier: '',
-  levels: '',
-  subjects: '',
+  level: '',
+  subject: '',
   category: '',
-  languages: '',
+  language: '',
   programs: '',
   discountStart: 0,
   discountEnd: 0,

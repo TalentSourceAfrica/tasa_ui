@@ -284,7 +284,7 @@
         <div class="col-12">
           <label for="" class="h6 d-block">Language </label>
           <mat-form-field appearance="fill">
-            <mat-select [(ngModel)]="searchConfig.languages" [value]="searchConfig.languages" ngDefaultControl>
+            <mat-select [(ngModel)]="searchConfig.language" [value]="searchConfig.language" ngDefaultControl>
               <mat-option value="">None</mat-option>
               <mat-option [value]="item" *ngFor="let item of filterData.languages">{{ item }}</mat-option>
             </mat-select>
@@ -293,7 +293,7 @@
         <div class="col-12">
           <label for="" class="h6 d-block">Subject </label>
           <mat-form-field appearance="fill">
-            <mat-select [(ngModel)]="searchConfig.subjects" [value]="searchConfig.subjects" ngDefaultControl>
+            <mat-select [(ngModel)]="searchConfig.subject" [value]="searchConfig.subject" ngDefaultControl>
               <mat-option value="">None</mat-option>
               <mat-option [value]="item" *ngFor="let item of filterData.subjects">{{ item }}</mat-option>
             </mat-select>
@@ -302,7 +302,7 @@
         <div class="col-12">
           <label for="" class="h6 d-block">Level</label>
           <mat-form-field appearance="fill">
-            <mat-select [(ngModel)]="searchConfig.levels" [value]="searchConfig.levels" ngDefaultControl>
+            <mat-select [(ngModel)]="searchConfig.level" [value]="searchConfig.level" ngDefaultControl>
               <mat-option value="">None</mat-option>
               <mat-option [value]="item" *ngFor="let item of filterData.levels">{{ item }}</mat-option>
             </mat-select>

@@ -65,6 +65,7 @@ export class JobsApplyPopupComponent implements OnInit {
     $t.sharedService.uiService.showApiStartPopMsg('Applying For ' + $t.popupData.applyingForJob.title + '...');
     $t.sharedService.configService.post(apiUrl, payload).subscribe(
       (response) => {
+        $t.sharedService.utilityService.changeMessage('REFRESH-ALL-JOBS');
         $t.sharedService.uiService.showApiSuccessPopMsg('Applied Successfully...');
         $t.dialogRef.close();
       },

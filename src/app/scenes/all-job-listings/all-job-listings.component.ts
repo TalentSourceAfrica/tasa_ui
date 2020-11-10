@@ -186,10 +186,11 @@ export class AllJobListingsComponent implements OnInit {
     this.init();
 
     this.sharedService.utilityService.currentMessage.pipe(delay(10), untilDestroyed(this)).subscribe((message) => {
-      if (message == 'TRIGGER-COURSE-SEARCH') {
+      if (message == 'REFRESH-ALL-JOBS') {
         this.init();
       }
     });
   }
+
   ngOnDestroy(): void {}
 }

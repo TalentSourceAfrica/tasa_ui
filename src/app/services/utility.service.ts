@@ -182,8 +182,10 @@ export class UtilityService {
         _courseSearchData.subjects = _searchText;
         break;
     }
-    this.router.navigate(['/all-course'], { replaceUrl: true });
     localStorage.setItem('tasa-search-course', JSON.stringify(_courseSearchData));
-    this.changeMessage('TRIGGER-COURSE-SEARCH');
+    this.router.navigate(['/all-course'], { replaceUrl: true });
+    if (this.router.url === '/all-course') {
+      this.changeMessage('TRIGGER-COURSE-SEARCH');
+    }
   }
 }
