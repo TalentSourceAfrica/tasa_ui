@@ -154,19 +154,19 @@
       <div class="sidebar-submenu">
         <ul>
           <li>
-            <a [routerLink]="['/reset-password']">Update Password</a>
+            <a class="menu-item" [routerLink]="['/reset-password']">Update Password</a>
           </li>
           <li>
-            <a [routerLink]="['/user/profile']">Edit Profile</a>
+            <a class="menu-item" [routerLink]="['/user/profile']">Edit Profile</a>
           </li>
           <li *ngIf="!isAdmin">
-            <a [routerLink]="['/testimonial']">Add Testimonial</a>
+            <a class="menu-item" [routerLink]="['/testimonial']">Add Testimonial</a>
           </li>
         </ul>
       </div>
     </li>
     <li>
-      <a class="curPoint" [routerLink]="['/subscription-plans']">
+      <a class="curPoint menu-item" [routerLink]="['/subscription-plans']">
         <i class="fa fa-tags"></i>
         <span>Subscription Plans</span>
       </a>
@@ -293,16 +293,16 @@
       <div class="sidebar-submenu">
         <ul>
           <li>
-            <a class="curPoint" [routerLink]="['/social-network/posts']"
+            <a class="curPoint menu-item" [routerLink]="['/social-network/posts']"
               >All Post
               <span class="badge badge-pill badge-success">Pro</span>
             </a>
           </li>
           <li>
-            <a [routerLink]="['/social-network/profile']" class="curPoint">My profile</a>
+            <a [routerLink]="['/social-network/profile']" class="curPoint menu-item">My profile</a>
           </li>
           <li>
-            <a class="curPoint">Network</a>
+            <a class="curPoint menu-item">Network</a>
           </li>
         </ul>
       </div>
@@ -312,21 +312,21 @@
     </li>
 
     <li>
-      <a class="curPoint" [routerLink]="['/dashboard']">
+      <a class="curPoint menu-item" [routerLink]="['/dashboard']">
         <i class="fas fa-chart-line"></i>
         <span>Dashboard</span>
         <!-- <span class="badge badge-pill badge-primary">Beta</span> -->
       </a>
     </li>
     <li>
-      <a class="curPoint" [routerLink]="['/user/course']">
+      <a class="curPoint menu-item" [routerLink]="['/user/course']">
         <i class="fas fa-graduation-cap"></i>
         <span>Courses</span>
         <!-- <span class="badge badge-pill badge-primary">Beta</span> -->
       </a>
     </li>
     <li *ngIf="!isAdmin">
-      <a class="curPoint" [routerLink]="['/user/fav-course']">
+      <a class="curPoint menu-item" [routerLink]="['/user/fav-course']">
         <i class="fas fa-heart"></i>
         <span>Favorite Courses</span>
         <!-- <span class="badge badge-pill badge-primary">Beta</span> -->
@@ -334,32 +334,32 @@
     </li>
 
     <li>
-      <a class="curPoint" [routerLink]="['/all-course']">
+      <a class="curPoint menu-item" [routerLink]="['/all-course']">
         <i class="fa fa-search"></i>
         <span>All Courses</span>
         <!-- <span class="badge badge-pill badge-primary">Beta</span> -->
       </a>
     </li>
     <li>
-      <a class="curPoint" [routerLink]="['/my-plan']">
+      <a class="curPoint menu-item" [routerLink]="['/my-plan']">
         <i class="fa fa-money-check"></i>
         <span>Subscription</span>
       </a>
     </li>
     <li>
-      <a class="curPoint" [routerLink]="['/digital-assets']">
+      <a class="curPoint menu-item" [routerLink]="['/digital-assets']">
         <i class="fa fa-folder-open"></i>
         <span>Documents</span>
       </a>
     </li>
     <li *ngIf="user.type == 'Mentee'">
-      <a class="curPoint" [routerLink]="['/jobs/my-applications']">
+      <a class="curPoint menu-item" [routerLink]="['/jobs/my-applications']">
         <i class="fas fa-file"></i>
         <span>My Job Applications</span>
       </a>
     </li>
     <li *ngIf="user.type == 'Mentee'">
-      <a class="curPoint" [routerLink]="['/jobs/listings']">
+      <a class="curPoint menu-item" [routerLink]="['/jobs/listings']">
         <i class="fas fa-briefcase"></i>
         <span>All Job Listings</span>
       </a>
@@ -379,22 +379,22 @@
       <div class="sidebar-submenu">
         <ul>
           <li>
-            <a [routerLink]="['/admin/deactive-user']">Active / Deactive User</a>
+            <a class="menu-item" [routerLink]="['/admin/deactive-user']">Active / Deactive User</a>
           </li>
           <li>
-            <a [routerLink]="['/admin/tier']">Tiers</a>
+            <a class="menu-item" [routerLink]="['/admin/tier']">Tiers</a>
           </li>
           <li>
-            <a [routerLink]="['/admin/lovs']">Lovs</a>
+            <a class="menu-item" [routerLink]="['/admin/lovs']">Lovs</a>
           </li>
           <li>
-            <a [routerLink]="['/admin/news']">News</a>
+            <a class="menu-item" [routerLink]="['/admin/news']">News</a>
           </li>
           <li>
-            <a [routerLink]="['/testimonial']">Testimonial</a>
+            <a class="menu-item" [routerLink]="['/testimonial']">Testimonial</a>
           </li>
           <li>
-            <a [routerLink]="['/admin/partners']">Partners</a>
+            <a class="menu-item" [routerLink]="['/admin/partners']">Partners</a>
           </li>
         </ul>
       </div>
@@ -414,7 +414,7 @@
       <div class="sidebar-submenu">
         <ul>
           <li>
-            <a [routerLink]="['/recruiter/jobs']">Jobs</a>
+            <a class="menu-item" [routerLink]="['/recruiter/jobs']">Jobs</a>
           </li>
         </ul>
       </div>

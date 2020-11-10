@@ -1298,3 +1298,12 @@ button:hover,
   color: white !important;
   border-radius: 7px !important;
 }
+
+.zoomCard {
+  transition: transform 0.2s;
+}
+.zoomCard:hover {
+  -ms-transform: scale(1.2);
+  -webkit-transform: scale(1.2);
+  transform: scale(1.2);
+}

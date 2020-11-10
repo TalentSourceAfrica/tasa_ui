@@ -512,7 +512,7 @@
             <owl-carousel-o [options]="courseOptions">
               <ng-container *ngFor="let job of user.recentlyViewedJobs; let i = index">
                 <ng-template carouselSlide [id]="i">
-                  <div class="card curPoint" [routerLink]="['/job/', job.id]">
+                  <div class="card zoomCard curPoint" [routerLink]="['/job/', job.id]">
                     <div class="card-img">
                       <img src="../../../assets/images/TSA_logo_new.small.png" alt="Logo" />
                     </div>
@@ -548,7 +548,7 @@
             <owl-carousel-o [options]="courseOptions">
               <ng-container *ngFor="let course of user.recentlyViewed; let i = index">
                 <ng-template carouselSlide [id]="i">
-                  <div class="card curPoint" (click)="courseView(course.key)">
+                  <div class="card curPoint zoomCard" (click)="courseView(course.key)">
                     <span class="flag-discount" style="width: 25%;" *ngIf="course.discountPercentage > 0"
                       >{{ course.discountPercentage }}% Off</span
                     >

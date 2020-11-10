@@ -39,6 +39,7 @@ export class HeaderComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
+    let $t = this;
     $('.sidebar-dropdown > a').click(function () {
       $('.sidebar-submenu').slideUp(200);
       if ($(this).parent().hasClass('active')) {
@@ -56,6 +57,12 @@ export class HeaderComponent implements OnInit {
     });
     $('#show-sidebar').click(function () {
       $('.page-wrapper').addClass('toggled');
+    });
+
+    $('.menu-item').on('click', () => {
+      if ($t.sharedService.deviceDetectorService.isMobile()) {
+        $('.page-wrapper').removeClass('toggled');
+      }
     });
   }
 
