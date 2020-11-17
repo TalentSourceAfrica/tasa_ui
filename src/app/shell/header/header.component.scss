@@ -101,13 +101,16 @@ body {
   transition-delay: 0.3s;
   z-index: 9999;
 }
+.cls{
+  display: block;
+}
 .page-wrapper.toggled #show-sidebar {
   left: -40px;
 }
 /*----------------sidebar-wrapper----------------*/
 
 .sidebar-wrapper {
-  width: 260px;
+  width: 15%;
   height: 100%;
   max-height: 100%;
   position: fixed;
