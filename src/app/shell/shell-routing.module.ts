@@ -115,6 +115,11 @@ const routes: Routes = [
         loadChildren: () => import('@app/scenes/admin/lov/lov.module').then((m) => m.LovModule),
       },
       {
+        path: 'admin/organization',
+        canActivate: [AuthenticationGuard, AdminGuard],
+        loadChildren: () => import('@app/scenes/admin/organization/organization.module').then((m) => m.OrganizationModule),
+      },
+      {
         path: 'recruiter/jobs',
         canActivate: [AuthenticationGuard, RecruiterGuard],
         loadChildren: () => import('@app/scenes/recruiter/jobs/jobs.module').then((m) => m.JobsModule),

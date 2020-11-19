@@ -53,6 +53,7 @@
                       name="search"
                       id="search"
                       placeholder="Search Courses"
+                      (keyup.enter)="onCourseSearch('text');"
                     />
                     <button type="button" (click)="onCourseSearch('text')">
                       <i class="fa fa-search"></i>

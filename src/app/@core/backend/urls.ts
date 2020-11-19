@@ -49,7 +49,7 @@ export const urls: any = {
   getAdminPosts: '/admin/posts', // G
   updatePost: '/posts', // PU
   deletePost: '/posts/{postId}', // DE
-  changePostStatus: '/posts/{postId}/{status}', //PO
+  changePostStatus: '/posts/{postId}/{status}', // PO
 
   // upload
   uploadMultiFile: '/uploadMultipleDocuments/{email}', // PO
@@ -103,4 +103,5 @@ export const urls: any = {
   getActiveOrganization:'/recruiter/organization' , // G
   deleteOrganisation : '/organization/{orgId}', // DE
   addOrganization: '/organization/{type}', // PO
+  updateOrganization: '/organization/bulk/{userId}' // PO
 };

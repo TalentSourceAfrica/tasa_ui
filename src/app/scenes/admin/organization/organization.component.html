@@ -1,0 +1,109 @@
+<div class="organization-wrapper container">
+  <ol class="breadcrumb mt-3">
+    <li class="breadcrumb-item curPoint"><a [routerLink]="['/home']">Home</a></li>
+    <li class="breadcrumb-item active">Organization</li>
+  </ol>
+  <div class="sec-title">
+    <div class="title">All Organization</div>
+  </div>
+  <section>
+    <div class="upload-box text-center">
+      <div class="supportedFormatCarousel d-block mb-3 mx-auto w50">
+        <button mat-flat-button color="primary" (click)="createOrganization()" class="rounded-pill ml-2">
+          <span class="material-icons pr-2">
+            add
+          </span>
+          ADD Organization
+        </button>
+      </div>
+    </div>
+  </section>
+  <mat-tab-group>
+    <mat-tab label="Inactive Organization">
+      <section>
+        <ng-container>
+          <div class="row min-vertical-h-80 max-vertical-h-80 stylishSlimScroll flow-y-auto flow-x-hidden">
+            <div
+              class="col-md-6 col-xl-6 col-sm-12 animated fadeIn"
+              *ngFor="let item of inactiveOrganizationData; let i = index"
+            >
+              <div class="card d-flex align-items-center">
+                <div class="card-body pt-5">
+                  <div class="row">
+                    {{ item.orgName }}
+                  </div>
+                </div>
+                <div class="w100 border-top p-2">
+                  <div class="text-center">
+                    <button
+                      mat-flat-button
+                      color="primary"
+                      *ngIf="item.id != 0"
+                      (click)="updateStatus(item,'Active')"
+                      class="rounded-pill ml-2"
+                    >
+                      Active
+                    </button>
+                    <button
+                      mat-mini-fab
+                      color="primary"
+                      matTooltipPosition="below"
+                      matTooltip="Delete"
+                      (click)="deleteOrganization(item, i,'Inactive')"
+                      class="ml-2"
+                    >
+                      <mat-icon class="mb-1">delete</mat-icon>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </section>
+    </mat-tab>
+    <mat-tab label="Active Organization">
+      <section>
+        <ng-container>
+          <div class="row min-vertical-h-80 max-vertical-h-80 stylishSlimScroll flow-y-auto flow-x-hidden">
+            <div
+              class="col-md-6 col-xl-6 col-sm-12 animated fadeIn"
+              *ngFor="let item of activeOrganizationData; let i = index"
+            >
+              <div class="card d-flex align-items-center">
+                <div class="card-body pt-5">
+                  <div class="row">
+                    {{ item.orgName }}
+                  </div>
+                </div>
+                <div class="w100 border-top p-2">
+                  <div class="text-center">
+                    <button
+                      mat-flat-button
+                      color="primary"
+                      *ngIf="item.id != 0"
+                      (click)="updateStatus(item,'Inactive')"
+                      class="rounded-pill ml-2"
+                    >
+                      Inactive
+                    </button>
+                    <button
+                      mat-mini-fab
+                      color="primary"
+                      matTooltipPosition="below"
+                      matTooltip="Delete"
+                      (click)="deleteOrganization(item, i,'Active')"
+                      class="ml-2"
+                    >
+                      <mat-icon class="mb-1">delete</mat-icon>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </section>
+    </mat-tab>
+  </mat-tab-group>
+</div>

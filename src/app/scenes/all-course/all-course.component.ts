@@ -316,7 +316,7 @@ export class AllCourseComponent implements OnInit {
     this.init();
 
     this.sharedService.utilityService.currentMessage.pipe(delay(10), untilDestroyed(this)).subscribe((message) => {
-      if (message == 'TRIGGER-COURSE-SEARCH') {
+      if (message === 'TRIGGER-COURSE-SEARCH') {
         this.init();
       }
     });

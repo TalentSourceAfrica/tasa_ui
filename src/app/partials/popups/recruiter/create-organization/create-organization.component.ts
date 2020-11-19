@@ -38,6 +38,7 @@ export class CreateOrganizationComponent implements OnInit {
     $t.sharedService.configService.post(apiUrl, payload).subscribe(
       (response:any) => {
         $t.dialogRef.close();
+        $t.sharedService.utilityService.changeMessage('TRIGGER-ORGANIZATION-UPDATE');
         $t.sharedService.uiService.showApiSuccessPopMsg(response.message);
       },
       (error: any) => {
