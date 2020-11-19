@@ -97,4 +97,10 @@ export const urls: any = {
   addSocialPost: '/socialPost', // PO
   deleteSocialPost: '/post/{postId}', // DE
   updateSocialPost: '/post', // PU
+
+  // Organisation
+  getOrganisation:'/organization', // G
+  getActiveOrganization:'/recruiter/organization' , // G
+  deleteOrganisation : '/organization/{orgId}', // DE
+  addOrganization: '/organization/{type}', // PO
 };

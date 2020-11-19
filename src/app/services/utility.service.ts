@@ -179,7 +179,7 @@ export class UtilityService {
         _courseSearchData.text = _searchText;
         break;
       case 'subject':
-        _courseSearchData.subjects = _searchText;
+        _courseSearchData.subject = _searchText;
         break;
     }
     localStorage.setItem('tasa-search-course', JSON.stringify(_courseSearchData));

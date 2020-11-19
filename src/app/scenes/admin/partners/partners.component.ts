@@ -5,10 +5,10 @@ import { CredentialsService } from '@app/auth';
 @Component({
   selector: 'app-partners',
   templateUrl: './partners.component.html',
-  styleUrls: ['./partners.component.scss']
+  styleUrls: ['./partners.component.scss'],
 })
 export class PartnersComponent implements OnInit {
-@ViewChild('partnerFile', { static: false }) public partnerFile: any;
+  @ViewChild('partnerFile', { static: false }) public partnerFile: any;
   selectedPartner: any;
   partnerData: any = [];
   isLoading: boolean = true;
@@ -30,7 +30,7 @@ export class PartnersComponent implements OnInit {
       createdBy: '',
       updatedBy: '',
       createdOn: '',
-      updatedOn: ''
+      updatedOn: '',
     });
   }
 
@@ -41,8 +41,8 @@ export class PartnersComponent implements OnInit {
 
   handleFileInput(event: any) {
     let $t = this;
-    let apiUrl = $t.sharedService.urlService.apiCallWithParams('uploadSingle', { 
-      '{email}': $t.user.email 
+    let apiUrl = $t.sharedService.urlService.apiCallWithParams('uploadSingle', {
+      '{email}': $t.user.email,
     });
     let files = event.target.files;
     var form = new FormData();
@@ -101,8 +101,8 @@ export class PartnersComponent implements OnInit {
     let $t = this;
     if (partner.partnerId != '') {
       $t.sharedService.uiService.showApiStartPopMsg('Deleting Partner...!');
-      let apiUrl = $t.sharedService.urlService.apiCallWithParams('deletePartner', { 
-        '{partnerId}': partner.partnerId 
+      let apiUrl = $t.sharedService.urlService.apiCallWithParams('deletePartner', {
+        '{partnerId}': partner.partnerId,
       });
       $t.sharedService.configService.delete(apiUrl).subscribe(
         (response: any) => {

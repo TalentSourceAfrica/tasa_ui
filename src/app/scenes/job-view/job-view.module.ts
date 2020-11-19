@@ -22,6 +22,6 @@ import { JobViewComponent } from './job-view.component';
     JobViewRoutingModule,
   ],
   declarations: [JobViewComponent],
-  schemas: [NO_ERRORS_SCHEMA]
+  schemas: [NO_ERRORS_SCHEMA],
 })
 export class JobViewModule {}

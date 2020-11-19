@@ -8,17 +8,9 @@ import { MaterialModule } from '@app/modules/material.module';
 import { JobsApplyPopupComponent } from './jobs-apply-popup.component';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    TranslateModule,
-    AuthModule,
-    FormsModule,
-    I18nModule,
-    MaterialModule
-  ],
+  imports: [CommonModule, TranslateModule, AuthModule, FormsModule, I18nModule, MaterialModule],
   declarations: [JobsApplyPopupComponent],
   entryComponents: [JobsApplyPopupComponent],
   schemas: [NO_ERRORS_SCHEMA],
 })
-
 export class JobsApplyPopupModule {}

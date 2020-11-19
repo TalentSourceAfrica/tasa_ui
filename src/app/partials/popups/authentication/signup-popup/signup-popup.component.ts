@@ -2,9 +2,10 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
-//service
+// service
 import { SharedService } from '@app/services/shared.service';
 import { MustMatch } from '@app/auth/must-match';
+import { CreateOrganizationComponent } from '../../recruiter/create-organization/create-organization.component';
 
 @Component({
   selector: 'app-signup-popup',
@@ -14,12 +15,13 @@ import { MustMatch } from '@app/auth/must-match';
 export class SignupPopupComponent implements OnInit {
   signupForm: FormGroup;
   doc = '';
+  organisationList: any = [];
   termsAndCondition = 'https://www.fleetster.net/legal/standard-terms-and-conditions.pdf';
   popupData: any;
   signupType: any = [
     { value: 0, dbValue: 'Mentee', viewValue: 'Student / Professional' },
     { value: 1, dbValue: 'Mentor', viewValue: 'Mentor' },
-    { value: 2, dbValue: 'Mentor', viewValue: 'Recruiter' },
+    { value: 2, dbValue: 'Recruiter', viewValue: 'Recruiter' },
   ];
   userType = { value: 0, dbValue: 'Mentee', viewValue: 'Student / Professional' };
   isUsernameAvailable = true;
@@ -112,9 +114,13 @@ export class SignupPopupComponent implements OnInit {
     $t.sharedService.uiService.showApiStartPopMsg('Creating Account...');
     let payload = { ...$t.signupForm.value, type: $t.userType.dbValue };
     $t.sharedService.configService.post(apiUrl, payload).subscribe(
-      (response) => {
+      (response: any) => {
         $t.dialogRef.close();
-        $t.sharedService.uiService.showApiSuccessPopMsg('Please check inbox for successful verification...!');
+        if ($t.userType.dbValue !== 'Recruiter') {
+          $t.sharedService.uiService.showApiSuccessPopMsg('Please check inbox for successful verification...!');
+        } else {
+          $t.sharedService.uiService.showApiSuccessPopMsg(response.message);
+        }
       },
       (error: any) => {
         $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
@@ -122,9 +128,31 @@ export class SignupPopupComponent implements OnInit {
     );
   }
 
+  getOrganisation() {
+    let $t = this;
+    let apiUrl = $t.sharedService.urlService.simpleApiCall('getActiveOrganization');
+    $t.sharedService.configService.get(apiUrl).subscribe(
+      (response: any) => {
+        $t.organisationList = response.responseObj;
+      },
+      (error: any) => {
+        $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
+      }
+    );
+  }
+
+  createOrganization() {
+    this.sharedService.dialogService.open(CreateOrganizationComponent, {
+      width: '40%',
+      disableClose: false,
+    });
+  }
+
   openTerms() {
     this.doc = this.termsAndCondition;
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getOrganisation();
+  }
 }

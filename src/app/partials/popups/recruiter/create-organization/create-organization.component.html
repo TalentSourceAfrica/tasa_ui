@@ -1,0 +1,201 @@
+<div class="d-flex align-items-center no-gutters signup-wrapper">
+  <div class="col-sm-8 col-md-12 col-lg-12 mx-auto">
+    <div class="navbar-shadow">
+      <div class="card-header text-center">
+        <h4 class="card-title">Create Organization</h4>
+      </div>
+      <div class="card-body">
+        <ng-container *ngTemplateOutlet="organizationForm"></ng-container>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #organizationForm>
+  <form [formGroup]="signupForm" *ngIf="signupForm" (ngSubmit)="onSubmit()" novalidate>
+    <div class="min-vertical-h-50 max-vertical-h-50 stylishScroll flow-y-auto flow-x-hidden p-2">
+      <div class="form-group">
+        <label class="form-label" for="name">Organization Name <sup class="text-danger">*</sup></label>
+        <div class="input-group input-group-merge">
+          <input
+            id="name"
+            type="text"
+            formControlName="orgName"
+            class="form-control form-control-prepended"
+            placeholder="Type Organization Name"
+          />
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <span class="far fa-user"></span>
+            </div>
+          </div>
+        </div>
+        <small
+          [hidden]="signupForm.controls.orgName.valid || signupForm.controls.orgName.untouched"
+          class="text-danger"
+          translate
+        >
+          Organization Name is required
+        </small>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="name">Organization Description <sup class="text-danger">*</sup></label>
+        <div class="input-group input-group-merge">
+          <input
+            id="name"
+            type="text"
+            formControlName="orgDesc"
+            class="form-control form-control-prepended"
+            placeholder="Type Organization Description"
+          />
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <span class="far fa-user"></span>
+            </div>
+          </div>
+        </div>
+        <small
+          [hidden]="signupForm.controls.orgDesc.valid || signupForm.controls.orgDesc.untouched"
+          class="text-danger"
+          translate
+        >
+          Organization Description is required
+        </small>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="name">Registration Id <sup class="text-danger">*</sup></label>
+        <div class="input-group input-group-merge">
+          <input
+            id="name"
+            type="text"
+            formControlName="registrationId"
+            class="form-control form-control-prepended"
+            placeholder="Type Registration Id"
+          />
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <span class="far fa-user"></span>
+            </div>
+          </div>
+        </div>
+        <small
+          [hidden]="signupForm.controls.registrationId.valid || signupForm.controls.registrationId.untouched"
+          class="text-danger"
+          translate
+        >
+        Registration Id is required
+        </small>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="email">Contact Person Email<sup class="text-danger">*</sup></label>
+        <div class="input-group input-group-merge">
+          <input
+            id="email"
+            type="email"
+            formControlName="contactPersonEmail"
+            class="form-control form-control-prepended"
+            placeholder="Type Email"
+          />
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <span class="far fa-envelope"></span>
+            </div>
+          </div>
+        </div>
+        <small
+          [hidden]="signupForm.controls.contactPersonEmail.valid || signupForm.controls.contactPersonEmail.untouched"
+          class="text-danger"
+          translate
+        >
+          Contact Person Email is required
+        </small>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="password">Contact Person No <sup class="text-danger">*</sup></label>
+        <div class="input-group input-group-merge">
+          <input
+            id="password"
+            type="text"
+            formControlName="contactPersonNo"
+            class="form-control form-control-prepended"
+            placeholder="Type Phone Number"
+          />
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <span class="fas fa-key"></span>
+            </div>
+          </div>
+        </div>
+        <small
+          [hidden]="signupForm.controls.contactPersonNo.valid || signupForm.controls.contactPersonNo.untouched"
+          class="text-danger"
+          translate
+        >
+          Contact Person No is required
+        </small>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="name">Contact Person Name<sup class="text-danger">*</sup></label>
+        <div class="input-group input-group-merge">
+          <input
+            id="name"
+            type="text"
+            formControlName="contactPersonName"
+            class="form-control form-control-prepended"
+            placeholder="Type Name"
+          />
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <span class="far fa-user"></span>
+            </div>
+          </div>
+        </div>
+        <small
+          [hidden]="signupForm.controls.contactPersonName.valid || signupForm.controls.contactPersonName.untouched"
+          class="text-danger"
+          translate
+        >
+          Contact Person Name is required
+        </small>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="name">Contact Person Designation<sup class="text-danger">*</sup></label>
+        <div class="input-group input-group-merge">
+          <input
+            id="name"
+            type="text"
+            formControlName="contactPersonDesignation"
+            class="form-control form-control-prepended"
+            placeholder="Type Designation"
+          />
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <span class="far fa-user"></span>
+            </div>
+          </div>
+        </div>
+        <small
+          [hidden]="
+            signupForm.controls.contactPersonDesignation.valid || signupForm.controls.contactPersonDesignation.untouched
+          "
+          class="text-danger"
+          translate
+        >
+          Contact Person Designation is required
+        </small>
+      </div>
+    </div>
+
+    <div class="form-group text-center">
+      <button
+        mat-flat-button
+        color="primary"
+        type="submit"
+        [disabled]="signupForm.invalid"
+        class="rounded-pill ml-2 w50"
+      >
+        Save
+      </button>
+    </div>
+  </form>
+</ng-template>

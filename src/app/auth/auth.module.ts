@@ -9,9 +9,11 @@ import { MaterialModule } from '@app/modules/material.module';
 import { I18nModule } from '@app/i18n';
 import { AuthRoutingModule } from './auth-routing.module';
 import { NgxDocViewerModule } from 'ngx-doc-viewer';
+import { CreateOrganizationModule } from '@app/partials/popups/recruiter/create-organization/create-organization.module';
 
 import { SignupPopupComponent } from '@app/partials/popups/authentication/signup-popup/signup-popup.component';
 import { ForgotPasswordPopupComponent } from '@app/partials/popups/authentication/forgot-password-popup/forgot-password-popup.component';
+
 
 @NgModule({
   imports: [
@@ -24,6 +26,7 @@ import { ForgotPasswordPopupComponent } from '@app/partials/popups/authenticatio
     AuthRoutingModule,
     MaterialModule,
     NgxDocViewerModule,
+    CreateOrganizationModule
   ],
   declarations: [SignupPopupComponent, ForgotPasswordPopupComponent],
   schemas: [NO_ERRORS_SCHEMA],

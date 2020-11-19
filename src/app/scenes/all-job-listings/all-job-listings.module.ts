@@ -11,7 +11,15 @@ import { JobsApplyPopupModule } from '@app/partials/popups/jobs/jobs-apply-popup
 import { MaterialModule } from '@app/modules/material.module';
 
 @NgModule({
-  imports: [CommonModule, TranslateModule, FormsModule, SharedModule, AllJobListingsRoutingModule, MaterialModule, JobsApplyPopupModule],
+  imports: [
+    CommonModule,
+    TranslateModule,
+    FormsModule,
+    SharedModule,
+    AllJobListingsRoutingModule,
+    MaterialModule,
+    JobsApplyPopupModule,
+  ],
   declarations: [AllJobListingsComponent],
   entryComponents: [],
   schemas: [NO_ERRORS_SCHEMA],
