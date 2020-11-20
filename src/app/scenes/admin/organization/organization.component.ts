@@ -5,6 +5,8 @@ import { CreateOrganizationComponent } from '@app/partials/popups/recruiter/crea
 import { SharedService } from '@app/services/shared.service';
 import { delay } from 'underscore';
 
+declare var jQuery: any;
+
 @Component({
   selector: 'app-organization',
   templateUrl: './organization.component.html',
@@ -17,6 +19,24 @@ export class OrganizationComponent implements OnInit {
   activeOrganizationData: any = [];
   inactiveOrganizationData: any = [];
   constructor(public sharedService: SharedService, public credentialsService: CredentialsService) {}
+
+  descriptionInfo() {
+    jQuery('.org-description').on('mouseover', function (e: any) {
+      let description = jQuery(this).attr('data-desc');
+      jQuery(this).webuiPopover({
+        title: 'Description',
+        trigger: 'hover',
+        animation: 'pop',
+        type: 'html',
+        multi: false,
+        content: description,
+        closeable: true,
+        placement:'right',
+        width: '400',
+      });
+      jQuery(this).webuiPopover('show');
+    });
+  }
 
   updateStatus(org: any, status: string, orgIndex: number) {
     let $t = this;
@@ -84,6 +104,9 @@ export class OrganizationComponent implements OnInit {
       (response: any) => {
         $t.activeOrganizationData = response.responseObj.filter((d: any) => d.activeFlag === 'Active');
         $t.inactiveOrganizationData = response.responseObj.filter((d: any) => d.activeFlag !== 'Active');
+        setTimeout(() => {
+          $t.descriptionInfo();
+        }, 1000);
       },
       (error) => {
         console.log(error);

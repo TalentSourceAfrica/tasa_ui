@@ -18,7 +18,7 @@
       </div>
     </div>
   </section>
-  <mat-tab-group>
+  <mat-tab-group (selectedTabChange)="descriptionInfo()">
     <mat-tab label="Inactive Organization">
       <section>
         <ng-container *ngIf="inactiveOrganizationData.length">
@@ -37,9 +37,8 @@
                   <div class="row">
                     <div class="col-12">
                       {{ item.orgName }} &nbsp;&nbsp;<span
-                        id="orgDescription"
                         [attr.data-desc]="item.orgDesc"
-                        class="material-icons text-muted fa-lg curPoint"
+                        class="material-icons text-muted fa-lg curPoint org-description"
                       >
                         info
                       </span>
@@ -129,9 +128,8 @@
                   <div class="row">
                     <div class="col-12">
                       {{ item.orgName }} &nbsp;&nbsp;<span
-                        id="orgDescription"
                         [attr.data-desc]="item.orgDesc"
-                        class="material-icons text-muted fa-lg curPoint"
+                        class="material-icons text-muted fa-lg curPoint org-description"
                       >
                         info
                       </span>

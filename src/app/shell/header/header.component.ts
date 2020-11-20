@@ -32,6 +32,24 @@ export class HeaderComponent implements OnInit {
     this.sharedService.utilityService.onCourseSearch(this.searchCourseText, 'text');
   }
 
+  descriptionInfo() {
+    $('.notification-popup').on('mouseover', function (e: any) {
+      let description = $(this).attr('data-desc');
+      $(this).webuiPopover({
+        title: 'Notifications',
+        trigger: 'hover',
+        animation: 'pop',
+        type: 'html',
+        multi: false,
+        content: description,
+        closeable: true,
+        placement: 'bottom',
+        width: '350',
+      });
+      $(this).webuiPopover('show');
+    });
+  }
+
   ngOnInit() {
     if (this.sharedService.deviceDetectorService.isMobile()) {
       $('.page-wrapper').removeClass('toggled');
@@ -64,6 +82,8 @@ export class HeaderComponent implements OnInit {
         $('.page-wrapper').removeClass('toggled');
       }
     });
+
+    $t.descriptionInfo();
   }
 
   logout() {
@@ -120,4 +140,5 @@ export class HeaderComponent implements OnInit {
     const credentials = this.credentialsService.credentials;
     return credentials ? credentials : null;
   }
+
 }
