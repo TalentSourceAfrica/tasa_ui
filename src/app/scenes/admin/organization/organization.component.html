@@ -21,16 +21,22 @@
   <mat-tab-group>
     <mat-tab label="Inactive Organization">
       <section>
-        <ng-container>
+        <ng-container *ngIf="inactiveOrganizationData.length">
           <div class="row min-vertical-h-80 max-vertical-h-80 stylishSlimScroll flow-y-auto flow-x-hidden">
             <div
-              class="col-md-6 col-xl-6 col-sm-12 animated fadeIn"
+              class="col-md-6 col-xl-4 col-sm-12 animated fadeIn"
               *ngFor="let item of inactiveOrganizationData; let i = index"
             >
               <div class="card d-flex align-items-center">
-                <div class="card-body pt-5">
+                <div class="card-img">
+                  <img
+                    src="https://images.unsplash.com/photo-1432821596592-e2c18b78144f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80"
+                  />
+                </div>
+                <div class="card-body mt-3">
                   <div class="row">
-                    {{ item.orgName }}
+                    <div class="col-12">{{ item.orgName }}</div>
+                    <div class="col-12"><span class="text-muted">Registered ID : </span> {{ item.registrationId }}</div>
                   </div>
                 </div>
                 <div class="w100 border-top p-2">
@@ -39,7 +45,7 @@
                       mat-flat-button
                       color="primary"
                       *ngIf="item.id != 0"
-                      (click)="updateStatus(item,'Active')"
+                      (click)="updateStatus(item, 'Active')"
                       class="rounded-pill ml-2"
                     >
                       Active
@@ -49,7 +55,7 @@
                       color="primary"
                       matTooltipPosition="below"
                       matTooltip="Delete"
-                      (click)="deleteOrganization(item, i,'Inactive')"
+                      (click)="deleteOrganization(item, i, 'Inactive')"
                       class="ml-2"
                     >
                       <mat-icon class="mb-1">delete</mat-icon>
@@ -60,20 +66,69 @@
             </div>
           </div>
         </ng-container>
+
+        <ng-container *ngIf="inactiveOrganizationData.length == 0">
+            <div class="text-center m-auto animated fadeIn mt-2">
+              <div class="col-12 text-center">
+                <img src="../../../assets/images/no-record.gif" style="height: 300px;" class="d-block m-auto" />
+                <h6 class="text-primary">No Inactive Organization Yet...!</h6>
+              </div>
+            </div>
+          </ng-container>
       </section>
     </mat-tab>
     <mat-tab label="Active Organization">
       <section>
-        <ng-container>
+        <ng-container *ngIf="activeOrganizationData.length">
           <div class="row min-vertical-h-80 max-vertical-h-80 stylishSlimScroll flow-y-auto flow-x-hidden">
             <div
-              class="col-md-6 col-xl-6 col-sm-12 animated fadeIn"
+              class="col-md-6 col-xl-4 col-sm-12 animated fadeIn"
               *ngFor="let item of activeOrganizationData; let i = index"
             >
               <div class="card d-flex align-items-center">
-                <div class="card-body pt-5">
+                <div class="card-img">
+                  <img
+                    src="https://images.unsplash.com/photo-1432821596592-e2c18b78144f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80"
+                  />
+                </div>
+                <div class="card-body mt-3">
                   <div class="row">
-                    {{ item.orgName }}
+                    <div class="col-12">
+                      {{ item.orgName }} &nbsp;&nbsp;<span
+                        id="orgDescription"
+                        [attr.data-desc]="item.orgDesc"
+                        class="material-icons text-muted fa-lg curPoint"
+                      >
+                        info
+                      </span>
+                    </div>
+                    <div class="col-12"><span class="text-muted">Registered ID : </span> {{ item.registrationId }}</div>
+                  </div>
+                  <div class="row mt-1 border-top pt-2">
+                    <div class="col-12">
+                      <div class="d-flex align-items-center">
+                        <span class="material-icons text-muted pr-2">
+                          settings_phone
+                        </span>
+                        {{ item.contactPersonNo }}
+                      </div>
+                    </div>
+                    <div class="col-12 pt-1">
+                      <div class="d-flex align-items-center">
+                        <span class="material-icons text-muted pr-2">
+                          email
+                        </span>
+                        {{ item.contactPersonEmail }}
+                      </div>
+                    </div>
+                    <div class="col-12 pt-1">
+                      <div class="d-flex align-items-center">
+                        <span class="material-icons text-muted pr-2">
+                          work
+                        </span>
+                        {{ item.contactPersonDesignation }}
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div class="w100 border-top p-2">
@@ -82,7 +137,7 @@
                       mat-flat-button
                       color="primary"
                       *ngIf="item.id != 0"
-                      (click)="updateStatus(item,'Inactive')"
+                      (click)="updateStatus(item, 'Inactive')"
                       class="rounded-pill ml-2"
                     >
                       Inactive
@@ -92,7 +147,7 @@
                       color="primary"
                       matTooltipPosition="below"
                       matTooltip="Delete"
-                      (click)="deleteOrganization(item, i,'Active')"
+                      (click)="deleteOrganization(item, i, 'Active')"
                       class="ml-2"
                     >
                       <mat-icon class="mb-1">delete</mat-icon>
@@ -100,6 +155,15 @@
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="activeOrganizationData.length == 0">
+          <div class="text-center m-auto animated fadeIn mt-2">
+            <div class="col-12 text-center">
+              <img src="../../../assets/images/no-record.gif" style="height: 300px;" class="d-block m-auto" />
+              <h6 class="text-primary">No Active Organization Yet...!</h6>
             </div>
           </div>
         </ng-container>
