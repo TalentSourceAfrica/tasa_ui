@@ -18,14 +18,31 @@ export class OrganizationComponent implements OnInit {
   inactiveOrganizationData: any = [];
   constructor(public sharedService: SharedService, public credentialsService: CredentialsService) {}
 
-  updateStatus(org: any, status: string) {
+  updateStatus(org: any, status: string, orgIndex: number) {
     let $t = this;
+    let startMsg = '';
+    let succMsg = '';
     org.activeFlag = status;
-    $t.sharedService.uiService.showApiStartPopMsg('Updating Organization...!');
+    if (status === 'Active') {
+      startMsg = 'Activating Organization...!';
+      succMsg = 'Organization Activated...!';
+    } else {
+      startMsg = 'Inactivating Organization...!';
+      succMsg = 'Organization Inactivated...!';
+    }
+
+    $t.sharedService.uiService.showApiStartPopMsg(startMsg);
     let apiUrl = $t.sharedService.urlService.apiCallWithParams('updateOrganization', { '{userId}': $t.user.email });
     $t.sharedService.configService.post(apiUrl, [org]).subscribe(
       (response: any) => {
-        $t.sharedService.uiService.showApiSuccessPopMsg('Organization Updated...!');
+        $t.sharedService.uiService.showApiSuccessPopMsg(succMsg);
+        if (status === 'Active') {
+          $t.inactiveOrganizationData.splice(orgIndex, 1);
+          $t.activeOrganizationData.push(org);
+        } else {
+          $t.activeOrganizationData.splice(orgIndex, 1);
+          $t.inactiveOrganizationData.push(org);
+        }
       },
       (error) => {
         $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
@@ -40,28 +57,24 @@ export class OrganizationComponent implements OnInit {
     });
   }
 
-  deleteOrganization(news: any, newsIndex: any, type: string) {
+  deleteOrganization(org: any, orgIndex: any, type: string) {
     let $t = this;
-    if (news.id != '') {
-      $t.sharedService.uiService.showApiStartPopMsg('Deleting Organization...!');
-      let apiUrl = $t.sharedService.urlService.apiCallWithParams('deleteNews', { '{newsId}': news.id });
-      $t.sharedService.configService.delete(apiUrl).subscribe(
-        (response: any) => {
-          if (type === 'Active') {
-            $t.activeOrganizationData.splice(newsIndex, 1);
-          } else {
-            $t.inactiveOrganizationData.splice(newsIndex, 1);
-          }
-
-          $t.sharedService.uiService.showApiSuccessPopMsg('Organization Deleted...!');
-        },
-        (error) => {
-          $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
+    $t.sharedService.uiService.showApiStartPopMsg('Deleting Organization...!');
+    let apiUrl = $t.sharedService.urlService.apiCallWithParams('deleteNews', { '{newsId}': org.id });
+    $t.sharedService.configService.delete(apiUrl).subscribe(
+      (response: any) => {
+        if (type === 'Active') {
+          $t.activeOrganizationData.splice(orgIndex, 1);
+        } else {
+          $t.inactiveOrganizationData.splice(orgIndex, 1);
         }
-      );
-    } else {
-      // $t.organizationData.splice(newsIndex, 1);
-    }
+
+        $t.sharedService.uiService.showApiSuccessPopMsg('Organization Deleted...!');
+      },
+      (error) => {
+        $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
+      }
+    );
   }
 
   getOrganization() {
@@ -96,6 +109,5 @@ export class OrganizationComponent implements OnInit {
   ngOnDestroy(): void {
     // Called once, before the instance is destroyed.
     // Add 'implements OnDestroy' to the class.
-    
   }
 }
