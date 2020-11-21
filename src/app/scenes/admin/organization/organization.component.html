@@ -19,19 +19,21 @@
     </div>
   </section>
   <mat-tab-group (selectedTabChange)="descriptionInfo()">
-    <mat-tab label="Inactive Organization">
+    <mat-tab label="All Organization">
       <section>
-        <ng-container *ngIf="inactiveOrganizationData.length">
-          <div class="row min-vertical-h-80 max-vertical-h-80 stylishSlimScroll flow-y-auto flow-x-hidden">
+        <ng-container *ngIf="organizationData.length">
+          <div class="row min-vertical-h-70 max-vertical-h-70 stylishSlimScroll flow-y-auto flow-x-hidden">
             <div
               class="col-md-6 col-xl-4 col-sm-12 animated fadeIn"
-              *ngFor="let item of inactiveOrganizationData; let i = index"
+              *ngFor="let item of organizationData; let i = index"
             >
               <div class="card d-flex align-items-center">
                 <div class="card-img">
                   <img
+                    *ngIf="!item.orgImage"
                     src="https://images.unsplash.com/photo-1432821596592-e2c18b78144f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80"
                   />
+                  <img *ngIf="item.orgImage" [src]="item.orgImage" />
                 </div>
                 <div class="card-body mt-3">
                   <div class="row">
@@ -43,7 +45,115 @@
                         info
                       </span>
                     </div>
-                    <div class="col-12"><span class="text-muted">Registered ID : </span> {{ item.registrationId }}</div>
+                    <div class="col-12">
+                      <span class="text-muted">Registered ID : </span
+                      ><span class="text-truncate" [title]="item.registrationId">{{ item.registrationId }}</span>
+                    </div>
+                  </div>
+                  <div class="row mt-1 border-top pt-2">
+                    <div class="col-12">
+                      <div class="d-flex align-items-center">
+                        <span class="material-icons text-muted pr-2">
+                          settings_phone
+                        </span>
+                        {{ item.contactPersonNo }}
+                      </div>
+                    </div>
+                    <div class="col-12 pt-1">
+                      <div class="d-flex align-items-center">
+                        <span class="material-icons text-muted pr-2">
+                          email
+                        </span>
+                        {{ item.contactPersonEmail }}
+                      </div>
+                    </div>
+                    <div class="col-12 pt-1">
+                      <div class="d-flex align-items-center">
+                        <span class="material-icons text-muted pr-2">
+                          work
+                        </span>
+                        {{ item.contactPersonDesignation }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="w100 border-top p-2">
+                  <div class="text-center">
+                    <button
+                      mat-flat-button
+                      color="primary"
+                      *ngIf="item.activeFlag == 'Inactive'"
+                      (click)="updateStatus(item, 'Active', i)"
+                      class="rounded-pill ml-2"
+                    >
+                      Active
+                    </button>
+                    <button
+                      mat-flat-button
+                      color="primary"
+                      *ngIf="item.activeFlag == 'Active'"
+                      (click)="updateStatus(item, 'Inactive', i)"
+                      class="rounded-pill ml-2"
+                    >
+                      Inactive
+                    </button>
+                    <button
+                      mat-mini-fab
+                      color="primary"
+                      matTooltipPosition="below"
+                      matTooltip="Delete"
+                      (click)="deleteOrganization(item, i, 'All')"
+                      class="ml-2"
+                    >
+                      <mat-icon class="mb-1">delete</mat-icon>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="inactiveOrganizationData.length == 0">
+          <div class="text-center m-auto animated fadeIn mt-2">
+            <div class="col-12 text-center">
+              <img src="../../../assets/images/no-record.gif" style="height: 300px;" class="d-block m-auto" />
+              <h6 class="text-primary">No Inactive Organization Yet...!</h6>
+            </div>
+          </div>
+        </ng-container>
+      </section>
+    </mat-tab>
+    <mat-tab label="Inactive Organization">
+      <section>
+        <ng-container *ngIf="inactiveOrganizationData.length">
+          <div class="row min-vertical-h-80 max-vertical-h-80 stylishSlimScroll flow-y-auto flow-x-hidden">
+            <div
+              class="col-md-6 col-xl-4 col-sm-12 animated fadeIn"
+              *ngFor="let item of inactiveOrganizationData; let i = index"
+            >
+              <div class="card d-flex align-items-center">
+                <div class="card-img">
+                  <img
+                    *ngIf="!item.orgImage"
+                    src="https://images.unsplash.com/photo-1432821596592-e2c18b78144f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80"
+                  />
+                  <img *ngIf="item.orgImage" [src]="item.orgImage" />
+                </div>
+                <div class="card-body mt-3">
+                  <div class="row">
+                    <div class="col-12">
+                      {{ item.orgName }} &nbsp;&nbsp;<span
+                        [attr.data-desc]="item.orgDesc"
+                        class="material-icons text-muted fa-lg curPoint org-description"
+                      >
+                        info
+                      </span>
+                    </div>
+                    <div class="col-12">
+                      <span class="text-muted">Registered ID : </span
+                      ><span class="text-truncate" [title]="item.registrationId">{{ item.registrationId }}</span>
+                    </div>
                   </div>
                   <div class="row mt-1 border-top pt-2">
                     <div class="col-12">
@@ -78,7 +188,7 @@
                       mat-flat-button
                       color="primary"
                       *ngIf="item.id != 0"
-                      (click)="updateStatus(item, 'Active',i)"
+                      (click)="updateStatus(item, 'Active', i)"
                       class="rounded-pill ml-2"
                     >
                       Active
@@ -121,8 +231,10 @@
               <div class="card d-flex align-items-center">
                 <div class="card-img">
                   <img
+                    *ngIf="!item.orgImage"
                     src="https://images.unsplash.com/photo-1432821596592-e2c18b78144f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80"
                   />
+                  <img *ngIf="item.orgImage" [src]="item.orgImage" />
                 </div>
                 <div class="card-body mt-3">
                   <div class="row">
@@ -134,7 +246,10 @@
                         info
                       </span>
                     </div>
-                    <div class="col-12"><span class="text-muted">Registered ID : </span> {{ item.registrationId }}</div>
+                    <div class="col-12">
+                      <span class="text-muted">Registered ID : </span
+                      ><span class="text-truncate" [title]="item.registrationId">{{ item.registrationId }}</span>
+                    </div>
                   </div>
                   <div class="row mt-1 border-top pt-2">
                     <div class="col-12">
@@ -169,7 +284,7 @@
                       mat-flat-button
                       color="primary"
                       *ngIf="item.id != 0"
-                      (click)="updateStatus(item, 'Inactive',i)"
+                      (click)="updateStatus(item, 'Inactive', i)"
                       class="rounded-pill ml-2"
                     >
                       Inactive

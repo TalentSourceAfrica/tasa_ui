@@ -9,6 +9,7 @@ import { SignupPopupComponent } from '@app/partials/popups/authentication/signup
 import { LoginPopupComponent } from '@app/partials/popups/authentication/login-popup/login-popup.component';
 import { ForgotPasswordPopupComponent } from '@app/partials/popups/authentication/forgot-password-popup/forgot-password-popup.component';
 import { UserDetailsPopupComponent } from '@app/partials/popups/authentication/user-details-popup/user-details-popup.component';
+import { CreateOrganizationComponent } from '@app/partials/popups/recruiter/create-organization/create-organization.component'; 
 
 // export interface LoginContext {
 //   username: string;
@@ -82,6 +83,13 @@ export class AuthenticationService {
       width: '900px',
       data: { authenticationService: this, credentialsService: this.credentialsService },
       disableClose: true,
+    });
+  }
+
+  opneCreateOrganization() {
+    this.sharedService.dialogService.open(CreateOrganizationComponent, {
+      width: '40%',
+      disableClose: false,
     });
   }
 }

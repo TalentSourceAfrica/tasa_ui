@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { SharedService } from '@app/services/shared.service';
@@ -9,6 +9,7 @@ import { SharedService } from '@app/services/shared.service';
   styleUrls: ['./create-organization.component.scss'],
 })
 export class CreateOrganizationComponent implements OnInit {
+  @ViewChild('orgfile', { static: false }) public orgfile: any;
   signupForm: FormGroup;
 
   constructor(
@@ -18,10 +19,40 @@ export class CreateOrganizationComponent implements OnInit {
     public sharedService: SharedService
   ) {}
 
+  uploadImage() {
+    this.orgfile.nativeElement.click();
+  }
+
+  handleFileInput(event: any) {
+    let $t = this;
+    let apiUrl = $t.sharedService.urlService.apiCallWithParams('uploadSingle', { '{email}': 'org@gmail.com' });
+    let files = event.target.files;
+    var form = new FormData();
+    form.append('file', files[0], files[0].name);
+    if ($t.sharedService.utilityService.ValidateImageUpload(files[0].name)) {
+      $t.sharedService.uiService.showApiStartPopMsg('Adding Image ...');
+
+      $t.sharedService.configService.post(apiUrl, form).subscribe(
+        (response: any) => {
+          $t.signupForm.get('orgImage').patchValue(response.url);
+          $t.sharedService.uiService.showApiSuccessPopMsg('Image Added...');
+        },
+        (error) => {
+          $t.sharedService.uiService.showApiErrorPopMsg('Something Went Wrong, Please Try Again After Sometime...');
+        }
+      );
+    } else {
+      $t.sharedService.uiService.showApiErrorPopMsg(
+        'Uploaded File is not a Valid Image. Only JPG, PNG and JPEG files are allowed.'
+      );
+    }
+  }
+
   initForm() {
     this.signupForm = this.formBuilder.group({
       orgName: ['', [Validators.required]],
       orgDesc: ['', [Validators.required]],
+      orgImage: [{ value: '', disabled: true }, [Validators.required]],
       registrationId: ['', [Validators.required]],
       contactPersonEmail: ['', [Validators.required, Validators.email]],
       contactPersonNo: ['', [Validators.required]],
@@ -34,9 +65,9 @@ export class CreateOrganizationComponent implements OnInit {
     let $t = this;
     let apiUrl = $t.sharedService.urlService.apiCallWithParams('addOrganization', { '{type}': 'Recruiter' });
     $t.sharedService.uiService.showApiStartPopMsg('Creating Organization...');
-    let payload = { ...$t.signupForm.value };
+    let payload = { ...$t.signupForm.getRawValue() };
     $t.sharedService.configService.post(apiUrl, payload).subscribe(
-      (response:any) => {
+      (response: any) => {
         $t.dialogRef.close();
         $t.sharedService.utilityService.changeMessage('TRIGGER-ORGANIZATION-UPDATE');
         $t.sharedService.uiService.showApiSuccessPopMsg(response.message);

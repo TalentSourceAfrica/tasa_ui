@@ -15,10 +15,14 @@ declare var jQuery: any;
 export class OrganizationComponent implements OnInit {
   @ViewChild('newsfile', { static: false }) public newsfile: any;
   selectedNews: any;
+  uds: any;
   suportedImage = ['.gif', '.png', '.bmp', '.jpeg', '.jpg'];
+  organizationData: any = [];
   activeOrganizationData: any = [];
   inactiveOrganizationData: any = [];
-  constructor(public sharedService: SharedService, public credentialsService: CredentialsService) {}
+  constructor(public sharedService: SharedService, public credentialsService: CredentialsService) {
+    this.uds = this.sharedService.plugins.undSco;
+  }
 
   descriptionInfo() {
     jQuery('.org-description').on('mouseover', function (e: any) {
@@ -31,7 +35,7 @@ export class OrganizationComponent implements OnInit {
         multi: false,
         content: description,
         closeable: true,
-        placement:'right',
+        placement: 'right',
         width: '400',
       });
       jQuery(this).webuiPopover('show');
@@ -59,9 +63,15 @@ export class OrganizationComponent implements OnInit {
         if (status === 'Active') {
           $t.inactiveOrganizationData.splice(orgIndex, 1);
           $t.activeOrganizationData.push(org);
+          $t.activeOrganizationData =  $t.uds.uniq($t.activeOrganizationData, (d: any) => {
+            return d.id;
+          });
         } else {
           $t.activeOrganizationData.splice(orgIndex, 1);
           $t.inactiveOrganizationData.push(org);
+          $t.inactiveOrganizationData = $t.uds.uniq($t.inactiveOrganizationData, (d: any) => {
+            return d.id;
+          });
         }
       },
       (error) => {
@@ -80,11 +90,14 @@ export class OrganizationComponent implements OnInit {
   deleteOrganization(org: any, orgIndex: any, type: string) {
     let $t = this;
     $t.sharedService.uiService.showApiStartPopMsg('Deleting Organization...!');
-    let apiUrl = $t.sharedService.urlService.apiCallWithParams('deleteNews', { '{newsId}': org.id });
+    let apiUrl = $t.sharedService.urlService.apiCallWithParams('deleteOrganisation', { '{orgId}': org.id });
     $t.sharedService.configService.delete(apiUrl).subscribe(
       (response: any) => {
         if (type === 'Active') {
           $t.activeOrganizationData.splice(orgIndex, 1);
+        } else if (type === 'All') {
+          $t.organizationData.splice(orgIndex, 1);
+          $t.distributeData();
         } else {
           $t.inactiveOrganizationData.splice(orgIndex, 1);
         }
@@ -102,8 +115,9 @@ export class OrganizationComponent implements OnInit {
     let apiUrl = $t.sharedService.urlService.simpleApiCall('getOrganisation');
     $t.sharedService.configService.get(apiUrl).subscribe(
       (response: any) => {
-        $t.activeOrganizationData = response.responseObj.filter((d: any) => d.activeFlag === 'Active');
-        $t.inactiveOrganizationData = response.responseObj.filter((d: any) => d.activeFlag !== 'Active');
+        $t.organizationData = response.responseObj;
+        $t.distributeData();
+
         setTimeout(() => {
           $t.descriptionInfo();
         }, 1000);
@@ -112,6 +126,12 @@ export class OrganizationComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+
+  distributeData() {
+    let $t = this;
+    $t.activeOrganizationData = $t.organizationData.filter((d: any) => d.activeFlag === 'Active');
+    $t.inactiveOrganizationData = $t.organizationData.filter((d: any) => d.activeFlag !== 'Active');
   }
 
   get user(): any | null {

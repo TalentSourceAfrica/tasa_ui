@@ -5,7 +5,6 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 // service
 import { SharedService } from '@app/services/shared.service';
 import { MustMatch } from '@app/auth/must-match';
-import { CreateOrganizationComponent } from '../../recruiter/create-organization/create-organization.component';
 
 @Component({
   selector: 'app-signup-popup',
@@ -141,15 +140,12 @@ export class SignupPopupComponent implements OnInit {
     );
   }
 
-  createOrganization() {
-    this.sharedService.dialogService.open(CreateOrganizationComponent, {
-      width: '40%',
-      disableClose: false,
-    });
-  }
-
   openTerms() {
     this.doc = this.termsAndCondition;
+  }
+
+  createOrganization(){
+    this.popupData.authenticationService.opneCreateOrganization();
   }
 
   ngOnInit(): void {

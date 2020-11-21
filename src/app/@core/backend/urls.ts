@@ -100,7 +100,7 @@ export const urls: any = {
 
   // Organisation
   getOrganisation:'/organization', // G
-  getActiveOrganization:'/recruiter/organization' , // G
+  getActiveOrganization:'/organization/isactive' , // G
   deleteOrganisation : '/organization/{orgId}', // DE
   addOrganization: '/organization/{type}', // PO
   updateOrganization: '/organization/bulk/{userId}' // PO
