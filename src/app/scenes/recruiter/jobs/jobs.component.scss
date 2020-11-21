@@ -69,6 +69,13 @@
     left: calc(50% - 11px);
     top: calc(50% - 6px);
   }
+
+  .smallStatus {
+    position: relative;
+    font-size: 9px;
+    bottom: 43px;
+    left: 183px;
+  }
 }
 
 .skeleton {

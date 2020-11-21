@@ -1,0 +1,79 @@
+<div class="jobs-admin-wrapper container">
+  <ol class="breadcrumb mt-3">
+    <li class="breadcrumb-item curPoint"><a [routerLink]="['/home']">Home</a></li>
+    <li class="breadcrumb-item active">Jobs</li>
+  </ol>
+  <div class="sec-title">
+    <div class="title" *ngIf="allJobs.length == 0">All Jobs</div>
+    <div class="title" *ngIf="allJobs.length">
+      All Jobs : <strong>{{ allJobs.length }} Records Found</strong>
+    </div>
+  </div>
+   <section>
+    <ng-container>
+      <div class="row min-vertical-h-80 max-vertical-h-80 stylishSlimScroll flow-y-auto flow-x-hidden">
+        <div class="col-md-6 col-xl-6 col-sm-12 animated fadeIn" *ngFor="let job of allJobs; let i = index">
+          <div class="card d-flex align-items-center">
+          	<div class="card-img">
+	     		<img src="../../../assets/images/TSA_logo_new.small.png" />
+	        </div>
+            <div class="card-body w100 pt-3">
+              <div class="row">
+                <div class="col-12">
+                   <div class="row mx-auto">
+                   	 <h4 class="card-title w75 pb-2 m-0">{{ job.title }}</h4>
+                   	 <div class="w25 text-right">
+                   	 	<span class="badge badge-info h5"> Status : {{ job.status }}</span>
+                   	 </div>	
+                   </div>
+                   <div class="row mx-auto">
+                   		<div class="pb-2 w50 text-primary text-bold caps m-0">Location : &nbsp;</div>
+                   		<div>{{ job.location }}</div>
+                   </div>	
+                   <div class="row mx-auto">
+                   		<div class="pb-2 w50 text-primary text-bold caps m-0">Created By : &nbsp;</div>
+                   		<div>{{ job.createdBy }}</div>
+                   </div>	
+                   <div class="row mx-auto">
+        		   		<div class="w50 pb-2 text-primary text-bold caps m-0">Experience : </div>
+        		   		<div>{{ job.experienceFrom }} - {{ job.experienceTo }} Years</div>
+        		   	</div>
+        		   	<div class="row mx-auto">	
+        		   		<div class="w50 text-primary text-bold caps pb-2 m-0">No of Openings : </div>
+        		   		<div>{{ job.countOfOpenings }}</div> 
+        		   </div>	
+        		   <div class="pb-2 m-0">{{ job.description }}</div>
+        		   <marquee class="card-intro mt-2" style="display: flex;">
+				      <span class="pr-1 p-1" *ngFor="let item of job.tags">
+				      	<badge class="badge badge-info">{{ item }}</badge>
+				      </span>
+				    </marquee>
+                </div>
+              </div>
+            </div>
+            <div class="w100 border-top p-2">
+              <div class="text-center">
+                <button
+                  *ngIf="job.status == 'Active'"
+                  mat-flat-button
+                  color="primary"
+                  (click)="changeJobStatus(job, 'Inactive')"
+                  class="rounded-pill ml-2">
+                  Inactive
+                </button>
+                <button
+                  *ngIf="job.status == 'Inactive'"
+                  mat-flat-button
+                  color="primary"
+                  (click)="changeJobStatus(job, 'Active')"
+                  class="rounded-pill ml-2">
+                  Active
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </section>
+</div>
