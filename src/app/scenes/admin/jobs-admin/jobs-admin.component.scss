@@ -1,0 +1,14 @@
+.jobs-admin-wrapper {
+	.card-img {
+	    padding-bottom: 56.25%;
+	    position: relative;
+	    img {
+	      position: absolute;
+	      width: 100%;
+	    }
+	}
+	.card-body {
+		background: #fff;
+		z-index: 1;
+	}
+}

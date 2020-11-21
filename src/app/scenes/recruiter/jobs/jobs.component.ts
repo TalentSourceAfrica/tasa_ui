@@ -96,7 +96,7 @@ export class JobsComponent implements OnInit {
       id: '',
       description: '',
       title: '',
-      status: '',
+      status: 'Inactive',
       publishOn: '',
       expireOn: '',
       tags: [],
