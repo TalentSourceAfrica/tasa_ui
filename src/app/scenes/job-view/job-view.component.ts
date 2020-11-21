@@ -18,6 +18,7 @@ export class JobViewComponent implements OnInit {
     fetchingJob: true,
   };
   applied: boolean = false;
+  isAdmin: boolean = false;
 
   constructor(
     private sharedService: SharedService,
@@ -28,6 +29,24 @@ export class JobViewComponent implements OnInit {
   ) {
     this.jobConfig.jobId = this.route.snapshot.params.jobId;
     this.uds = this.sharedService.plugins.undSco;
+    this.user && this.user.type.toLowerCase() == 'admin' ? (this.isAdmin = true) : (this.isAdmin = false);
+  }
+
+  changeJobStatus(_job: any, _statusToSet: string) {
+    let $t = this;
+    $t.sharedService.uiService.showApiStartPopMsg('Updating Status...');
+    let apiUrl = $t.sharedService.urlService.apiCallWithParams('updateJob', {
+      '{jobId}': _job.id,
+    });
+    _job.status = _statusToSet;
+    $t.sharedService.configService.put(apiUrl, _job).subscribe(
+      (response: any) => {
+        $t.sharedService.uiService.showApiSuccessPopMsg('Status Updated..!');
+      },
+      (error) => {
+        $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
+      }
+    );
   }
 
   getJobDetail() {

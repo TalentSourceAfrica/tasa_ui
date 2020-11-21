@@ -97,7 +97,7 @@
             </div>
           </div>
           <div class="mb-3 mb-4 mt-0 zoomCard animated fadeIn">
-            <div class="p-4 card w90 m-auto">
+            <div class="p-4 card w90 m-auto" *ngIf="!isAdmin">
               <div class="text-center">
                 <mat-form-field class="d-block mx-2 pb-2 w90">
                   <mat-label>Name</mat-label>
@@ -143,6 +143,33 @@
                 </div>
               </div>
               <input id="resumeUpload" class="d-none" #uploadResume type="file" (change)="uploadFile($event)" />
+            </div>
+            <div class="card w90" *ngIf="isAdmin">
+              <div class="card-header pr-1" *ngIf="isAdmin">
+                <h5 class="card-title m-0">
+                  Change Status
+                </h5>
+              </div>
+              <div class="p-4 m-auto">
+                <button
+                  *ngIf="jobConfig.job.status == 'Active'"
+                  mat-flat-button
+                  color="primary"
+                  (click)="changeJobStatus(jobConfig.job, 'Inactive')"
+                  class="rounded-pill ml-2"
+                >
+                  Inactive
+                </button>
+                <button
+                  *ngIf="jobConfig.job.status == 'Inactive'"
+                  mat-flat-button
+                  color="primary"
+                  (click)="changeJobStatus(jobConfig.job, 'Active')"
+                  class="rounded-pill ml-2"
+                >
+                  Active
+                </button>
+              </div>
             </div>
           </div>
         </div>
