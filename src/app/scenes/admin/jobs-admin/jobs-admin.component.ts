@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { SharedService } from '@app/services/shared.service';
 import { CredentialsService } from '@app/auth';
 
+declare var jQuery: any;
+
 @Component({
   selector: 'app-jobs-admin',
   templateUrl: './jobs-admin.component.html',
@@ -17,6 +19,24 @@ export class JobsAdminComponent implements OnInit {
 		public sharedService: SharedService,
 		public credentialsService: CredentialsService
 	) { }
+
+	descriptionInfo() {
+	    jQuery('.job-description').on('mouseover', function (e: any) {
+	      let description = jQuery(this).attr('data-desc');
+	      jQuery(this).webuiPopover({
+	        title: 'Description',
+	        trigger: 'hover',
+	        animation: 'pop',
+	        type: 'html',
+	        multi: false,
+	        content: `<div class="max-vertical-h-20 flow-auto stylishScroll">${description}</div>`,
+	        closeable: true,
+	        placement: 'right',
+	        width: '400',
+	      });
+	      jQuery(this).webuiPopover('show');
+	    });
+	}
 
 	changeJobStatus(_job: any, _statusToSet: string) {
 		let $t = this;
@@ -49,7 +69,7 @@ export class JobsAdminComponent implements OnInit {
 		    this.allJobs = response.responseObj;
 		    this.isLoading = false;
 		    setTimeout(() => {
-		      jQuery('.floating-actions .action').toggleClass('visible');
+		      this.descriptionInfo();
 		    }, 1000);
 		  },
 		  (error) => {
