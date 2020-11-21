@@ -103,5 +103,11 @@ export const urls: any = {
   getActiveOrganization:'/organization/isactive' , // G
   deleteOrganisation : '/organization/{orgId}', // DE
   addOrganization: '/organization/{type}', // PO
-  updateOrganization: '/organization/bulk/{userId}' // PO
+  updateOrganization: '/organization/bulk/{userId}', // PO
+
+  // Notification
+  getAllNotifications : '/notifications/all/{userId}', // G
+  getNewNotifications: '/notifications/new/{userId}', // G
+  createNotification: '/notifications', // PO
+  readNotification : '/notifications/read/{notificationId}', // PO
 };
