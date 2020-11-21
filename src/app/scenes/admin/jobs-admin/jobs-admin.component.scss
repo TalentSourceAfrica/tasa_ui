@@ -11,4 +11,17 @@
 		background: #fff;
 		z-index: 1;
 	}
+	.job-description {
+		height: 23px;
+		padding-top: 8px;
+	}
+	.webui-popover {
+		.webui-popover-title {
+			margin-bottom: 0 !important;
+		}
+		.webui-popover-content {
+			padding-top: 0px !important;
+			padding-bottom: 0px !important;
+		}
+	}
 }

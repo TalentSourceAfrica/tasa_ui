@@ -6,7 +6,7 @@
   <div class="sec-title">
     <div class="title" *ngIf="allJobs.length == 0">All Jobs</div>
     <div class="title" *ngIf="allJobs.length">
-      All Jobs : <strong>{{ allJobs.length }} Records Found</strong>
+      All Jobs : <strong>{{ allJobs.length }} Jobs Found</strong>
     </div>
   </div>
    <section>
@@ -21,8 +21,14 @@
               <div class="row">
                 <div class="col-12">
                    <div class="row mx-auto">
-                   	 <h4 class="card-title w75 pb-2 m-0">{{ job.title }}</h4>
-                   	 <div class="w25 text-right">
+                   	 <div class="row mx-auto card-title w75 pb-2 m-0"> 
+                   	 	<h4 class="w90">{{ job.title }}</h4>
+                   	 	<span 
+                   	 		[attr.data-desc]="job.description"
+                        	class="material-icons text-muted fa-lg curPoint job-description">info
+                      	</span>
+                   	 </div>	
+                   	 <div class="w25 pt-1 text-right">
                    	 	<span class="badge badge-info h5"> Status : {{ job.status }}</span>
                    	 </div>	
                    </div>
@@ -41,8 +47,7 @@
         		   	<div class="row mx-auto">	
         		   		<div class="w50 text-primary text-bold caps pb-2 m-0">No of Openings : </div>
         		   		<div>{{ job.countOfOpenings }}</div> 
-        		   </div>	
-        		   <div class="pb-2 m-0">{{ job.description }}</div>
+        		   </div>
         		   <marquee class="card-intro mt-2" style="display: flex;">
 				      <span class="pr-1 p-1" *ngFor="let item of job.tags">
 				      	<badge class="badge badge-info">{{ item }}</badge>
