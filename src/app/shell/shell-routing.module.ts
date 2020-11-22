@@ -94,6 +94,12 @@ const routes: Routes = [
         loadChildren: () => import('@app/scenes/testimonials/testimonials.module').then((m) => m.TestimonialsModule),
       },
       {
+        path: 'notifications',
+        canActivate: [AuthenticationGuard],
+        loadChildren: () =>
+          import('@app/scenes/all-notifications/all-notifications.module').then((m) => m.AllNotificationsModule),
+      },
+      {
         path: 'admin/tier',
         canActivate: [AuthenticationGuard, AdminGuard],
         loadChildren: () => import('@app/scenes/admin/tier/tier.module').then((m) => m.TierModule),
@@ -117,7 +123,8 @@ const routes: Routes = [
       {
         path: 'admin/organization',
         canActivate: [AuthenticationGuard, AdminGuard],
-        loadChildren: () => import('@app/scenes/admin/organization/organization.module').then((m) => m.OrganizationModule),
+        loadChildren: () =>
+          import('@app/scenes/admin/organization/organization.module').then((m) => m.OrganizationModule),
       },
       {
         path: 'recruiter/jobs',
@@ -127,7 +134,7 @@ const routes: Routes = [
       {
         path: 'admin/jobs',
         canActivate: [AuthenticationGuard, AdminGuard],
-        loadChildren: () => import('@app/scenes/admin/jobs-admin/jobs-admin.module').then((m) => m.JobsAdminModule),  
+        loadChildren: () => import('@app/scenes/admin/jobs-admin/jobs-admin.module').then((m) => m.JobsAdminModule),
       },
       {
         path: 'jobs/listings',

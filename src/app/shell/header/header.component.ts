@@ -6,6 +6,7 @@ import { AuthenticationService, CredentialsService } from '@app/auth';
 import { SharedService } from '@app/services/shared.service';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 declare var $: any;
 
@@ -18,6 +19,7 @@ export class HeaderComponent implements OnInit {
   @ViewChild('file', { static: false }) public file: any;
   isAdmin: boolean = false;
   searchCourseText: string = '';
+  notificationsData: any = [];
   constructor(
     private httpClient: HttpClient,
     private router: Router,
@@ -30,60 +32,6 @@ export class HeaderComponent implements OnInit {
 
   onCourseSearch() {
     this.sharedService.utilityService.onCourseSearch(this.searchCourseText, 'text');
-  }
-
-  descriptionInfo() {
-    $('.notification-popup').on('mouseover', function (e: any) {
-      let description = $(this).attr('data-desc');
-      $(this).webuiPopover({
-        title: 'Notifications',
-        trigger: 'hover',
-        animation: 'pop',
-        type: 'html',
-        multi: false,
-        content: description,
-        closeable: true,
-        placement: 'bottom',
-        width: '350',
-      });
-      $(this).webuiPopover('show');
-    });
-  }
-
-  ngOnInit() {
-    if (this.sharedService.deviceDetectorService.isMobile()) {
-      $('.page-wrapper').removeClass('toggled');
-    }
-  }
-
-  ngAfterViewInit(): void {
-    let $t = this;
-    $('.sidebar-dropdown > a').click(function () {
-      $('.sidebar-submenu').slideUp(200);
-      if ($(this).parent().hasClass('active')) {
-        $('.sidebar-dropdown').removeClass('active');
-        $(this).parent().removeClass('active');
-      } else {
-        $('.sidebar-dropdown').removeClass('active');
-        $(this).next('.sidebar-submenu').slideDown(200);
-        $(this).parent().addClass('active');
-      }
-    });
-
-    $('#close-sidebar').click(function () {
-      $('.page-wrapper').removeClass('toggled');
-    });
-    $('#show-sidebar').click(function () {
-      $('.page-wrapper').addClass('toggled');
-    });
-
-    $('.menu-item').on('click', () => {
-      if ($t.sharedService.deviceDetectorService.isMobile()) {
-        $('.page-wrapper').removeClass('toggled');
-      }
-    });
-
-    $t.descriptionInfo();
   }
 
   logout() {
@@ -136,9 +84,70 @@ export class HeaderComponent implements OnInit {
     }
   }
 
+  getNotifications() {
+    let $t = this;
+    let apiUrl = $t.sharedService.urlService.apiCallWithParams('getAllNotifications', { '{userId}': $t.user.email });
+    $t.sharedService.configService.get(apiUrl).subscribe(
+      (response: any) => {
+        $t.notificationsData = response.responseObj;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+  getNotiCount() {
+    return this.notificationsData.length;
+  }
+
   get user(): any | null {
     const credentials = this.credentialsService.credentials;
     return credentials ? credentials : null;
   }
 
+  ngOnInit() {
+    if (this.user) {
+      setInterval(() => {
+        this.getNotifications();
+      }, 300000);
+    }
+    if (this.sharedService.deviceDetectorService.isMobile()) {
+      $('.page-wrapper').removeClass('toggled');
+    }
+  }
+
+  ngAfterViewInit(): void {
+    let $t = this;
+    $t.getNotifications();
+    $('.sidebar-dropdown > a').click(function () {
+      $('.sidebar-submenu').slideUp(200);
+      if ($(this).parent().hasClass('active')) {
+        $('.sidebar-dropdown').removeClass('active');
+        $(this).parent().removeClass('active');
+      } else {
+        $('.sidebar-dropdown').removeClass('active');
+        $(this).next('.sidebar-submenu').slideDown(200);
+        $(this).parent().addClass('active');
+      }
+    });
+
+    $('#close-sidebar').click(function () {
+      $('.page-wrapper').removeClass('toggled');
+    });
+    $('#show-sidebar').click(function () {
+      $('.page-wrapper').addClass('toggled');
+    });
+
+    $('.menu-item').on('click', () => {
+      if ($t.sharedService.deviceDetectorService.isMobile()) {
+        $('.page-wrapper').removeClass('toggled');
+      }
+    });
+
+    $('.notification-popup').click(function () {
+      $(this).toggleClass('open');
+      $('#notificationMenu').toggleClass('open');
+    });
+  }
 }
