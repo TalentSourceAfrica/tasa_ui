@@ -143,6 +143,11 @@ const routes: Routes = [
           import('@app/scenes/all-job-listings/all-job-listings.module').then((m) => m.AllJobListingsModule),
       },
       {
+        path: 'organization/:orgId',
+        canActivate: [AuthenticationGuard],
+        loadChildren: () => import('@app/scenes/organization-view/organization-view.module').then((m) => m.OrganizationViewModule),
+      },
+      {
         path: 'job/:jobId',
         canActivate: [AuthenticationGuard],
         loadChildren: () => import('@app/scenes/job-view/job-view.module').then((m) => m.JobViewModule),

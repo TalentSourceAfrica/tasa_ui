@@ -1,0 +1,149 @@
+<div class="organization-view-wrapper container mt-4 mb-4">
+  <div class="page">
+    <div class="text-center m-auto min-vertical-h-50" *ngIf="orgConfig.fetchingOrg">
+      <img src="../../../assets/loaders/swal-loader.gif" height="150" width="150" />
+      <h5 class="text-primary">Fetching Organization...</h5>
+    </div>
+    <div class="container page__container animated fadeIn" *ngIf="!orgConfig.fetchingOrg">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a [routerLink]="['/home']">Home</a></li>
+        <li *ngIf="isAdmin" class="breadcrumb-item"><a [routerLink]="['/admin/organization']">All Organizations</a></li>
+        <li class="breadcrumb-item active text-truncate">{{ orgConfig.org.orgName }}</li>
+      </ol>
+      <h1 class="h2">{{ orgConfig.org.orgName }}</h1>
+      <div class="row">
+        <div class="col-md-8">
+          <div class="card my-4 m-0">
+            <div class="embed-responsive embed-responsive-16by9">
+              <img *ngIf="orgConfig.org.orgImage" src="{{ orgConfig.org.orgImage }}" class="embed-responsive-item" alt="course" />
+              <img *ngIf="!orgConfig.org.orgImage" src="https://images.unsplash.com/photo-1432821596592-e2c18b78144f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80" class="embed-responsive-item" alt="course" />
+            </div>
+            <div class="card-body">
+              <h5>{{ orgConfig.org.orgName }}</h5>
+              <div class="mt-2">{{ orgConfig.org.orgDesc }}</div>
+            </div>
+          </div>
+          <div class="row my-3">
+          	<div *ngIf="orgConfig.org.registrationId" class="zoomCard col-md-5 col-lg-4 col-sm-6 animated fadeIn">
+              <div class="card curPoint m-0">
+                <div class="card-header">
+                  <h5 class="card-title m-0">
+                    Registration ID
+                  </h5>
+                </div>
+                <div class="card-body pl-3 pr-3 ml-1">
+                  <p class="text-wrap">{{ orgConfig.org.registrationId }}</p>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="orgConfig.org.activeFlag" class="zoomCard col-md-4 col-lg-4 col-sm-6 animated fadeIn">
+              <div class="card curPoint m-0">
+                <div class="card-header">
+                  <h5 class="card-title m-0">
+                    Status
+                  </h5>
+                </div>
+                <div class="card-body pl-3 pr-3 ml-1">
+                  <p class="text-wrap">{{ orgConfig.org.activeFlag }}</p>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="orgConfig.org.createdBy" class="zoomCard col-md-5 col-lg-4 col-sm-6 animated fadeIn">
+              <div class="card curPoint m-0">
+                <div class="card-header">
+                  <h5 class="card-title m-0">
+                    Created By
+                  </h5>
+                </div>
+                <div class="card-body pl-3 pr-3 ml-1">
+                  <p class="text-wrap">{{ orgConfig.org.createdBy }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="m-3 pt-2 mb-4 zoomCard animated fadeIn">
+            <div class="card curPoint m-0">
+              <div class="card-header">
+                <h5 class="card-title m-0">
+                  Contact Information
+                </h5>
+              </div>
+              <div class="card-body px-3 py-2 ml-1">
+                <div class="d-flex align-items-center">
+                 <span class="material-icons text-muted pr-2">
+                   account_circle
+                 </span>
+                 {{ orgConfig.org.contactPersonName }}
+                </div>
+                <div class="d-flex align-items-center">
+                 <span class="material-icons text-muted pr-2">
+                   settings_phone
+                 </span>
+                 {{ orgConfig.org.contactPersonNo }}
+                </div>
+                <div class="d-flex align-items-center">
+                 <span class="material-icons text-muted pr-2">
+                   email
+                 </span>
+                 {{ orgConfig.org.contactPersonEmail }}
+                </div>
+                <div class="d-flex align-items-center">
+                 <span class="material-icons text-muted pr-2">
+                   work
+                 </span>
+                 {{ orgConfig.org.contactPersonDesignation }}
+                </div>
+              </div>
+            </div>
+          </div>          
+          <div class="mb-3 mb-4 mt-0 zoomCard animated fadeIn">
+            <div class="card w90" *ngIf="isAdmin">
+              <div class="card-header pr-1" *ngIf="isAdmin">
+                <h5 class="card-title m-0">
+                  Actions
+                </h5>
+              </div>
+              <div class="p-4 m-auto">
+                <button
+                  *ngIf="orgConfig.org.activeFlag == 'Active'"
+                  mat-flat-button
+                  color="primary"
+                  (click)="changeOrgStatus(orgConfig.org, 'Inactive')"
+                  matTooltip="Change Status To Inactive"
+                  matTooltipPosition="below"
+                  class="rounded-pill ml-2"
+                >
+                  Inactive
+                </button>
+                <button
+                  *ngIf="orgConfig.org.activeFlag == 'Inactive'"
+                  mat-flat-button
+                  color="primary"
+                  (click)="changeOrgStatus(orgConfig.org, 'Active')"
+                  matTooltip="Change Status To Active"
+                  matTooltipPosition="below"
+                  class="rounded-pill ml-2"
+                >
+                  Active
+                </button>
+                <button
+                  mat-flat-button
+                  color="primary"
+                  (click)="deleteOrganization(orgConfig.org)"
+                  class="rounded-pill ml-2"
+                  matTooltip="Delete Organization"
+                  matTooltipPosition="below"
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
