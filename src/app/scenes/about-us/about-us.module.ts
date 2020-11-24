@@ -10,6 +10,7 @@ import { MaterialModule } from '@app/modules/material.module';
 import { RouterModule } from '@angular/router';
 import { AboutUsComponent } from './about-us.component';
 import { AboutUsRoutingModule } from './about-us-routing.module';
+import { OurTeamComponent } from '@app/partials/popups/about-us/our-team/our-team.component';
 
 @NgModule({
   imports: [
@@ -23,7 +24,7 @@ import { AboutUsRoutingModule } from './about-us-routing.module';
     RouterModule,
     AboutUsRoutingModule,
   ],
-  declarations: [AboutUsComponent],
+  declarations: [AboutUsComponent, OurTeamComponent],
   schemas: [NO_ERRORS_SCHEMA],
 })
 export class AboutUsModule {}

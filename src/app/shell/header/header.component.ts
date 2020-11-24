@@ -107,7 +107,7 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.user) {
+    if (this.user && this.user.email) {
       setInterval(() => {
         this.getNotifications();
       }, 300000);

@@ -1,0 +1,153 @@
+<div class="d-flex align-items-center no-gutters our-team-popup-wrapper">
+  <div class="col-sm-8 col-md-12 col-lg-12 mx-auto">
+    <div class="navbar-shadow">
+      <div class="card-header text-center">
+        <h4 class="card-title">Team Member</h4>
+      </div>
+      <div class="card-body">
+        <ng-container *ngIf="popupData.type == 1">
+          <ng-template *ngTemplateOutlet="teamDetails1"></ng-template>
+        </ng-container>
+        <ng-container *ngIf="popupData.type == 2">
+          <ng-template *ngTemplateOutlet="teamDetails2"></ng-template>
+        </ng-container>
+        <ng-container *ngIf="popupData.type == 3">
+          <ng-template *ngTemplateOutlet="teamDetails3"></ng-template>
+        </ng-container>
+      </div>
+      <div class="card-footer text-center text-black-50 h6 text-muted">
+        <button mat-flat-button color="primary" mat-dialog-close class="rounded-pill ml-2">
+          I've heard enough about {{ popupData.name }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #teamDetails1
+  ><div class="our-team-popup-wrapper">
+    <div class="mb-3">
+      <div class="row no-gutters text-center">
+        <div class="col-md-8 col-12">
+          <img src="./assets/images/team/habiub2.jpeg" class="rounded shadow-lg" />
+        </div>
+        <div class="col-md-4 col-12 text-center m-auto">
+          <div class="">
+            <div class="desk">
+              <h4 class="caps text-primary">{{ popupData.name }}</h4>
+              <h5 class="text-muted"><span>Founder &amp; CEO</span></h5>
+            </div>
+            <div class="s-link text-center">
+              <a class="curPoint"><i class="fab fa-facebook fa-lg"></i></a>
+              <a class="curPoint"><i class="fab fa-twitter fa-lg pl-3"></i></a>
+              <a class="curPoint"><i class="fab fa-linkedin fa-lg pl-3"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 mt-4">
+          <div class="team-title">
+            <p class="text-muted">
+              Is a senior level executive with 10+ years of experience and expertise in designing & scaling high impact
+              education and human capital ventures in the US. In the past 2 years alone he has informed education policy
+              & funding bills in 3 states while launching & scaling an education non-profit across 6 different states,
+              partnering with 50+ school districts; 140+ schools, directly impacting over 40 thousand students.
+            </p>
+            <p class="text-muted">
+              As Chief Executive Officer, he shepherds the vision & strategic direction of our organization including
+              sourcing partnerships & managing our growth strategy.
+            </p>
+            <p class="text-muted">
+              Habib holds graduate degrees from Harvard & Johns Hopkins University and has an obsessive commitment to
+              marshalling and remitting the collective talent of the global black diaspora towards human capital
+              improvement in Africa.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div></ng-template
+>
+
+<ng-template #teamDetails2
+  ><div class="our-team-popup-wrapper">
+    <div class="mb-3">
+      <div class="row no-gutters text-center">
+        <div class="col-md-8 col-12">
+          <img src="./assets/images/team/al.jpeg" class="rounded shadow-lg" />
+        </div>
+        <div class="col-md-4 col-12 text-center m-auto">
+          <div class="">
+            <div class="desk">
+              <h4 class="caps text-primary">{{ popupData.name }}</h4>
+              <h5 class="text-muted"><span>VP Product & Technology</span></h5>
+            </div>
+            <div class="s-link text-center">
+              <a class="curPoint"><i class="fab fa-facebook fa-lg"></i></a>
+              <a class="curPoint"><i class="fab fa-twitter fa-lg pl-3"></i></a>
+              <a class="curPoint"><i class="fab fa-linkedin fa-lg pl-3"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 mt-4">
+          <div class="team-title">
+            <p class="text-muted">
+              Has deep experience in the African Startup ecosystem, most recently helping to launch 2 successful tech
+              startup on the continent. He's an FinTech expert with extensive experience advising firms in banking,
+              healthcare, and auto industries across the continental US, Europe & Africa.
+            </p>
+            <p class="text-muted">
+              As Vice President of Product & Technology, he leads our product development and directs the technology
+              future of our organization.
+            </p>
+            <p class="text-muted">
+              Alhassan holds a BA in Political Science, a Master's in International Relations as well as post graduate
+              and executive level certificates in International Economics and Strategic Financial Evaluation from
+              American University, Georgetown University and Harvard Business School.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div></ng-template
+>
+
+<ng-template #teamDetails3
+  ><div class="our-team-popup-wrapper">
+    <div class="mb-3">
+      <div class="row no-gutters text-center">
+        <div class="col-md-8 col-12">
+          <img src="./assets/images/team/max.jpeg" class="rounded shadow-lg" />
+        </div>
+        <div class="col-md-4 col-12 text-center m-auto">
+          <div class="">
+            <div class="desk">
+              <h4 class="caps text-primary">{{ popupData.name }}</h4>
+              <h5 class="text-muted"><span>Vice President of Finance & Operations</span></h5>
+            </div>
+            <div class="s-link text-center">
+              <a class="curPoint"><i class="fab fa-facebook fa-lg"></i></a>
+              <a class="curPoint"><i class="fab fa-twitter fa-lg pl-3"></i></a>
+              <a class="curPoint"><i class="fab fa-linkedin fa-lg pl-3"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 mt-4">
+          <div class="team-title">
+            <p class="text-muted">
+              Has deep expertise in managing technology deployments & operations in large matrixed organizations.
+            </p>
+            <p class="text-muted">
+              As Vice President of Finance & Operations he stewards our organization finances & oversees operational
+              effectiveness to ensure a user friendly UX/UI display and highly functional infrastructures that enhances
+              system performance.
+            </p>
+            <p class="text-muted">
+              Aloysius holds a Bachelors in Engineering and Business from the University of Virginia, a Masters in
+              Information Technology and MBA from the University of Maryland.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div></ng-template
+>
