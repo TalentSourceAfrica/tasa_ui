@@ -430,7 +430,7 @@
 <ng-template #notifications>
   <a matTooltipPosition="below" class="notification-popup curPoint text-white" matTooltip="Notification">
     <i class="fa fa-bell"></i>
-    <span class="badge badge-pill badge-warning notification">{{getNotiCount()}}</span>
+    <span class="badge badge-pill badge-warning notification">{{ getNotiCount() }}</span>
   </a>
   <ul id="notificationMenu" class="notifications">
     <li class="titlebar text-center pt-2">
@@ -441,8 +441,17 @@
       <li class="notif" *ngFor="let item of notificationsData">
         <a>
           <div class="imageblock ml-1">
-            <button mat-mini-fab>
+            <button mat-mini-fab *ngIf="item.jobId != '' && item.jobId != 'string'">
               <mat-icon>work</mat-icon>
+            </button>
+            <button mat-mini-fab *ngIf="item.courseId != '' && item.courseId != 'string'">
+              <mat-icon>school</mat-icon>
+            </button>
+            <button
+              mat-mini-fab
+              *ngIf="item.courseId == '' || (item.courseId == 'string' && item.jobId == '') || item.jobId == 'string'"
+            >
+              <mat-icon>notifications_active</mat-icon>
             </button>
           </div>
           <div class="messageblock">
@@ -527,9 +536,18 @@
           </div>
         </a>
       </li> -->
+
+      <ng-container *ngIf="notificationsData.length == 0">
+        <div class="text-center m-auto animated fadeIn mt-2">
+          <div class="col-12 text-center">
+            <img src="../../../assets/images/no-record.gif" style="height: 150px;" class="d-block m-auto" />
+            <h6 class="text-primary">No Notifications Yet...!</h6>
+          </div>
+        </div>
+      </ng-container>
     </div>
     <li class="seeall">
-      <a [routerLink]="['/notifications']">See All</a>
+      <a [routerLink]="['/notifications']" (click)="onClickOfSellAllNoti()">See All</a>
     </li>
   </ul>
 </ng-template>

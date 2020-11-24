@@ -100,17 +100,18 @@ export const urls: any = {
   updateSocialPost: '/post', // PU
 
   // Organisation
-  getOrganisation:'/organization', // G
+  getOrganisation: '/organization', // G
   getSingleOrganization: '/organization/{orgId}', // G
-  getActiveOrganization:'/organization/isactive' , // G
-  deleteOrganisation : '/organization/{orgId}', // DE
+  getActiveOrganization: '/organization/isactive', // G
+  deleteOrganisation: '/organization/{orgId}', // DE
   addOrganization: '/organization/{type}', // PO
   updateOrganization: '/organization/bulk/{userId}', // PO
   updateSingleOrganization: '/organization', // PU
 
   // Notification
-  getAllNotifications : '/notifications/all/{userId}', // G
+  getAllNotifications: '/notifications/all/{userId}', // G
   getNewNotifications: '/notifications/new/{userId}', // G
   createNotification: '/notifications', // PO
-  readNotification : '/notifications/read/{notificationId}', // PO
+  readNotification: '/notifications/read/{notificationId}', // PO
+  deleteNotifications: '/notifications', // D
 };

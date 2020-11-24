@@ -7,6 +7,8 @@ import { SharedService } from '@app/services/shared.service';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { delay } from 'underscore';
+import { untilDestroyed } from '@app/@core';
 
 declare var $: any;
 
@@ -101,6 +103,11 @@ export class HeaderComponent implements OnInit {
     return this.notificationsData.length;
   }
 
+  onClickOfSellAllNoti() {
+    $(this).toggleClass('open');
+    $('#notificationMenu').toggleClass('open');
+  }
+
   get user(): any | null {
     const credentials = this.credentialsService.credentials;
     return credentials ? credentials : null;
@@ -115,7 +122,14 @@ export class HeaderComponent implements OnInit {
     if (this.sharedService.deviceDetectorService.isMobile()) {
       $('.page-wrapper').removeClass('toggled');
     }
+    this.sharedService.utilityService.currentMessage.pipe(untilDestroyed(this)).subscribe((message) => {
+      if (message === 'TRIGGER-HEADER-NOTIFICATIONS-UPDATE') {
+        this.getNotifications();
+      }
+    });
   }
+
+  ngOnDestroy(): void {}
 
   ngAfterViewInit(): void {
     let $t = this;

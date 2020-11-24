@@ -6,5 +6,44 @@
   <div class="sec-title">
     <div class="title">All Notifications</div>
   </div>
-  <section></section>
+  <section>
+    <ng-container *ngIf="allNotifications.length">
+      <mat-toolbar
+        *ngFor="let item of allNotifications; let i = index"
+        class="mt-3 shadow-sm"
+        style="white-space: unset;"
+      >
+        <button mat-mini-fab *ngIf="item.jobId != '' && item.jobId != 'string'">
+          <mat-icon>work</mat-icon>
+        </button>
+        <button mat-mini-fab *ngIf="item.courseId != '' && item.courseId != 'string'">
+          <mat-icon>school</mat-icon>
+        </button>
+        <button
+          mat-mini-fab
+          *ngIf="item.courseId == '' || (item.courseId == 'string' && item.jobId == '') || item.jobId == 'string'"
+        >
+          <mat-icon>notifications_active</mat-icon>
+        </button>
+        <span class="pl-3 pt-2 pb-0"
+          >{{ item.message }}
+          <div style="margin-top: -7px;"><small class="text-muted">2 days ago</small></div>
+        </span>
+        <span class="example-spacer"></span>
+        <button mat-mini-fab class="ml-3" (click)="deleteNotifications(item.id, i)" color="primary">
+          <mat-icon>remove_circle_outline</mat-icon>
+        </button>
+      </mat-toolbar>
+    </ng-container>
+
+    <ng-container *ngIf="allNotifications.length == 0">
+      <div class="text-center m-auto animated fadeIn mt-2">
+        <div class="col-12 text-center">
+          <img src="../../../assets/images/no-record.gif" style="height: 300px;" class="d-block m-auto" />
+          <h6 class="text-primary">No Notifications Yet...!</h6>
+        </div>
+      </div>
+    </ng-container>
+  </section>
 </div>
+Í
