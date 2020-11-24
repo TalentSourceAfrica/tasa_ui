@@ -4,6 +4,7 @@ import { CredentialsService } from '@app/auth';
 import { CreateOrganizationComponent } from '@app/partials/popups/recruiter/create-organization/create-organization.component';
 import { SharedService } from '@app/services/shared.service';
 import { delay } from 'underscore';
+import { Router } from '@angular/router';
 
 declare var jQuery: any;
 
@@ -20,7 +21,7 @@ export class OrganizationComponent implements OnInit {
   organizationData: any = [];
   activeOrganizationData: any = [];
   inactiveOrganizationData: any = [];
-  constructor(public sharedService: SharedService, public credentialsService: CredentialsService) {
+  constructor(public sharedService: SharedService, public credentialsService: CredentialsService, public router: Router) {
     this.uds = this.sharedService.plugins.undSco;
   }
 
@@ -126,6 +127,10 @@ export class OrganizationComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+
+  viewOrganization(_organization: any) {
+    this.router.navigate(['/organization/' + _organization.id], { replaceUrl: true });
   }
 
   distributeData() {

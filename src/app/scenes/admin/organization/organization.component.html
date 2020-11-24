@@ -79,6 +79,14 @@
                 </div>
                 <div class="w100 border-top p-2">
                   <div class="text-center">
+                     <button
+                      mat-mini-fab
+                      color="primary"
+                      matTooltipPosition="below"
+                      matTooltip="View Organization"
+                      (click)="viewOrganization(item)">
+                      <mat-icon class="mb-1">remove_red_eye</mat-icon>
+                    </button>
                     <button
                       mat-flat-button
                       color="primary"
@@ -185,6 +193,14 @@
                 <div class="w100 border-top p-2">
                   <div class="text-center">
                     <button
+                      mat-mini-fab
+                      color="primary"
+                      matTooltipPosition="below"
+                      matTooltip="View Organization"
+                      (click)="viewOrganization(item)">
+                      <mat-icon class="mb-1">remove_red_eye</mat-icon>
+                    </button>
+                    <button
                       mat-flat-button
                       color="primary"
                       *ngIf="item.id != 0"
@@ -280,6 +296,14 @@
                 </div>
                 <div class="w100 border-top p-2">
                   <div class="text-center">
+                    <button
+                      mat-mini-fab
+                      color="primary"
+                      matTooltipPosition="below"
+                      matTooltip="View Organization"
+                      (click)="viewOrganization(item)">
+                      <mat-icon class="mb-1">remove_red_eye</mat-icon>
+                    </button>
                     <button
                       mat-flat-button
                       color="primary"

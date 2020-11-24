@@ -87,6 +87,7 @@ export const urls: any = {
   getJobsCount: '/job/count', // G
   getJobApplications: '/job/applicant/{userId}/{page}/{size}', // G
   withdrawFromJob: '/job/withdraw/{jobId}', // PO
+  updateJobNew: '/job/{userId}', // PU
 
   // Dashboard
   getRecommendedCourses: '/recs/courses/{userId}', // G
@@ -100,10 +101,12 @@ export const urls: any = {
 
   // Organisation
   getOrganisation:'/organization', // G
+  getSingleOrganization: '/organization/{orgId}', // G
   getActiveOrganization:'/organization/isactive' , // G
   deleteOrganisation : '/organization/{orgId}', // DE
   addOrganization: '/organization/{type}', // PO
   updateOrganization: '/organization/bulk/{userId}', // PO
+  updateSingleOrganization: '/organization', // PU
 
   // Notification
   getAllNotifications : '/notifications/all/{userId}', // G
