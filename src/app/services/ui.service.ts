@@ -88,4 +88,22 @@ export class UiService {
       allowEnterKey: true,
     });
   }
+
+  showPreConfirmPopMsg(msg: any, callBack: any): void {
+    Swal.fire({
+      title: 'Are you sure?', // title of the modal
+      text: msg, // description of the modal
+      type: 'question', // warning, error, success, info, and question,
+      backdrop: true,
+      confirmButtonClass: 'rounded-pill shadow-sm',
+      cancelButtonClass: 'rounded-pill shadow-sm',
+      confirmButtonText: 'Yes!',
+      showCancelButton: true,
+    }).then((isConfirm) => {
+      if (isConfirm.value) {
+        callBack();
+      } else {
+      }
+    });
+  }
 }

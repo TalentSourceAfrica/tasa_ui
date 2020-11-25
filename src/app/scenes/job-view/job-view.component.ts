@@ -79,13 +79,14 @@ export class JobViewComponent implements OnInit {
           $t.authenticationService.login(this.user);
         }
 
-        response.responseObj.applicants.forEach((candidate: any) => {
-          if (candidate.userId == $t.user.email) {
-            if (candidate.status == 'Applied') {
+        $t.jobConfig.job.applicants.forEach((candidate: any) => {
+          if (candidate.userId === $t.user.email) {
+            if (candidate.status === 'Applied') {
               $t.applied = true;
             } else {
               $t.applied = false;
             }
+            $t.jobConfig.job['applicantStatus'] = candidate.status;
           }
         });
       },

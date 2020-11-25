@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { CredentialsService } from '@app/auth';
 import { SharedService } from '@app/services/shared.service';
 
@@ -10,7 +11,19 @@ import { SharedService } from '@app/services/shared.service';
 export class AllNotificationsComponent implements OnInit {
   allNotifications: any = [];
 
-  constructor(public sharedService: SharedService, public credentialsService: CredentialsService) {}
+  constructor(
+    public sharedService: SharedService,
+    public credentialsService: CredentialsService,
+    public router: Router
+  ) {}
+
+  notiRedirect(_noti: any) {
+    if (_noti.jobId !== '') {
+      this.router.navigate(['/job/' + _noti.jobId], { replaceUrl: true });
+    } else if (_noti.courseId !== '') {
+      this.router.navigate(['/course/' + _noti.courseId], { replaceUrl: true });
+    }
+  }
 
   getNotifications() {
     let $t = this;
@@ -27,20 +40,21 @@ export class AllNotificationsComponent implements OnInit {
 
   deleteNotifications(_id: any, notiIndex: number) {
     let $t = this;
-    let apiUrl = $t.sharedService.urlService.simpleApiCall('deleteNotifications');
-    $t.sharedService.uiService.showApiStartPopMsg('Deleting Notification...');
-    $t.sharedService.configService.deleteWithBody(apiUrl, [_id]).subscribe(
-      (response: any) => {
-        $t.allNotifications.splice(notiIndex, 1);
-        $t.sharedService.uiService.showApiSuccessPopMsg('Notification Deleted...');
-        if($t.allNotifications.length === 0){
+    let _callBack = () => {
+      let apiUrl = $t.sharedService.urlService.simpleApiCall('deleteNotifications');
+      $t.sharedService.uiService.showApiStartPopMsg('Deleting Notification...');
+      $t.sharedService.configService.deleteWithBody(apiUrl, [_id]).subscribe(
+        (response: any) => {
+          $t.allNotifications.splice(notiIndex, 1);
+          $t.sharedService.uiService.showApiSuccessPopMsg('Notification Deleted...');
           $t.sharedService.utilityService.changeMessage('TRIGGER-HEADER-NOTIFICATIONS-UPDATE');
+        },
+        (error) => {
+          $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
         }
-      },
-      (error) => {
-        $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
-      }
-    );
+      );
+    };
+    $t.sharedService.uiService.showPreConfirmPopMsg('You Want To Delete The Notification.', _callBack);
   }
 
   get user(): any | null {

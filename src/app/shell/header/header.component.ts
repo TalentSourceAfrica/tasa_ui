@@ -108,6 +108,15 @@ export class HeaderComponent implements OnInit {
     $('#notificationMenu').toggleClass('open');
   }
 
+  notiRedirect(_noti: any) {
+    if (_noti.jobId !== '') {
+      this.router.navigate(['/job/' + _noti.jobId], { replaceUrl: true });
+    } else if (_noti.courseId !== '') {
+      this.router.navigate(['/course/' + _noti.courseId], { replaceUrl: true });
+    }
+    this.onClickOfSellAllNoti();
+  }
+
   get user(): any | null {
     const credentials = this.credentialsService.credentials;
     return credentials ? credentials : null;

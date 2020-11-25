@@ -438,7 +438,7 @@
       <span class="settings"><i class="icon-cog"></i> </span>
     </li>
     <div class="notifbox">
-      <li class="notif" *ngFor="let item of notificationsData">
+      <li class="notif curPoint" (click)="notiRedirect(item)" *ngFor="let item of notificationsData">
         <a>
           <div class="imageblock ml-1">
             <button mat-mini-fab *ngIf="item.jobId != '' && item.jobId != 'string'">
@@ -447,10 +447,7 @@
             <button mat-mini-fab *ngIf="item.courseId != '' && item.courseId != 'string'">
               <mat-icon>school</mat-icon>
             </button>
-            <button
-              mat-mini-fab
-              *ngIf="item.courseId == '' || (item.courseId == 'string' && item.jobId == '') || item.jobId == 'string'"
-            >
+            <button mat-mini-fab *ngIf="item.courseId == '' && item.jobId == ''">
               <mat-icon>notifications_active</mat-icon>
             </button>
           </div>
