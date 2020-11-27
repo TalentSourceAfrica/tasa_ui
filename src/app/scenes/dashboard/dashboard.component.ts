@@ -43,7 +43,7 @@ export class DashboardComponent implements OnInit {
     smartSpeed: 1000,
     dots: true,
     autoHeight: true,
-    autoWidth: true,
+    autoWidth: false,
     autoplayHoverPause: true,
     nav: false,
     navText: ["<i class='fas fa-3x fa-chevron-circle-left'></i>", "<i class='fas fa-3x fa-chevron-circle-right'></i>"],

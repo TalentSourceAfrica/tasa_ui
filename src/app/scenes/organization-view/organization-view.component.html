@@ -21,6 +21,26 @@
             <div class="card-body">
               <h5>{{ orgConfig.org.orgName }}</h5>
               <div class="mt-2">{{ orgConfig.org.orgDesc }}</div>
+              <div class="p-2 border-top">
+                <div class="d-flex align-items-center pt-2">
+                  <span class="material-icons text-muted pr-2">
+                    account_circle
+                  </span>
+                  {{ orgConfig.org.contactPersonName }} (  {{ orgConfig.org.contactPersonDesignation }} )
+                 </div>
+                 <div class="d-flex align-items-center pt-2">
+                  <span class="material-icons text-muted pr-2">
+                    settings_phone
+                  </span>
+                  {{ orgConfig.org.contactPersonNo }}
+                 </div>
+                 <div class="d-flex align-items-center pt-2">
+                  <span class="material-icons text-muted pr-2">
+                    email
+                  </span>
+                  {{ orgConfig.org.contactPersonEmail }}
+                 </div>
+              </div>
             </div>
           </div>
           <div class="row my-3">
@@ -62,43 +82,8 @@
             </div>
           </div>
         </div>
-        <div class="col-md-4">
-          <div class="m-3 pt-2 mb-4 zoomCard animated fadeIn">
-            <div class="card curPoint m-0">
-              <div class="card-header">
-                <h5 class="card-title m-0">
-                  Contact Information
-                </h5>
-              </div>
-              <div class="card-body px-3 py-2 ml-1">
-                <div class="d-flex align-items-center">
-                 <span class="material-icons text-muted pr-2">
-                   account_circle
-                 </span>
-                 {{ orgConfig.org.contactPersonName }}
-                </div>
-                <div class="d-flex align-items-center">
-                 <span class="material-icons text-muted pr-2">
-                   settings_phone
-                 </span>
-                 {{ orgConfig.org.contactPersonNo }}
-                </div>
-                <div class="d-flex align-items-center">
-                 <span class="material-icons text-muted pr-2">
-                   email
-                 </span>
-                 {{ orgConfig.org.contactPersonEmail }}
-                </div>
-                <div class="d-flex align-items-center">
-                 <span class="material-icons text-muted pr-2">
-                   work
-                 </span>
-                 {{ orgConfig.org.contactPersonDesignation }}
-                </div>
-              </div>
-            </div>
-          </div>          
-          <div class="mb-3 mb-4 mt-0 zoomCard animated fadeIn">
+        <div class="col-md-4">     
+          <div class="mb-3 mb-4 mt-0 zoomCard animated fadeIn" *ngIf="isAdmin">
             <div class="card w90" *ngIf="isAdmin">
               <div class="card-header pr-1" *ngIf="isAdmin">
                 <h5 class="card-title m-0">
@@ -128,7 +113,7 @@
                 >
                   Active
                 </button>
-                <button
+                <!-- <button
                   mat-flat-button
                   color="primary"
                   (click)="deleteOrganization(orgConfig.org)"
@@ -137,7 +122,7 @@
                   matTooltipPosition="below"
                 >
                   Delete
-                </button>
+                </button> -->
               </div>
             </div>
           </div>

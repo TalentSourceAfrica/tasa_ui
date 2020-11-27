@@ -547,7 +547,7 @@
             </div>
             <owl-carousel-o [options]="courseOptions">
               <ng-container *ngFor="let course of user.recentlyViewed; let i = index">
-                <ng-template carouselSlide [id]="i">
+                <ng-template carouselSlide [width]="'300'" [id]="i">
                   <div class="card curPoint zoomCard" (click)="courseView(course.key)">
                     <span class="flag-discount" style="width: 25%;" *ngIf="course.discountPercentage > 0"
                       >{{ course.discountPercentage }}% Off</span
