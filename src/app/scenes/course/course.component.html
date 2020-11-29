@@ -45,7 +45,7 @@
                 <button mat-flat-button color="primary" (click)="addToCart()" class="rounded-pill ml-2">
                   Get Course
                   <strong
-                    ><span>{{ (courseConfig.course?.entitlements)[0]?.price | currency: 'USD' }}</span></strong
+                    ><span>{{ courseConfig.course?.offerPrice | currency: 'USD' }}</span></strong
                   >
                 </button>
               </p>

@@ -1,0 +1,100 @@
+<div class="saved-jobs-wrapper">
+  <div class="container">
+    <ol class="breadcrumb mt-3">
+      <li class="breadcrumb-item curPoint"><a [routerLink]="['/home']">Home</a></li>
+      <li class="breadcrumb-item curPoint"><a [routerLink]="['/jobs/listings']">All Jobs</a></li>
+      <li class="breadcrumb-item active"><a>Saved Jobs</a></li>
+    </ol>
+    <div class="sec-title">
+      <div class="title">My Saved Jobs</div>
+    </div>
+    <section class="All-course-page-section min-vertical-h-100">
+      <div class="row no-gutters">
+        <ng-container *ngIf="allJobs.length">
+          <div class="row no-gutters w100 mt-2 d-none">
+            <div class="col text-right">
+              <div id="toggleBar" class="btn-group btn-group-sm border border-secondary" role="group">
+                <button
+                  [class.current]="currentView == 1"
+                  (click)="changeAssetView(1)"
+                  matTooltip="Grid View"
+                  matTooltipPosition="below"
+                  type="button"
+                  class="btn btn-secondary py-2 px-3"
+                >
+                  <i class="fa fas fa-th-large"></i>
+                </button>
+                <button
+                  [class.current]="currentView == 2"
+                  (click)="changeAssetView(2)"
+                  matTooltip="List View"
+                  matTooltipPosition="below"
+                  type="button"
+                  class="btn btn-secondary py-2 px-3"
+                >
+                  <i class="fa fas fa-th-list"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="row w100 max-vertical-h-70 stylishSlimScroll flow-y-auto flow-x-hidden" id="jobsArea">
+            <ng-container *ngIf="currentView == 1">
+              <ng-template [ngTemplateOutlet]="jobsGridView"></ng-template>
+            </ng-container>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="allJobs.length == 0">
+          <div class="text-center m-auto animated fadeIn mt-2">
+            <div class="col-12 text-center">
+              <img src="../../../assets/images/no-record.gif" style="height: 300px;" class="d-block m-auto" />
+              <h6 class="text-primary">No Saved Jobs Yet...!</h6>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </section>
+  </div>
+</div>
+
+<ng-template #jobsGridView>
+  <div class="col-md-4 col-lg-4 col-sm-6 animated fadeIn" *ngFor="let job of allJobs">
+    <div class="card curPoint" (click)="viewJob(job.id)">
+      <div class="card-img">
+        <img src="../../../assets/images/TSA_logo_new.small.png" />
+        <button
+          mat-mini-fab
+          color="primary"
+          style="z-index: 9; right: 10px; color: orangered;"
+          class="position-absolute mt-2"
+          matTooltipPosition="below"
+          matTooltip="Remove From Saved Jobs"
+          (click)="removeSaveJobs(job, $event)"
+          *ngIf="user && user.type.toLowerCase() != 'admin'"
+        >
+          <mat-icon>favorite</mat-icon>
+        </button>
+      </div>
+      <div class="card-body pl-3 pr-3">
+        <h5 class="card-title m-0">
+          {{ job.title }}
+          <span class="pl-2 text-right" *ngIf="job.isApplied">
+            <span class="badge badge-warning p-1" *ngIf="job.applicantStatus == 'Applied'">{{ job.jobStatus }}</span>
+            <span class="badge badge-dark p-1" *ngIf="job.applicantStatus == 'Under Review'">{{ job.jobStatus }}</span>
+            <span class="badge badge-success p-1" *ngIf="job.applicantStatus == 'Accepted'">{{ job.jobStatus }}</span>
+            <span class="badge badge-danger p-1" *ngIf="job.applicantStatus == 'Rejected'">{{ job.jobStatus }}</span>
+          </span>
+        </h5>
+
+        <p class="text-muted m-0">{{ job.location }}</p>
+        <p class="text-muted">Experience : {{ job.experienceFrom }} - {{ job.experienceTo }} Year</p>
+        <marquee class="card-intro mt-2" style="display: flex;">
+          <span class="pr-1 p-1" *ngFor="let item of job.tags"
+            ><badge class="badge badge-info">{{ item }}</badge></span
+          >
+        </marquee>
+      </div>
+    </div>
+  </div>
+</ng-template>

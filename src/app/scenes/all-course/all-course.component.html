@@ -172,7 +172,7 @@
                       </p>
                       <div class="text-right" *ngIf="!isAdmin">
                         <span class="badge badge-info p-2" style="font-size: 12px;">{{
-                          (course?.entitlements)[0]?.price | currency: 'USD'
+                          course.offerPrice | currency: 'USD'
                         }}</span>
                       </div>
                       <p class="card-intro" *ngIf="isAdmin">

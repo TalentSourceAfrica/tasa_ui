@@ -351,6 +351,13 @@
         <span>Documents</span>
       </a>
     </li>
+
+    <li *ngIf="user.type == 'Mentee'">
+      <a class="curPoint menu-item" [routerLink]="['/user/saved-course']">
+        <i class="fas fa-heart"></i>
+        <span>Saved Jobs</span>
+      </a>
+    </li>
     <li *ngIf="user.type == 'Mentee'">
       <a class="curPoint menu-item" [routerLink]="['/jobs/my-applications']">
         <i class="fas fa-file"></i>

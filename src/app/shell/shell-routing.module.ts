@@ -71,6 +71,12 @@ const routes: Routes = [
           ),
       },
       {
+        path: 'user/saved-course',
+        canActivate: [AuthenticationGuard],
+        loadChildren: () =>
+          import('@app/scenes/user-saved-jobs/user-saved-jobs.module').then((m) => m.UserSavedJobsModule),
+      },
+      {
         path: 'digital-assets',
         canActivate: [AuthenticationGuard],
         loadChildren: () =>
@@ -145,7 +151,8 @@ const routes: Routes = [
       {
         path: 'organization/:orgId',
         canActivate: [AuthenticationGuard],
-        loadChildren: () => import('@app/scenes/organization-view/organization-view.module').then((m) => m.OrganizationViewModule),
+        loadChildren: () =>
+          import('@app/scenes/organization-view/organization-view.module').then((m) => m.OrganizationViewModule),
       },
       {
         path: 'job/:jobId',

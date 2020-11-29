@@ -88,6 +88,9 @@ export const urls: any = {
   getJobApplications: '/job/applicant/{userId}/{page}/{size}', // G
   withdrawFromJob: '/job/withdraw/{jobId}', // PO
   updateJobNew: '/job/{userId}', // PU
+  // /v1/users/savedjob/{userId}/{jobId}
+  saveJob: '/users/savedjob/{userId}/{jobId}', // G
+  removeSavedJob: '/users/removesavedjob/{userId}/{jobId}', // G
 
   // Dashboard
   getRecommendedCourses: '/recs/courses/{userId}', // G

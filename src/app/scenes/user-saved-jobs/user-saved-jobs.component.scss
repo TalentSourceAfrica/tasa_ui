@@ -1,0 +1,16 @@
+.saved-jobs-wrapper {
+  .jobs-panel {
+    .mat-expansion-panel-header-description {
+      justify-content: flex-end;
+    }
+  }
+  .card-body {
+    background: #fff;
+    z-index: 1;
+  }
+  #toggleBar button.current {
+    background-color: #523f6d;
+    border-color: #523f6d;
+    color: #fff !important;
+  }
+}

@@ -39,6 +39,7 @@ export class AllJobListingsComponent implements OnInit {
   allJobs: any = [];
   countries: any = [];
   currentView = 1;
+
   constructor(
     public sharedService: SharedService,
     public router: Router,
@@ -47,14 +48,14 @@ export class AllJobListingsComponent implements OnInit {
   ) {
     this.searchConfig = JSON.parse(JSON.stringify(jobsSearchData));
     this.uds = this.sharedService.plugins.undSco;
-    this.user && this.user.type.toLowerCase() == 'admin' ? (this.isAdmin = true) : (this.isAdmin = false);
+    this.user && this.user.type.toLowerCase() === 'admin' ? (this.isAdmin = true) : (this.isAdmin = false);
   }
 
   changeAssetView(_view: number) {
     this.currentView = _view;
     setTimeout(() => {
-      if (this.currentView == 1) {
-      } else if (this.currentView == 2) {
+      if (this.currentView === 1) {
+      } else if (this.currentView === 2) {
       }
     }, 1);
   }
@@ -85,8 +86,59 @@ export class AllJobListingsComponent implements OnInit {
     );
   }
 
+  saveJobs(job: any) {
+    let $t = this;
+    let apiUrl = this.sharedService.urlService.apiCallWithParams('saveJob', {
+      '{userId}': $t.user.email,
+      '{jobId}': job.id,
+    });
+    $t.sharedService.uiService.showApiStartPopMsg('Saving Job...');
+    this.sharedService.configService.get(apiUrl).subscribe(
+      (response: any) => {
+        if ($t.user) {
+          $t.user['savedJobs'].push(job);
+          $t.user['savedJobs'] = $t.uds.uniq($t.user['savedJobs'], (d: any) => {
+            return d.id;
+          });
+          $t.authenticationService.login(this.user);
+        }
+        job.isSaved = true;
+        $t.sharedService.uiService.showApiSuccessPopMsg('Job Saved...');
+      },
+      (error) => {
+        console.log(error);
+        $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
+      }
+    );
+  }
+
+  removeSaveJobs(job: any, event: any) {
+    event.stopPropagation();
+    event.preventDefault();
+    let $t = this;
+    let apiUrl = this.sharedService.urlService.apiCallWithParams('saveJob', {
+      '{userId}': $t.user.email,
+      '{jobId}': job.id,
+    });
+    $t.sharedService.uiService.showApiStartPopMsg('Removing Job...');
+    this.sharedService.configService.get(apiUrl).subscribe(
+      (response: any) => {
+        if ($t.user) {
+          $t.user['savedJobs'] = $t.user['savedJobs'].filter((d: any) => d.id !== job.id);
+          $t.authenticationService.login(this.user);
+        }
+        job.isSaved = false;
+        $t.sharedService.uiService.showApiSuccessPopMsg('Job Removed...');
+      },
+      (error) => {
+        console.log(error);
+        $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
+      }
+    );
+  }
+
   checkFilter() {
-    return Object.values(this.searchConfig).filter((d) => d != '').length;
+    return Object.values(this.searchConfig).filter((d) => d !== '').length;
   }
 
   removeFilter() {
@@ -141,13 +193,15 @@ export class AllJobListingsComponent implements OnInit {
     this.sharedService.configService.get(apiUrl).subscribe(
       (response: any) => {
         this.allJobs = response.responseObj;
-
+        let savedJobIdArr = this.user.savedJobs.map((d: any) => d.id);
         this.uds.each(this.allJobs, (d: any) => {
           this.uds.each(d.applicants, (app: any) => {
-            d['isApplied'] = app.userId == this.user.email && app.status != 'Withdrawn';
-            app.userId == this.user.email ? (d['applicantStatus'] = app.status) : null;
+            d['isApplied'] = app.userId === this.user.email && app.status !== 'Withdrawn';
+            app.userId === this.user.email ? (d['applicantStatus'] = app.status) : null;
+            d['isSaved'] = savedJobIdArr.includes(d.id) ? true : false;
           });
         });
+        console.log(this.allJobs);
         this.length = response.responseObj.length;
         this.isLoading = false;
         if (!this.sharedService.deviceDetectorService.isMobile()) {

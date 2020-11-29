@@ -21,7 +21,11 @@ export class OrganizationComponent implements OnInit {
   organizationData: any = [];
   activeOrganizationData: any = [];
   inactiveOrganizationData: any = [];
-  constructor(public sharedService: SharedService, public credentialsService: CredentialsService, public router: Router) {
+  constructor(
+    public sharedService: SharedService,
+    public credentialsService: CredentialsService,
+    public router: Router
+  ) {
     this.uds = this.sharedService.plugins.undSco;
   }
 
@@ -64,7 +68,7 @@ export class OrganizationComponent implements OnInit {
         if (status === 'Active') {
           $t.inactiveOrganizationData.splice(orgIndex, 1);
           $t.activeOrganizationData.push(org);
-          $t.activeOrganizationData =  $t.uds.uniq($t.activeOrganizationData, (d: any) => {
+          $t.activeOrganizationData = $t.uds.uniq($t.activeOrganizationData, (d: any) => {
             return d.id;
           });
         } else {

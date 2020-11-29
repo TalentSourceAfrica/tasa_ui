@@ -167,6 +167,8 @@
                   {{ post.content }}
                 </div>
                 <div class="album-actions">
+
+                  <!-- <button [matMenuTriggerFor]="menu" #trigger="matMenuTrigger" (mouseenter)="trigger.openMenu()" (mouseleave)="trigger.closeMenu()"></button> -->
                   <a class="album-action">
                     <svg
                       stroke="currentColor"
@@ -196,7 +198,7 @@
                     </svg>
                     20
                   </a>
-                  <a href="#" class="album-action">
+                  <!-- <a href="#" class="album-action">
                     <svg
                       stroke="currentColor"
                       stroke-width="2"
@@ -211,7 +213,7 @@
                       <path d="M21 13v2a4 4 0 01-4 4H3" />
                     </svg>
                     13
-                  </a>
+                  </a> -->
                 </div>
                 <div class="album-comments border-top pt-4 pb-4" *ngIf="post.isCommentShow">
                   <div class="row no-gutters text-center">
