@@ -93,6 +93,7 @@ export class JobsComponent implements OnInit {
 
   addJob() {
     this.allJobs.unshift({
+      expanded: true,
       id: '',
       description: '',
       title: '',
@@ -110,13 +111,14 @@ export class JobsComponent implements OnInit {
       updatedOn: '',
       createdBy: this.user.firstName + ' ' + this.user.lastName,
       updatedBy: '',
-      orgId: '7dcf052856dc41e4b3d54bcbe5a55310',
+      orgId: this.user.orgId,
       recruiterEmailId: this.user.email,
     });
   }
 
   createJob(job: any) {
     let $t = this;
+    delete job.expanded;
     $t.sharedService.uiService.showApiStartPopMsg('Adding Job...');
     let apiUrl = $t.sharedService.urlService.simpleApiCall('createJob');
     $t.sharedService.configService.post(apiUrl, job).subscribe(

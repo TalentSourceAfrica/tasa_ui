@@ -35,11 +35,12 @@ export class JobViewComponent implements OnInit {
   changeJobStatus(_job: any, _statusToSet: string) {
     let $t = this;
     $t.sharedService.uiService.showApiStartPopMsg('Updating Status...');
-    let apiUrl = $t.sharedService.urlService.apiCallWithParams('updateJob', {
+    let apiUrl = $t.sharedService.urlService.apiCallWithParams('publishJob', {
       '{jobId}': _job.id,
+      '{status}': _statusToSet,
     });
     _job.status = _statusToSet;
-    $t.sharedService.configService.put(apiUrl, _job).subscribe(
+    $t.sharedService.configService.post(apiUrl).subscribe(
       (response: any) => {
         $t.sharedService.uiService.showApiSuccessPopMsg('Status Updated..!');
       },

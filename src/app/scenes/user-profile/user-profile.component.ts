@@ -681,36 +681,37 @@ export class UserProfileComponent implements OnInit {
         break;
       case 'Recruiter':
         this.organizationDetailsForm = this.formBuilder.group({
-          organizationName: ['', [Validators.required]],
-          location: ['', [Validators.required]],
-          description: ['', [Validators.required]],
-          about: ['', [Validators.required]],
-          noEmp: ['', [Validators.required]],
-          industry: ['', [Validators.required]],
+          organizationName: [this.user.organizationName, [Validators.required]],
+          orgId: [this.user.orgId],
+          location: [this.user.location, [Validators.required]],
+          description: [this.user.description, [Validators.required]],
+          about: [this.user.about, [Validators.required]],
+          noEmp: [this.user.noOfEmployee, [Validators.required]],
+          industry: [this.user.industry, [Validators.required]],
           team: [''],
         });
         this.socialDetailsForm = this.formBuilder.group({
-          contactNo: ['', [Validators.required]],
-          contactEmail: ['', [Validators.required]],
-          website: ['', [Validators.required]],
-          linkedin: ['', [Validators.required]],
-          twitter: ['', [Validators.required]],
+          contactNo: [this.user.contactNo, [Validators.required]],
+          contactEmail: [this.user.contactEmail, [Validators.required]],
+          website: [this.user.website, [Validators.required]],
+          linkedin: [this.user.linkedIn, [Validators.required]],
+          twitter: [this.user.twitter, [Validators.required]],
         });
         this.personalDetailsForm = this.formBuilder.group({
           ein: [''],
           suffix: [''],
-          firstName: [''],
+          firstName: [this.user.firstName],
           middleName: [''],
-          lastName: [''],
-          email: [''],
+          lastName: [this.user.lastName],
+          email: [this.user.email],
           dob: [''],
-          addressLine1: ['', [Validators.required]],
+          addressLine1: [this.user.address1, [Validators.required]],
           addressLine2: [''],
-          country: ['', [Validators.required]],
-          state: ['', [Validators.required]],
-          city: ['', [Validators.required]],
+          country: [this.user.country, [Validators.required]],
+          state: [this.user.state, [Validators.required]],
+          city: [this.user.city, [Validators.required]],
           district: [''],
-          postalCode: ['', [Validators.required]],
+          postalCode: [this.user.postalCode, [Validators.required]],
           language: [''],
           identifier: [''],
           bio: [''],
@@ -806,12 +807,17 @@ export class UserProfileComponent implements OnInit {
     $t.sharedService.configService.put(apiUrl, $t.userDetails).subscribe(
       (response: any) => {
         $t.authenticationService.login(response);
-        $t.sharedService.uiService.showApiSuccessPopMsg('Details Edited Successfully...');
+        $t.sharedService.uiService.showApiSuccessPopMsg('Profile Updated Successfully...');
       },
       (error: any) => {
         $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
       }
     );
+  }
+
+  onOrgChange(data: any) {
+    console.log(data);
+    this.organizationDetailsForm.get('orgId').patchValue(data.id);
   }
 
   setUserDetailsObjValues(_type: string) {
@@ -871,6 +877,8 @@ export class UserProfileComponent implements OnInit {
     }
     if (_type == 'Recruiter') {
       let organizationDetailsValues = $t.organizationDetailsForm.value;
+      $t.userDetails.noOfEmployee = organizationDetailsValues.noEmp;
+      $t.userDetails.orgId = organizationDetailsValues.orgId;
       $t.userDetails.organizationName = organizationDetailsValues.organizationName;
       $t.userDetails.location = organizationDetailsValues.location;
       $t.userDetails.description = organizationDetailsValues.description;
@@ -882,7 +890,7 @@ export class UserProfileComponent implements OnInit {
       $t.userDetails.contactNo = socialDetailsValues.contactNo;
       $t.userDetails.contactEmail = socialDetailsValues.contactEmail;
       $t.userDetails.website = socialDetailsValues.website;
-      $t.userDetails.linkedin = socialDetailsValues.linkedin;
+      $t.userDetails.linkedIn = socialDetailsValues.linkedin;
       $t.userDetails.twitter = socialDetailsValues.twitter;
       let careerOpeningDetailsValues = $t.careerOpeningDetailsForm.value;
       $t.userDetails.noOfOpenings = careerOpeningDetailsValues.noOfOpenings;

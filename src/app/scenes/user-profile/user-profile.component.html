@@ -488,7 +488,7 @@
                     required
                     class="form-control form-control-prepended"
                   >
-                    <mat-option *ngFor="let item of organisationList" [value]="item.orgName">
+                    <mat-option *ngFor="let item of organisationList" (click)="onOrgChange(item)" [value]="item.orgName">
                       {{ item.orgName }}
                     </mat-option>
                   </mat-select>

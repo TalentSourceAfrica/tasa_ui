@@ -126,7 +126,8 @@ export class JobsAdminComponent implements OnInit {
     let $t = this;
     $t.sharedService.uiService.showApiStartPopMsg('Updating Status...');
     let apiUrl = $t.sharedService.urlService.apiCallWithParams('publishJob', {
-      '{jobId}': _job.id,
+	  '{jobId}': _job.id,
+	  '{status}': _statusToSet,
     });
     $t.sharedService.configService.post(apiUrl).subscribe(
       (response: any) => {

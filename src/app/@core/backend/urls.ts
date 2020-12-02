@@ -90,7 +90,8 @@ export const urls: any = {
   updateJobNew: '/job/{userId}', // PU
   saveJob: '/users/savedjob/{userId}/{jobId}', // G
   removeSavedJob: '/users/removesavedjob/{userId}/{jobId}', // G
-  publishJob: '/job/publish/{jobId}', // PO
+  publishJob: '/job/publish/{jobId}/{status}', // PO
+  listUnlist: '/job/unlist/{jobId}/{status}', // PO
 
   // Dashboard
   getRecommendedCourses: '/recs/courses/{userId}', // G
