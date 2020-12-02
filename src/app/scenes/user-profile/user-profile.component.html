@@ -481,13 +481,29 @@
                 >{{ entry.label }} <sup *ngIf="entry.mandatory" class="text-danger">*</sup></label
               >
               <div class="input-group input-group-merge">
-                <input
-                  id="{{ entry.id }}"
-                  type="{{ entry.type }}"
-                  formControlName="{{ entry.formControlName }}"
-                  class="form-control form-control-prepended"
-                  placeholder="{{ entry.placeholder }}"
-                />
+                <ng-container *ngIf="entry.formControlName == 'organizationName'">
+                  <mat-select
+                    formControlName="{{ entry.formControlName }}"
+                    placeholder="Your Organization"
+                    required
+                    class="form-control form-control-prepended"
+                  >
+                    <mat-option *ngFor="let item of organisationList" [value]="item.orgName">
+                      {{ item.orgName }}
+                    </mat-option>
+                  </mat-select>
+                </ng-container>
+
+                <ng-container *ngIf="entry.formControlName != 'organizationName'">
+                  <input
+                    id="{{ entry.id }}"
+                    type="{{ entry.type }}"
+                    formControlName="{{ entry.formControlName }}"
+                    class="form-control form-control-prepended"
+                    placeholder="{{ entry.placeholder }}"
+                  />
+                </ng-container>
+
                 <div class="input-group-prepend">
                   <div class="input-group-text">
                     <span class="{{ entry.prepend }}"></span>

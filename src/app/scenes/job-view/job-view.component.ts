@@ -95,7 +95,11 @@ export class JobViewComponent implements OnInit {
         $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
         setTimeout(() => {
           $t.sharedService.uiService.closePopMsg();
-          $t.router.navigate(['/jobs/listings'], { replaceUrl: true });
+          if ($t.user.type === 'Recruiter') {
+            $t.router.navigate(['/recruiter/jobs'], { replaceUrl: true });
+          } else {
+            $t.router.navigate(['/jobs/listings'], { replaceUrl: true });
+          }
         }, 2000);
       }
     );

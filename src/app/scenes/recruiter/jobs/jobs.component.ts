@@ -110,6 +110,8 @@ export class JobsComponent implements OnInit {
       updatedOn: '',
       createdBy: this.user.firstName + ' ' + this.user.lastName,
       updatedBy: '',
+      orgId: '7dcf052856dc41e4b3d54bcbe5a55310',
+      recruiterEmailId: this.user.email,
     });
   }
 
@@ -121,6 +123,7 @@ export class JobsComponent implements OnInit {
       (response: any) => {
         job.id = response.responseObj.id;
         $t.sharedService.uiService.showApiSuccessPopMsg('Job Added...');
+        $t.sharedService.utilityService.changeMessage('TRIGGER-HEADER-NOTIFICATIONS-UPDATE');
       },
       (error) => {
         $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
@@ -299,7 +302,7 @@ export class JobsComponent implements OnInit {
     this.getCountry();
 
     this.sharedService.utilityService.currentMessage.pipe(delay(10), untilDestroyed(this)).subscribe((message) => {
-      if (message == 'TRIGGER-RECRUITER-JOBS') {
+      if (message === 'TRIGGER-RECRUITER-JOBS') {
         this.init();
       }
     });

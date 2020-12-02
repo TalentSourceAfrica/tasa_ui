@@ -92,6 +92,12 @@ export class HeaderComponent implements OnInit {
     $t.sharedService.configService.get(apiUrl).subscribe(
       (response: any) => {
         $t.notificationsData = response.responseObj;
+        if ($t.notificationsData.length) {
+          $('#notiRing').addClass('bell-ring');
+          setTimeout(() => {
+            $('#notiRing').removeClass('bell-ring');
+          }, 2000);
+        }
       },
       (error) => {
         console.log(error);
@@ -142,7 +148,9 @@ export class HeaderComponent implements OnInit {
 
   ngAfterViewInit(): void {
     let $t = this;
-    $t.getNotifications();
+    if (this.user && this.user.email) {
+      $t.getNotifications();
+    }
     $('.sidebar-dropdown > a').click(function () {
       $('.sidebar-submenu').slideUp(200);
       if ($(this).parent().hasClass('active')) {

@@ -28,6 +28,7 @@ export class UserProfileComponent implements OnInit {
   countries: any = [];
   college: any = [];
   university: any = [];
+  organisationList: any = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -967,6 +968,19 @@ export class UserProfileComponent implements OnInit {
     }
   }
 
+  getOrganisation() {
+    let $t = this;
+    let apiUrl = $t.sharedService.urlService.simpleApiCall('getActiveOrganization');
+    $t.sharedService.configService.get(apiUrl).subscribe(
+      (response: any) => {
+        $t.organisationList = response.responseObj;
+      },
+      (error: any) => {
+        $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
+      }
+    );
+  }
+
   get user(): any | null {
     const credentials = this.credentialsService.credentials;
     return credentials ? credentials : null;
@@ -975,5 +989,6 @@ export class UserProfileComponent implements OnInit {
   ngOnInit(): void {
     window.scrollTo(0, 0);
     this.getCountry();
+    this.getOrganisation();
   }
 }
