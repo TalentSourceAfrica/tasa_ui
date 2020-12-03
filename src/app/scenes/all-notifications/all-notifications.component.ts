@@ -10,7 +10,7 @@ import { SharedService } from '@app/services/shared.service';
 })
 export class AllNotificationsComponent implements OnInit {
   allNotifications: any = [];
-
+  isLoading: boolean = false;
   constructor(
     public sharedService: SharedService,
     public credentialsService: CredentialsService,
@@ -27,13 +27,16 @@ export class AllNotificationsComponent implements OnInit {
 
   getNotifications() {
     let $t = this;
+    $t.isLoading = true;
     let apiUrl = $t.sharedService.urlService.apiCallWithParams('getAllNotifications', { '{userId}': $t.user.email });
     $t.sharedService.configService.get(apiUrl).subscribe(
       (response: any) => {
         $t.allNotifications = response.responseObj;
+        $t.isLoading = false;
       },
       (error) => {
         console.log(error);
+        $t.isLoading = false;
       }
     );
   }

@@ -51,7 +51,7 @@ export class LoginPopupComponent implements OnInit {
         (response: any) => {
           this.popupData.authenticationService.login(response.responseObj);
           this.popupData.authenticationService.setToken(JSON.parse(response.data).access_token);
-          this.sharedService.uiService.showApiSuccessPopMsg('Login in successfully...');
+          this.sharedService.uiService.showApiSuccessPopMsg('Login in Successfully...');
           this.dialogRef.close();
           if (response.responseObj.address1 == null) {
             this.popupData.authenticationService.openUserDetailsPopup();

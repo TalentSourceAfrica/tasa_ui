@@ -19,6 +19,7 @@ export class JobViewComponent implements OnInit {
   };
   applied: boolean = false;
   isAdmin: boolean = false;
+  isRecruiter: boolean = false;
 
   constructor(
     private sharedService: SharedService,
@@ -29,7 +30,8 @@ export class JobViewComponent implements OnInit {
   ) {
     this.jobConfig.jobId = this.route.snapshot.params.jobId;
     this.uds = this.sharedService.plugins.undSco;
-    this.user && this.user.type.toLowerCase() == 'admin' ? (this.isAdmin = true) : (this.isAdmin = false);
+    this.user && this.user.type.toLowerCase() === 'admin' ? (this.isAdmin = true) : (this.isAdmin = false);
+    this.user && this.user.type.toLowerCase() === 'recruiter' ? (this.isRecruiter = true) : (this.isRecruiter = false);
   }
 
   changeJobStatus(_job: any, _statusToSet: string) {

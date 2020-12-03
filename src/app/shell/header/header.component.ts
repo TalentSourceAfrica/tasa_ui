@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 // services
@@ -19,6 +19,7 @@ declare var $: any;
 })
 export class HeaderComponent implements OnInit {
   @ViewChild('file', { static: false }) public file: any;
+  @ViewChild('audioOption', { static: false }) audioPlayerRef: ElementRef;
   isAdmin: boolean = false;
   searchCourseText: string = '';
   notificationsData: any = [];
@@ -29,7 +30,7 @@ export class HeaderComponent implements OnInit {
     private credentialsService: CredentialsService,
     private sharedService: SharedService
   ) {
-    this.user.type.toLowerCase() == 'admin' ? (this.isAdmin = true) : (this.isAdmin = false);
+    this.user.type.toLowerCase() === 'admin' ? (this.isAdmin = true) : (this.isAdmin = false);
   }
 
   onCourseSearch() {
@@ -88,21 +89,24 @@ export class HeaderComponent implements OnInit {
 
   getNotifications() {
     let $t = this;
-    let apiUrl = $t.sharedService.urlService.apiCallWithParams('getAllNotifications', { '{userId}': $t.user.email });
-    $t.sharedService.configService.get(apiUrl).subscribe(
-      (response: any) => {
-        $t.notificationsData = response.responseObj;
-        if ($t.notificationsData.length) {
-          $('#notiRing').addClass('bell-ring');
-          setTimeout(() => {
-            $('#notiRing').removeClass('bell-ring');
-          }, 2000);
+    if ($t.user && $t.user.email) {
+      let apiUrl = $t.sharedService.urlService.apiCallWithParams('getNewNotifications', { '{userId}': $t.user.email });
+      $t.sharedService.configService.get(apiUrl).subscribe(
+        (response: any) => {
+          $t.notificationsData = response.responseObj;
+          if ($t.notificationsData.length) {
+            // $t.audioPlayerRef.nativeElement.play();
+            $('#notiRing').addClass('bell-ring');
+            setTimeout(() => {
+              $('#notiRing').removeClass('bell-ring');
+            }, 2000);
+          }
+        },
+        (error) => {
+          console.log(error);
         }
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+      );
+    }
   }
 
   getNotiCount() {
@@ -114,7 +118,16 @@ export class HeaderComponent implements OnInit {
     $('#notificationMenu').toggleClass('open');
   }
 
-  notiRedirect(_noti: any) {
+  notiRedirect(_noti: any, _notiIndex: number) {
+    let $t = this;
+    let apiUrl = $t.sharedService.urlService.apiCallWithParams('readNotification', { '{notificationId}': _noti.id });
+    $t.sharedService.configService.post(apiUrl).subscribe(
+      (response: any) => {},
+      (error) => {
+        console.log(error);
+      }
+    );
+    $t.notificationsData.splice(_notiIndex, 1);
     if (_noti.jobId !== '') {
       this.router.navigate(['/job/' + _noti.jobId], { replaceUrl: true });
     } else if (_noti.courseId !== '') {
@@ -123,17 +136,27 @@ export class HeaderComponent implements OnInit {
     this.onClickOfSellAllNoti();
   }
 
+  getNotiDay(_noti: any) {
+    const dateofvisit = this.sharedService.plugins.mom(_noti.createdOn);
+    const today = this.sharedService.plugins.mom();
+    const day = today.diff(dateofvisit, 'days');
+    if (day === 0) {
+      return 'Today';
+    } else {
+      return day + ' Days Ago';
+    }
+  }
+
   get user(): any | null {
     const credentials = this.credentialsService.credentials;
     return credentials ? credentials : null;
   }
 
   ngOnInit() {
-    if (this.user && this.user.email) {
-      setInterval(() => {
-        this.getNotifications();
-      }, 300000);
-    }
+    setInterval(() => {
+      this.getNotifications();
+    }, 300000);
+
     if (this.sharedService.deviceDetectorService.isMobile()) {
       $('.page-wrapper').removeClass('toggled');
     }
@@ -148,9 +171,7 @@ export class HeaderComponent implements OnInit {
 
   ngAfterViewInit(): void {
     let $t = this;
-    if (this.user && this.user.email) {
-      $t.getNotifications();
-    }
+    $t.getNotifications();
     $('.sidebar-dropdown > a').click(function () {
       $('.sidebar-submenu').slideUp(200);
       if ($(this).parent().hasClass('active')) {

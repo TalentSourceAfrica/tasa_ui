@@ -445,7 +445,11 @@
       <span class="settings"><i class="icon-cog"></i> </span>
     </li>
     <div class="notifbox">
-      <li class="notif curPoint" (click)="notiRedirect(item)" *ngFor="let item of notificationsData">
+      <li
+        class="notif curPoint unread"
+        (click)="notiRedirect(item,i)"
+        *ngFor="let item of notificationsData; let i = index"
+      >
         <a>
           <div class="imageblock ml-1">
             <button mat-mini-fab *ngIf="item.jobId != '' && item.jobId != 'string'">
@@ -460,7 +464,7 @@
           </div>
           <div class="messageblock">
             <div class="message">{{ item.message }}</div>
-            <div class="messageinfo"><i class="icon-trophy"></i>2 hours ago</div>
+            <div class="messageinfo"><i class="icon-trophy"></i>{{ getNotiDay(item) }}</div>
           </div>
         </a>
       </li>
@@ -545,7 +549,7 @@
         <div class="text-center m-auto animated fadeIn mt-2">
           <div class="col-12 text-center">
             <img src="../../../assets/images/no-record.gif" style="height: 150px;" class="d-block m-auto" />
-            <h6 class="text-primary">No Notifications Yet...!</h6>
+            <h6 class="text-primary">No New Notifications Yet...!</h6>
           </div>
         </div>
       </ng-container>
@@ -555,3 +559,7 @@
     </li>
   </ul>
 </ng-template>
+
+<audio #audioOption>
+  <source src="http://soundbible.com/mp3/Elevator Ding-SoundBible.com-685385892.mp3" controls type="audio/mp3" />
+</audio>

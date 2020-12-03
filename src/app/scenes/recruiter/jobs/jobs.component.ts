@@ -255,7 +255,7 @@ export class JobsComponent implements OnInit {
     course['isSelected'] = course['isSelected'] ? !course['isSelected'] : true;
   }
 
-  showApplicants(job: any, event: any, applicantStatus: String) {
+  showApplicants(job: any, event: any, applicantStatus: string) {
     event.stopPropagation();
     event.preventDefault();
     this.sharedService.dialogService.open(ShowApplicantsComponent, {

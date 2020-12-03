@@ -4,46 +4,84 @@
     <li class="breadcrumb-item active">Notifications</li>
   </ol>
   <div class="sec-title">
-    <div class="title">All Notifications</div>
+    <div class="title">
+      All Notifications
+    </div>
   </div>
-  <section>
-    <ng-container *ngIf="allNotifications.length">
+  <section class="min-vertical-h-75 max-vertical-h-75 stylishSlimScroll flow-y-auto flow-x-hidden pr-2">
+    <ng-container *ngIf="isLoading">
+      <div class="col-12 animated fadeIn" *ngFor="let item of [1, 2, 3, 4, 5, 6, 7, 8, 9]">
+        <div class="card" style="height: 100px;">
+          <div class="card-img skeleton">
+            <!-- waiting for img to load from javascript -->
+          </div>
+          <div class="card-body">
+            <h2 class="card-title skeleton">
+              <!-- wating for title to load from javascript -->
+            </h2>
+            <p class="card-intro skeleton">
+              <!-- waiting for intro to load from Javascript -->
+            </p>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="allNotifications.length && !isLoading">
       <mat-toolbar
         *ngFor="let item of allNotifications; let i = index"
-        class="mt-3 shadow-sm"
+        class="mt-4 shadow-sm"
         style="white-space: unset;"
       >
-        <button routerLinkActive="router-link-active" mat-mini-fab *ngIf="item.jobId != '' && item.jobId != 'string'">
-          <mat-icon>work</mat-icon>
-        </button>
-        <button mat-mini-fab *ngIf="item.courseId != '' && item.courseId != 'string'">
-          <mat-icon>school</mat-icon>
-        </button>
-        <button mat-mini-fab *ngIf="item.courseId == '' && item.jobId == ''">
-          <mat-icon>notifications_active</mat-icon>
-        </button>
-        <span class="pl-3 pt-2 pb-0"
-          >{{ item.message }}
-          <div style="margin-top: -7px;"><small class="text-muted">2 days ago</small></div>
-        </span>
-        <span class="example-spacer"></span>
-
-        <button
-          mat-mini-fab
-          class="ml-3"
-          *ngIf="item.courseId != '' || item.jobId != ''"
-          (click)="notiRedirect(item)"
-          color="primary"
-        >
-          <mat-icon>remove_red_eye</mat-icon>
-        </button>
-        <button mat-mini-fab class="ml-3" (click)="deleteNotifications(item.id, i)" color="primary">
-          <mat-icon>remove_circle_outline</mat-icon>
-        </button>
+        <div class="row no-gutters w100 mt-3">
+          <div class="col-10">
+            <button
+              routerLinkActive="router-link-active"
+              mat-mini-fab
+              *ngIf="item.jobId != '' && item.jobId != 'string'"
+            >
+              <mat-icon>work</mat-icon>
+            </button>
+            <button mat-mini-fab *ngIf="item.courseId != '' && item.courseId != 'string'">
+              <mat-icon>school</mat-icon>
+            </button>
+            <button mat-mini-fab *ngIf="item.courseId == '' && item.jobId == ''">
+              <mat-icon>notifications_active</mat-icon>
+            </button>
+            <span class="pl-1 pt-2 pb-0"
+              >{{ item.message }}
+              <div style="margin-top: -15px;" class="pl-5"><small class="text-muted">2 days ago</small></div>
+            </span>
+          </div>
+          <div class="col-2">
+            <span class="example-spacer">
+              <button
+                mat-mini-fab
+                class="ml-3"
+                *ngIf="item.courseId != '' || item.jobId != ''"
+                (click)="notiRedirect(item)"
+                color="primary"
+                matTooltipPosition="below"
+                matTooltip="View"
+              >
+                <mat-icon>remove_red_eye</mat-icon>
+              </button>
+              <button
+                mat-mini-fab
+                class="ml-3"
+                matTooltipPosition="below"
+                matTooltip="Remove"
+                (click)="deleteNotifications(item.id, i)"
+                color="primary"
+              >
+                <mat-icon>remove_circle_outline</mat-icon>
+              </button></span
+            >
+          </div>
+        </div>
       </mat-toolbar>
     </ng-container>
 
-    <ng-container *ngIf="allNotifications.length == 0">
+    <ng-container *ngIf="allNotifications.length == 0 && !isLoading">
       <div class="text-center m-auto animated fadeIn mt-2">
         <div class="col-12 text-center">
           <img src="../../../assets/images/no-record.gif" style="height: 300px;" class="d-block m-auto" />

@@ -10,11 +10,20 @@
         <li class="breadcrumb-item"><a [routerLink]="['/jobs/listings']">All Jobs</a></li>
         <li class="breadcrumb-item active text-truncate">{{ jobConfig?.job?.title }}</li>
       </ol>
-      <h1 class="h2">{{ jobConfig.job.title }}</h1>
+      <h1 class="h2">{{ jobConfig?.job?.title }}</h1>
       <div class="row">
         <div class="col-md-8">
           <div class="card my-4 m-0">
-            <div class="embed-responsive embed-responsive-16by9">
+            <ng-container *ngIf="isRecruiter">
+              <span
+              class="badge p-2 ml-1 mt-2 position-absolute mt-2"
+              [ngClass]="{'badge-success': jobConfig.job.status == 'Active', 'badge-danger': jobConfig.job.status == 'Inactive'}"
+              style="z-index: 99; right: 10px;"
+              >{{jobConfig.job.status}}</span
+            >
+            </ng-container>
+            
+            <div class="embed-responsive embed-responsive-16by9 position-relative">
               <img src="../../../assets/images/TSA_logo_new.small.png" class="embed-responsive-item" alt="course" />
             </div>
             <div class="card-body">
@@ -122,7 +131,7 @@
             </div>
           </div>
           <div class="mb-3 mb-4 mt-0 zoomCard animated fadeIn">
-            <div class="p-4 card w90 m-auto" *ngIf="!isAdmin">
+            <div class="p-4 card w90 m-auto" *ngIf="!isAdmin && !isRecruiter">
               <div class="text-center">
                 <mat-form-field class="d-block mx-2 pb-2 w90">
                   <mat-label>Name</mat-label>

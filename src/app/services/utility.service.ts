@@ -25,7 +25,7 @@ export class UtilityService {
     positiveInteger: /^\d+$/,
     decimal: /^[-+]?[0-9]+\.[0-9]+$/,
     onlyNumber: /^\d+$/,
-    validCharacters: /^[A-Za-z0-9 ]+$/, //Regex for Valid Characters i.e. Alphabets, Numbers and Space.
+    validCharacters: /^[A-Za-z0-9 ]+$/, // Regex for Valid Characters i.e. Alphabets, Numbers and Space.
     iframeUrl:
       '^(https?://)?(www\\.)?([-a-z0-9]{1,63}\\.)*?[a-z0-9][-a-z0-9]{0,61}[a-z0-9]\\.[a-z]{2,6}(/[-\\w@\\+\\.~#\\?&/=%]*)?$',
   };
