@@ -27,7 +27,7 @@
 		      All Jobs : <strong>{{ allJobs.length }} Jobs Found</strong>
 		    </div>
 		  </div>
-		  <section *ngIf="!isLoading" class="min-vertical-h-5">
+		  <section *ngIf="!isLoading" class="mt-2">
 		  	<div class="row no-gutters">
 			  	<div class="position-absolute mt-2 ml-2">
 	              <button
@@ -70,40 +70,40 @@
 	              </button>
 	            </div>
 	            <mat-paginator
-	              class="col-10"
+	              class="col-12"
 	              [length]="length"
 	              [pageSize]="pageSize"
 	              [pageSizeOptions]="pageSizeOptions"
 	              (page)="pageEvent = pagination($event)"
 	              *ngIf="!isLoading">
 	            </mat-paginator>
-	            <div class="row no-gutters col-2 mt-2">
-	                <div class="col text-right">
-	                  <div id="toggleBar" class="btn-group btn-group-sm border border-secondary" role="group">
-	                    <button
-	                      [class.current]="currentView == 1"
-	                      (click)="changeAssetView(1)"
-	                      matTooltip="Grid View"
-	                      matTooltipPosition="below"
-	                      type="button"
-	                      class="btn btn-secondary py-2 px-3"
-	                    >
-	                      <i class="fa fas fa-th-large"></i>
-	                    </button>
-	                    <button
-	                      [class.current]="currentView == 2"
-	                      (click)="changeAssetView(2)"
-	                      matTooltip="List View"
-	                      matTooltipPosition="below"
-	                      type="button"
-	                      class="btn btn-secondary py-2 px-3"
-	                    >
-	                      <i class="fa fas fa-th-list"></i>
-	                    </button>
-	                  </div>
-	                </div>
-	            </div>
-		  	</div>
+			  </div>
+			  <div class="row no-gutters mt-2 mb-1">
+				<div class="col text-right">
+				  <div id="toggleBar" class="btn-group btn-group-sm border border-secondary" role="group">
+					<button
+					  [class.current]="currentView == 1"
+					  (click)="changeAssetView(1)"
+					  matTooltip="Grid View"
+					  matTooltipPosition="below"
+					  type="button"
+					  class="btn btn-secondary py-2 px-3"
+					>
+					  <i class="fa fas fa-th-large"></i>
+					</button>
+					<button
+					  [class.current]="currentView == 2"
+					  (click)="changeAssetView(2)"
+					  matTooltip="List View"
+					  matTooltipPosition="below"
+					  type="button"
+					  class="btn btn-secondary py-2 px-3"
+					>
+					  <i class="fa fas fa-th-list"></i>
+					</button>
+				  </div>
+				</div>
+			</div>
 		  </section>	
 		  <section>
 		  	<ng-container *ngIf="isLoading">

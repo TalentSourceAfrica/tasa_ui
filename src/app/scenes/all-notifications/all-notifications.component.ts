@@ -18,6 +18,14 @@ export class AllNotificationsComponent implements OnInit {
   ) {}
 
   notiRedirect(_noti: any) {
+    let $t = this;
+    let apiUrl = $t.sharedService.urlService.apiCallWithParams('readNotification', { '{notificationId}': _noti.id });
+    $t.sharedService.configService.post(apiUrl).subscribe(
+      (response: any) => {},
+      (error) => {
+        console.log(error);
+      }
+    );
     if (_noti.jobId !== '') {
       this.router.navigate(['/job/' + _noti.jobId], { replaceUrl: true });
     } else if (_noti.courseId !== '') {
@@ -39,6 +47,17 @@ export class AllNotificationsComponent implements OnInit {
         $t.isLoading = false;
       }
     );
+  }
+
+  getNotiDay(createdOn: any) {
+    const dateofvisit = this.sharedService.plugins.mom(createdOn);
+    const today = this.sharedService.plugins.mom();
+    const day = today.diff(dateofvisit, 'days');
+    if (day === 0) {
+      return 'Today';
+    } else {
+      return day + ' Days Ago';
+    }
   }
 
   deleteNotifications(_id: any, notiIndex: number) {

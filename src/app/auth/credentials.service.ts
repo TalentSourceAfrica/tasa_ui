@@ -17,6 +17,12 @@ const tokenKey = 'access_token';
   providedIn: 'root',
 })
 export class CredentialsService {
+  public loggedInUserType: any = {
+    isAdmin: false,
+    isRecruiter: false,
+    isMentee: false,
+    isMentor: false,
+  };
   private _credentials: Credentials | null = null;
   private _token: any = null;
 
@@ -81,5 +87,26 @@ export class CredentialsService {
       sessionStorage.removeItem(tokenKey);
       localStorage.removeItem(tokenKey);
     }
+  }
+
+  getLoggedInUserType() {
+    const credentials: any = this.credentials;
+    if (credentials && typeof credentials !== 'undefined') {
+      switch (credentials.type) {
+        case 'Admin':
+          this.loggedInUserType.isAdmin = true;
+          break;
+        case 'Mentee':
+          this.loggedInUserType.isMentee = true;
+          break;
+        case 'Recruiter':
+          this.loggedInUserType.isRecruiter = true;
+          break;
+        case 'Mentor':
+          this.loggedInUserType.isMentor = true;
+          break;
+      }
+    }
+    return this.loggedInUserType;
   }
 }

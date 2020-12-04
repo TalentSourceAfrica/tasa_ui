@@ -49,7 +49,9 @@
             </button>
             <span class="pl-1 pt-2 pb-0"
               >{{ item.message }}
-              <div style="margin-top: -15px;" class="pl-5"><small class="text-muted">2 days ago</small></div>
+              <div style="margin-top: -15px;" class="pl-5">
+                <small class="text-muted">{{ getNotiDay(item.createdOn) }}</small>
+              </div>
             </span>
           </div>
           <div class="col-2">

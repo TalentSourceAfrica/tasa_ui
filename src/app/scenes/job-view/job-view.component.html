@@ -7,7 +7,9 @@
     <div class="container page__container animated fadeIn" *ngIf="!jobConfig.fetchingJob">
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a [routerLink]="['/home']">Home</a></li>
-        <li class="breadcrumb-item"><a [routerLink]="['/jobs/listings']">All Jobs</a></li>
+        <li class="breadcrumb-item" *ngIf="credentialsService.getLoggedInUserType().isMentee"><a [routerLink]="['/jobs/listings']">All Jobs</a></li>
+        <li class="breadcrumb-item" *ngIf="credentialsService.getLoggedInUserType().isAdmin"><a [routerLink]="['/admin/jobs']">Jobs</a></li>
+        <li class="breadcrumb-item" *ngIf="credentialsService.getLoggedInUserType().isRecruiter"><a [routerLink]="['/recruiter/jobs']">Jobs</a></li>
         <li class="breadcrumb-item active text-truncate">{{ jobConfig?.job?.title }}</li>
       </ol>
       <h1 class="h2">{{ jobConfig?.job?.title }}</h1>
