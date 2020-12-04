@@ -901,3 +901,15 @@ $button: #8f98a9;
     background: rgba(255, 255, 255, 0.1);
   }
 }
+
+.webui-popover-content .interactIcon {
+  -webkit-transition: .3s;
+  -moz-transition: .3s;
+  -o-transition: .3s;
+  -ms-transition: .3s;
+  transition: .3s;
+}
+
+.webui-popover-content .interactIcon:hover {
+  margin-top: -10px !important;
+}

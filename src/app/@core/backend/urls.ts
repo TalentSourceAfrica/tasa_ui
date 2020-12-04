@@ -51,6 +51,16 @@ export const urls: any = {
   deletePost: '/posts/{postId}', // DE
   changePostStatus: '/posts/{postId}/{status}', // PO
 
+  // Social Post
+  likePost: '/socialPost/like/{postId}',
+  removeLikePost: '/socialPost/removelike/{postId}',
+  clapPost: '/socialPost/clap/{postId}',
+  removeClapPost: '/socialPost/removeclap/{postId}',
+  congratsPost: '/socialPost/congrats/{postId}',
+  removeCongratsPost: '/socialPost/removecongrats/{postId}',
+  curiousPost: '/socialPost/curious/{postId}',
+  removeCuriousPost: '/socialPost/removecurious/{postId}',
+
   // upload
   uploadMultiFile: '/uploadMultipleDocuments/{email}', // PO
   uploadSingle: '/commonImageUpload/{email}', // PO
