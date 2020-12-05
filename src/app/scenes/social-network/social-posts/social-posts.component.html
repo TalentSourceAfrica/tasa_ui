@@ -205,7 +205,7 @@
                     <i *ngIf="!isReacted('congrats', post)"class="fas fa-wine-glass-alt pr-1 curPoint fa-xs"></i>
                     <i *ngIf="isReacted('congrats', post)" class="fas fa-wine-glass pr-1 curPoint fa-xs"></i>
                     <span class="fa-xs"> {{ (post.countOfLikes != null ? post.countOfLikes.length : 0) + (post.countOfClaps != null ? post.countOfClaps.length : 0) + 
-                    (post.countOfCongrats != null ? post.countOfCongrats.length : 0) }}</span>
+                    (post.countOfCongrats != null ? post.countOfCongrats.length : 0) + (post.countOfCurious != null ? post.countOfCurious.length : 0) }}</span>
                   </a>
                   <a (click)="post.isCommentShow = true" class="album-action small">
                     {{ post.countOfComments != null ? post.countOfComments.length : '0' }} Comments
