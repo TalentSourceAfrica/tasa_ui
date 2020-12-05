@@ -89,29 +89,29 @@ export class SocialPostsComponent implements OnInit {
     let isClapPresent = undefined,
       isCongratsPresent = undefined,
       isCuriousPresent = undefined;
-    let _content = `<div class="d-flex no-gutters py-1 fa-2x text-primary">`;
+    let _content = `<div class="rounded-pill">`;
     _content +=
-      _event.currentTarget.children[0].id == 'liked'
-        ? `<i class="fas fa-heart pr-2 curPoint interactIcon" id="btn-dislike" title="Remove Like"></i>`
-        : `<i class="far fa-heart pr-2 curPoint interactIcon" id="btn-like" title="Like"></i>`;
+      _event.currentTarget.children[0].id === 'liked'
+        ? `<img src="./assets/images/social/like.svg" class="curPoint pr-1 zoomCard interactIcon" id="btn-dislike" title="Remove Like">`
+        : `<img src="./assets/images/social/like.svg" class="curPoint pr-1 zoomCard interactIcon" id="btn-like" title="Like">`;
     if (postInfo.countOfClaps != null) {
-      isClapPresent = postInfo.countOfClaps.filter((d: any) => d.reactionBy == $t.user.email);
+      isClapPresent = postInfo.countOfClaps.filter((d: any) => d.reactionBy === $t.user.email);
     }
     if (postInfo.countOfCongrats != null) {
-      isCongratsPresent = postInfo.countOfCongrats.filter((d: any) => d.reactionBy == $t.user.email);
+      isCongratsPresent = postInfo.countOfCongrats.filter((d: any) => d.reactionBy === $t.user.email);
     }
     _content +=
-      isClapPresent != undefined
-        ? `<i class="fas fa-hands-wash fa-flip-horizontal pl-2 curPoint interactIcon" id="btn-unclap" title="Remove Clap"></i>`
-        : `<i class="fas fa-sign-language pr-2 curPoint interactIcon" id="btn-clap" title="Clap"></i>`;
+      isClapPresent !== undefined
+        ? `<img src="./assets/images/social/celebrate.svg" class="zoomCard pr-1 curPoint interactIcon" id="btn-unclap" title="Remove Clap">`
+        : `<img src="./assets/images/social/celebrate.svg" class="zoomCard pr-1 curPoint interactIcon" id="btn-clap" title="Clap">`;
     _content +=
-      isCongratsPresent != undefined
-        ? `<i class="fas fa-wine-glass pr-2 curPoint interactIcon" id="btn-removeCongrats" title="Remove Congrats"></i>`
-        : `<i class="fas fa-wine-glass-alt pr-2 curPoint interactIcon" id="btn-congrats" title="Congrats"></i>`;
+      isCongratsPresent !== undefined
+        ? `<img src="./assets/images/social/congrats.svg" class="zoomCard pr-1 curPoint interactIcon" id="btn-removeCongrats" title="Remove Congrats">`
+        : `<img src="./assets/images/social/congrats.svg" class="zoomCard pr-1 curPoint interactIcon" id="btn-congrats" title="Congrats">`;
     _content +=
-      isCuriousPresent != undefined
-        ? `<i class="fas fa-brain pr-2 curPoint interactIcon" id="btn-notCurious" title="Remove Curious"></i>`
-        : `<i class="fas fa-brain pr-2 curPoint interactIcon" id="btn-curious" title="Curious"></i>`;
+      isCuriousPresent !== undefined
+        ? `<img src="./assets/images/social/curious.svg" class="zoomCard pr-1 curPoint interactIcon" id="btn-notCurious" title="Remove Curious">`
+        : `<img src="./assets/images/social/curious.svg" class="zoomCard pr-1 curPoint interactIcon" id="btn-curious" title="Curious">`;
     _content += `</div>`;
     setTimeout(() => {
       jQuery('#' + _event.srcElement.id).webuiPopover({
@@ -123,7 +123,7 @@ export class SocialPostsComponent implements OnInit {
         arrow: false,
         closeable: false,
         placement: 'bottom',
-        width: '165',
+        width: '240',
         offsetLeft: 50,
         onShow: function ($element: any) {
           jQuery('[id="btn-like"]')
