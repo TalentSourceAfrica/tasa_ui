@@ -88,9 +88,9 @@
           <ng-container *ngIf="user">
             <ng-template *ngTemplateOutlet="notifications"></ng-template>
           </ng-container>
-          <a matTooltipPosition="below" matTooltip="Messages">
-            <i class="fa fa-envelope"></i>
-            <span class="badge badge-pill badge-success notification">7</span>
+          <a matTooltipPosition="below" [routerLink]="['/cart']" matTooltip="Cart">
+            <i class="fas fa-shopping-cart text-white"></i>
+            <span class="badge badge-pill badge-success notification">2</span>
           </a>
           <a (click)="logout()" class="curPoint" matTooltipPosition="below" matTooltip="Logout">
             <i class="fa fa-power-off text-white"></i>

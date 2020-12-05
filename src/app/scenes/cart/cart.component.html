@@ -1,0 +1,76 @@
+<div class="cart-wrapper container">
+  <ol class="breadcrumb mt-3">
+    <li class="breadcrumb-item curPoint"><a [routerLink]="['/home']">Home</a></li>
+    <li class="breadcrumb-item active">Cart</li>
+  </ol>
+  <div class="sec-title">
+    <div class="title">
+      Cart Details
+    </div>
+  </div>
+  <div class="row no-gutters">
+    <div class="col-12">
+      <ng-template [ngTemplateOutlet]="cartDetails"></ng-template>
+    </div>
+    <div class="col-12 mt-1">
+      <ng-template [ngTemplateOutlet]="cartCheckout"></ng-template>
+    </div>
+  </div>
+</div>
+
+<ng-template #cartDetails>
+  <div *ngIf="products.length > 0">
+    <ul class="products min-vertical-h-50 max-vertical-h-50 stylishSlimScroll flow-y-auto flow-x-hidden">
+      <li class="row shadow" *ngFor="let product of products">
+        <div class="col left">
+          <div class="thumbnail">
+            <a href="#">
+              <img [src]="product.image" [alt]="product.name" />
+            </a>
+          </div>
+          <div class="detail">
+            <div class="name">
+              <a href="#">{{ product.name }}</a>
+            </div>
+            <div class="description">{{ product.description }}</div>
+            <div class="price">{{ product.price }}</div>
+          </div>
+        </div>
+
+        <div class="col right">
+          <!-- <div class="quantity">
+              <input type="number" class="quantity" step="1" :value="product.quantity" @input="updateQuantity(index, $event)" @blur="checkQuantity(index, $event)" />
+            </div> -->
+          <div class="remove">
+            <button mat-mini-fab color="primary" matTooltipPosition="below" matTooltip="Remove" class="ml-2">
+              <mat-icon class="mb-1">delete</mat-icon>
+            </button>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</ng-template>
+<ng-template #cartCheckout>
+  <section class="container" style="border-top: 4px solid #523f6d;" *ngIf="products.length > 0">
+    <div class="promotion">
+      <label for="promo-code">Have A Promo Code?</label>
+      <input type="text" id="promo-code" /> <button type="button"></button>
+    </div>
+
+    <div class="summary">
+      <ul>
+        <li>Subtotal <span>$ 350</span></li>
+        <li>Discount <span> 30%</span></li>
+        <li>Tax <span> 10%</span></li>
+        <li class="total">Total <span>$400</span></li>
+      </ul>
+    </div>
+
+    <div class="checkout">
+      <button mat-flat-button color="primary" class="rounded-pill ml-2">
+        Checkout
+      </button>
+    </div>
+  </section>
+</ng-template>

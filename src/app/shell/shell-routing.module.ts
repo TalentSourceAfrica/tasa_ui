@@ -37,11 +37,6 @@ const routes: Routes = [
         loadChildren: () => import('@app/scenes/course/course.module').then((m) => m.CourseModule),
       },
       {
-        path: 'user/profile',
-        canActivate: [AuthenticationGuard],
-        loadChildren: () => import('@app/scenes/user-profile/user-profile.module').then((m) => m.UserProfileModule),
-      },
-      {
         path: 'subscription-plans',
         canActivate: [AuthenticationGuard],
         loadChildren: () =>
@@ -56,25 +51,6 @@ const routes: Routes = [
       {
         path: 'all-course',
         loadChildren: () => import('@app/scenes/all-course/all-course.module').then((m) => m.AllCourseModule),
-      },
-      {
-        path: 'user/course',
-        canActivate: [AuthenticationGuard],
-        loadChildren: () => import('@app/scenes/user-course/user-course.module').then((m) => m.UserCourseModule),
-      },
-      {
-        path: 'user/fav-course',
-        canActivate: [AuthenticationGuard],
-        loadChildren: () =>
-          import('@app/scenes/user-favorite-courses/user-favorite-courses.module').then(
-            (m) => m.UserFavoriteCoursesModule
-          ),
-      },
-      {
-        path: 'user/saved-course',
-        canActivate: [AuthenticationGuard],
-        loadChildren: () =>
-          import('@app/scenes/user-saved-jobs/user-saved-jobs.module').then((m) => m.UserSavedJobsModule),
       },
       {
         path: 'digital-assets',
@@ -104,6 +80,35 @@ const routes: Routes = [
         canActivate: [AuthenticationGuard],
         loadChildren: () =>
           import('@app/scenes/all-notifications/all-notifications.module').then((m) => m.AllNotificationsModule),
+      },
+      {
+        path: 'cart',
+        canActivate: [AuthenticationGuard],
+        loadChildren: () => import('@app/scenes/cart/cart.module').then((m) => m.CartModule),
+      },
+      {
+        path: 'user/profile',
+        canActivate: [AuthenticationGuard],
+        loadChildren: () => import('@app/scenes/user-profile/user-profile.module').then((m) => m.UserProfileModule),
+      },
+      {
+        path: 'user/course',
+        canActivate: [AuthenticationGuard],
+        loadChildren: () => import('@app/scenes/user-course/user-course.module').then((m) => m.UserCourseModule),
+      },
+      {
+        path: 'user/fav-course',
+        canActivate: [AuthenticationGuard],
+        loadChildren: () =>
+          import('@app/scenes/user-favorite-courses/user-favorite-courses.module').then(
+            (m) => m.UserFavoriteCoursesModule
+          ),
+      },
+      {
+        path: 'user/saved-course',
+        canActivate: [AuthenticationGuard],
+        loadChildren: () =>
+          import('@app/scenes/user-saved-jobs/user-saved-jobs.module').then((m) => m.UserSavedJobsModule),
       },
       {
         path: 'admin/tier',
