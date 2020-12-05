@@ -168,12 +168,13 @@
                     mat-flat-button
                     *ngIf="!applied"
                     color="primary"
+                    [disabled]="resumeLink == ''"
                     (click)="applyForJob()"
                     class="rounded-pill ml-2"
                   >
                     Apply
                   </button>
-                  <button mat-flat-button *ngIf="applied" color="primary" disabled class="rounded-pill ml-2">
+                  <button mat-flat-button *ngIf="applied" color="primary" disabled class="rounded-pill">
                     Applied
                   </button>
                 </div>
