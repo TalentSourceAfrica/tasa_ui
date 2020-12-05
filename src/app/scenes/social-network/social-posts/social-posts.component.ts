@@ -89,7 +89,7 @@ export class SocialPostsComponent implements OnInit {
     let isClapPresent = undefined,
       isCongratsPresent = undefined,
       isCuriousPresent = undefined;
-    let _content = `<div class="d-flex no-gutters min-vertical-h-5 py-1 fa-2x text-primary">`;
+    let _content = `<div class="d-flex no-gutters py-1 fa-2x text-primary">`;
     _content +=
       _event.currentTarget.children[0].id == 'liked'
         ? `<i class="fas fa-heart pr-2 curPoint interactIcon" id="btn-dislike" title="Remove Like"></i>`
@@ -172,19 +172,39 @@ export class SocialPostsComponent implements OnInit {
     }, 500);
   }
 
-  isLiked(_post: any) {
-    let isPresent;
-    if (_post.countOfLikes != null) {
-      isPresent = _post.countOfLikes.filter((d: any) => {
-        return d.reactionBy == this.user.email;
-      });
-    } else {
-      return false;
-    }
-    if (isPresent != undefined) {
-      return true;
-    } else {
-      return false;
+  isReacted(_which: string, _post: any) {
+    let isLikePresent = undefined, isClapPresent = undefined, isCongratsPresent = undefined;
+    switch(_which) {
+      case 'like':
+        if (_post.countOfLikes != null) {
+          isLikePresent = _post.countOfLikes.filter((d: any) => {
+            return d.reactionBy == this.user.email;
+          });
+        } else {
+          return false
+        }
+        return (isLikePresent != undefined ? true : false);
+        break;
+      case 'clap':
+        if (_post.countOfClaps != null) {
+          isClapPresent = _post.countOfClaps.filter((d: any) => {
+            return d.reactionBy == this.user.email;
+          });
+        } else {
+          return false;
+        }
+        return (isClapPresent != undefined ? true : false);
+        break;
+      case 'congrats':
+        if (_post.countOfCongrats != null) {
+          isCongratsPresent = _post.countOfCongrats.filter((d: any) => {
+            return d.reactionBy == this.user.email;
+          });
+        } else {
+          return false;
+        }
+        return (isCongratsPresent != undefined ? true : false);
+        break;    
     }
   }
 

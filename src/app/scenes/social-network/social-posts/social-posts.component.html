@@ -166,14 +166,58 @@
                 <div class="album-content">
                   {{ post.content }}
                 </div>
-                <div class="album-actions">
-                  <!-- <button [matMenuTriggerFor]="menu" #trigger="matMenuTrigger" (mouseenter)="trigger.openMenu()" (mouseleave)="trigger.closeMenu()"></button> -->
-                    <a class="album-action" 
+                <div class="pb-0 px-0 mx-3 album-actions border-bottom">
+                  <a class="album-action align-middle mr-2">
+                    <svg
+                      id="not-liked"
+                      *ngIf="!isReacted('like', post)"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      height="10px"
+                      fill="none"
+                      class="m-0"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"
+                      />
+                    </svg>
+                    <svg
+                      id="liked"
+                      *ngIf="isReacted('like', post)"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      height="10px"
+                      class="m-0"
+                      fill="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"
+                      />
+                    </svg>
+                    <i *ngIf="!isReacted('clap', post)" class="fas fa-sign-language pr-1 curPoint fa-xs"></i>
+                    <i *ngIf="isReacted('clap', post)" class="fas fa-hands-wash fa-flip-horizontal pl-1 curPoint fa-xs"></i>
+                    <i *ngIf="!isReacted('congrats', post)"class="fas fa-wine-glass-alt pr-1 curPoint fa-xs"></i>
+                    <i *ngIf="isReacted('congrats', post)" class="fas fa-wine-glass pr-1 curPoint fa-xs"></i>
+                    <span class="fa-xs"> {{ (post.countOfLikes != null ? post.countOfLikes.length : 0) + (post.countOfClaps != null ? post.countOfClaps.length : 0) + 
+                    (post.countOfCongrats != null ? post.countOfCongrats.length : 0) }}</span>
+                  </a>
+                  <a (click)="post.isCommentShow = true" class="album-action small">
+                    {{ post.countOfComments != null ? post.countOfComments.length : '0' }} Comments
+                  </a>
+                </div>
+                <div class="px-0 ml-2 mr-3 mt-1 pb-2 album-actions">
+                  <a class="album-action p-2 m-0 btm-bar-action" 
                        (mouseenter)="userInteractionPopover($event)" 
                        data-id="{{post.id}}">
                     <svg
                       id="not-liked"
-                      *ngIf="!isLiked(post)"
+                      *ngIf="!isReacted('like', post)"
                       stroke="currentColor"
                       stroke-width="2"
                       (click)="interactionApiCall('removeLikePost', post)"
@@ -188,7 +232,7 @@
                     </svg>
                     <svg
                       id="liked"
-                      *ngIf="isLiked(post)"
+                      *ngIf="isReacted('like', post)"
                       stroke="currentColor"
                       stroke-width="2"
                       (click)="interactionApiCall('likePost', post)"
@@ -201,9 +245,9 @@
                         d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"
                       />
                     </svg>
-                   {{ post.countOfLikes != null ? post.countOfLikes.length : '' }}
+                   <span class="">Like</span>
                   </a>
-                  <a (click)="post.isCommentShow = true" class="album-action">
+                  <a (click)="post.isCommentShow = true" class="album-action btm-bar-action p-2 m-0">
                     <svg
                       stroke="currentColor"
                       stroke-width="2"
@@ -215,24 +259,8 @@
                     >
                       <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" />
                     </svg>
-                    20
+                    <span class="">Comment</span>
                   </a>
-                  <!-- <a href="#" class="album-action">
-                    <svg
-                      stroke="currentColor"
-                      stroke-width="2"
-                      fill="none"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      class="css-i6dzq1"
-                      viewBox="0 0 24 24"
-                    >
-                      <path d="M17 1l4 4-4 4" />
-                      <path d="M3 11V9a4 4 0 014-4h14M7 23l-4-4 4-4" />
-                      <path d="M21 13v2a4 4 0 01-4 4H3" />
-                    </svg>
-                    13
-                  </a> -->
                 </div>
                 <div class="album-comments border-top pt-4 pb-4" *ngIf="post.isCommentShow">
                   <div class="row no-gutters text-center">
