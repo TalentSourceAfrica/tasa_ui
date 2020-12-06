@@ -22,9 +22,7 @@ export class DigitalAssetsComponent implements OnInit {
     public authenticationService: AuthenticationService,
     public credentialsService: CredentialsService,
     private gallery: Gallery
-  ) {
-    console.log(this.user);
-  }
+  ) {}
 
   prepareSupportedNames() {
     let $t = this;
@@ -40,12 +38,12 @@ export class DigitalAssetsComponent implements OnInit {
       images: [],
     };
     prop.images = this.user.gcpdocument.map((doc: any) => {
-      if (doc.type == '.png' || doc.type == '.jpeg' || doc.type == '.jpg' || doc.type == '.webp') {
+      if (doc.type === '.png' || doc.type === '.jpeg' || doc.type === '.jpg' || doc.type === '.webp') {
         return { path: doc.url };
       }
     });
-    prop.images = prop.images.filter((d: any) => typeof d != 'undefined');
-    const index = this.sharedService.plugins.undSco.findIndex(prop.images, (d: any) => d.path == doc.url);
+    prop.images = prop.images.filter((d: any) => typeof d !== 'undefined');
+    const index = this.sharedService.plugins.undSco.findIndex(prop.images, (d: any) => d.path === doc.url);
     prop = { ...prop, index };
     this.gallery.load(prop);
   }
