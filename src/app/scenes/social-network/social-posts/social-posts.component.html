@@ -145,7 +145,7 @@
                       (click)="createSocialPost()"
                       class="rounded-pill ml-2"
                     >
-                      Share
+                      Post
                     </button>
                   </div>
                 </div>
@@ -167,87 +167,35 @@
                   {{ post.content }}
                 </div>
                 <div class="pb-0 px-0 mx-3 album-actions border-bottom">
-                  <a class="album-action align-middle mr-2">
-                    <svg
-                      id="not-liked"
-                      *ngIf="!isReacted('like', post)"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      height="10px"
-                      fill="none"
-                      class="m-0"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"
-                      />
-                    </svg>
-                    <svg
-                      id="liked"
-                      *ngIf="isReacted('like', post)"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      height="10px"
-                      class="m-0"
-                      fill="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"
-                      />
-                    </svg>
-                    <i *ngIf="!isReacted('clap', post)" class="fas fa-sign-language pr-1 curPoint fa-xs"></i>
-                    <i *ngIf="isReacted('clap', post)" class="fas fa-hands-wash fa-flip-horizontal pl-1 curPoint fa-xs"></i>
-                    <i *ngIf="!isReacted('congrats', post)"class="fas fa-wine-glass-alt pr-1 curPoint fa-xs"></i>
-                    <i *ngIf="isReacted('congrats', post)" class="fas fa-wine-glass pr-1 curPoint fa-xs"></i>
-                    <span class="fa-xs"> {{ (post.countOfLikes != null ? post.countOfLikes.length : 0) + (post.countOfClaps != null ? post.countOfClaps.length : 0) + 
+                  <a class="album-action align-middle mr-2" (click)="openUserInteractionPopover(post)">
+                    <i *ngIf="isReacted('like', post)" class="fa-flip-horizontal fa-xs fas fa-thumbs-up pl-1"></i>
+                    <img *ngIf="isReacted('clap', post)" src="./assets/images/social/celebrate.svg" class="pr-1 curPoint interactIcon" width="15px">
+                    <img *ngIf="isReacted('congrats', post)" src="./assets/images/social/celebrate.svg" class="pr-1 curPoint interactIcon" width="15px">
+                    <span class="fa-xs underlineClass"> {{ (post.countOfLikes != null ? post.countOfLikes.length : 0) + (post.countOfClaps != null ? post.countOfClaps.length : 0) + 
                     (post.countOfCongrats != null ? post.countOfCongrats.length : 0) + (post.countOfCurious != null ? post.countOfCurious.length : 0) }}</span>
                   </a>
-                  <a (click)="post.isCommentShow = true" class="album-action small">
+                  <a (click)="post.isCommentShow = !post.isCommentShow" class="album-action small underlineClass">
                     {{ post.countOfComments != null ? post.countOfComments.length : '0' }} Comments
                   </a>
                 </div>
                 <div class="px-0 ml-2 mr-3 mt-1 pb-2 album-actions">
-                  <a class="album-action p-2 m-0 btm-bar-action" 
+                  <a class="album-action p-2 m-0 btm-bar-action-1" 
                        (mouseenter)="userInteractionPopover($event)" 
                        data-id="{{post.id}}">
-                    <svg
-                      id="not-liked"
-                      *ngIf="!isReacted('like', post)"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      (click)="interactionApiCall('removeLikePost', post)"
-                      fill="none"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"
-                      />
-                    </svg>
-                    <svg
-                      id="liked"
-                      *ngIf="isReacted('like', post)"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      (click)="interactionApiCall('likePost', post)"
-                      fill="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"
-                      />
-                    </svg>
-                   <span class="">Like</span>
+                    <i id="liked" *ngIf="isReacted('like', post)" class="fa-flip-horizontal fas fa-thumbs-up pl-2"></i>
+                    <i id="not-liked" *ngIf="!isReacted('like', post)" class="fa-flip-horizontal far fa-thumbs-up pl-2"></i>
+                   <span class="pr-2">Like</span>
+                   <span *ngIf="isReacted('clap', post)" class="pr-2">
+                    <img src="./assets/images/social/celebrate.svg" class="pr-1 curPoint interactIcon" id="btn-unclap" title="Remove Clap" width="20px">Clap
+                   </span>
+                   <span *ngIf="isReacted('congrats', post)" class="pr-2">
+                    <img src="./assets/images/social/celebrate.svg" class="pr-1 curPoint interactIcon" id="btn-removeCongrats" title="Remove Congrats" width="20px">Congrats
+                   </span>
+                   <span *ngIf="isReacted('curious', post)" class="">
+                    <img src="./assets/images/social/curious.svg" class="pr-1 curPoint interactIcon" id="btn-notCurious" title="Remove Curious" width="20px">Curious
+                   </span>
                   </a>
-                  <a (click)="post.isCommentShow = true" class="album-action btm-bar-action p-2 m-0">
+                  <a (click)="post.isCommentShow = !post.isCommentShow" class="album-action btm-bar-action-2 p-2 m-0">
                     <svg
                       stroke="currentColor"
                       stroke-width="2"

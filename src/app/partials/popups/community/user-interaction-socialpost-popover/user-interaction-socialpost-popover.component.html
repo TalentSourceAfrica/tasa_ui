@@ -1,0 +1,91 @@
+<div id="user-interaction-socialpost-wrapper" class="min-vertical-h-50 max-vertical-h-50 no-gutters container">
+	<div class="px-0 pt-3 pb-0 d-flex w100">
+		<div class="col px-0">
+			<h6 class="mb-2">Reactions</h6>
+		</div>
+		<span class="curPoint">
+			<mat-icon mat-dialog-close="true">close</mat-icon>
+		</span>	
+	</div>
+	<mat-tab-group class="no-gutters p-0 m-0">
+		<mat-tab>
+			<ng-template mat-tab-label>
+				<span class="small">
+					All {{ (popupData.post.countOfLikes != null ? popupData.post.countOfLikes.length : 0) + 
+						(popupData.post.countOfClaps != null ? popupData.post.countOfClaps.length : 0) + (popupData.post.countOfClaps != null ? popupData.post.countOfClaps.length : 0) + (popupData.post.countofCurious != null ? popupData.post.countofCurious.length : 0) }}
+				</span>	
+			</ng-template>
+			<ng-template 
+				[ngTemplateOutlet]="reactionDetails" 
+				[ngTemplateOutletContext]="{options: allReactions, emptyText: 'No Reactions Yet...!'}">
+			</ng-template>
+		</mat-tab>
+		<mat-tab>
+			<ng-template mat-tab-label>
+				 <i class="fa-flip-horizontal fa-xs fas fa-thumbs-up pl-1 text-primary"></i>
+				 <span class="small">
+					{{ popupData.post.countOfLikes != null ? popupData.post.countOfLikes.length : 0 }}
+				</span>
+			</ng-template>
+			<ng-template 
+				[ngTemplateOutlet]="reactionDetails" 
+				[ngTemplateOutletContext]="{options: (popupData.post.countOfLikes != null ? popupData.post.countOfLikes : []),  emptyText: 'No Likes Yet...!'}">
+			</ng-template>
+ 		</mat-tab>
+		<mat-tab>
+			<ng-template mat-tab-label>
+				<img src="./assets/images/social/celebrate.svg" class="pr-1 curPoint" width="20px">
+				<span class="small">
+					{{ popupData.post.countOfClaps != null ? popupData.post.countOfClaps.length : 0 }}
+				</span>
+			</ng-template>
+			<ng-template 
+				[ngTemplateOutlet]="reactionDetails" 
+				[ngTemplateOutletContext]="{options: (popupData.post.countOfClaps != null ? popupData.post.countOfClaps : []),  emptyText: 'No Claps Yet...!'}">
+			</ng-template>
+		</mat-tab>
+		<mat-tab>
+			<ng-template mat-tab-label>
+				<img src="./assets/images/social/celebrate.svg" class="pr-1 curPoint" width="20px">
+				<span class="small">
+					{{ popupData.post.countOfCongrats != null ? popupData.post.countOfCongrats.length : 0 }}
+				</span>	
+			</ng-template>
+			<ng-template 
+				[ngTemplateOutlet]="reactionDetails" 
+				[ngTemplateOutletContext]="{options: (popupData.post.countOfCongrats != null ? popupData.post.countOfCongrats : []),  emptyText: 'No Congrats Yet...!'}">
+			</ng-template>
+		</mat-tab>
+		<mat-tab>
+			<ng-template mat-tab-label>
+				<img src="./assets/images/social/curious.svg" class="pr-1 curPoint" width="20px">
+				<span class="small">
+					{{ popupData.post.countofCurious != null ? popupData.post.countofCurious.length : 0 }}
+				</span>
+			</ng-template>	
+			<ng-template 
+				[ngTemplateOutlet]="reactionDetails" 
+				[ngTemplateOutletContext]="{options: (popupData.post.countofCurious != null ? popupData.post.countofCurious : []),  emptyText: 'No Curious Yet...!'}">
+			</ng-template>
+		</mat-tab>
+	</mat-tab-group>
+</div>
+
+<ng-template
+	#reactionDetails
+	let-options="options"
+	let-emptyText="emptyText">
+	<div *ngFor="let item of options; let i = index;">
+		<div class="d-flex p-2 hoverAction no-gutters curPoint">
+			<img 
+				class="img-responsive pr-2 img-circle" 
+				src="{{ item.userImageUrl == '' ? 'https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg' : item.userImageUrl }}"
+				width="45px">
+			{{ item.reactionByName }}
+		</div>
+	</div>
+	<div *ngIf="options.length == 0" class="col-12 px-0 pt-4 text-center">
+	    <img src="../../../assets/images/no-record.gif" class="d-block m-auto" style="height: 200px;">
+	    <h6 class="text-primary">{{ emptyText }}</h6>
+	</div>
+</ng-template>

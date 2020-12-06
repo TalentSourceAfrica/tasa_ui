@@ -1,0 +1,14 @@
+#user-interaction-socialpost-wrapper {
+	.mat-tab-header-pagination-controls-enabled .mat-tab-header-pagination {
+		display: none !important;
+	}
+	div[role="tab"] {
+		min-width: 30px !important;
+	}
+	.mat-tab-label-active {
+	    background-color: transparent!important;
+	}
+	.hoverAction:hover {
+	  background-color: #dcdcdc !important;
+	}
+}

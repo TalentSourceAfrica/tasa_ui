@@ -51,16 +51,6 @@ export const urls: any = {
   deletePost: '/posts/{postId}', // DE
   changePostStatus: '/posts/{postId}/{status}', // PO
 
-  // Social Post
-  likePost: '/socialPost/like/{postId}',
-  removeLikePost: '/socialPost/removelike/{postId}',
-  clapPost: '/socialPost/clap/{postId}',
-  removeClapPost: '/socialPost/removeclap/{postId}',
-  congratsPost: '/socialPost/congrats/{postId}',
-  removeCongratsPost: '/socialPost/removecongrats/{postId}',
-  curiousPost: '/socialPost/curious/{postId}',
-  removeCuriousPost: '/socialPost/removecurious/{postId}',
-
   // upload
   uploadMultiFile: '/uploadMultipleDocuments/{email}', // PO
   uploadSingle: '/commonImageUpload/{email}', // PO
@@ -114,6 +104,14 @@ export const urls: any = {
   updateSocialPost: '/post', // PU
   addComment: '/socialPost/comment', // PO
   removeComment: '/socialPost/removecomment/{postId}', // PO
+  likePost: '/socialPost/like/{postId}', // PO
+  removeLikePost: '/socialPost/removelike/{postId}', //PO
+  clapPost: '/socialPost/clap/{postId}', // PO
+  removeClapPost: '/socialPost/removeclap/{postId}', // PO
+  congratsPost: '/socialPost/congrats/{postId}', // PO
+  removeCongratsPost: '/socialPost/removecongrats/{postId}', // PO
+  curiousPost: '/socialPost/curious/{postId}', // PO
+  removeCuriousPost: '/socialPost/removecurious/{postId}', // PO
 
   // Organisation
   getOrganisation: '/organization', // G
