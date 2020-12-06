@@ -10,6 +10,7 @@ import { RouterModule } from '@angular/router';
 
 import { SocialPostsRoutingModule } from './social-posts-routing.module';
 import { SocialPostsComponent } from './social-posts.component';
+import { UserInteractionSocialpostPopoverComponent } from '@app/partials/popups/community/user-interaction-socialpost-popover/user-interaction-socialpost-popover.component';
 
 @NgModule({
   imports: [
@@ -22,8 +23,9 @@ import { SocialPostsComponent } from './social-posts.component';
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
-    SocialPostsRoutingModule,
+    SocialPostsRoutingModule
   ],
-  declarations: [SocialPostsComponent],
+  declarations: [SocialPostsComponent, UserInteractionSocialpostPopoverComponent],
+  entryComponents: [UserInteractionSocialpostPopoverComponent]
 })
 export class SocialPostsModule {}

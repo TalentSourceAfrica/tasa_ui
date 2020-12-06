@@ -2,6 +2,8 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { CredentialsService } from '@app/auth';
 import { SharedService } from '@app/services/shared.service';
 
+import { UserInteractionSocialpostPopoverComponent } from '@app/partials/popups/community/user-interaction-socialpost-popover/user-interaction-socialpost-popover.component';
+
 declare var jQuery: any;
 
 @Component({
@@ -86,33 +88,12 @@ export class SocialPostsComponent implements OnInit {
   userInteractionPopover(_event?: any) {
     let $t = this;
     let postInfo = this.socialConfig.allSocialPost.find((m: any) => m.id == _event.srcElement.id);
-    let isClapPresent = undefined,
-      isCongratsPresent = undefined,
-      isCuriousPresent = undefined;
-    let _content = `<div class="rounded-pill">`;
-    _content +=
-      _event.currentTarget.children[0].id === 'liked'
-        ? `<img src="./assets/images/social/like.svg" class="curPoint pr-1 zoomCard interactIcon" id="btn-dislike" title="Remove Like">`
-        : `<img src="./assets/images/social/like.svg" class="curPoint pr-1 zoomCard interactIcon" id="btn-like" title="Like">`;
-    if (postInfo.countOfClaps != null) {
-      isClapPresent = postInfo.countOfClaps.filter((d: any) => d.reactionBy === $t.user.email);
-    }
-    if (postInfo.countOfCongrats != null) {
-      isCongratsPresent = postInfo.countOfCongrats.filter((d: any) => d.reactionBy === $t.user.email);
-    }
-    _content +=
-      isClapPresent !== undefined
-        ? `<img src="./assets/images/social/celebrate.svg" class="zoomCard pr-1 curPoint interactIcon" id="btn-unclap" title="Remove Clap">`
-        : `<img src="./assets/images/social/celebrate.svg" class="zoomCard pr-1 curPoint interactIcon" id="btn-clap" title="Clap">`;
-    _content +=
-      isCongratsPresent !== undefined
-        ? `<img src="./assets/images/social/congrats.svg" class="zoomCard pr-1 curPoint interactIcon" id="btn-removeCongrats" title="Remove Congrats">`
-        : `<img src="./assets/images/social/congrats.svg" class="zoomCard pr-1 curPoint interactIcon" id="btn-congrats" title="Congrats">`;
-    _content +=
-      isCuriousPresent !== undefined
-        ? `<img src="./assets/images/social/curious.svg" class="zoomCard pr-1 curPoint interactIcon" id="btn-notCurious" title="Remove Curious">`
-        : `<img src="./assets/images/social/curious.svg" class="zoomCard pr-1 curPoint interactIcon" id="btn-curious" title="Curious">`;
-    _content += `</div>`;
+    let _content = `<div class="rounded-pill py-1">
+                  <img src="./assets/images/social/like.svg" class="curPoint pr-1 interactIcon" id="btn-like" title="Like" width="35px">
+                  <img src="./assets/images/social/celebrate.svg" class="pr-1 curPoint interactIcon" id="btn-clap" title="Clap" width="35px">
+                  <img src="./assets/images/social/celebrate.svg" class="pr-1 curPoint interactIcon" id="btn-congrats" title="Congrats" width="35px">
+                  <img src="./assets/images/social/curious.svg" class="pr-1 curPoint interactIcon" id="btn-curious" title="Curious" width="35px">
+                </div>`;
     setTimeout(() => {
       jQuery('#' + _event.srcElement.id).webuiPopover({
         trigger: 'hover',
@@ -123,53 +104,47 @@ export class SocialPostsComponent implements OnInit {
         arrow: false,
         closeable: false,
         placement: 'bottom',
-        width: '240',
-        offsetLeft: 50,
+        width: '185',
+        offsetLeft: 60,
         onShow: function ($element: any) {
+          jQuery('#' + $element[0].id).css('border-radius', '50rem');
           jQuery('[id="btn-like"]')
             .off()
             .on('click', () => {
               $t.interactionApiCall('likePost', postInfo);
-            });
-          jQuery('[id="btn-dislike"]')
-            .off()
-            .on('click', () => {
-              $t.interactionApiCall('removeLikePost', postInfo);
             });
           jQuery('[id="btn-clap"]')
             .off()
             .on('click', (_event: any) => {
               $t.interactionApiCall('clapPost', postInfo);
             });
-          jQuery('[id="btn-unclap"]')
-            .off()
-            .on('click', () => {
-              $t.interactionApiCall('removeClapPost', postInfo);
-            });
           jQuery('[id="btn-congrats"]')
             .off()
             .on('click', () => {
               $t.interactionApiCall('congratsPost', postInfo);
-            });
-          jQuery('[id="btn-removeCongrats"]')
-            .off()
-            .on('click', () => {
-              $t.interactionApiCall('removeCongratsPost', postInfo);
             });
           jQuery('[id="btn-curious"]')
             .off()
             .on('click', () => {
               $t.interactionApiCall('curiousPost', postInfo);
             });
-          jQuery('[id="btn-notCurious"]')
-            .off()
-            .on('click', () => {
-              $t.interactionApiCall('removeCuriousPost', postInfo);
-            });
         },
       });
       jQuery('#' + _event.srcElement.id).webuiPopover('show');
     }, 500);
+  }
+
+  openUserInteractionPopover(_postInfo: any) {
+    let $t = this;
+    $t.sharedService.dialogService.open(UserInteractionSocialpostPopoverComponent, {
+      width: '25%',
+      position: {
+        top: '50px'
+      },
+      data : {
+        post: _postInfo
+      }
+    });
   }
 
   isReacted(_which: string, _post: any) {
@@ -219,9 +194,9 @@ export class SocialPostsComponent implements OnInit {
       id: _postInfo.id,
       reactionBy: $t.user.email,
       reactionOn: '',
-      reactionByName: $t.user.firstName + $t.user.lastName,
+      reactionByName: $t.user.firstName + ' ' + $t.user.lastName,
       reactionBySummary: '',
-      userImageUrl: '',
+      userImageUrl: $t.user.image,
     };
     $t.sharedService.configService.post(api, payload).subscribe(
       (response) => {

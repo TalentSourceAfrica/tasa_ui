@@ -911,9 +911,22 @@ $button: #8f98a9;
 }
 
 .webui-popover-content .interactIcon:hover {
-  margin-top: -10px !important;
+  margin-top: -15px !important;
 }
 
-.btm-bar-action:hover {
+.btm-bar-action-1 {
+  position: relative !important;
+  top: -4px !important;
+}
+
+.btm-bar-action-1:hover {
   background-color: #dcdcdc !important;
 }
+.btm-bar-action-2:hover {
+  background-color: #dcdcdc !important;
+}
+
+.underlineClass:hover {
+  text-decoration: underline;
+}
+
