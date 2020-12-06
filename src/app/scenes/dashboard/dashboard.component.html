@@ -512,19 +512,21 @@
             <owl-carousel-o [options]="courseOptions">
               <ng-container *ngFor="let job of user.recentlyViewedJobs; let i = index">
                 <ng-template carouselSlide [id]="i">
-                  <div class="card zoomCard curPoint" [routerLink]="['/job/', job.id]">
-                    <div class="card-img">
-                      <img src="../../../assets/images/TSA_logo_new.small.png" alt="Logo" />
-                    </div>
-                    <div class="card-body pl-3 pr-3">
-                      <h5 class="card-title text-truncate" [title]="job.title">
-                        {{ job.title }}
-                      </h5>
-                      <p class="card-intro">
-                        <marquee behavior="" direction="">
-                          <span class="badge badge-info p-1 ml-1" *ngFor="let item of job.tags">{{ item }}</span>
-                        </marquee>
-                      </p>
+                  <div class="pt-3 pb-3">
+                    <div class="card zoomCard curPoint" [routerLink]="['/job/', job.id]">
+                      <div class="card-img">
+                        <img src="../../../assets/images/TSA_logo_new.small.png" alt="Logo" />
+                      </div>
+                      <div class="card-body pl-3 pr-3">
+                        <h5 class="card-title text-truncate" [title]="job.title">
+                          {{ job.title }}
+                        </h5>
+                        <p class="card-intro">
+                          <marquee behavior="" direction="">
+                            <span class="badge badge-info p-1 ml-1" *ngFor="let item of job.tags">{{ item }}</span>
+                          </marquee>
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </ng-template>
@@ -548,20 +550,22 @@
             <owl-carousel-o [options]="courseOptions">
               <ng-container *ngFor="let course of user.recentlyViewed; let i = index">
                 <ng-template carouselSlide [width]="'300'" [id]="i">
-                  <div class="card curPoint zoomCard" (click)="courseView(course.key)">
-                    <span class="flag-discount" style="width: 25%;" *ngIf="course.discountPercentage > 0"
-                      >{{ course.discountPercentage }}% Off</span
-                    >
-                    <div class="card-img">
-                      <img [src]="course.image_url" />
-                    </div>
-                    <div class="card-body pl-3 pr-3">
-                      <h5 class="card-title text-truncate" [title]="course.title">
-                        {{ course.title }}
-                      </h5>
-                      <p class="card-intro">
-                        {{ course.subject }}
-                      </p>
+                  <div class="pt-3 pb-3">
+                    <div class="card curPoint zoomCard" (click)="courseView(course.key)">
+                      <span class="flag-discount" style="width: 25%;" *ngIf="course.discountPercentage > 0"
+                        >{{ course.discountPercentage }}% Off</span
+                      >
+                      <div class="card-img">
+                        <img [src]="course.image_url" />
+                      </div>
+                      <div class="card-body pl-3 pr-3">
+                        <h5 class="card-title text-truncate" [title]="course.title">
+                          {{ course.title }}
+                        </h5>
+                        <p class="card-intro">
+                          {{ course.subject }}
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </ng-template>

@@ -84,11 +84,12 @@ export class JobViewComponent implements OnInit {
 
         $t.jobConfig.job.applicants.forEach((candidate: any) => {
           if (candidate.userId === $t.user.email) {
-            if (candidate.status === 'Applied') {
-              $t.applied = true;
-            } else {
-              $t.applied = false;
-            }
+            $t.applied = true;
+            // if (candidate.status === 'Applied') {
+            //   $t.applied = true;
+            // } else {
+            //   $t.applied = false;
+            // }
             $t.jobConfig.job['applicantStatus'] = candidate.status;
           }
         });
@@ -121,7 +122,7 @@ export class JobViewComponent implements OnInit {
     $t.sharedService.uiService.showApiStartPopMsg('Uploading Resume...');
     $t.sharedService.configService.post(apiUrl, form).subscribe(
       (response: any) => {
-        $t.resumeLink = response.data;
+        $t.resumeLink = response.url;
         $t.sharedService.uiService.showApiSuccessPopMsg('Resume Uploaded...');
       },
       (error) => {
@@ -149,11 +150,16 @@ export class JobViewComponent implements OnInit {
       (response) => {
         $t.sharedService.uiService.showApiSuccessPopMsg('Applied Successfully...');
         $t.applied = true;
+        $t.jobConfig.job.applicantStatus = 'Applied';
       },
       (error) => {
         $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
       }
     );
+  }
+  
+  getFormatDate(_date:any){
+    return this.sharedService.plugins.mom(_date).format('DD-MM-YYYY');
   }
 
   ngOnInit(): void {

@@ -79,10 +79,7 @@
     border-width: 0 15px 22px 0;
     border-color: transparent transparent #ffc107 transparent;
   }
-  .job-list,
-  .courseList {
-    :hover {
-      box-shadow: 0 40px 120px -20px rgba(0, 0, 0, 0.6);
-    }
-  }
+}
+.owl-stage-outer {
+  padding: 20px !important;
 }

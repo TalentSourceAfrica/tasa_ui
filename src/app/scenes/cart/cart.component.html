@@ -21,7 +21,7 @@
 <ng-template #cartDetails>
   <div *ngIf="products.length > 0">
     <ul class="products min-vertical-h-50 max-vertical-h-50 stylishSlimScroll flow-y-auto flow-x-hidden">
-      <li class="row shadow" *ngFor="let product of products">
+      <li class="row shadow animated fadeIn" *ngFor="let product of products">
         <div class="col left">
           <div class="thumbnail">
             <a href="#">
@@ -52,7 +52,7 @@
   </div>
 </ng-template>
 <ng-template #cartCheckout>
-  <section class="container" style="border-top: 4px solid #523f6d;" *ngIf="products.length > 0">
+  <section class="container animated fadeIn" style="border-top: 4px solid #523f6d;" *ngIf="products.length > 0">
     <div class="promotion">
       <label for="promo-code">Have A Promo Code?</label>
       <input type="text" id="promo-code" /> <button type="button"></button>
