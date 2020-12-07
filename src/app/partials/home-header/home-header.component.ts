@@ -19,7 +19,7 @@ export class HomeHeaderComponent implements OnInit {
   searchCourseText: string = '';
   constructor(
     private router: Router,
-    private sharedService: SharedService,
+    public sharedService: SharedService,
     private authenticationService: AuthenticationService,
     private credentialsService: CredentialsService
   ) {}
@@ -33,8 +33,15 @@ export class HomeHeaderComponent implements OnInit {
   }
 
   logout() {
-    this.sharedService.uiService.showApiSuccessPopMsg('Logout Successfully...!');
-    this.authenticationService.logout().subscribe(() => this.router.navigate(['/home'], { replaceUrl: true }));
+    let _callback = () => {
+      this.sharedService.uiService.showApiSuccessPopMsg('Logout Successfully...!');
+      setTimeout(() => {
+        this.sharedService.uiService.closePopMsg();
+        this.credentialsService.deleteAllCookies();
+        this.authenticationService.logout().subscribe(() => this.router.navigate(['/home'], { replaceUrl: true }));
+      }, 1000);
+    };
+    this.sharedService.uiService.showPreConfirmPopMsg('You Want To Logout', _callback);
   }
 
   login() {
@@ -55,7 +62,7 @@ export class HomeHeaderComponent implements OnInit {
   }
 
   onCourseSearch(_type: string, _val?: string) {
-    if (_type == 'text') {
+    if (_type === 'text') {
       this.sharedService.utilityService.onCourseSearch(this.searchCourseText, _type);
     } else {
       this.sharedService.utilityService.onCourseSearch(_val, _type);

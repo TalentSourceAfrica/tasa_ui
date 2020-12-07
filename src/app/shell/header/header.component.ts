@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 
 // services
 import { AuthenticationService, CredentialsService } from '@app/auth';
@@ -38,11 +38,15 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
-    this.sharedService.uiService.showApiSuccessPopMsg('Logout Successfully...!');
-    setTimeout(() => {
-      this.sharedService.uiService.closePopMsg();
-      this.authenticationService.logout().subscribe(() => this.router.navigate(['/home'], { replaceUrl: true }));
-    }, 1000);
+    let _callback = () => {
+      this.sharedService.uiService.showApiSuccessPopMsg('Logout Successfully...!');
+      setTimeout(() => {
+        this.sharedService.uiService.closePopMsg();
+        this.credentialsService.deleteAllCookies();
+        this.authenticationService.logout().subscribe(() => this.router.navigate(['/home'], { replaceUrl: true }));
+      }, 1000);
+    };
+    this.sharedService.uiService.showPreConfirmPopMsg('You Want To Logout', _callback);
   }
 
   login() {
@@ -147,12 +151,23 @@ export class HeaderComponent implements OnInit {
     }
   }
 
+  routerSubscription() {
+    this.router.events.subscribe((event: NavigationEnd) => {
+      if (this.sharedService.deviceDetectorService.isMobile()) {
+        $('#close-sidebar').click(() => {
+          $('.page-wrapper').removeClass('toggled');
+        });
+      }
+    });
+  }
+
   get user(): any | null {
     const credentials = this.credentialsService.credentials;
     return credentials ? credentials : null;
   }
 
   ngOnInit() {
+    this.routerSubscription();
     setInterval(() => {
       this.getNotifications();
     }, 300000);

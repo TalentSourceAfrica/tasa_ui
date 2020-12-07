@@ -347,6 +347,9 @@ ul#nav li ul a,
 -----------------------------------*/
 
 @media only screen and (max-width: 767px) {
+  .nav-wrapper {
+    margin-top: 55px;
+  }
   .navbar-header {
     border-bottom: 1px solid #ffffff;
     margin: 0;
@@ -357,7 +360,6 @@ ul#nav li ul a,
     max-height: 500px;
     overflow: scroll;
     overflow-x: hidden;
-    top: 55px;
   }
   ul#nav li {
     float: none;

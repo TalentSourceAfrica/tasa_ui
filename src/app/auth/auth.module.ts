@@ -5,6 +5,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '@app/modules/material.module';
+import { CookieModule } from 'ngx-cookie';
 
 import { I18nModule } from '@app/i18n';
 import { AuthRoutingModule } from './auth-routing.module';
@@ -26,7 +27,8 @@ import { ForgotPasswordPopupComponent } from '@app/partials/popups/authenticatio
     AuthRoutingModule,
     MaterialModule,
     NgxDocViewerModule,
-    CreateOrganizationModule
+    CreateOrganizationModule,
+    CookieModule.forRoot()
   ],
   declarations: [SignupPopupComponent, ForgotPasswordPopupComponent],
   schemas: [NO_ERRORS_SCHEMA],

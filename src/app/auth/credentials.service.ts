@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { CookieService } from 'ngx-cookie';
 
 export interface Credentials {
   // Customize received credentials here
@@ -17,6 +18,7 @@ const tokenKey = 'access_token';
   providedIn: 'root',
 })
 export class CredentialsService {
+  public userData: any = null;
   public loggedInUserType: any = {
     isAdmin: false,
     isRecruiter: false,
@@ -26,7 +28,7 @@ export class CredentialsService {
   private _credentials: Credentials | null = null;
   private _token: any = null;
 
-  constructor() {
+  constructor(private cookieService: CookieService) {
     const savedCredentials = sessionStorage.getItem(credentialsKey) || localStorage.getItem(credentialsKey);
     if (savedCredentials) {
       this._credentials = JSON.parse(savedCredentials);
@@ -46,7 +48,7 @@ export class CredentialsService {
    * @return The user credentials or null if the user is not authenticated.
    */
   get credentials(): Credentials | null {
-    return this._credentials;
+    return  this._credentials
   }
 
   /**
@@ -66,11 +68,13 @@ export class CredentialsService {
    */
   setCredentials(credentials?: Credentials, remember?: boolean) {
     this._credentials = credentials || null;
+    this.userData = credentials;
 
     if (credentials) {
       const storage = remember ? localStorage : sessionStorage;
       storage.setItem(credentialsKey, JSON.stringify(credentials));
     } else {
+      this.userData = null;
       sessionStorage.removeItem(credentialsKey);
       sessionStorage.removeItem(tokenKey);
       localStorage.removeItem(credentialsKey);
@@ -79,14 +83,15 @@ export class CredentialsService {
 
   setToken(token: any) {
     this._token = token || null;
-
     if (token) {
-      const storage = sessionStorage;
-      storage.setItem(tokenKey, JSON.stringify(token));
+      this.cookieService.put(tokenKey, token);
     } else {
-      sessionStorage.removeItem(tokenKey);
-      localStorage.removeItem(tokenKey);
+      this.cookieService.remove(tokenKey);
     }
+  }
+
+  deleteAllCookies(){
+    this.cookieService.removeAll();
   }
 
   getLoggedInUserType() {
