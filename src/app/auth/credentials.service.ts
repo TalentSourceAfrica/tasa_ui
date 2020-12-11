@@ -32,6 +32,9 @@ export class CredentialsService {
     const savedCredentials = sessionStorage.getItem(credentialsKey) || localStorage.getItem(credentialsKey);
     if (savedCredentials) {
       this._credentials = JSON.parse(savedCredentials);
+    } else {
+      // Clear cookies if user not present
+      this.cookieService.removeAll();
     }
   }
 
@@ -48,7 +51,7 @@ export class CredentialsService {
    * @return The user credentials or null if the user is not authenticated.
    */
   get credentials(): Credentials | null {
-    return  this._credentials
+    return this._credentials;
   }
 
   /**
@@ -90,7 +93,7 @@ export class CredentialsService {
     }
   }
 
-  deleteAllCookies(){
+  deleteAllCookies() {
     this.cookieService.removeAll();
   }
 

@@ -533,7 +533,6 @@ body {
   top: 46px;
   transition: 0.2s;
   opacity: 0;
-  z-index: 999;
   right: 21px;
   &:before {
     content: "";
@@ -548,7 +547,8 @@ body {
   }
   &.open {
     opacity: 1;
-    transition: 0.2s;
+    transition: 0.4s;
+    z-index: 999;
   }
   li {
     padding: 5px;

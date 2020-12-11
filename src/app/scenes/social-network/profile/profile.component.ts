@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CredentialsService } from '@app/auth';
+import { SharedService } from '@app/services/shared.service';
 
 @Component({
   selector: 'app-profile',
@@ -7,7 +8,9 @@ import { CredentialsService } from '@app/auth';
   styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent implements OnInit {
-  constructor(public credentialsService: CredentialsService) {}
+  @ViewChild('conectionDrawer', { static: false }) conectionDrawer: any;
+  public allUsers: any = [];
+  constructor(public credentialsService: CredentialsService, private sharedService: SharedService) {}
   posts = [
     {
       id: '',
@@ -225,14 +228,29 @@ export class ProfileComponent implements OnInit {
       published: true,
     },
   ];
+
+  getAllusers() {
+    let apiUrl = this.sharedService.urlService.simpleApiCall('getUsers');
+    this.sharedService.configService.get(apiUrl).subscribe(
+      (response) => {
+        this.allUsers = response;
+      },
+      (error) => {}
+    );
+  }
+
   get user(): any | null {
     const credentials = this.credentialsService.credentials;
     return credentials ? credentials : null;
   }
 
   ngOnInit(): void {
+    this.getAllusers();
     if (!this.user.image || this.user.image == 'string') {
       this.user.image = 'https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg';
     }
+  }
+  ngAfterViewInit(): void {
+    this.conectionDrawer.toggle();
   }
 }

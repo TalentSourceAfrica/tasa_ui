@@ -32,7 +32,7 @@
         class="mt-4 shadow-sm"
         style="white-space: unset;"
       >
-        <div class="row no-gutters w100 mt-3">
+        <div class="row no-gutters w100 d-flex align-items-center">
           <div class="col-10">
             <button
               routerLinkActive="router-link-active"
@@ -47,9 +47,9 @@
             <button mat-mini-fab *ngIf="item.courseId == '' && item.jobId == ''">
               <mat-icon>notifications_active</mat-icon>
             </button>
-            <span class="pl-1 pt-2 pb-0"
+            <span class="pl-1 pt-2 pb-0 h6 text-truncate" [title]="item.message"
               >{{ item.message }}
-              <div style="margin-top: -15px;" class="pl-5">
+              <div style="margin-top: -10px;" class="pl-5">
                 <small class="text-muted">{{ getNotiDay(item.createdOn) }}</small>
               </div>
             </span>

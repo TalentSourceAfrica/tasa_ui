@@ -50,7 +50,6 @@ export class ConfigService {
       Expires: 'Sat, 01 Jan 2000 00:00:00 GMT',
       'If-Modified-Since': '0',
     };
-
     if (this.cookieService.get('access_token') && this.cookieService.get('access_token') !== '') {
       this.apiHeaders = this.apiHeaders.set('Authorization', `Bearer ${this.cookieService.get('access_token')}`);
     }
