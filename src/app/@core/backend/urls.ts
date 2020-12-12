@@ -102,16 +102,10 @@ export const urls: any = {
   addSocialPost: '/socialPost', // PO
   deleteSocialPost: '/post/{postId}', // DE
   updateSocialPost: '/post', // PU
-  addComment: '/socialPost/comment', // PO
-  removeComment: '/socialPost/removecomment/{postId}', // PO
-  likePost: '/socialPost/like/{postId}', // PO
-  removeLikePost: '/socialPost/removelike/{postId}', //PO
-  clapPost: '/socialPost/clap/{postId}', // PO
-  removeClapPost: '/socialPost/removeclap/{postId}', // PO
-  congratsPost: '/socialPost/congrats/{postId}', // PO
-  removeCongratsPost: '/socialPost/removecongrats/{postId}', // PO
-  curiousPost: '/socialPost/curious/{postId}', // PO
-  removeCuriousPost: '/socialPost/removecurious/{postId}', // PO
+  addComment: '/socialPost/comment/{postId}', // PO
+  removeComment: '/socialPost/removecomment/{postId}/{commentId}', // PO
+  reactOnPost: '/socialPost/react/{postId}', // PO
+  removeReactionFromPost: '/socialPost/removeReact/{postId}/{reactionId}', // PO
 
   // Organisation
   getOrganisation: '/organization', // G

@@ -12,6 +12,11 @@ import { SharedService } from '@app/services/shared.service';
 export class UserInteractionSocialpostPopoverComponent implements OnInit {
 	popupData: any;
 	allReactions: any = [];
+	curious: any = [];
+	like: any = [];
+	congrats: any = [];
+	clap: any = [];
+
 	constructor(
 		@Inject(MAT_DIALOG_DATA) public data: any,
 		private dialogRef: MatDialogRef <UserInteractionSocialpostPopoverComponent>,
@@ -30,10 +35,25 @@ export class UserInteractionSocialpostPopoverComponent implements OnInit {
 				}
 			}
 		}
-		checkAndPush(this.popupData.post.countOfLikes);
-		checkAndPush(this.popupData.post.countOfClaps);
-		checkAndPush(this.popupData.post.countOfCongrats);
-		checkAndPush(this.popupData.post.countofCurious);
+		let findAndPush = (_which: any, _where: string) => {
+			if (_which != null) {
+				if (_which.length != 0) {
+					_which.forEach((x: any) => {
+						if (x.reactionType == _where) {
+							this[_where].push(x);
+						}
+					});
+				}
+			}
+		}
+		checkAndPush(this.popupData.post.reactions);
+		findAndPush(this.popupData.post.reactions, 'clap');
+		findAndPush(this.popupData.post.reactions, 'like');
+		findAndPush(this.popupData.post.reactions, 'congrats');
+		findAndPush(this.popupData.post.reactions, 'curious');
+		// checkAndPush(this.popupData.post.countOfClaps);
+		// checkAndPush(this.popupData.post.countOfCongrats);
+		// checkAndPush(this.popupData.post.countofCurious);
 	}
 
 	ngOnInit(): void {

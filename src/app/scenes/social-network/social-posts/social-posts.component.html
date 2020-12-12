@@ -153,95 +153,137 @@
             </div>
             <div class="min-vertical-h-70 max-vertical-h-70 stylishSlimScroll flow-y-auto flow-x-hidden">
               <div class="album box" *ngFor="let post of socialConfig.allSocialPost">
-                <div class="status-main">
-                  <img [src]="post.userImageUrl" class="status-img" />
-                  <div class="album-detail">
-                    <div class="album-title">
-                      <strong>{{ post.userName }}</strong>
+                <div *ngIf="post.post">
+                  <div class="status-main">
+                    <img [src]="post.userImageUrl" class="status-img" />
+                    <div class="album-detail">
+                      <div class="album-title">
+                        <strong>{{ post.userName }}</strong>
+                      </div>
+                      <div class="album-date">6 hours ago</div>
                     </div>
-                    <div class="album-date">6 hours ago</div>
+                    <button class="intro-menu"></button>
                   </div>
-                  <button class="intro-menu"></button>
-                </div>
-                <div class="album-content">
-                  {{ post.content }}
-                </div>
-                <div class="pb-0 px-0 mx-3 album-actions border-bottom">
-                  <a class="album-action align-middle mr-2" (click)="openUserInteractionPopover(post)">
-                    <i *ngIf="isReacted('like', post)" class="fa-flip-horizontal fa-xs fas fa-thumbs-up pl-1"></i>
-                    <img *ngIf="isReacted('clap', post)" src="./assets/images/social/celebrate.svg" class="pr-1 curPoint interactIcon" width="15px">
-                    <img *ngIf="isReacted('congrats', post)" src="./assets/images/social/celebrate.svg" class="pr-1 curPoint interactIcon" width="15px">
-                    <span class="fa-xs underlineClass"> {{ (post.countOfLikes != null ? post.countOfLikes.length : 0) + (post.countOfClaps != null ? post.countOfClaps.length : 0) + 
-                    (post.countOfCongrats != null ? post.countOfCongrats.length : 0) + (post.countOfCurious != null ? post.countOfCurious.length : 0) }}</span>
-                  </a>
-                  <a (click)="post.isCommentShow = !post.isCommentShow" class="album-action small underlineClass">
-                    {{ post.countOfComments != null ? post.countOfComments.length : '0' }} Comments
-                  </a>
-                </div>
-                <div class="px-0 ml-2 mr-3 mt-1 pb-2 album-actions">
-                  <a class="album-action p-2 m-0 btm-bar-action-1" 
-                       (mouseenter)="userInteractionPopover($event)" 
-                       data-id="{{post.id}}">
-                    <i id="liked" *ngIf="isReacted('like', post)" class="fa-flip-horizontal fas fa-thumbs-up pl-2"></i>
-                    <i id="not-liked" *ngIf="!isReacted('like', post)" class="fa-flip-horizontal far fa-thumbs-up pl-2"></i>
-                   <span class="pr-2">Like</span>
-                   <span *ngIf="isReacted('clap', post)" class="pr-2">
-                    <img src="./assets/images/social/celebrate.svg" class="pr-1 curPoint interactIcon" id="btn-unclap" title="Remove Clap" width="20px">Clap
-                   </span>
-                   <span *ngIf="isReacted('congrats', post)" class="pr-2">
-                    <img src="./assets/images/social/celebrate.svg" class="pr-1 curPoint interactIcon" id="btn-removeCongrats" title="Remove Congrats" width="20px">Congrats
-                   </span>
-                   <span *ngIf="isReacted('curious', post)" class="">
-                    <img src="./assets/images/social/curious.svg" class="pr-1 curPoint interactIcon" id="btn-notCurious" title="Remove Curious" width="20px">Curious
-                   </span>
-                  </a>
-                  <a (click)="post.isCommentShow = !post.isCommentShow" class="album-action btm-bar-action-2 p-2 m-0">
-                    <svg
-                      stroke="currentColor"
-                      stroke-width="2"
-                      fill="none"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      class="css-i6dzq1"
-                      viewBox="0 0 24 24"
-                    >
-                      <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" />
-                    </svg>
-                    <span class="">Comment</span>
-                  </a>
-                </div>
-                <div class="album-comments border-top pt-4 pb-4" *ngIf="post.isCommentShow">
-                  <div class="row no-gutters text-center">
-                    <div class="col-2 text-right">
-                      <img
-                        *ngIf="user.image && user.image != 'string'"
-                        matTooltipPosition="below"
-                        matTooltip="Upload Avatar"
-                        class="status-img img-responsive img-circle"
-                        [src]="user.image"
-                        alt="User picture"
-                      />
-                    </div>
-                    <div class="col-8">
-                      <mat-form-field class="w100">
-                        <mat-label>Comment</mat-label>
-                        <textarea type="text" matInput></textarea>
-                      </mat-form-field>
-                    </div>
-                    <div class="col-2">
-                      <button
-                        mat-mini-fab
-                        color="primary"
-                        style="z-index: 9;"
-                        matTooltipPosition="below"
-                        matTooltip="Add Comment"
-                        (click)="postComment('abc')"
+                  <div class="album-content">
+                    {{ post.content }}
+                  </div>
+                  <div class="pb-0 px-0 mx-3 album-actions border-bottom">
+                    <a class="album-action align-middle mr-2" (click)="openUserInteractionPopover(post)">
+                      <i *ngIf="isReactionPresent('like', post)" class="fa-flip-horizontal fa-xs fas fa-thumbs-up pl-1"></i>
+                      <img *ngIf="isReactionPresent('clap', post)" src="./assets/images/social/celebrate.svg" class="pr-1 curPoint interactIcon" width="15px">
+                      <img *ngIf="isReactionPresent('congrats', post)" src="./assets/images/social/celebrate.svg" class="pr-1 curPoint interactIcon" width="15px">
+                      <img *ngIf="isReactionPresent('curious', post)" src="./assets/images/social/curious.svg" class="pr-1 curPoint interactIcon" width="15px">
+                      <!-- <span class="fa-xs underlineClass"> {{ (post.countOfLikes != null ? post.countOfLikes.length : 0) + (post.countOfClaps != null ? post.countOfClaps.length : 0) + 
+                      (post.countOfCongrats != null ? post.countOfCongrats.length : 0) + (post.countOfCurious != null ? post.countOfCurious.length : 0) }}</span> -->
+                      <span class="fa-xs underlineClass"> {{ post.reactions != null ? post.reactions.length : '0' }}</span>
+                    </a>
+                    <a (click)="post.isCommentShow = !post.isCommentShow" class="album-action small underlineClass">
+                      {{ post.countOfComments != null ? post.countOfComments.length : '0' }} Comments
+                    </a>
+                  </div>
+                  <div class="px-0 ml-2 mr-3 mt-1 pb-2 album-actions">
+                    <a class="album-action p-2 m-0 btm-bar-action-1"
+                         (mouseenter)="userInteractionPopover($event)" 
+                         data-id="{{post.id}}">
+                      <span *ngIf="noOtherReactionPresent(post)">
+                        <span *ngIf="isReacted('like', post)" (click)="interactionApiCall('like', post, 'removeReactionFromPost')">
+                          <i id="liked" *ngIf="isReacted('like', post)" class="fa-flip-horizontal fas fa-thumbs-up pl-1"></i>
+                          <span class="pr-2">Like</span>
+                        </span>
+                        <span *ngIf="!isReacted('like', post)" (click)="interactionApiCall('like', post)">
+                          <i id="not-liked" *ngIf="!isReacted('like', post)" class="fa-flip-horizontal far fa-thumbs-up pl-1"></i>
+                          <span class="pr-2">Like</span>
+                        </span>    
+                      </span>
+                     <span *ngIf="isReacted('clap', post)" class="pr-2" (click)="interactionApiCall('clap', post, 'removeReactionFromPost')">
+                      <img src="./assets/images/social/celebrate.svg" class="pr-1 curPoint interactIcon" width="20px">Clap
+                     </span>
+                     <span *ngIf="isReacted('congrats', post)" class="pr-2" (click)="interactionApiCall('congrats', post, 'removeReactionFromPost')">
+                      <img src="./assets/images/social/celebrate.svg" class="pr-1 curPoint interactIcon" width="20px">Congrats
+                     </span>
+                     <span *ngIf="isReacted('curious', post)" class="" (click)="interactionApiCall('curious', post, 'removeReactionFromPost')">
+                      <img src="./assets/images/social/curious.svg" class="pr-1 curPoint interactIcon" width="20px">Curious
+                     </span>
+                    </a>
+                    <a (click)="post.isCommentShow = !post.isCommentShow" class="album-action btm-bar-action-2 p-2 m-0">
+                      <svg
+                        stroke="currentColor"
+                        stroke-width="2"
+                        fill="none"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="css-i6dzq1"
+                        viewBox="0 0 24 24"
                       >
-                        <mat-icon>comment</mat-icon>
-                      </button>
+                        <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" />
+                      </svg>
+                      <span class="">Comment</span>
+                    </a>
+                  </div>
+                  <div class="album-comments border-top pt-4 pb-4" *ngIf="post.isCommentShow">
+                    <div class="row no-gutters text-center" *ngFor="let comment of post.comments; let ind = index;">
+                      <div class="col-2 text-right">
+                        <img
+                          *ngIf="user.image && user.image != 'string'"
+                          matTooltipPosition="below"
+                          matTooltip="Upload Avatar"
+                          class="status-img img-responsive img-circle"
+                          [src]="user.image"
+                          alt="User picture"
+                        />
+                      </div>
+                      <div class="col-8">
+                        <mat-form-field class="w100">
+                          <mat-label>{{ comment.userName}}</mat-label>
+                          <textarea type="text" matInput #commentBox [(ngModel)]="post.content" readonly></textarea>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-2">
+                        <button
+                          *ngIf="comment.userId == user.email"
+                          mat-mini-fab
+                          color="primary"
+                          style="z-index: 9;"
+                          matTooltipPosition="below"
+                          matTooltip="Remove Comment"
+                          (click)="deleteComment(comment, post)"
+                        >
+                          <mat-icon>delete</mat-icon>
+                        </button>
+                      </div>
+                    </div>
+                    <div class="row no-gutters text-center">
+                      <div class="col-2 text-right">
+                        <img
+                          *ngIf="user.image && user.image != 'string'"
+                          matTooltipPosition="below"
+                          matTooltip="Upload Avatar"
+                          class="status-img img-responsive img-circle"
+                          [src]="user.image"
+                          alt="User picture"
+                        />
+                      </div>
+                      <div class="col-8">
+                        <mat-form-field class="w100">
+                          <mat-label>Comment</mat-label>
+                          <textarea type="text" matInput #commentBox></textarea>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-2">
+                        <button
+                          mat-mini-fab
+                          color="primary"
+                          style="z-index: 9;"
+                          matTooltipPosition="below"
+                          matTooltip="Add Comment"
+                          (click)="postComment(commentBox.value, post)"
+                        >
+                          <mat-icon>comment</mat-icon>
+                        </button>
+                      </div>
                     </div>
                   </div>
-                </div>
+                </div> 
               </div>
             </div>
           </div>

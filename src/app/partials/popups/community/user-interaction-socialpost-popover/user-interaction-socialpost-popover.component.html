@@ -11,8 +11,7 @@
 		<mat-tab>
 			<ng-template mat-tab-label>
 				<span class="small">
-					All {{ (popupData.post.countOfLikes != null ? popupData.post.countOfLikes.length : 0) + 
-						(popupData.post.countOfClaps != null ? popupData.post.countOfClaps.length : 0) + (popupData.post.countOfClaps != null ? popupData.post.countOfClaps.length : 0) + (popupData.post.countofCurious != null ? popupData.post.countofCurious.length : 0) }}
+					All {{ (popupData.post.reactions != null ? popupData.post.reactions.length : 0) }}
 				</span>	
 			</ng-template>
 			<ng-template 
@@ -24,48 +23,48 @@
 			<ng-template mat-tab-label>
 				 <i class="fa-flip-horizontal fa-xs fas fa-thumbs-up pl-1 text-primary"></i>
 				 <span class="small">
-					{{ popupData.post.countOfLikes != null ? popupData.post.countOfLikes.length : 0 }}
+					{{ popupData.post.countOfLikes }}
 				</span>
 			</ng-template>
 			<ng-template 
 				[ngTemplateOutlet]="reactionDetails" 
-				[ngTemplateOutletContext]="{options: (popupData.post.countOfLikes != null ? popupData.post.countOfLikes : []),  emptyText: 'No Likes Yet...!'}">
+				[ngTemplateOutletContext]="{options: like,  emptyText: 'No Likes Yet...!'}">
 			</ng-template>
  		</mat-tab>
 		<mat-tab>
 			<ng-template mat-tab-label>
 				<img src="./assets/images/social/celebrate.svg" class="pr-1 curPoint" width="20px">
 				<span class="small">
-					{{ popupData.post.countOfClaps != null ? popupData.post.countOfClaps.length : 0 }}
+					{{ popupData.post.countOfClaps }}
 				</span>
 			</ng-template>
 			<ng-template 
 				[ngTemplateOutlet]="reactionDetails" 
-				[ngTemplateOutletContext]="{options: (popupData.post.countOfClaps != null ? popupData.post.countOfClaps : []),  emptyText: 'No Claps Yet...!'}">
+				[ngTemplateOutletContext]="{options: clap,  emptyText: 'No Claps Yet...!'}">
 			</ng-template>
 		</mat-tab>
 		<mat-tab>
 			<ng-template mat-tab-label>
 				<img src="./assets/images/social/celebrate.svg" class="pr-1 curPoint" width="20px">
 				<span class="small">
-					{{ popupData.post.countOfCongrats != null ? popupData.post.countOfCongrats.length : 0 }}
+					{{ popupData.post.countOfCongrats }}
 				</span>	
 			</ng-template>
 			<ng-template 
 				[ngTemplateOutlet]="reactionDetails" 
-				[ngTemplateOutletContext]="{options: (popupData.post.countOfCongrats != null ? popupData.post.countOfCongrats : []),  emptyText: 'No Congrats Yet...!'}">
+				[ngTemplateOutletContext]="{options: congrats,  emptyText: 'No Congrats Yet...!'}">
 			</ng-template>
 		</mat-tab>
 		<mat-tab>
 			<ng-template mat-tab-label>
 				<img src="./assets/images/social/curious.svg" class="pr-1 curPoint" width="20px">
 				<span class="small">
-					{{ popupData.post.countofCurious != null ? popupData.post.countofCurious.length : 0 }}
+					{{ popupData.post.countofCurious }}
 				</span>
 			</ng-template>	
 			<ng-template 
 				[ngTemplateOutlet]="reactionDetails" 
-				[ngTemplateOutletContext]="{options: (popupData.post.countofCurious != null ? popupData.post.countofCurious : []),  emptyText: 'No Curious Yet...!'}">
+				[ngTemplateOutletContext]="{options: curious,  emptyText: 'No Curious Yet...!'}">
 			</ng-template>
 		</mat-tab>
 	</mat-tab-group>
