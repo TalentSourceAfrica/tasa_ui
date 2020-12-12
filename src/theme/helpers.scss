@@ -783,12 +783,12 @@ a {
 
 .mat-flat-button.mat-primary,
 .mat-raised-button.mat-primary,
-.mat-fab.mat-primary,
+.mat-fab.mat-primary,.mat-icon,
 .mat-mini-fab.mat-primary {
   &:hover {
-    background-color: #523f6d;
-    color: #fff;
-    box-shadow: 0 5px 10px 0 rgba(#000, 0.15);
+    background-color: #523f6d !important;
+    color: #fff !important;
+    box-shadow: 0 5px 10px 0 rgba(#000, 0.15) !important;
   }
 }
 

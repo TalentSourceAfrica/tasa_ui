@@ -234,6 +234,7 @@ export class ProfileComponent implements OnInit {
     this.sharedService.configService.get(apiUrl).subscribe(
       (response) => {
         this.allUsers = response;
+        this.conectionDrawer.open();
       },
       (error) => {}
     );
@@ -250,7 +251,6 @@ export class ProfileComponent implements OnInit {
       this.user.image = 'https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg';
     }
   }
-  ngAfterViewInit(): void {
-    this.conectionDrawer.toggle();
-  }
+
+  ngAfterViewInit(): void {}
 }
