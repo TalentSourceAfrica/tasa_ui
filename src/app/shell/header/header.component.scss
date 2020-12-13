@@ -595,7 +595,7 @@ body {
         color: #666;
       }
       &.unread {
-        background: #c5335c1c
+        background: #c5335c1c;
       }
       &.notif {
         min-height: 70px;
@@ -641,5 +641,21 @@ body {
         }
       }
     }
+  }
+}
+
+.global-search {
+  input {
+    width: 40% !important;
+  }
+  .global-search-options {
+    border-radius: 20px 0px 0px 20px !important;
+    width: 10px;
+  }
+  .symbol {
+    border-radius: 0 20px 20px 0 !important;
+    width: 50px;
+    background-color: #eae8ee;
+    color: $blue;
   }
 }

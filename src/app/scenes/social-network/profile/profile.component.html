@@ -98,7 +98,7 @@
                         </div>
                       </div> -->
                       <div class="text-center">
-                        <h3>{{ user.firstName }} {{ user.lastName }}<span class="font-weight-light">, 27</span></h3>
+                        <h3>{{ user.firstName }} {{ user.lastName }}<span class="font-weight-light"></span></h3>
                         <div class="h5 font-weight-300">
                           <i class="ni location_pin mr-2"></i>{{ user.city }} , {{ user.country }}
                         </div>
@@ -107,7 +107,7 @@
                         </div>
                         <div><i class="ni education_hat mr-2"></i>{{ user.college[0] }}</div>
                         <hr class="my-4" />
-                        <p>{{ user.description }}</p>
+                        <!-- <p>{{ user.description }}</p> -->
                       </div>
                     </div>
                   </div>
@@ -208,7 +208,7 @@
                         <div class="pl-lg-4">
                           <div class="form-group focused">
                             <label>About Me</label>
-                            <h4 class="text-primary">{{ user.description }}</h4>
+                            <h4 class="text-primary">{{ user.bio }}</h4>
                             <!-- <textarea rows="4" class="form-control form-control-alternative" placeholder="A few words about you ...">A beautiful Dashboard for Bootstrap 4. It is Free and Open Source.</textarea> -->
                           </div>
                         </div>

@@ -18,7 +18,7 @@
       <mat-tab *ngFor="let status of jobStatus; let index = i" label="{{ status[0] }}">
         <section class="my-job-applications-page-section">
           <div class="row no-gutters">
-            <ng-container>
+          
               <div class="max-vertical-h-70 stylishSlimScroll flow-y-auto flow-x-hidden mt-2" id="jobsArea">
                 <mat-accordion>
                   <div
@@ -35,6 +35,7 @@
                       let j = index
                     "
                   >
+                  <ng-container>
                     <mat-expansion-panel
                       (opened)="panelOpenState = true"
                       (closed)="panelOpenState = false"
@@ -164,10 +165,27 @@
                         </div>
                       </div>
                     </mat-expansion-panel>
+                  </ng-container>
+                  <!-- <ng-container *ngIf="job.length == 0">
+                    <div class="text-center m-auto animated fadeIn">
+                      <div class="col-12 text-center">
+                        <img src="../../../assets/images/no-record.gif" style="height: 170px;" class="d-block m-auto" />
+                        <h6 class="text-primary">No Jobs ...!</h6>
+                        <button
+                          mat-flat-button
+                          color="primary"
+                          *ngIf="!isAdmin"
+                          [routerLink]="['/jobs/listings']"
+                          class="rounded-pill ml-2"
+                        >
+                          Go To All Jobs
+                        </button>
+                      </div>
+                    </div>
+                  </ng-container> -->
                   </div>
                 </mat-accordion>
-              </div>
-            </ng-container>
+              </div>            
           </div>
         </section>
       </mat-tab>

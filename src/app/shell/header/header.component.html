@@ -44,7 +44,7 @@
         </div>
       </div>
       <!-- sidebar-header  -->
-      <div class="sidebar-search">
+      <!-- <div class="sidebar-search">
         <div>
           <div class="input-group bg-white">
             <input
@@ -61,9 +61,9 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
       <!-- sidebar-search  -->
-      <div class="sidebar-menu min-vertical-h-70 max-vertical-h-70 stylishScroll flow-y-auto flow-x-hidden">
+      <div class="sidebar-menu min-vertical-h-80 max-vertical-h-80 stylishScroll flow-y-auto flow-x-hidden">
         <ng-container>
           <ng-template *ngTemplateOutlet="studentMenu"></ng-template>
         </ng-container>
@@ -82,7 +82,24 @@
 </div>
 <div class="page__header">
   <div class="bg-dark navbar-dark p-1">
-    <div class="container-fluid">
+    <div class="container-fluid d-flex p-1">
+      <div class="home-button ml-2 d-flex align-items-center" *ngIf="!sharedService.deviceDetectorService.isMobile()" style="left: 30%; position: relative;">
+        <div class="w70">
+          <label class="sr-only" for="inlineFormInputGroup">Username</label>
+          <div class="input-group global-search">
+            <mat-select [(value)]="globalSearchType" class="form-control global-search-options">
+              <mat-option value="course">Course</mat-option>
+              <mat-option value="profile">Profile</mat-option>
+              <mat-option value="organization">Organization</mat-option>
+              <mat-option value="job">Job</mat-option>
+            </mat-select>
+            <input type="text" class="form-control" [(ngModel)]="searchGlobalText" placeholder="Search..." />
+            <div class="input-group-prepend">
+              <div class="input-group-text symbol curPoint" [ngClass]="{'pointer-event-disabled': searchGlobalText == ''}"  (click)="globalSearch()"><i class="fa fa-search"></i></div>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="navbar-collapse d-flex justify-content-end">
         <div class="sidebar-footer mr-2">
           <ng-container *ngIf="user">
@@ -427,7 +444,7 @@
     <div class="notifbox">
       <li
         class="notif curPoint unread"
-        (click)="notiRedirect(item,i)"
+        (click)="notiRedirect(item, i)"
         *ngFor="let item of notificationsData; let i = index"
       >
         <a>

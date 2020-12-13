@@ -73,7 +73,9 @@ export class UiService {
       allowOutsideClick: true,
       allowEscapeKey: true,
       allowEnterKey: true,
-      timer: timer || 2000,
+      showCancelButton: false,
+      showConfirmButton: false,
+      timer: timer || 1500,
     });
   }
 

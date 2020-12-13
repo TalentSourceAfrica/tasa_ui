@@ -23,14 +23,23 @@ export class HeaderComponent implements OnInit {
   isAdmin: boolean = false;
   searchCourseText: string = '';
   notificationsData: any = [];
+  searchGlobalText: any = '';
+  globalSearchType = 'course';
   constructor(
     private httpClient: HttpClient,
     private router: Router,
     private authenticationService: AuthenticationService,
     private credentialsService: CredentialsService,
-    private sharedService: SharedService
+    public sharedService: SharedService
   ) {
     this.user.type.toLowerCase() === 'admin' ? (this.isAdmin = true) : (this.isAdmin = false);
+  }
+
+  globalSearch(){
+    let $t = this;
+    if($t.globalSearchType === 'course'){
+      this.sharedService.utilityService.onCourseSearch(this.searchGlobalText, 'text');
+    }
   }
 
   onCourseSearch() {
