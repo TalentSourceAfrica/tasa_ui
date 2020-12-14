@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { CredentialsService } from '@app/auth';
 import { SharedService } from '@app/services/shared.service';
 
@@ -13,14 +13,17 @@ declare var jQuery: any;
   encapsulation: ViewEncapsulation.None,
 })
 export class SocialPostsComponent implements OnInit {
+  @ViewChild('imageFileUpload', {static: false}) imageFileUpload: any;
+  @ViewChild('videoFileUpload', {static: false}) videoFileUpload: any;
   socialConfig: any = {
     isLoading: true,
     allSocialPost: [],
     newPost: {
       content: '',
       post: true,
-      userName: this.user.email,
+      userName: this.user.firstName + ' ' + this.user.lastName,
       userImageUrl: this.user.image,
+      userId: this.user.email,
       videoUrl: '',
       imageUrl: '',
     },
@@ -58,10 +61,10 @@ export class SocialPostsComponent implements OnInit {
        videoUrl: '',
        comments: [],
        reactions: [],
-       countOfLikes: [],
-       countOfClaps: [],
-       countOfCongrats: [],
-       countofCurious: [],
+       countOfLikes: 0,
+       countOfClaps: 0,
+       countOfCongrats: 0,
+       countofCurious: 0,
        field1: '',
        field2: '',
        field3: '',
@@ -113,7 +116,7 @@ export class SocialPostsComponent implements OnInit {
     $t.sharedService.configService.post(apiUrl, $t.socialConfig.newPost).subscribe(
       (response: any) => {
         $t.sharedService.uiService.showApiSuccessPopMsg('Post Added...');
-        $t.socialConfig.allSocialPost.push(response.responseObj);
+        $t.socialConfig.allSocialPost.unshift(response.responseObj);
       },
       (error) => {
         $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
@@ -246,6 +249,9 @@ export class SocialPostsComponent implements OnInit {
       '{postId}': _postInfo.id,
       '{reactionId}': reactionId
     });
+    if (reactionId == '') {
+      reactionId = $t.uuidv4Generator();
+    }
     payload = {
       id: reactionId == '' ? '' : reactionId,
       reactionBy: $t.user.email,
@@ -276,6 +282,13 @@ export class SocialPostsComponent implements OnInit {
     );
   }
 
+  uuidv4Generator() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+      var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+      return v.toString(16);
+    });
+  }
+
   deleteComment(_comment: any, _post: any) {
     let $t = this;
     let api = $t.sharedService.urlService.apiCallWithParams('removeComment', {
@@ -288,6 +301,63 @@ export class SocialPostsComponent implements OnInit {
       },
       (error: any) => {
         $t.sharedService.uiService.showApiErrorPopMsg(error);
+      }
+    );
+  }
+
+  getNotiDay(_post: any) {
+    const dateofvisit = this.sharedService.plugins.mom(_post.createdOn);
+    const today = this.sharedService.plugins.mom();
+    const day = today.diff(dateofvisit, 'days');
+    if (day === 0) {
+      return 'Today';
+    } else if (day === 1) {
+      return day + ' day ago';
+    } else {
+      return day + ' days ago';
+    }
+  }
+
+  triggerImageUpload() {
+    this.imageFileUpload.nativeElement.click();
+  }
+
+  triggerVideoUpload() {
+    this.videoFileUpload.nativeElement.click();
+  }
+
+  uploadFile(_event: any, _case: string) {
+    let $t = this;
+    let isImage = false;
+    let isVideo = false;
+    let isOther = false;
+    let apiUrl = $t.sharedService.urlService.apiCallWithParams('uploadSingle', { '{email}': $t.user.email });
+    let files = _event.target.files;
+    var form = new FormData();
+    let imageTypes = ['image/jpeg', 'image/jpg', 'image/gif', 'image/png'];
+    let videoTypes = ['video/mp4', 'video/mov', 'video/wmv', 'video/flv', 'video/avi', 'video/webm'];
+    if (_case == 'image') {
+      if (imageTypes.indexOf(files[0].type) != -1) {
+        isImage = true;
+      } else {
+        $t.sharedService.uiService.showApiErrorPopMsg('Incorrect file chosen, please choose an image (.jpeg, .jpg, .gif, .png)');
+        return ;
+      }
+    } else {
+      if (videoTypes.indexOf(files[0].type) != -1) {
+        isVideo = true;
+      } else {
+        $t.sharedService.uiService.showApiErrorPopMsg('Incorrect file chosen, please choose a video (.mp4, .mov, .wmv, .flv, .avi, .webm)');
+        return ;
+      }
+    }
+    form.append('file', files[0], files[0].name);
+    $t.sharedService.configService.post(apiUrl, form).subscribe(
+      (response: any) => {
+        $t.socialConfig.newPost[ isImage ? 'imageUrl' : (isVideo ? 'videoUrl' : '')] = response.url;
+      },
+      (error) => {
+        $t.sharedService.uiService.showApiErrorPopMsg('Something Went Wrong, Please Try Again After Sometime...');
       }
     );
   }

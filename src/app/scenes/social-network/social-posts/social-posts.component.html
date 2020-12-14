@@ -8,7 +8,7 @@
   </div>
 </div>
 <div class="profile-wrapper mb-4">
-  <div class="container">
+  <div class="container max-vertical-h-83">
     <div class="main">
       <!-- <div class="search-bar">
                 <input type="text" placeholder="Search" />
@@ -19,12 +19,6 @@
       <div class="main-container">
         <div class="profile d-none">
           <div class="profile-avatar">
-            <!-- <img
-                *ngIf="!user.image || user.image == 'string'"
-                src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
-                alt=""
-                class="profile-img"
-              /> -->
             <img *ngIf="user.image || user.image != 'string'" [src]="user.image" alt="" class="profile-img" />
             <div class="profile-name">{{ user.firstName }} {{ user.lastName }}</div>
           </div>
@@ -33,15 +27,8 @@
             alt=""
             class="profile-cover"
           />
-          <!-- <div class="profile-menu">
-              <a class="profile-menu-link active">Timeline</a>
-              <a class="profile-menu-link">About</a>
-              <a class="profile-menu-link">Friends</a>
-              <a class="profile-menu-link">Photos</a>
-              <a class="profile-menu-link">More</a>
-            </div> -->
         </div>
-        <div class="timeline pl-2">
+        <div class="timeline pl-2 min-vertical-h-80">
           <div class="timeline-left">
             <div class="intro box p-0">
               <div class="user-profile text-center">
@@ -51,9 +38,6 @@
                 <div class="info-item mt-2">
                   <i class="fas fa-user pr-3 text-primary"></i><strong>{{ user.firstName }} {{ user.lastName }}</strong>
                 </div>
-                <!-- <div class="info-item mt-2">
-                  <i class="fas fa-briefcase pr-3 text-primary"></i><strong>Product Designer at Bravebist</strong>
-                </div> -->
                 <div class="info-item mt-2">
                   <i class="fas fa-home pr-3 text-primary"></i><strong>Lives In {{ user.city }}</strong>
                 </div>
@@ -106,12 +90,25 @@
           </div>
           <div class="timeline-right mb-4 min-vertical-h-65 max-vertical-h-65 overflow-x-hidden stylishSlimScroll">
             <div class="status box">
-              <div class="status-main">
-                <img [src]="user.image" class="status-img" />
+              <div class="row status-main">
+                <img [src]="user.image" class="status-img" [class.mr-1]="socialConfig.newPost.videoUrl != ''" />
+                <div *ngIf="socialConfig.newPost.imageUrl != ''">
+                  <a [href]="socialConfig.newPost.imageUrl" target="_blank">
+                    <img [src]="socialConfig.newPost.imageUrl" width="80px" height="100px" class="p-2 curPoint">
+                  </a>  
+                </div>
+                <div *ngIf="socialConfig.newPost.videoUrl != ''">
+                  <a [href]="socialConfig.newPost.videoUrl" target="_blank">
+                    <span class="text-primary mr-2">
+                      <i class="fas fa-video fa-3x"></i>
+                    </span> 
+                  </a>
+                </div>
                 <textarea
-                  class="status-textarea"
+                  class="row status-textarea"
+                  [class.col-6]="socialConfig.newPost.imageUrl != '' || socialConfig.newPost.videoUrl != ''"
                   [(ngModel)]="socialConfig.newPost.content"
-                  placeholder="Write something to Quan Ha.."
+                  placeholder="What's on you mind?"
                 ></textarea>
               </div>
               <div class="status-actions">
@@ -122,8 +119,9 @@
                       color="primary"
                       style="z-index: 9;"
                       class="mr-2"
+                      (click)="triggerImageUpload()"
                       matTooltipPosition="below"
-                      matTooltip="Add Image"
+                      matTooltip="Add Image - Supported Formats are .jpeg, .jpg, .gif, .png"
                     >
                       <mat-icon>add_a_photo</mat-icon>
                     </button>
@@ -131,10 +129,39 @@
                       mat-mini-fab
                       color="primary"
                       style="z-index: 9;"
+                      class="mr-2"
+                      (click)="triggerVideoUpload()"
                       matTooltipPosition="below"
-                      matTooltip="Add Video"
+                      matTooltip="Add Video - Supported Formats are .mp4, .mov, .wmv, .flv, .avi, .webm"
                     >
                       <mat-icon>video_library</mat-icon>
+                    </button>
+                    <button
+                      *ngIf="socialConfig.newPost.imageUrl != ''"
+                      mat-mini-fab
+                      color="primary"
+                      style="z-index: 9;"
+                      class="mr-2"
+                      (click)="socialConfig.newPost.imageUrl = ''"
+                      matTooltipPosition="below"
+                      matTooltip="Remove Image"
+                    >
+                      <span class="fa-stack">
+                        <i class="fas fa-slash fa-lg fa-stack-1x"></i>
+                        <i class="far fa-image fa-lg fa-stack-1x"></i>
+                      </span> 
+                    </button>
+                    <button
+                      *ngIf="socialConfig.newPost.videoUrl != ''"
+                      mat-mini-fab
+                      color="primary"
+                      style="z-index: 9;"
+                      class="mr-2"
+                      (click)="socialConfig.newPost.videoUrl = ''"
+                      matTooltipPosition="below"
+                      matTooltip="Remove Video"
+                    >
+                      <i class="fas fa-video-slash"></i>
                     </button>
                   </div>
                   <div class="col-4 text-right">
@@ -150,8 +177,10 @@
                   </div>
                 </div>
               </div>
+              <input id="imageUpload" class="d-none" #imageFileUpload type="file" (change)="uploadFile($event, 'image')" />
+              <input id="videoUpload" class="d-none" #videoFileUpload type="file" (change)="uploadFile($event, 'video')" />
             </div>
-            <div class="min-vertical-h-70 max-vertical-h-70 stylishSlimScroll flow-y-auto flow-x-hidden">
+            <div class="min-vertical-h-65 max-vertical-h-65 stylishSlimScroll flow-y-auto flow-x-hidden">
               <div class="album box" *ngFor="let post of socialConfig.allSocialPost">
                 <div *ngIf="post.post">
                   <div class="status-main">
@@ -160,12 +189,24 @@
                       <div class="album-title">
                         <strong>{{ post.userName }}</strong>
                       </div>
-                      <div class="album-date">6 hours ago</div>
+                      <div class="album-date">{{ getNotiDay(post) }}</div>
                     </div>
                     <button class="intro-menu"></button>
                   </div>
-                  <div class="album-content">
-                    {{ post.content }}
+                  <div class="row album-content">
+                    <div class="pl-2" *ngIf="post.imageUrl != ''">
+                      <a [href]="post.imageUrl" target="_blank">
+                        <img [src]="post.imageUrl" width="80px" height="100px" class="p-2 curPoint">
+                      </a> 
+                    </div>
+                    <div class="pl-2" *ngIf="post.videoUrl != ''">
+                      <a [href]="post.videoUrl" target="_blank">
+                        <span class="text-primary mr-2">
+                          <i class="fas fa-video fa-3x"></i>
+                        </span>
+                      </a>
+                    </div>
+                    <div [class.pl-3]="post.imageUrl == '' && post.videoUrl == ''">{{ post.content }}</div>
                   </div>
                   <div class="pb-0 px-0 mx-3 album-actions border-bottom">
                     <a class="album-action align-middle mr-2" (click)="openUserInteractionPopover(post)">
@@ -173,12 +214,10 @@
                       <img *ngIf="isReactionPresent('clap', post)" src="./assets/images/social/celebrate.svg" class="pr-1 curPoint interactIcon" width="15px">
                       <img *ngIf="isReactionPresent('congrats', post)" src="./assets/images/social/celebrate.svg" class="pr-1 curPoint interactIcon" width="15px">
                       <img *ngIf="isReactionPresent('curious', post)" src="./assets/images/social/curious.svg" class="pr-1 curPoint interactIcon" width="15px">
-                      <!-- <span class="fa-xs underlineClass"> {{ (post.countOfLikes != null ? post.countOfLikes.length : 0) + (post.countOfClaps != null ? post.countOfClaps.length : 0) + 
-                      (post.countOfCongrats != null ? post.countOfCongrats.length : 0) + (post.countOfCurious != null ? post.countOfCurious.length : 0) }}</span> -->
                       <span class="fa-xs underlineClass"> {{ post.reactions != null ? post.reactions.length : '0' }}</span>
                     </a>
                     <a (click)="post.isCommentShow = !post.isCommentShow" class="album-action small underlineClass">
-                      {{ post.countOfComments != null ? post.countOfComments.length : '0' }} Comments
+                      {{ post.comments != null ? post.comments.length : '0' }} Comments
                     </a>
                   </div>
                   <div class="px-0 ml-2 mr-3 mt-1 pb-2 album-actions">
@@ -235,7 +274,7 @@
                       <div class="col-8">
                         <mat-form-field class="w100">
                           <mat-label>{{ comment.userName}}</mat-label>
-                          <textarea type="text" matInput #commentBox [(ngModel)]="post.content" readonly></textarea>
+                          <textarea type="text" matInput #commentBox [(ngModel)]="comment.content" readonly></textarea>
                         </mat-form-field>
                       </div>
                       <div class="col-2">
