@@ -13,8 +13,9 @@ declare var jQuery: any;
   encapsulation: ViewEncapsulation.None,
 })
 export class SocialPostsComponent implements OnInit {
-  @ViewChild('imageFileUpload', {static: false}) imageFileUpload: any;
-  @ViewChild('videoFileUpload', {static: false}) videoFileUpload: any;
+  @ViewChild('conectionDrawer', { static: false }) conectionDrawer: any;
+  @ViewChild('imageFileUpload', { static: false }) imageFileUpload: any;
+  @ViewChild('videoFileUpload', { static: false }) videoFileUpload: any;
   socialConfig: any = {
     isLoading: true,
     allSocialPost: [],
@@ -28,7 +29,11 @@ export class SocialPostsComponent implements OnInit {
       imageUrl: '',
     },
   };
-  constructor(public credentialsService: CredentialsService, public sharedService: SharedService, public cdr: ChangeDetectorRef) {}
+  constructor(
+    public credentialsService: CredentialsService,
+    public sharedService: SharedService,
+    public cdr: ChangeDetectorRef
+  ) {}
 
   // getAllPosts: '/socialPost', // G
   // addSocialPost: '/socialPost', // PO
@@ -51,56 +56,56 @@ export class SocialPostsComponent implements OnInit {
 
   postComment(msg: any, post: any) {
     let comment: any = {
-       id: this.uuidv4Generator(),
-       userId: this.user.email,
-       userName: this.user.firstName + ' ' + this.user.lastName,
-       userSummary: '',
-       userImageUrl: '',
-       content: msg,
-       imageUrl: '',
-       videoUrl: '',
-       comments: [],
-       reactions: [],
-       countOfLikes: 0,
-       countOfClaps: 0,
-       countOfCongrats: 0,
-       countofCurious: 0,
-       field1: '',
-       field2: '',
-       field3: '',
-       field4: '',
-       field5: '',
-       field6: '',
-       field7: '',
-       field8: '',
-       field9: '',
-       field10: '',
-       field11: '',
-       field12: '',
-       field13: '',
-       field14: '',
-       field15: '',
-       field16: '',
-       field17: '',
-       field18: '',
-       field19: '',
-       field20: '',
-       createdBy: '',
-       createdOn: '',
-       updatedBy: '',
-       updatedOn: '',
-       post: false,
-       published: true
-    }
+      id: this.uuidv4Generator(),
+      userId: this.user.email,
+      userName: this.user.firstName + ' ' + this.user.lastName,
+      userSummary: '',
+      userImageUrl: '',
+      content: msg,
+      imageUrl: '',
+      videoUrl: '',
+      comments: [],
+      reactions: [],
+      countOfLikes: 0,
+      countOfClaps: 0,
+      countOfCongrats: 0,
+      countofCurious: 0,
+      field1: '',
+      field2: '',
+      field3: '',
+      field4: '',
+      field5: '',
+      field6: '',
+      field7: '',
+      field8: '',
+      field9: '',
+      field10: '',
+      field11: '',
+      field12: '',
+      field13: '',
+      field14: '',
+      field15: '',
+      field16: '',
+      field17: '',
+      field18: '',
+      field19: '',
+      field20: '',
+      createdBy: '',
+      createdOn: '',
+      updatedBy: '',
+      updatedOn: '',
+      post: false,
+      published: true,
+    };
     // post.comments = [comment];
     // post.post = false;
     let $t = this;
     let apiUrl = $t.sharedService.urlService.apiCallWithParams('addComment', {
-      '{postId}': post.id
+      '{postId}': post.id,
     });
     $t.sharedService.configService.post(apiUrl, comment).subscribe(
       (response: any) => {
-        post.comments == null ? post.comments = [] : '';
+        post.comments == null ? (post.comments = []) : '';
         post.comments.push(comment);
         jQuery('#commentBox').val('');
       },
@@ -129,6 +134,22 @@ export class SocialPostsComponent implements OnInit {
     );
   }
 
+  deletePost(postId: string, postIndex: Number) {
+    let $t = this;
+    let _callBack = () => {
+      $t.sharedService.uiService.showApiStartPopMsg('Deleting Post...');
+      let apiUrl = $t.sharedService.urlService.apiCallWithParams('deletePost', { '{postId}': postId });
+      $t.sharedService.configService.delete(apiUrl).subscribe(
+        (response: any) => {},
+        (error) => {
+          $t.socialConfig.allSocialPost.splice(postIndex, 1);
+          $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
+        }
+      );
+    };
+    $t.sharedService.uiService.showPreConfirmPopMsg('Are you sure you want to delete this post ?', _callBack);
+  }
+
   get user(): any | null {
     const credentials = this.credentialsService.credentials;
     return credentials ? credentials : null;
@@ -140,7 +161,7 @@ export class SocialPostsComponent implements OnInit {
     let _content = `<div class="rounded-pill py-1">
                   <img src="./assets/images/social/like.svg" class="curPoint pr-1 interactIcon" id="btn-like" title="Like" width="35px">
                   <img src="./assets/images/social/celebrate.svg" class="pr-1 curPoint interactIcon" id="btn-clap" title="Clap" width="35px">
-                  <img src="./assets/images/social/celebrate.svg" class="pr-1 curPoint interactIcon" id="btn-congrats" title="Congrats" width="35px">
+                  <img src="./assets/images/social/congrats.svg" class="pr-1 curPoint interactIcon" id="btn-congrats" title="Congrats" width="35px">
                   <img src="./assets/images/social/curious.svg" class="pr-1 curPoint interactIcon" id="btn-curious" title="Curious" width="35px">
                 </div>`;
     setTimeout(() => {
@@ -188,11 +209,11 @@ export class SocialPostsComponent implements OnInit {
     $t.sharedService.dialogService.open(UserInteractionSocialpostPopoverComponent, {
       width: '25%',
       position: {
-        top: '50px'
+        top: '50px',
       },
-      data : {
-        post: _postInfo
-      }
+      data: {
+        post: _postInfo,
+      },
     });
   }
 
@@ -211,10 +232,10 @@ export class SocialPostsComponent implements OnInit {
   isReacted(_which: string, _post: any) {
     let isReacted = undefined;
     if (_post.reactions != null) {
-       _post.reactions.forEach((x: any) => {
-          if (x.reactionBy == this.user.email && x.reactionType == _which) {
-            isReacted = true;
-          }
+      _post.reactions.forEach((x: any) => {
+        if (x.reactionBy == this.user.email && x.reactionType == _which) {
+          isReacted = true;
+        }
       });
     }
     return isReacted == undefined ? false : true;
@@ -233,7 +254,7 @@ export class SocialPostsComponent implements OnInit {
       }
     } else {
       return false;
-    }  
+    }
   }
 
   interactionApiCall(_reaction: string, _postInfo: any, _api?: string) {
@@ -248,12 +269,15 @@ export class SocialPostsComponent implements OnInit {
         }
       });
     }
-    api = _api == undefined ? $t.sharedService.urlService.apiCallWithParams('reactOnPost', {
-      '{postId}': _postInfo.id,
-    }) : $t.sharedService.urlService.apiCallWithParams('removeReactionFromPost', {
-      '{postId}': _postInfo.id,
-      '{reactionId}': reactionId
-    });
+    api =
+      _api == undefined
+        ? $t.sharedService.urlService.apiCallWithParams('reactOnPost', {
+            '{postId}': _postInfo.id,
+          })
+        : $t.sharedService.urlService.apiCallWithParams('removeReactionFromPost', {
+            '{postId}': _postInfo.id,
+            '{reactionId}': reactionId,
+          });
     if (reactionId == '') {
       reactionId = $t.uuidv4Generator();
     }
@@ -269,13 +293,20 @@ export class SocialPostsComponent implements OnInit {
     $t.sharedService.configService.post(api, payload).subscribe(
       (response) => {
         if (_api == 'removeReactionFromPost') {
-          let post = $t.socialConfig.allSocialPost.find((x: any) => x.id == _postInfo.id)
+          let post = $t.socialConfig.allSocialPost.find((x: any) => x.id == _postInfo.id);
           let reaction = post.reactions.find((z: any) => z.id == reactionId);
-          $t.socialConfig.allSocialPost[$t.socialConfig.allSocialPost.indexOf(post)].reactions.splice($t.socialConfig.allSocialPost[$t.socialConfig.allSocialPost.indexOf(post)].reactions.indexOf(reaction), 1);
+          $t.socialConfig.allSocialPost[$t.socialConfig.allSocialPost.indexOf(post)].reactions.splice(
+            $t.socialConfig.allSocialPost[$t.socialConfig.allSocialPost.indexOf(post)].reactions.indexOf(reaction),
+            1
+          );
         } else {
-          _postInfo.reactions == null ? _postInfo.reactions = [] : '';
-          let reaction = $t.socialConfig.allSocialPost.find((x: any) => x.id == _postInfo.id).reactions.find((z: any) => z.id == reactionId);
-          reaction == undefined ? $t.socialConfig.allSocialPost.find((x: any) => x.id == _postInfo.id).reactions.push(payload) : reaction.reactionType = _reaction;
+          _postInfo.reactions == null ? (_postInfo.reactions = []) : '';
+          let reaction = $t.socialConfig.allSocialPost
+            .find((x: any) => x.id == _postInfo.id)
+            .reactions.find((z: any) => z.id == reactionId);
+          reaction == undefined
+            ? $t.socialConfig.allSocialPost.find((x: any) => x.id == _postInfo.id).reactions.push(payload)
+            : (reaction.reactionType = _reaction);
         }
         // setTimeout(() => {
         //   $t.getAllSocialPost();
@@ -289,8 +320,9 @@ export class SocialPostsComponent implements OnInit {
   }
 
   uuidv4Generator() {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-      var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+      var r = (Math.random() * 16) | 0,
+        v = c == 'x' ? r : (r & 0x3) | 0x8;
       return v.toString(16);
     });
   }
@@ -299,11 +331,11 @@ export class SocialPostsComponent implements OnInit {
     let $t = this;
     let api = $t.sharedService.urlService.apiCallWithParams('removeComment', {
       '{postId}': _post.id,
-      '{commentId}': _comment.id
+      '{commentId}': _comment.id,
     });
     $t.sharedService.configService.post(api).subscribe(
       (response: any) => {
-        _post.comments.splice((_post.comments.indexOf(_comment)), 1);
+        _post.comments.splice(_post.comments.indexOf(_comment), 1);
       },
       (error: any) => {
         $t.sharedService.uiService.showApiErrorPopMsg(error);
@@ -346,21 +378,25 @@ export class SocialPostsComponent implements OnInit {
       if (imageTypes.indexOf(files[0].type) != -1) {
         isImage = true;
       } else {
-        $t.sharedService.uiService.showApiErrorPopMsg('Incorrect file chosen, please choose an image (.jpeg, .jpg, .gif, .png)');
-        return ;
+        $t.sharedService.uiService.showApiErrorPopMsg(
+          'Incorrect file chosen, please choose an image (.jpeg, .jpg, .gif, .png)'
+        );
+        return;
       }
     } else {
       if (videoTypes.indexOf(files[0].type) != -1) {
         isVideo = true;
       } else {
-        $t.sharedService.uiService.showApiErrorPopMsg('Incorrect file chosen, please choose a video (.mp4, .mov, .wmv, .flv, .avi, .webm)');
-        return ;
+        $t.sharedService.uiService.showApiErrorPopMsg(
+          'Incorrect file chosen, please choose a video (.mp4, .mov, .wmv, .flv, .avi, .webm)'
+        );
+        return;
       }
     }
     form.append('file', files[0], files[0].name);
     $t.sharedService.configService.post(apiUrl, form).subscribe(
       (response: any) => {
-        $t.socialConfig.newPost[ isImage ? 'imageUrl' : (isVideo ? 'videoUrl' : '')] = response.url;
+        $t.socialConfig.newPost[isImage ? 'imageUrl' : isVideo ? 'videoUrl' : ''] = response.url;
       },
       (error) => {
         $t.sharedService.uiService.showApiErrorPopMsg('Something Went Wrong, Please Try Again After Sometime...');
@@ -373,5 +409,8 @@ export class SocialPostsComponent implements OnInit {
     if (!this.user.image || this.user.image == 'string') {
       this.user.image = 'https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg';
     }
+  }
+  ngAfterViewInit(): void {
+    this.conectionDrawer.open();
   }
 }

@@ -1,0 +1,23 @@
+.pages {
+    margin-top: 20px;
+    padding: 20px;
+  }
+
+  .user {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  .user + .user {
+    margin-top: 18px;
+  }
+
+  .user-img {
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    margin-right: 15px;
+    object-fit: cover;
+    object-position: center;
+  }

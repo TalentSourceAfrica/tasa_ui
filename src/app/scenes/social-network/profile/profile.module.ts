@@ -9,6 +9,8 @@ import { MaterialModule } from '@app/modules/material.module';
 import { RouterModule } from '@angular/router';
 import { ProfileRoutingModule } from './profile-routing.module';
 import { ProfileComponent } from './profile.component';
+import { SocialConnectionsModule } from '@app/partials/social-network/social-connections/social-connections.module';
+
 
 @NgModule({
   imports: [
@@ -22,6 +24,7 @@ import { ProfileComponent } from './profile.component';
     FormsModule,
     ReactiveFormsModule,
     ProfileRoutingModule,
+    SocialConnectionsModule
   ],
   declarations: [ProfileComponent],
   schemas: [NO_ERRORS_SCHEMA],

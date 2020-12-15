@@ -159,7 +159,7 @@ export class JobViewComponent implements OnInit {
   }
   
   getFormatDate(_date:any){
-    return this.sharedService.plugins.mom(_date).format('DD-MM-YYYY');
+    return this.sharedService.plugins.mom(_date).format('DD/MM/YYYY');
   }
 
   ngOnInit(): void {

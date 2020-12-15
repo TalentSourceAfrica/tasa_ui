@@ -11,6 +11,8 @@ import { RouterModule } from '@angular/router';
 import { SocialPostsRoutingModule } from './social-posts-routing.module';
 import { SocialPostsComponent } from './social-posts.component';
 import { UserInteractionSocialpostPopoverComponent } from '@app/partials/popups/community/user-interaction-socialpost-popover/user-interaction-socialpost-popover.component';
+import { SocialConnectionsModule } from '@app/partials/social-network/social-connections/social-connections.module';
+
 
 @NgModule({
   imports: [
@@ -23,7 +25,8 @@ import { UserInteractionSocialpostPopoverComponent } from '@app/partials/popups/
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
-    SocialPostsRoutingModule
+    SocialPostsRoutingModule,
+    SocialConnectionsModule
   ],
   declarations: [SocialPostsComponent, UserInteractionSocialpostPopoverComponent],
   entryComponents: [UserInteractionSocialpostPopoverComponent]

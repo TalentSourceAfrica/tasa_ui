@@ -9,7 +9,6 @@ import { SharedService } from '@app/services/shared.service';
 })
 export class ProfileComponent implements OnInit {
   @ViewChild('conectionDrawer', { static: false }) conectionDrawer: any;
-  public allUsers: any = [];
   constructor(public credentialsService: CredentialsService, private sharedService: SharedService) {}
   posts = [
     {
@@ -229,28 +228,18 @@ export class ProfileComponent implements OnInit {
     },
   ];
 
-  getAllusers() {
-    let apiUrl = this.sharedService.urlService.simpleApiCall('getUsers');
-    this.sharedService.configService.get(apiUrl).subscribe(
-      (response) => {
-        this.allUsers = response;
-        this.conectionDrawer.open();
-      },
-      (error) => {}
-    );
-  }
-
   get user(): any | null {
     const credentials = this.credentialsService.credentials;
     return credentials ? credentials : null;
   }
 
   ngOnInit(): void {
-    this.getAllusers();
     if (!this.user.image || this.user.image == 'string') {
       this.user.image = 'https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg';
     }
   }
 
-  ngAfterViewInit(): void {}
+  ngAfterViewInit(): void {
+    this.conectionDrawer.open();
+  }
 }

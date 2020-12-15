@@ -1,7 +1,7 @@
 <div class="social-profile-wrapper">
   <mat-drawer-container class="saved-conditions-wrapper" [hasBackdrop]="false">
     <mat-drawer #conectionDrawer [position]="'end'" [mode]="'over'" class="flow-hidden">
-      <div id="course-filter" style="width: 230px;">
+      <div id="course-filter" style="width: 250px;">
         <div class="row d-flex align-items-center border-bottom">
           <div class="col-9">
             <p class="m-0 pl-2 h5 text-primary">Connections</p>
@@ -226,39 +226,5 @@
 </div>
 
 <ng-template #connections>
-  <div class="pages box">
-    <div class="user" *ngFor="let user of allUsers">
-      <div class="w90 d-flex align-items-center">
-        <img
-          *ngIf="!user.image || user.image == 'string'"
-          src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
-          class="user-img"
-          alt="{{ user.firstName }} {{ user.lastName }}"
-        />
-        <img
-          *ngIf="user.image && user.image != 'string'"
-          [src]="user.image"
-          alt="{{ user.firstName }} {{ user.lastName }}"
-          class="user-img"
-        />
-        <div class="username text-truncate" tile="{{ user.firstName }} {{ user.lastName }}">
-          {{ user.firstName }} {{ user.lastName }}
-        </div>
-      </div>
-      <div class="w10">
-        <span class="material-icons curPoint" matTooltipPosition="below" matTooltip="Menu" [matMenuTriggerFor]="menu">
-          more_vert
-        </span>
-
-        <mat-menu #menu="matMenu">
-          <button mat-menu-item>
-            View Profile
-          </button>
-          <button mat-menu-item>
-            Message
-          </button>
-        </mat-menu>
-      </div>
-    </div>
-  </div>
+  <app-social-connections></app-social-connections>
 </ng-template>
