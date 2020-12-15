@@ -51,7 +51,7 @@ export class SocialPostsComponent implements OnInit {
 
   postComment(msg: any, post: any) {
     let comment: any = {
-       id: '',
+       id: this.uuidv4Generator(),
        userId: this.user.email,
        userName: this.user.firstName + ' ' + this.user.lastName,
        userSummary: '',
@@ -95,13 +95,14 @@ export class SocialPostsComponent implements OnInit {
     // post.comments = [comment];
     // post.post = false;
     let $t = this;
-    $t.sharedService.uiService.showApiStartPopMsg('Adding Comment...');
     let apiUrl = $t.sharedService.urlService.apiCallWithParams('addComment', {
       '{postId}': post.id
     });
     $t.sharedService.configService.post(apiUrl, comment).subscribe(
       (response: any) => {
-        $t.sharedService.uiService.showApiSuccessPopMsg('Comment Added...');
+        post.comments == null ? post.comments = [] : '';
+        post.comments.push(comment);
+        jQuery('#commentBox').val('');
       },
       (error) => {
         $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
@@ -268,6 +269,7 @@ export class SocialPostsComponent implements OnInit {
           let reaction = post.reactions.find((z: any) => z.id == reactionId);
           $t.socialConfig.allSocialPost[$t.socialConfig.allSocialPost.indexOf(post)].reactions.splice($t.socialConfig.allSocialPost[$t.socialConfig.allSocialPost.indexOf(post)].reactions.indexOf(reaction), 1);
         } else {
+          _postInfo.reactions == null ? _postInfo.reactions = [] : '';
           let reaction = $t.socialConfig.allSocialPost.find((x: any) => x.id == _postInfo.id).reactions.find((z: any) => z.id == reactionId);
           reaction == undefined ? $t.socialConfig.allSocialPost.find((x: any) => x.id == _postInfo.id).reactions.push(payload) : reaction.reactionType = _reaction;
         }
@@ -297,7 +299,7 @@ export class SocialPostsComponent implements OnInit {
     });
     $t.sharedService.configService.post(api).subscribe(
       (response: any) => {
-        $t.getAllSocialPost();
+        _post.comments.splice((_post.comments.indexOf(_comment)), 1);
       },
       (error: any) => {
         $t.sharedService.uiService.showApiErrorPopMsg(error);
