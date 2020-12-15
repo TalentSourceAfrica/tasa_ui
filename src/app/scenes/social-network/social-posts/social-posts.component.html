@@ -105,6 +105,7 @@
                   </a>
                 </div>
                 <textarea
+                  id="postBox"
                   class="row status-textarea"
                   [class.col-6]="socialConfig.newPost.imageUrl != '' || socialConfig.newPost.videoUrl != ''"
                   [(ngModel)]="socialConfig.newPost.content"
