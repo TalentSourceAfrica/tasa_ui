@@ -237,6 +237,54 @@
   <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" novalidate>
     <div class="min-vertical-h-50 max-vertical-h-50 stylishScroll flow-y-auto flow-x-hidden p-2">
       <div class="form-group">
+        <label class="form-label" for="name">First Name <sup class="text-danger">*</sup></label>
+        <div class="input-group input-group-merge">
+          <input
+            id="name"
+            type="text"
+            formControlName="firstName"
+            class="form-control form-control-prepended"
+            placeholder="Your first name"
+          />
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <span class="far fa-user"></span>
+            </div>
+          </div>
+        </div>
+        <small
+          [hidden]="signupForm.controls.firstName.valid || signupForm.controls.firstName.untouched"
+          class="text-danger"
+          translate
+        >
+          First Name is required
+        </small>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="name">Last Name <sup class="text-danger">*</sup></label>
+        <div class="input-group input-group-merge">
+          <input
+            id="name"
+            type="text"
+            formControlName="lastName"
+            class="form-control form-control-prepended"
+            placeholder="Your last name"
+          />
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <span class="far fa-user"></span>
+            </div>
+          </div>
+        </div>
+        <small
+          [hidden]="signupForm.controls.lastName.valid || signupForm.controls.lastName.untouched"
+          class="text-danger"
+          translate
+        >
+          Last Name is required
+        </small>
+      </div>
+      <div class="form-group">
         <label class="form-label" for="name">Organization Name <sup class="text-danger">*</sup>&nbsp;&nbsp;<i class="underline curPoint text-primary" (click)="createOrganization()">Add Organization</i></label>
         <div class="input-group input-group-merge">
           <mat-select
@@ -258,7 +306,7 @@
           /> -->
           <div class="input-group-prepend">
             <div class="input-group-text">
-              <span class="far fa-user"></span>
+              <span class="fas fa-university"></span>
             </div>
           </div>
         </div>

@@ -8,7 +8,7 @@ import { SharedService } from '@app/services/shared.service';
 })
 export class SocialConnectionsComponent implements OnInit {
   allUsers: any = [];
-  constructor(public sharedService: SharedService) {this.getAllusers();}
+  constructor(public sharedService: SharedService) {}
 
   getAllusers() {
     let apiUrl = this.sharedService.urlService.simpleApiCall('getUsers');
@@ -22,6 +22,6 @@ export class SocialConnectionsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
+    this.getAllusers();
   }
 }

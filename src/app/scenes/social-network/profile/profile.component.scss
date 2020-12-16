@@ -337,12 +337,12 @@
     padding-left: 15px;
   }
 
-  .row {
-    display: flex;
-    margin-right: -15px;
-    margin-left: -15px;
-    flex-wrap: wrap;
-  }
+  // .row {
+  //   display: flex;
+  //   margin-right: -15px;
+  //   margin-left: -15px;
+  //   flex-wrap: wrap;
+  // }
 
   .col-4,
   .col-8,
@@ -1078,10 +1078,10 @@
     height: 100px;
     width: 100px;
     border: 5px solid #fff;
-    position: absolute;
-    top: -60px;
+    // position: absolute;
+    // top: 6%;
     z-index: 9;
-    right: 100px;
+    // left: 44%;
   }
 
   .d-none {

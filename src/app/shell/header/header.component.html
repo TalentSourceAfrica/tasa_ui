@@ -87,13 +87,13 @@
         <div class="w70">
           <label class="sr-only" for="inlineFormInputGroup">Username</label>
           <div class="input-group global-search">
-            <mat-select [(value)]="globalSearchType" class="form-control global-search-options">
-              <mat-option value="course">Course</mat-option>
-              <mat-option value="profile">Profile</mat-option>
-              <mat-option value="organization">Organization</mat-option>
-              <mat-option value="job">Job</mat-option>
+            <mat-select [(value)]="globalSearchType" class="form-control global-search-options bg-primary-light">
+              <mat-option value="course"> <i class="fas fa-graduation-cap pr-2 text-primary"></i>Course</mat-option>
+              <mat-option value="profile"><i class="fas fa-user pr-2 text-primary"></i>Profile</mat-option>
+              <mat-option value="organization"><i class="fas fa-university pr-2 text-primary"></i>Organization</mat-option>
+              <mat-option value="job"><i class="fas fa-briefcase pr-2 text-primary"></i>Job</mat-option>
             </mat-select>
-            <input type="text" class="form-control" [(ngModel)]="searchGlobalText" placeholder="Search..." />
+            <input type="text" class="form-control border-none" [(ngModel)]="searchGlobalText" placeholder="Search..." />
             <div class="input-group-prepend">
               <div class="input-group-text symbol curPoint" [ngClass]="{'pointer-event-disabled': searchGlobalText == ''}"  (click)="globalSearch()"><i class="fa fa-search"></i></div>
             </div>
