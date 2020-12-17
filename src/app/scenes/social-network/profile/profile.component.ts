@@ -1,6 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { untilDestroyed } from '@app/@core';
 import { CredentialsService } from '@app/auth';
 import { SharedService } from '@app/services/shared.service';
+import { delay } from 'rxjs/operators';
 
 @Component({
   selector: 'app-profile',
@@ -9,237 +12,58 @@ import { SharedService } from '@app/services/shared.service';
 })
 export class ProfileComponent implements OnInit {
   @ViewChild('conectionDrawer', { static: false }) conectionDrawer: any;
-  constructor(public credentialsService: CredentialsService, private sharedService: SharedService) {}
-  posts = [
-    {
-      id: '',
-      userName: 'Avishek Saha',
-      userSummary: 'Testing Text',
-      userImageUrl: 'https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg',
-      content: 'Testing Text',
-      imageUrl: '',
-      videoUrl: '',
-      countOfComments: [''],
-      countOfLikes: [
-        {
-          reactionBy: '',
-          reactionOn: '2020-10-29T07:59:44.088Z',
-          reactionByName: '',
-          reactionBySummary: '',
-          userImageUrl: '',
-        },
-      ],
-      countofCurious: [
-        {
-          reactionBy: '',
-          reactionOn: '2020-10-29T07:59:44.088Z',
-          reactionByName: '',
-          reactionBySummary: '',
-          userImageUrl: '',
-        },
-      ],
-      countOfClaps: [
-        {
-          reactionBy: '',
-          reactionOn: '2020-10-29T07:59:44.088Z',
-          reactionByName: '',
-          reactionBySummary: '',
-          userImageUrl: '',
-        },
-      ],
-      countOfCongrats: [
-        {
-          reactionBy: '',
-          reactionOn: '2020-10-29T07:59:44.088Z',
-          reactionByName: '',
-          reactionBySummary: '',
-          userImageUrl: '',
-        },
-      ],
-      field1: '',
-      field2: '',
-      field3: '',
-      field4: '',
-      field5: '',
-      field6: '',
-      field7: '',
-      field8: '',
-      field9: '',
-      field10: '',
-      field11: '',
-      field12: '',
-      field13: '',
-      field14: '',
-      field15: '',
-      field16: '',
-      field17: '',
-      field18: '',
-      field19: '',
-      field20: '',
-      createdBy: '',
-      createdOn: '2020-10-29T07:59:44.088Z',
-      updatedBy: '',
-      updatedOn: '2020-10-29T07:59:44.088Z',
-      published: true,
-    },
-    {
-      id: '',
-      userName: 'Anshul Kashyap',
-      userSummary: '',
-      userImageUrl:
-        'https://storage.googleapis.com/tasa-bucket-storage/images/anshul.kashyap03@gmail.com/20200922071537020',
-      content: 'asdkjlllllllllllllllllllll aslkjddddddddddddddddddddddddddd asldkjjjjjjjjjjjjjj',
-      imageUrl: '',
-      videoUrl: '',
-      countOfComments: [''],
-      countOfLikes: [
-        {
-          reactionBy: '',
-          reactionOn: '2020-10-29T07:59:44.088Z',
-          reactionByName: '',
-          reactionBySummary: '',
-          userImageUrl: '',
-        },
-      ],
-      countofCurious: [
-        {
-          reactionBy: '',
-          reactionOn: '2020-10-29T07:59:44.088Z',
-          reactionByName: '',
-          reactionBySummary: '',
-          userImageUrl: '',
-        },
-      ],
-      countOfClaps: [
-        {
-          reactionBy: '',
-          reactionOn: '2020-10-29T07:59:44.088Z',
-          reactionByName: '',
-          reactionBySummary: '',
-          userImageUrl: '',
-        },
-      ],
-      countOfCongrats: [
-        {
-          reactionBy: '',
-          reactionOn: '2020-10-29T07:59:44.088Z',
-          reactionByName: '',
-          reactionBySummary: '',
-          userImageUrl: '',
-        },
-      ],
-      field1: '',
-      field2: '',
-      field3: '',
-      field4: '',
-      field5: '',
-      field6: '',
-      field7: '',
-      field8: '',
-      field9: '',
-      field10: '',
-      field11: '',
-      field12: '',
-      field13: '',
-      field14: '',
-      field15: '',
-      field16: '',
-      field17: '',
-      field18: '',
-      field19: '',
-      field20: '',
-      createdBy: '',
-      createdOn: '2020-10-29T07:59:44.088Z',
-      updatedBy: '',
-      updatedOn: '2020-10-29T07:59:44.088Z',
-      published: true,
-    },
-    {
-      id: '',
-      userName: 'Anshul Kashyap',
-      userSummary: '',
-      userImageUrl:
-        'https://storage.googleapis.com/tasa-bucket-storage/images/anshul.kashyap03@gmail.com/20200922071537020',
-      content: 'asdkjlllllllllllllllllllll aslkjddddddddddddddddddddddddddd asldkjjjjjjjjjjjjjj',
-      imageUrl: '',
-      videoUrl: '',
-      countOfComments: [''],
-      countOfLikes: [
-        {
-          reactionBy: '',
-          reactionOn: '2020-10-29T07:59:44.088Z',
-          reactionByName: '',
-          reactionBySummary: '',
-          userImageUrl: '',
-        },
-      ],
-      countofCurious: [
-        {
-          reactionBy: '',
-          reactionOn: '2020-10-29T07:59:44.088Z',
-          reactionByName: '',
-          reactionBySummary: '',
-          userImageUrl: '',
-        },
-      ],
-      countOfClaps: [
-        {
-          reactionBy: '',
-          reactionOn: '2020-10-29T07:59:44.088Z',
-          reactionByName: '',
-          reactionBySummary: '',
-          userImageUrl: '',
-        },
-      ],
-      countOfCongrats: [
-        {
-          reactionBy: '',
-          reactionOn: '2020-10-29T07:59:44.088Z',
-          reactionByName: '',
-          reactionBySummary: '',
-          userImageUrl: '',
-        },
-      ],
-      field1: '',
-      field2: '',
-      field3: '',
-      field4: '',
-      field5: '',
-      field6: '',
-      field7: '',
-      field8: '',
-      field9: '',
-      field10: '',
-      field11: '',
-      field12: '',
-      field13: '',
-      field14: '',
-      field15: '',
-      field16: '',
-      field17: '',
-      field18: '',
-      field19: '',
-      field20: '',
-      createdBy: '',
-      createdOn: '2020-10-29T07:59:44.088Z',
-      updatedBy: '',
-      updatedOn: '2020-10-29T07:59:44.088Z',
-      published: true,
-    },
-  ];
+  public userConfig: any = {
+    fetchingUser: false,
+    user: {},
+    tasaId: '',
+  };
+  isCurrentUser: boolean = true;
+  constructor(
+    public credentialsService: CredentialsService,
+    private sharedService: SharedService,
+    private route: ActivatedRoute
+  ) {
+    this.sharedService.utilityService.changeMessage('FETCH-USER-PROFILE');
+  }
 
   get user(): any | null {
     const credentials = this.credentialsService.credentials;
     return credentials ? credentials : null;
   }
 
+  fetchUser() {
+    let $t = this;
+    $t.userConfig.tasaId = $t.route.snapshot.params.tasaId;
+    $t.userConfig.fetchingUser = true;
+    let apiUrl = $t.sharedService.urlService.apiCallWithParams('getUserById', {
+      '{tasaId}': $t.userConfig.tasaId,
+    });
+    $t.sharedService.configService.get(apiUrl).subscribe(
+      (response: any) => {
+        $t.userConfig.fetchingUser = false;
+        $t.userConfig.user = response;
+        $t.userConfig.user.tasaId != this.user.tasaId ? (this.isCurrentUser = false) : (this.isCurrentUser = true);
+      },
+      (error) => {
+        $t.userConfig.fetchingUser = false;
+      }
+    );
+  }
+
   ngOnInit(): void {
     if (!this.user.image || this.user.image == 'string') {
       this.user.image = 'https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg';
     }
+    this.sharedService.utilityService.currentMessage.pipe(delay(10), untilDestroyed(this)).subscribe((message) => {
+      if (message === 'FETCH-USER-PROFILE') {
+        this.fetchUser();
+      }
+    });
   }
 
   ngAfterViewInit(): void {
     this.conectionDrawer.open();
   }
+
+  ngOnDestroy(): void {}
 }

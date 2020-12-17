@@ -35,9 +35,9 @@ export class HeaderComponent implements OnInit {
     this.user.type.toLowerCase() === 'admin' ? (this.isAdmin = true) : (this.isAdmin = false);
   }
 
-  globalSearch(){
+  globalSearch() {
     let $t = this;
-    if($t.globalSearchType === 'course'){
+    if ($t.globalSearchType === 'course') {
       this.sharedService.utilityService.onCourseSearch(this.searchGlobalText, 'text');
     }
   }
@@ -168,6 +168,11 @@ export class HeaderComponent implements OnInit {
         });
       }
     });
+  }
+
+  showProfile(tasaId: string) {
+    this.router.navigate(['/social-network/profile/', tasaId], { replaceUrl: true });
+    this.sharedService.utilityService.changeMessage('FETCH-USER-PROFILE');
   }
 
   get user(): any | null {

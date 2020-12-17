@@ -7,6 +7,7 @@
 export const urls: any = {
   // Authentication
   getUsers: '/users', // G
+  getUserById: '/user/{tasaId}', // G
   login: '/login', // PO
   signup: '/signup', // PO
   checkUsername: '/checkUserName/{userName}', // PO

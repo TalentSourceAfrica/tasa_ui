@@ -83,19 +83,36 @@
 <div class="page__header">
   <div class="bg-dark navbar-dark p-1">
     <div class="container-fluid d-flex p-1">
-      <div class="home-button ml-2 d-flex align-items-center" *ngIf="!sharedService.deviceDetectorService.isMobile()" style="left: 30%; position: relative;">
+      <div
+        class="home-button ml-2 d-flex align-items-center"
+        *ngIf="!sharedService.deviceDetectorService.isMobile()"
+        style="left: 30%; position: relative;"
+      >
         <div class="w70">
           <label class="sr-only" for="inlineFormInputGroup">Username</label>
           <div class="input-group global-search">
             <mat-select [(value)]="globalSearchType" class="form-control global-search-options bg-primary-light">
               <mat-option value="course"> <i class="fas fa-graduation-cap pr-2 text-primary"></i>Course</mat-option>
               <mat-option value="profile"><i class="fas fa-user pr-2 text-primary"></i>Profile</mat-option>
-              <mat-option value="organization"><i class="fas fa-university pr-2 text-primary"></i>Organization</mat-option>
+              <mat-option value="organization"
+                ><i class="fas fa-university pr-2 text-primary"></i>Organization</mat-option
+              >
               <mat-option value="job"><i class="fas fa-briefcase pr-2 text-primary"></i>Job</mat-option>
             </mat-select>
-            <input type="text" class="form-control border-none" [(ngModel)]="searchGlobalText" placeholder="Search..." />
+            <input
+              type="text"
+              class="form-control border-none"
+              [(ngModel)]="searchGlobalText"
+              placeholder="Search..."
+            />
             <div class="input-group-prepend">
-              <div class="input-group-text symbol curPoint" [ngClass]="{'pointer-event-disabled': searchGlobalText == ''}"  (click)="globalSearch()"><i class="fa fa-search"></i></div>
+              <div
+                class="input-group-text symbol curPoint"
+                [ngClass]="{ 'pointer-event-disabled': searchGlobalText == '' }"
+                (click)="globalSearch()"
+              >
+                <i class="fa fa-search"></i>
+              </div>
             </div>
           </div>
         </div>
@@ -295,7 +312,9 @@
             </a>
           </li>
           <li>
-            <a [routerLink]="['/social-network/profile/', user.tasaId]" class="curPoint menu-item">My profile</a>
+            <a (click)="showProfile(user.tasaId)" class="curPoint menu-item"
+              >My profile <span class="badge badge-pill badge-primary">Beta</span></a
+            >
           </li>
           <li>
             <a class="curPoint menu-item">Network</a>

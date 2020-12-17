@@ -176,7 +176,7 @@ const routes: Routes = [
         loadChildren: () => import('@app/scenes/admin/partners/partners.module').then((m) => m.PartnersModule),
       },
       {
-        path: 'social-network/profile/:userId',
+        path: 'social-network/profile/:tasaId',
         canActivate: [AuthenticationGuard],
         loadChildren: () => import('@app/scenes/social-network/profile/profile.module').then((m) => m.ProfileModule),
       },
