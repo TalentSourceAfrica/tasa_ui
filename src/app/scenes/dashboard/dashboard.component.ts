@@ -14,8 +14,14 @@ export class DashboardComponent implements OnInit {
   uds: any;
   postData: any = [];
   courses: any = [];
-  recommendedCourses: any = [];
-  recommendedJobs: any = [];
+  recommendedCourses:any = {
+    isFetching : false,
+    data:[]
+  }
+  recommendedJobs:any = {
+    isFetching : false,
+    data:[]
+  }
   jobApplications: any = [];
   postOptions: OwlOptions = {
     loop: true,
@@ -132,13 +138,15 @@ export class DashboardComponent implements OnInit {
   getRecommendedCourses() {
     let $t = this;
     let apiUrl = '';
+    $t.recommendedCourses.isFetching = true;
     apiUrl = $t.sharedService.urlService.apiCallWithParams('getRecommendedCourses', { '{userId}': $t.user.email });
     $t.sharedService.configService.get(apiUrl).subscribe(
       (response: any) => {
-        $t.recommendedCourses = response.responseObj;
+        $t.recommendedCourses.data = response.responseObj;
+        $t.recommendedCourses.isFetching = false;
       },
       (error) => {
-        console.log(error);
+        $t.recommendedCourses.isFetching = false;
       }
     );
   }
@@ -146,13 +154,15 @@ export class DashboardComponent implements OnInit {
   getRecommendedJobs() {
     let $t = this;
     let apiUrl = '';
+    $t.recommendedJobs.isFetching = true;
     apiUrl = $t.sharedService.urlService.apiCallWithParams('getRecommendedJobs', { '{userId}': $t.user.email });
     $t.sharedService.configService.get(apiUrl).subscribe(
       (response: any) => {
-        $t.recommendedJobs = response.responseObj;
+        $t.recommendedJobs.data = response.responseObj;
+        $t.recommendedJobs.isFetching = false;
       },
       (error) => {
-        console.log(error);
+        $t.recommendedJobs.isFetching = false;
       }
     );
   }

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild ,ChangeDetectorRef} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { untilDestroyed } from '@app/@core';
 import { CredentialsService } from '@app/auth';
@@ -21,7 +21,8 @@ export class ProfileComponent implements OnInit {
   constructor(
     public credentialsService: CredentialsService,
     private sharedService: SharedService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private cdr :ChangeDetectorRef
   ) {
     this.sharedService.utilityService.changeMessage('FETCH-USER-PROFILE');
   }
@@ -63,6 +64,7 @@ export class ProfileComponent implements OnInit {
 
   ngAfterViewInit(): void {
     this.conectionDrawer.open();
+    this.cdr.detectChanges();
   }
 
   ngOnDestroy(): void {}
