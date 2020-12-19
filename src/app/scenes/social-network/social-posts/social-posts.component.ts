@@ -140,9 +140,11 @@ export class SocialPostsComponent implements OnInit {
       $t.sharedService.uiService.showApiStartPopMsg('Deleting Post...');
       let apiUrl = $t.sharedService.urlService.apiCallWithParams('deletePost', { '{postId}': postId });
       $t.sharedService.configService.delete(apiUrl).subscribe(
-        (response: any) => {},
-        (error) => {
+        (response: any) => {
           $t.socialConfig.allSocialPost.splice(postIndex, 1);
+          $t.sharedService.uiService.closePopMsg();
+        },
+        (error) => {
           $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
         }
       );
