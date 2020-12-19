@@ -42,11 +42,11 @@
               </div>
             </div>
             <div class="card-body p-2 min-vertical-h-30 max-vertical-h-30 stylishSlimScroll flow-y-auto flow-x-hidden">
-              <div *ngIf="recommendedCourses.length" class="row pr-1 no-gutters">
+              <div *ngIf="recommendedCourses.data.length && !recommendedCourses.isFetching" class="row pr-1 no-gutters">
                 <div
                   class="col-12 border mb-1 curPoint courseList"
                   (click)="courseView(course.key)"
-                  *ngFor="let course of recommendedCourses"
+                  *ngFor="let course of recommendedCourses.data"
                 >
                   <div class="row no-gutters">
                     <!-- <span class="flag-discount" *ngIf="course.discountPercentage > 0"
@@ -66,17 +66,15 @@
                   </div>
                 </div>
               </div>
-              <div *ngIf="recommendedCourses.length == 0">
+              <div *ngIf="recommendedCourses.data.length == 0  && !recommendedCourses.isFetching">
                 <div class="text-center m-auto animated fadeIn">
                   <div class="col-12 text-center">
                     <img src="../../../assets/images/no-record.gif" style="height: 200px;" class="d-block m-auto" />
                     <h6 class="text-primary">No Recommended Course Yet...!</h6>
-                    <!-- <button mat-flat-button color="primary" [routerLink]="['/jobs/listings']" class="rounded-pill ml-2">
-                      Go To All Jobs
-                    </button> -->
                   </div>
                 </div>
               </div>
+              <ng-template *ngIf="recommendedCourses.isFetching" [ngTemplateOutlet]="loader"></ng-template>
             </div>
           </div>
           <div class="card mt-2">
@@ -86,7 +84,6 @@
               </div>
               <div class="flex">
                 <h4 class="card-title mt-3">Favourite Courses</h4>
-                <!-- <p class="card-subtitle">Best score</p> -->
               </div>
             </div>
             <div class="card-body p-2 min-vertical-h-30 max-vertical-h-30 stylishSlimScroll flow-y-auto flow-x-hidden">
@@ -119,9 +116,6 @@
                   <div class="col-12 text-center">
                     <img src="../../../assets/images/no-record.gif" style="height: 200px;" class="d-block m-auto" />
                     <h6 class="text-primary">No Favourite Course Yet...!</h6>
-                    <!-- <button mat-flat-button color="primary" [routerLink]="['/jobs/listings']" class="rounded-pill ml-2">
-                      Go To All Jobs
-                    </button> -->
                   </div>
                 </div>
               </div>
@@ -400,8 +394,8 @@
           <div class="card mt-2">
             <div class="card-header">
               <div class="media align-items-center">
-                <div class="h2 mb-0 mr-3 text-primary" *ngIf="recommendedJobs?.length">
-                  {{ recommendedJobs.length }}
+                <div class="h2 mb-0 mr-3 text-primary" *ngIf="recommendedJobs.data.length">
+                  {{ recommendedJobs.data.length }}
                 </div>
                 <div class="flex">
                   <h4 class="card-title mt-3">Recommended Jobs</h4>
@@ -412,11 +406,11 @@
             <div
               class="card-body p-2 jobs min-vertical-h-30 max-vertical-h-30 stylishSlimScroll flow-y-auto flow-x-hidden"
             >
-              <div *ngIf="recommendedJobs?.length" class="row pr-1 no-gutters">
+              <div *ngIf="recommendedJobs.data.length && !recommendedJobs.isFetching" class="row pr-1 no-gutters">
                 <div
                   class="recommended-jobs col-12 border mb-1 curPoint job-list p-2"
                   [routerLink]="['/job/', job.id]"
-                  *ngFor="let job of recommendedJobs"
+                  *ngFor="let job of recommendedJobs.data"
                 >
                   <div class="d-flex">
                     <span>
@@ -451,7 +445,7 @@
                   </div>
                 </div>
               </div>
-              <div *ngIf="recommendedJobs.length == 0">
+              <div *ngIf="recommendedJobs.data.length == 0 && !recommendedJobs.isFetching">
                 <div class="text-center m-auto animated fadeIn">
                   <div class="col-12 text-center">
                     <img src="../../../assets/images/no-record.gif" style="height: 190px;" class="d-block m-auto" />
@@ -459,6 +453,7 @@
                   </div>
                 </div>
               </div>
+              <ng-template *ngIf="recommendedJobs.isFetching" [ngTemplateOutlet]="loader"></ng-template>
             </div>
           </div>
           <!-- <div class="card mt-2" *ngIf="user.recentlyViewedJobs?.length">
@@ -635,3 +630,11 @@
     </div>
   </div>
 </div>
+
+<ng-template #loader>
+  <div class="col-12 animated fadeIn" *ngFor="let item of [1, 2, 3]">
+    <div class="card ml-0 mr-0" style="height: 50px !important;">
+      <div class="card-img skeleton"></div>
+    </div>
+  </div>
+</ng-template>
