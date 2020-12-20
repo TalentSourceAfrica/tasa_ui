@@ -361,7 +361,7 @@
                                 />Curious
                               </span>
                             </a>
-                            <a (click)="post.isCommentShow = !post.isCommentShow" class="album-action btm-bar-action-2 p-2 m-0">
+                            <a (click)="post.isCommentShow = !post.isCommentShow; post.reply = !post.reply" class="album-action btm-bar-action-2 p-2 m-0">
                               <svg
                                 stroke="currentColor"
                                 stroke-width="2"
@@ -376,69 +376,10 @@
                               <span class="">Comment</span>
                             </a>
                           </div>
-                          <div
-                            class="album-comments border-top pt-4 pb-4 max-vertical-h-35 stylishSlimScroll flow-y-auto flow-x-hidden"
-                            *ngIf="post.isCommentShow"
-                          >
-                            <div class="row no-gutters text-center animated fadeIn" *ngFor="let comment of post.comments; let ind = index">
-                              <div class="col-2 text-right">
-                                <img
-                                  class="status-img img-responsive img-circle"
-                                  src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
-                                  alt="User picture"
-                                />
-                              </div>
-                              <div class="col-8">
-                                <mat-form-field class="w100">
-                                  <mat-label>{{ comment.userName }}</mat-label>
-                                  <textarea type="text" matInput #commentBox [(ngModel)]="comment.content" readonly></textarea>
-                                </mat-form-field>
-                              </div>
-                              <div class="col-2">
-                                <button
-                                  *ngIf="comment.userId == user.email"
-                                  mat-mini-fab
-                                  color="primary"
-                                  style="z-index: 9;"
-                                  matTooltipPosition="below"
-                                  matTooltip="Remove Comment"
-                                  (click)="deleteComment(comment, post)"
-                                >
-                                  <mat-icon>delete</mat-icon>
-                                </button>
-                              </div>
-                            </div>
-                            <div class="row no-gutters text-center">
-                              <div class="col-2 text-right">
-                                <img
-                                  *ngIf="user.image && user.image != 'string'"
-                                  matTooltipPosition="below"
-                                  matTooltip="Upload Avatar"
-                                  class="status-img img-responsive img-circle"
-                                  [src]="user.image"
-                                  alt="User picture"
-                                />
-                              </div>
-                              <div class="col-8">
-                                <mat-form-field class="w100">
-                                  <mat-label>Comment</mat-label>
-                                  <textarea type="text" id="commentBox" matInput #commentBox></textarea>
-                                </mat-form-field>
-                              </div>
-                              <div class="col-2">
-                                <button
-                                  mat-mini-fab
-                                  color="primary"
-                                  style="z-index: 9;"
-                                  matTooltipPosition="below"
-                                  matTooltip="Add Comment"
-                                  (click)="postComment(commentBox.value, post)"
-                                >
-                                  <mat-icon>add_circle_outline</mat-icon>
-                                </button>
-                              </div>
-                            </div>
-                          </div>
+                          <ng-template
+                            [ngTemplateOutlet]="comments"
+                            [ngTemplateOutletContext]="{post: post, prevPost: null, parentPost: post, iteration: 0}">
+                          </ng-template>
                         </div>
                       </div>
                     </div>
@@ -654,4 +595,83 @@
 <ng-template #connections>
   <app-social-connections></app-social-connections>
 </ng-template>
+
+
+<ng-template #comments
+  let-post="post"
+  let-iteration="iteration">
+  <div
+    class="album-comments border-top pt-4 pb-2 w100 stylishSlimScroll flow-y-auto flow-x-hidden"
+    *ngIf="post.isCommentShow"
+  >
+    <div class="row no-gutters text-center animated fadeIn" *ngFor="let comment of post.comments; let ind = index">
+      <div class="col-{{ iteration }}"></div>
+      <div class="col-2 text-right">
+        <img
+          class="status-img img-responsive img-circle"
+          src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
+          alt="User picture"
+        />
+      </div>
+      <div class="col-{{ 8 - iteration }}">
+        <mat-form-field class="w100">
+          <mat-label>{{ comment.userName }}</mat-label>
+          <textarea type="text" matInput #commentBox [(ngModel)]="comment.content" readonly></textarea>
+        </mat-form-field>
+        <div class="text-left pb-3">
+          <a class="small pr-2 curPoint" (click)="interactionApiCall('like', comment)">Like</a>
+          <a class="small pr-2 curPoint" (click)="comment.reply = !comment.reply">Reply</a>
+          <a class="small curPoint" (click)="fetchComments(comment, iteration)">Show Replies</a>
+        </div>
+      </div>
+      <div class="col-2">
+        <button
+          *ngIf="comment.userId == user.email"
+          mat-mini-fab
+          color="primary"
+          style="z-index: 9;"
+          matTooltipPosition="below"
+          matTooltip="Remove Comment"
+          (click)="deleteComment(comment, post)"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+      <ng-template 
+        [ngTemplateOutlet]="comments" 
+        [ngTemplateOutletContext]="{post: comment, iteration: iteration + 1}"></ng-template>
+    </div>
+  </div>
+ <div *ngIf="post.reply" class="album-comments pb-4 w100 stylishSlimScroll flow-y-auto flow-x-hidden row no-gutters text-center">
+    <div class="col-{{ iteration }}"></div>
+    <div class="col-2 text-right">
+      <img
+        *ngIf="user.image && user.image != 'string'"
+        matTooltipPosition="below"
+        matTooltip="Upload Avatar"
+        class="status-img img-responsive img-circle"
+        [src]="user.image"
+        alt="User picture"
+      />
+    </div>
+    <div class="col-{{ 8 - iteration }}">
+      <mat-form-field class="w100">
+        <mat-label>Comment</mat-label>
+        <textarea type="text" id="commentBox" matInput #commentBox></textarea>
+      </mat-form-field>
+    </div>
+    <div class="col-2">
+      <button
+        mat-mini-fab
+        color="primary"
+        style="z-index: 9;"
+        matTooltipPosition="below"
+        matTooltip="Add Comment"
+        (click)="postComment(commentBox.value, post)"
+      >
+        <mat-icon>add_circle_outline</mat-icon>
+      </button>
+    </div>
+ </div>
+</ng-template>  
 
