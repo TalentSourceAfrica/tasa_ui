@@ -50,7 +50,7 @@ export const urls: any = {
   getPostByUser: '/posts/user', // G
   getAdminPosts: '/admin/posts', // G
   updatePost: '/posts', // PU
-  deletePost: '/posts/{postId}', // DE
+  deletePost: '/socialPost/{postId}', // DE
   changePostStatus: '/posts/{postId}/{status}', // PO
 
   // upload

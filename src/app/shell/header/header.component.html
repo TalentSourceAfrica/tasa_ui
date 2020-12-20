@@ -112,7 +112,7 @@
             <mat-autocomplete #auto="matAutocomplete">
               <ng-container *ngIf="globalSearchType == 'profile'">
                 <mat-option *ngIf="userSearchConfig.isFetching">
-                  Fetching...
+                  <i class="fas fa-circle-notch pr-2 text-primary"></i> Fetching...
                 </mat-option>
                 <mat-option
                   (click)="showProfile(item.tasaId)"
@@ -132,12 +132,12 @@
                     alt="{{ item.firstName }} {{ item.lastName }}"
                     class="user-img"
                   />
-                  {{ item.firstName }} {{ item.lastName }}
+                  <span [title]="item.firstName + ' ' + item.lastName"> {{ item.firstName }} {{ item.lastName }}</span>
                 </mat-option>
               </ng-container>
               <ng-container *ngIf="globalSearchType == 'organization'">
                 <mat-option *ngIf="orgConfig.isFetching">
-                  Fetching...
+                  <i class="fas fa-circle-notch pr-2 text-primary"></i> Fetching...
                 </mat-option>
                 <mat-option
                   [routerLink]="['/organization/', item.id]"
@@ -158,12 +158,37 @@
                     alt="{{ item.orgName }}"
                     class="user-img"
                   />
-                  {{ item.orgName }}
+                  <span [title]="item.orgName"> {{ item.orgName }}</span>
+                </mat-option>
+              </ng-container>
+              <ng-container *ngIf="globalSearchType == 'course'">
+                <mat-option *ngIf="courseConfig.isFetching">
+                  <i class="fas fa-circle-notch pr-2 text-primary"></i> Fetching...
+                </mat-option>
+                <mat-option
+                  (click)="redirect('course', item.key)"
+                  *ngFor="let item of courseConfig.data"
+                  [value]="item"
+                  class="mb-2 mt-2"
+                >
+                  <img
+                    *ngIf="!item.image_url || item.image_url == 'string'"
+                    src="../../../assets/images/TSA_logo_new.small.png"
+                    class="user-img"
+                    alt="{{ item.orgName }}"
+                  />
+                  <img
+                    *ngIf="item.image_url && item.image_url != 'string'"
+                    [src]="item.image_url"
+                    alt="{{ item.title }}"
+                    class="user-img"
+                  />
+                  <span [title]="item.title">{{ item.title }}</span>
                 </mat-option>
               </ng-container>
               <ng-container *ngIf="globalSearchType == 'job'">
-                <mat-option *ngIf="jobConfig.isFetching">
-                  Fetching...
+                <mat-option *ngIf="courseConfig.isFetching">
+                  <i class="fas fa-circle-notch pr-2 text-primary"></i> Fetching...
                 </mat-option>
                 <mat-option
                   (click)="redirect('job', item.id)"

@@ -9,7 +9,7 @@ import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { delay } from 'underscore';
 import { untilDestroyed } from '@app/@core';
-import { jobsSearchData } from '@app/models/constants';
+import { courseSearchData, jobsSearchData } from '@app/models/constants';
 
 declare var $: any;
 
@@ -39,6 +39,11 @@ export class HeaderComponent implements OnInit {
     data: [],
     searchConfig: '',
   };
+  courseConfig: any = {
+    isFetching: false,
+    data: [],
+    searchConfig: '',
+  };
   constructor(
     private httpClient: HttpClient,
     private router: Router,
@@ -47,6 +52,7 @@ export class HeaderComponent implements OnInit {
     public sharedService: SharedService
   ) {
     this.jobConfig.searchConfig = JSON.parse(JSON.stringify(jobsSearchData));
+    this.courseConfig.searchConfig = JSON.parse(JSON.stringify(courseSearchData));
     this.user.type.toLowerCase() === 'admin' ? (this.isAdmin = true) : (this.isAdmin = false);
   }
 
@@ -62,15 +68,15 @@ export class HeaderComponent implements OnInit {
         case 'organization':
           this.searchGlobalText = this.searchGlobalText.orgName;
           break;
+        case 'course':
+          this.searchGlobalText = this.searchGlobalText.title;
+          break;
       }
     }
   }
 
   globalSearch() {
     let $t = this;
-    if ($t.globalSearchType === 'course') {
-      this.sharedService.utilityService.onCourseSearch(this.searchGlobalText, 'text');
-    }
     if ($t.globalSearchType === 'profile') {
       $t.userSearch();
     }
@@ -79,6 +85,9 @@ export class HeaderComponent implements OnInit {
     }
     if ($t.globalSearchType === 'job') {
       $t.jobSearch();
+    }
+    if ($t.globalSearchType === 'course') {
+      $t.courseSearch();
     }
   }
 
@@ -154,6 +163,30 @@ export class HeaderComponent implements OnInit {
     }
   }
 
+  courseSearch() {
+    let $t = this;
+    $t.courseConfig.isFetching = true;
+    $t.courseConfig.data = [];
+    if ($t.searchGlobalText != '') {
+      $t.courseConfig.searchConfig.text = $t.searchGlobalText;
+      let apiUrl = $t.sharedService.urlService.apiCallWithParams('searchCourse', {
+        '{page}': 1,
+        '{size}': 50,
+      });
+      $t.sharedService.configService.post(apiUrl, $t.jobConfig.searchConfig).subscribe(
+        (response: any) => {
+          $t.courseConfig.isFetching = false;
+          $t.courseConfig.data = response.responseObj.courses;
+          $('#globalSearchInput').focus();
+        },
+        (error) => {
+          $t.courseConfig.isFetching = false;
+          $t.courseConfig.data = [];
+        }
+      );
+    }
+  }
+
   redirect(_type: string, _id?: string) {
     switch (_type) {
       case 'job':
@@ -161,6 +194,13 @@ export class HeaderComponent implements OnInit {
         setTimeout(() => {
           this.sharedService.utilityService.changeMessage('FETCH-JOB-DETAILS');
         }, 500);
+        break;
+      case 'course':
+        this.router.navigate(['/course/', _id], { replaceUrl: true });
+        setTimeout(() => {
+          this.sharedService.utilityService.changeMessage('FETCH-COURSE-DETAILS');
+        }, 500);
+        break;
     }
   }
 

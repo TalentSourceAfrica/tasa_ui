@@ -61,8 +61,8 @@ export class SocialPostsComponent implements OnInit {
       id: '',
       userId: this.user.email,
       userName: this.user.firstName + ' ' + this.user.lastName,
-      userSummary: '',
-      userImageUrl: this.user.userImageUrl,
+      userSummary: this.user.currentRole + ' At '  + this.user.organization,
+      userImageUrl: this.user.image,
       tasaId: this.user.tasaId,
       type: this.user.type,
       content: msg,
@@ -110,7 +110,7 @@ export class SocialPostsComponent implements OnInit {
     $t.sharedService.configService.post(apiUrl, comment).subscribe(
       (response: any) => {
         post.comments == null ? (post.comments = []) : '';
-        response.responseObj.comments.forEach((d: any) =>{
+        response.responseObj.comments.forEach((d: any) => {
           post.comments.push(d);
         });
         jQuery('#commentBox').val('');
@@ -148,10 +148,11 @@ export class SocialPostsComponent implements OnInit {
       let apiUrl = $t.sharedService.urlService.apiCallWithParams('deletePost', { '{postId}': postId });
       $t.sharedService.configService.delete(apiUrl).subscribe(
         (response: any) => {
+          $t.socialConfig.allSocialPost.splice(postIndex, 1);
+          $t.sharedService.uiService.closePopMsg();
           $t.sharedService.utilityService.changeMessage('TRIGGER-HEADER-NOTIFICATIONS-UPDATE');
         },
         (error) => {
-          $t.socialConfig.allSocialPost.splice(postIndex, 1);
           $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
         }
       );
@@ -299,7 +300,7 @@ export class SocialPostsComponent implements OnInit {
       userId: this.user.email,
       reactionType: _reaction,
       reactionByName: $t.user.firstName + ' ' + $t.user.lastName,
-      reactionBySummary: '',
+      reactionBySummary: this.user.currentRole + ' At '  + this.user.organization,
       userImageUrl: $t.user.image,
     };
     $t.sharedService.configService.post(api, payload).subscribe(
@@ -328,8 +329,6 @@ export class SocialPostsComponent implements OnInit {
       }
     );
   }
-
- 
 
   uuidv4Generator() {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
@@ -417,26 +416,26 @@ export class SocialPostsComponent implements OnInit {
     );
   }
 
-  fetchComments( _comment: any, _iteration: Number) {
-     let $t = this;
-     if (_comment.comments.length != 0) {
-       _comment.isCommentShow = !_comment.isCommentShow;
-     } else {
-       let api = $t.sharedService.urlService.apiCallWithParams('getPostById', {
-         '{postId}': _comment.id
-       });
-       $t.sharedService.configService.get(api).subscribe(
-         (response: any) => {
-           response.responseObj.comments.forEach((d: any) => {
-             _comment.comments.push(d);
-           });
-           _comment.isCommentShow = !_comment.isCommentShow;
-         }, 
-         error => {
-           $t.sharedService.uiService.showApiErrorPopMsg(error);
-         }
-       );
-     }
+  fetchComments(_comment: any, _iteration: Number) {
+    let $t = this;
+    if (_comment.comments.length != 0) {
+      _comment.isCommentShow = !_comment.isCommentShow;
+    } else {
+      let api = $t.sharedService.urlService.apiCallWithParams('getPostById', {
+        '{postId}': _comment.id,
+      });
+      $t.sharedService.configService.get(api).subscribe(
+        (response: any) => {
+          response.responseObj.comments.forEach((d: any) => {
+            _comment.comments.push(d);
+          });
+          _comment.isCommentShow = !_comment.isCommentShow;
+        },
+        (error) => {
+          $t.sharedService.uiService.showApiErrorPopMsg(error);
+        }
+      );
+    }
   }
 
   ngOnInit(): void {
@@ -447,5 +446,6 @@ export class SocialPostsComponent implements OnInit {
   }
   ngAfterViewInit(): void {
     this.conectionDrawer.open();
+    this.cdr.detectChanges();
   }
 }

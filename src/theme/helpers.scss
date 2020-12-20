@@ -783,7 +783,8 @@ a {
 
 .mat-flat-button.mat-primary,
 .mat-raised-button.mat-primary,
-.mat-fab.mat-primary,.mat-icon,
+.mat-fab.mat-primary,
+.mat-icon,
 .mat-mini-fab.mat-primary {
   &:hover {
     background-color: #523f6d !important;
@@ -1506,6 +1507,7 @@ button:hover,
 }
 .mat-menu-item {
   height: 35px !important;
+  line-height: 35px !important;
 }
 
 .ls-1 {

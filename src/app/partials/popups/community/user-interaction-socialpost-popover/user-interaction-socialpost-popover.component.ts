@@ -23,6 +23,7 @@ export class UserInteractionSocialpostPopoverComponent implements OnInit {
 		public sharedService: SharedService
 	) { 
 		this.popupData = data;
+		console.log(this.popupData);
 	}
 
 	createAllReactions() {

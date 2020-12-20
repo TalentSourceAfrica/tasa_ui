@@ -3,6 +3,7 @@ import { SharedService } from '@app/services/shared.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CredentialsService, AuthenticationService } from '@app/auth';
 import { DomSanitizer } from '@angular/platform-browser';
+import { untilDestroyed } from '@app/@core';
 
 @Component({
   selector: 'app-course',
@@ -76,14 +77,24 @@ export class CourseComponent implements OnInit {
   }
 
   getCourseVideo(_url: any) {
-    // return 'https://www.youtube.com/embed/tgbNymZ7vqY';
     return this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/watch?v=OiRfkH5_MSM');
   }
 
   ngOnInit(): void {
-    this.getCourseDetail();
+    this.sharedService.utilityService.changeMessage('FETCH-COURSE-DETAILS');
+    this.sharedService.utilityService.currentMessage.pipe(untilDestroyed(this)).subscribe((message) => {
+      if (message === 'FETCH-COURSE-DETAILS') {
+        this.getCourseDetail();
+      }
+    });
+
     window.scrollTo(0, 0);
     this.sharedService.utilityService.requiredStyleForHomeHeader();
+  }
+
+  ngOnDestroy(): void {
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
   }
 
   get user(): any | null {
