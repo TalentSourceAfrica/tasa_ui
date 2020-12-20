@@ -9,6 +9,7 @@ import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { delay } from 'underscore';
 import { untilDestroyed } from '@app/@core';
+import { jobsSearchData } from '@app/models/constants';
 
 declare var $: any;
 
@@ -25,6 +26,19 @@ export class HeaderComponent implements OnInit {
   notificationsData: any = [];
   searchGlobalText: any = '';
   globalSearchType = 'course';
+  userSearchConfig: any = {
+    isFetching: false,
+    data: [],
+  };
+  orgConfig: any = {
+    isFetching: false,
+    data: [],
+  };
+  jobConfig: any = {
+    isFetching: false,
+    data: [],
+    searchConfig: '',
+  };
   constructor(
     private httpClient: HttpClient,
     private router: Router,
@@ -32,13 +46,121 @@ export class HeaderComponent implements OnInit {
     private credentialsService: CredentialsService,
     public sharedService: SharedService
   ) {
+    this.jobConfig.searchConfig = JSON.parse(JSON.stringify(jobsSearchData));
     this.user.type.toLowerCase() === 'admin' ? (this.isAdmin = true) : (this.isAdmin = false);
+  }
+
+  gsVal() {
+    if (typeof this.searchGlobalText === 'object') {
+      switch (this.globalSearchType) {
+        case 'profile':
+          this.searchGlobalText = this.searchGlobalText.firstName + ' ' + this.searchGlobalText.lastName;
+          break;
+        case 'job':
+          this.searchGlobalText = this.searchGlobalText.title;
+          break;
+        case 'organization':
+          this.searchGlobalText = this.searchGlobalText.orgName;
+          break;
+      }
+    }
   }
 
   globalSearch() {
     let $t = this;
     if ($t.globalSearchType === 'course') {
       this.sharedService.utilityService.onCourseSearch(this.searchGlobalText, 'text');
+    }
+    if ($t.globalSearchType === 'profile') {
+      $t.userSearch();
+    }
+    if ($t.globalSearchType === 'organization') {
+      $t.orgSearch();
+    }
+    if ($t.globalSearchType === 'job') {
+      $t.jobSearch();
+    }
+  }
+
+  userSearch() {
+    let $t = this;
+    $t.userSearchConfig.isFetching = true;
+    $t.userSearchConfig.data = [];
+    if ($t.searchGlobalText != '') {
+      let apiUrl = $t.sharedService.urlService.apiCallWithParams('searchUser', {
+        '{page}': 1,
+        '{size}': 50,
+        '{searchText}': $t.searchGlobalText,
+      });
+      $t.sharedService.configService.post(apiUrl).subscribe(
+        (response: any) => {
+          $t.userSearchConfig.isFetching = false;
+          $t.userSearchConfig.data = response.responseObj;
+          $('#globalSearchInput').focus();
+        },
+        (error) => {
+          $t.userSearchConfig.isFetching = false;
+          $t.userSearchConfig.data = [];
+        }
+      );
+    }
+  }
+
+  orgSearch() {
+    let $t = this;
+    $t.orgConfig.isFetching = true;
+    $t.orgConfig.data = [];
+    if ($t.searchGlobalText != '') {
+      let apiUrl = $t.sharedService.urlService.apiCallWithParams('searchOrganization', {
+        '{page}': 1,
+        '{size}': 50,
+        '{searchText}': $t.searchGlobalText,
+      });
+      $t.sharedService.configService.post(apiUrl).subscribe(
+        (response: any) => {
+          $t.orgConfig.isFetching = false;
+          $t.orgConfig.data = response.responseObj;
+          $('#globalSearchInput').focus();
+        },
+        (error) => {
+          $t.orgConfig.isFetching = false;
+          $t.orgConfig.data = [];
+        }
+      );
+    }
+  }
+
+  jobSearch() {
+    let $t = this;
+    $t.jobConfig.isFetching = true;
+    $t.jobConfig.data = [];
+    if ($t.searchGlobalText != '') {
+      $t.jobConfig.searchConfig.text = $t.searchGlobalText;
+      let apiUrl = $t.sharedService.urlService.apiCallWithParams('searchJobs', {
+        '{page}': 1,
+        '{size}': 50,
+      });
+      $t.sharedService.configService.post(apiUrl, $t.jobConfig.searchConfig).subscribe(
+        (response: any) => {
+          $t.jobConfig.isFetching = false;
+          $t.jobConfig.data = response.responseObj.jobs;
+          $('#globalSearchInput').focus();
+        },
+        (error) => {
+          $t.jobConfig.isFetching = false;
+          $t.jobConfig.data = [];
+        }
+      );
+    }
+  }
+
+  redirect(_type: string, _id?: string) {
+    switch (_type) {
+      case 'job':
+        this.router.navigate(['/job/', _id], { replaceUrl: true });
+        setTimeout(() => {
+          this.sharedService.utilityService.changeMessage('FETCH-JOB-DETAILS');
+        }, 500);
     }
   }
 

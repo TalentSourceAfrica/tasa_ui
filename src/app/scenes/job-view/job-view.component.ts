@@ -1,7 +1,9 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { SharedService } from '@app/services/shared.service';
 import { CredentialsService, AuthenticationService } from '@app/auth';
+import { delay } from 'underscore';
+import { untilDestroyed } from '@app/@core';
 
 @Component({
   selector: 'app-job-view',
@@ -20,7 +22,7 @@ export class JobViewComponent implements OnInit {
   applied: boolean = false;
   isAdmin: boolean = false;
   isRecruiter: boolean = false;
-
+  isCurrentDateIsExpDate: boolean = false;
   constructor(
     private sharedService: SharedService,
     public route: ActivatedRoute,
@@ -28,7 +30,6 @@ export class JobViewComponent implements OnInit {
     public credentialsService: CredentialsService,
     public authenticationService: AuthenticationService
   ) {
-    this.jobConfig.jobId = this.route.snapshot.params.jobId;
     this.uds = this.sharedService.plugins.undSco;
     this.user && this.user.type.toLowerCase() === 'admin' ? (this.isAdmin = true) : (this.isAdmin = false);
     this.user && this.user.type.toLowerCase() === 'recruiter' ? (this.isRecruiter = true) : (this.isRecruiter = false);
@@ -54,6 +55,7 @@ export class JobViewComponent implements OnInit {
 
   getJobDetail() {
     let $t = this;
+    $t.jobConfig.jobId = $t.route.snapshot.params.jobId;
     $t.jobConfig.fetchingJob = true;
     let apiUrl = $t.sharedService.urlService.apiCallWithParams('getJob', {
       '{jobId}': $t.jobConfig.jobId,
@@ -64,6 +66,13 @@ export class JobViewComponent implements OnInit {
     $t.sharedService.configService.get(apiUrl).subscribe(
       (response: any) => {
         $t.jobConfig.job = response.responseObj;
+        const date = this.sharedService.plugins.mom($t.jobConfig.job.expireOn).format('DD/MM/YYYY');
+        const now = this.sharedService.plugins.mom().format('DD/MM/YYYY');
+        if (now > date || now == date) {
+          $t.isCurrentDateIsExpDate = true;
+        } else {
+          $t.isCurrentDateIsExpDate = false;
+        }
         $t.jobConfig.fetchingJob = false;
 
         if ($t.user) {
@@ -157,15 +166,25 @@ export class JobViewComponent implements OnInit {
       }
     );
   }
-  
-  getFormatDate(_date:any){
+
+  getFormatDate(_date: any) {
     return this.sharedService.plugins.mom(_date).format('DD/MM/YYYY');
   }
 
   ngOnInit(): void {
-    this.getJobDetail();
+    this.sharedService.utilityService.changeMessage('FETCH-JOB-DETAILS');
+    this.sharedService.utilityService.currentMessage.pipe(untilDestroyed(this)).subscribe((message) => {
+      if (message === 'FETCH-JOB-DETAILS') {
+        this.getJobDetail();
+      }
+    });
   }
-
+  
+  ngOnDestroy(): void {
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
+    
+  }
   get user(): any | null {
     const credentials = this.credentialsService.credentials;
     return credentials ? credentials : null;

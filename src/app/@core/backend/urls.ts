@@ -19,6 +19,7 @@ export const urls: any = {
   checkCurrentPassword: '/checkPassword/{email}/{currentPassword}', // PO
   activateUser: '/users/activate/{userId}', // PO
   deactivateUser: '/users/deactivate/{userId}', // PO
+  searchUser:'/user/search/{page}/{size}/{searchText}', // G
 
   // location
   getCountry: '/locations', // G
@@ -116,6 +117,7 @@ export const urls: any = {
   addOrganization: '/organization/{type}', // PO
   updateOrganization: '/organization/bulk/{userId}', // PO
   updateSingleOrganization: '/organization', // PU
+  searchOrganization:'/organisation/search/{page}/{size}/{searchText}', // G
 
   // Notification
   getAllNotifications: '/notifications/all/{userId}', // G
