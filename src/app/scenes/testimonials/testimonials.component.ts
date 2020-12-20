@@ -15,7 +15,7 @@ export class TestimonialsComponent implements OnInit {
   }
 
   addPost() {
-    this.postData.push({
+    this.postData.unshift({
       id: '',
       name: this.user.firstName + ' ' + this.user.lastName,
       image: this.user.image,
