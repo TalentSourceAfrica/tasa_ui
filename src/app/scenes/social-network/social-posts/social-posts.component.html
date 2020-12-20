@@ -420,7 +420,7 @@
                           </div>
                           <ng-template
                             [ngTemplateOutlet]="comments"
-                            [ngTemplateOutletContext]="{ post: post, prevPost: null, parentPost: post, iteration: 0 }"
+                            [ngTemplateOutletContext]="{ post: post, iteration: 0 }"
                           >
                           </ng-template>
                         </div>
@@ -692,8 +692,38 @@
           <mat-label>{{ comment.userName }}</mat-label>
           <textarea type="text" matInput #commentBox [(ngModel)]="comment.content" readonly></textarea>
         </mat-form-field>
-        <div class="text-left mb-3" style="margin-top: -15px;">
-          <a class="small pr-2 curPoint" (click)="interactionApiCall('like', comment)">Like</a>
+        <div class="text-left mt-1 pb-3" style="margin-top: -15px;">
+          <a
+            class="small pr-2 curPoint" 
+            data-id="{{ comment.id }}" 
+            (mouseenter)="userInteractionPopover($event, comment)">
+            <span *ngIf="noOtherReactionPresent(comment)">
+              <span  
+                (click)="interactionInInteractionApiCall('like', comment)" 
+                *ngIf="!isReacted('like', comment)">Like
+              </span>
+              <span
+                class="liked-color" 
+                (click)="interactionInInteractionApiCall('like', comment, 'removeReactionFromPost')" 
+                *ngIf="isReacted('like', comment)">Like
+              </span>
+            </span>
+            <span
+              class="clap-color" 
+              (click)="interactionInInteractionApiCall('clap', comment, 'removeReactionFromPost')" 
+              *ngIf="isReacted('clap', comment)">Clap
+            </span>
+            <span
+              class="congrats-color" 
+              (click)="interactionInInteractionApiCall('congrats', comment, 'removeReactionFromPost')" 
+              *ngIf="isReacted('congrats', comment)">Congrats
+            </span>
+            <span
+              class="curious-color" 
+              (click)="interactionInInteractionApiCall('curious', comment, 'removeReactionFromPost')" 
+              *ngIf="isReacted('curious', comment)">Curious
+            </span>  
+          </a>
           <a class="small pr-2 curPoint" (click)="comment.reply = !comment.reply">Reply</a>
           <a class="small curPoint" (click)="fetchComments(comment, iteration)">Show Replies</a>
         </div>

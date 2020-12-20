@@ -165,9 +165,9 @@ export class SocialPostsComponent implements OnInit {
     return credentials ? credentials : null;
   }
 
-  userInteractionPopover(_event?: any) {
+  userInteractionPopover(_event?: any, _comment?: any) {
     let $t = this;
-    let postInfo = this.socialConfig.allSocialPost.find((m: any) => m.id == _event.srcElement.id);
+    let postInfo = _comment == undefined ? this.socialConfig.allSocialPost.find((m: any) => m.id == _event.srcElement.id) : _comment;
     let _content = `<div class="rounded-pill py-1">
                   <img src="./assets/images/social/like.svg" class="curPoint pr-1 interactIcon" id="btn-like" title="Like" width="35px">
                   <img src="./assets/images/social/celebrate.svg" class="pr-1 curPoint interactIcon" id="btn-clap" title="Clap" width="35px">
@@ -191,22 +191,22 @@ export class SocialPostsComponent implements OnInit {
           jQuery('[id="btn-like"]')
             .off()
             .on('click', () => {
-              $t.interactionApiCall('like', postInfo);
+              _comment == undefined ? $t.interactionApiCall('like', postInfo) : $t.interactionInInteractionApiCall('like', postInfo);
             });
           jQuery('[id="btn-clap"]')
             .off()
             .on('click', (_event: any) => {
-              $t.interactionApiCall('clap', postInfo);
+              _comment == undefined ? $t.interactionApiCall('clap', postInfo) : $t.interactionInInteractionApiCall('clap', postInfo);
             });
           jQuery('[id="btn-congrats"]')
             .off()
             .on('click', () => {
-              $t.interactionApiCall('congrats', postInfo);
+               _comment == undefined ? $t.interactionApiCall('congrats', postInfo) : $t.interactionInInteractionApiCall('congrats', postInfo);
             });
           jQuery('[id="btn-curious"]')
             .off()
             .on('click', () => {
-              $t.interactionApiCall('curious', postInfo);
+               _comment == undefined ? $t.interactionApiCall('curious', postInfo) : $t.interactionInInteractionApiCall('curious', postInfo);
             });
         },
       });
@@ -267,10 +267,63 @@ export class SocialPostsComponent implements OnInit {
     }
   }
 
-  interactionApiCall(_reaction: string, _postInfo: any, _api?: string) {
+   interactionApiCall(_reaction: string, _postInfo: any, _api?: string) {
     let $t = this;
-    let payload = {},
-      api;
+    let obj = $t.createPayloadAndApi(_reaction, _postInfo, _api);
+    $t.sharedService.configService.post(obj.api, obj.payload).subscribe(
+      (response) => {
+        if (_api == 'removeReactionFromPost') {
+          let post = $t.socialConfig.allSocialPost.find((x: any) => x.id == _postInfo.id);
+          let reaction = post.reactions.find((z: any) => z.id == obj.payload.reactionId);
+          $t.socialConfig.allSocialPost[$t.socialConfig.allSocialPost.indexOf(post)].reactions.splice(
+            $t.socialConfig.allSocialPost[$t.socialConfig.allSocialPost.indexOf(post)].reactions.indexOf(reaction),
+            1
+          );
+        } else {
+          _postInfo.reactions == null ? (_postInfo.reactions = []) : '';
+          let reaction = $t.socialConfig.allSocialPost
+            .find((x: any) => x.id == _postInfo.id)
+            .reactions.find((z: any) => z.id == obj.payload.id);
+          reaction == undefined
+            ? $t.socialConfig.allSocialPost.find((x: any) => x.id == _postInfo.id).reactions.push(obj.payload)
+            : (reaction.reactionType = _reaction);
+        }
+        $t.sharedService.utilityService.changeMessage('TRIGGER-HEADER-NOTIFICATIONS-UPDATE');
+        $t.cdr.detectChanges();
+      },
+      (error) => {
+        $t.sharedService.uiService.showApiErrorPopMsg(error);
+      }
+    );
+  }
+
+  interactionInInteractionApiCall(_reaction: string, _postInfo: any, _api?: string) {
+    let $t = this;
+    let obj = $t.createPayloadAndApi(_reaction, _postInfo, _api);
+    $t.sharedService.configService.post(obj.api, obj.payload).subscribe(
+      (response) => {
+        if (_api == 'removeReactionFromPost') {
+          let reaction = _postInfo.reactions.find((z: any) => z.id == obj.payload.reactionId);
+          _postInfo.reactions.splice(_postInfo.reactions.indexOf(obj.payload), 1);
+        } else {
+          _postInfo.reactions == null ? (_postInfo.reactions = []) : '';
+          let isPresent = _postInfo.reactions.find((x: any) => x.id == obj.payload.id);
+          isPresent == undefined 
+            ? _postInfo.reactions.push(obj.payload)
+            : isPresent.reactionType = _reaction;
+        }
+        $t.sharedService.utilityService.changeMessage('TRIGGER-HEADER-NOTIFICATIONS-UPDATE');
+        $t.cdr.detectChanges();
+      },
+      (error) => {
+        $t.sharedService.uiService.showApiErrorPopMsg(error);
+      }
+    );
+  }
+
+  createPayloadAndApi(_reaction: string, _postInfo: any, _api?: string) {
+    let $t = this;
+    let payload: any = {}, api;
     let reactionId: string = '';
     if (_postInfo.reactions != null) {
       _postInfo.reactions.forEach((x: any) => {
@@ -288,11 +341,8 @@ export class SocialPostsComponent implements OnInit {
             '{postId}': _postInfo.id,
             '{reactionId}': reactionId,
           });
-    if (reactionId == '') {
-      reactionId = $t.uuidv4Generator();
-    }
     payload = {
-      id: reactionId == '' ? '' : reactionId,
+      id: reactionId == '' ? $t.uuidv4Generator() : reactionId,
       reactionBy: $t.user.email,
       reactionOn: '',
       tasaId: this.user.tasaId,
@@ -300,34 +350,13 @@ export class SocialPostsComponent implements OnInit {
       userId: this.user.email,
       reactionType: _reaction,
       reactionByName: $t.user.firstName + ' ' + $t.user.lastName,
-      reactionBySummary: this.user.currentRole + ' At '  + this.user.organization,
+      reactionBySummary: '',
       userImageUrl: $t.user.image,
     };
-    $t.sharedService.configService.post(api, payload).subscribe(
-      (response) => {
-        if (_api == 'removeReactionFromPost') {
-          let post = $t.socialConfig.allSocialPost.find((x: any) => x.id == _postInfo.id);
-          let reaction = post.reactions.find((z: any) => z.id == reactionId);
-          $t.socialConfig.allSocialPost[$t.socialConfig.allSocialPost.indexOf(post)].reactions.splice(
-            $t.socialConfig.allSocialPost[$t.socialConfig.allSocialPost.indexOf(post)].reactions.indexOf(reaction),
-            1
-          );
-        } else {
-          _postInfo.reactions == null ? (_postInfo.reactions = []) : '';
-          let reaction = $t.socialConfig.allSocialPost
-            .find((x: any) => x.id == _postInfo.id)
-            .reactions.find((z: any) => z.id == reactionId);
-          reaction == undefined
-            ? $t.socialConfig.allSocialPost.find((x: any) => x.id == _postInfo.id).reactions.push(payload)
-            : (reaction.reactionType = _reaction);
-        }
-        $t.sharedService.utilityService.changeMessage('TRIGGER-HEADER-NOTIFICATIONS-UPDATE');
-        $t.cdr.detectChanges();
-      },
-      (error) => {
-        $t.sharedService.uiService.showApiErrorPopMsg(error);
-      }
-    );
+    return {
+      api: api,
+      payload: payload
+    }
   }
 
   uuidv4Generator() {
