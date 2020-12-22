@@ -36,10 +36,10 @@
             <mat-icon>menu</mat-icon>
           </button>
           <mat-menu #menu="matMenu">
-            <button mat-menu-item>
+            <button mat-menu-item (click)="getAllSocialPost()">
               All Post
             </button>
-            <button mat-menu-item>
+            <button mat-menu-item (click)="getUserSpecificPost()">
               My Post
             </button>
           </mat-menu>
@@ -246,7 +246,10 @@
                     <div
                       class="min-vertical-h-65 max-vertical-h-65 mt-2 stylishSlimScroll flow-y-auto flow-x-hidden pt-2 pl-4 pr-4"
                     >
-                      <div class="album box" *ngFor="let post of socialConfig.allSocialPost; let postIndex = index">
+                      <div
+                        class="album box mb-4"
+                        *ngFor="let post of socialConfig.allSocialPost; let postIndex = index"
+                      >
                         <div *ngIf="post.post">
                           <div class="status-main pt-3">
                             <img
@@ -694,35 +697,39 @@
         </mat-form-field>
         <div class="text-left mt-1 pb-3" style="margin-top: -15px;">
           <a
-            class="small pr-2 curPoint" 
-            data-id="{{ comment.id }}" 
-            (mouseenter)="userInteractionPopover($event, comment)">
+            class="small pr-2 curPoint"
+            data-id="{{ comment.id }}"
+            (mouseenter)="userInteractionPopover($event, comment)"
+          >
             <span *ngIf="noOtherReactionPresent(comment)">
-              <span  
-                (click)="interactionInInteractionApiCall('like', comment)" 
-                *ngIf="!isReacted('like', comment)">Like
+              <span (click)="interactionInInteractionApiCall('like', comment)" *ngIf="!isReacted('like', comment)"
+                >Like
               </span>
               <span
-                class="liked-color" 
-                (click)="interactionInInteractionApiCall('like', comment, 'removeReactionFromPost')" 
-                *ngIf="isReacted('like', comment)">Like
+                class="liked-color"
+                (click)="interactionInInteractionApiCall('like', comment, 'removeReactionFromPost')"
+                *ngIf="isReacted('like', comment)"
+                >Like
               </span>
             </span>
             <span
-              class="clap-color" 
-              (click)="interactionInInteractionApiCall('clap', comment, 'removeReactionFromPost')" 
-              *ngIf="isReacted('clap', comment)">Clap
+              class="clap-color"
+              (click)="interactionInInteractionApiCall('clap', comment, 'removeReactionFromPost')"
+              *ngIf="isReacted('clap', comment)"
+              >Clap
             </span>
             <span
-              class="congrats-color" 
-              (click)="interactionInInteractionApiCall('congrats', comment, 'removeReactionFromPost')" 
-              *ngIf="isReacted('congrats', comment)">Congrats
+              class="congrats-color"
+              (click)="interactionInInteractionApiCall('congrats', comment, 'removeReactionFromPost')"
+              *ngIf="isReacted('congrats', comment)"
+              >Congrats
             </span>
             <span
-              class="curious-color" 
-              (click)="interactionInInteractionApiCall('curious', comment, 'removeReactionFromPost')" 
-              *ngIf="isReacted('curious', comment)">Curious
-            </span>  
+              class="curious-color"
+              (click)="interactionInInteractionApiCall('curious', comment, 'removeReactionFromPost')"
+              *ngIf="isReacted('curious', comment)"
+              >Curious
+            </span>
           </a>
           <a class="small pr-2 curPoint" (click)="comment.reply = !comment.reply">Reply</a>
           <a class="small curPoint" (click)="fetchComments(comment, iteration)">Show Replies</a>

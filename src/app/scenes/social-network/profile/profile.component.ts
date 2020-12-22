@@ -1,4 +1,5 @@
-import { Component, OnInit, ViewChild ,ChangeDetectorRef} from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { untilDestroyed } from '@app/@core';
 import { CredentialsService } from '@app/auth';
@@ -22,7 +23,8 @@ export class ProfileComponent implements OnInit {
     public credentialsService: CredentialsService,
     private sharedService: SharedService,
     private route: ActivatedRoute,
-    private cdr :ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    public sanitizer: DomSanitizer
   ) {
     this.sharedService.utilityService.changeMessage('FETCH-USER-PROFILE');
   }

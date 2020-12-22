@@ -20,7 +20,9 @@
         <ol class="breadcrumb mt-3">
           <li class="breadcrumb-item curPoint"><a [routerLink]="['/home']">Home</a></li>
           <li class="breadcrumb-item active">Profile</li>
-          <li class="breadcrumb-item active" *ngIf="!isCurrentUser">{{ userConfig.user.firstName }} {{ userConfig.user.lastName }}</li>
+          <li class="breadcrumb-item active" *ngIf="!isCurrentUser">
+            {{ userConfig.user.firstName }} {{ userConfig.user.lastName }}
+          </li>
         </ol>
         <div class="sec-title">
           <div class="title" *ngIf="isCurrentUser">My Profile</div>
@@ -53,18 +55,38 @@
                             </div>
                           </div>
                           <div class="col-10">
-                            <h1 class="display-2 text-white">
-                              <strong class="text-primary">{{ userConfig.user.firstName }} {{ userConfig.user.lastName }}</strong>
+                            <h1 class="display-2 text-white mb-0">
+                              <strong class="text-primary"
+                                >{{ userConfig.user.firstName }} {{ userConfig.user.lastName }}</strong
+                              >
                             </h1>
+
+                            <h3 class="text-white mt-0">
+                              <span class="text-primary">
+                                {{ userConfig.user.currentRole }} At {{ userConfig.user.organization }}
+                              </span>
+                            </h3>
                             <h3 class="text-white mt-0 mb-0">
                               <span
                                 >Lives In
-                                <strong class="text-primary">{{ userConfig.user.city }}, {{ userConfig.user.country }}</strong></span
+                                <strong class="text-primary"
+                                  >{{ userConfig.user.city }}, {{ userConfig.user.country }}</strong
+                                ></span
                               >
                             </h3>
-                            <h3 class="text-white mt-0 mb-5">
+                            <h3 class="text-white mt-0 mb-0">
                               <span
-                                >Interested In <strong class="text-primary">{{ userConfig.user.areaOfPreference }}</strong></span
+                                >Interested In
+                                <strong class="text-primary">{{ userConfig.user.areaOfPreference }}</strong></span
+                              >
+                            </h3>
+                            <h3
+                              class="text-white mt-0 mb-5"
+                              *ngIf="userConfig.user.experience && userConfig.user.experience != ''"
+                            >
+                              <span
+                                >Total Experience
+                                <strong class="text-primary">{{ userConfig.user.experience }} Years.</strong></span
                               >
                             </h3>
                           </div>
@@ -96,7 +118,10 @@
                     <div class="card-header text-center border-0 pt-4 pt-md-4 pb-0"></div>
                     <div class="card-body mt-3">
                       <div class="text-center">
-                        <h3>{{ userConfig.user.firstName }} {{ userConfig.user.lastName }}<span class="font-weight-light"></span></h3>
+                        <h3>
+                          {{ userConfig.user.firstName }} {{ userConfig.user.lastName
+                          }}<span class="font-weight-light"></span>
+                        </h3>
                         <div class="h5 font-weight-300">
                           <i class="ni location_pin mr-2"></i>{{ userConfig.user.city }} , {{ userConfig.user.country }}
                         </div>
@@ -210,6 +235,22 @@
                             <!-- <textarea rows="4" class="form-control form-control-alternative" placeholder="A few words about you ...">A beautiful Dashboard for Bootstrap 4. It is Free and Open Source.</textarea> -->
                           </div>
                         </div>
+                        <ng-container *ngIf="userConfig.user.certificates && userConfig.user.certificates != ''">
+                          <hr class="my-4" />
+                          <!-- Description -->
+                          <h3 class="heading-small text-muted mb-4">Featured</h3>
+                          <div class="pl-lg-4">
+                            <div class="form-group focused" style="height: 300px;">
+                              <label>Certificate</label>
+                              <ngx-doc-viewer
+                                [viewerUrl]="'https://docs.google.com/gview?url=%URL%&embedded=true'"
+                                [url]="userConfig.user.certificates"
+                                viewer="url"
+                                style="width: 100%; height: 100%;"
+                              ></ngx-doc-viewer>
+                            </div>
+                          </div>
+                        </ng-container>
                       </form>
                     </div>
                   </div>

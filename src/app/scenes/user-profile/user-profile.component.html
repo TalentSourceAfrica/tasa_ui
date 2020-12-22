@@ -175,6 +175,12 @@
                   </div>
                 </div>
               </div>
+              <div class="mt-1" *ngIf="entry.id == 'certificate'">
+                <p>
+                  <strong>Supported File :</strong>
+                  <span class="text-muted ml-2" *ngFor="let item of suportedFile">{{ item }}</span>
+                </p>
+              </div>
               <ng-container *ngIf="entry.id == 'college'" formArrayName="college">
                 <div
                   class="input-group input-group-merge"
@@ -488,7 +494,11 @@
                     required
                     class="form-control form-control-prepended"
                   >
-                    <mat-option *ngFor="let item of organisationList" (click)="onOrgChange(item)" [value]="item.orgName">
+                    <mat-option
+                      *ngFor="let item of organisationList"
+                      (click)="onOrgChange(item)"
+                      [value]="item.orgName"
+                    >
                       {{ item.orgName }}
                     </mat-option>
                   </mat-select>

@@ -109,9 +109,7 @@ export class UtilityService {
   }
 
   ValidateImageUpload(FileUploadPath: any) {
-    //To check if user upload any file
     var Extension = FileUploadPath.substring(FileUploadPath.lastIndexOf('.') + 1).toLowerCase();
-    //The file uploaded is an image
     if (Extension == 'gif' || Extension == 'png' || Extension == 'bmp' || Extension == 'jpeg' || Extension == 'jpg') {
       return true;
     } else {
@@ -120,10 +118,17 @@ export class UtilityService {
   }
 
   ValidateResumeUpload(FileUploadPath: any) {
-    //To check if user upload any file
     var Extension = FileUploadPath.substring(FileUploadPath.lastIndexOf('.') + 1).toLowerCase();
-    //The file uploaded is an image
     if (Extension == 'pdf' || Extension == 'doc' || Extension == 'docx' || Extension == 'psd') {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  ValidateCertificateUpload(FileUploadPath: any) {
+    var Extension = FileUploadPath.substring(FileUploadPath.lastIndexOf('.') + 1).toLowerCase();
+    if (Extension == 'pdf' || Extension == 'png' || Extension == 'jpeg' || Extension == 'jpg') {
       return true;
     } else {
       return false;

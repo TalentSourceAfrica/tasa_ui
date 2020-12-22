@@ -9,7 +9,8 @@
           </div>
         </div>
       </ng-container>
-      <div class="user animated fadeIn" *ngFor="let user of allUsers">
+      <div class="user animated fadeIn" [ngClass]="{'shadow-sm': user.mouseOvered}" (mouseover)="user.mouseOvered=true"
+      (mouseout)="user.mouseOvered=false" *ngFor="let user of allUsers">
         <div class="w90 d-flex align-items-center">
           <img
             *ngIf="!user.image || user.image == 'string'"

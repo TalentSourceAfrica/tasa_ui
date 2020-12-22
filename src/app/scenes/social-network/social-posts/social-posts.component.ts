@@ -56,12 +56,28 @@ export class SocialPostsComponent implements OnInit {
     );
   }
 
+  getUserSpecificPost() {
+    this.socialConfig.isLoading = true;
+    let apiUrl = this.sharedService.urlService.apiCallWithParams('getPostsByUser', {
+      '{userId}': this.user.email,
+    });
+    this.sharedService.configService.get(apiUrl).subscribe(
+      (response: any) => {
+        this.socialConfig.allSocialPost = response.responseObj;
+        this.socialConfig.isLoading = false;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
   postComment(msg: any, post: any, _comment?: any) {
     let comment: any = {
       id: '',
       userId: this.user.email,
       userName: this.user.firstName + ' ' + this.user.lastName,
-      userSummary: this.user.currentRole + ' At '  + this.user.organization,
+      userSummary: this.user.currentRole + ' At ' + this.user.organization,
       userImageUrl: this.user.image,
       tasaId: this.user.tasaId,
       type: this.user.type,
@@ -167,7 +183,8 @@ export class SocialPostsComponent implements OnInit {
 
   userInteractionPopover(_event?: any, _comment?: any) {
     let $t = this;
-    let postInfo = _comment == undefined ? this.socialConfig.allSocialPost.find((m: any) => m.id == _event.srcElement.id) : _comment;
+    let postInfo =
+      _comment == undefined ? this.socialConfig.allSocialPost.find((m: any) => m.id == _event.srcElement.id) : _comment;
     let _content = `<div class="rounded-pill py-1">
                   <img src="./assets/images/social/like.svg" class="curPoint pr-1 interactIcon" id="btn-like" title="Like" width="35px">
                   <img src="./assets/images/social/celebrate.svg" class="pr-1 curPoint interactIcon" id="btn-clap" title="Clap" width="35px">
@@ -191,22 +208,30 @@ export class SocialPostsComponent implements OnInit {
           jQuery('[id="btn-like"]')
             .off()
             .on('click', () => {
-              _comment == undefined ? $t.interactionApiCall('like', postInfo) : $t.interactionInInteractionApiCall('like', postInfo);
+              _comment == undefined
+                ? $t.interactionApiCall('like', postInfo)
+                : $t.interactionInInteractionApiCall('like', postInfo);
             });
           jQuery('[id="btn-clap"]')
             .off()
             .on('click', (_event: any) => {
-              _comment == undefined ? $t.interactionApiCall('clap', postInfo) : $t.interactionInInteractionApiCall('clap', postInfo);
+              _comment == undefined
+                ? $t.interactionApiCall('clap', postInfo)
+                : $t.interactionInInteractionApiCall('clap', postInfo);
             });
           jQuery('[id="btn-congrats"]')
             .off()
             .on('click', () => {
-               _comment == undefined ? $t.interactionApiCall('congrats', postInfo) : $t.interactionInInteractionApiCall('congrats', postInfo);
+              _comment == undefined
+                ? $t.interactionApiCall('congrats', postInfo)
+                : $t.interactionInInteractionApiCall('congrats', postInfo);
             });
           jQuery('[id="btn-curious"]')
             .off()
             .on('click', () => {
-               _comment == undefined ? $t.interactionApiCall('curious', postInfo) : $t.interactionInInteractionApiCall('curious', postInfo);
+              _comment == undefined
+                ? $t.interactionApiCall('curious', postInfo)
+                : $t.interactionInInteractionApiCall('curious', postInfo);
             });
         },
       });
@@ -267,7 +292,7 @@ export class SocialPostsComponent implements OnInit {
     }
   }
 
-   interactionApiCall(_reaction: string, _postInfo: any, _api?: string) {
+  interactionApiCall(_reaction: string, _postInfo: any, _api?: string) {
     let $t = this;
     let obj = $t.createPayloadAndApi(_reaction, _postInfo, _api);
     $t.sharedService.configService.post(obj.api, obj.payload).subscribe(
@@ -308,9 +333,7 @@ export class SocialPostsComponent implements OnInit {
         } else {
           _postInfo.reactions == null ? (_postInfo.reactions = []) : '';
           let isPresent = _postInfo.reactions.find((x: any) => x.id == obj.payload.id);
-          isPresent == undefined 
-            ? _postInfo.reactions.push(obj.payload)
-            : isPresent.reactionType = _reaction;
+          isPresent == undefined ? _postInfo.reactions.push(obj.payload) : (isPresent.reactionType = _reaction);
         }
         $t.sharedService.utilityService.changeMessage('TRIGGER-HEADER-NOTIFICATIONS-UPDATE');
         $t.cdr.detectChanges();
@@ -323,7 +346,8 @@ export class SocialPostsComponent implements OnInit {
 
   createPayloadAndApi(_reaction: string, _postInfo: any, _api?: string) {
     let $t = this;
-    let payload: any = {}, api;
+    let payload: any = {},
+      api;
     let reactionId: string = '';
     if (_postInfo.reactions != null) {
       _postInfo.reactions.forEach((x: any) => {
@@ -345,18 +369,18 @@ export class SocialPostsComponent implements OnInit {
       id: reactionId == '' ? $t.uuidv4Generator() : reactionId,
       reactionBy: $t.user.email,
       reactionOn: '',
-      tasaId: this.user.tasaId,
-      type: this.user.type,
-      userId: this.user.email,
+      tasaId: $t.user.tasaId,
+      type: $t.user.type,
+      userId: $t.user.email,
       reactionType: _reaction,
       reactionByName: $t.user.firstName + ' ' + $t.user.lastName,
-      reactionBySummary: '',
+      reactionBySummary: $t.user.currentRole + ' At ' + $t.user.organization,
       userImageUrl: $t.user.image,
     };
     return {
       api: api,
-      payload: payload
-    }
+      payload: payload,
+    };
   }
 
   uuidv4Generator() {

@@ -29,6 +29,7 @@ export class UserProfileComponent implements OnInit {
   college: any = [];
   university: any = [];
   organisationList: any = [];
+  suportedFile: any = ['pdf', 'jpg', 'jpeg', 'png'];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -906,21 +907,26 @@ export class UserProfileComponent implements OnInit {
   }
 
   uploadFile(_event: any) {
+    // if (Extension == 'pdf' || Extension == 'png' || Extension == 'jpeg' || Extension == 'jpg') {
     let $t = this;
     let apiUrl = $t.sharedService.urlService.apiCallWithParams('uploadSingle', { '{email}': $t.user.email });
     let files = _event.target.files;
     var form = new FormData();
     form.append('file', files[0], files[0].name);
-    $t.sharedService.uiService.showApiStartPopMsg('Uploading Certificate...');
-    $t.sharedService.configService.post(apiUrl, form).subscribe(
-      (response: any) => {
-        $t.educationDetailsForm.get('certificate').patchValue(response.url);
-        $t.sharedService.uiService.showApiSuccessPopMsg('Certificate Uploaded...');
-      },
-      (error) => {
-        $t.sharedService.uiService.showApiErrorPopMsg('Something Went Wrong, Please Try Again After Sometime...');
-      }
-    );
+    if ($t.sharedService.utilityService.ValidateCertificateUpload(files[0].name)) {
+      $t.sharedService.uiService.showApiStartPopMsg('Uploading Certificate...');
+      $t.sharedService.configService.post(apiUrl, form).subscribe(
+        (response: any) => {
+          $t.educationDetailsForm.get('certificate').patchValue(response.url);
+          $t.sharedService.uiService.showApiSuccessPopMsg('Certificate Uploaded...');
+        },
+        (error) => {
+          $t.sharedService.uiService.showApiErrorPopMsg('Something Went Wrong, Please Try Again After Sometime...');
+        }
+      );
+    } else {
+      $t.sharedService.uiService.showApiErrorPopMsg('Please select a valid file.');
+    }
   }
 
   getFA(_controlName: string) {

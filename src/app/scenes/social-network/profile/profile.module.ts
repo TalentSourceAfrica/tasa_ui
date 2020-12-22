@@ -9,8 +9,9 @@ import { MaterialModule } from '@app/modules/material.module';
 import { RouterModule } from '@angular/router';
 import { ProfileRoutingModule } from './profile-routing.module';
 import { ProfileComponent } from './profile.component';
-import { SocialConnectionsModule } from '@app/partials/social-network/social-connections/social-connections.module';
 
+import { SocialConnectionsModule } from '@app/partials/social-network/social-connections/social-connections.module';
+import { NgxDocViewerModule } from 'ngx-doc-viewer';
 
 @NgModule({
   imports: [
@@ -24,7 +25,8 @@ import { SocialConnectionsModule } from '@app/partials/social-network/social-con
     FormsModule,
     ReactiveFormsModule,
     ProfileRoutingModule,
-    SocialConnectionsModule
+    SocialConnectionsModule,
+    NgxDocViewerModule,
   ],
   declarations: [ProfileComponent],
   schemas: [NO_ERRORS_SCHEMA],

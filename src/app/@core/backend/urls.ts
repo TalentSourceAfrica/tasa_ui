@@ -102,6 +102,7 @@ export const urls: any = {
   // Social Network
   getAllPosts: '/socialPost', // G
   getPostById: '/socialPost/{postId}', // G
+  getPostsByUser : '/user/socialPost/{userId}', // G
   addSocialPost: '/socialPost', // PO
   deleteSocialPost: '/post/{postId}', // DE
   updateSocialPost: '/post', // PU
