@@ -670,21 +670,23 @@
   >
     <div class="row no-gutters text-center animated fadeIn" *ngFor="let comment of post.comments; let ind = index">
       <div class="col-{{ iteration }}"></div>
-      <div
-        class="col-2 text-right curPoint"
-        matTooltipPosition="below"
-        [matTooltip]="comment.userName"
-        [routerLink]="['/social-network/profile/', comment.tasaId]"
-        routerLinkActive="router-link-active"
-      >
+      <div class="col-2 text-right curPoint">
         <img
           *ngIf="comment.userImageUrl == ''"
           class="status-img img-responsive img-circle"
+          matTooltipPosition="below"
+          [matTooltip]="comment.userName"
+          [routerLink]="['/social-network/profile/', comment.tasaId]"
+          routerLinkActive="router-link-active"
           src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
           alt="User picture"
         />
         <img
           *ngIf="comment.userImageUrl != ''"
+          matTooltipPosition="below"
+          [matTooltip]="comment.userName"
+          [routerLink]="['/social-network/profile/', comment.tasaId]"
+          routerLinkActive="router-link-active"
           class="status-img img-responsive img-circle"
           [src]="comment.userImageUrl"
           alt="User picture"
