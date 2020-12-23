@@ -31,10 +31,13 @@
           />
         </div>
         <div class="user-info">
-          <span class="user-name text-white"
-            >{{ user.firstName }}
-            <strong>{{ user.lastName }}</strong>
-          </span>
+          <a class="curPoint" [routerLink]="['/social-network/profile/', user.tasaId]">
+            <span class="user-name text-white"
+              >{{ user.firstName }}
+              <strong>{{ user.lastName }}</strong>
+            </span></a
+          >
+
           <span class="user-role" *ngIf="user.type == 'Mentee'">Student/Professional</span>
           <span class="user-role" *ngIf="user.type != 'Mentee'">{{ user.type }}</span>
           <span class="user-status">
@@ -91,7 +94,11 @@
         <div class="w70">
           <label class="sr-only" for="inlineFormInputGroup">Username</label>
           <div class="input-group global-search">
-            <mat-select [(value)]="globalSearchType" (selectionChange)="searchGlobalText = ''" class="form-control global-search-options bg-primary-light">
+            <mat-select
+              [(value)]="globalSearchType"
+              (selectionChange)="searchGlobalText = ''"
+              class="form-control global-search-options bg-primary-light"
+            >
               <mat-option value="course"> <i class="fas fa-graduation-cap pr-2 text-primary"></i>Course</mat-option>
               <mat-option value="profile"><i class="fas fa-user pr-2 text-primary"></i>People</mat-option>
               <mat-option value="organization"

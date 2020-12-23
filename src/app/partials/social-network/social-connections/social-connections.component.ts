@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { SharedService } from '@app/services/shared.service';
 
@@ -6,6 +6,7 @@ import { SharedService } from '@app/services/shared.service';
   selector: 'app-social-connections',
   templateUrl: './social-connections.component.html',
   styleUrls: ['./social-connections.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class SocialConnectionsComponent implements OnInit {
   allUsers: any = [];

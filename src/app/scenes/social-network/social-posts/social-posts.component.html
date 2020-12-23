@@ -286,7 +286,13 @@
                             />
                             <div class="album-detail">
                               <div class="album-title">
-                                <strong>{{ post.userName }}</strong>
+                                <strong
+                                  ><a
+                                    [routerLink]="['/social-network/profile/', post.tasaId]"
+                                    routerLinkActive="router-link-active"
+                                    >{{ post.userName }}</a
+                                  ></strong
+                                >
                               </div>
                               <div class="album-date">{{ getNotiDay(post) }}</div>
                             </div>
@@ -726,7 +732,11 @@
       </div>
       <div class="col-{{ 8 - iteration }}">
         <mat-form-field class="w100">
-          <mat-label>{{ comment.userName }}</mat-label>
+          <mat-label
+            ><a [routerLink]="['/social-network/profile/', comment.tasaId]" routerLinkActive="router-link-active">{{
+              comment.userName
+            }}</a></mat-label
+          >
           <textarea type="text" matInput #commentBox [(ngModel)]="comment.content" readonly></textarea>
         </mat-form-field>
         <div class="text-left mt-1 pb-3" style="margin-top: -15px;">
@@ -796,8 +806,6 @@
     <div class="col-2 text-right">
       <img
         *ngIf="user.image && user.image != 'string'"
-        matTooltipPosition="below"
-        matTooltip="Upload Avatar"
         class="status-img img-responsive img-circle"
         [src]="user.image"
         alt="User picture"

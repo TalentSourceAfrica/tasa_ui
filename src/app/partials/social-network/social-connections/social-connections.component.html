@@ -9,8 +9,13 @@
           </div>
         </div>
       </ng-container>
-      <div class="user animated fadeIn" [ngClass]="{'shadow-sm': user.mouseOvered}" (mouseover)="user.mouseOvered=true"
-      (mouseout)="user.mouseOvered=false" *ngFor="let user of allUsers">
+      <div
+        class="user animated fadeIn"
+        [ngClass]="{ 'shadow-sm': user.mouseOvered }"
+        (mouseover)="user.mouseOvered = true"
+        (mouseout)="user.mouseOvered = false"
+        *ngFor="let user of allUsers"
+      >
         <div class="w90 d-flex align-items-center">
           <img
             *ngIf="!user.image || user.image == 'string'"
@@ -46,7 +51,7 @@
   </div>
   <div>
     <h6 class="text-primary text-center pt-1 alert alert-default bg-primary-light">Recommended Users</h6>
-    <div class="border-bottom pages">
+    <div class="border-bottom pages max-vertical-h-40 mb-3 stylishSlimScroll flow-y-auto flow-x-hidden">
       <ng-container *ngIf="isLoading">
         <div class="col-12 animated fadeIn" *ngFor="let item of [1, 2, 3, 4, 5, 6]">
           <div class="card ml-0 mr-0" style="height: 50px !important;">
@@ -54,7 +59,13 @@
           </div>
         </div>
       </ng-container>
-      <div class="user animated fadeIn" *ngFor="let user of allUsers">
+      <div
+        class="user animated fadeIn"
+        [ngClass]="{ 'shadow-sm': user.mouseOvered }"
+        (mouseover)="user.mouseOvered = true"
+        (mouseout)="user.mouseOvered = false"
+        *ngFor="let user of allUsers"
+      >
         <div class="w90 d-flex align-items-center">
           <img
             *ngIf="!user.image || user.image == 'string'"
