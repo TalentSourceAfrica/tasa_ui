@@ -103,6 +103,7 @@ export const urls: any = {
   getAllPosts: '/socialPost', // G
   getPostById: '/socialPost/{postId}', // G
   getPostsByUser : '/user/socialPost/{userId}', // G
+  getActivityPostByUser : '/user/activity/socialPost/{userId}', // G
   addSocialPost: '/socialPost', // PO
   deleteSocialPost: '/post/{postId}', // DE
   updateSocialPost: '/post', // PU

@@ -31,6 +31,12 @@ export class SocialPostsComponent implements OnInit {
       imageUrl: '',
     },
   };
+  postFilter: any = [
+    { value: 0, viewValue: 'All Post' },
+    { value: 1, viewValue: 'My Post' },
+    { value: 2, viewValue: 'My Activity' },
+  ];
+  selectedPostFilter: number = 0;
   constructor(
     public credentialsService: CredentialsService,
     public sharedService: SharedService,
@@ -41,6 +47,20 @@ export class SocialPostsComponent implements OnInit {
   // addSocialPost: '/socialPost', // PO
   // deleteSocialPost: '/post/{postId}', // DE
   // updateSocialPost: '/post', // PU
+
+  onPostTypeChange() {
+    switch (this.selectedPostFilter) {
+      case 0:
+        this.getAllSocialPost();
+        break;
+      case 1:
+        this.getUserSpecificPost();
+        break;
+      case 2:
+        this.getUserActivity();
+        break;
+    }
+  }
 
   getAllSocialPost() {
     this.socialConfig.isLoading = true;
@@ -59,6 +79,22 @@ export class SocialPostsComponent implements OnInit {
   getUserSpecificPost() {
     this.socialConfig.isLoading = true;
     let apiUrl = this.sharedService.urlService.apiCallWithParams('getPostsByUser', {
+      '{userId}': this.user.email,
+    });
+    this.sharedService.configService.get(apiUrl).subscribe(
+      (response: any) => {
+        this.socialConfig.allSocialPost = response.responseObj;
+        this.socialConfig.isLoading = false;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+  getUserActivity() {
+    this.socialConfig.isLoading = true;
+    let apiUrl = this.sharedService.urlService.apiCallWithParams('getActivityPostByUser', {
       '{userId}': this.user.email,
     });
     this.sharedService.configService.get(apiUrl).subscribe(

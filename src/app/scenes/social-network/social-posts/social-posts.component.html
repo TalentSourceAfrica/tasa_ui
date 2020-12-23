@@ -22,8 +22,8 @@
           <li class="breadcrumb-item active">Social Posts</li>
         </ol>
         <div class="sec-title">
-          <div class="title">All Post</div>
-          <button
+          <div class="title">Social Network</div>
+          <!-- <button
             mat-mini-fab
             color="primary"
             matTooltipPosition="below"
@@ -42,7 +42,7 @@
             <button mat-menu-item (click)="getUserSpecificPost()">
               My Post
             </button>
-          </mat-menu>
+          </mat-menu> -->
         </div>
         <div class="profile-wrapper mb-4">
           <div class="max-vertical-h-83">
@@ -128,9 +128,15 @@
                   <div
                     class="timeline-right mb-4 min-vertical-h-65 max-vertical-h-65 overflow-x-hidden stylishSlimScroll"
                   >
-                    <div class="status box animated fadeIn shadow-lg">
+                    <div class="status box animated fadeIn shadow-sm">
                       <div class="row status-main no-gutters">
-                        <img [src]="user.image" class="status-img" [class.mr-1]="socialConfig.newPost.videoUrl != ''" />
+                        <img
+                          [src]="user.image"
+                          [routerLink]="['/social-network/profile/', user.tasaId]"
+                          routerLinkActive="router-link-active"
+                          class="status-img curPoint"
+                          [class.mr-1]="socialConfig.newPost.videoUrl != ''"
+                        />
                         <textarea
                           id="postBox"
                           class="row no-gutters status-textarea mb-1"
@@ -246,6 +252,24 @@
                     <div
                       class="min-vertical-h-65 max-vertical-h-65 mt-2 stylishSlimScroll flow-y-auto flow-x-hidden pt-2 pl-4 pr-4"
                     >
+                      <div class="row no-gutters text-center">
+                        <div class="col-9"><hr /></div>
+                        <div class="col-3 d-flex w100 align-items-center">
+                          <span class="w100">You Are Viewing :</span>
+
+                          <mat-select
+                            (selectionChange)="onPostTypeChange()"
+                            [(ngModel)]="selectedPostFilter"
+                            name="food"
+                            class="w45"
+                          >
+                            <mat-option *ngFor="let item of postFilter" [value]="item.value">
+                              {{ item.viewValue }}
+                            </mat-option>
+                          </mat-select>
+                        </div>
+                      </div>
+
                       <div
                         class="album box mb-4"
                         *ngFor="let post of socialConfig.allSocialPost; let postIndex = index"
@@ -258,7 +282,7 @@
                               [routerLink]="['/social-network/profile/', post.tasaId]"
                               routerLinkActive="router-link-active"
                               [src]="post.userImageUrl"
-                              class="status-img"
+                              class="status-img curPoint"
                             />
                             <div class="album-detail">
                               <div class="album-title">
@@ -428,6 +452,14 @@
                           </ng-template>
                         </div>
                       </div>
+                      <ng-container *ngIf="socialConfig.allSocialPost.length == 0">
+                        <div class="text-center m-auto animated fadeIn mt-2">
+                          <div class="col-12 text-center">
+                            <img src="./assets/images/no-record.gif" style="height: 300px;" class="d-block m-auto" />
+                            <h6 class="text-primary mb-2 mt-2">No Post Yet...!</h6>
+                          </div>
+                        </div>
+                      </ng-container>
                     </div>
                   </div>
                 </div>
