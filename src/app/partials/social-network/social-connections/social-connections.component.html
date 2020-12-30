@@ -2,7 +2,7 @@
   <div>
     <h6 class="text-primary text-center pt-1 alert alert-default bg-primary-light">Connected Users</h6>
     <div class="pages max-vertical-h-40 mb-3 stylishSlimScroll flow-y-auto flow-x-hidden">
-      <ng-container *ngIf="isLoading">
+      <ng-container *ngIf="connectedUserConfig.isLoading">
         <div class="col-12 animated fadeIn" *ngFor="let item of [1, 2, 3, 4, 5, 6]">
           <div class="card ml-0 mr-0" style="height: 50px !important;">
             <div class="card-img skeleton"></div>
@@ -14,7 +14,7 @@
         [ngClass]="{ 'shadow-sm': user.mouseOvered }"
         (mouseover)="user.mouseOvered = true"
         (mouseout)="user.mouseOvered = false"
-        *ngFor="let user of allUsers"
+        *ngFor="let user of connectedUserConfig.data"
       >
         <div class="w90 d-flex align-items-center">
           <img
@@ -47,12 +47,20 @@
           </mat-menu>
         </div>
       </div>
+      <ng-container *ngIf="connectedUserConfig.data.length == 0">
+        <div class="text-center m-auto animated fadeIn">
+          <div>
+            <h1>😕</h1>
+            <h3 class="text-muted">No Connected Users</h3>
+          </div>
+        </div>
+      </ng-container>
     </div>
   </div>
   <div>
     <h6 class="text-primary text-center pt-1 alert alert-default bg-primary-light">Recommended Users</h6>
     <div class="border-bottom pages max-vertical-h-40 mb-3 stylishSlimScroll flow-y-auto flow-x-hidden">
-      <ng-container *ngIf="isLoading">
+      <ng-container *ngIf="recommendedUsersConfig.isLoading">
         <div class="col-12 animated fadeIn" *ngFor="let item of [1, 2, 3, 4, 5, 6]">
           <div class="card ml-0 mr-0" style="height: 50px !important;">
             <div class="card-img skeleton"></div>
@@ -64,7 +72,7 @@
         [ngClass]="{ 'shadow-sm': user.mouseOvered }"
         (mouseover)="user.mouseOvered = true"
         (mouseout)="user.mouseOvered = false"
-        *ngFor="let user of allUsers"
+        *ngFor="let user of recommendedUsersConfig.data"
       >
         <div class="w90 d-flex align-items-center">
           <img
@@ -98,6 +106,15 @@
           </mat-menu>
         </div>
       </div>
+
+      <ng-container *ngIf="recommendedUsersConfig.data.length == 0">
+        <div class="text-center m-auto animated fadeIn">
+          <div>
+            <h1>😕</h1>
+            <h3 class="text-muted">No Recommended Users</h3>
+          </div>
+        </div>
+      </ng-container>
     </div>
   </div>
 </div>

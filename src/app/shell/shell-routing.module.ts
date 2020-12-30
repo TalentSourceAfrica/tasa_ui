@@ -186,6 +186,11 @@ const routes: Routes = [
         loadChildren: () =>
           import('@app/scenes/social-network/social-posts/social-posts.module').then((m) => m.SocialPostsModule),
       },
+      {
+        path: 'social-network/network',
+        canActivate: [AuthenticationGuard],
+        loadChildren: () => import('@app/scenes/social-network/network/network.module').then((m) => m.NetworkModule),
+      },
       { path: '', redirectTo: '/home', pathMatch: 'full' },
     ],
     data: { reuse: true },

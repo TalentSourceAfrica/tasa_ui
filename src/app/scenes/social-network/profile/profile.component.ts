@@ -10,7 +10,7 @@ import { delay } from 'rxjs/operators';
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class ProfileComponent implements OnInit {
   @ViewChild('conectionDrawer', { static: false }) conectionDrawer: any;
@@ -63,6 +63,23 @@ export class ProfileComponent implements OnInit {
         this.fetchUser();
       }
     });
+  }
+
+  connect() {
+    let $t = this;
+    $t.sharedService.uiService.showApiStartPopMsg('Sending Request...!');
+    let apiUrl = $t.sharedService.urlService.apiCallWithParams('sendNetworkConnectionRequest', {
+      '{fromUserId}': $t.user.email,
+      '{toUserId}': $t.userConfig.user.email,
+    });
+    $t.sharedService.configService.post(apiUrl).subscribe(
+      (response: any) => {
+        $t.sharedService.uiService.showApiSuccessPopMsg('Request Send...!');
+      },
+      (error) => {
+        $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
+      }
+    );
   }
 
   ngAfterViewInit(): void {

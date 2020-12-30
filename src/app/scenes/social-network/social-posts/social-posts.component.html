@@ -4,7 +4,7 @@
       <div id="course-filter" style="width: 250px;">
         <div class="row d-flex align-items-center border-bottom">
           <div class="col-9">
-            <p class="m-0 pl-2 h5 text-primary" style="font-size: 0.8125rem;">My Connections</p>
+            <p class="m-0 pl-2 h5 text-primary" style="font-size: 0.8125rem;font-weight: 600;">My Connections</p>
           </div>
           <div class="col-3 text-right">
             <button (click)="conectionDrawer.toggle()" mat-icon-button>
@@ -12,13 +12,13 @@
             </button>
           </div>
         </div>
-        <ng-template [ngTemplateOutlet]="connections"></ng-template>
+        <ng-template *ngIf="user" [ngTemplateOutlet]="connections"></ng-template>
       </div>
     </mat-drawer>
     <mat-drawer-content>
       <section class="container">
         <ol class="breadcrumb mt-3">
-          <li class="breadcrumb-item curPoint"><a [routerLink]="['/home']">Home</a></li>
+          <li class="breadcrumb-item curPoint"><a [routerLink]="['/dashboard']">Dashboard</a></li>
           <li class="breadcrumb-item active">Social Posts</li>
         </ol>
         <div class="sec-title">
@@ -698,7 +698,7 @@
   </mat-drawer-container>
 </div>
 <ng-template #connections>
-  <app-social-connections></app-social-connections>
+  <app-social-connections [loggedInUser]="user"></app-social-connections>
 </ng-template>
 
 <ng-template #comments let-post="post" let-iteration="iteration">

@@ -12,7 +12,7 @@
             </button>
           </div>
         </div>
-        <ng-template [ngTemplateOutlet]="connections"></ng-template>
+        <ng-template *ngIf="user" [ngTemplateOutlet]="connections"></ng-template>
       </div>
     </mat-drawer>
     <mat-drawer-content>
@@ -95,7 +95,7 @@
                       <div class="col-12 col-md-3" *ngIf="!isCurrentUser">
                         <div class="text-right">
                           <div class="d-flex pt-3">
-                            <button mat-flat-button color="primary" class="rounded-pill ml-2 p-1 pl-2 pr-2">
+                            <button mat-flat-button color="primary" (click)="connect()" class="rounded-pill ml-2 p-1 pl-2 pr-2">
                               Connect
                             </button>
                             <button mat-flat-button color="primary" class="rounded-pill ml-2 p-1 pl-2 pr-2">
@@ -136,7 +136,7 @@
                   </div>
                 </div>
                 <div class="col-xl-12 pl-4 pr-4 order-xl-1">
-                  <div class="card m-0 bg-secondary shadow">
+                  <div class="card m-0 bg-secondary shadow-lg">
                     <div class="card-header bg-white border-0">
                       <div class="row align-items-center">
                         <div class="col-6">
@@ -318,5 +318,5 @@
 </div>
 
 <ng-template #connections>
-  <app-social-connections></app-social-connections>
+  <app-social-connections [loggedInUser]="user"></app-social-connections>
 </ng-template>

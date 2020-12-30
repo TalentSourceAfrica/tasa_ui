@@ -128,4 +128,10 @@ export const urls: any = {
   createNotification: '/notifications', // PO
   readNotification: '/notifications/read/{notificationId}', // PO
   deleteNotifications: '/notifications', // D
+
+  // Connections
+  getAllNetworkConnections : '/sn/{userId}', // G
+  sendNetworkConnectionRequest : '/connectionRequests/{fromUserId}/{toUserId}', // PO
+  approveNetworkConnection : '/connectionRequests/approve/{requestId}', // PO
+  rejectNetworkConnection : '/connectionRequests/reject/{requestId}', // PO
 };

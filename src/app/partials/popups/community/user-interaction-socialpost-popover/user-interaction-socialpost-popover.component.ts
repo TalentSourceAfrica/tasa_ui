@@ -58,7 +58,6 @@ export class UserInteractionSocialpostPopoverComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		console.log(this.popupData);
 		this.createAllReactions();
 	}
 
