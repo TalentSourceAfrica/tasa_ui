@@ -270,6 +270,9 @@ export class SocialPostsComponent implements OnInit {
                 : $t.interactionInInteractionApiCall('curious', postInfo);
             });
         },
+        onHide: function($element: any) {
+          jQuery($element).remove();
+        }
       });
       jQuery('#' + _event.srcElement.id).webuiPopover('show');
     }, 500);
