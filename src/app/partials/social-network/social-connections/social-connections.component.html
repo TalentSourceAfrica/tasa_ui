@@ -18,17 +18,22 @@
       >
         <div class="w90 d-flex align-items-center">
           <img
-            *ngIf="!user.image || user.image == 'string'"
+            src="{{ user.imageUrl ? user.imageUrl : 'https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg'}}"
+            class="user-img"
+            alt="{{ user.firstName }} {{ user.lastName }}"
+          />
+          <!-- <img
+            *ngIf="!user.imageUrl || user.imageUrl == 'string'"
             src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
             class="user-img"
             alt="{{ user.firstName }} {{ user.lastName }}"
           />
           <img
-            *ngIf="user.image && user.image != 'string'"
-            [src]="user.image"
+            *ngIf="user.imageUrl && user.imageUrl != 'string'"
+            [src]="user.imageUrl"
             alt="{{ user.firstName }} {{ user.lastName }}"
             class="user-img"
-          />
+          /> -->
           <div class="username text-truncate" title="{{ user.firstName }} {{ user.lastName }}">
             {{ user.firstName }} {{ user.lastName }}
           </div>

@@ -19,7 +19,7 @@ export const urls: any = {
   checkCurrentPassword: '/checkPassword/{email}/{currentPassword}', // PO
   activateUser: '/users/activate/{userId}', // PO
   deactivateUser: '/users/deactivate/{userId}', // PO
-  searchUser:'/user/search/{page}/{size}/{searchText}', // G
+  searchUser: '/user/search/{page}/{size}/{searchText}', // G
 
   // location
   getCountry: '/locations', // G
@@ -102,8 +102,8 @@ export const urls: any = {
   // Social Network
   getAllPosts: '/socialPost', // G
   getPostById: '/socialPost/{postId}', // G
-  getPostsByUser : '/user/socialPost/{userId}', // G
-  getActivityPostByUser : '/user/activity/socialPost/{userId}', // G
+  getPostsByUser: '/user/socialPost/{userId}', // G
+  getActivityPostByUser: '/user/activity/socialPost/{userId}', // G
   addSocialPost: '/socialPost', // PO
   deleteSocialPost: '/post/{postId}', // DE
   updateSocialPost: '/post', // PU
@@ -120,7 +120,7 @@ export const urls: any = {
   addOrganization: '/organization/{type}', // PO
   updateOrganization: '/organization/bulk/{userId}', // PO
   updateSingleOrganization: '/organization', // PU
-  searchOrganization:'/organisation/search/{page}/{size}/{searchText}', // G
+  searchOrganization: '/organisation/search/{page}/{size}/{searchText}', // G
 
   // Notification
   getAllNotifications: '/notifications/all/{userId}', // G
@@ -130,8 +130,9 @@ export const urls: any = {
   deleteNotifications: '/notifications', // D
 
   // Connections
-  getAllNetworkConnections : '/sn/{userId}', // G
-  sendNetworkConnectionRequest : '/connectionRequests/{fromUserId}/{toUserId}', // PO
-  approveNetworkConnection : '/connectionRequests/approve/{requestId}', // PO
-  rejectNetworkConnection : '/connectionRequests/reject/{requestId}', // PO
+  getAllNetworkConnections: '/sn/{userId}', // G
+  getAllNetworkPendingConnections: '/connectionRequests/pending/{userId}', //G
+  sendNetworkConnectionRequest: '/connectionRequests/{fromUserId}/{toUserId}', // PO
+  approveNetworkConnection: '/connectionRequests/approve/{requestId}', // PO
+  rejectNetworkConnection: '/connectionRequests/reject/{requestId}', // PO
 };

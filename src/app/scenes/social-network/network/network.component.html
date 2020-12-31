@@ -14,14 +14,120 @@
         </div>
       </div>
     </ng-container>
-    <!-- <div class="text-center m-auto animated fadeIn" *ngIf="jobApplications.length == 0">
-        <div class="col-12 text-center">
-          <img src="../../../assets/images/no-record.gif" style="height: 300px;" class="d-block m-auto" />
-          <h6 class="text-primary">You Haven't Applied To Any Jobs Yet...!</h6>
-          <button mat-flat-button color="primary" [routerLink]="['/jobs/listings']" class="rounded-pill ml-2">
-            Go To All Jobs
-          </button>
-        </div>
-      </div> -->
+    <ng-container>
+      <ng-template *ngTemplateOutlet="network"></ng-template>
+    </ng-container>
   </div>
 </div>
+
+<ng-template #network>
+  <mat-tab-group>
+    <mat-tab label="Pending Request">
+      <div
+        *ngIf="networkConfig.data.length"
+        class="row no-gutters mt-3 max-vertical-h-70 stylishSlimScroll flow-y-auto flow-x-hidden"
+      >
+        <div class="col-6">
+          <div class="card m-1 p-2">
+            <div class="d-flex align-items-center">
+              <div class="row no-gutters">
+                <div class="col-2">
+                  <img
+                    class="status-img img-responsive img-circle"
+                    src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
+                    alt="User picture"
+                  />
+                </div>
+                <div class="col-10 pl-3">
+                  <h6 class="mb-0">Anshul kashyap</h6>
+                  <h6 class="text-muted">Frontend Developer At TaSA</h6>
+                  <div class="d-flex w100 justify-content-end">
+                    <button mat-flat-button color="primary" (click)="approve()" class="rounded-pill">
+                      Approve
+                    </button>
+                    <button mat-flat-button color="accent" (click)="reject()" class="rounded-pill ml-3">
+                      Reject
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="card m-1 p-2">
+            <div class="d-flex align-items-center">
+              <div class="row no-gutters">
+                <div class="col-2">
+                  <img
+                    class="status-img img-responsive img-circle"
+                    src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
+                    alt="User picture"
+                  />
+                </div>
+                <div class="col-10 pl-3">
+                  <h6 class="mb-0">Anshul kashyap</h6>
+                  <h6 class="text-muted">Frontend Developer At TaSA</h6>
+                  <div class="d-flex w100 justify-content-end">
+                    <button mat-flat-button color="primary" (click)="approve()" class="rounded-pill">
+                      Approve
+                    </button>
+                    <button mat-flat-button color="accent" (click)="reject()" class="rounded-pill ml-3">
+                      Reject
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <ng-container *ngIf="!networkConfig.isLoading && networkConfig.data.length == 0">
+        <div class="text-center m-auto animated fadeIn">
+          <div class="col-12 text-center">
+            <img src="../../../assets/images/no-record.gif" style="height: 300px;" class="d-block m-auto" />
+            <h6 class="text-primary">No Request is Pending...!</h6>
+          </div>
+        </div>
+      </ng-container>
+    </mat-tab>
+    <mat-tab label="Connected Users">
+      <div
+        *ngIf="connectedUserConfig.data.length"
+        class="row no-gutters mt-3 max-vertical-h-70 stylishSlimScroll flow-y-auto flow-x-hidden"
+      >
+        <div class="col-6" *ngFor="let item of connectedUserConfig.data">
+          <div class="card m-1 p-2">
+            <div class="d-flex align-items-center">
+              <div class="row no-gutters">
+                <div class="col-2">
+                  <img
+                    class="status-img img-responsive img-circle"
+                    src="{{
+                      item.imageUrl
+                        ? item.imageUrl
+                        : 'https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg'
+                    }}"
+                    alt="User picture"
+                  />
+                </div>
+                <div class="col-10 pl-3">
+                  <h6 class="mb-0">{{ item.firstName }} {{ item.lastName }}</h6>
+                  <h6 class="text-muted" *ngIf="item.summary">{{ item.summary }}</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <ng-container *ngIf="!connectedUserConfig.isLoading && connectedUserConfig.data.length == 0">
+        <div class="text-center m-auto animated fadeIn">
+          <div class="col-12 text-center">
+            <img src="../../../assets/images/no-record.gif" style="height: 300px;" class="d-block m-auto" />
+            <h6 class="text-primary">No Connections...!</h6>
+          </div>
+        </div>
+      </ng-container>
+    </mat-tab>
+  </mat-tab-group>
+</ng-template>
