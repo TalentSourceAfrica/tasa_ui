@@ -11,6 +11,7 @@ import { CredentialsService, AuthenticationService } from '@app/auth';
 
 //popups
 import { JobsApplyPopupComponent } from '@app/partials/popups/jobs/jobs-apply-popup/jobs-apply-popup.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-all-job-listings',
@@ -39,6 +40,7 @@ export class AllJobListingsComponent implements OnInit {
   allJobs: any = [];
   countries: any = [];
   currentView = 1;
+  private currMsgSubscribe = new Subscription();
 
   constructor(
     public sharedService: SharedService,
@@ -239,12 +241,16 @@ export class AllJobListingsComponent implements OnInit {
     window.scrollTo(0, 0);
     this.init();
 
-    this.sharedService.utilityService.currentMessage.pipe(delay(10), untilDestroyed(this)).subscribe((message) => {
-      if (message == 'REFRESH-ALL-JOBS') {
-        this.init();
-      }
-    });
+    this.currMsgSubscribe = this.sharedService.utilityService.currentMessage
+      .pipe(delay(10), untilDestroyed(this))
+      .subscribe((message) => {
+        if (message == 'REFRESH-ALL-JOBS') {
+          this.init();
+        }
+      });
   }
 
-  ngOnDestroy(): void {}
+  ngOnDestroy(): void {
+    this.currMsgSubscribe.unsubscribe();
+  }
 }

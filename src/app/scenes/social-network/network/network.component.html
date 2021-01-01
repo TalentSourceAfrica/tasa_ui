@@ -27,52 +27,37 @@
         *ngIf="networkConfig.data.length"
         class="row no-gutters mt-3 max-vertical-h-70 stylishSlimScroll flow-y-auto flow-x-hidden"
       >
-        <div class="col-6">
+        <div class="col-6" *ngFor="let item of networkConfig.data; let i = index">
           <div class="card m-1 p-2">
             <div class="d-flex align-items-center">
               <div class="row no-gutters">
                 <div class="col-2">
                   <img
-                    class="status-img img-responsive img-circle"
-                    src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
+                    [routerLink]="['/social-network/profile/', item.fromTasaId]"
+                    routerLinkActive="router-link-active"
+                    class="status-img img-responsive img-thumbnail curPoint"
+                    src="{{
+                      item.fromImage
+                        ? item.fromImage
+                        : 'https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg'
+                    }}"
                     alt="User picture"
                   />
                 </div>
                 <div class="col-10 pl-3">
-                  <h6 class="mb-0">Anshul kashyap</h6>
-                  <h6 class="text-muted">Frontend Developer At TaSA</h6>
+                  <h6 class="mb-0">
+                    <a
+                      [routerLink]="['/social-network/profile/', item.fromTasaId]"
+                      routerLinkActive="router-link-active"
+                      >{{ item.fromName }}</a
+                    >
+                  </h6>
+                  <h6 class="text-muted">{{ item.fromSummary }}</h6>
                   <div class="d-flex w100 justify-content-end">
-                    <button mat-flat-button color="primary" (click)="approve()" class="rounded-pill">
+                    <button mat-flat-button color="primary" (click)="approve(item.id, i)" class="rounded-pill">
                       Approve
                     </button>
-                    <button mat-flat-button color="accent" (click)="reject()" class="rounded-pill ml-3">
-                      Reject
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-6">
-          <div class="card m-1 p-2">
-            <div class="d-flex align-items-center">
-              <div class="row no-gutters">
-                <div class="col-2">
-                  <img
-                    class="status-img img-responsive img-circle"
-                    src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
-                    alt="User picture"
-                  />
-                </div>
-                <div class="col-10 pl-3">
-                  <h6 class="mb-0">Anshul kashyap</h6>
-                  <h6 class="text-muted">Frontend Developer At TaSA</h6>
-                  <div class="d-flex w100 justify-content-end">
-                    <button mat-flat-button color="primary" (click)="approve()" class="rounded-pill">
-                      Approve
-                    </button>
-                    <button mat-flat-button color="accent" (click)="reject()" class="rounded-pill ml-3">
+                    <button mat-flat-button color="accent" (click)="reject(item.id, i)" class="rounded-pill ml-3">
                       Reject
                     </button>
                   </div>
@@ -102,7 +87,7 @@
               <div class="row no-gutters">
                 <div class="col-2">
                   <img
-                    class="status-img img-responsive img-circle"
+                    class="status-img img-responsive img-thumbnail"
                     src="{{
                       item.imageUrl
                         ? item.imageUrl

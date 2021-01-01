@@ -18,7 +18,6 @@ export class NetworkComponent implements OnInit {
   };
   constructor(public sharedService: SharedService, public credentialsService: CredentialsService) {}
 
-
   getAllConnections() {
     this.connectedUserConfig.isLoading = true;
     let apiUrl = this.sharedService.urlService.apiCallWithParams('getAllNetworkConnections', {
@@ -51,9 +50,46 @@ export class NetworkComponent implements OnInit {
     );
   }
 
-  approve() {}
+  approve(_id: string, index: number) {
+    let $t = this;
+    let _callBack = () => {
+      $t.sharedService.uiService.showApiStartPopMsg('Approving...!');
+      let apiUrl = $t.sharedService.urlService.apiCallWithParams('approveNetworkConnection', {
+        '{requestId}': _id,
+      });
+      $t.sharedService.configService.post(apiUrl).subscribe(
+        (response: any) => {
+          $t.networkConfig.data.splice(index, 1);
+          $t.sharedService.uiService.showApiSuccessPopMsg('Approved...!');
+          $t.getConnectionRequest();
+        },
+        (error) => {
+          $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
+        }
+      );
+    };
+    $t.sharedService.uiService.showPreConfirmPopMsg('Do You Want To Approve', _callBack);
+  }
 
-  reject() {}
+  reject(_id: string, index: number) {
+    let $t = this;
+    let _callBack = () => {
+      $t.sharedService.uiService.showApiStartPopMsg('Rejecting...!');
+      let apiUrl = $t.sharedService.urlService.apiCallWithParams('rejectNetworkConnection', {
+        '{requestId}': _id,
+      });
+      $t.sharedService.configService.post(apiUrl).subscribe(
+        (response: any) => {
+          $t.networkConfig.data.splice(index, 1);
+          $t.sharedService.uiService.showApiStartPopMsg('Rejected...!');
+        },
+        (error) => {
+          $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
+        }
+      );
+    };
+    $t.sharedService.uiService.showPreConfirmPopMsg('Do You Want To Reject', _callBack);
+  }
 
   get user(): any | null {
     const credentials = this.credentialsService.credentials;

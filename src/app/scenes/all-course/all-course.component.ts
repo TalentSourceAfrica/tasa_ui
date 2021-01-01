@@ -11,6 +11,7 @@ import { SharedService } from '@app/services/shared.service';
 // component
 import { EditCoursePopupComponent } from '@app/partials/popups/course/edit-course-popup/edit-course-popup.component';
 import { CredentialsService, AuthenticationService } from '@app/auth';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-all-course',
@@ -41,6 +42,7 @@ export class AllCourseComponent implements OnInit {
     { value: 'Deselect All', id: 2 },
   ];
   searchConfig: any = {};
+  private currMsgSubscribe = new Subscription();
 
   constructor(
     public sharedService: SharedService,
@@ -315,11 +317,16 @@ export class AllCourseComponent implements OnInit {
     window.scrollTo(0, 0);
     this.init();
 
-    this.sharedService.utilityService.currentMessage.pipe(delay(10), untilDestroyed(this)).subscribe((message) => {
-      if (message === 'TRIGGER-COURSE-SEARCH') {
-        this.init();
-      }
-    });
+    this.currMsgSubscribe = this.sharedService.utilityService.currentMessage
+      .pipe(delay(10), untilDestroyed(this))
+      .subscribe((message) => {
+        if (message === 'TRIGGER-COURSE-SEARCH') {
+          this.init();
+        }
+      });
   }
-  ngOnDestroy(): void {}
+
+  ngOnDestroy(): void {
+    this.currMsgSubscribe.unsubscribe();
+  }
 }

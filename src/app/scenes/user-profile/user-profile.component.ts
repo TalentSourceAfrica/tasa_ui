@@ -95,6 +95,15 @@ export class UserProfileComponent implements OnInit {
       mandatory: false,
     },
     {
+      id: 'profileSummary',
+      label: 'Summary',
+      type: 'text',
+      formControlName: 'profileSummary',
+      placeholder: 'Your Profile Summary',
+      prepend: 'fas fa-user',
+      mandatory: true,
+    },
+    {
       id: 'emailId',
       label: 'Email ID',
       type: 'email',
@@ -736,6 +745,7 @@ export class UserProfileComponent implements OnInit {
           firstName: [this.user.firstName],
           middleName: [this.user.middleName],
           lastName: [this.user.lastName],
+          profileSummary: [this.user.profileSummary],
           email: [this.user.email],
           dob: [this.user.dob],
           addressLine1: [this.user.address1, [Validators.required]],
@@ -828,6 +838,7 @@ export class UserProfileComponent implements OnInit {
     $t.userDetails.suffix = personalDetailsValues.suffix;
     $t.userDetails.firstName = personalDetailsValues.firstName;
     $t.userDetails.middleName = personalDetailsValues.middleName;
+    $t.userDetails.profileSummary = personalDetailsValues.profileSummary;
     $t.userDetails.lastName = personalDetailsValues.lastName;
     $t.userDetails.email = personalDetailsValues.email;
     $t.userDetails.dob = personalDetailsValues.dob;
