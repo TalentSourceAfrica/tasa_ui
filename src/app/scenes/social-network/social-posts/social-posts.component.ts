@@ -37,6 +37,7 @@ export class SocialPostsComponent implements OnInit {
     { value: 2, viewValue: 'My Activity' },
   ];
   selectedPostFilter: number = 0;
+  toggled:boolean = false;
   constructor(
     public credentialsService: CredentialsService,
     public sharedService: SharedService,
@@ -106,6 +107,11 @@ export class SocialPostsComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+
+  handleSelection(event:any){
+    console.log(event);
+    this.socialConfig.newPost.content += ' '+ event.char + ' ';
   }
 
   postComment(msg: any, post: any, _comment?: any) {
