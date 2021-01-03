@@ -787,9 +787,11 @@ a {
 .mat-icon,
 .mat-mini-fab.mat-primary {
   &:hover {
-    background-color: #523f6d !important;
-    color: #fff !important;
-    box-shadow: 0 5px 10px 0 rgba(#000, 0.15) !important;
+    &:enabled {
+      background-color: #523f6d !important;
+      color: #fff !important;
+      box-shadow: 0 5px 10px 0 rgba(#000, 0.15) !important;
+    }
   }
 }
 

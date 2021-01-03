@@ -18,7 +18,7 @@
     <mat-drawer-content>
       <section class="container">
         <ol class="breadcrumb mt-3">
-          <li class="breadcrumb-item curPoint"><a [routerLink]="['/home']">Home</a></li>
+          <li class="breadcrumb-item curPoint"><a [routerLink]="['/dashboard']">Dashboard</a></li>
           <li class="breadcrumb-item active">Profile</li>
           <li class="breadcrumb-item active" *ngIf="!isCurrentUser">
             {{ userConfig.user.firstName }} {{ userConfig.user.lastName }}

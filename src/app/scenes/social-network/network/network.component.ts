@@ -25,7 +25,7 @@ export class NetworkComponent implements OnInit {
     });
     this.sharedService.configService.get(apiUrl).subscribe(
       (response: any) => {
-        this.connectedUserConfig.data = response.connections;
+        this.connectedUserConfig.data = response.connections ?  response.connections : [];
         this.connectedUserConfig.isLoading = false;
       },
       (error) => {}

@@ -87,7 +87,9 @@
               <div class="row no-gutters">
                 <div class="col-2">
                   <img
-                    class="status-img img-responsive img-thumbnail"
+                    [routerLink]="['/social-network/profile/', item.tasaId]"
+                    routerLinkActive="router-link-active"
+                    class="status-img img-responsive img-thumbnail curPoint"
                     src="{{
                       item.imageUrl
                         ? item.imageUrl
@@ -97,7 +99,11 @@
                   />
                 </div>
                 <div class="col-10 pl-3">
-                  <h6 class="mb-0">{{ item.firstName }} {{ item.lastName }}</h6>
+                  <h6 class="mb-0">
+                    <a [routerLink]="['/social-network/profile/', item.tasaId]" routerLinkActive="router-link-active"
+                      >{{ item.firstName }} {{ item.lastName }}</a
+                    >
+                  </h6>
                   <h6 class="text-muted" *ngIf="item.summary">{{ item.summary }}</h6>
                 </div>
               </div>

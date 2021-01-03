@@ -388,9 +388,17 @@ export class HeaderComponent implements OnInit {
       }
     });
 
-    $('.notification-popup').click(function () {
+    $('.notification-popup').click(() => {
       $(this).toggleClass('open');
       $('#notificationMenu').toggleClass('open');
+    });
+
+    $(document).on('click', (event: any) => {
+      if (!$(event.target).closest('.notification-popup').length) {
+        if ($('#notificationMenu').hasClass('open')) {
+          $('#notificationMenu').toggleClass('open');
+        }
+      }
     });
   }
 }
