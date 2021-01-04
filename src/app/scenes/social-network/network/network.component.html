@@ -5,7 +5,7 @@
       <li class="breadcrumb-item active"><a>My Network</a></li>
     </ol>
     <div class="sec-title">
-      <div class="title">Coonections Request</div>
+      <div class="title">Connections Request</div>
     </div>
     <ng-container *ngIf="networkConfig.isLoading">
       <div class="col-12 animated fadeIn" *ngFor="let item of [1, 2, 3, 4, 5, 6]">
@@ -58,7 +58,7 @@
                       Approve
                     </button>
                     <button mat-flat-button color="accent" (click)="reject(item.id, i)" class="rounded-pill ml-3">
-                      Reject
+                      Ignore
                     </button>
                   </div>
                 </div>

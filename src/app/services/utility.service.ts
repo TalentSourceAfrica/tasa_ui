@@ -29,7 +29,7 @@ export class UtilityService {
     iframeUrl:
       '^(https?://)?(www\\.)?([-a-z0-9]{1,63}\\.)*?[a-z0-9][-a-z0-9]{0,61}[a-z0-9]\\.[a-z]{2,6}(/[-\\w@\\+\\.~#\\?&/=%]*)?$',
   };
- 
+
   constructor(private http: HttpClient, private router: Router) {}
 
   changeMessage(message: string) {
@@ -129,9 +129,9 @@ export class UtilityService {
   ValidateCertificateUpload(FileUploadPath: any) {
     var Extension = FileUploadPath.substring(FileUploadPath.lastIndexOf('.') + 1).toLowerCase();
     if (Extension == 'pdf' || Extension == 'png' || Extension == 'jpeg' || Extension == 'jpg') {
-      return true;
+      return { result: true, type: Extension === 'pdf' ? 'pdf' : 'image' };
     } else {
-      return false;
+      return { result: false };
     }
   }
 

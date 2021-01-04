@@ -43,12 +43,7 @@ export class SocialPostsComponent implements OnInit {
     public sharedService: SharedService,
     public cdr: ChangeDetectorRef
   ) {}
-
-  // getAllPosts: '/socialPost', // G
-  // addSocialPost: '/socialPost', // PO
-  // deleteSocialPost: '/post/{postId}', // DE
-  // updateSocialPost: '/post', // PU
-
+  
   onPostTypeChange() {
     switch (this.selectedPostFilter) {
       case 0:
@@ -110,7 +105,6 @@ export class SocialPostsComponent implements OnInit {
   }
 
   handleSelection(event:any){
-    console.log(event);
     this.socialConfig.newPost.content += ' '+ event.char + ' ';
   }
 

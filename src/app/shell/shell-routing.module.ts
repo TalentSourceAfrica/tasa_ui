@@ -191,6 +191,12 @@ const routes: Routes = [
         canActivate: [AuthenticationGuard],
         loadChildren: () => import('@app/scenes/social-network/network/network.module').then((m) => m.NetworkModule),
       },
+      {
+        path: 'social-network/conversation',
+        canActivate: [AuthenticationGuard],
+        loadChildren: () =>
+          import('@app/scenes/social-network/conversation/conversation.module').then((m) => m.ConversationModule),
+      },
       { path: '', redirectTo: '/home', pathMatch: 'full' },
     ],
     data: { reuse: true },

@@ -666,6 +666,7 @@ export class UserProfileComponent implements OnInit {
           minor1: [''],
           minor2: [''],
           minor3: [''],
+          certificateType: [''],
           certificate: ['', [Validators.required]],
         });
         this.experienceDetailsForm = this.formBuilder.group({
@@ -774,6 +775,7 @@ export class UserProfileComponent implements OnInit {
           minor1: [this.user.minor1],
           minor2: [this.user.minor2],
           minor3: [this.user.minor3],
+          certificateType: [this.user.certificateType],
           certificate: [this.user.certificates, [Validators.required]],
         });
         this.experienceDetailsForm = this.formBuilder.group({
@@ -867,6 +869,7 @@ export class UserProfileComponent implements OnInit {
       $t.userDetails.minor2 = educationDetailsValues.minor2;
       $t.userDetails.minor3 = educationDetailsValues.minor3;
       $t.userDetails.certificates = educationDetailsValues.certificate;
+      $t.userDetails.certificateType = educationDetailsValues.certificateType;
       let experienceDetailsValues = $t.experienceDetailsForm.value;
       $t.userDetails.experience = experienceDetailsValues.experience;
       $t.userDetails.organization = experienceDetailsValues.organization;
@@ -924,11 +927,14 @@ export class UserProfileComponent implements OnInit {
     let files = _event.target.files;
     var form = new FormData();
     form.append('file', files[0], files[0].name);
-    if ($t.sharedService.utilityService.ValidateCertificateUpload(files[0].name)) {
+    if ($t.sharedService.utilityService.ValidateCertificateUpload(files[0].name).result) {
       $t.sharedService.uiService.showApiStartPopMsg('Uploading Certificate...');
       $t.sharedService.configService.post(apiUrl, form).subscribe(
         (response: any) => {
           $t.educationDetailsForm.get('certificate').patchValue(response.url);
+          $t.educationDetailsForm
+            .get('certificateType')
+            .patchValue($t.sharedService.utilityService.ValidateCertificateUpload(files[0].name).type);
           $t.sharedService.uiService.showApiSuccessPopMsg('Certificate Uploaded...');
         },
         (error) => {
