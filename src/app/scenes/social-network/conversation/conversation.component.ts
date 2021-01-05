@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CredentialsService } from '@app/auth';
 import { SharedService } from '@app/services/shared.service';
@@ -14,6 +14,7 @@ declare var jQuery: any;
   encapsulation: ViewEncapsulation.None,
 })
 export class ConversationComponent implements OnInit {
+  @ViewChild('audioOption', { static: false }) audioPlayerRef: ElementRef;
   message: string = '';
   uds: any;
   searchedName: string = '';
@@ -58,7 +59,7 @@ export class ConversationComponent implements OnInit {
       (results: any) => {
         console.log(results);
         const result1 = results[0];
-        const result2 = results[1];
+        const result2 = results[1].responseObj;
         const userId = this.activatedRoute.snapshot.queryParamMap.get('userId');
         let getChatId = (d: any) => {
           if (result2.filter((data: any) => data.from === d.id || data.to === d.id).length) {
@@ -147,12 +148,13 @@ export class ConversationComponent implements OnInit {
     let apiUrl = $t.sharedService.urlService.simpleApiCall('sendMessage');
     $t.sharedService.configService.post(apiUrl, payload).subscribe(
       (response: any) => {
-        jQuery(`<li class="sent"><img src="${this.user.image}" alt="" /><p>${message}</p></li>`).appendTo(
-          jQuery('.messages ul')
-        );
         jQuery('.message-input input').val(null);
-        jQuery('.contact.active .preview').html('<span>You: </span>' + message);
-        jQuery('.messages').animate({ scrollTop: jQuery(document).height() }, 'fast');
+        $t.getAllChatByChatId();
+        // jQuery(`<li class="sent"><img src="${this.user.image}" alt="" /><p>${message}</p></li>`).appendTo(
+        //   jQuery('.messages ul')
+        // );
+        // jQuery('.message-input input').val(null);
+        // jQuery('.contact.active .preview').html('<span>You: </span>' + message);
       },
       (error) => {}
     );
@@ -160,6 +162,7 @@ export class ConversationComponent implements OnInit {
 
   startConnection(selectedUser: any) {
     let $t = this;
+    $t.connectionConfig.currentMsgList = [];
     let apiUrl = $t.sharedService.urlService.apiCallWithParams('startConnection', {
       '{from}': $t.user.email,
       '{to}': selectedUser.id,
@@ -181,11 +184,16 @@ export class ConversationComponent implements OnInit {
     });
     $t.sharedService.configService.get(apiUrl).subscribe(
       (response: any) => {
-        $t.connectionConfig.currentMsgList = response.reverse();
+        $t.connectionConfig.currentMsgList = response.responseObj.reverse();
+        setTimeout(() => {
+          document.querySelector('.last-msg').scrollIntoView({
+            behavior: 'smooth',
+          });
+        }, 500);
         $t.readMessages();
         setTimeout(() => {
           $t.pollingForChat();
-        }, 500);
+        }, 1000);
       },
       (error) => {}
     );
@@ -199,8 +207,12 @@ export class ConversationComponent implements OnInit {
     });
     $t.sharedService.configService.get(apiUrl).subscribe(
       (response: any) => {
-        if (response.length) {
-          $t.connectionConfig.currentMsgList.push(response);
+        if (response.responseObj.length) {
+          $t.audioPlayerRef.nativeElement.play();
+          // $t.uds.each(response,(d:any) => {
+          //   $t.connectionConfig.currentMsgList.push(d);
+          // })
+          $t.getAllChatByChatId();
         }
       },
       (error) => {}
@@ -222,7 +234,7 @@ export class ConversationComponent implements OnInit {
     if (this.connectionConfig.selectedUser) {
       this.pollingInterval = setInterval(() => {
         this.getAllNewChatByChatIdAndUserId();
-      }, 10000);
+      }, 20000);
     }
   }
 
@@ -231,8 +243,6 @@ export class ConversationComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
-    jQuery('.messages').animate({ scrollTop: jQuery(document).height() }, 'fast');
-
     jQuery('#profile-img').click(function () {
       jQuery('#status-options').toggleClass('active');
     });
@@ -266,9 +276,9 @@ export class ConversationComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    if (this.pollingInterval) {
-      this.pollingInterval.clearInterval();
-    }
+    // if (this.pollingInterval) {
+    //   this.pollingInterval.clearInterval();
+    // }
   }
 
   get user(): any | null {

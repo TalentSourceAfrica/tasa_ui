@@ -152,9 +152,8 @@
       <div class="messages" [ngClass]="{ 'd-flex align-items-center': connectionConfig.currentMsgList.length === 0 }">
         <ul *ngIf="connectionConfig.currentMsgList.length">
           <li
-            [ngClass]="{ sent: item.from === user.email, replies: item.to === user.email }"
-            class="animated fadeIn"
-            *ngFor="let item of connectionConfig.currentMsgList"
+            [ngClass]="{ sent: item.from === user.email, replies: item.to === user.email, 'last-msg': last }"
+            *ngFor="let item of connectionConfig.currentMsgList; let last = last"
           >
             <img
               *ngIf="item.from === user.email"
@@ -284,3 +283,7 @@
     </div>
   </div>
 </ng-template>
+
+<audio #audioOption>
+  <source src="http://soundbible.com/mp3/Elevator Ding-SoundBible.com-685385892.mp3" controls type="audio/mp3" />
+</audio>
