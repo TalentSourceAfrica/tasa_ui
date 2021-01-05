@@ -48,7 +48,7 @@ $break-big: 900px;
     #sidepanel {
       float: left;
       min-width: 280px;
-      max-width: 340px;
+      max-width: 280px;
       width: 40%;
       height: 100%;
       background: $dark;
@@ -562,7 +562,7 @@ $break-big: 900px;
         min-width: 300px !important;
       }
       @media screen and (min-width: $break-big) {
-        width: calc(100% - 340px);
+        width: calc(100% - 280px);
       }
 
       .contact-profile {
@@ -690,7 +690,6 @@ $break-big: 900px;
             border: none;
             width: calc(100% - 90px);
             padding: 20px 0px 18px 20px;
-            color: $lighter;
             @media screen and (max-width: $break) {
               padding: 15px 32px 16px 8px;
             }
@@ -701,11 +700,11 @@ $break-big: 900px;
 
           .attachment {
             position: absolute;
-            right: 60px;
+            right: 62px;
             z-index: 4;
-            margin-top: 10px;
+            margin-top: 20px;
             font-size: 1.1em;
-            color: $light;
+            color: #523f6d;
             opacity: 0.5;
             cursor: pointer;
             @media screen and (max-width: $break) {

@@ -137,7 +137,10 @@ export const urls: any = {
   rejectNetworkConnection: '/connectionRequests/reject/{requestId}', // PO
 
   // Chat
-  startConnection : '/chat/start/{from}/{to}', // PO
-  sendMessage : '/chat/messages/send', // PO
-  getAllMessages : '/chat/all/{chatId}', // G
+  myConnections: '/chat/my/{userId}', // G
+  startConnection: '/chat/start/{from}/{to}', // PO
+  sendMessage: '/chat/messages/send', // PO
+  getAllMessages: '/chat/messages/all/{chatId}', // G
+  getAllNewMessages: '/chat/messages/new/{chatId}/{userId}', // G
+  readMessages: '/chat/read/{chatId}', // PO
 };

@@ -72,10 +72,10 @@
         <input type="text" [(ngModel)]="searchedName" placeholder="Search contacts..." />
       </div>
       <div id="contacts">
-        <ul>
+        <ul *ngIf="connectedUserConfig.data.length">
           <li
             class="contact"
-            [ngClass]="{ active: selectedUser.id === item.id }"
+            [ngClass]="{ active: connectionConfig.selectedUser?.id === item.id }"
             (click)="afterUserSelected(item)"
             *ngFor="let item of connectedUserConfig.data | nameFilter: searchedName; let first = first"
           >
@@ -109,6 +109,18 @@
             </div>
           </li> -->
         </ul>
+        <ng-container *ngIf="connectedUserConfig.isLoading">
+          <ng-template *ngTemplateOutlet="loader"></ng-template>
+        </ng-container>
+
+        <ng-container *ngIf="connectedUserConfig.data.length == 0 && !connectedUserConfig.isLoading">
+          <div class="text-center m-auto animated fadeIn">
+            <div>
+              <h1>😕</h1>
+              <h6 class="text-white">No users...</h6>
+            </div>
+          </div>
+        </ng-container>
       </div>
       <div id="bottom-bar">
         <button id="addcontact">
@@ -118,36 +130,53 @@
       </div>
     </div>
     <div class="content">
-      <div class="contact-profile">
+      <div class="contact-profile" *ngIf="connectionConfig.selectedUser">
         <img
           src="{{
-            selectedUser?.imageUrl
-              ? selectedUser?.imageUrl
+            connectionConfig.selectedUser?.imageUrl
+              ? connectionConfig.selectedUser?.imageUrl
               : 'https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg'
           }}"
           alt=""
         />
-        <p>{{ selectedUser?.firstName }} {{ selectedUser?.lastName }}</p>
+        <p>
+          {{ connectionConfig.selectedUser?.firstName }} {{ connectionConfig.selectedUser?.lastName }} (
+          <span class="text-muted">{{ connectionConfig.selectedUser?.summary }}</span> )
+        </p>
         <div class="social-media">
           <i class="fab fa-facebook-f"></i>
           <i class="fab fa-twitter"></i>
           <i class="fab fa-linkedin-in"></i>
         </div>
       </div>
-      <div class="messages">
-        <ul>
-          <li class="sent">
+      <div class="messages" [ngClass]="{ 'd-flex align-items-center': connectionConfig.currentMsgList.length === 0 }">
+        <ul *ngIf="connectionConfig.currentMsgList.length">
+          <li
+            [ngClass]="{ sent: item.from === user.email, replies: item.to === user.email }"
+            class="animated fadeIn"
+            *ngFor="let item of connectionConfig.currentMsgList"
+          >
             <img
+              *ngIf="item.from === user.email"
               src="{{
-                selectedUser?.imageUrl
-                  ? selectedUser?.imageUrl
+                user.image != ''
+                  ? user.image
                   : 'https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg'
               }}"
               alt=""
             />
-            <p>How the hell am I supposed to get a jury to believe you when I am not even sure that I do?!</p>
+            <img
+              *ngIf="item.to === user.email"
+              src="{{
+                connectionConfig.selectedUser?.imageUrl
+                  ? connectionConfig.selectedUser?.imageUrl
+                  : 'https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg'
+              }}"
+              alt=""
+            />
+            <p>{{ item.message }}</p>
           </li>
-          <li class="replies">
+          <!-- <li class="replies">
             <img
               src="{{
                 user.image != ''
@@ -172,8 +201,8 @@
           <li class="sent">
             <img
               src="{{
-                selectedUser?.imageUrl
-                  ? selectedUser?.imageUrl
+                connectionConfig.selectedUser?.imageUrl
+                  ? connectionConfig.selectedUser?.imageUrl
                   : 'https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg'
               }}"
               alt=""
@@ -205,8 +234,8 @@
           <li class="sent">
             <img
               src="{{
-                selectedUser?.imageUrl
-                  ? selectedUser?.imageUrl
+                connectionConfig.selectedUser?.imageUrl
+                  ? connectionConfig.selectedUser?.imageUrl
                   : 'https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg'
               }}"
               alt=""
@@ -226,16 +255,32 @@
               Wrong. You take the gun, or you pull out a bigger one. Or, you call their bluff. Or, you do any one of a
               hundred and forty six other things.
             </p>
-          </li>
+          </li> -->
         </ul>
+        <ng-container *ngIf="connectionConfig.currentMsgList.length == 0">
+          <div class="text-center m-auto animated fadeIn">
+            <div>
+              <h1>💬</h1>
+              <h6 class="text-muted">Select the user from left hand side for chat...</h6>
+            </div>
+          </div>
+        </ng-container>
       </div>
       <div class="message-input">
         <div class="wrap">
-          <input type="text" placeholder="Write your message..." />
+          <input type="text" (keyup.enter)="newMessage()" placeholder="Write your message..." />
           <i class="fa fa-paperclip attachment" aria-hidden="true"></i>
-          <button class="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+          <button class="submit" (click)="newMessage()"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
         </div>
       </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #loader>
+  <div class="col-12 animated fadeIn" *ngFor="let item of [1, 2, 3, 4, 5]">
+    <div class="card ml-0 mr-0" style="height: 50px !important;">
+      <div class="card-img skeleton"></div>
     </div>
   </div>
 </ng-template>

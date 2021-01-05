@@ -2,6 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CredentialsService } from '@app/auth';
 import { SharedService } from '@app/services/shared.service';
+import { Observable, forkJoin } from 'rxjs';
 
 //extra
 declare var jQuery: any;
@@ -14,74 +15,215 @@ declare var jQuery: any;
 })
 export class ConversationComponent implements OnInit {
   message: string = '';
+  uds: any;
   searchedName: string = '';
-  selectedUser: any;
+  pollingInterval: any;
   connectedUserConfig: any = {
     isLoading: false,
     data: [],
+  };
+  connectionConfig: any = {
+    selectedUser: undefined,
+    currentConnection: undefined,
+    currentMsgList: [],
   };
   constructor(
     private credentialsService: CredentialsService,
     public sharedService: SharedService,
     private activatedRoute: ActivatedRoute
-  ) {}
+  ) {
+    this.uds = this.sharedService.plugins.undSco;
+  }
 
   // startConnection : '/chat/start/{from}/{to}', // PO
   // sendMessage : '/chat/messages/send', // PO
   // getAllMessages : '/chat/all/{chatId}', // G
 
   getAllConnections() {
-    this.connectedUserConfig.isLoading = true;
-    let apiUrl = this.sharedService.urlService.apiCallWithParams('getAllNetworkConnections', {
-      '{userId}': this.user.email,
+    let $t = this;
+    $t.connectedUserConfig.isLoading = true;
+    let api1: any;
+    let api2: any;
+
+    let apiUrl1 = $t.sharedService.urlService.apiCallWithParams('getAllNetworkConnections', {
+      '{userId}': $t.user.email,
     });
-    this.sharedService.configService.get(apiUrl).subscribe(
-      (response: any) => {
-        this.connectedUserConfig.data = response.connections ? response.connections : [];
+    let apiUrl2 = $t.sharedService.urlService.apiCallWithParams('myConnections', {
+      '{userId}': $t.user.email,
+    });
+
+    api1 = $t.sharedService.configService.get(apiUrl1);
+    api2 = $t.sharedService.configService.get(apiUrl2);
+    forkJoin([api1, api2]).subscribe(
+      (results: any) => {
+        console.log(results);
+        const result1 = results[0];
+        const result2 = results[1];
         const userId = this.activatedRoute.snapshot.queryParamMap.get('userId');
-        if (userId) {
-          this.selectedUser = this.connectedUserConfig.data.find((d: any) => d.id === userId);
+        let getChatId = (d: any) => {
+          if (result2.filter((data: any) => data.from === d.id || data.to === d.id).length) {
+            return result2.find((data: any) => data.from === d.id || data.to === d.id).id;
+          } else {
+            return null;
+          }
+        };
+        if (result1.connections.length === 0 && result2.length === 0) {
+          $t.connectedUserConfig.data = [];
+        } else {
+          $t.uds.each(result1.connections, (d: any) => {
+            $t.connectedUserConfig.data.push({
+              firstName: d.firstName,
+              id: d.id,
+              imageUrl: d.imageUrl,
+              lastName: d.lastName,
+              summary: d.summary,
+              tasaId: d.tasaId,
+              chatId: getChatId(d),
+            });
+          });
+          if (userId) {
+            $t.connectionConfig.selectedUser = $t.connectedUserConfig.data.find((d: any) => d.id === userId);
+            if ($t.connectionConfig.selectedUser.chatId) {
+              $t.getAllChatByChatId();
+              $t.pollingForChat();
+            } else {
+              $t.startConnection($t.connectionConfig.selectedUser);
+            }
+          }
         }
-        if (!this.selectedUser || typeof this.selectedUser === 'undefined') {
-          this.selectedUser = this.connectedUserConfig.data[0];
-        }
-        this.startConnection(this.selectedUser);
-        this.connectedUserConfig.isLoading = false;
+        $t.connectedUserConfig.isLoading = false;
+        console.log($t.connectedUserConfig);
       },
-      (error) => {}
+      (error) => {
+        $t.connectedUserConfig.isLoading = false;
+        $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
+      }
     );
+    // this.sharedService.configService.get(apiUrl1).subscribe(
+    //   (response: any) => {
+    //     this.connectedUserConfig.data = response.connections ? response.connections : [];
+    //     const userId = this.activatedRoute.snapshot.queryParamMap.get('userId');
+    //     if (userId) {
+    //       this.connectionConfig.selectedUser = this.connectedUserConfig.data.find((d: any) => d.id === userId);
+    //     }
+    //     if (!this.connectionConfig.selectedUser || typeof this.connectionConfig.selectedUser === 'undefined') {
+    //       this.connectionConfig.selectedUser = this.connectedUserConfig.data[0];
+    //     }
+    //     // this.startConnection(this.connectionConfig.selectedUser);
+    //     this.connectedUserConfig.isLoading = false;
+    //   },
+    //   (error) => {}
+    // );
   }
 
   afterUserSelected(_user: any) {
-    this.selectedUser = _user;
-    this.startConnection(this.selectedUser);
+    this.connectionConfig.selectedUser = _user;
+    if (_user.chatId == null) {
+      this.startConnection(this.connectionConfig.selectedUser);
+    } else {
+      this.getAllChatByChatId();
+    }
   }
 
   newMessage() {
-    this.message = jQuery('.message-input input').val();
-    if (jQuery.trim(this.message) == '') {
+    let $t = this;
+    let payload: any = '';
+    const message = jQuery('.message-input input').val();
+    if (jQuery.trim(message) == '') {
       return false;
     }
-    jQuery(`<li class="sent"><img src="${this.user.image}" alt="" /><p>' + this.message + '</p></li>`).appendTo(
-      jQuery('.messages ul')
+    payload = {
+      id: '',
+      chatId: $t.connectionConfig.selectedUser.chatId,
+      message: message,
+      contentType: '',
+      contentUrl: '',
+      from: $t.user.email,
+      to: $t.connectionConfig.selectedUser.id,
+      sentOn: '',
+      status: 'SENT',
+    };
+
+    let apiUrl = $t.sharedService.urlService.simpleApiCall('sendMessage');
+    $t.sharedService.configService.post(apiUrl, payload).subscribe(
+      (response: any) => {
+        jQuery(`<li class="sent"><img src="${this.user.image}" alt="" /><p>${message}</p></li>`).appendTo(
+          jQuery('.messages ul')
+        );
+        jQuery('.message-input input').val(null);
+        jQuery('.contact.active .preview').html('<span>You: </span>' + message);
+        jQuery('.messages').animate({ scrollTop: jQuery(document).height() }, 'fast');
+      },
+      (error) => {}
     );
-    jQuery('.message-input input').val(null);
-    jQuery('.contact.active .preview').html('<span>You: </span>' + this.message);
-    jQuery('.messages').animate({ scrollTop: jQuery(document).height() }, 'fast');
   }
 
   startConnection(selectedUser: any) {
     let $t = this;
-    let apiUrl = this.sharedService.urlService.apiCallWithParams('startConnection', {
-      '{from}': this.user.email,
+    let apiUrl = $t.sharedService.urlService.apiCallWithParams('startConnection', {
+      '{from}': $t.user.email,
       '{to}': selectedUser.id,
     });
-    this.sharedService.configService.get(apiUrl).subscribe(
+    $t.sharedService.configService.post(apiUrl).subscribe(
       (response: any) => {
         console.log(response);
+        $t.connectionConfig.selectedUser.chatId = response.id;
+        $t.getAllChatByChatId();
       },
       (error) => {}
     );
+  }
+
+  getAllChatByChatId() {
+    let $t = this;
+    let apiUrl = $t.sharedService.urlService.apiCallWithParams('getAllMessages', {
+      '{chatId}': $t.connectionConfig.selectedUser.chatId,
+    });
+    $t.sharedService.configService.get(apiUrl).subscribe(
+      (response: any) => {
+        $t.connectionConfig.currentMsgList = response.reverse();
+        $t.readMessages();
+        setTimeout(() => {
+          $t.pollingForChat();
+        }, 500);
+      },
+      (error) => {}
+    );
+  }
+
+  getAllNewChatByChatIdAndUserId() {
+    let $t = this;
+    let apiUrl = $t.sharedService.urlService.apiCallWithParams('getAllNewMessages', {
+      '{chatId}': $t.connectionConfig.selectedUser.chatId,
+      '{userId}': $t.user.email,
+    });
+    $t.sharedService.configService.get(apiUrl).subscribe(
+      (response: any) => {
+        if (response.length) {
+          $t.connectionConfig.currentMsgList.push(response);
+        }
+      },
+      (error) => {}
+    );
+  }
+
+  readMessages() {
+    let $t = this;
+    let apiUrl = $t.sharedService.urlService.apiCallWithParams('readMessages', {
+      '{chatId}': $t.connectionConfig.selectedUser.chatId,
+    });
+    $t.sharedService.configService.post(apiUrl).subscribe(
+      (response: any) => {},
+      (error) => {}
+    );
+  }
+
+  pollingForChat() {
+    if (this.connectionConfig.selectedUser) {
+      this.pollingInterval = setInterval(() => {
+        this.getAllNewChatByChatIdAndUserId();
+      }, 10000);
+    }
   }
 
   ngOnInit(): void {
@@ -119,20 +261,14 @@ export class ConversationComponent implements OnInit {
       } else {
         jQuery('#profile-img').removeClass();
       }
-
       jQuery('#status-options').removeClass('active');
     });
+  }
 
-    jQuery('.submit').click(() => {
-      this.newMessage();
-    });
-
-    jQuery(window).on('keydown', (e: any) => {
-      if (e.which == 13) {
-        this.newMessage();
-        return false;
-      }
-    });
+  ngOnDestroy(): void {
+    if (this.pollingInterval) {
+      this.pollingInterval.clearInterval();
+    }
   }
 
   get user(): any | null {
