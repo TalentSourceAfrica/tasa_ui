@@ -135,4 +135,9 @@ export const urls: any = {
   sendNetworkConnectionRequest: '/connectionRequests/{fromUserId}/{toUserId}', // PO
   approveNetworkConnection: '/connectionRequests/approve/{requestId}', // PO
   rejectNetworkConnection: '/connectionRequests/reject/{requestId}', // PO
+
+  // Chat
+  startConnection : '/chat/start/{from}/{to}', // PO
+  sendMessage : '/chat/messages/send', // PO
+  getAllMessages : '/chat/all/{chatId}', // G
 };

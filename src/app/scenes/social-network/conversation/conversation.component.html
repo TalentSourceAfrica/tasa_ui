@@ -2,7 +2,7 @@
   <div class="container">
     <ol class="breadcrumb mt-3">
       <li class="breadcrumb-item curPoint"><a [routerLink]="['/dashboard']">Dashboard</a></li>
-      <li class="breadcrumb-item active"><a>My Converations</a></li>
+      <li class="breadcrumb-item active"><a>My Conversations</a></li>
     </ol>
     <div class="sec-title">
       <div class="title">Messages</div>
@@ -21,7 +21,7 @@
 </div>
 
 <ng-template #chatSection>
-  <div id="frame" class="mb-4">
+  <div id="frame" class="mb-4 shadow-lg">
     <div id="sidepanel">
       <div id="profile">
         <div class="wrap">
@@ -36,7 +36,7 @@
             alt=""
           />
           <p>{{ user.firstName }} {{ user.lastName }}</p>
-          <i class="fa fa-chevron-down expand-button" aria-hidden="true"></i>
+          <!-- <i class="fa fa-chevron-down expand-button" aria-hidden="true"></i> -->
           <div id="status-options">
             <ul>
               <li id="status-online" class="active">
@@ -69,14 +69,15 @@
       </div>
       <div id="search">
         <label for=""><i class="fa fa-search" aria-hidden="true"></i></label>
-        <input type="text" placeholder="Search contacts..." />
+        <input type="text" [(ngModel)]="searchedName" placeholder="Search contacts..." />
       </div>
       <div id="contacts">
         <ul>
           <li
             class="contact"
-            [ngClass]="{ active: first }"
-            *ngFor="let item of connectedUserConfig.data; let first = first"
+            [ngClass]="{ active: selectedUser.id === item.id }"
+            (click)="afterUserSelected(item)"
+            *ngFor="let item of connectedUserConfig.data | nameFilter: searchedName; let first = first"
           >
             <div class="wrap">
               <span class="contact-status online"></span>
@@ -120,17 +121,17 @@
       <div class="contact-profile">
         <img
           src="{{
-            (connectedUserConfig?.data)[0]?.imageUrl
-              ? (connectedUserConfig?.data)[0]?.imageUrl
+            selectedUser?.imageUrl
+              ? selectedUser?.imageUrl
               : 'https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg'
           }}"
           alt=""
         />
-        <p>{{ (connectedUserConfig?.data)[0]?.firstName }} {{ (connectedUserConfig?.data)[0]?.lastName }}</p>
+        <p>{{ selectedUser?.firstName }} {{ selectedUser?.lastName }}</p>
         <div class="social-media">
-          <i class="fa fa-facebook" aria-hidden="true"></i>
-          <i class="fa fa-twitter" aria-hidden="true"></i>
-          <i class="fa fa-instagram" aria-hidden="true"></i>
+          <i class="fab fa-facebook-f"></i>
+          <i class="fab fa-twitter"></i>
+          <i class="fab fa-linkedin-in"></i>
         </div>
       </div>
       <div class="messages">
@@ -138,8 +139,8 @@
           <li class="sent">
             <img
               src="{{
-                (connectedUserConfig?.data)[0]?.imageUrl
-                  ? (connectedUserConfig?.data)[0]?.imageUrl
+                selectedUser?.imageUrl
+                  ? selectedUser?.imageUrl
                   : 'https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg'
               }}"
               alt=""
@@ -171,8 +172,8 @@
           <li class="sent">
             <img
               src="{{
-                (connectedUserConfig?.data)[0]?.imageUrl
-                  ? (connectedUserConfig?.data)[0]?.imageUrl
+                selectedUser?.imageUrl
+                  ? selectedUser?.imageUrl
                   : 'https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg'
               }}"
               alt=""
@@ -204,8 +205,8 @@
           <li class="sent">
             <img
               src="{{
-                (connectedUserConfig?.data)[0]?.imageUrl
-                  ? (connectedUserConfig?.data)[0]?.imageUrl
+                selectedUser?.imageUrl
+                  ? selectedUser?.imageUrl
                   : 'https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg'
               }}"
               alt=""

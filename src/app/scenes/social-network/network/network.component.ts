@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { CredentialsService } from '@app/auth';
 import { SharedService } from '@app/services/shared.service';
 
@@ -16,7 +17,12 @@ export class NetworkComponent implements OnInit {
     isLoading: false,
     data: [],
   };
-  constructor(public sharedService: SharedService, public credentialsService: CredentialsService) {}
+
+  constructor(
+    public sharedService: SharedService,
+    public credentialsService: CredentialsService,
+    private router: Router
+  ) {}
 
   getAllConnections() {
     this.connectedUserConfig.isLoading = true;
@@ -25,11 +31,15 @@ export class NetworkComponent implements OnInit {
     });
     this.sharedService.configService.get(apiUrl).subscribe(
       (response: any) => {
-        this.connectedUserConfig.data = response.connections ?  response.connections : [];
+        this.connectedUserConfig.data = response.connections ? response.connections : [];
         this.connectedUserConfig.isLoading = false;
       },
       (error) => {}
     );
+  }
+
+  message(id: string) {
+    this.router.navigate(['/social-network/conversation/'], { replaceUrl: true, queryParams: { userId: id } });
   }
 
   getConnectionRequest() {

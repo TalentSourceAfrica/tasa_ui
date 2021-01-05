@@ -477,7 +477,7 @@
     class="album-comments border-top pt-4 pb-2 w100 max-vertical-h-50 stylishSlimScroll flow-y-auto flow-x-hidden"
     *ngIf="post.isCommentShow"
   >
-    <div class="row no-gutters text-center animated fadeIn" *ngFor="let comment of post.comments; let ind = index">
+    <div class="row no-gutters text-center animated fadeIn pb-3" *ngFor="let comment of post.comments; let ind = index">
       <div class="col-{{ iteration }}"></div>
       <div class="col-2 text-right curPoint">
         <img
@@ -502,7 +502,7 @@
         />
       </div>
       <div class="col-{{ 8 - iteration }}">
-        <mat-form-field class="w100">
+        <mat-form-field class="w100" style="height: 30px;">
           <mat-label
             ><a [routerLink]="['/social-network/profile/', comment.tasaId]" routerLinkActive="router-link-active">{{
               comment.userName
@@ -512,7 +512,7 @@
         </mat-form-field>
         <div class="text-left mt-1 pb-3" style="margin-top: -15px;">
           <a
-            class="small pr-2 curPoint"
+            class="small pr-2 curPoint p-1"
             data-id="{{ comment.id }}"
             (mouseenter)="userInteractionPopover($event, comment)"
           >
@@ -546,8 +546,8 @@
               >Curious
             </span>
           </a>
-          <a class="small pr-2 curPoint" (click)="comment.reply = !comment.reply">Reply</a>
-          <a class="small curPoint" (click)="fetchComments(comment, iteration)">Show Replies</a>
+          <a class="small pr-2 curPoint p-1" (click)="comment.reply = !comment.reply">Reply</a>
+          <a class="small curPoint p-1" (click)="fetchComments(comment, iteration)">Show Replies</a>
         </div>
       </div>
       <div class="col-2">

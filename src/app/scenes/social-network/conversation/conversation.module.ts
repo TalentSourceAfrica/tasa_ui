@@ -10,7 +10,7 @@ import { RouterModule } from '@angular/router';
 import { NgxEmojiPickerModule } from 'ngx-emoji-picker';
 import { ConversationRoutingModule } from './conversation-routing.module';
 import { ConversationComponent } from './conversation.component';
-
+import { NameFilterPipe } from '@app/pipes/name-filter.pipe';
 
 @NgModule({
   imports: [
@@ -26,7 +26,7 @@ import { ConversationComponent } from './conversation.component';
     ConversationRoutingModule,
     NgxEmojiPickerModule,
   ],
-  declarations: [ConversationComponent],
+  declarations: [ConversationComponent, NameFilterPipe],
   entryComponents: [],
 })
-export class ConversationModule { }
+export class ConversationModule {}

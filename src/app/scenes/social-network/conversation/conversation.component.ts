@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { CredentialsService } from '@app/auth';
 import { SharedService } from '@app/services/shared.service';
 
@@ -13,16 +14,21 @@ declare var jQuery: any;
 })
 export class ConversationComponent implements OnInit {
   message: string = '';
+  searchedName: string = '';
+  selectedUser: any;
   connectedUserConfig: any = {
     isLoading: false,
     data: [],
   };
-  constructor(private credentialsService: CredentialsService, public sharedService: SharedService) {}
+  constructor(
+    private credentialsService: CredentialsService,
+    public sharedService: SharedService,
+    private activatedRoute: ActivatedRoute
+  ) {}
 
-  get user(): any | null {
-    const credentials = this.credentialsService.credentials;
-    return credentials ? credentials : null;
-  }
+  // startConnection : '/chat/start/{from}/{to}', // PO
+  // sendMessage : '/chat/messages/send', // PO
+  // getAllMessages : '/chat/all/{chatId}', // G
 
   getAllConnections() {
     this.connectedUserConfig.isLoading = true;
@@ -32,10 +38,23 @@ export class ConversationComponent implements OnInit {
     this.sharedService.configService.get(apiUrl).subscribe(
       (response: any) => {
         this.connectedUserConfig.data = response.connections ? response.connections : [];
+        const userId = this.activatedRoute.snapshot.queryParamMap.get('userId');
+        if (userId) {
+          this.selectedUser = this.connectedUserConfig.data.find((d: any) => d.id === userId);
+        }
+        if (!this.selectedUser || typeof this.selectedUser === 'undefined') {
+          this.selectedUser = this.connectedUserConfig.data[0];
+        }
+        this.startConnection(this.selectedUser);
         this.connectedUserConfig.isLoading = false;
       },
       (error) => {}
     );
+  }
+
+  afterUserSelected(_user: any) {
+    this.selectedUser = _user;
+    this.startConnection(this.selectedUser);
   }
 
   newMessage() {
@@ -43,12 +62,26 @@ export class ConversationComponent implements OnInit {
     if (jQuery.trim(this.message) == '') {
       return false;
     }
-    jQuery(
-      `<li class="sent"><img src="${this.user.image}" alt="" /><p>' + this.message + '</p></li>`
-    ).appendTo(jQuery('.messages ul'));
+    jQuery(`<li class="sent"><img src="${this.user.image}" alt="" /><p>' + this.message + '</p></li>`).appendTo(
+      jQuery('.messages ul')
+    );
     jQuery('.message-input input').val(null);
     jQuery('.contact.active .preview').html('<span>You: </span>' + this.message);
     jQuery('.messages').animate({ scrollTop: jQuery(document).height() }, 'fast');
+  }
+
+  startConnection(selectedUser: any) {
+    let $t = this;
+    let apiUrl = this.sharedService.urlService.apiCallWithParams('startConnection', {
+      '{from}': this.user.email,
+      '{to}': selectedUser.id,
+    });
+    this.sharedService.configService.get(apiUrl).subscribe(
+      (response: any) => {
+        console.log(response);
+      },
+      (error) => {}
+    );
   }
 
   ngOnInit(): void {
@@ -100,5 +133,10 @@ export class ConversationComponent implements OnInit {
         return false;
       }
     });
+  }
+
+  get user(): any | null {
+    const credentials = this.credentialsService.credentials;
+    return credentials ? credentials : null;
   }
 }

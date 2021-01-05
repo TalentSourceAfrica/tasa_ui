@@ -22,6 +22,68 @@
 
 <ng-template #network>
   <mat-tab-group>
+    <mat-tab label="Connected Users">
+      <div
+        *ngIf="connectedUserConfig.data.length"
+        class="row no-gutters mt-3 max-vertical-h-70 stylishSlimScroll flow-y-auto flow-x-hidden"
+      >
+        <div class="col-6" *ngFor="let item of connectedUserConfig.data">
+          <div class="card m-1 p-2">
+            <div class="d-flex align-items-center">
+              <div class="row no-gutters">
+                <div class="col-2">
+                  <img
+                    [routerLink]="['/social-network/profile/', item.tasaId]"
+                    routerLinkActive="router-link-active"
+                    class="status-img img-responsive img-thumbnail curPoint"
+                    src="{{
+                      item.imageUrl
+                        ? item.imageUrl
+                        : 'https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg'
+                    }}"
+                    alt="User picture"
+                  />
+                </div>
+                <div class="col-10 pl-3">
+                  <div class="d-flex w100">
+                    <div class="flex-grow-1">
+                      <h6 class="mb-0">
+                        <a
+                          [routerLink]="['/social-network/profile/', item.tasaId]"
+                          routerLinkActive="router-link-active"
+                          >{{ item.firstName }} {{ item.lastName }}</a
+                        >
+                      </h6>
+                      <h6 class="text-muted text-truncate" [title]="item.summary" *ngIf="item.summary">
+                        {{ item.summary }}
+                      </h6>
+                    </div>
+
+                    <button
+                      mat-mini-fab
+                      color="warn"
+                      matTooltipPosition="below"
+                      matTooltip="Chat"
+                      (click)="message(item.id)"
+                    >
+                      <mat-icon>message</mat-icon>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <ng-container *ngIf="!connectedUserConfig.isLoading && connectedUserConfig.data.length == 0">
+        <div class="text-center m-auto animated fadeIn">
+          <div class="col-12 text-center">
+            <img src="../../../assets/images/no-record.gif" style="height: 300px;" class="d-block m-auto" />
+            <h6 class="text-primary">No Connections...!</h6>
+          </div>
+        </div>
+      </ng-container>
+    </mat-tab>
     <mat-tab label="Pending Request">
       <div
         *ngIf="networkConfig.data.length"
@@ -72,50 +134,6 @@
           <div class="col-12 text-center">
             <img src="../../../assets/images/no-record.gif" style="height: 300px;" class="d-block m-auto" />
             <h6 class="text-primary">No Request is Pending...!</h6>
-          </div>
-        </div>
-      </ng-container>
-    </mat-tab>
-    <mat-tab label="Connected Users">
-      <div
-        *ngIf="connectedUserConfig.data.length"
-        class="row no-gutters mt-3 max-vertical-h-70 stylishSlimScroll flow-y-auto flow-x-hidden"
-      >
-        <div class="col-6" *ngFor="let item of connectedUserConfig.data">
-          <div class="card m-1 p-2">
-            <div class="d-flex align-items-center">
-              <div class="row no-gutters">
-                <div class="col-2">
-                  <img
-                    [routerLink]="['/social-network/profile/', item.tasaId]"
-                    routerLinkActive="router-link-active"
-                    class="status-img img-responsive img-thumbnail curPoint"
-                    src="{{
-                      item.imageUrl
-                        ? item.imageUrl
-                        : 'https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg'
-                    }}"
-                    alt="User picture"
-                  />
-                </div>
-                <div class="col-10 pl-3">
-                  <h6 class="mb-0">
-                    <a [routerLink]="['/social-network/profile/', item.tasaId]" routerLinkActive="router-link-active"
-                      >{{ item.firstName }} {{ item.lastName }}</a
-                    >
-                  </h6>
-                  <h6 class="text-muted" *ngIf="item.summary">{{ item.summary }}</h6>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <ng-container *ngIf="!connectedUserConfig.isLoading && connectedUserConfig.data.length == 0">
-        <div class="text-center m-auto animated fadeIn">
-          <div class="col-12 text-center">
-            <img src="../../../assets/images/no-record.gif" style="height: 300px;" class="d-block m-auto" />
-            <h6 class="text-primary">No Connections...!</h6>
           </div>
         </div>
       </ng-container>
