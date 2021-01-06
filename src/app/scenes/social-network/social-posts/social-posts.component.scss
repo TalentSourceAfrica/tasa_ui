@@ -1,4 +1,5 @@
-@import url("https://fonts.googleapis.com/css?family=DM+Sans:400,500,700|Source+Sans+Pro:300,400,600,700&display=swap");
+// @import url("https://fonts.googleapis.com/css?family=DM+Sans:400,500,700|Source+Sans+Pro:300,400,600,700&display=swap");
+@import "~@ctrl/ngx-emoji-mart/picker";
 
 $bg-color: white;
 $border-color: #ebe9ee;
@@ -965,6 +966,17 @@ $button: #8f98a9;
   color: #deb8dc;
 }
 
-.opacity-low {
-  display: none;
+.attachment {
+  position: absolute !important;
+  left: 150px;
+  top: 115px;
+}
+.post-image {
+  height: 250px;
+  width: 250px;
+}
+.attachment-two {
+  position: absolute !important;
+  left: 200px;
+  top: 365px;
 }

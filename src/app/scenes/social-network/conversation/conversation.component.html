@@ -143,8 +143,9 @@
           <a
             [routerLink]="['/social-network/profile/', connectionConfig.selectedUser?.tasaId]"
             routerLinkActive="router-link-active"
-            >{{ connectionConfig.selectedUser?.firstName }} {{ connectionConfig.selectedUser?.lastName }} </a
-          > ( <span class="text-muted">{{ connectionConfig.selectedUser?.summary }}</span> )
+            >{{ connectionConfig.selectedUser?.firstName }} {{ connectionConfig.selectedUser?.lastName }}
+          </a>
+          ( <span class="text-muted">{{ connectionConfig.selectedUser?.summary }}</span> )
         </p>
         <div class="social-media">
           <i class="fab fa-facebook-f"></i>
@@ -176,7 +177,38 @@
               }}"
               alt=""
             />
-            <p>{{ item.message }}</p>
+            <p>
+              {{ item.message }}
+              <br />
+              <span class="d-flex">
+                <img
+                  *ngIf="item.contentType === 'image'"
+                  class="img-thumbnail shadow-lg chat-img d-block"
+                  [src]="item.contentUrl"
+                  alt="image"
+                />
+                <video *ngIf="item.contentType === 'video'" width="250" controls class="pt-2">
+                  <source [src]="item.contentUrl" type="video/mp4" />
+                  <source [src]="item.contentUrl" type="video/ogg" />
+                  Your browser does not support the video tag.
+                </video>
+                <button
+                  *ngIf="item.contentType === 'image' || item.contentType === 'video'"
+                  mat-icon-button
+                  style="background: none;"
+                  class="p-2"
+                  [matMenuTriggerFor]="menu"
+                >
+                  <mat-icon class="text-white">keyboard_arrow_down</mat-icon>
+                </button>
+
+                <mat-menu #menu="matMenu">
+                  <a [href]="item.contentUrl" target="_blank" color="primary" class="mr-2" download mat-menu-item>
+                    <span>Download</span>
+                  </a>
+                </mat-menu>
+              </span>
+            </p>
           </li>
           <!-- <li class="replies">
             <img
@@ -268,11 +300,44 @@
           </div>
         </ng-container>
       </div>
-      <div class="message-input">
-        <div class="wrap">
+      <div class="message-input" *ngIf="connectionConfig.currentMsgList?.length">
+        <div class="wrap d-flex">
+          <mat-chip-list *ngIf="attachmentConfig.file">
+            <mat-chip color="primary" style="height: 55px;" selected>
+              <img
+                *ngIf="attachmentConfig.fileType === 'image'"
+                class="msg-img"
+                [src]="attachmentConfig.file"
+                alt="image"
+              />
+              <mat-icon *ngIf="attachmentConfig.fileType === 'video'" color="primary">music_video</mat-icon>
+              <mat-icon
+                matChipRemove
+                class="pl-1 pr-1 msg-img-cross"
+                matTooltipPosition="above"
+                matTooltip="Remove"
+                (click)="attachmentConfig.file = ''; attachmentConfig.fileType = ''"
+                >cancel</mat-icon
+              >
+            </mat-chip>
+          </mat-chip-list>
           <input type="text" (keyup.enter)="newMessage()" placeholder="Write your message..." />
-          <i class="fa fa-paperclip attachment" aria-hidden="true"></i>
-          <button class="submit" (click)="newMessage()"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+          <button mat-icon-button style="background: none;" class="p-2" [matMenuTriggerFor]="menu">
+            <mat-icon color="primary">more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu" yPosition="above">
+            <button mat-menu-item (click)="sendMedia('image')">
+              <mat-icon>image</mat-icon>
+              <span>Send Image</span>
+            </button>
+            <button mat-menu-item (click)="sendMedia('video')">
+              <mat-icon>music_video</mat-icon>
+              <span>Send Video</span>
+            </button>
+          </mat-menu>
+          <button class="submit" matTooltipPosition="below" matTooltip="Send" (click)="newMessage()">
+            <i class="fa fa-paper-plane" aria-hidden="true"></i>
+          </button>
         </div>
       </div>
     </div>
@@ -290,3 +355,6 @@
 <audio #audioOption>
   <source src="http://soundbible.com/mp3/Elevator Ding-SoundBible.com-685385892.mp3" controls type="audio/mp3" />
 </audio>
+
+<input id="imageUpload" class="d-none" #imageFileUpload type="file" (change)="uploadFile($event, 'image')" />
+<input id="videoUpload" class="d-none" #videoFileUpload type="file" (change)="uploadFile($event, 'video')" />

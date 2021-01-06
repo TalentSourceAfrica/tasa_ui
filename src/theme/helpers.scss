@@ -1532,6 +1532,9 @@ button:hover,
   color: white !important;
   border-radius: 7px !important;
 }
+.mat-menu-panel {
+  min-height: auto !important;
+}
 
 .zoomCard {
   transition: transform 0.2s;

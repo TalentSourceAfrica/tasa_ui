@@ -12,6 +12,7 @@ import { SocialPostsRoutingModule } from './social-posts-routing.module';
 import { SocialPostsComponent } from './social-posts.component';
 import { UserInteractionSocialpostPopoverComponent } from '@app/partials/popups/community/user-interaction-socialpost-popover/user-interaction-socialpost-popover.component';
 import { SocialConnectionsModule } from '@app/partials/social-network/social-connections/social-connections.module';
+import { PickerModule } from '@ctrl/ngx-emoji-mart';
 
 @NgModule({
   imports: [
@@ -27,6 +28,7 @@ import { SocialConnectionsModule } from '@app/partials/social-network/social-con
     SocialPostsRoutingModule,
     SocialConnectionsModule,
     NgxEmojiPickerModule,
+    PickerModule,
   ],
   declarations: [SocialPostsComponent, UserInteractionSocialpostPopoverComponent],
   entryComponents: [UserInteractionSocialpostPopoverComponent],

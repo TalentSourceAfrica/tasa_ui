@@ -397,8 +397,8 @@ $break-big: 900px;
         }
 
         ul {
-        list-style-type: none;
-        display: inline;
+          list-style-type: none;
+          display: inline;
           li.contact {
             position: relative;
             padding: 10px 0 22px 0;
@@ -602,8 +602,8 @@ $break-big: 900px;
 
       .messages {
         height: auto;
-        min-height: calc(100% - 115px);
-        max-height: calc(100% - 115px);
+        min-height: calc(100% - 120px);
+        max-height: calc(100% - 120px);
         overflow-y: scroll;
         overflow-x: hidden;
         @media screen and (max-width: $break) {
@@ -741,5 +741,23 @@ $break-big: 900px;
         }
       }
     }
+  }
+  .chat-img {
+    height: 200px !important;
+    width: 200px !important;
+    border-radius: 0 !important;
+  }
+  .msg-img {
+    height: 40px !important;
+    width: 40px !important;
+    border-radius: 0 !important;
+  }
+  .msg-img-cross {
+    position: absolute;
+    top: -8px;
+    opacity: 1 !important;
+    color: black !important;
+    left: 25px;
+    z-index: 9 !important;
   }
 }

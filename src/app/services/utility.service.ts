@@ -135,6 +135,16 @@ export class UtilityService {
     }
   }
 
+  downloadImage(_href: string) {
+    var a = document.createElement('a');
+    a.href = _href;
+    a.download = 'image';
+    a.target = '_blank';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  }
+
   isValidIframeUrl(_urlString: string) {
     var regexQuery = this.CustomValidators.iframeUrl;
     var url = new RegExp(regexQuery, 'i');

@@ -15,7 +15,12 @@ declare var jQuery: any;
 })
 export class ConversationComponent implements OnInit {
   @ViewChild('audioOption', { static: false }) audioPlayerRef: ElementRef;
-  message: string = '';
+  @ViewChild('imageFileUpload', { static: false }) imageFileUpload: any;
+  @ViewChild('videoFileUpload', { static: false }) videoFileUpload: any;
+  attachmentConfig: any = {
+    fileType: '',
+    file: '',
+  };
   uds: any;
   searchedName: string = '';
   pollingInterval: any;
@@ -137,8 +142,8 @@ export class ConversationComponent implements OnInit {
       id: '',
       chatId: $t.connectionConfig.selectedUser.chatId,
       message: message,
-      contentType: '',
-      contentUrl: '',
+      contentType: $t.attachmentConfig.fileType,
+      contentUrl: $t.attachmentConfig.file,
       from: $t.user.email,
       to: $t.connectionConfig.selectedUser.id,
       sentOn: '',
@@ -149,12 +154,9 @@ export class ConversationComponent implements OnInit {
     $t.sharedService.configService.post(apiUrl, payload).subscribe(
       (response: any) => {
         jQuery('.message-input input').val(null);
+        $t.attachmentConfig.fileType = '';
+        $t.attachmentConfig.file = '';
         $t.getAllChatByChatId();
-        // jQuery(`<li class="sent"><img src="${this.user.image}" alt="" /><p>${message}</p></li>`).appendTo(
-        //   jQuery('.messages ul')
-        // );
-        // jQuery('.message-input input').val(null);
-        // jQuery('.contact.active .preview').html('<span>You: </span>' + message);
       },
       (error) => {}
     );
@@ -201,22 +203,24 @@ export class ConversationComponent implements OnInit {
 
   getAllNewChatByChatIdAndUserId() {
     let $t = this;
-    let apiUrl = $t.sharedService.urlService.apiCallWithParams('getAllNewMessages', {
-      '{chatId}': $t.connectionConfig.selectedUser.chatId,
-      '{userId}': $t.user.email,
-    });
-    $t.sharedService.configService.get(apiUrl).subscribe(
-      (response: any) => {
-        if (response.responseObj.length) {
-          $t.audioPlayerRef.nativeElement.play();
-          // $t.uds.each(response,(d:any) => {
-          //   $t.connectionConfig.currentMsgList.push(d);
-          // })
-          $t.getAllChatByChatId();
-        }
-      },
-      (error) => {}
-    );
+    if ($t.connectionConfig.selectedUser) {
+      let apiUrl = $t.sharedService.urlService.apiCallWithParams('getAllNewMessages', {
+        '{chatId}': $t.connectionConfig.selectedUser.chatId,
+        '{userId}': $t.user.email,
+      });
+      $t.sharedService.configService.get(apiUrl).subscribe(
+        (response: any) => {
+          if (response.responseObj.length) {
+            $t.audioPlayerRef.nativeElement.play();
+            // $t.uds.each(response,(d:any) => {
+            //   $t.connectionConfig.currentMsgList.push(d);
+            // })
+            $t.getAllChatByChatId();
+          }
+        },
+        (error) => {}
+      );
+    }
   }
 
   readMessages() {
@@ -230,12 +234,77 @@ export class ConversationComponent implements OnInit {
     );
   }
 
+  downloadChatFile(_type: string, _link: any) {
+    switch (_type) {
+      case 'image':
+        this.sharedService.utilityService.downloadImage(_link);
+        break;
+      case 'video':
+        break;
+    }
+  }
+
+  sendMedia(_type: string) {
+    switch (_type) {
+      case 'image':
+        this.imageFileUpload.nativeElement.click();
+        break;
+      case 'video':
+        this.videoFileUpload.nativeElement.click();
+        break;
+    }
+  }
+
   pollingForChat() {
     if (this.connectionConfig.selectedUser) {
       this.pollingInterval = setInterval(() => {
         this.getAllNewChatByChatIdAndUserId();
       }, 25000);
     }
+  }
+
+  uploadFile(_event: any, _case: string) {
+    let $t = this;
+    let isImage = false;
+    let isVideo = false;
+    let isOther = false;
+    let apiUrl = $t.sharedService.urlService.apiCallWithParams('uploadSingle', { '{email}': $t.user.email });
+    let files = _event.target.files;
+    var form = new FormData();
+    let imageTypes = ['image/jpeg', 'image/jpg', 'image/gif', 'image/png'];
+    let videoTypes = ['video/mp4', 'video/mov', 'video/wmv', 'video/flv', 'video/avi', 'video/webm'];
+    if (_case == 'image') {
+      if (imageTypes.indexOf(files[0].type) != -1) {
+        isImage = true;
+      } else {
+        $t.sharedService.uiService.showApiErrorPopMsg(
+          'Incorrect file chosen, please choose an image (.jpeg, .jpg, .gif, .png)'
+        );
+        return;
+      }
+    } else {
+      if (videoTypes.indexOf(files[0].type) != -1) {
+        isVideo = true;
+      } else {
+        $t.sharedService.uiService.showApiErrorPopMsg(
+          'Incorrect file chosen, please choose a video (.mp4, .mov, .wmv, .flv, .avi, .webm)'
+        );
+        return;
+      }
+    }
+    $t.sharedService.uiService.showApiStartPopMsg('Adding File...');
+    form.append('file', files[0], files[0].name);
+    $t.sharedService.configService.post(apiUrl, form).subscribe(
+      (response: any) => {
+        $t.sharedService.uiService.closePopMsg();
+        $t.attachmentConfig.fileType = _case;
+        $t.attachmentConfig.file = response.url;
+        $t.sharedService.uiService.showMessage('File Added...');
+      },
+      (error) => {
+        $t.sharedService.uiService.showApiErrorPopMsg('Something Went Wrong, Please Try Again After Sometime...');
+      }
+    );
   }
 
   ngOnInit(): void {
@@ -276,9 +345,8 @@ export class ConversationComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    // if (this.pollingInterval) {
-    //   this.pollingInterval.clearInterval();
-    // }
+    this.connectionConfig.selectedUser = undefined;
+    // clearInterval(this.pollingInterval);
   }
 
   get user(): any | null {

@@ -129,9 +129,7 @@
                           <a class="pl-5" [href]="socialConfig.newPost.imageUrl" target="_blank">
                             <img
                               [src]="socialConfig.newPost.imageUrl"
-                              width="250px"
-                              height="250px"
-                              class="p-2 curPoint"
+                              class="p-2 curPoint post-image"
                             />
                           </a>
                         </div>
@@ -200,18 +198,6 @@
                             >
                               <i class="fas fa-video-slash"></i>
                             </button>
-                            <button
-                              mat-mini-fab
-                              class="attachment"
-                              (click)="toggled = !toggled"
-                              [(emojiPickerIf)]="toggled"
-                              [emojiPickerDirection]="'right'"
-                              (emojiPickerSelect)="handleSelection($event)"
-                              matTooltipPosition="below"
-                              matTooltip="Add Emoji"
-                            >
-                              <mat-icon style="height: 27px; margin-right: 2px;">😄</mat-icon>
-                            </button>
                           </div>
                           <div class="col-4 text-right">
                             <button
@@ -261,6 +247,21 @@
                           </mat-select>
                         </div>
                       </div>
+                      <button
+                        mat-mini-fab
+                        class="attachment"
+                        [ngClass]="{
+                          'attachment-two': socialConfig.newPost.imageUrl != '' || socialConfig.newPost.videoUrl != ''
+                        }"
+                        (click)="toggled = !toggled"
+                        [(emojiPickerIf)]="toggled"
+                        [emojiPickerDirection]="'right'"
+                        (emojiPickerSelect)="handleSelection($event)"
+                        matTooltipPosition="below"
+                        matTooltip="Add Emoji"
+                      >
+                        <mat-icon style="height: 27px; margin-right: 2px;">😄</mat-icon>
+                      </button>
                       <div
                         class="album box mb-4"
                         *ngFor="let post of socialConfig.allSocialPost; let postIndex = index"
