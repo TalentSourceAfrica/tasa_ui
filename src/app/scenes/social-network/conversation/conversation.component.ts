@@ -234,7 +234,7 @@ export class ConversationComponent implements OnInit {
     if (this.connectionConfig.selectedUser) {
       this.pollingInterval = setInterval(() => {
         this.getAllNewChatByChatIdAndUserId();
-      }, 20000);
+      }, 25000);
     }
   }
 

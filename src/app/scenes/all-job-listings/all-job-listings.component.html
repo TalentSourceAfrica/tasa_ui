@@ -36,9 +36,9 @@
                 color="primary"
                 style="z-index: 9;"
                 class="mr-1"
-                (click)="filterDrawer.open()"
+                (click)="filterDrawer.toggle()"
                 matTooltipPosition="below"
-                matTooltip="Show Filter"
+                matTooltip="Show/Hide Filter"
                 *ngIf="!isLoading && allJobs.length"
               >
                 <mat-icon>filter_list</mat-icon>
@@ -147,7 +147,7 @@
   <div class="col-md-4 col-lg-4 col-sm-6 animated fadeIn" *ngFor="let job of allJobs">
     <div class="card curPoint">
       <div class="card-img">
-        <img src="../../../assets/images/TSA_logo_new.small.png" />
+        <img src="{{ job.organisation.orgImage ? job.organisation.orgImage : './assets/images/TSA_logo_new.small.png' }}" />
         <span
           *ngIf="job.isApplied"
           class="badge badge-success p-2 ml-1 mt-2 position-absolute mt-2"
@@ -161,7 +161,7 @@
           class="position-absolute mt-2"
           matTooltipPosition="below"
           matTooltip="Remove From Saved Jobs"
-          (click)="removeSaveJobs( job, $event)"
+          (click)="removeSaveJobs(job, $event)"
           *ngIf="user && user.type.toLowerCase() != 'admin' && job.isSaved"
         >
           <mat-icon>favorite</mat-icon>
@@ -189,9 +189,9 @@
             <span class="badge badge-danger p-1" *ngIf="job.applicantStatus == 'Rejected'">{{ job.jobStatus }}</span>
           </span>
         </h5>
-
-        <p class="text-muted m-0">{{ job.location }}</p>
-        <p class="text-muted">Experience : {{ job.experienceFrom }} - {{ job.experienceTo }} Year</p>
+        <p class="text-muted m-0 pt-1"><strong>Company</strong> : {{ job.organisation.orgName }}</p>
+        <p class="text-muted m-0"><strong>Location</strong> : {{ job.location }}</p>
+        <p class="text-muted"><strong>Experience</strong> : {{ job.experienceFrom }} - {{ job.experienceTo }} Year</p>
         <marquee class="card-intro mt-2" style="display: flex;">
           <span class="pr-1 p-1" *ngFor="let item of job.tags"
             ><badge class="badge badge-info">{{ item }}</badge></span
@@ -260,6 +260,16 @@
                 </div>
                 <div class="col-9 h6">
                   {{ job.title }}
+                </div>
+              </div>
+            </div>
+            <div class="col-12 p-2">
+              <div class="row">
+                <div class="col-3 text-primary text-bold caps">
+                  Company :
+                </div>
+                <div class="col-9 h6">
+                  {{ job.organisation.orgName }}
                 </div>
               </div>
             </div>

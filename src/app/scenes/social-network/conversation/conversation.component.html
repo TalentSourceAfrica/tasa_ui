@@ -140,8 +140,11 @@
           alt=""
         />
         <p>
-          {{ connectionConfig.selectedUser?.firstName }} {{ connectionConfig.selectedUser?.lastName }} (
-          <span class="text-muted">{{ connectionConfig.selectedUser?.summary }}</span> )
+          <a
+            [routerLink]="['/social-network/profile/', connectionConfig.selectedUser?.tasaId]"
+            routerLinkActive="router-link-active"
+            >{{ connectionConfig.selectedUser?.firstName }} {{ connectionConfig.selectedUser?.lastName }} </a
+          > ( <span class="text-muted">{{ connectionConfig.selectedUser?.summary }}</span> )
         </p>
         <div class="social-media">
           <i class="fab fa-facebook-f"></i>

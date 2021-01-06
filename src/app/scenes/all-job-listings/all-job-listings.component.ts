@@ -140,7 +140,7 @@ export class AllJobListingsComponent implements OnInit {
   }
 
   checkFilter() {
-    return Object.values(this.searchConfig).filter((d) => d !== '').length;
+    return Object.values(this.searchConfig).filter((d) => d !== '' && d !== 0).length;
   }
 
   removeFilter() {

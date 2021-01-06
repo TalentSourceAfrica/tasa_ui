@@ -53,6 +53,10 @@ export class SocialConnectionsComponent implements OnInit {
     this.sharedService.utilityService.changeMessage('FETCH-USER-PROFILE');
   }
 
+  message(emailId: string) {
+    this.router.navigate(['/social-network/conversation/'], { replaceUrl: true, queryParams: { userId: emailId } });
+  }
+
   ngOnInit(): void {
     this.getAllusers();
     this.getAllConnections();
