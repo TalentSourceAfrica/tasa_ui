@@ -51,7 +51,7 @@ export class NetworkComponent implements OnInit {
     $t.sharedService.configService.get(apiUrl).subscribe(
       (response: any) => {
         $t.networkConfig.isLoading = false;
-        $t.networkConfig.data = response;
+        $t.networkConfig.data = response.responseObj;
       },
       (error) => {
         $t.networkConfig.isLoading = false;

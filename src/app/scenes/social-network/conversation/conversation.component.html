@@ -71,7 +71,12 @@
         <label for=""><i class="fa fa-search" aria-hidden="true"></i></label>
         <input type="text" [(ngModel)]="searchedName" placeholder="Search contacts..." />
       </div>
-      <div id="contacts">
+      <div
+        id="contacts"
+        [ngClass]="{
+          'd-flex align-items-center': connectedUserConfig.data.length === 0 && !connectedUserConfig.isLoading
+        }"
+      >
         <ul *ngIf="connectedUserConfig.data.length">
           <li
             class="contact"
@@ -90,7 +95,7 @@
                 alt="User Image"
               />
               <div class="meta">
-                <p class="name">{{ item.firstName }} {{ item.lastName }}</p>
+                <p class="name text-truncate" title="{{ item.firstName }} {{ item.lastName }}">{{ item.firstName }} {{ item.lastName }}</p>
                 <!-- <p class="preview">You just got LITT up, Mike.</p> -->
               </div>
             </div>
@@ -117,7 +122,7 @@
           <div class="text-center m-auto animated fadeIn">
             <div>
               <h1>😕</h1>
-              <h6 class="text-white">No users...</h6>
+              <h6 class="text-white">No connected users...</h6>
             </div>
           </div>
         </ng-container>
@@ -156,7 +161,7 @@
       <div class="messages" [ngClass]="{ 'd-flex align-items-center': connectionConfig.currentMsgList.length === 0 }">
         <ul *ngIf="connectionConfig.currentMsgList.length">
           <li
-            [ngClass]="{ sent: item.from === user.email, replies: item.to === user.email, 'last-msg': last }"
+            [ngClass]="{ replies: item.from === user.email, sent: item.to === user.email, 'last-msg': last }"
             *ngFor="let item of connectionConfig.currentMsgList; let last = last"
           >
             <img
@@ -199,7 +204,7 @@
                   class="p-2"
                   [matMenuTriggerFor]="menu"
                 >
-                  <mat-icon class="text-white">keyboard_arrow_down</mat-icon>
+                  <mat-icon>keyboard_arrow_down</mat-icon>
                 </button>
 
                 <mat-menu #menu="matMenu">
@@ -300,7 +305,7 @@
           </div>
         </ng-container>
       </div>
-      <div class="message-input" *ngIf="connectionConfig.currentMsgList?.length">
+      <div class="message-input" *ngIf="connectionConfig.selectedUser">
         <div class="wrap d-flex">
           <mat-chip-list *ngIf="attachmentConfig.file">
             <mat-chip color="primary" style="height: 55px;" selected>
@@ -327,11 +332,11 @@
           </button>
           <mat-menu #menu="matMenu" yPosition="above">
             <button mat-menu-item (click)="sendMedia('image')">
-              <mat-icon>image</mat-icon>
+              <mat-icon class="text-primary">image</mat-icon>
               <span>Send Image</span>
             </button>
             <button mat-menu-item (click)="sendMedia('video')">
-              <mat-icon>music_video</mat-icon>
+              <mat-icon class="text-primary">music_video</mat-icon>
               <span>Send Video</span>
             </button>
           </mat-menu>

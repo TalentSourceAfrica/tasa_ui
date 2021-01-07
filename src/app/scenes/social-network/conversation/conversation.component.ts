@@ -73,7 +73,7 @@ export class ConversationComponent implements OnInit {
             return null;
           }
         };
-        if (result1.connections.length === 0 && result2.length === 0) {
+        if (result1.connections === null && result2.length === 0) {
           $t.connectedUserConfig.data = [];
         } else {
           $t.uds.each(result1.connections, (d: any) => {
@@ -188,9 +188,11 @@ export class ConversationComponent implements OnInit {
       (response: any) => {
         $t.connectionConfig.currentMsgList = response.responseObj.reverse();
         setTimeout(() => {
-          document.querySelector('.last-msg').scrollIntoView({
-            behavior: 'smooth',
-          });
+          if (document.querySelector('.last-msg')) {
+            document.querySelector('.last-msg').scrollIntoView({
+              behavior: 'smooth',
+            });
+          }
         }, 500);
         $t.readMessages();
         setTimeout(() => {

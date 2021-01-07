@@ -25,12 +25,12 @@ export class OurPartnersComponent implements OnInit {
       0: {
         items: 1,
       },
-      600: {
+      300: {
         items: 2,
       },
-      1000: {
-        items: 1,
-      },
+      600: {
+        items: 3,
+      }
     },
   };
   partners = ['client-1.png', 'client-2.png', 'client-3.png', 'client-4.png', 'client-5.png', 'client-6.png'];

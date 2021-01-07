@@ -310,7 +310,10 @@ export class HeaderComponent implements OnInit {
     } else if (_noti.connRequestId !== '') {
       this.router.navigate(['/social-network/network/'], { replaceUrl: true });
     } else if (_noti.messageId !== '') {
-      this.router.navigate(['/social-network/conversation/'], { replaceUrl: true });
+      this.router.navigate(['/social-network/conversation/'], {
+        replaceUrl: true,
+        queryParams: { userId: _noti.from },
+      });
     }
 
     this.onClickOfSellAllNoti();

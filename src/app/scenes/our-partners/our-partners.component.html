@@ -7,7 +7,7 @@
     <div class="title">Our Partners</div>
   </div>
   <!--ABOUT AREA-->
-  <section class="section-padding bg-theme mb-2 p-2" id="about">
+  <section class="section-padding mb-2 p-2" id="about">
     <!--CLIENT AREA-->
     <div class="client-area padding-bottom">
       <div class="row animated fadeIn">
@@ -16,7 +16,7 @@
             <ng-container *ngFor="let item of partners; let i = index">
               <ng-template carouselSlide [id]="i"
                 ><div class="single-client text-center animated fadeIn card">
-                  <div class="card-image p-2">
+                  <div class="card-image p-2 d-flex align-items-center">
                     <img src="../../../assets/images/client/{{ item }}" alt="" />
                   </div>
                 </div>
