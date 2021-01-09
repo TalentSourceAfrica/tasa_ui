@@ -64,7 +64,6 @@ export class ConversationComponent implements OnInit {
     api2 = $t.sharedService.configService.get(apiUrl2);
     forkJoin([api1, api2]).subscribe(
       (results: any) => {
-        console.log(results);
         const result1 = results[0];
         const result2 = results[1].responseObj;
         const userId = this.activatedRoute.snapshot.queryParamMap.get('userId');
@@ -161,7 +160,6 @@ export class ConversationComponent implements OnInit {
     });
     $t.sharedService.configService.post(apiUrl).subscribe(
       (response: any) => {
-        console.log(response);
         $t.connectionConfig.selectedUser.chatId = response.id;
         $t.getAllChatByChatId();
       },
@@ -234,6 +232,15 @@ export class ConversationComponent implements OnInit {
       case 'video':
         break;
     }
+  }
+
+  replyOnReply(selectedChat:any){
+    this.attachmentConfig.fileType = 'reply-on-reply';
+    const replyOnReplyHtml = `<span class="shadow-lg card p-2 m-1 reply-on-reply mb-2">
+                              <strong class="text-muted mb-1 text-black">${this.connectionConfig.selectedUser.firstName}  ${this.connectionConfig.selectedUser.lastName}</strong>
+                              <p>${selectedChat.message}</p>
+                            </span>`;
+    this.attachmentConfig.file = replyOnReplyHtml;
   }
 
   sendMedia(_type: string) {

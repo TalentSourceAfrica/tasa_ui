@@ -764,6 +764,14 @@ $break-big: 900px;
   }
 }
 
+.reply-on-reply {
+  border-left: 7px solid #7d7192;
+  p {
+    background-color: #7d7192 !important;
+    color: $white;
+  }
+}
+
 emoji-picker {
   top: -100px !important;
 }

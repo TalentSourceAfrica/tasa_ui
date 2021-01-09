@@ -165,6 +165,8 @@
           <li
             [ngClass]="{ replies: item.from === user.email, sent: item.to === user.email, 'last-msg': last }"
             *ngFor="let item of connectionConfig.currentMsgList; let last = last"
+            (mouseover)="item.mouseOvered = true"
+            (mouseout)="item.mouseOvered = false"
           >
             <img
               *ngIf="item.from === user.email"
@@ -185,6 +187,7 @@
               alt=""
             />
             <p>
+              <span *ngIf="item.contentType === 'reply-on-reply'" [innerHtml]="item.contentUrl"></span>
               {{ item.message }}
               <br />
               <span class="d-flex">
@@ -216,87 +219,15 @@
                 </mat-menu>
               </span>
             </p>
+            <button
+              mat-icon-button
+              (click)="replyOnReply(item)"
+              *ngIf="item.to === user.email"
+              class="material-icons"
+            >
+              <mat-icon>reply</mat-icon>
+            </button>
           </li>
-          <!-- <li class="replies">
-            <img
-              src="{{
-                user.image != ''
-                  ? user.image
-                  : 'https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg'
-              }}"
-              alt=""
-            />
-            <p>When you're backed against the wall, break the god damn thing down.</p>
-          </li>
-          <li class="replies">
-            <img
-              src="{{
-                user.image != ''
-                  ? user.image
-                  : 'https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg'
-              }}"
-              alt=""
-            />
-            <p>Excuses don't win championships.</p>
-          </li>
-          <li class="sent">
-            <img
-              src="{{
-                connectionConfig.selectedUser?.imageUrl
-                  ? connectionConfig.selectedUser?.imageUrl
-                  : 'https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg'
-              }}"
-              alt=""
-            />
-            <p>Oh yeah, did Michael Jordan tell you that?</p>
-          </li>
-          <li class="replies">
-            <img
-              src="{{
-                user.image != ''
-                  ? user.image
-                  : 'https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg'
-              }}"
-              alt=""
-            />
-            <p>No, I told him that.</p>
-          </li>
-          <li class="replies">
-            <img
-              src="{{
-                user.image != ''
-                  ? user.image
-                  : 'https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg'
-              }}"
-              alt=""
-            />
-            <p>What are your choices when someone puts a gun to your head?</p>
-          </li>
-          <li class="sent">
-            <img
-              src="{{
-                connectionConfig.selectedUser?.imageUrl
-                  ? connectionConfig.selectedUser?.imageUrl
-                  : 'https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg'
-              }}"
-              alt=""
-            />
-            <p>What are you talking about? You do what they say or they shoot you.</p>
-          </li>
-          <li class="replies">
-            <img
-              src="{{
-                user.image != ''
-                  ? user.image
-                  : 'https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg'
-              }}"
-              alt=""
-            />
-            <p>
-              Wrong. You take the gun, or you pull out a bigger one. Or, you call their bluff. Or, you do any one of a
-              hundred and forty six other things.
-            </p>
-          </li> -->
         </ul>
         <ng-container *ngIf="connectionConfig.currentMsgList.length == 0">
           <div class="text-center m-auto animated fadeIn">
@@ -318,6 +249,7 @@
                 alt="image"
               />
               <mat-icon *ngIf="attachmentConfig.fileType === 'video'" color="primary">music_video</mat-icon>
+              <mat-icon *ngIf="attachmentConfig.fileType === 'reply-on-reply'" class="text-white">reply</mat-icon>
               <mat-icon
                 matChipRemove
                 class="pl-1 pr-1 msg-img-cross"
