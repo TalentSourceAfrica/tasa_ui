@@ -641,7 +641,6 @@ $break-big: 900px;
 
               p {
                 background: $white;
-                
               }
             }
 
@@ -763,4 +762,8 @@ $break-big: 900px;
     left: 25px;
     z-index: 9 !important;
   }
+}
+
+emoji-picker {
+  top: -100px !important;
 }

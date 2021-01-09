@@ -95,7 +95,9 @@
                 alt="User Image"
               />
               <div class="meta">
-                <p class="name text-truncate" title="{{ item.firstName }} {{ item.lastName }}">{{ item.firstName }} {{ item.lastName }}</p>
+                <p class="name text-truncate" title="{{ item.firstName }} {{ item.lastName }}">
+                  {{ item.firstName }} {{ item.lastName }}
+                </p>
                 <!-- <p class="preview">You just got LITT up, Mike.</p> -->
               </div>
             </div>
@@ -326,11 +328,21 @@
               >
             </mat-chip>
           </mat-chip-list>
-          <input type="text" (keyup.enter)="newMessage()" placeholder="Write your message..." />
+          <input
+            type="text"
+            [(ngModel)]="message"
+            class="w90"
+            (keyup.enter)="newMessage()"
+            placeholder="Write your message..."
+          />
           <button mat-icon-button style="background: none;" class="p-2" [matMenuTriggerFor]="menu">
             <mat-icon color="primary">more_vert</mat-icon>
           </button>
           <mat-menu #menu="matMenu" yPosition="above">
+            <button mat-menu-item (mouseover)="toggled = true" [matMenuTriggerFor]="emoji">
+              <mat-icon style="height: 27px; margin-right: 16px;">😄</mat-icon>
+              <span>Add Emoji</span>
+            </button>
             <button mat-menu-item (click)="sendMedia('image')">
               <mat-icon class="text-primary">image</mat-icon>
               <span>Send Image</span>
@@ -340,6 +352,14 @@
               <span>Send Video</span>
             </button>
           </mat-menu>
+          <mat-menu #emoji="matMenu">
+            <div
+              class="emoji-attachment"
+              [emojiPickerDirection]="'left'"
+              [(emojiPickerIf)]="toggled"
+              (emojiPickerSelect)="handleSelection($event)"
+            ></div>
+          </mat-menu>
           <button class="submit" matTooltipPosition="below" matTooltip="Send" (click)="newMessage()">
             <i class="fa fa-paper-plane" aria-hidden="true"></i>
           </button>
@@ -348,7 +368,6 @@
     </div>
   </div>
 </ng-template>
-
 <ng-template #loader>
   <div class="col-12 animated fadeIn" *ngFor="let item of [1, 2, 3, 4, 5]">
     <div class="card ml-0 mr-0" style="height: 50px !important;">

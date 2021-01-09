@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
+import { SocialnetworkService } from '@app/scenes/social-network/socialnetwork.service';
 import { SharedService } from '@app/services/shared.service';
 
 @Component({
@@ -20,12 +21,15 @@ export class SocialConnectionsComponent implements OnInit {
     data: [],
   };
   @Input() loggedInUser: any;
-  constructor(public sharedService: SharedService, private router: Router) {}
+  constructor(
+    public sharedService: SharedService,
+    private router: Router,
+    private socialnetworkService: SocialnetworkService
+  ) {}
 
   getAllusers() {
     this.recommendedUsersConfig.isLoading = true;
-    let apiUrl = this.sharedService.urlService.simpleApiCall('getUsers');
-    this.sharedService.configService.get(apiUrl).subscribe(
+    this.socialnetworkService.getAllusers().subscribe(
       (response) => {
         this.recommendedUsersConfig.data = response;
         this.recommendedUsersConfig.isLoading = false;
@@ -36,10 +40,7 @@ export class SocialConnectionsComponent implements OnInit {
 
   getAllConnections() {
     this.connectedUserConfig.isLoading = true;
-    let apiUrl = this.sharedService.urlService.apiCallWithParams('getAllNetworkConnections', {
-      '{userId}': this.loggedInUser.email,
-    });
-    this.sharedService.configService.get(apiUrl).subscribe(
+    this.socialnetworkService.getAllConnections().subscribe(
       (response: any) => {
         this.connectedUserConfig.data = response.connections ? response.connections : [];
         this.connectedUserConfig.isLoading = false;

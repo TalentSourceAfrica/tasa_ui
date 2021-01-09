@@ -45,7 +45,7 @@
                 <div class="row w100">
                   <div class="col-12">
                     <div class="row no-gutters">
-                      <div class="col-12 col-md-9">
+                      <div class="col-12 col-md-10">
                         <div class="row no-gutters">
                           <div class="col-2">
                             <div class="card-profile-image">
@@ -92,10 +92,11 @@
                           </div>
                         </div>
                       </div>
-                      <div class="col-12 col-md-3" *ngIf="!isCurrentUser">
+                      <div class="col-12 col-md-2" *ngIf="!isCurrentUser">
                         <div class="text-right">
-                          <div class="d-flex pt-3">
+                          <div class="d-flex justify-content-end  pt-3">
                             <button
+                              *ngIf="!userConfig.isConnected"
                               mat-flat-button
                               color="primary"
                               (click)="connect()"
@@ -103,7 +104,14 @@
                             >
                               Connect
                             </button>
-                            <button mat-flat-button color="primary" class="rounded-pill ml-2 p-1 pl-2 pr-2">
+                            <button
+                              *ngIf="userConfig.isConnected"
+                              mat-flat-button
+                              [routerLink]="['/social-network/conversation/']" 
+                              [queryParams]="{ userId: userConfig.user.email }"
+                              color="primary"
+                              class="rounded-pill ml-2 p-1 pl-2 pr-2"
+                            >
                               Message
                             </button>
                           </div>

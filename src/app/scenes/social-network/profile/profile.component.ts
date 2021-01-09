@@ -5,6 +5,7 @@ import { untilDestroyed } from '@app/@core';
 import { CredentialsService } from '@app/auth';
 import { SharedService } from '@app/services/shared.service';
 import { delay } from 'rxjs/operators';
+import { SocialnetworkService } from '../socialnetwork.service';
 
 @Component({
   selector: 'app-profile',
@@ -18,14 +19,17 @@ export class ProfileComponent implements OnInit {
     fetchingUser: false,
     user: {},
     tasaId: '',
+    isConnected: false,
   };
   isCurrentUser: boolean = true;
+
   constructor(
     public credentialsService: CredentialsService,
     private sharedService: SharedService,
     private route: ActivatedRoute,
     private cdr: ChangeDetectorRef,
-    public sanitizer: DomSanitizer
+    public sanitizer: DomSanitizer,
+    private socialnetworkService: SocialnetworkService
   ) {
     this.sharedService.utilityService.changeMessage('FETCH-USER-PROFILE');
   }
@@ -44,12 +48,35 @@ export class ProfileComponent implements OnInit {
     });
     $t.sharedService.configService.get(apiUrl).subscribe(
       (response: any) => {
-        $t.userConfig.fetchingUser = false;
         $t.userConfig.user = response;
-        $t.userConfig.user.tasaId != this.user.tasaId ? (this.isCurrentUser = false) : (this.isCurrentUser = true);
+        $t.userConfig.user.tasaId != $t.user.tasaId ? ($t.isCurrentUser = false) : ($t.isCurrentUser = true);
+        if (!$t.isCurrentUser) {
+          $t.fetchConnections();
+        } else {
+          $t.userConfig.fetchingUser = false;
+        }
       },
       (error) => {
         $t.userConfig.fetchingUser = false;
+      }
+    );
+  }
+
+  fetchConnections() {
+    this.userConfig.isConnected = false;
+    this.socialnetworkService.getAllConnections().subscribe(
+      (response: any) => {
+        if (response.connections.filter((d: any) => d.tasaId === this.userConfig.tasaId).length) {
+          this.userConfig.isConnected = true;
+        } else {
+          this.userConfig.isConnected = false;
+        }
+        this.userConfig.fetchingUser = false;
+      },
+      (error) => {
+        this.userConfig.isConnected = false;
+        this.userConfig.fetchingUser = false;
+        this.sharedService.uiService.showApiErrorPopMsg(error.error.message);
       }
     );
   }

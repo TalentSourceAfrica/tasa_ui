@@ -22,8 +22,10 @@ export class ConversationComponent implements OnInit {
     file: '',
   };
   uds: any;
+  message: string = '';
   searchedName: string = '';
   pollingInterval: any;
+  toggled: boolean = false;
   connectedUserConfig: any = {
     isLoading: false,
     data: [],
@@ -98,32 +100,17 @@ export class ConversationComponent implements OnInit {
           }
         }
         $t.connectedUserConfig.isLoading = false;
-        console.log($t.connectedUserConfig);
       },
       (error) => {
         $t.connectedUserConfig.isLoading = false;
         $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
       }
     );
-    // this.sharedService.configService.get(apiUrl1).subscribe(
-    //   (response: any) => {
-    //     this.connectedUserConfig.data = response.connections ? response.connections : [];
-    //     const userId = this.activatedRoute.snapshot.queryParamMap.get('userId');
-    //     if (userId) {
-    //       this.connectionConfig.selectedUser = this.connectedUserConfig.data.find((d: any) => d.id === userId);
-    //     }
-    //     if (!this.connectionConfig.selectedUser || typeof this.connectionConfig.selectedUser === 'undefined') {
-    //       this.connectionConfig.selectedUser = this.connectedUserConfig.data[0];
-    //     }
-    //     // this.startConnection(this.connectionConfig.selectedUser);
-    //     this.connectedUserConfig.isLoading = false;
-    //   },
-    //   (error) => {}
-    // );
   }
 
   afterUserSelected(_user: any) {
     this.connectionConfig.selectedUser = _user;
+    this.message = '';
     if (_user.chatId == null) {
       this.startConnection(this.connectionConfig.selectedUser);
     } else {
@@ -131,17 +118,20 @@ export class ConversationComponent implements OnInit {
     }
   }
 
+  handleSelection(event: any) {
+    this.message += ' ' + event.char + ' ';
+  }
+
   newMessage() {
     let $t = this;
     let payload: any = '';
-    const message = jQuery('.message-input input').val();
-    if (jQuery.trim(message) == '') {
+    if (jQuery.trim($t.message) == '') {
       return false;
     }
     payload = {
       id: '',
       chatId: $t.connectionConfig.selectedUser.chatId,
-      message: message,
+      message: $t.message,
       contentType: $t.attachmentConfig.fileType,
       contentUrl: $t.attachmentConfig.file,
       from: $t.user.email,
@@ -153,7 +143,7 @@ export class ConversationComponent implements OnInit {
     let apiUrl = $t.sharedService.urlService.simpleApiCall('sendMessage');
     $t.sharedService.configService.post(apiUrl, payload).subscribe(
       (response: any) => {
-        jQuery('.message-input input').val(null);
+        $t.message = '';
         $t.attachmentConfig.fileType = '';
         $t.attachmentConfig.file = '';
         $t.getAllChatByChatId();

@@ -12,6 +12,9 @@ import { ProfileComponent } from './profile.component';
 
 import { SocialConnectionsModule } from '@app/partials/social-network/social-connections/social-connections.module';
 import { NgxDocViewerModule } from 'ngx-doc-viewer';
+import { SocialnetworkService } from '../socialnetwork.service';
+
+
 
 @NgModule({
   imports: [
@@ -29,6 +32,7 @@ import { NgxDocViewerModule } from 'ngx-doc-viewer';
     NgxDocViewerModule,
   ],
   declarations: [ProfileComponent],
+  providers:[SocialnetworkService],
   schemas: [NO_ERRORS_SCHEMA],
 })
 export class ProfileModule {}
