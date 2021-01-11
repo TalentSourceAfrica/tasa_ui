@@ -176,26 +176,33 @@ const routes: Routes = [
         loadChildren: () => import('@app/scenes/admin/partners/partners.module').then((m) => m.PartnersModule),
       },
       {
-        path: 'social-network/profile/:tasaId',
-        canActivate: [AuthenticationGuard],
-        loadChildren: () => import('@app/scenes/social-network/profile/profile.module').then((m) => m.ProfileModule),
-      },
-      {
-        path: 'social-network/posts',
-        canActivate: [AuthenticationGuard],
-        loadChildren: () =>
-          import('@app/scenes/social-network/social-posts/social-posts.module').then((m) => m.SocialPostsModule),
-      },
-      {
-        path: 'social-network/network',
-        canActivate: [AuthenticationGuard],
-        loadChildren: () => import('@app/scenes/social-network/network/network.module').then((m) => m.NetworkModule),
-      },
-      {
-        path: 'social-network/conversation',
-        canActivate: [AuthenticationGuard],
-        loadChildren: () =>
-          import('@app/scenes/social-network/conversation/conversation.module').then((m) => m.ConversationModule),
+        path: 'social-network',
+        children: [
+          {
+            path: 'profile/:tasaId',
+            canActivate: [AuthenticationGuard],
+            loadChildren: () =>
+              import('@app/scenes/social-network/profile/profile.module').then((m) => m.ProfileModule),
+          },
+          {
+            path: 'posts',
+            canActivate: [AuthenticationGuard],
+            loadChildren: () =>
+              import('@app/scenes/social-network/social-posts/social-posts.module').then((m) => m.SocialPostsModule),
+          },
+          {
+            path: 'network',
+            canActivate: [AuthenticationGuard],
+            loadChildren: () =>
+              import('@app/scenes/social-network/network/network.module').then((m) => m.NetworkModule),
+          },
+          {
+            path: 'conversation',
+            canActivate: [AuthenticationGuard],
+            loadChildren: () =>
+              import('@app/scenes/social-network/conversation/conversation.module').then((m) => m.ConversationModule),
+          },
+        ],
       },
       { path: '', redirectTo: '/home', pathMatch: 'full' },
     ],

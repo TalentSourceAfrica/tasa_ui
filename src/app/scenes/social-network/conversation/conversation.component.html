@@ -85,7 +85,7 @@
             *ngFor="let item of connectedUserConfig.data | nameFilter: searchedName; let first = first"
           >
             <div class="wrap">
-              <span class="contact-status online"></span>
+              <span class="contact-status"></span>
               <img
                 src="{{
                   item.imageUrl
@@ -93,6 +93,7 @@
                     : 'https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg'
                 }}"
                 alt="User Image"
+                class="shadow-lg"
               />
               <div class="meta">
                 <p class="name text-truncate" title="{{ item.firstName }} {{ item.lastName }}">
@@ -129,12 +130,12 @@
           </div>
         </ng-container>
       </div>
-      <div id="bottom-bar">
+      <!-- <div id="bottom-bar">
         <button id="addcontact">
           <i class="fa fa-user-plus fa-fw" aria-hidden="true"></i> <span>Add contact</span>
         </button>
         <button id="settings"><i class="fa fa-cog fa-fw" aria-hidden="true"></i> <span>Settings</span></button>
-      </div>
+      </div> -->
     </div>
     <div class="content">
       <div class="contact-profile" *ngIf="connectionConfig.selectedUser">
@@ -160,8 +161,9 @@
           <i class="fab fa-linkedin-in"></i>
         </div>
       </div>
+      <mat-progress-bar mode="indeterminate" *ngIf="connectionConfig.isFetchingMsgList" color="primary"></mat-progress-bar>
       <div class="messages" [ngClass]="{ 'd-flex align-items-center': connectionConfig.currentMsgList.length === 0 }">
-        <ul *ngIf="connectionConfig.currentMsgList.length">
+        <ul *ngIf="connectionConfig.currentMsgList.length && !connectionConfig.isFetchingMsgList">
           <li
             [ngClass]="{ replies: item.from === user.email, sent: item.to === user.email, 'last-msg': last }"
             *ngFor="let item of connectionConfig.currentMsgList; let last = last"

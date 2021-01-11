@@ -971,6 +971,7 @@ $button: #8f98a9;
   left: 150px;
   top: 115px;
 }
+
 .post-image {
   height: 250px;
   width: 250px;
@@ -979,4 +980,8 @@ $button: #8f98a9;
   position: absolute !important;
   left: 200px;
   top: 365px;
+}
+
+.reply-on-reply-card {
+  max-height: 250px;
 }

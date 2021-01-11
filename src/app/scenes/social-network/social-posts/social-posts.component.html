@@ -28,7 +28,7 @@
           <div class="max-vertical-h-83">
             <div class="main">
               <div class="main-container">
-                <div class="profile d-none">
+                <!-- <div class="profile d-none">
                   <div class="profile-avatar">
                     <img *ngIf="user.image || user.image != 'string'" [src]="user.image" alt="" class="profile-img" />
                     <div class="profile-name">{{ user.firstName }} {{ user.lastName }}</div>
@@ -38,9 +38,9 @@
                     alt=""
                     class="profile-cover"
                   />
-                </div>
+                </div> -->
                 <div class="timeline pl-2 min-vertical-h-80">
-                  <div class="timeline-left d-none">
+                  <!-- <div class="timeline-left d-none">
                     <div class="intro box p-0">
                       <div class="user-profile text-center">
                         <img
@@ -104,7 +104,7 @@
                         <div class="username">Patrick Watsons</div>
                       </div>
                     </div>
-                  </div>
+                  </div> -->
                   <div
                     class="timeline-right mb-4 min-vertical-h-65 max-vertical-h-65 overflow-x-hidden stylishSlimScroll"
                   >
@@ -127,10 +127,7 @@
                         ></textarea>
                         <div *ngIf="socialConfig.newPost.imageUrl != ''">
                           <a class="pl-5" [href]="socialConfig.newPost.imageUrl" target="_blank">
-                            <img
-                              [src]="socialConfig.newPost.imageUrl"
-                              class="p-2 curPoint post-image"
-                            />
+                            <img [src]="socialConfig.newPost.imageUrl" class="p-2 curPoint post-image img-thumbnail" />
                           </a>
                         </div>
                         <div *ngIf="socialConfig.newPost.videoUrl != ''">
@@ -145,7 +142,32 @@
                             </span>
                           </a> -->
                         </div>
+                        <!-- <mat-card class="reply-on-reply-card">
+                          <mat-card-header>
+                            <div mat-card-avatar class="p-0">
+                              <img
+                                src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
+                                alt=""
+                                class="status-img"
+                              />
+                            </div>
+                            <mat-card-title>Anshul Kashyap</mat-card-title>
+                            <mat-card-subtitle>1 Day Ago</mat-card-subtitle>
+                          </mat-card-header>
+                          <mat-card-content>
+                            <p class="max-vertical-h-10 flow-y-auto flow-x-hidden stylishSlimScroll">
+                              The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from
+                              Japan. A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was
+                              originally bred for hunting. The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from
+                              Japan. A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was
+                              originally bred for hunting. The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from
+                              Japan. A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was
+                              originally bred for hunting.
+                            </p>
+                          </mat-card-content>
+                        </mat-card> -->
                       </div>
+                      <mat-progress-bar mode="indeterminate" *ngIf="isUploadingFile" color="primary"></mat-progress-bar>
                       <div class="status-actions">
                         <div class="row no-gutters">
                           <div class="col-8">
@@ -228,7 +250,6 @@
                       />
                     </div>
                     <div
-                      [ngClass]="{ 'opacity-low': toggled }"
                       class="min-vertical-h-65 max-vertical-h-65 mt-2 stylishSlimScroll flow-y-auto flow-x-hidden pt-2 pl-4 pr-4"
                     >
                       <div class="row no-gutters text-center">

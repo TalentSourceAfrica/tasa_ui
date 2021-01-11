@@ -23,6 +23,13 @@ export class HeaderComponent implements OnInit {
   @ViewChild('audioOption', { static: false }) audioPlayerRef: ElementRef;
   isAdmin: boolean = false;
   searchCourseText: string = '';
+  notificationConfig: any = {
+    messageCount: 0,
+    messageNotifications: [],
+    otherCount: 0,
+    otherNotifications: [],
+    currentView : 0 //  0 = other notifcations , 1 = message notifications;
+  };
   notificationsData: any = [];
   searchGlobalText: any = '';
   globalSearchType = 'course';
@@ -268,7 +275,10 @@ export class HeaderComponent implements OnInit {
       let apiUrl = $t.sharedService.urlService.apiCallWithParams('getNewNotifications', { '{userId}': $t.user.email });
       $t.sharedService.configService.get(apiUrl).subscribe(
         (response: any) => {
-          $t.notificationsData = response.responseObj;
+          $t.notificationConfig.messageNotifications = response.responseObj.filter((d:any) => d.messageId !== '');
+          $t.notificationConfig.messageCount = $t.notificationConfig.messageNotifications.length;
+          $t.notificationConfig.otherNotifications = response.responseObj.filter((d:any) => d.messageId === '');
+          $t.notificationConfig.otherCount = $t.notificationConfig.otherNotifications.length;
           if ($t.notificationsData.length) {
             // $t.audioPlayerRef.nativeElement.play();
             $('#notiRing').addClass('bell-ring');
@@ -345,6 +355,16 @@ export class HeaderComponent implements OnInit {
     this.sharedService.utilityService.changeMessage('FETCH-USER-PROFILE');
   }
 
+  setNotificationData(_type:string){
+    if(_type === 'other'){
+      this.notificationsData = this.notificationConfig.otherNotifications;
+      this.notificationConfig.currentView = 0;
+    }else {
+      this.notificationsData = this.notificationConfig.messageNotifications;
+      this.notificationConfig.currentView = 1;
+    }
+  }
+
   get user(): any | null {
     const credentials = this.credentialsService.credentials;
     return credentials ? credentials : null;
@@ -396,7 +416,7 @@ export class HeaderComponent implements OnInit {
       }
     });
 
-    $('.notification-popup').click(() => {
+    $('.notification-popup').click((event:any) => {
       $(this).toggleClass('open');
       $('#notificationMenu').toggleClass('open');
     });

@@ -37,13 +37,14 @@ export class SocialPostsComponent implements OnInit {
     { value: 2, viewValue: 'My Activity' },
   ];
   selectedPostFilter: number = 0;
-  toggled:boolean = false;
+  toggled: boolean = false;
+  isUploadingFile: boolean = false;
   constructor(
     public credentialsService: CredentialsService,
     public sharedService: SharedService,
     public cdr: ChangeDetectorRef
   ) {}
-  
+
   onPostTypeChange() {
     switch (this.selectedPostFilter) {
       case 0:
@@ -104,8 +105,8 @@ export class SocialPostsComponent implements OnInit {
     );
   }
 
-  handleSelection(event:any){
-    this.socialConfig.newPost.content += ' '+ event.char + ' ';
+  handleSelection(event: any) {
+    this.socialConfig.newPost.content += ' ' + event.char + ' ';
   }
 
   postComment(msg: any, post: any, _comment?: any) {
@@ -270,9 +271,9 @@ export class SocialPostsComponent implements OnInit {
                 : $t.interactionInInteractionApiCall('curious', postInfo);
             });
         },
-        onHide: function($element: any) {
+        onHide: function ($element: any) {
           jQuery($element).remove();
-        }
+        },
       });
       jQuery('#' + _event.srcElement.id).webuiPopover('show');
     }, 500);
@@ -497,12 +498,15 @@ export class SocialPostsComponent implements OnInit {
         return;
       }
     }
+    $t.isUploadingFile = true;
     form.append('file', files[0], files[0].name);
     $t.sharedService.configService.post(apiUrl, form).subscribe(
       (response: any) => {
         $t.socialConfig.newPost[isImage ? 'imageUrl' : isVideo ? 'videoUrl' : ''] = response.url;
+        $t.isUploadingFile = false;
       },
       (error) => {
+        $t.isUploadingFile = false;
         $t.sharedService.uiService.showApiErrorPopMsg('Something Went Wrong, Please Try Again After Sometime...');
       }
     );

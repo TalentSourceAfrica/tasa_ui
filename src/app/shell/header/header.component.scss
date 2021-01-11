@@ -533,7 +533,7 @@ body {
   top: 46px;
   transition: 0.2s;
   opacity: 0;
-  right: 21px;
+  right: 26px;
   &:before {
     content: "";
     height: 10px;
@@ -642,6 +642,9 @@ body {
       }
     }
   }
+}
+.notifications-message{
+  right: -13px;
 }
 
 .global-search {

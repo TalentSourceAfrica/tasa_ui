@@ -34,7 +34,7 @@
               class="header pb-8 pt-4 d-flex align-items-center shadow"
               style="
                 min-height: 300px;
-                background-image: url(https://images.unsplash.com/photo-1454117096348-e4abbeba002c?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80);
+                background-image: url(https://images.unsplash.com/photo-1508615039623-a25605d2b022?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1050&q=80);
                 background-size: cover;
                 background-position: center top;
               "
@@ -55,11 +55,16 @@
                             </div>
                           </div>
                           <div class="col-10">
-                            <h1 class="display-2 text-white mb-0">
-                              <strong class="text-primary"
-                                >{{ userConfig.user.firstName }} {{ userConfig.user.lastName }}</strong
-                              >
-                            </h1>
+                            <div class="d-flex">
+                              <h1 class="display-2 text-white mb-0 pr-2">
+                                <strong class="text-primary"
+                                  >{{ userConfig.user.firstName }} {{ userConfig.user.lastName }}</strong
+                                >
+                              </h1>
+                              <span *ngIf="userConfig.isConnected" class="alert alert-success d-flex align-items-center mt-2" role="alert">
+                                <span class="material-icons pr-2"> check_circle </span>Connected
+                              </span>
+                            </div>
 
                             <h3 class="text-white mt-0">
                               <span class="text-primary">
@@ -86,7 +91,7 @@
                             >
                               <span
                                 >Total Experience
-                                <strong class="text-primary">{{ userConfig.user.experience }} Years.</strong></span
+                                <strong class="text-primary">{{ userConfig.user.experience }} Years</strong></span
                               >
                             </h3>
                           </div>
@@ -94,7 +99,7 @@
                       </div>
                       <div class="col-12 col-md-2" *ngIf="!isCurrentUser">
                         <div class="text-right">
-                          <div class="d-flex justify-content-end  pt-3">
+                          <div class="d-flex justify-content-end pt-3">
                             <button
                               *ngIf="!userConfig.isConnected"
                               mat-flat-button
@@ -107,7 +112,7 @@
                             <button
                               *ngIf="userConfig.isConnected"
                               mat-flat-button
-                              [routerLink]="['/social-network/conversation/']" 
+                              [routerLink]="['/social-network/conversation/']"
                               [queryParams]="{ userId: userConfig.user.email }"
                               color="primary"
                               class="rounded-pill ml-2 p-1 pl-2 pr-2"

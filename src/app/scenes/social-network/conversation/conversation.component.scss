@@ -102,7 +102,7 @@ $break-big: 900px;
           img {
             width: 50px;
             border-radius: 50%;
-            padding: 3px;
+            margin-top: 5px;
             border: 2px solid $red;
             height: auto;
             float: left;
@@ -422,7 +422,7 @@ $break-big: 900px;
             }
 
             .wrap {
-              width: 88%;
+              width: 77%;
               margin: 0 auto;
               position: relative;
               @media screen and (max-width: $break) {
@@ -436,8 +436,8 @@ $break-big: 900px;
                 width: 10px;
                 height: 10px;
                 border-radius: 50%;
-                border: 2px solid $dark;
-                background: $gray;
+                // border: 2px solid $dark;
+                // background: $gray;
 
                 &.online {
                   background: $green;
@@ -453,8 +453,8 @@ $break-big: 900px;
               }
 
               img {
-                width: 40px;
-                height: 40px;
+                width: 45px;
+                height: 45px;
                 border-radius: 50%;
                 float: left;
                 margin-right: 10px;
@@ -767,8 +767,8 @@ $break-big: 900px;
 .reply-on-reply {
   border-left: 7px solid #7d7192;
   p {
-    background-color: #7d7192 !important;
-    color: $white;
+    background-color: #eae8ee !important;
+    color: black !important;
   }
 }
 

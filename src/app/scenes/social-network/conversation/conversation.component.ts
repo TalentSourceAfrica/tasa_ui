@@ -33,6 +33,7 @@ export class ConversationComponent implements OnInit {
   connectionConfig: any = {
     selectedUser: undefined,
     currentConnection: undefined,
+    isFetchingMsgList: false,
     currentMsgList: [],
   };
   constructor(
@@ -111,7 +112,10 @@ export class ConversationComponent implements OnInit {
     this.connectionConfig.selectedUser = _user;
     this.message = '';
     if (_user.chatId == null) {
-      this.startConnection(this.connectionConfig.selectedUser);
+      setTimeout(() => {
+        this.connectionConfig.isFetchingMsgList = true;
+        this.startConnection(this.connectionConfig.selectedUser);
+      }, 1000); 
     } else {
       this.getAllChatByChatId();
     }
@@ -153,6 +157,7 @@ export class ConversationComponent implements OnInit {
 
   startConnection(selectedUser: any) {
     let $t = this;
+    $t.connectionConfig.isFetchingMsgList = true;
     $t.connectionConfig.currentMsgList = [];
     let apiUrl = $t.sharedService.urlService.apiCallWithParams('startConnection', {
       '{from}': $t.user.email,
@@ -169,12 +174,14 @@ export class ConversationComponent implements OnInit {
 
   getAllChatByChatId() {
     let $t = this;
+    $t.connectionConfig.isFetchingMsgList = true;
     let apiUrl = $t.sharedService.urlService.apiCallWithParams('getAllMessages', {
       '{chatId}': $t.connectionConfig.selectedUser.chatId,
     });
     $t.sharedService.configService.get(apiUrl).subscribe(
       (response: any) => {
         $t.connectionConfig.currentMsgList = response.responseObj.reverse();
+        $t.connectionConfig.isFetchingMsgList = false;
         setTimeout(() => {
           if (document.querySelector('.last-msg')) {
             document.querySelector('.last-msg').scrollIntoView({
@@ -187,7 +194,10 @@ export class ConversationComponent implements OnInit {
           $t.pollingForChat();
         }, 1000);
       },
-      (error) => {}
+      (error) => {
+        $t.connectionConfig.isFetchingMsgList = false;
+        $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
+      }
     );
   }
 
@@ -234,9 +244,9 @@ export class ConversationComponent implements OnInit {
     }
   }
 
-  replyOnReply(selectedChat:any){
+  replyOnReply(selectedChat: any) {
     this.attachmentConfig.fileType = 'reply-on-reply';
-    const replyOnReplyHtml = `<span class="shadow-lg card p-2 m-1 reply-on-reply mb-2">
+    const replyOnReplyHtml = `<span class="shadow-md card p-2 m-1 reply-on-reply mb-2">
                               <strong class="text-muted mb-1 text-black">${this.connectionConfig.selectedUser.firstName}  ${this.connectionConfig.selectedUser.lastName}</strong>
                               <p>${selectedChat.message}</p>
                             </span>`;

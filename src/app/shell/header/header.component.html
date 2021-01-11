@@ -457,13 +457,32 @@
 </ng-template>
 
 <ng-template #notifications>
-  <a matTooltipPosition="below" class="notification-popup curPoint text-white" matTooltip="Notification">
+  <a
+    matTooltipPosition="below"
+    (click)="setNotificationData('other')"
+    class="notification-popup curPoint text-white mr-2"
+    matTooltip="Notification"
+  >
     <i class="fa fa-bell" id="notiRing"></i>
-    <span class="badge badge-pill badge-warning notification">{{ getNotiCount() }}</span>
+    <span class="badge badge-pill badge-warning notification">{{ notificationConfig.otherCount }}</span>
   </a>
-  <ul id="notificationMenu" class="notifications">
+  <a
+    matTooltipPosition="below"
+    (click)="setNotificationData('message')"
+    class="notification-popup curPoint text-white mr-2"
+    matTooltip="Messages"
+  >
+  <i class="fas fa-comment-alt text-white"></i>
+    <span class="badge badge-pill badge-warning notification">{{ notificationConfig.messageCount }}</span>
+  </a>
+  <ul
+    id="notificationMenu"
+    class="notifications"
+    [ngClass]="{ 'notifications-message': notificationConfig.currentView === 1 }"
+  >
     <li class="titlebar text-center pt-2">
-      <h6 class="title caps text-primary">NOTIFICATIONS</h6>
+      <h6 class="title caps text-primary" *ngIf="notificationConfig.currentView === 0">NOTIFICATIONS</h6>
+      <h6 class="title caps text-primary" *ngIf="notificationConfig.currentView === 1">MESSAGES</h6>
       <span class="settings"><i class="icon-cog"></i> </span>
     </li>
     <div class="notifbox">
@@ -504,12 +523,12 @@
         <div class="text-center m-auto animated fadeIn mt-2">
           <div class="col-12 text-center">
             <img src="../../../assets/images/no-record.gif" style="height: 150px;" class="d-block m-auto" />
-            <h6 class="text-primary">No New Notifications Yet...!</h6>
+            <h6 class="text-primary">You’re all caught up!...!</h6>
           </div>
         </div>
       </ng-container>
     </div>
-    <li class="seeall">
+    <li class="seeall" *ngIf="notificationConfig.currentView === 0">
       <a [routerLink]="['/notifications']" (click)="onClickOfSellAllNoti()">See All</a>
     </li>
   </ul>
