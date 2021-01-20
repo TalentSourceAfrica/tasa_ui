@@ -514,9 +514,9 @@ export class SocialPostsComponent implements OnInit {
 
   fetchComments(_comment: any, _iteration: Number) {
     let $t = this;
-    if (_comment.comments.length != 0) {
-      _comment.isCommentShow = !_comment.isCommentShow;
-    } else {
+    // if (_comment.comments.length != 0) {
+    //   _comment.isCommentShow = !_comment.isCommentShow;
+    // } else {
       let api = $t.sharedService.urlService.apiCallWithParams('getPostById', {
         '{postId}': _comment.id,
       });
@@ -531,7 +531,7 @@ export class SocialPostsComponent implements OnInit {
           $t.sharedService.uiService.showApiErrorPopMsg(error);
         }
       );
-    }
+    // }
   }
 
   ngOnInit(): void {

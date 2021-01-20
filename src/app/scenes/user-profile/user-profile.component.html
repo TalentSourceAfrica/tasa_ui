@@ -138,225 +138,364 @@
     <mat-step label="Education Details" *ngIf="user.type != 'Recruiter'">
       <form [formGroup]="educationDetailsForm" novalidate>
         <div class="pt-5 pl-2 pr-2 pb-2 card p-3 animated fadeIn">
-          <div class="px-3 max-vertical-h-50 overflow-x-hidden stylishSlimScroll">
-            <div class="form-group" *ngFor="let entry of educationDetails; let index = i">
-              <label class="form-label" for="{{ entry.id }}"
-                >{{ entry.label }} <sup *ngIf="entry.mandatory" class="text-danger">*</sup></label
-              >
-              <div *ngIf="entry.id != 'college' && entry.id != 'university'" class="input-group input-group-merge">
-                <input
-                  *ngIf="entry.id != 'certificate'"
-                  id="{{ entry.id }}"
-                  formControlName="{{ entry.formControlName }}"
-                  class="form-control form-control-prepended"
-                  placeholder="{{ entry.placeholder }}"
-                />
-                <input
-                  *ngIf="entry.id == 'certificate'"
-                  id="{{ entry.id }}"
-                  formControlName="{{ entry.formControlName }}"
-                  (click)="triggerUpload()"
-                  class="form-control curPoint form-control-prepended"
-                  placeholder="{{ entry.placeholder }}"
-                  readonly
-                />
-                <input
-                  *ngIf="entry.id == 'certificate'"
-                  id="certificateUpload"
-                  class="d-none"
-                  #uploadCertificate
-                  type="file"
-                  (change)="uploadFile($event)"
-                />
-                <div class="input-group-prepend">
-                  <div class="input-group-text">
-                    <span *ngIf="entry.id != 'certificate'" class="{{ entry.prepend }}"></span>
-                    <span *ngIf="entry.id == 'certificate'" class="px-1 material-icons curPoint">cloud_upload</span>
+          <div formArrayName="educationDetailsFA" class="ng-invalid-none">
+            <div class="overflow-x-hidden stylishSlimScroll">
+              <div class="pl-3 form-group ng-invalid-none" *ngFor="let arrEntry of fc(educationDetailsForm, 'educationDetailsFA'); let ef = index" [formGroupName]="ef">
+                <div *ngIf="ef == 0" class="col-12 text-right">
+                  <button
+                    color="primary"
+                    mat-flat-button
+                    class="rounded-pill ml-2"
+                    matTooltip="Enter More Education"
+                    matTooltipPosition="above"
+                    (click)="addSection(educationDetailsForm, 'educationDetailsFA', 'userEducation')">
+                    <mat-icon>add</mat-icon> Enter More Education
+                  </button>   
+                </div>  
+                <div class="pl-2 pr-2 pb-2 card p-3 animated fadeIn" [ngClass]="{'pt-5': ef == 0, 'pt-2': ef != 0}">
+                  <div class="form-group mb-2" *ngFor="let entry of educationDetails; let i = index">
+                    <div *ngIf="ef != 0 && i == 0" class="col-12 text-right pr-0">
+                      <button
+                        color="primary"
+                        mat-mini-fab
+                        class="rounded-pill ml-2"
+                        (click)="deleteSection(educationDetailsForm, 'educationDetailsFA', ef)">
+                        <mat-icon>delete</mat-icon>
+                      </button>  
+                    </div>
+                    <div class="d-flex">
+                      <label 
+                        class="form-label mt-2 px-0 col" 
+                        for="{{ entry.id }}">
+                        {{ entry.label }} <sup *ngIf="entry.mandatory" class="text-danger">*</sup>
+                      </label>
+                    </div>
+                    <div *ngIf="entry.id != 'college' && entry.id != 'university' && entry.id != 'minor'" class="input-group input-group-merge">
+                      <input
+                        *ngIf="entry.id != 'certificates'"
+                        id="{{ entry.id }}"
+                        formControlName="{{ entry.formControlName }}"
+                        class="form-control form-control-prepended"
+                        placeholder="{{ entry.placeholder }}"
+                      />
+                      <input
+                        *ngIf="entry.id == 'certificates'"
+                        id="{{ entry.id }}"
+                        formControlName="{{ entry.formControlName }}"
+                        (click)="triggerUpload()"
+                        class="form-control curPoint form-control-prepended"
+                        placeholder="{{ entry.placeholder }}"
+                        readonly
+                      />
+                      <input
+                        *ngIf="entry.id == 'certificates'"
+                        id="certificateUpload"
+                        class="d-none"
+                        #uploadCertificate
+                        type="file"
+                        (change)="uploadFile($event, ef)"
+                      />
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">
+                          <span *ngIf="entry.id != 'certificates'" class="{{ entry.prepend }}"></span>
+                          <span *ngIf="entry.id == 'certificates'" class="px-1 material-icons curPoint">cloud_upload</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="mt-1" *ngIf="entry.id == 'certificates'">
+                      <p>
+                        <strong>Supported File :</strong>
+                        <span class="text-muted ml-2" *ngFor="let item of suportedFile">{{ item }}</span>
+                      </p>
+                    </div>
+                    <ng-container *ngIf="entry.id == 'college'" formArrayName="college">
+                      <div class="pb-1 pr-2" *ngFor="let val of getFA(educationDetailsForm, 'educationDetailsFA', ef, 'college'); let v = index">
+                        <div class="d-flex">
+                          <div
+                            class="col-11 input-group input-group-merge ng-invalid-none pl-0 pr-1 mt-1"
+                            [formGroupName]="v"
+                          >
+                            <input
+                              id="{{ entry.id }}"
+                              formControlName="name"
+                              class="form-control form-control-prepended"
+                              placeholder="{{ entry.placeholder }}"
+                            />
+                            <div class="input-group-prepend prependHeight">
+                              <div class="input-group-text">
+                                <span class="{{ entry.prepend }}"></span>
+                              </div>
+                            </div>
+                          </div>
+                          <button
+                            *ngIf="v != 0"
+                            color="primary"
+                            mat-mini-fab
+                            matTooltip="Remove College"
+                            matTooltipPosition="above"
+                            class="rounded-pill ml-2"
+                            (click)="removeMore(educationDetailsForm, 'educationDetailsFA', ef, entry.id, v)">
+                            <mat-icon>remove</mat-icon>
+                          </button>
+                           <button
+                            *ngIf="v == 0"
+                            color="primary"
+                            mat-mini-fab
+                            matTooltip="Add Another College"
+                            matTooltipPosition="above"
+                            class="rounded-pill ml-2 mb-1 addMoreBtn"
+                            (click)="addMore(educationDetailsForm, 'educationDetailsFA', ef, entry.id)">
+                            <mat-icon>add</mat-icon>
+                          </button>
+                        </div>
+                        <small
+                          [hidden]="
+                            fc(educationDetailsForm, 'educationDetailsFA')[ef].controls.college.controls[v].valid || fc(educationDetailsForm, 'educationDetailsFA')[ef].controls.college.controls[v].untouched
+                          "
+                          class="text-danger"
+                          translate
+                        >
+                          College is required
+                        </small>
+                      </div>  
+                    </ng-container>
+                    <ng-container *ngIf="entry.id == 'university'" formArrayName="university">
+                      <div class="pb-1 pr-2" *ngFor="let val of getFA(educationDetailsForm, 'educationDetailsFA', ef, 'university'); let u = index">
+                        <div class="d-flex">
+                          <div
+                            class="col-11 input-group input-group-merge ng-invalid-none pl-0 pr-1 mt-1"
+                            [formGroupName]="u"
+                          >
+                            <input
+                              id="{{ entry.id }}"
+                              formControlName="name"
+                              class="form-control form-control-prepended"
+                              placeholder="{{ entry.placeholder }}"
+                            />
+                            <div class="input-group-prepend prependHeight">
+                              <div class="input-group-text">
+                                <span class="{{ entry.prepend }}"></span>
+                              </div>
+                            </div>
+                          </div>
+                          <button
+                            *ngIf="u != 0"
+                            color="primary"
+                            mat-mini-fab
+                            matTooltip="Remove University"
+                            matTooltipPosition="above"
+                            class="rounded-pill ml-2"
+                            (click)="removeMore(educationDetailsForm, 'educationDetailsFA', ef, entry.id, u)">
+                            <mat-icon>remove</mat-icon>
+                          </button>
+                           <button
+                            *ngIf="u == 0"
+                            color="primary"
+                            mat-mini-fab
+                            matTooltip="Add Another University"
+                            matTooltipPosition="above"
+                            class="rounded-pill ml-2 mb-1 addMoreBtn"
+                            (click)="addMore(educationDetailsForm, 'educationDetailsFA', ef, entry.id)">
+                            <mat-icon>add</mat-icon>
+                          </button>
+                        </div>
+                         <small
+                          [hidden]="
+                            fc(educationDetailsForm, 'educationDetailsFA')[ef].controls.university.controls[u].valid || fc(educationDetailsForm, 'educationDetailsFA')[ef].controls.university.controls[u].untouched
+                          "
+                          class="text-danger"
+                          translate
+                           >
+                          University is required
+                        </small>
+                      </div>  
+                    </ng-container>
+                    <ng-container *ngIf="entry.id == 'minor'" formArrayName="minor">
+                      <div class="pb-1" *ngFor="let val of getFA(educationDetailsForm, 'educationDetailsFA', ef, 'minor'); let m = index">
+                        <div class="d-flex">
+                          <div
+                            class="input-group input-group-merge ng-invalid-none pl-0 pr-1 mt-1"
+                            [formGroupName]="m"
+                          >
+                            <input
+                              id="{{ entry.id }}"
+                              formControlName="name"
+                              class="form-control form-control-prepended"
+                              placeholder="{{ entry.placeholder }}"
+                            />
+                            <div class="input-group-prepend prependHeight">
+                              <div class="input-group-text">
+                                <span class="{{ entry.prepend }}"></span>
+                              </div>
+                            </div>
+                          </div>
+                          <button
+                            *ngIf="m != 0"
+                            color="primary"
+                            mat-mini-fab
+                            matTooltip="Remove Minor"
+                            matTooltipPosition="above"
+                            class="rounded-pill ml-2"
+                            (click)="removeMore(educationDetailsForm, 'educationDetailsFA', ef, entry.id, m)">
+                            <mat-icon>remove</mat-icon>
+                          </button>
+                           <button
+                            *ngIf="m == 0"
+                            color="primary"
+                            mat-mini-fab
+                            matTooltip="Add Another Minor"
+                            matTooltipPosition="above"
+                            class="rounded-pill ml-2 mb-1 addMoreBtn"
+                            (click)="addMore(educationDetailsForm, 'educationDetailsFA', ef, entry.id)">
+                            <mat-icon>add</mat-icon>
+                          </button>
+                        </div>
+                      </div>    
+                    </ng-container>
+                    <small
+                      *ngIf="entry.id == 'highestDegree'"
+                      [hidden]="
+                        fc(educationDetailsForm, 'educationDetailsFA')[ef].controls.highestDegree.valid || fc(educationDetailsForm, 'educationDetailsFA')[ef].controls.highestDegree.untouched
+                      "
+                      class="text-danger"
+                      translate
+                    >
+                      Highest Degree is required
+                    </small>
+                    <small
+                      *ngIf="entry.id == 'major'"
+                      [hidden]="fc(educationDetailsForm, 'educationDetailsFA')[ef].controls.major.valid || fc(educationDetailsForm, 'educationDetailsFA')[ef].controls.major.untouched"
+                      class="text-danger"
+                      translate
+                    >
+                      Major is required
+                    </small>
+                    <small
+                      *ngIf="entry.id == 'certificates'"
+                      [hidden]="
+                       fc(educationDetailsForm, 'educationDetailsFA')[ef].controls.certificates.valid || fc(educationDetailsForm, 'educationDetailsFA')[ef].controls.certificates.untouched
+                      "
+                      class="text-danger"
+                      translate
+                    >
+                      Certificates are required
+                    </small>
                   </div>
                 </div>
               </div>
-              <div class="mt-1" *ngIf="entry.id == 'certificate'">
-                <p>
-                  <strong>Supported File :</strong>
-                  <span class="text-muted ml-2" *ngFor="let item of suportedFile">{{ item }}</span>
-                </p>
-              </div>
-              <ng-container *ngIf="entry.id == 'college'" formArrayName="college">
-                <div
-                  class="input-group input-group-merge"
-                  *ngFor="let val of getFA('college'); let v = index"
-                  formGroupName="0"
-                >
-                  <input
-                    id="{{ entry.id }}"
-                    formControlName="name"
-                    class="form-control form-control-prepended"
-                    placeholder="{{ entry.placeholder }}"
-                  />
-                  <div class="input-group-prepend">
-                    <div class="input-group-text">
-                      <span class="{{ entry.prepend }}"></span>
-                    </div>
-                  </div>
-                </div>
-              </ng-container>
-              <ng-container *ngIf="entry.id == 'university'" formArrayName="university">
-                <div
-                  class="input-group input-group-merge"
-                  *ngFor="let val of getFA('university'); let u = index"
-                  formGroupName="0"
-                >
-                  <input
-                    id="{{ entry.id }}"
-                    formControlName="name"
-                    class="form-control form-control-prepended"
-                    placeholder="{{ entry.placeholder }}"
-                  />
-                  <div class="input-group-prepend">
-                    <div class="input-group-text">
-                      <span class="{{ entry.prepend }}"></span>
-                    </div>
-                  </div>
-                </div>
-              </ng-container>
-              <small
-                *ngIf="entry.id == 'highestDegree'"
-                [hidden]="
-                  educationDetailsForm.controls.highestDegree.valid ||
-                  educationDetailsForm.controls.highestDegree.untouched
-                "
-                class="text-danger"
-                translate
+            </div>  
+          </div>
+           <div class="text-center">
+              <button mat-flat-button color="default" matStepperPrevious class="rounded-pill ml-2 bg-theme">
+                Back
+              </button>
+              <button
+                [disabled]="educationDetailsForm.invalid"
+                mat-flat-button
+                color="primary"
+                matStepperNext
+                class="rounded-pill ml-2"
               >
-                Highest Degree is required
-              </small>
-              <small
-                *ngIf="entry.id == 'college'"
-                [hidden]="
-                  educationDetailsForm.controls.college.valid || educationDetailsForm.controls.college.untouched
-                "
-                class="text-danger"
-                translate
-              >
-                College is required
-              </small>
-              <small
-                *ngIf="entry.id == 'university'"
-                [hidden]="
-                  educationDetailsForm.controls.university.valid || educationDetailsForm.controls.university.untouched
-                "
-                class="text-danger"
-                translate
-              >
-                University is required
-              </small>
-              <small
-                *ngIf="entry.id == 'major'"
-                [hidden]="educationDetailsForm.controls.major.valid || educationDetailsForm.controls.major.untouched"
-                class="text-danger"
-                translate
-              >
-                Major is required
-              </small>
-              <small
-                *ngIf="entry.id == 'certificate'"
-                [hidden]="
-                  educationDetailsForm.controls.certificate.valid || educationDetailsForm.controls.certificate.untouched
-                "
-                class="text-danger"
-                translate
-              >
-                Certificates are required
-              </small>
+                Next
+              </button>
             </div>
-          </div>
-          <div class="text-center">
-            <button mat-flat-button color="default" matStepperPrevious class="rounded-pill ml-2 bg-theme">
-              Back
-            </button>
-            <button
-              [disabled]="educationDetailsForm.invalid"
-              mat-flat-button
-              color="primary"
-              matStepperNext
-              class="rounded-pill ml-2"
-            >
-              Next
-            </button>
-          </div>
         </div>
       </form>
     </mat-step>
     <mat-step *ngIf="user.type != 'Recruiter'">
       <form [formGroup]="experienceDetailsForm" novalidate>
-        <ng-template matStepLabel>Experience Details</ng-template>
         <div class="pt-5 pl-2 pr-2 pb-2 card p-3 animated fadeIn">
-          <div class="px-3 max-vertical-h-50 overflow-x-hidden stylishSlimScroll">
-            <div class="form-group" *ngFor="let entry of experienceDetails; let index = i">
-              <label class="form-label" for="{{ entry.id }}"
-                >{{ entry.label }} <sup *ngIf="entry.mandatory" class="text-danger">*</sup></label
-              >
-              <div class="input-group input-group-merge">
-                <input
-                  id="{{ entry.id }}"
-                  formControlName="{{ entry.formControlName }}"
-                  class="form-control form-control-prepended"
-                  placeholder="{{ entry.placeholder }}"
-                />
-                <div class="input-group-prepend">
-                  <div class="input-group-text">
-                    <span class="{{ entry.prepend }}"></span>
-                  </div>
+          <div formArrayName="experienceDetailsFA" class="ng-invalid-none">
+            <ng-template matStepLabel>Experience Details</ng-template>
+            <div class="overflow-x-hidden stylishSlimScroll">
+              <div class="pl-3 form-group ng-invalid-none" *ngFor="let arrEntry of fc(experienceDetailsForm, 'experienceDetailsFA'); let ef = index" [formGroupName]="ef">
+                <div *ngIf="ef == 0" class="col-12 text-right">
+                  <button
+                    color="primary"
+                    mat-flat-button
+                    class="rounded-pill ml-2"
+                    matTooltip="Enter More Experience"
+                    matTooltipPosition="above"
+                    (click)="addSection(experienceDetailsForm, 'experienceDetailsFA', 'userExperience')">
+                    <mat-icon>add</mat-icon> Enter More Experience
+                  </button>   
+                </div>  
+                <div class="pl-2 pr-2 pb-2 card p-3 animated fadeIn" [ngClass]="{'pt-5': ef == 0, 'pt-2': ef != 0}">
+                  <div class="form-group" *ngFor="let entry of experienceDetails; let i = index">
+                    <div *ngIf="ef != 0 && i == 0" class="col-12 text-right pr-0">
+                      <button
+                        color="primary"
+                        mat-mini-fab
+                        class="rounded-pill ml-2"
+                        (click)="deleteSection(experienceDetailsForm, 'experienceDetailsFA', ef)">
+                        <mat-icon>delete</mat-icon>
+                      </button>  
+                    </div>  
+                    <label class="form-label" for="{{ entry.id }}"
+                      >{{ entry.label }} <sup *ngIf="entry.mandatory" class="text-danger">*</sup></label
+                    >
+                    <div class="input-group input-group-merge">
+                      <input
+                        id="{{ entry.id }}"
+                        formControlName="{{ entry.formControlName }}"
+                        class="form-control form-control-prepended"
+                        placeholder="{{ entry.placeholder }}"
+                      />
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">
+                          <span class="{{ entry.prepend }}"></span>
+                        </div>
+                      </div>
+                    </div>
+                    <small
+                      *ngIf="entry.id == 'experience'"
+                      [hidden]="
+                        fc(experienceDetailsForm, 'experienceDetailsFA')[ef].controls.experience.valid || fc(experienceDetailsForm, 'experienceDetailsFA')[ef].controls.experience.untouched
+                      "
+                      class="text-danger"
+                      translate
+                    >
+                      Experience is required
+                    </small>
+                    <small
+                      *ngIf="entry.id == 'organization'"
+                      [hidden]="
+                        fc(experienceDetailsForm, 'experienceDetailsFA')[ef].controls.organization.valid || fc(experienceDetailsForm, 'experienceDetailsFA')[ef].controls.organization.untouched
+                      "
+                      class="text-danger"
+                      translate
+                    >
+                      Organization is required
+                    </small>
+                    <small
+                      *ngIf="entry.id == 'currentRole'"
+                      [hidden]="
+                        fc(experienceDetailsForm, 'experienceDetailsFA')[ef].controls.currentRole.valid || fc(experienceDetailsForm, 'experienceDetailsFA')[ef].controls.currentRole.untouched
+                      "
+                      class="text-danger"
+                      translate
+                    >
+                      Current Role is required
+                    </small>
+                  </div>  
                 </div>
               </div>
-              <small
-                *ngIf="entry.id == 'experience'"
-                [hidden]="
-                  experienceDetailsForm.controls.experience.valid || experienceDetailsForm.controls.experience.untouched
-                "
-                class="text-danger"
-                translate
+            </div>  
+          </div>
+           <div class="text-center">
+              <button mat-flat-button color="default" matStepperPrevious class="rounded-pill ml-2 bg-theme">
+                Back
+              </button>
+              <button
+                [disabled]="experienceDetailsForm.invalid"
+                mat-flat-button
+                color="primary"
+                matStepperNext
+                class="rounded-pill ml-2"
               >
-                Experience is required
-              </small>
-              <small
-                *ngIf="entry.id == 'organization'"
-                [hidden]="
-                  experienceDetailsForm.controls.organization.valid ||
-                  experienceDetailsForm.controls.organization.untouched
-                "
-                class="text-danger"
-                translate
-              >
-                Organization is required
-              </small>
-              <small
-                *ngIf="entry.id == 'currentRole'"
-                [hidden]="
-                  experienceDetailsForm.controls.currentRole.valid ||
-                  experienceDetailsForm.controls.currentRole.untouched
-                "
-                class="text-danger"
-                translate
-              >
-                Current Role is required
-              </small>
+                Next
+              </button>
             </div>
-          </div>
-          <div class="text-center">
-            <button mat-flat-button color="default" matStepperPrevious class="rounded-pill ml-2 bg-theme">
-              Back
-            </button>
-            <button
-              [disabled]="experienceDetailsForm.invalid"
-              mat-flat-button
-              color="primary"
-              matStepperNext
-              class="rounded-pill ml-2"
-            >
-              Next
-            </button>
-          </div>
         </div>
       </form>
     </mat-step>

@@ -258,6 +258,23 @@ export class UserProfileComponent implements OnInit {
     },
   ];
 
+  userEducation = [
+    {
+      highestDegree: 'string',
+      college: [
+        'string'
+      ],
+      university: [
+        'string'
+      ],
+      major: 'string',
+      minor1: 'string',
+      minor2: 'string',
+      minor3: 'string',
+      certificates: 'string'
+    }
+  ];
+
   educationDetails = [
     {
       id: 'highestDegree',
@@ -296,41 +313,32 @@ export class UserProfileComponent implements OnInit {
       mandatory: true,
     },
     {
-      id: 'minor1',
-      label: 'Minor 1',
+      id: 'minor',
+      label: 'Minor',
       type: 'text',
-      formControlName: 'minor1',
+      formControlName: 'minor',
       placeholder: 'Your Minor',
       prepend: 'fas fa-user-graduate w10',
       mandatory: false,
     },
     {
-      id: 'minor2',
-      label: 'Minor 2',
-      type: 'text',
-      formControlName: 'minor2',
-      placeholder: 'Your Minor',
-      prepend: 'fas fa-user-graduate w10',
-      mandatory: false,
-    },
-    {
-      id: 'minor3',
-      label: 'Minor 3',
-      type: 'text',
-      formControlName: 'minor3',
-      placeholder: 'Your Minor',
-      prepend: 'fas fa-user-graduate w10',
-      mandatory: false,
-    },
-    {
-      id: 'certificate',
+      id: 'certificates',
       label: 'Certificates',
       type: 'text',
-      formControlName: 'certificate',
+      formControlName: 'certificates',
       placeholder: 'Your Certificate',
       prepend: 'fas fa-award w10',
       mandatory: true,
     },
+  ];
+
+  userExperience = [
+    {
+      experience: '',
+      currentRole: ['string'],
+      project1: ['string'],
+      organization: 'string'
+    }
   ];
 
   experienceDetails = [
@@ -369,25 +377,7 @@ export class UserProfileComponent implements OnInit {
       placeholder: 'Latest Projects Implemented Details',
       prepend: 'fas fa-project-diagram',
       mandatory: false,
-    },
-    {
-      id: 'project2',
-      label: 'Latest Project Details 2',
-      type: 'text',
-      formControlName: 'project2',
-      placeholder: 'Latest Projects Implemented Details',
-      prepend: 'fas fa-project-diagram',
-      mandatory: false,
-    },
-    {
-      id: 'project3',
-      label: 'Latest Project Details 3',
-      type: 'text',
-      formControlName: 'project3',
-      placeholder: 'Latest Projects Implemented Details',
-      prepend: 'fas fa-project-diagram',
-      mandatory: false,
-    },
+    }
   ];
 
   teachingExperienceDetails = [
@@ -657,25 +647,10 @@ export class UserProfileComponent implements OnInit {
           billingPostalCode: [''],
         });
         this.educationDetailsForm = this.formBuilder.group({
-          highestDegree: ['', [Validators.required]],
-          college: ['', [Validators.required]],
-          university: ['', [Validators.required]],
-          // college: new FormArray([], [Validators.required]),
-          // university: new FormArray([], [Validators.required]),
-          major: ['', [Validators.required]],
-          minor1: [''],
-          minor2: [''],
-          minor3: [''],
-          certificateType: [''],
-          certificate: ['', [Validators.required]],
+          educationDetailsFA: this.initNewFA('userEducation')
         });
         this.experienceDetailsForm = this.formBuilder.group({
-          experience: ['', [Validators.required]],
-          organization: ['', [Validators.required]],
-          currentRole: ['', [Validators.required]],
-          project1: [''],
-          project2: [''],
-          project3: [''],
+          experienceDetailsFA: this.initNewFA('userExperience')
         });
         this.teachingExperienceForm = this.formBuilder.group({
           teachingExperience: ['', [Validators.required]],
@@ -766,25 +741,10 @@ export class UserProfileComponent implements OnInit {
           billingPostalCode: [this.user.billingPostalCode],
         });
         this.educationDetailsForm = this.formBuilder.group({
-          highestDegree: [this.user.highestDegree, [Validators.required]],
-          // college: [this.user.college, [Validators.required]],
-          // university: [this.user.university, [Validators.required]],
-          college: this.initFA('college'),
-          university: this.initFA('university'),
-          major: [this.user.major, [Validators.required]],
-          minor1: [this.user.minor1],
-          minor2: [this.user.minor2],
-          minor3: [this.user.minor3],
-          certificateType: [this.user.certificateType],
-          certificate: [this.user.certificates, [Validators.required]],
+          educationDetailsFA: this.initNewFA('userEducation')
         });
         this.experienceDetailsForm = this.formBuilder.group({
-          experience: [this.user.experience, [Validators.required]],
-          organization: [this.user.organization, [Validators.required]],
-          currentRole: [this.user.currentRole, [Validators.required]],
-          project1: [this.user.project1],
-          project2: [this.user.project2],
-          project3: [this.user.project3],
+          experienceDetailsFA:  this.initNewFA('userExperience')
         });
         this.careerPreferenceDetailsForm = this.formBuilder.group({
           areaOfPreference: [this.user.areaOfPreference, [Validators.required]],
@@ -794,11 +754,77 @@ export class UserProfileComponent implements OnInit {
     }
   }
 
-  initFA(_arrName: string) {
+  fc(form: any, _which: string) {
+    return form.controls[_which].controls;
+  }
+
+  initNewFA(_case: string) {
     const newFA = new FormArray([]);
-    this.user[_arrName].forEach((d: any) => {
-      newFA.push(this.formBuilder.group({ name: [d, [Validators.required]] }));
-    });
+    if (_case == 'userEducation') {
+      newFA.push(this.addEntry('userEducation'));
+    } else {
+      newFA.push(this.addEntry('userExperience'));
+    }
+    return newFA;
+  }
+
+  addSection(form: any, _which: string, _where: string) {
+    let fA = <FormArray>form.controls[_which];
+    fA.push(this.addEntry(_where));
+  }
+
+  addMore(form: any, _which: string, _index: number, _where: string) {
+    console.log(form.controls[_which].controls[_index].controls[_where]);
+    let fA = <FormArray>form.controls[_which].controls[_index].controls[_where];
+    fA.push(this.formBuilder.group({ name: ['', [Validators.required]]}));
+  }
+
+  deleteSection(form: any, _which: string, _index: number) {
+    form.controls[_which].removeAt(_index);
+  }
+
+  removeMore(form: any, _which: string, _index: number, _where: string, _elInd: number) {
+    form.controls[_which].controls[_index].controls[_where].removeAt(_elInd);
+  }
+
+  addEntry(_case: string) {
+    if (_case == 'userEducation') {
+      return this.formBuilder.group({
+         highestDegree: ['', Validators.required],
+         college: this.initFA('userEducation', 'college'),
+         university: this.initFA('userEducation', 'university'),
+         major: ['', Validators.required],
+         minor: this.initFA('userEducation', 'minor'),
+         certificateType: [''],
+         certificates: ['', Validators.required]
+      });
+    } else {
+      return this.formBuilder.group({
+        experience: ['', Validators.required],
+        currentRole: ['', Validators.required],
+        organization: ['', Validators.required],
+        project1: this.initFA( 'userExperience', 'project1'),
+      });
+    }
+  }
+
+  initFA(_case: string, _arrName: string) {
+    const newFA = new FormArray([]);
+    this.user[_case] = [];
+    this.user[_case][_arrName] = [];
+    if (this.user[_case] != null && this.user[_case][_arrName].length != 0) {
+      _arrName == 'minor' || _arrName == 'project1'
+        ? this.user[_case][_arrName].forEach((d: any) => {
+            newFA.push(this.formBuilder.group({ name: [d] }));
+          })
+        : this.user[_case][_arrName].forEach((d: any) => {
+          newFA.push(this.formBuilder.group({ name: [d, [Validators.required]] }));
+        })
+    } else {
+      _arrName == 'minor' || _arrName == 'project1'
+        ? newFA.push(this.formBuilder.group({ name: [''] }))
+        : newFA.push(this.formBuilder.group({ name: ['', [Validators.required]] }));
+    }
     return newFA;
     // return this.formBuilder.group(this.user[_arrName].map((arr: any) => {return arr}), [Validators.required]) as FormArray;
   }
@@ -860,23 +886,21 @@ export class UserProfileComponent implements OnInit {
     $t.userDetails.billingState = personalDetailsValues.billingState;
     $t.userDetails.billingPostalCode = personalDetailsValues.billingPostalCode;
     if (_type != 'Recruiter') {
-      let educationDetailsValues = $t.educationDetailsForm.value;
-      $t.userDetails.highestDegree = educationDetailsValues.highestDegree;
-      $t.userDetails.college = educationDetailsValues.college.map((d: any) => d.name);
-      $t.userDetails.university = educationDetailsValues.university.map((d: any) => d.name);
-      $t.userDetails.major = educationDetailsValues.major;
-      $t.userDetails.minor1 = educationDetailsValues.minor1;
-      $t.userDetails.minor2 = educationDetailsValues.minor2;
-      $t.userDetails.minor3 = educationDetailsValues.minor3;
-      $t.userDetails.certificates = educationDetailsValues.certificate;
-      $t.userDetails.certificateType = educationDetailsValues.certificateType;
-      let experienceDetailsValues = $t.experienceDetailsForm.value;
-      $t.userDetails.experience = experienceDetailsValues.experience;
-      $t.userDetails.organization = experienceDetailsValues.organization;
-      $t.userDetails.currentRole = experienceDetailsValues.currentRole;
-      $t.userDetails.project1 = experienceDetailsValues.project1;
-      $t.userDetails.project2 = experienceDetailsValues.project2;
-      $t.userDetails.project3 = experienceDetailsValues.project3;
+      let educationDetailsValues = $t.educationDetailsForm.value.educationDetailsFA;
+      $t.userDetails.userEducation = [];
+      educationDetailsValues.forEach((x: any, i: number) => {
+        $t.userDetails.userEducation.push(JSON.parse(JSON.stringify(x)));
+        $t.userDetails.userEducation[i].college = x.college.map((d: any) => d.name);
+        $t.userDetails.userEducation[i].university = x.university.map((d: any) => d.name);
+        $t.userDetails.userEducation[i].minor = x.minor.map((d: any) => d.name);
+      });
+      let experienceDetailsValues = $t.experienceDetailsForm.value.experienceDetailsFA;
+      $t.userDetails.userExperience = [];
+      experienceDetailsValues.forEach((x: any, i: number) => {
+        $t.userDetails.userExperience.push(JSON.parse(JSON.stringify(x)));
+        $t.userDetails.userExperience[i].currentRole = [];
+        $t.userDetails.userExperience[i].currentRole.push(x.currentRole);
+      });
       let careerPreferenceDetailsValues = $t.careerPreferenceDetailsForm.value;
       $t.userDetails.areaOfPreference = careerPreferenceDetailsValues.areaOfPreference;
       $t.userDetails.preferredRole = careerPreferenceDetailsValues.preferredRole;
@@ -920,7 +944,7 @@ export class UserProfileComponent implements OnInit {
     this.upCert.nativeElement.click();
   }
 
-  uploadFile(_event: any) {
+  uploadFile(_event: any, _index: number) {
     // if (Extension == 'pdf' || Extension == 'png' || Extension == 'jpeg' || Extension == 'jpg') {
     let $t = this;
     let apiUrl = $t.sharedService.urlService.apiCallWithParams('uploadSingle', { '{email}': $t.user.email });
@@ -931,10 +955,8 @@ export class UserProfileComponent implements OnInit {
       $t.sharedService.uiService.showApiStartPopMsg('Uploading Certificate...');
       $t.sharedService.configService.post(apiUrl, form).subscribe(
         (response: any) => {
-          $t.educationDetailsForm.get('certificate').patchValue(response.url);
-          $t.educationDetailsForm
-            .get('certificateType')
-            .patchValue($t.sharedService.utilityService.ValidateCertificateUpload(files[0].name).type);
+          $t.educationDetailsForm.controls['educationDetailsFA']['controls'][_index].controls.certificates.patchValue(response.url);
+          $t.educationDetailsForm.controls['educationDetailsFA']['controls'][_index].controls.certificateType.patchValue($t.sharedService.utilityService.ValidateCertificateUpload(files[0].name).type);
           $t.sharedService.uiService.showApiSuccessPopMsg('Certificate Uploaded...');
         },
         (error) => {
@@ -946,8 +968,8 @@ export class UserProfileComponent implements OnInit {
     }
   }
 
-  getFA(_controlName: string) {
-    return this.educationDetailsForm.get(_controlName)['controls'];
+  getFA(form: any, _which: string, _index: number,_controlName: string) {
+    return form.controls[_which].controls[_index].controls[_controlName].controls;
   }
 
   submitDetails(_type: string) {
@@ -1018,6 +1040,7 @@ export class UserProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log(this.user);
     window.scrollTo(0, 0);
     this.getCountry();
     this.getOrganisation();
