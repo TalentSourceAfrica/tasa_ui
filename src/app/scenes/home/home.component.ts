@@ -298,6 +298,7 @@ export class HomeComponent implements OnInit {
     let payload = { ...$t.signupForm.value, type: $t.userType.dbValue };
     $t.sharedService.configService.post(apiUrl, payload).subscribe(
       (response: any) => {
+        $t.signupForm.reset();
         if ($t.userType.dbValue !== 'Recruiter') {
           $t.sharedService.uiService.showApiSuccessPopMsg('Please check inbox for successful verification...!');
         } else {

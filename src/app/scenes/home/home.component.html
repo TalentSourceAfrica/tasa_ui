@@ -97,7 +97,7 @@
         <div class="col-md-3 col-lg-3 col-sm-6 col-xs-12">
           <div class="text-icon-box mb20 xs-mb0 wow fadeInUp p-2" data-wow-delay="0.1s">
             <div class="box-icon features-box-icon">
-              <i class="fa fa-graduation-cap"></i>
+              <i class="fab fa-connectdevelop"></i>
             </div>
             <h3 class="box-title">Network</h3>
             <p>
@@ -108,7 +108,7 @@
         <div class="col-md-3 col-lg-3 col-sm-6 col-xs-12">
           <div class="text-icon-box relative mb20 xs-mb0 wow fadeInUp p-2" data-wow-delay="0.3s">
             <div class="box-icon features-box-icon">
-              <i class="fa fa-rocket"></i>
+              <i class="fas fa-globe"></i>
             </div>
             <h3 class="box-title">Find Jobs</h3>
             <p>
@@ -119,25 +119,25 @@
         <div class="col-md-3 col-lg-3 col-sm-6 col-xs-12">
           <div class="text-icon-box relative mb20 xs-mb0 wow fadeInUp p-2 visible-sm" data-wow-delay="0.4s">
             <div class="box-icon features-box-icon">
-              <i class="fas fa-laptop-code"></i>
+              <i class="fas fa-briefcase"></i>
             </div>
             <h3 class="box-title">Freelance</h3>
             <p>
-              Find freelance gigs or hire freelance pros that want your business.
+              Find freelance work or hire freelance professionals that want your business.
             </p>
           </div>
         </div>
         <div class="col-md-3 col-lg-3 col-sm-6 col-xs-12">
           <div class="text-icon-box relative mb20 xs-mb0 wow fadeInUp p-2 visible-sm" data-wow-delay="0.4s">
             <div class="box-icon features-box-icon">
-              <i class="fa fa-cog"></i>
+              <i class="fas fa-book-reader"></i>
             </div>
             <h3 class="box-title">Learn</h3>
             <p>
               Level up with in-demand credentials from top universities.
             </p>
           </div>
-        </div>
+        </div>        
       </div>
     </div>
   </section>
@@ -149,7 +149,7 @@
       <div class="row">
         <div class="col-md-8 col-lg-12 col-md-offset-2 col-lg-offset-2 col-sm-12 col-xs-12">
           <div class="wow fadeIn">
-            <div class="text-center">
+            <div class="text-center mb-3">
               <h2 class="xs-font20">Sign Up</h2>
               <p class="card-subtitle">
                 <mat-form-field appearance="fill">
@@ -161,7 +161,7 @@
                 </mat-form-field>
               </p>
             </div>
-            <div class="d-flex align-items-center no-gutters signup-wrapper">
+            <div class="d-flex align-items-center no-gutters signup-wrapper" data-aos="zoom-out-up">
               <div class="navbar-shadow bg-white shadow-lg w100">
                 <div class="card-body">
                   <div *ngIf="userType.value == 0 || userType.value == 1">
@@ -614,7 +614,7 @@
   <!--FAQS AREA END-->
 
   <!--CLIENT AREA-->
-  <div class="client-area padding-bottom mt100 sm-mt10 xs-mt0">
+  <!-- <div class="client-area padding-bottom mt100 sm-mt10 xs-mt0">
     <div class="container">
       <div class="row">
         <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
@@ -641,11 +641,11 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
   <!--CLIENT AREA END-->
 
   <!--ADDMISSION AREA-->
-  <section class="admition-area padding-50-50 bg-theme">
+  <!-- <section class="admition-area padding-50-50 bg-theme">
     <div class="container">
       <div class="row flex-v-center">
         <div class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
@@ -666,7 +666,7 @@
         </div>
       </div>
     </div>
-  </section>
+  </section> -->
   <!--ADDMISSION AREA END-->
 </div>
 
@@ -858,7 +858,7 @@
         color="primary"
         type="submit"
         [disabled]="signupForm.invalid || !isUsernameAvailable || !isEmailAvailable"
-        class="rounded-pill ml-2 w35"
+        class="rounded-pill ml-2 w30"
       >
         Sign Up
       </button>
@@ -1074,7 +1074,7 @@
         color="primary"
         type="submit"
         [disabled]="signupForm.invalid || !isUsernameAvailable || !isEmailAvailable"
-        class="rounded-pill ml-2 w35"
+        class="rounded-pill ml-2 w30"
       >
         Sign Up
       </button>
