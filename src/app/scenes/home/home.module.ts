@@ -1,7 +1,7 @@
 import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CoreModule } from '@core';
 import { SharedModule } from '@shared';
 import { HomeRoutingModule } from './home-routing.module';
@@ -21,6 +21,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MaterialModule,
     CarouselModule,
     BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   declarations: [HomeComponent],
   schemas: [NO_ERRORS_SCHEMA],

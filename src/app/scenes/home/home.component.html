@@ -94,37 +94,47 @@
   <section class="features-top-area" id="features">
     <div class="container">
       <div class="row promo-content" data-aos="flip-up" data-aos-duration="2000">
-        <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12">
+        <div class="col-md-3 col-lg-3 col-sm-6 col-xs-12">
           <div class="text-icon-box mb20 xs-mb0 wow fadeInUp p-2" data-wow-delay="0.1s">
             <div class="box-icon features-box-icon">
               <i class="fa fa-graduation-cap"></i>
             </div>
-            <h3 class="box-title">Cultivate</h3>
+            <h3 class="box-title">Network</h3>
             <p>
-              A vast network African graduates and early-stage professionals via our superior networking platform.
+              Connect and engage with people who understand your perspective.
             </p>
           </div>
         </div>
-        <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12">
+        <div class="col-md-3 col-lg-3 col-sm-6 col-xs-12">
           <div class="text-icon-box relative mb20 xs-mb0 wow fadeInUp p-2" data-wow-delay="0.3s">
             <div class="box-icon features-box-icon">
               <i class="fa fa-rocket"></i>
             </div>
-            <h3 class="box-title">Enhance</h3>
+            <h3 class="box-title">Find Jobs</h3>
             <p>
-              Their employability through access to affordably-priced online certificate courses from globally
-              recognized Ivy-League and Tier-I Universities.
+              Get discovered by companies who come to TaSA looking for you.
             </p>
           </div>
         </div>
-        <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12">
+        <div class="col-md-3 col-lg-3 col-sm-6 col-xs-12">
+          <div class="text-icon-box relative mb20 xs-mb0 wow fadeInUp p-2 visible-sm" data-wow-delay="0.4s">
+            <div class="box-icon features-box-icon">
+              <i class="fas fa-laptop-code"></i>
+            </div>
+            <h3 class="box-title">Freelance</h3>
+            <p>
+              Find freelance gigs or hire freelance pros that want your business.
+            </p>
+          </div>
+        </div>
+        <div class="col-md-3 col-lg-3 col-sm-6 col-xs-12">
           <div class="text-icon-box relative mb20 xs-mb0 wow fadeInUp p-2 visible-sm" data-wow-delay="0.4s">
             <div class="box-icon features-box-icon">
               <i class="fa fa-cog"></i>
             </div>
-            <h3 class="box-title">Connect</h3>
+            <h3 class="box-title">Learn</h3>
             <p>
-              Our members with employers through our best-in-class jobs board.
+              Level up with in-demand credentials from top universities.
             </p>
           </div>
         </div>
@@ -134,64 +144,35 @@
   <!--FEATURES TOP AREA END-->
 
   <!--ABOUT TOP CONTENT AREA-->
-  <section class="section-padding">
+  <section class="section-padding bg-theme">
     <div class="container">
       <div class="row">
         <div class="col-md-8 col-lg-12 col-md-offset-2 col-lg-offset-2 col-sm-12 col-xs-12">
-          <div class="text-center wow fadeIn">
-            <h2 class="xs-font20">Offerings for TaSA Students and Professionals.</h2>
-            <section id="timeline">
-              <div class="demo-card-wrapper">
-                <div class="demo-card demo-card--step1" data-aos="fade-right">
-                  <div class="head">
-                    <div class="number-box">
-                      <span>01</span>
-                    </div>
-                    <h5>Free Sign-Up/Access to Courses</h5>
+          <div class="wow fadeIn">
+            <div class="text-center">
+              <h2 class="xs-font20">Sign Up</h2>
+              <p class="card-subtitle">
+                <mat-form-field appearance="fill">
+                  <mat-select (selectionChange)="signupTypeChange()" [(ngModel)]="userType.value" ngDefaultControl>
+                    <mat-option *ngFor="let item of signupType" [value]="item.value">
+                      {{ item.viewValue }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </p>
+            </div>
+            <div class="d-flex align-items-center no-gutters signup-wrapper">
+              <div class="navbar-shadow bg-white shadow-lg w100">
+                <div class="card-body">
+                  <div *ngIf="userType.value == 0 || userType.value == 1">
+                    <ng-container *ngTemplateOutlet="normalForm"></ng-container>
                   </div>
-                  <div class="body">
-                    <p>
-                      Enhance your professional profile with marketable skills and professional certificates from
-                      trusted and recognizable institutions of Higher education like: Harvard, Cornell, Princeton,
-                      Brown, Stanford, Columbia etc.
-                    </p>
-                    <!-- <img src="http://placehold.it/1000x500" alt="Graphic" /> -->
-                  </div>
-                </div>
-
-                <div class="demo-card demo-card--step2" data-aos="fade-left">
-                  <div class="head">
-                    <div class="number-box">
-                      <span>02</span>
-                    </div>
-                    <h5>Network with Fellow TaSA Platform Users</h5>
-                  </div>
-                  <div class="body">
-                    <p>
-                      Enhance your social capital and position yourself for exciting work or business opportunities by
-                      networking with other professionals and executives in your professional domain.
-                    </p>
-                    <!-- <img src="http://placehold.it/1000x500" alt="Graphic" /> -->
-                  </div>
-                </div>
-
-                <div class="demo-card demo-card--step3" data-aos="fade-right">
-                  <div class="head">
-                    <div class="number-box">
-                      <span>03</span>
-                    </div>
-                    <h5>Connect with Recruiters</h5>
-                  </div>
-                  <div class="body">
-                    <p>
-                      Gain easy access to scores of available job opportunities within your field of study or
-                      professional interest through our best-in-class jobs board.
-                    </p>
-                    <!-- <img src="http://placehold.it/1000x500" alt="Graphic" /> -->
+                  <div *ngIf="userType.value == 2">
+                    <ng-container *ngTemplateOutlet="recuiterForm"></ng-container>
                   </div>
                 </div>
               </div>
-            </section>
+            </div>
           </div>
         </div>
       </div>
@@ -688,3 +669,425 @@
   </section>
   <!--ADDMISSION AREA END-->
 </div>
+
+<ng-template #normalForm>
+  <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" novalidate>
+    <div class="p-2">
+      <div class="form-group">
+        <label class="form-label" for="name">First Name <sup class="text-danger">*</sup></label>
+        <div class="input-group input-group-merge">
+          <input
+            id="name"
+            type="text"
+            formControlName="firstName"
+            class="form-control form-control-prepended"
+            placeholder="Your first name"
+          />
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <span class="far fa-user"></span>
+            </div>
+          </div>
+        </div>
+        <small
+          [hidden]="signupForm.controls.firstName.valid || signupForm.controls.firstName.untouched"
+          class="text-danger"
+          translate
+        >
+          First Name is required
+        </small>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="name">Last Name <sup class="text-danger">*</sup></label>
+        <div class="input-group input-group-merge">
+          <input
+            id="name"
+            type="text"
+            formControlName="lastName"
+            class="form-control form-control-prepended"
+            placeholder="Your last name"
+          />
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <span class="far fa-user"></span>
+            </div>
+          </div>
+        </div>
+        <small
+          [hidden]="signupForm.controls.lastName.valid || signupForm.controls.lastName.untouched"
+          class="text-danger"
+          translate
+        >
+          Last Name is required
+        </small>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="name">Username <sup class="text-danger">*</sup></label>
+        <div class="input-group input-group-merge">
+          <input
+            id="name"
+            type="text"
+            formControlName="username"
+            class="form-control form-control-prepended"
+            placeholder="Your username"
+            (blur)="checkUsername()"
+            [ngClass]="{ 'ng-invalid ng-touched': !isUsernameAvailable }"
+          />
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <span class="far fa-user"></span>
+            </div>
+          </div>
+        </div>
+        <small
+          [hidden]="signupForm.controls.username.valid || signupForm.controls.username.untouched"
+          class="text-danger"
+          translate
+        >
+          <span *ngIf="signupForm.controls.username.errors?.pattern; else elseError">
+            No Special characters allowed
+          </span>
+          <ng-template #elseError>
+            Username is required
+          </ng-template>
+        </small>
+        <small [hidden]="isUsernameAvailable" class="text-danger" translate>
+          Username already exists
+        </small>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="email">Email address <sup class="text-danger">*</sup></label>
+        <div class="input-group input-group-merge">
+          <input
+            id="email"
+            type="email"
+            formControlName="email"
+            class="form-control form-control-prepended"
+            placeholder="Your email address"
+            (blur)="checkEmail()"
+            [ngClass]="{ 'ng-invalid ng-touched': !isEmailAvailable }"
+          />
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <span class="far fa-envelope"></span>
+            </div>
+          </div>
+        </div>
+        <small
+          [hidden]="signupForm.controls.email.valid || signupForm.controls.email.untouched"
+          class="text-danger"
+          translate
+        >
+          Email is required
+        </small>
+        <small [hidden]="isEmailAvailable" class="text-danger" translate>
+          Email Address already exists
+        </small>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="password">Password <sup class="text-danger">*</sup></label>
+        <div class="input-group input-group-merge">
+          <input
+            id="password"
+            type="password"
+            formControlName="password"
+            class="form-control form-control-prepended"
+            placeholder="Choose a password"
+          />
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <span class="fas fa-key"></span>
+            </div>
+          </div>
+        </div>
+        <small
+          [hidden]="signupForm.controls.password.valid || signupForm.controls.password.untouched"
+          class="text-danger"
+          translate
+        >
+          Password is required
+        </small>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="password">Confirm Password <sup class="text-danger">*</sup></label>
+        <div class="input-group input-group-merge">
+          <input
+            id="confirmPassword"
+            type="password"
+            formControlName="confirmPassword"
+            class="form-control form-control-prepended"
+            placeholder="Type password"
+          />
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <span class="fas fa-key"></span>
+            </div>
+          </div>
+        </div>
+        <small
+          *ngIf="!signupForm.controls.confirmPassword.untouched && signupForm.controls.confirmPassword.errors?.required"
+          class="text-danger"
+          translate
+        >
+          Confirm Password is required
+        </small>
+        <small *ngIf="signupForm.controls.confirmPassword.errors?.mustMatch" class="text-danger" translate>
+          Confirm Password must match
+        </small>
+      </div>
+    </div>
+
+    <div class="form-group text-center">
+      <div class="custom-control custom-checkbox mb-2 pt-2">
+        <input id="terms" type="checkbox" class="custom-control-input" formControlName="termsCond" required="" />
+        <label for="terms" class="custom-control-label text-black-70"
+          >I agree to the
+          <a class="text-black-70 curPoint" (click)="openTerms()" style="text-decoration: underline;"
+            >Terms and Condition</a
+          >
+          And
+          <a class="text-black-70 curPoint" (click)="openTerms()" style="text-decoration: underline;"
+            >Privacy & Policy.</a
+          ></label
+        >
+      </div>
+    </div>
+    <div class="form-group text-center">
+      <button
+        mat-flat-button
+        color="primary"
+        type="submit"
+        [disabled]="signupForm.invalid || !isUsernameAvailable || !isEmailAvailable"
+        class="rounded-pill ml-2 w35"
+      >
+        Sign Up
+      </button>
+    </div>
+  </form>
+</ng-template>
+
+<ng-template #recuiterForm>
+  <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" novalidate>
+    <div class="p-2">
+      <div class="form-group">
+        <label class="form-label" for="name">First Name <sup class="text-danger">*</sup></label>
+        <div class="input-group input-group-merge">
+          <input
+            id="name"
+            type="text"
+            formControlName="firstName"
+            class="form-control form-control-prepended"
+            placeholder="Your first name"
+          />
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <span class="far fa-user"></span>
+            </div>
+          </div>
+        </div>
+        <small
+          [hidden]="signupForm.controls.firstName.valid || signupForm.controls.firstName.untouched"
+          class="text-danger"
+          translate
+        >
+          First Name is required
+        </small>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="name">Last Name <sup class="text-danger">*</sup></label>
+        <div class="input-group input-group-merge">
+          <input
+            id="name"
+            type="text"
+            formControlName="lastName"
+            class="form-control form-control-prepended"
+            placeholder="Your last name"
+          />
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <span class="far fa-user"></span>
+            </div>
+          </div>
+        </div>
+        <small
+          [hidden]="signupForm.controls.lastName.valid || signupForm.controls.lastName.untouched"
+          class="text-danger"
+          translate
+        >
+          Last Name is required
+        </small>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="name"
+          >Organization Name <sup class="text-danger">*</sup>&nbsp;&nbsp;<i
+            class="underline curPoint text-primary"
+            (click)="createOrganization()"
+            >Add Organization</i
+          ></label
+        >
+        <div class="input-group input-group-merge">
+          <mat-select
+            formControlName="organizationName"
+            placeholder="Your Organization"
+            required
+            class="form-control form-control-prepended"
+          >
+            <mat-option *ngFor="let item of organisationList" [value]="item.orgName">
+              {{ item.orgName }}
+            </mat-option>
+          </mat-select>
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <span class="fas fa-university"></span>
+            </div>
+          </div>
+        </div>
+        <small
+          [hidden]="signupForm.controls.organizationName.valid || signupForm.controls.organizationName.untouched"
+          class="text-danger"
+          translate
+        >
+          Organization Name is required
+        </small>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="name">Username <sup class="text-danger">*</sup></label>
+        <div class="input-group input-group-merge">
+          <input
+            id="name"
+            type="text"
+            formControlName="username"
+            class="form-control form-control-prepended"
+            placeholder="Your username"
+            (blur)="checkUsername()"
+            [ngClass]="{ 'ng-invalid ng-touched': !isUsernameAvailable }"
+          />
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <span class="far fa-user"></span>
+            </div>
+          </div>
+        </div>
+        <small
+          [hidden]="signupForm.controls.username.valid || signupForm.controls.username.untouched"
+          class="text-danger"
+          translate
+        >
+          Username is required
+        </small>
+        <small [hidden]="isUsernameAvailable" class="text-danger" translate>
+          Username already exists
+        </small>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="email">Email address <sup class="text-danger">*</sup></label>
+        <div class="input-group input-group-merge">
+          <input
+            id="email"
+            type="email"
+            formControlName="email"
+            class="form-control form-control-prepended"
+            placeholder="Your email address"
+            (blur)="checkEmail()"
+            [ngClass]="{ 'ng-invalid ng-touched': !isEmailAvailable }"
+          />
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <span class="far fa-envelope"></span>
+            </div>
+          </div>
+        </div>
+        <small
+          [hidden]="signupForm.controls.email.valid || signupForm.controls.email.untouched"
+          class="text-danger"
+          translate
+        >
+          Email is required
+        </small>
+        <small [hidden]="isEmailAvailable" class="text-danger" translate>
+          Email Address already exists
+        </small>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="password">Password <sup class="text-danger">*</sup></label>
+        <div class="input-group input-group-merge">
+          <input
+            id="password"
+            type="password"
+            formControlName="password"
+            class="form-control form-control-prepended"
+            placeholder="Choose a password"
+          />
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <span class="fas fa-key"></span>
+            </div>
+          </div>
+        </div>
+        <small
+          [hidden]="signupForm.controls.password.valid || signupForm.controls.password.untouched"
+          class="text-danger"
+          translate
+        >
+          Password is required
+        </small>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="password">Confirm Password <sup class="text-danger">*</sup></label>
+        <div class="input-group input-group-merge">
+          <input
+            id="confirmPassword"
+            type="password"
+            formControlName="confirmPassword"
+            class="form-control form-control-prepended"
+            placeholder="Type password"
+          />
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <span class="fas fa-key"></span>
+            </div>
+          </div>
+        </div>
+        <small
+          *ngIf="!signupForm.controls.password.untouched && signupForm.controls.confirmPassword.errors?.required"
+          class="text-danger"
+          translate
+        >
+          Confirm Password is required
+        </small>
+        <small *ngIf="signupForm.controls.confirmPassword.errors?.mustMatch" class="text-danger" translate>
+          Confirm Password must match
+        </small>
+      </div>
+    </div>
+    <div class="form-group text-center">
+      <div class="custom-control custom-checkbox mb-2">
+        <input id="terms" type="checkbox" class="custom-control-input" formControlName="termsCond" required="" />
+        <label for="terms" class="custom-control-label text-black-70"
+          >I agree to the <a class="text-black-70" style="text-decoration: underline;">Terms and Condition</a></label
+        >
+      </div>
+    </div>
+    <div class="form-group text-center">
+      <button
+        mat-flat-button
+        color="primary"
+        type="submit"
+        [disabled]="signupForm.invalid || !isUsernameAvailable || !isEmailAvailable"
+        class="rounded-pill ml-2 w35"
+      >
+        Sign Up
+      </button>
+    </div>
+  </form>
+</ng-template>
+
+<div class="signup-modal">
+  <div id="myModal" class="modal" [ngClass]="{ 'd-block': doc != '' }">
+    <div class="modal-content">
+      <span class="close curPoint" (click)="doc = ''">&times;</span>
+      <ngx-doc-viewer [url]="doc" viewer="pdf" style="width: 100%; height: 100%;"></ngx-doc-viewer>
+    </div>
+  </div>
+</div>
+

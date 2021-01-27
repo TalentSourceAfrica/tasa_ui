@@ -454,7 +454,6 @@
 
 <div class="signup-modal">
   <div id="myModal" class="modal" [ngClass]="{ 'd-block': doc != '' }">
-    <!-- Modal content -->
     <div class="modal-content">
       <span class="close curPoint" (click)="doc = ''">&times;</span>
       <ngx-doc-viewer [url]="doc" viewer="pdf" style="width: 100%; height: 100%;"></ngx-doc-viewer>
