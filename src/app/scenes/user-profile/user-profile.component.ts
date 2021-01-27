@@ -1039,18 +1039,18 @@ export class UserProfileComponent implements OnInit {
         }
         break;
       case 'Mentee':
-        // if (
-        //   // $t.personalDetailsForm.invalid ||
-        //   // $t.educationDetailsForm.invalid ||
-        //   // $t.experienceDetailsForm.invalid ||
-        //   // $t.careerPreferenceDetailsForm.invalid
-        // ) {
-        //   $t.showMandatoryMessage = true;
-        //   return;
-        // } else {
+        if (
+          $t.personalDetailsForm.invalid ||
+          $t.educationDetailsForm.invalid ||
+          $t.experienceDetailsForm.invalid ||
+          $t.careerPreferenceDetailsForm.invalid
+        ) {
+          $t.showMandatoryMessage = true;
+          return;
+        } else {
           $t.showMandatoryMessage = false;
           $t.onObjSubmit(_type);
-        // }
+        }
         break;
       case 'Recruiter':
         if (
