@@ -45,6 +45,10 @@ export class AllJobListingsComponent implements OnInit {
     isFetching : false,
     data:[]
   }
+  recommendedJobs:any = {
+    isFetching : false,
+    data:[]
+  }
   constructor(
     public sharedService: SharedService,
     public router: Router,
@@ -68,6 +72,22 @@ export class AllJobListingsComponent implements OnInit {
       },
       (error) => {
         $t.recommendedCourses.isFetching = false;
+      }
+    );
+  }
+
+  getRecommendedJobs() {
+    let $t = this;
+    let apiUrl = '';
+    $t.recommendedJobs.isFetching = true;
+    apiUrl = $t.sharedService.urlService.apiCallWithParams('getRecommendedJobs', { '{userId}': $t.user.email });
+    $t.sharedService.configService.get(apiUrl).subscribe(
+      (response: any) => {
+        $t.recommendedJobs.data = response.responseObj;
+        $t.recommendedJobs.isFetching = false;
+      },
+      (error) => {
+        $t.recommendedJobs.isFetching = false;
       }
     );
   }
