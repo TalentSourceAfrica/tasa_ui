@@ -1,4 +1,6 @@
 //--------------------------- Header section ----------------------------------//
+$blue: #523f6d;
+$light-blue: #523f6d80;
 
 @media only screen and (max-width: 600px) {
   .explore-section {
@@ -96,6 +98,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 0.5rem 1rem;
+  background-color: #523f6d;
 }
 
 .navbar-expand {
@@ -158,6 +161,22 @@
   &:hover {
     background-color: #523f6d !important;
     color: white !important;
+  }
+}
+
+.global-search {
+  input {
+    width: 40% !important;
+  }
+  .global-search-options {
+    border-radius: 20px 0px 0px 20px !important;
+    width: 10px;
+  }
+  .symbol {
+    border-radius: 0 20px 20px 0 !important;
+    width: 50px;
+    background-color: #eae8ee;
+    color: $blue;
   }
 }
 

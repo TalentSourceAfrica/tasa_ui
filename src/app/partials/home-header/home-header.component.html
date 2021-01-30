@@ -3,9 +3,9 @@
     <div class="mainmenu-area" id="mainmenu-area">
       <div class="mainmenu-area-bg"></div>
       <nav class="navbar py-0 pb-1">
-        <div class="container-fluid">
+        <div class="container-fluid d-flex align-items-center">
           <div class="row w100">
-            <div class="col-4 col-md-3 d-flex align-items-cente">
+            <div class="col-1">
               <div class="navbar-header p-0 border-none">
                 <a [routerLink]="['/home']" class="navbar-brand img-responsive p-0 mr-0"
                   ><img
@@ -17,14 +17,14 @@
                   <span class="tasa-logo-text">TaSA</span></a
                 >
               </div>
-              <span class="text-white tasa-logo ml-2" *ngIf="!sharedService.deviceDetectorService.isMobile()"><h4 class="mb-0">TaSA</h4><ul class="heading-ul">
+              <!-- <span class="text-white tasa-logo ml-2" *ngIf="!sharedService.deviceDetectorService.isMobile()"><h4 class="mb-0">TaSA</h4><ul class="heading-ul">
                 <li><h6 class="text-white sub-heading-text mb-0" *ngIf="!sharedService.deviceDetectorService.isMobile()">Talent Source Africa</h6></li>
                 <li><h6 class="text-white sub-heading-text mb-0" *ngIf="!sharedService.deviceDetectorService.isMobile()">Talent Soure Americas</h6></li>
                 <li><h6 class="text-white sub-heading-text mb-0" *ngIf="!sharedService.deviceDetectorService.isMobile()">Talent Source Asia</h6></li>
-              </ul></span>  
+              </ul></span>   -->
             </div>
-            <div class="col-md-4 explore-section pt-1">
-              <div class="p-0 pt-3 d-flex align-items-center">
+            <div class="col-md-4 explore-section pt-3">
+              <!-- <div class="p-0 pt-3 d-flex align-items-center">
                 <button
                   mat-button
                   [matMenuTriggerFor]="exploreMenu"
@@ -64,9 +64,134 @@
                     </button>
                   </form>
                 </div>
+              </div> -->
+              <div class="input-group global-search">
+                <mat-select
+                  [(value)]="globalSearchType"
+                  (selectionChange)="searchGlobalText = ''"
+                  class="form-control global-search-options bg-primary-light"
+                >
+                  <mat-option value="course"> <i class="fas fa-graduation-cap pr-2 text-primary"></i>Course</mat-option>
+                  <mat-option value="profile"><i class="fas fa-user pr-2 text-primary"></i>People</mat-option>
+                  <mat-option value="organization"
+                    ><i class="fas fa-university pr-2 text-primary"></i>Organization</mat-option
+                  >
+                  <mat-option value="job"><i class="fas fa-briefcase pr-2 text-primary"></i>Job</mat-option>
+                </mat-select>
+                <input
+                  type="text"
+                  class="form-control border-none"
+                  [(ngModel)]="searchGlobalText"
+                  placeholder="Search..."
+                  [matAutocomplete]="auto"
+                  id="globalSearchInput"
+                  (keyup.enter)="globalSearch()"
+                  [value]="gsVal()"
+                />
+                <mat-autocomplete #auto="matAutocomplete">
+                  <ng-container *ngIf="globalSearchType == 'profile'">
+                    <mat-option *ngIf="userSearchConfig.isFetching">
+                      <i class="fas fa-circle-notch pr-2 text-primary"></i> Fetching...
+                    </mat-option>
+                    <mat-option
+                      (click)="showProfile(item.tasaId)"
+                      *ngFor="let item of userSearchConfig.data"
+                      [value]="item"
+                      class="mb-2 mt-2"
+                    >
+                      <img
+                        *ngIf="!item.image || item.image == 'string'"
+                        src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
+                        class="user-img"
+                        alt="{{ item.firstName }} {{ item.lastName }}"
+                      />
+                      <img
+                        *ngIf="item.image && item.image != 'string'"
+                        [src]="item.image"
+                        alt="{{ item.firstName }} {{ item.lastName }}"
+                        class="user-img"
+                      />
+                      <span [title]="item.firstName + ' ' + item.lastName"> {{ item.firstName }} {{ item.lastName }}</span>
+                    </mat-option>
+                  </ng-container>
+                  <ng-container *ngIf="globalSearchType == 'organization'">
+                    <mat-option *ngIf="orgConfig.isFetching">
+                      <i class="fas fa-circle-notch pr-2 text-primary"></i> Fetching...
+                    </mat-option>
+                    <mat-option
+                      [routerLink]="['/organization/', item.id]"
+                      routerLinkActive="router-link-active"
+                      *ngFor="let item of orgConfig.data"
+                      [value]="item"
+                      class="mb-2 mt-2"
+                    >
+                      <img
+                        *ngIf="!item.orgImage || item.orgImage == 'string'"
+                        src="../../../assets/images/TSA_logo_new.small.png"
+                        class="user-img"
+                        alt="{{ item.orgName }}"
+                      />
+                      <img
+                        *ngIf="item.orgImage && item.orgImage != 'string'"
+                        [src]="item.orgImage"
+                        alt="{{ item.orgName }}"
+                        class="user-img"
+                      />
+                      <span [title]="item.orgName"> {{ item.orgName }}</span>
+                    </mat-option>
+                  </ng-container>
+                  <ng-container *ngIf="globalSearchType == 'course'">
+                    <mat-option *ngIf="courseConfig.isFetching">
+                      <i class="fas fa-circle-notch pr-2 text-primary"></i> Fetching...
+                    </mat-option>
+                    <mat-option
+                      (click)="redirect('course', item.key)"
+                      *ngFor="let item of courseConfig.data"
+                      [value]="item"
+                      class="mb-2 mt-2"
+                    >
+                      <img
+                        *ngIf="!item.image_url || item.image_url == 'string'"
+                        src="../../../assets/images/TSA_logo_new.small.png"
+                        class="user-img"
+                        alt="{{ item.orgName }}"
+                      />
+                      <img
+                        *ngIf="item.image_url && item.image_url != 'string'"
+                        [src]="item.image_url"
+                        alt="{{ item.title }}"
+                        class="user-img"
+                      />
+                      <span [title]="item.title">{{ item.title }}</span>
+                    </mat-option>
+                  </ng-container>
+                  <ng-container *ngIf="globalSearchType == 'job'">
+                    <mat-option *ngIf="courseConfig.isFetching">
+                      <i class="fas fa-circle-notch pr-2 text-primary"></i> Fetching...
+                    </mat-option>
+                    <mat-option
+                      (click)="redirect('job', item.id)"
+                      routerLinkActive="router-link-active"
+                      *ngFor="let item of jobConfig.data"
+                      [value]="item"
+                    >
+                      {{ item.title }}
+                    </mat-option>
+                  </ng-container>
+                </mat-autocomplete>
+    
+                <div class="input-group-prepend">
+                  <div
+                    class="input-group-text symbol curPoint"
+                    [ngClass]="{ 'pointer-event-disabled': searchGlobalText == '' }"
+                    (click)="globalSearch()"
+                  >
+                    <i class="fa fa-search"></i>
+                  </div>
+                </div>
               </div>
             </div>
-            <div class="col-8 col-md-5 pt-1">
+            <div class="col-auto text-right pt-1">
               <div id="main-nav" class="stellarnav">
                 <div class="nav-wrapper">
                   <ul id="nav" class="nav navbar-nav pull-right float-right">

@@ -1,5 +1,5 @@
-<div class="page-wrapper chiller-theme position-absolute toggled">
-  <a id="show-sidebar" class="btn btn-sm btn-dark">
+<div class="page-wrapper chiller-theme position-absolute toggled d-none">
+  <!-- <a id="show-sidebar" class="btn btn-sm btn-dark">
     <i class="fas fa-bars"></i>
   </a>
   <nav id="sidebar" class="sidebar-wrapper">
@@ -46,8 +46,7 @@
           </span>
         </div>
       </div>
-      <!-- sidebar-header  -->
-      <!-- <div class="sidebar-search">
+       <div class="sidebar-search">
         <div>
           <div class="input-group bg-white">
             <input
@@ -64,8 +63,7 @@
             </div>
           </div>
         </div>
-      </div> -->
-      <!-- sidebar-search  -->
+      </div> 
       <div class="sidebar-menu min-vertical-h-80 max-vertical-h-80 stylishScroll flow-y-auto flow-x-hidden">
         <ng-container>
           <ng-template *ngTemplateOutlet="studentMenu"></ng-template>
@@ -77,13 +75,10 @@
           <ng-template *ngTemplateOutlet="recruiterMenu"></ng-template>
         </ng-container>
       </div>
-      <!-- sidebar-menu  -->
     </div>
-    <!-- sidebar-content  -->
-  </nav>
-  <!-- sidebar-wrapper  -->
+  </nav> -->
 </div>
-<div class="page__header">
+<div class="page__header d-none">
   <div class="bg-dark navbar-dark p-1">
     <div class="container-fluid d-flex p-1">
       <div
@@ -254,7 +249,6 @@
     </div>
   </div>
 </div>
-
 <input type="file" #file class="d-none" id="imageUpload" (change)="handleFileInput($event)" />
 
 <ng-template #studentMenu>
