@@ -16,128 +16,179 @@
       </div>
     </mat-drawer>
     <mat-drawer-content>
-      <div class="container">
-        <ol class="breadcrumb mt-3">
-          <li class="breadcrumb-item curPoint"><a [routerLink]="['/home']">Home</a></li>
-          <li class="breadcrumb-item active"><a>All Job Listings</a></li>
-        </ol>
-        <section class="All-course-page-section min-vertical-h-100">
-          <div class="row no-gutters">
-            <ng-container *ngIf="isLoading">
-              <div class="col-12 animated fadeIn" *ngFor="let item of [1, 2, 3, 4, 5, 6]">
-                <div class="card ml-0 mr-0" style="height: 100px !important;">
-                  <div class="card-img skeleton"></div>
-                </div>
+      <div class="row">
+        <div class="col-3">
+          <div class="card mt-2">
+            <div class="card-header d-flex align-items-center">
+              <div class="h2 mb-0 mr-3 text-primary" *ngIf="recommendedCourses.data.length">
+                {{ recommendedCourses.data.length }}
               </div>
-            </ng-container>
-            <div class="position-absolute mt-2 ml-2">
-              <button
-                mat-mini-fab
-                color="primary"
-                style="z-index: 9;"
-                class="mr-1"
-                (click)="filterDrawer.toggle()"
-                matTooltipPosition="below"
-                matTooltip="Show/Hide Filter"
-                *ngIf="!isLoading && allJobs.length"
-              >
-                <mat-icon>filter_list</mat-icon>
-              </button>
-
-              <button
-                mat-mini-fab
-                color="primary"
-                style="z-index: 9;"
-                class="mr-1"
-                *ngIf="!isLoading && checkFilter() != 0"
-                matTooltipPosition="below"
-                matTooltip="Remove Filter"
-                (click)="removeFilter()"
-              >
-                <mat-icon>clear</mat-icon>
-              </button>
-
-              <button
-                mat-mini-fab
-                color="primary"
-                style="z-index: 9;"
-                class="d-none mr-1"
-                *ngIf="!isLoading && checkFilter() != 0"
-                matTooltipPosition="below"
-                matTooltip="Remove Filter"
-                (click)="removeFilter()"
-              >
-                <mat-icon>clear</mat-icon>
-              </button>
+              <div class="flex">
+                <h4 class="card-title mt-3">Recommended Courses</h4>
+                <!-- <p class="card-subtitle">Best score</p> -->
+              </div>
             </div>
-
-            <mat-paginator
-              class="col-12"
-              [length]="length"
-              [pageSize]="pageSize"
-              [pageSizeOptions]="pageSizeOptions"
-              (page)="pageEvent = pagination($event)"
-              *ngIf="!isLoading"
-            >
-            </mat-paginator>
-
-            <ng-container *ngIf="!isLoading && allJobs.length">
-              <div class="row no-gutters w100 mt-2">
-                <div class="col text-right">
-                  <div id="toggleBar" class="btn-group btn-group-sm border border-secondary" role="group">
-                    <button
-                      [class.current]="currentView == 1"
-                      (click)="changeAssetView(1)"
-                      matTooltip="Grid View"
-                      matTooltipPosition="below"
-                      type="button"
-                      class="btn btn-secondary py-2 px-3"
-                    >
-                      <i class="fa fas fa-th-large"></i>
-                    </button>
-                    <button
-                      [class.current]="currentView == 2"
-                      (click)="changeAssetView(2)"
-                      matTooltip="List View"
-                      matTooltipPosition="below"
-                      type="button"
-                      class="btn btn-secondary py-2 px-3"
-                    >
-                      <i class="fa fas fa-th-list"></i>
-                    </button>
+            <div class="card-body p-2 min-vertical-h-30 max-vertical-h-30 stylishSlimScroll flow-y-auto flow-x-hidden">
+              <div *ngIf="recommendedCourses.data.length && !recommendedCourses.isFetching" class="row pr-1 no-gutters">
+                <div
+                  class="col-12 border mb-1 curPoint courseList"
+                  *ngFor="let course of recommendedCourses.data"
+                >
+                  <div class="row no-gutters">
+                    <!-- <span class="flag-discount" *ngIf="course.discountPercentage > 0"
+                      >{{ course.discountPercentage }}% Off</span
+                    > -->
+                    <div class="col-4">
+                      <img [src]="course.image_url" alt="Course picture" />
+                    </div>
+                    <div class="col-8 p-2">
+                      <h6 class="card-title text-truncate" [title]="course.title">
+                        {{ course.title }}
+                      </h6>
+                      <p class="card-intro">
+                        {{ course.subject }}
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
-
-              <div class="row w100 max-vertical-h-70 stylishSlimScroll flow-y-auto flow-x-hidden" id="jobsArea">
-                <ng-container *ngIf="currentView == 1">
-                  <ng-template [ngTemplateOutlet]="jobsGridView"></ng-template>
-                </ng-container>
-                <ng-container *ngIf="currentView == 2">
-                  <ng-template [ngTemplateOutlet]="jobsListView"></ng-template>
-                </ng-container>
-              </div>
-            </ng-container>
-
-            <ng-container *ngIf="!isLoading && allJobs.length == 0 && checkFilter() == 0">
-              <div class="text-center m-auto animated fadeIn mt-2">
-                <div class="col-12 text-center">
-                  <img src="../../../assets/images/no-record.gif" style="height: 300px;" class="d-block m-auto" />
-                  <h6 class="text-primary">No Jobs Yet...!</h6>
+              <div *ngIf="recommendedCourses.data.length == 0 && !recommendedCourses.isFetching">
+                <div class="text-center m-auto animated fadeIn">
+                  <div class="col-12 text-center">
+                    <img src="../../../assets/images/no-record.gif" style="height: 200px;" class="d-block m-auto" />
+                    <h6 class="text-primary">No Recommended Course Yet...!</h6>
+                  </div>
                 </div>
               </div>
-            </ng-container>
-
-            <ng-container *ngIf="!isLoading && allJobs.length == 0 && checkFilter() != 0">
-              <div class="text-center m-auto animated fadeIn">
-                <div class="col-12 text-center">
-                  <img src="../../../assets/images/no-record.gif" style="height: 300px;" class="d-block m-auto" />
-                  <h6 class="text-primary bg-white pb-2">No Jobs Yet...</h6>
-                </div>
-              </div>
-            </ng-container>
+              <ng-template *ngIf="recommendedCourses.isFetching" [ngTemplateOutlet]="loader"></ng-template>
+            </div>
           </div>
-        </section>
+        </div>
+        <div class="col-6">
+          <div class="w100">
+            <ol class="breadcrumb mt-3">
+              <li class="breadcrumb-item curPoint"><a [routerLink]="['/home']">Home</a></li>
+              <li class="breadcrumb-item active"><a>All Job Listings</a></li>
+            </ol>
+            <section class="All-course-page-section min-vertical-h-100">
+              <div class="row no-gutters">
+                <ng-container *ngIf="isLoading">
+                  <div class="col-12 animated fadeIn" *ngFor="let item of [1, 2, 3, 4, 5, 6]">
+                    <div class="card ml-0 mr-0" style="height: 100px !important;">
+                      <div class="card-img skeleton"></div>
+                    </div>
+                  </div>
+                </ng-container>
+                <div class="position-absolute mt-2 ml-2">
+                  <button
+                    mat-mini-fab
+                    color="primary"
+                    style="z-index: 9;"
+                    class="mr-1"
+                    (click)="filterDrawer.toggle()"
+                    matTooltipPosition="below"
+                    matTooltip="Show/Hide Filter"
+                    *ngIf="!isLoading && allJobs.length"
+                  >
+                    <mat-icon>filter_list</mat-icon>
+                  </button>
+
+                  <button
+                    mat-mini-fab
+                    color="primary"
+                    style="z-index: 9;"
+                    class="mr-1"
+                    *ngIf="!isLoading && checkFilter() != 0"
+                    matTooltipPosition="below"
+                    matTooltip="Remove Filter"
+                    (click)="removeFilter()"
+                  >
+                    <mat-icon>clear</mat-icon>
+                  </button>
+
+                  <button
+                    mat-mini-fab
+                    color="primary"
+                    style="z-index: 9;"
+                    class="d-none mr-1"
+                    *ngIf="!isLoading && checkFilter() != 0"
+                    matTooltipPosition="below"
+                    matTooltip="Remove Filter"
+                    (click)="removeFilter()"
+                  >
+                    <mat-icon>clear</mat-icon>
+                  </button>
+                </div>
+
+                <mat-paginator
+                  class="col-12"
+                  [length]="length"
+                  [pageSize]="pageSize"
+                  [pageSizeOptions]="pageSizeOptions"
+                  (page)="pageEvent = pagination($event)"
+                  *ngIf="!isLoading"
+                >
+                </mat-paginator>
+
+                <ng-container *ngIf="!isLoading && allJobs.length">
+                  <div class="row no-gutters w100 mt-2">
+                    <div class="col text-right">
+                      <div id="toggleBar" class="btn-group btn-group-sm border border-secondary" role="group">
+                        <button
+                          [class.current]="currentView == 1"
+                          (click)="changeAssetView(1)"
+                          matTooltip="Grid View"
+                          matTooltipPosition="below"
+                          type="button"
+                          class="btn btn-secondary py-2 px-3"
+                        >
+                          <i class="fa fas fa-th-large"></i>
+                        </button>
+                        <button
+                          [class.current]="currentView == 2"
+                          (click)="changeAssetView(2)"
+                          matTooltip="List View"
+                          matTooltipPosition="below"
+                          type="button"
+                          class="btn btn-secondary py-2 px-3"
+                        >
+                          <i class="fa fas fa-th-list"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row w100 max-vertical-h-70 stylishSlimScroll flow-y-auto flow-x-hidden" id="jobsArea">
+                    <ng-container *ngIf="currentView == 1">
+                      <ng-template [ngTemplateOutlet]="jobsGridView"></ng-template>
+                    </ng-container>
+                    <ng-container *ngIf="currentView == 2">
+                      <ng-template [ngTemplateOutlet]="jobsListView"></ng-template>
+                    </ng-container>
+                  </div>
+                </ng-container>
+
+                <ng-container *ngIf="!isLoading && allJobs.length == 0 && checkFilter() == 0">
+                  <div class="text-center m-auto animated fadeIn mt-2">
+                    <div class="col-12 text-center">
+                      <img src="../../../assets/images/no-record.gif" style="height: 300px;" class="d-block m-auto" />
+                      <h6 class="text-primary">No Jobs Yet...!</h6>
+                    </div>
+                  </div>
+                </ng-container>
+
+                <ng-container *ngIf="!isLoading && allJobs.length == 0 && checkFilter() != 0">
+                  <div class="text-center m-auto animated fadeIn">
+                    <div class="col-12 text-center">
+                      <img src="../../../assets/images/no-record.gif" style="height: 300px;" class="d-block m-auto" />
+                      <h6 class="text-primary bg-white pb-2">No Jobs Yet...</h6>
+                    </div>
+                  </div>
+                </ng-container>
+              </div>
+            </section>
+          </div>
+        </div>
       </div>
     </mat-drawer-content>
   </mat-drawer-container>
@@ -147,7 +198,9 @@
   <div class="col-md-4 col-lg-4 col-sm-6 animated fadeIn" *ngFor="let job of allJobs">
     <div class="card curPoint">
       <div class="card-img">
-        <img src="{{ job.organisation.orgImage ? job.organisation.orgImage : './assets/images/TSA_logo_new.small.png' }}" />
+        <img
+          src="{{ job.organisation.orgImage ? job.organisation.orgImage : './assets/images/TSA_logo_new.small.png' }}"
+        />
         <span
           *ngIf="job.isApplied"
           class="badge badge-success p-2 ml-1 mt-2 position-absolute mt-2"
@@ -422,6 +475,14 @@
           Apply Search
         </button>
       </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #loader>
+  <div class="col-12 animated fadeIn" *ngFor="let item of [1, 2, 3]">
+    <div class="card ml-0 mr-0" style="height: 50px !important;">
+      <div class="card-img skeleton"></div>
     </div>
   </div>
 </ng-template>

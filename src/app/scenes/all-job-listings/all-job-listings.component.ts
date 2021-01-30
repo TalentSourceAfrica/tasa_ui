@@ -41,7 +41,10 @@ export class AllJobListingsComponent implements OnInit {
   countries: any = [];
   currentView = 1;
   private currMsgSubscribe = new Subscription();
-
+  recommendedCourses:any = {
+    isFetching : false,
+    data:[]
+  }
   constructor(
     public sharedService: SharedService,
     public router: Router,
@@ -51,6 +54,22 @@ export class AllJobListingsComponent implements OnInit {
     this.searchConfig = JSON.parse(JSON.stringify(jobsSearchData));
     this.uds = this.sharedService.plugins.undSco;
     this.user && this.user.type.toLowerCase() === 'admin' ? (this.isAdmin = true) : (this.isAdmin = false);
+  }
+
+  getRecommendedCourses() {
+    let $t = this;
+    let apiUrl = '';
+    $t.recommendedCourses.isFetching = true;
+    apiUrl = $t.sharedService.urlService.apiCallWithParams('getRecommendedCourses', { '{userId}': $t.user.email });
+    $t.sharedService.configService.get(apiUrl).subscribe(
+      (response: any) => {
+        $t.recommendedCourses.data = response.responseObj;
+        $t.recommendedCourses.isFetching = false;
+      },
+      (error) => {
+        $t.recommendedCourses.isFetching = false;
+      }
+    );
   }
 
   changeAssetView(_view: number) {
@@ -237,6 +256,7 @@ export class AllJobListingsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getRecommendedCourses();
     this.sharedService.utilityService.requiredStyleForHomeHeader();
     window.scrollTo(0, 0);
     this.init();

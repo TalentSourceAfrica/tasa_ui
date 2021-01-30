@@ -270,69 +270,6 @@
 <ng-template #studentMenu>
   <ul id="nav" class="nav navbar-nav pull-right float-right">
     <li>
-      <a [matMenuTriggerFor]="profile" class="curPoint px-2 py-4">
-        <i class="fas fa-unlock-alt pr-2"></i>Profile<i class="fas fa-caret-down pl-1"></i>
-        <mat-menu #profile="matMenu">
-          <div class="sidebar-submenu">
-            <button mat-menu-item [routerLink]="['/my-plan']" class="h6">
-              My Subscriptions
-            </button>
-            <button mat-menu-item [routerLink]="['/reset-password']" class="h6">
-              Update Password
-            </button>
-            <button mat-menu-item [routerLink]="['/user/profile']" class="h6">
-              Edit Profile
-            </button>
-            <button mat-menu-item [routerLink]="['/testimonial']" class="h6">
-              Add Testimonial
-            </button>
-            <button mat-menu-item [routerLink]="['/dashboard']" class="h6">
-              Dashboard
-            </button>
-            <button mat-menu-item [routerLink]="['/digital-assets']" class="h6">
-              Documents
-            </button>
-          </div>
-        </mat-menu>
-      </a>
-    </li>
-    <li>
-      <a [matMenuTriggerFor]="courses" class="curPoint px-2 py-4">
-        <i class="fas fa-graduation-cap pr-2"></i>Courses<i class="fas fa-caret-down pl-1"></i>
-        <mat-menu #courses="matMenu">
-          <div class="sidebar-submenu">
-            <button mat-menu-item [routerLink]="['/user/course']" class="h6">
-              My Courses
-            </button>
-            <button mat-menu-item [routerLink]="['/user/fav-course']" class="h6">
-              Favorite Courses
-            </button>
-            <button mat-menu-item [routerLink]="['/all-course']" class="h6">
-              All Courses
-            </button>
-          </div>
-        </mat-menu>
-      </a>
-    </li>
-    <li>
-      <a [matMenuTriggerFor]="jobs" class="curPoint px-2 py-4"
-        ><i class="fas fa-briefcase pr-2"></i> Jobs<i class="fas fa-caret-down pl-1"></i>
-        <mat-menu #jobs="matMenu">
-          <div class="sidebar-submenu">
-            <button mat-menu-item [routerLink]="['/jobs/listings']" class="h6">
-              All Job Listings
-            </button>
-            <button mat-menu-item [routerLink]="['/user/saved-course']" class="h6">
-              Saved Jobs
-            </button>
-            <button mat-menu-item [routerLink]="['/jobs/my-applications']" class="h6">
-              Applied Jobs
-            </button>
-          </div>
-        </mat-menu>
-      </a>
-    </li>
-    <li>
       <a [matMenuTriggerFor]="community" class="curPoint px-2 py-4">
         <i class="far fa-comment-alt pr-2"></i> Community<i class="fas fa-caret-down pl-1"></i>
         <mat-menu #community="matMenu">
@@ -364,6 +301,69 @@
               class="h6"
             >
               Inbox
+            </button>
+          </div>
+        </mat-menu>
+      </a>
+    </li>
+    <li>
+      <a [matMenuTriggerFor]="jobs" class="curPoint px-2 py-4"
+        ><i class="fas fa-briefcase pr-2"></i> Jobs<i class="fas fa-caret-down pl-1"></i>
+        <mat-menu #jobs="matMenu">
+          <div class="sidebar-submenu">
+            <button mat-menu-item [routerLink]="['/jobs/listings']" class="h6">
+              All Job Listings
+            </button>
+            <button mat-menu-item [routerLink]="['/user/saved-course']" class="h6">
+              Saved Jobs
+            </button>
+            <button mat-menu-item [routerLink]="['/jobs/my-applications']" class="h6">
+              Applied Jobs
+            </button>
+          </div>
+        </mat-menu>
+      </a>
+    </li>
+    <li>
+      <a [matMenuTriggerFor]="courses" class="curPoint px-2 py-4">
+        <i class="fas fa-graduation-cap pr-2"></i>Courses<i class="fas fa-caret-down pl-1"></i>
+        <mat-menu #courses="matMenu">
+          <div class="sidebar-submenu">
+            <button mat-menu-item [routerLink]="['/user/course']" class="h6">
+              My Courses
+            </button>
+            <button mat-menu-item [routerLink]="['/user/fav-course']" class="h6">
+              Favorite Courses
+            </button>
+            <button mat-menu-item [routerLink]="['/all-course']" class="h6">
+              All Courses
+            </button>
+          </div>
+        </mat-menu>
+      </a>
+    </li>
+    <li>
+      <a [matMenuTriggerFor]="profile" class="curPoint px-2 py-4">
+        <i class="fas fa-unlock-alt pr-2"></i>Profile<i class="fas fa-caret-down pl-1"></i>
+        <mat-menu #profile="matMenu">
+          <div class="sidebar-submenu">
+            <button mat-menu-item [routerLink]="['/my-plan']" class="h6">
+              My Subscriptions
+            </button>
+            <button mat-menu-item [routerLink]="['/reset-password']" class="h6">
+              Update Password
+            </button>
+            <button mat-menu-item [routerLink]="['/user/profile']" class="h6">
+              Edit Profile
+            </button>
+            <button mat-menu-item [routerLink]="['/testimonial']" class="h6">
+              Add Testimonial
+            </button>
+            <button mat-menu-item [routerLink]="['/dashboard']" class="h6">
+              Dashboard
+            </button>
+            <button mat-menu-item [routerLink]="['/digital-assets']" class="h6">
+              Documents
             </button>
           </div>
         </mat-menu>
