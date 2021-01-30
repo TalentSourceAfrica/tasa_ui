@@ -8,6 +8,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 // service
 import { SharedService } from '@app/services/shared.service';
 import { finalize } from 'rxjs/operators';
+//extra
+declare var jQuery: any;
 
 const log = new Logger('Login');
 
@@ -57,6 +59,9 @@ export class LoginPopupComponent implements OnInit {
             this.popupData.authenticationService.openUserDetailsPopup();
           } else {
             this.router.navigate(['/dashboard'], { replaceUrl: true });
+            setTimeout(() => {
+              jQuery('.dashboard-wrapper').addClass('margin-top-100-px');
+            }, 500);
           }
         },
         (error) => {

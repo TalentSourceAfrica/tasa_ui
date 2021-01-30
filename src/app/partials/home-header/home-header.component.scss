@@ -98,7 +98,7 @@ $light-blue: #523f6d80;
   align-items: center;
   justify-content: space-between;
   padding: 0.5rem 1rem;
-  background-color: #523f6d;
+  background-color: #867899;
 }
 
 .navbar-expand {
@@ -121,6 +121,12 @@ $light-blue: #523f6d80;
 
 .navbar-expand .navbar-nav {
   flex-direction: row;
+}
+
+.navbar-nav {
+  li {
+    padding-right: 10px;
+  }
 }
 
 .navbar-expand > .container,
@@ -178,6 +184,16 @@ $light-blue: #523f6d80;
     background-color: #eae8ee;
     color: $blue;
   }
+}
+
+.user-pic {
+  border: 1px solid #fff;
+  width: 50px;
+  padding: 2px;
+  border-radius: 40px;
+  margin-right: 15px;
+  overflow: hidden;
+  height: 50px;
 }
 
 //----------------------------header section ----------------------------------//

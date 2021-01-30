@@ -62,11 +62,11 @@ ul#nav li a {
     font-weight: 700;*/
   font-size: 16px;
   letter-spacing: 1px;
-  padding: 40px 15px;
+  /* padding: 40px 15px; */
   text-transform: capitalize;
   -webkit-transition: all 0.3s ease 0s;
   transition: all 0.3s ease 0s;
-  padding-top: 20px;
+  /* padding-top: 20px; */
   padding-bottom: 20px;
 }
 
