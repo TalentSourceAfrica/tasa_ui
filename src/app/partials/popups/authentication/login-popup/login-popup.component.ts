@@ -55,14 +55,10 @@ export class LoginPopupComponent implements OnInit {
           this.popupData.authenticationService.setToken(JSON.parse(response.data).access_token);
           this.sharedService.uiService.closePopMsg();
           this.dialogRef.close();
-          if (response.responseObj.address1 == null) {
-            this.popupData.authenticationService.openUserDetailsPopup();
-          } else {
-            this.router.navigate(['/dashboard'], { replaceUrl: true });
-            setTimeout(() => {
-              jQuery('.dashboard-wrapper').addClass('margin-top-100-px');
-            }, 500);
-          }
+          this.router.navigate(['/dashboard'], { replaceUrl: true });
+          setTimeout(() => {
+            jQuery('.dashboard-wrapper').addClass('margin-top-100-px');
+          }, 500);
         },
         (error) => {
           this.sharedService.uiService.showApiErrorPopMsg(error.error.message);
