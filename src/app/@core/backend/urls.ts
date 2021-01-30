@@ -52,6 +52,7 @@ export const urls: any = {
   updatePost: '/posts', // PU
   deletePost: '/socialPost/{postId}', // DE
   changePostStatus: '/posts/{postId}/{status}', // PO
+  sharePost : '/socialPost/share/{postId}' , // PO
 
   // upload
   uploadMultiFile: '/uploadMultipleDocuments/{email}', // PO
