@@ -205,8 +205,8 @@ export class HomeHeaderComponent implements OnInit {
     }
   }
 
-  signup() {
-    this.authenticationService.openSignupPopup();
+  signup(_case: string) {
+    this.authenticationService.openSignupPopup(_case);
   }
 
   toggleMenu() {

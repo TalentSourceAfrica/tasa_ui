@@ -62,10 +62,10 @@ export class AuthenticationService {
     });
   }
 
-  openSignupPopup() {
+  openSignupPopup(_case: any) {
     this.sharedService.dialogService.open(SignupPopupComponent, {
       width: '600px',
-      data: { authenticationService: this },
+      data: { authenticationService: this, case: _case},
       disableClose: false,
     });
   }

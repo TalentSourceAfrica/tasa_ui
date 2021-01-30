@@ -22,6 +22,9 @@ import { MustMatch } from '@app/auth/must-match';
 })
 export class HomeComponent implements OnInit {
   isLoading = false;
+  userDetailsForm: FormGroup;
+  userDetails: any;
+  countries: any;
   activeSlide: number = 0;
   news: Array<object> = [];
   posts: Array<object> = [];
@@ -54,10 +57,118 @@ export class HomeComponent implements OnInit {
     private sharedService: SharedService,
     private authenticationService: AuthenticationService,
     private credentialsService: CredentialsService
-  ) {}
+  ) {
+    this.userDetails = this.user;
+  }
+
+  initForm() {
+    this.userDetailsForm = this.formBuilder.group({
+      firstName: ['', [Validators.required]],
+      lastName: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required]],
+      confirmPassword: ['', [Validators.required]],
+      termsCond: [true, [Validators.required]],
+      country: ['', [Validators.required]],
+      state: ['', [Validators.required]],
+      city: ['', [Validators.required]],
+      postalCode: ['', [Validators.required]],
+      highestDegree: ['', [Validators.required]],
+      college: ['', [Validators.required]],
+      university: ['', [Validators.required]],
+      major: ['', [Validators.required]],
+      minor: [''],
+      // certificate: [''],
+      experience: [''],
+      organization: [''],
+      currentRole: [''],
+      // project: [''],
+      areaOfPreference: ['', [Validators.required]],
+      preferredRole: ['', [Validators.required]],
+      careerGoals: ['', [Validators.required]],
+    }, {
+      validator: MustMatch('password', 'confirmPassword')
+    });
+  }
+
+  onSubmit() {
+    let $t = this;
+    let apiUrl = $t.sharedService.urlService.simpleApiCall('signup');
+    $t.sharedService.uiService.showApiStartPopMsg('Creating Account...');
+    let payload = { ...JSON.parse(JSON.stringify($t.userDetailsForm.value)), type: $t.userType.dbValue };
+    let areaOfPreference: any = [], preferredRole: any = [];
+    payload['experience'] = [];
+    payload.experience.push({ 
+      experience: [],
+      currentRole: [],
+      description: [],
+      organization: JSON.parse(JSON.stringify(payload.organization)),
+      experienceTo: JSON.parse(JSON.stringify(payload.experienceTo)),
+      experienceFrom: JSON.parse(JSON.stringify(payload.experienceFrom))
+    });
+    payload['education'] = [];
+    payload.education.push({
+        highestDegree: JSON.parse(JSON.stringify(payload.highestDegree)),
+        college: [],
+        university: [],
+        major: JSON.parse(JSON.stringify(payload.major)),
+        minor: [],
+        degreeFromDate: JSON.parse(JSON.stringify(payload.degreeFromDate)),
+        degreeToDate: JSON.parse(JSON.stringify(payload.degreeFromDate))
+    });
+    payload.postalCode = parseInt(payload.postalCode);
+    areaOfPreference.push(JSON.parse(JSON.stringify(payload.areaOfPreference)));
+    preferredRole.push(JSON.parse(JSON.stringify(payload.preferredRole)));
+    payload.areaOfPreference = JSON.parse(JSON.stringify(areaOfPreference));
+    payload.preferredRole = JSON.parse(JSON.stringify(preferredRole));
+    payload.experience[0].currentRole.push(JSON.parse(JSON.stringify(payload.currentRole)));
+    payload.experience[0].description.push(JSON.parse(JSON.stringify(payload.description)));
+    payload.education[0].college.push(JSON.parse(JSON.stringify(payload.college)));
+    payload.education[0].university.push(JSON.parse(JSON.stringify(payload.university)));
+    payload.education[0].minor.push(JSON.parse(JSON.stringify(payload.minor)));
+    delete payload['currentRole']; 
+    delete payload['description'];
+    delete payload['organization'];
+    delete payload['experienceTo'];
+    delete payload['experienceFrom'];
+    delete payload['highestDegree'];
+    delete payload['college'];
+    delete payload['university'];
+    delete payload['major'];
+    delete payload['minor'];
+    delete payload['degreeFromDate'];
+    delete payload['degreeToDate'];
+    $t.sharedService.configService.put(apiUrl, payload).subscribe(
+      (response: any) => {
+        $t.userDetailsForm.reset();
+        if ($t.userType.dbValue !== 'Recruiter') {
+          $t.sharedService.uiService.showApiSuccessPopMsg('Please check inbox for successful verification...!');
+        } else {
+          $t.sharedService.uiService.showApiSuccessPopMsg(response.message);
+        }
+      },
+      (error) => {
+        $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
+      }
+    );
+  }
+
+  get user(): any | null {
+    const credentials = this.credentialsService.credentials;
+    return credentials ? credentials : null;
+  }
+
+  getCountry() {
+    let $t = this;
+    let apiUrl = $t.sharedService.urlService.simpleApiCall('getCountry');
+
+    $t.sharedService.configService.get(apiUrl).subscribe((response) => {
+      $t.countries = response;
+    });
+  }
 
   signup() {
-    this.authenticationService.openSignupPopup();
+    this.authenticationService.openSignupPopup('student');
   }
 
   getNews() {
@@ -110,7 +221,7 @@ export class HomeComponent implements OnInit {
     this.menuHidden = !this.menuHidden;
   }
 
-  userDetails() {
+  userDetailss() {
     this.authenticationService.openUserDetailsPopup();
   }
 
@@ -220,44 +331,44 @@ export class HomeComponent implements OnInit {
 
   // signup code
 
-  signupTypeChange() {
-    this.userType.value == 0 || this.userType.value == 1 ? this.initForm(false) : this.initForm(true);
-  }
+  // signupTypeChange() {
+  //   this.userType.value == 0 || this.userType.value == 1 ? this.initForm(false) : this.initForm(true);
+  // }
 
-  initForm(_isRecruiter: boolean) {
-    if (!_isRecruiter) {
-      this.signupForm = this.formBuilder.group(
-        {
-          firstName: ['', [Validators.required]],
-          lastName: ['', [Validators.required]],
-          username: ['', [Validators.required, Validators.pattern(this.unamePattern)]],
-          email: ['', [Validators.required, Validators.email]],
-          password: ['', [Validators.required]],
-          confirmPassword: ['', [Validators.required]],
-          termsCond: [true, [Validators.required]],
-        },
-        {
-          validator: MustMatch('password', 'confirmPassword'),
-        }
-      );
-    } else {
-      this.signupForm = this.formBuilder.group(
-        {
-          firstName: ['', [Validators.required]],
-          lastName: ['', [Validators.required]],
-          organizationName: ['', [Validators.required]],
-          username: ['', [Validators.required, Validators.pattern(this.unamePattern)]],
-          email: ['', [Validators.required, Validators.email]],
-          password: ['', [Validators.required]],
-          confirmPassword: ['', [Validators.required]],
-          termsCond: [true, [Validators.required]],
-        },
-        {
-          validator: MustMatch('password', 'confirmPassword'),
-        }
-      );
-    }
-  }
+  // initForm(_isRecruiter: boolean) {
+  //   if (!_isRecruiter) {
+  //     this.signupForm = this.formBuilder.group(
+  //       {
+  //         firstName: ['', [Validators.required]],
+  //         lastName: ['', [Validators.required]],
+  //         username: ['', [Validators.required, Validators.pattern(this.unamePattern)]],
+  //         email: ['', [Validators.required, Validators.email]],
+  //         password: ['', [Validators.required]],
+  //         confirmPassword: ['', [Validators.required]],
+  //         termsCond: [true, [Validators.required]],
+  //       },
+  //       {
+  //         validator: MustMatch('password', 'confirmPassword'),
+  //       }
+  //     );
+  //   } else {
+  //     this.signupForm = this.formBuilder.group(
+  //       {
+  //         firstName: ['', [Validators.required]],
+  //         lastName: ['', [Validators.required]],
+  //         organizationName: ['', [Validators.required]],
+  //         username: ['', [Validators.required, Validators.pattern(this.unamePattern)]],
+  //         email: ['', [Validators.required, Validators.email]],
+  //         password: ['', [Validators.required]],
+  //         confirmPassword: ['', [Validators.required]],
+  //         termsCond: [true, [Validators.required]],
+  //       },
+  //       {
+  //         validator: MustMatch('password', 'confirmPassword'),
+  //       }
+  //     );
+  //   }
+  // }
 
   checkUsername() {
     let $t = this;
@@ -291,42 +402,18 @@ export class HomeComponent implements OnInit {
     this.popupData.authenticationService.opneCreateOrganization();
   }
 
-  onSubmit() {
-    let $t = this;
-    let apiUrl = $t.sharedService.urlService.simpleApiCall('signup');
-    $t.sharedService.uiService.showApiStartPopMsg('Creating Account...');
-    let payload = { ...$t.signupForm.value, type: $t.userType.dbValue };
-    $t.sharedService.configService.post(apiUrl, payload).subscribe(
-      (response: any) => {
-        $t.signupForm.reset();
-        if ($t.userType.dbValue !== 'Recruiter') {
-          $t.sharedService.uiService.showApiSuccessPopMsg('Please check inbox for successful verification...!');
-        } else {
-          $t.sharedService.uiService.showApiSuccessPopMsg(response.message);
-        }
-      },
-      (error: any) => {
-        $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
-      }
-    );
-  }
-
   openTerms() {
     this.doc = this.termsAndCondition;
   }
 
   // signup code
 
-  get user(): any | null {
-    const credentials = this.credentialsService.credentials;
-    return credentials ? credentials : null;
-  }
-
   ngOnInit() {
-    this.initForm(false);
+    this.initForm();
     this.isLoading = true;
     this.getCourses();
     this.getPosts();
+    this.getCountry();
     this.getNews();
   }
 

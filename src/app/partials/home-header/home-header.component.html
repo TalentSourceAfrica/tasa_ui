@@ -259,9 +259,14 @@
       <span
         class="rounded-pill btn-behaviour curPoint mx-2 py-2 px-3 font-weight-bold"
         color="primary"
-        (click)="signup()"
+        (click)="signup('student')"
       >
         Sign Up
+      </span>
+    </li>
+    <li *ngIf="!user" class="mt-4">
+      <span class="rounded-pill btn-behaviour curPoint mx-2 py-2 px-3 font-weight-bold" matTooltip="Sign Up as a Recruiter on TaSA" matTooltipPosition="below" color="primary" (click)="signup('recruiter')">
+        Recruiter
       </span>
     </li>
   </ul>
@@ -387,7 +392,7 @@
           [src]="user.image"
           alt="User picture"
         />
-        {{ user.username }} <i class="fas fa-caret-down pl-1"></i>
+        {{ user.firstName + ' '+ user.lastName }} <i class="fas fa-caret-down pl-1"></i>
         <mat-menu #userMenu="matMenu">
           <button mat-menu-item [routerLink]="['/home']" class="h6">
             <i class="fas fa-chart-line pr-3 text-primary"></i> Home

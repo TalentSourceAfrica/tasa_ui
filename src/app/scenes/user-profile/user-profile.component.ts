@@ -288,7 +288,7 @@ export class UserProfileComponent implements OnInit {
     {
       id: 'degreeFromDate',
       label: 'Highest Degree From',
-      type: 'text',
+      type: 'date',
       formControlName: 'degreeFromDate',
       placeholder: 'Your Highest Degree From',
       prepend: 'fas fa-graduation-cap w10',
@@ -297,7 +297,7 @@ export class UserProfileComponent implements OnInit {
     {
       id: 'degreeToDate',
       label: 'Highest Degree To',
-      type: 'text',
+      type: 'date',
       formControlName: 'degreeToDate',
       placeholder: 'Your Highest Degree To',
       prepend: 'fas fa-graduation-cap w10',
@@ -360,19 +360,19 @@ export class UserProfileComponent implements OnInit {
   ];
 
   experienceDetails = [
-    {
-      id: 'experience',
-      label: 'Experience',
-      type: 'text',
-      formControlName: 'experience',
-      placeholder: 'Your Experience',
-      prepend: 'fas fa-briefcase',
-      mandatory: true,
-    },
+    // {
+    //   id: 'experience',
+    //   label: 'Experience',
+    //   type: 'text',
+    //   formControlName: 'experience',
+    //   placeholder: 'Your Experience',
+    //   prepend: 'fas fa-briefcase',
+    //   mandatory: true,
+    // },
     {
       id: 'experienceFrom',
       label: 'Experience From',
-      type: 'text',
+      type: 'date',
       formControlName: 'experienceFrom',
       placeholder: 'Your Experience From',
       prepend: 'fas fa-briefcase',
@@ -381,7 +381,7 @@ export class UserProfileComponent implements OnInit {
     {
       id: 'experienceTo',
       label: 'Experience To',
-      type: 'text',
+      type: 'date',
       formControlName: 'experienceTo',
       placeholder: 'Your Experience To',
       prepend: 'fas fa-briefcase',
@@ -696,8 +696,8 @@ export class UserProfileComponent implements OnInit {
           licenseNo: [''],
         });
         this.careerPreferenceDetailsForm = this.formBuilder.group({
-          areaOfPreference: ['', [Validators.required]],
-          preferredRole: ['', [Validators.required]],
+          areaOfPreference: this.initFAs('areaOfPreference'),
+          preferredRole: this.initFAs('preferredRole'),
           careerGoals: ['', [Validators.required]],
         });
         break;
@@ -783,8 +783,8 @@ export class UserProfileComponent implements OnInit {
           experienceDetailsFA:  this.initNewFA('experience')
         });
         this.careerPreferenceDetailsForm = this.formBuilder.group({
-          areaOfPreference: [this.user.areaOfPreference, [Validators.required]],
-          preferredRole: [this.user.preferredRole, [Validators.required]],
+          areaOfPreference: this.initFAs('areaOfPreference'),
+          preferredRole: this.initFAs('preferredRole'),
           careerGoals: [this.user.careerGoals, [Validators.required]],
         });
     }
@@ -816,8 +816,10 @@ export class UserProfileComponent implements OnInit {
   }
 
   addMore(form: any, _which: string, _index: number, _where: string) {
-    console.log(form.controls[_which].controls[_index].controls[_where]);
-    let fA = <FormArray>form.controls[_which].controls[_index].controls[_where];
+    // console.log(form.controls[_which].controls[_index].controls[_where]);
+    let fA = _which == 'areaOfPreference' || _which == 'preferredRole' 
+      ? <FormArray>form.controls[_which]
+      : <FormArray>form.controls[_which].controls[_index].controls[_where];
     fA.push(this.formBuilder.group({ name: ['', [Validators.required]]}));
   }
 
@@ -833,17 +835,17 @@ export class UserProfileComponent implements OnInit {
     if (_case == 'education') {
       return this.formBuilder.group({
          highestDegree: [_data != undefined && _data.highestDegree != null ? _data.highestDegree : '', Validators.required],
-         college: this.initFA('education', 'college'),
-         university: this.initFA('education', 'university'),
+         college: this.initFA('education', 'college', _data),
+         university: this.initFA('education', 'university', _data),
          major: [_data != undefined && _data.major != null ? _data.major : '', Validators.required],
-         minor: this.initFA('education', 'minor'),
+         minor: this.initFA('education', 'minor', _data),
          degreeFromDate: _data != undefined && _data.major != null ? _data.degreeFromDate : '',
          degreeToDate: _data != undefined && _data.degreeToDate != null ? _data.degreeToDate : ''
          // certificates: ''
       });
     } else {
       return this.formBuilder.group({
-        experience: [_data != undefined && _data.experience != null ? _data.experience : '', Validators.required],
+        // experience: [_data != undefined && _data.experience != null ? _data.experience : '', Validators.required],
         currentRole: [_data != undefined && _data.currentRole != null ? _data.currentRole : '', Validators.required],
         organization: [_data != undefined && _data.organization != null ? _data.organization : '', Validators.required],
         description: this.initFA('experience', 'description'),
@@ -853,25 +855,47 @@ export class UserProfileComponent implements OnInit {
     }
   }
 
-  initFA(_case: string, _arrName: string) {
+  initFA(_case: string, _arrName?: string, _data?: any) {
     const newFA = new FormArray([]);
     this.user[_case] = [];
     this.user[_case][_arrName] = [];
-    if (this.user[_case] != null && this.user[_case][_arrName].length != 0) {
-      _arrName == 'minor' || _arrName == 'description'
-        ? this.user[_case][_arrName].forEach((d: any) => {
-            newFA.push(this.formBuilder.group({ name: [d] }));
+    if (typeof _data == 'undefined') {
+      if (this.user[_case] != null && this.user[_case][_arrName].length != 0) {
+        _arrName == 'minor' || _arrName == 'description'
+          ? this.user[_case][_arrName].forEach((d: any) => {
+              newFA.push(this.formBuilder.group({ name: [d] }));
+            })
+          : this.user[_case][_arrName].forEach((d: any) => {
+            newFA.push(this.formBuilder.group({ name: [d, [Validators.required]] }));
           })
-        : this.user[_case][_arrName].forEach((d: any) => {
-          newFA.push(this.formBuilder.group({ name: [d, [Validators.required]] }));
-        })
+      } else {
+        _arrName == 'minor' || _arrName == 'description'
+          ? newFA.push(this.formBuilder.group({ name: [''] }))
+          : newFA.push(this.formBuilder.group({ name: ['', [Validators.required]] }));
+      }
     } else {
-      _arrName == 'minor' || _arrName == 'description'
-        ? newFA.push(this.formBuilder.group({ name: [''] }))
-        : newFA.push(this.formBuilder.group({ name: ['', [Validators.required]] }));
+      _arrName == 'minor' || _arrName == 'description' 
+        ?  _data[_arrName].forEach((x: any) => {
+             newFA.push(this.formBuilder.group({ name: [x] }))
+           })
+        : _data[_arrName].forEach((x: any) => {
+            newFA.push(this.formBuilder.group({ name : [x, Validators.required]}))
+          });
     }
     return newFA;
     // return this.formBuilder.group(this.user[_arrName].map((arr: any) => {return arr}), [Validators.required]) as FormArray;
+  }
+
+  initFAs(_case: string) {
+    const newFA = new FormArray([]);
+    if (this.user[_case] != null && this.user[_case].length != 0) {
+        this.user[_case].forEach((d: any) => {
+          newFA.push(this.formBuilder.group({ name: [d, [Validators.required]]}));
+        });
+    } else {
+      newFA.push(this.formBuilder.group({ name: ['', [Validators.required]] }));
+    }
+    return newFA;
   }
 
   getCountry() {
@@ -950,8 +974,14 @@ export class UserProfileComponent implements OnInit {
         $t.userDetails.experience[i].description = x.description.map((d: any) => d.name);
       });
       let careerPreferenceDetailsValues = $t.careerPreferenceDetailsForm.value;
-      $t.userDetails.areaOfPreference = careerPreferenceDetailsValues.areaOfPreference;
-      $t.userDetails.preferredRole = careerPreferenceDetailsValues.preferredRole;
+      $t.userDetails.areaOfPreference = [];
+      $t.userDetails.preferredRole = [];
+      careerPreferenceDetailsValues.areaOfPreference.forEach((x: any) =>{
+        $t.userDetails.areaOfPreference.push(x.name);
+      });
+      careerPreferenceDetailsValues.preferredRole.forEach((x: any) =>{
+        $t.userDetails.preferredRole.push(x.name);
+      });
       $t.userDetails.careerGoals = careerPreferenceDetailsValues.careerGoals;
     }
     if (_type == 'Mentor') {
@@ -1018,6 +1048,10 @@ export class UserProfileComponent implements OnInit {
 
   getFA(form: any, _which: string, _index: number,_controlName: string) {
     return form.controls[_which].controls[_index].controls[_controlName].controls;
+  }
+
+  getF(form: any, _which: string) {
+    return form.controls[_which].controls;
   }
 
   submitDetails(_type: string) {

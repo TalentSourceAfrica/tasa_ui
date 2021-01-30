@@ -218,6 +218,7 @@
                             id="{{ record.id }}"
                             formControlName="{{ record.formControlName }}"
                             class="form-control form-control-prepended"
+                            type="{{ record.type }}"
                             placeholder="{{ record.placeholder }}"
                           />
                           <div class="input-group-prepend">
@@ -477,6 +478,7 @@
                             id="{{ record.id }}"
                             formControlName="{{ record.formControlName }}"
                             class="form-control form-control-prepended"
+                            type="{{ record.type }}"
                             placeholder="{{ record.placeholder }}"
                           />
                           <div *ngIf="record.id == 'experienceTo' || record.id == 'experienceFrom'" class="input-group-prepend">
@@ -598,7 +600,7 @@
               <label class="form-label" for="{{ entry.id }}"
                 >{{ entry.label }} <sup *ngIf="entry.mandatory" class="text-danger">*</sup></label
               >
-              <div class="input-group input-group-merge">
+              <div *ngIf="entry.id == 'careerGoals'" class="input-group input-group-merge">
                 <input
                   id="{{ entry.id }}"
                   formControlName="{{ entry.formControlName }}"
@@ -611,28 +613,108 @@
                   </div>
                 </div>
               </div>
-              <small
-                *ngIf="entry.id == 'areaOfPreference'"
-                [hidden]="
-                  careerPreferenceDetailsForm.controls.areaOfPreference.valid ||
-                  careerPreferenceDetailsForm.controls.areaOfPreference.untouched
-                "
-                class="text-danger"
-                translate
-              >
-                Area Of Preference is required
-              </small>
-              <small
-                *ngIf="entry.id == 'preferredRole'"
-                [hidden]="
-                  careerPreferenceDetailsForm.controls.preferredRole.valid ||
-                  careerPreferenceDetailsForm.controls.preferredRole.untouched
-                "
-                class="text-danger"
-                translate
-              >
-                Preferred Role is required
-              </small>
+              <ng-container *ngIf="entry.id == 'areaOfPreference'" formArrayName="areaOfPreference">
+                <div class="pb-1" *ngFor="let pref of getF(careerPreferenceDetailsForm, 'areaOfPreference'); let v = index">
+                  <div class="d-flex">
+                    <div
+                      class="input-group input-group-merge ng-invalid-none pl-0 pr-1 mt-1"
+                      [formGroupName]="v"
+                    >
+                      <input
+                        id="{{ entry.id }}"
+                        formControlName="name"
+                        class="form-control form-control-prepended"
+                        placeholder="{{ entry.placeholder }}"
+                      />
+                      <div class="input-group-prepend prependHeight">
+                        <div class="input-group-text">
+                          <span class="{{ entry.prepend }}"></span>
+                        </div>
+                      </div>
+                    </div>
+                    <button
+                      *ngIf="v != 0"
+                      color="primary"
+                      mat-mini-fab
+                      matTooltip="Remove Area Of Preference"
+                      matTooltipPosition="above"
+                      class="rounded-pill ml-2"
+                      (click)="deleteSection(careerPreferenceDetailsForm, 'areaOfPreference', v)">
+                      <mat-icon>remove</mat-icon>
+                    </button>
+                     <button
+                      *ngIf="v == 0"
+                      color="primary"
+                      mat-mini-fab
+                      matTooltip="Add Another Area Of Preference"
+                      matTooltipPosition="above"
+                      class="rounded-pill ml-2 mb-1 addMoreBtn"
+                      (click)="addMore(careerPreferenceDetailsForm, 'areaOfPreference', null, entry.id)">
+                      <mat-icon>add</mat-icon>
+                    </button>
+                  </div>
+                  <small
+                    [hidden]="
+                      getF(careerPreferenceDetailsForm, 'areaOfPreference')[v].valid || getF(careerPreferenceDetailsForm, 'areaOfPreference')[v].untouched
+                    "
+                    class="text-danger"
+                    translate
+                  >
+                   Area Of Preference is required
+                  </small>
+                </div>  
+              </ng-container>
+              <ng-container *ngIf="entry.id == 'preferredRole'" formArrayName="preferredRole">
+                <div class="pb-1" *ngFor="let pref of getF(careerPreferenceDetailsForm, 'preferredRole'); let v = index">
+                  <div class="d-flex">
+                    <div
+                      class="input-group input-group-merge ng-invalid-none pl-0 pr-1 mt-1"
+                      [formGroupName]="v"
+                    >
+                      <input
+                        id="{{ entry.id }}"
+                        formControlName="name"
+                        class="form-control form-control-prepended"
+                        placeholder="{{ entry.placeholder }}"
+                      />
+                      <div class="input-group-prepend prependHeight">
+                        <div class="input-group-text">
+                          <span class="{{ entry.prepend }}"></span>
+                        </div>
+                      </div>
+                    </div>
+                    <button
+                      *ngIf="v != 0"
+                      color="primary"
+                      mat-mini-fab
+                      matTooltip="Remove Area Of Preference"
+                      matTooltipPosition="above"
+                      class="rounded-pill ml-2"
+                      (click)="deleteSection(careerPreferenceDetailsForm, 'preferredRole', v)">
+                      <mat-icon>remove</mat-icon>
+                    </button>
+                     <button
+                      *ngIf="v == 0"
+                      color="primary"
+                      mat-mini-fab
+                      matTooltip="Add Another Area Of Preference"
+                      matTooltipPosition="above"
+                      class="rounded-pill ml-2 mb-1 addMoreBtn"
+                      (click)="addMore(careerPreferenceDetailsForm, 'preferredRole', null, entry.id)">
+                      <mat-icon>add</mat-icon>
+                    </button>
+                  </div>
+                  <small
+                    [hidden]="
+                      getF(careerPreferenceDetailsForm, 'preferredRole')[v].valid || getF(careerPreferenceDetailsForm, 'preferredRole')[v].untouched
+                    "
+                    class="text-danger"
+                    translate
+                  >
+                    Preferred Role is required
+                  </small>
+                </div>  
+              </ng-container>
               <small
                 *ngIf="entry.id == 'careerGoals'"
                 [hidden]="
