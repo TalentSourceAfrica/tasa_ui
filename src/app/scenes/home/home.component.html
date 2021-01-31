@@ -671,7 +671,7 @@
   <!--ADDMISSION AREA END-->
 </div>
 
-<ng-template #normalForm>
+<!-- <ng-template #normalForm>
   <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" novalidate>
     <div class="p-2">
       
@@ -921,7 +921,7 @@
     </div>
   </form>
 </ng-template>
-
+ -->
 <ng-template #detailedForm>
   <mat-horizontal-stepper [linear]="'true'" #stepper>
     <form [formGroup]="userDetailsForm" novalidate>
@@ -986,7 +986,6 @@
                 formControlName="email"
                 class="form-control form-control-prepended"
                 placeholder="Your email address"
-                (blur)="checkEmail()"
                 [ngClass]="{ 'ng-invalid ng-touched': !isEmailAvailable }"
               />
               <div class="input-group-prepend">
@@ -1170,13 +1169,13 @@
       <mat-step>
         <div class="pt-3 pl-2 pr-2 pb-2 min-vertical-h-50 max-vertical-h-50 stylishScroll flow-auto">
           <div class="form-group">
-            <label class="form-label" for="highestDegree">Highest Degree <sup class="text-danger">*</sup></label>
+            <label class="form-label" for="highestDegree">Degree <sup class="text-danger">*</sup></label>
             <div class="input-group input-group-merge">
               <input
                 id="highestDegree"
                 formControlName="highestDegree"
                 class="form-control form-control-prepended"
-                placeholder="Your Highest Degree"
+                placeholder="Your Degree"
               />
               <div class="input-group-prepend">
                 <div class="input-group-text">
@@ -1355,18 +1354,6 @@
               </div>
             </div>
           </div>
-        </div>
-        <div class="text-center">
-          <button mat-flat-button color="default" matStepperPrevious class="rounded-pill ml-2 bg-theme">
-            Back
-          </button>
-          <button mat-flat-button color="primary" matStepperNext class="rounded-pill ml-2">
-            Next
-          </button>
-        </div>
-      </mat-step>
-      <mat-step>
-        <div class="pt-3 pl-2 pr-2 pb-2 min-vertical-h-50 max-vertical-h-50 stylishScroll flow-auto">
           <div class="form-group">
             <label class="form-label" for="areaOfPreference">Area Of Preference <sup class="text-danger">*</sup></label>
             <div class="input-group input-group-merge">
@@ -1417,6 +1404,18 @@
               Preferred Role is required
             </small>
           </div>
+        </div>
+        <div class="text-center">
+          <button mat-flat-button color="default" matStepperPrevious class="rounded-pill ml-2 bg-theme">
+            Back
+          </button>
+          <button mat-flat-button color="primary" matStepperNext class="rounded-pill ml-2">
+            Next
+          </button>
+        </div>
+      </mat-step>
+      <mat-step>
+        <div class="pt-3 pl-2 pr-2 pb-2 min-vertical-h-50 max-vertical-h-50 stylishScroll flow-auto">
           <div class="form-group">
             <label class="form-label" for="careerGoals">Career Goal <sup class="text-danger">*</sup></label>
             <div class="input-group input-group-merge">
@@ -1439,6 +1438,39 @@
             >
               Career Goal is required
             </small>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="linkedin">Linkedin</label>
+            <div class="input-group input-group-merge">
+              <input
+                id="linkedin"
+                type="text"
+                formControlName="linkedin"
+                class="form-control form-control-prepended"
+                placeholder="Your Linkedin"
+              />
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <span class="far fa-flag"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="twitter">Twitter</label>
+            <div class="input-group input-group-merge">
+              <input
+                id="twitter"
+                formControlName="twitter"
+                class="form-control form-control-prepended"
+                placeholder="Your Twitter"
+              />
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <span class="far fa-flag"></span>
+                </div>
+              </div>
+            </div>
           </div>
           <div class="form-group text-center">
             <div class="custom-control custom-checkbox mb-2 pt-2">

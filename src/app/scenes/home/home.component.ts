@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
 import { finalize } from 'rxjs/operators';
 import { OwlOptions, SlidesOutputData } from 'ngx-owl-carousel-o';
 import { OwlDOMData } from 'ngx-owl-carousel-o/lib/models/owlDOM-data.model';
@@ -21,10 +21,12 @@ import { MustMatch } from '@app/auth/must-match';
   encapsulation: ViewEncapsulation.None,
 })
 export class HomeComponent implements OnInit {
+  @ViewChild('stepper', {static: false}) stepper: any;
   isLoading = false;
   userDetailsForm: FormGroup;
   userDetails: any;
   countries: any;
+  newUserObj: any;
   activeSlide: number = 0;
   news: Array<object> = [];
   posts: Array<object> = [];
@@ -73,22 +75,112 @@ export class HomeComponent implements OnInit {
       state: ['', [Validators.required]],
       city: ['', [Validators.required]],
       postalCode: ['', [Validators.required]],
+      degreeFromDate: [null],
+      degreeToDate: [null],
       highestDegree: ['', [Validators.required]],
       college: ['', [Validators.required]],
       university: ['', [Validators.required]],
       major: ['', [Validators.required]],
       minor: [''],
+      description: [''],
       // certificate: [''],
       experience: [''],
+      experienceFrom: [null],
+      experienceTo: [null],
       organization: [''],
       currentRole: [''],
       // project: [''],
       areaOfPreference: ['', [Validators.required]],
       preferredRole: ['', [Validators.required]],
       careerGoals: ['', [Validators.required]],
+      linkedin: [''],
+      twitter: ['']
     }, {
       validator: MustMatch('password', 'confirmPassword')
     });
+  }
+
+  setNewUserObj(_payload: any) {
+    this.newUserObj = {
+     tasaId:'',
+     type:_payload.type,
+     email: _payload.email,
+     emailVerified:'',
+     password: _payload.password,
+     username: _payload.username,
+     firstName: _payload.firstName,
+     lastName: _payload.lastName,
+     profileSummary:'',
+     orgId:'',
+     enrolledCourses:[],
+     favoriteCourses:[],
+     recentlyViewed:[],
+     savedJobs:[],
+     recentlyViewedJobs:[],
+     recommendedCourses:[],
+     wrongPasswordCount:0,
+     resetPassword:'',
+     active:'',
+     token:'',
+     tokenCreationDate: null,
+     gcpdocument:[],
+     middleName: '',
+     suffix: '',
+     bio:'',
+     dob: null,
+     address1: '',
+     address2: '',
+     country: _payload.country,
+     state: _payload.state,
+     city: _payload.city,
+     district: '',
+     postalCode: _payload.postalCode,
+     language: '',
+     identifier: '',
+     billingAddress1: '',
+     billingAddress2: '',
+     billingCity: '',
+     billingState: '',
+     billingPostalCode: '',
+     image: '',
+     education: _payload.education,
+     experience: _payload.experience,
+     certificate:[],
+     areaOfPreference: _payload.areaOfPreference,
+     preferredRole: _payload.preferredRole,
+     careerGoals: '',
+     teachingExperience: '',
+     univTaught: '',
+     collegeTaught: '',
+     specialization: '',
+     licenseNo: '',
+     organizationName: '',
+     location: '',
+     description: '',
+     about: '',
+     vision: '',
+     noOfEmployee: '',
+     industry: '',
+     media: '',
+     noOfOpenings: '',
+     natureOfOpening : '',
+     clients: '',
+     collaborator:'',
+     dateOfEstablishment: '',
+     contactNo: '',
+     contactEmail: '',
+     subscription: '',
+     website: '',
+     linkedIn: _payload.linkedin,
+     twitter: _payload.twitter,
+     team: '',
+     signedOn: null,
+     updatedOn: null,
+     createdBy:'',
+     updatedBy:'',
+     xml:'',
+     ein:''
+    }
   }
 
   onSubmit() {
@@ -96,10 +188,11 @@ export class HomeComponent implements OnInit {
     let apiUrl = $t.sharedService.urlService.simpleApiCall('signup');
     $t.sharedService.uiService.showApiStartPopMsg('Creating Account...');
     let payload = { ...JSON.parse(JSON.stringify($t.userDetailsForm.value)), type: $t.userType.dbValue };
+    payload['username'] = Math.floor(Math.random()*90000) + 10000;
     let areaOfPreference: any = [], preferredRole: any = [];
     payload['experience'] = [];
     payload.experience.push({ 
-      experience: [],
+      experience: '',
       currentRole: [],
       description: [],
       organization: JSON.parse(JSON.stringify(payload.organization)),
@@ -114,7 +207,7 @@ export class HomeComponent implements OnInit {
         major: JSON.parse(JSON.stringify(payload.major)),
         minor: [],
         degreeFromDate: JSON.parse(JSON.stringify(payload.degreeFromDate)),
-        degreeToDate: JSON.parse(JSON.stringify(payload.degreeFromDate))
+        degreeToDate: JSON.parse(JSON.stringify(payload.degreeToDate))
     });
     payload.postalCode = parseInt(payload.postalCode);
     areaOfPreference.push(JSON.parse(JSON.stringify(payload.areaOfPreference)));
@@ -138,14 +231,13 @@ export class HomeComponent implements OnInit {
     delete payload['minor'];
     delete payload['degreeFromDate'];
     delete payload['degreeToDate'];
-    $t.sharedService.configService.put(apiUrl, payload).subscribe(
+    delete payload['termsCond'];
+    $t.setNewUserObj(payload);
+    $t.sharedService.configService.post(apiUrl, $t.newUserObj).subscribe(
       (response: any) => {
         $t.userDetailsForm.reset();
-        if ($t.userType.dbValue !== 'Recruiter') {
-          $t.sharedService.uiService.showApiSuccessPopMsg('Please check inbox for successful verification...!');
-        } else {
-          $t.sharedService.uiService.showApiSuccessPopMsg(response.message);
-        }
+        $t.sharedService.uiService.showApiSuccessPopMsg('Please check inbox for successful verification...!');
+        $t.stepper.selectedIndex = 0;
       },
       (error) => {
         $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
@@ -387,7 +479,7 @@ export class HomeComponent implements OnInit {
   checkEmail() {
     let $t = this;
     let apiUrl = $t.sharedService.urlService.apiCallWithParams('checkEmail', {
-      '{email}': $t.signupForm.value.email,
+      '{email}': $t.userDetailsForm.value.email,
     });
 
     $t.sharedService.configService.post(apiUrl).subscribe(
