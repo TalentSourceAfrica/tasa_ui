@@ -9,6 +9,7 @@ import { MyJobApplicationsComponent } from './my-job-applications.component';
 
 import { MaterialModule } from '@app/modules/material.module';
 import { JobsApplyPopupModule } from '@app/partials/popups/jobs/jobs-apply-popup/jobs-apply-popup.module';
+import { LeftSideModule } from '@app/partials/left-side/left-side.module';
 
 @NgModule({
   imports: [
@@ -19,6 +20,7 @@ import { JobsApplyPopupModule } from '@app/partials/popups/jobs/jobs-apply-popup
     MyJobApplicationsRoutingModule,
     MaterialModule,
     JobsApplyPopupModule,
+    LeftSideModule,
   ],
   declarations: [MyJobApplicationsComponent],
   schemas: [NO_ERRORS_SCHEMA],

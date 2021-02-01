@@ -11,6 +11,7 @@ import { RouterModule } from '@angular/router';
 import { AllCourseRoutingModule } from './all-course-routing.module';
 import { AllCourseComponent } from './all-course.component';
 import { EditCoursePopupComponent } from '@app/partials/popups/course/edit-course-popup/edit-course-popup.component';
+import { LeftSideModule } from '@app/partials/left-side/left-side.module';
 
 @NgModule({
   imports: [
@@ -23,6 +24,7 @@ import { EditCoursePopupComponent } from '@app/partials/popups/course/edit-cours
     MaterialModule,
     RouterModule,
     AllCourseRoutingModule,
+    LeftSideModule,
   ],
   declarations: [AllCourseComponent, EditCoursePopupComponent],
   entryComponents: [EditCoursePopupComponent],

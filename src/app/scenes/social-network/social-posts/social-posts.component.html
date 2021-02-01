@@ -16,469 +16,476 @@
       </div>
     </mat-drawer>
     <mat-drawer-content>
-      <section class="container">
-        <ol class="breadcrumb mt-3">
-          <li class="breadcrumb-item curPoint"><a [routerLink]="['/dashboard']">Dashboard</a></li>
-          <li class="breadcrumb-item active">Social Posts</li>
-        </ol>
-        <div class="sec-title">
-          <div class="title">Social Network</div>
-        </div>
-        <div class="profile-wrapper mb-4">
-          <div class="max-vertical-h-83">
-            <div class="main">
-              <div class="main-container">
-                <!-- <div class="profile d-none">
-                  <div class="profile-avatar">
-                    <img *ngIf="user.image || user.image != 'string'" [src]="user.image" alt="" class="profile-img" />
-                    <div class="profile-name">{{ user.firstName }} {{ user.lastName }}</div>
-                  </div>
-                  <img
-                    src="https://images.unsplash.com/photo-1432821596592-e2c18b78144f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80"
-                    alt=""
-                    class="profile-cover"
-                  />
-                </div> -->
-                <div class="timeline pl-2 min-vertical-h-80">
-                  <!-- <div class="timeline-left d-none">
-                    <div class="intro box p-0">
-                      <div class="user-profile text-center">
-                        <img
-                          *ngIf="user.image || user.image != 'string'"
-                          [src]="user.image"
-                          alt=""
-                          class="profile-img p-1"
-                        />
+      <section>
+        <div class="row no-gutters">
+          <div class="col-md-3 col-sm-12 bg-white">
+            <app-left-side></app-left-side>
+          </div>
+          <div class="col-md-7 col-sm-12">
+            <ol class="breadcrumb mt-3">
+              <li class="breadcrumb-item curPoint"><a [routerLink]="['/dashboard']">Dashboard</a></li>
+              <li class="breadcrumb-item active">Social Posts</li>
+            </ol>
+            <div class="sec-title">
+              <div class="title">Social Network</div>
+            </div>
+            <div class="profile-wrapper mb-4">
+              <div class="max-vertical-h-83">
+                <div class="main">
+                  <div class="main-container">
+                    <!-- <div class="profile d-none">
+                      <div class="profile-avatar">
+                        <img *ngIf="user.image || user.image != 'string'" [src]="user.image" alt="" class="profile-img" />
+                        <div class="profile-name">{{ user.firstName }} {{ user.lastName }}</div>
                       </div>
-                      <div class="info p-3">
-                        <div class="info-item mt-2">
-                          <i class="fas fa-user pr-3 text-primary"></i
-                          ><strong>{{ user.firstName }} {{ user.lastName }}</strong>
-                        </div>
-                        <div class="info-item mt-2">
-                          <i class="fas fa-home pr-3 text-primary"></i><strong>Lives In {{ user.city }}</strong>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="event box">
-                      <div class="event-wrapper">
-                        <img
-                          src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80"
-                          class="event-img"
-                        />
-                        <div class="event-date">
-                          <div class="event-month">Jan</div>
-                          <div class="event-day">01</div>
-                        </div>
-                        <div class="event-title">Winter Wonderland</div>
-                        <div class="event-subtitle">01st Jan, 2019 07:00AM</div>
-                      </div>
-                    </div>
-                    <div class="pages box">
-                      <div class="intro-title">
-                        Your pages
-                        <button class="intro-menu"></button>
-                      </div>
-                      <div class="user">
-                        <img
-                          src="https://images.unsplash.com/photo-1549068106-b024baf5062d?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0f"
-                          alt=""
-                          class="user-img"
-                        />
-                        <div class="username">Chandelio</div>
-                      </div>
-                      <div class="user">
-                        <img
-                          src="https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&s=d5849d81af587a09dbcf3f11f6fa122f"
-                          alt=""
-                          class="user-img"
-                        />
-                        <div class="username">Janet Jolie</div>
-                      </div>
-                      <div class="user">
-                        <img
-                          src="https://images.unsplash.com/photo-1546539782-6fc531453083?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
-                          alt=""
-                          class="user-img"
-                        />
-                        <div class="username">Patrick Watsons</div>
-                      </div>
-                    </div>
-                  </div> -->
-                  <div
-                    class="timeline-right mb-4 min-vertical-h-65 max-vertical-h-65 overflow-x-hidden stylishSlimScroll"
-                  >
-                    <div class="status box animated fadeIn shadow-sm">
-                      <div class="row status-main no-gutters">
-                        <img
-                          [src]="user.image"
-                          [routerLink]="['/social-network/profile/', user.tasaId]"
-                          routerLinkActive="router-link-active"
-                          class="status-img curPoint"
-                          [class.mr-1]="socialConfig.newPost.videoUrl != ''"
-                        />
-                        <textarea
-                          id="postBox"
-                          class="row no-gutters status-textarea mb-1"
-                          [class.col-12]="socialConfig.newPost.imageUrl != '' || socialConfig.newPost.videoUrl != ''"
-                          [(ngModel)]="socialConfig.newPost.content"
-                          placeholder="What's on you mind?"
-                          (keyup.enter)="createSocialPost()"
-                        ></textarea>
-                        <div *ngIf="socialConfig.newPost.imageUrl != ''">
-                          <a class="pl-5" [href]="socialConfig.newPost.imageUrl" target="_blank">
-                            <img [src]="socialConfig.newPost.imageUrl" class="p-2 curPoint post-image img-thumbnail" />
-                          </a>
-                        </div>
-                        <div *ngIf="socialConfig.newPost.videoUrl != ''">
-                          <video width="500" height="240" controls class="pl-5">
-                            <source [src]="socialConfig.newPost.videoUrl" type="video/mp4" />
-                            <source [src]="socialConfig.newPost.videoUrl" type="video/ogg" />
-                            Your browser does not support the video tag.
-                          </video>
-                          <!-- <a [href]="socialConfig.newPost.videoUrl" target="_blank">
-                            <span class="text-primary mr-2">
-                              <i class="fas fa-video fa-3x"></i>
-                            </span>
-                          </a> -->
-                        </div>
-                        <!-- <mat-card class="reply-on-reply-card">
-                          <mat-card-header>
-                            <div mat-card-avatar class="p-0">
-                              <img
-                                src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
-                                alt=""
-                                class="status-img"
-                              />
-                            </div>
-                            <mat-card-title>Anshul Kashyap</mat-card-title>
-                            <mat-card-subtitle>1 Day Ago</mat-card-subtitle>
-                          </mat-card-header>
-                          <mat-card-content>
-                            <p class="max-vertical-h-10 flow-y-auto flow-x-hidden stylishSlimScroll">
-                              The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from
-                              Japan. A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was
-                              originally bred for hunting. The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from
-                              Japan. A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was
-                              originally bred for hunting. The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from
-                              Japan. A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was
-                              originally bred for hunting.
-                            </p>
-                          </mat-card-content>
-                        </mat-card> -->
-                      </div>
-                      <mat-progress-bar mode="indeterminate" *ngIf="isUploadingFile" color="primary"></mat-progress-bar>
-                      <div class="status-actions">
-                        <div class="row no-gutters">
-                          <div class="col-8">
-                            <button
-                              mat-mini-fab
-                              color="primary"
-                              style="z-index: 9;"
-                              class="mr-2"
-                              (click)="triggerImageUpload()"
-                              matTooltipPosition="below"
-                              matTooltip="Add Image - Supported Formats are .jpeg, .jpg, .gif, .png"
-                            >
-                              <mat-icon>add_a_photo</mat-icon>
-                            </button>
-                            <button
-                              mat-mini-fab
-                              color="primary"
-                              style="z-index: 9;"
-                              class="mr-2"
-                              (click)="triggerVideoUpload()"
-                              matTooltipPosition="below"
-                              matTooltip="Add Video - Supported Formats are .mp4, .mov, .wmv, .flv, .avi, .webm"
-                            >
-                              <mat-icon>video_library</mat-icon>
-                            </button>
-                            <button
-                              *ngIf="socialConfig.newPost.imageUrl != ''"
-                              mat-mini-fab
-                              color="primary"
-                              style="z-index: 9;"
-                              class="mr-2"
-                              (click)="socialConfig.newPost.imageUrl = ''"
-                              matTooltipPosition="below"
-                              matTooltip="Remove Image"
-                            >
-                              <span class="fa-stack">
-                                <i class="fas fa-slash fa-lg fa-stack-1x"></i>
-                                <i class="far fa-image fa-lg fa-stack-1x"></i>
-                              </span>
-                            </button>
-                            <button
-                              *ngIf="socialConfig.newPost.videoUrl != ''"
-                              mat-mini-fab
-                              color="primary"
-                              style="z-index: 9;"
-                              class="mr-2"
-                              (click)="socialConfig.newPost.videoUrl = ''"
-                              matTooltipPosition="below"
-                              matTooltip="Remove Video"
-                            >
-                              <i class="fas fa-video-slash"></i>
-                            </button>
-                          </div>
-                          <div class="col-4 text-right">
-                            <button
-                              mat-flat-button
-                              color="primary"
-                              [disabled]="socialConfig.newPost.content == ''"
-                              (click)="createSocialPost()"
-                              class="rounded-pill ml-2"
-                            >
-                              Post
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                      <input
-                        id="imageUpload"
-                        class="d-none"
-                        #imageFileUpload
-                        type="file"
-                        (change)="uploadFile($event, 'image')"
+                      <img
+                        src="https://images.unsplash.com/photo-1432821596592-e2c18b78144f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80"
+                        alt=""
+                        class="profile-cover"
                       />
-                      <input
-                        id="videoUpload"
-                        class="d-none"
-                        #videoFileUpload
-                        type="file"
-                        (change)="uploadFile($event, 'video')"
-                      />
-                    </div>
-                    <div
-                      class="min-vertical-h-65 max-vertical-h-65 mt-2 stylishSlimScroll flow-y-auto flow-x-hidden pt-2 pl-4 pr-4"
-                    >
-                      <div class="row no-gutters text-center">
-                        <div class="col-9"><hr /></div>
-                        <div class="col-3 d-flex w100 align-items-center">
-                          <span class="w100 strong"><strong>You Are Viewing</strong></span>
-                          <mat-select
-                            (selectionChange)="onPostTypeChange()"
-                            [(ngModel)]="selectedPostFilter"
-                            name="food"
-                            class="w45"
-                          >
-                            <mat-option *ngFor="let item of postFilter" [value]="item.value">
-                              <strong>{{ item.viewValue }}</strong>
-                            </mat-option>
-                          </mat-select>
-                        </div>
-                      </div>
-                      <button
-                        mat-mini-fab
-                        class="attachment"
-                        [ngClass]="{
-                          'attachment-two': socialConfig.newPost.imageUrl != '' || socialConfig.newPost.videoUrl != ''
-                        }"
-                        (click)="toggled = !toggled"
-                        [(emojiPickerIf)]="toggled"
-                        [emojiPickerDirection]="'right'"
-                        (emojiPickerSelect)="handleSelection($event)"
-                        matTooltipPosition="below"
-                        matTooltip="Add Emoji"
-                      >
-                        <mat-icon style="height: 27px; margin-right: 2px;">😄</mat-icon>
-                      </button>
-                      <div
-                        class="album box mb-4"
-                        *ngFor="let post of socialConfig.allSocialPost; let postIndex = index"
-                      >
-                        <div *ngIf="post.post">
-                          <div class="status-main pt-3">
+                    </div> -->
+                    <div class="timeline pl-2 min-vertical-h-80">
+                      <!-- <div class="timeline-left d-none">
+                        <div class="intro box p-0">
+                          <div class="user-profile text-center">
                             <img
-                              matTooltipPosition="below"
-                              [matTooltip]="post.userName"
-                              [routerLink]="['/social-network/profile/', post.tasaId]"
-                              routerLinkActive="router-link-active"
-                              [src]="post.userImageUrl"
-                              class="status-img curPoint"
+                              *ngIf="user.image || user.image != 'string'"
+                              [src]="user.image"
+                              alt=""
+                              class="profile-img p-1"
                             />
-                            <div class="album-detail">
-                              <div class="album-title">
-                                <strong
-                                  ><a
-                                    [routerLink]="['/social-network/profile/', post.tasaId]"
-                                    routerLinkActive="router-link-active"
-                                    >{{ post.userName }}</a
-                                  ></strong
-                                >
-                              </div>
-                              <div class="album-date">{{ getNotiDay(post) }}</div>
-                            </div>
-                            <button
-                              *ngIf="post.userId == user.email"
-                              mat-mini-fab
-                              color="primary"
-                              style="z-index: 9;"
-                              matTooltipPosition="below"
-                              matTooltip="Delete Post"
-                              (click)="deletePost(post.id, postIndex)"
-                            >
-                              <mat-icon>delete</mat-icon>
-                            </button>
                           </div>
-                          <div class="row album-content no-gutters">
-                            <div class="mb-2 mt-1 col-12" [class.pl-3]="post.imageUrl == '' && post.videoUrl == ''">
-                              {{ post.content }}
+                          <div class="info p-3">
+                            <div class="info-item mt-2">
+                              <i class="fas fa-user pr-3 text-primary"></i
+                              ><strong>{{ user.firstName }} {{ user.lastName }}</strong>
                             </div>
-                            <div class="pl-2 text-center" *ngIf="post.imageUrl != ''">
-                              <a [href]="post.imageUrl" target="_blank">
-                                <img [src]="post.imageUrl" width="250" height="250" class="p-2 curPoint" />
+                            <div class="info-item mt-2">
+                              <i class="fas fa-home pr-3 text-primary"></i><strong>Lives In {{ user.city }}</strong>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="event box">
+                          <div class="event-wrapper">
+                            <img
+                              src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80"
+                              class="event-img"
+                            />
+                            <div class="event-date">
+                              <div class="event-month">Jan</div>
+                              <div class="event-day">01</div>
+                            </div>
+                            <div class="event-title">Winter Wonderland</div>
+                            <div class="event-subtitle">01st Jan, 2019 07:00AM</div>
+                          </div>
+                        </div>
+                        <div class="pages box">
+                          <div class="intro-title">
+                            Your pages
+                            <button class="intro-menu"></button>
+                          </div>
+                          <div class="user">
+                            <img
+                              src="https://images.unsplash.com/photo-1549068106-b024baf5062d?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0f"
+                              alt=""
+                              class="user-img"
+                            />
+                            <div class="username">Chandelio</div>
+                          </div>
+                          <div class="user">
+                            <img
+                              src="https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&s=d5849d81af587a09dbcf3f11f6fa122f"
+                              alt=""
+                              class="user-img"
+                            />
+                            <div class="username">Janet Jolie</div>
+                          </div>
+                          <div class="user">
+                            <img
+                              src="https://images.unsplash.com/photo-1546539782-6fc531453083?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
+                              alt=""
+                              class="user-img"
+                            />
+                            <div class="username">Patrick Watsons</div>
+                          </div>
+                        </div>
+                      </div> -->
+                      <div
+                        class="timeline-right mb-4 min-vertical-h-65 max-vertical-h-65 overflow-x-hidden stylishSlimScroll"
+                      >
+                        <div class="status box animated fadeIn shadow-sm">
+                          <div class="row status-main no-gutters">
+                            <img
+                              [src]="user.image"
+                              [routerLink]="['/social-network/profile/', user.tasaId]"
+                              routerLinkActive="router-link-active"
+                              class="status-img curPoint"
+                              [class.mr-1]="socialConfig.newPost.videoUrl != ''"
+                            />
+                            <textarea
+                              id="postBox"
+                              class="row no-gutters status-textarea mb-1"
+                              [class.col-12]="socialConfig.newPost.imageUrl != '' || socialConfig.newPost.videoUrl != ''"
+                              [(ngModel)]="socialConfig.newPost.content"
+                              placeholder="What's on you mind?"
+                              (keyup.enter)="createSocialPost()"
+                            ></textarea>
+                            <div *ngIf="socialConfig.newPost.imageUrl != ''">
+                              <a class="pl-5" [href]="socialConfig.newPost.imageUrl" target="_blank">
+                                <img [src]="socialConfig.newPost.imageUrl" class="p-2 curPoint post-image img-thumbnail" />
                               </a>
                             </div>
-                            <div class="pl-2 text-center" *ngIf="post.videoUrl != ''">
-                              <video height="240" controls>
-                                <source [src]="post.videoUrl" type="video/mp4" />
-                                <source [src]="post.videoUrl" type="video/ogg" />
+                            <div *ngIf="socialConfig.newPost.videoUrl != ''">
+                              <video width="500" height="240" controls class="pl-5">
+                                <source [src]="socialConfig.newPost.videoUrl" type="video/mp4" />
+                                <source [src]="socialConfig.newPost.videoUrl" type="video/ogg" />
                                 Your browser does not support the video tag.
                               </video>
-                              <!-- <a [href]="post.videoUrl" target="_blank">
+                              <!-- <a [href]="socialConfig.newPost.videoUrl" target="_blank">
                                 <span class="text-primary mr-2">
                                   <i class="fas fa-video fa-3x"></i>
                                 </span>
                               </a> -->
                             </div>
-                          </div>
-                          <div class="pb-0 px-2 album-actions border-bottom pb-1">
-                            <a class="album-action align-middle mr-2" (click)="openUserInteractionPopover(post)">
-                              <!-- <i *ngIf="isReactionPresent('like', post)" class="fa-flip-horizontal fa-xs fas fa-thumbs-up pl-1"></i> -->
-                              <img
-                                *ngIf="isReactionPresent('like', post)"
-                                src="./assets/images/social/like.svg"
-                                class="pr-1 curPoint interactIcon"
-                                width="25px"
-                              />
-                              <img
-                                *ngIf="isReactionPresent('clap', post)"
-                                src="./assets/images/social/celebrate.svg"
-                                class="pr-1 curPoint interactIcon"
-                                width="25px"
-                              />
-                              <img
-                                *ngIf="isReactionPresent('congrats', post)"
-                                src="./assets/images/social/congrats.svg"
-                                class="pr-1 curPoint interactIcon"
-                                width="25px"
-                              />
-                              <img
-                                *ngIf="isReactionPresent('curious', post)"
-                                src="./assets/images/social/curious.svg"
-                                class="pr-1 curPoint interactIcon"
-                                width="25px"
-                              />
-                              <span class="fa-xs underlineClass" *ngIf="post.reactions != null">
-                                {{ post.reactions != null ? post.reactions.length : '0' }} Reactions</span
-                              >
-                            </a>
-                            <a
-                              *ngIf="post.comments != null"
-                              (click)="post.isCommentShow = !post.isCommentShow"
-                              class="album-action small underlineClass"
-                            >
-                              {{ post.comments != null ? post.comments.length : '0' }} Comments
-                            </a>
-                          </div>
-                          <div class="px-0 ml-2 mr-3 mt-1 pb-2 album-actions">
-                            <a
-                              class="album-action p-2 m-0 btm-bar-action-1"
-                              (mouseenter)="userInteractionPopover($event)"
-                              data-id="{{ post.id }}"
-                            >
-                              <span *ngIf="noOtherReactionPresent(post)">
-                                <span
-                                  *ngIf="isReacted('like', post)"
-                                  (click)="interactionApiCall('like', post, 'removeReactionFromPost')"
-                                >
-                                  <!-- <i id="liked" *ngIf="isReacted('like', post)" class="fa-flip-horizontal fas fa-thumbs-up pl-1"></i> -->
+                            <!-- <mat-card class="reply-on-reply-card">
+                              <mat-card-header>
+                                <div mat-card-avatar class="p-0">
                                   <img
-                                    id="liked"
-                                    *ngIf="isReacted('like', post)"
+                                    src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
+                                    alt=""
+                                    class="status-img"
+                                  />
+                                </div>
+                                <mat-card-title>Anshul Kashyap</mat-card-title>
+                                <mat-card-subtitle>1 Day Ago</mat-card-subtitle>
+                              </mat-card-header>
+                              <mat-card-content>
+                                <p class="max-vertical-h-10 flow-y-auto flow-x-hidden stylishSlimScroll">
+                                  The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from
+                                  Japan. A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was
+                                  originally bred for hunting. The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from
+                                  Japan. A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was
+                                  originally bred for hunting. The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from
+                                  Japan. A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was
+                                  originally bred for hunting.
+                                </p>
+                              </mat-card-content>
+                            </mat-card> -->
+                          </div>
+                          <mat-progress-bar mode="indeterminate" *ngIf="isUploadingFile" color="primary"></mat-progress-bar>
+                          <div class="status-actions">
+                            <div class="row no-gutters">
+                              <div class="col-8">
+                                <button
+                                  mat-mini-fab
+                                  color="primary"
+                                  style="z-index: 9;"
+                                  class="mr-2"
+                                  (click)="triggerImageUpload()"
+                                  matTooltipPosition="below"
+                                  matTooltip="Add Image - Supported Formats are .jpeg, .jpg, .gif, .png"
+                                >
+                                  <mat-icon>add_a_photo</mat-icon>
+                                </button>
+                                <button
+                                  mat-mini-fab
+                                  color="primary"
+                                  style="z-index: 9;"
+                                  class="mr-2"
+                                  (click)="triggerVideoUpload()"
+                                  matTooltipPosition="below"
+                                  matTooltip="Add Video - Supported Formats are .mp4, .mov, .wmv, .flv, .avi, .webm"
+                                >
+                                  <mat-icon>video_library</mat-icon>
+                                </button>
+                                <button
+                                  *ngIf="socialConfig.newPost.imageUrl != ''"
+                                  mat-mini-fab
+                                  color="primary"
+                                  style="z-index: 9;"
+                                  class="mr-2"
+                                  (click)="socialConfig.newPost.imageUrl = ''"
+                                  matTooltipPosition="below"
+                                  matTooltip="Remove Image"
+                                >
+                                  <span class="fa-stack">
+                                    <i class="fas fa-slash fa-lg fa-stack-1x"></i>
+                                    <i class="far fa-image fa-lg fa-stack-1x"></i>
+                                  </span>
+                                </button>
+                                <button
+                                  *ngIf="socialConfig.newPost.videoUrl != ''"
+                                  mat-mini-fab
+                                  color="primary"
+                                  style="z-index: 9;"
+                                  class="mr-2"
+                                  (click)="socialConfig.newPost.videoUrl = ''"
+                                  matTooltipPosition="below"
+                                  matTooltip="Remove Video"
+                                >
+                                  <i class="fas fa-video-slash"></i>
+                                </button>
+                              </div>
+                              <div class="col-4 text-right">
+                                <button
+                                  mat-flat-button
+                                  color="primary"
+                                  [disabled]="socialConfig.newPost.content == ''"
+                                  (click)="createSocialPost()"
+                                  class="rounded-pill ml-2"
+                                >
+                                  Post
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                          <input
+                            id="imageUpload"
+                            class="d-none"
+                            #imageFileUpload
+                            type="file"
+                            (change)="uploadFile($event, 'image')"
+                          />
+                          <input
+                            id="videoUpload"
+                            class="d-none"
+                            #videoFileUpload
+                            type="file"
+                            (change)="uploadFile($event, 'video')"
+                          />
+                        </div>
+                        <div
+                          class="min-vertical-h-65 max-vertical-h-65 mt-2 stylishSlimScroll flow-y-auto flow-x-hidden pt-2 pl-4 pr-4"
+                        >
+                          <div class="row no-gutters text-center">
+                            <div class="col-9"><hr /></div>
+                            <div class="col-3 d-flex w100 align-items-center">
+                              <span class="w100 strong"><strong>You Are Viewing</strong></span>
+                              <mat-select
+                                (selectionChange)="onPostTypeChange()"
+                                [(ngModel)]="selectedPostFilter"
+                                name="food"
+                                class="w45"
+                              >
+                                <mat-option *ngFor="let item of postFilter" [value]="item.value">
+                                  <strong>{{ item.viewValue }}</strong>
+                                </mat-option>
+                              </mat-select>
+                            </div>
+                          </div>
+                          <button
+                            mat-mini-fab
+                            class="attachment"
+                            [ngClass]="{
+                              'attachment-two': socialConfig.newPost.imageUrl != '' || socialConfig.newPost.videoUrl != ''
+                            }"
+                            (click)="toggled = !toggled"
+                            [(emojiPickerIf)]="toggled"
+                            [emojiPickerDirection]="'right'"
+                            (emojiPickerSelect)="handleSelection($event)"
+                            matTooltipPosition="below"
+                            matTooltip="Add Emoji"
+                          >
+                            <mat-icon style="height: 27px; margin-right: 2px;">😄</mat-icon>
+                          </button>
+                          <div
+                            class="album box mb-4"
+                            *ngFor="let post of socialConfig.allSocialPost; let postIndex = index"
+                          >
+                            <div *ngIf="post.post">
+                              <div class="status-main pt-3">
+                                <img
+                                  matTooltipPosition="below"
+                                  [matTooltip]="post.userName"
+                                  [routerLink]="['/social-network/profile/', post.tasaId]"
+                                  routerLinkActive="router-link-active"
+                                  [src]="post.userImageUrl"
+                                  class="status-img curPoint"
+                                />
+                                <div class="album-detail">
+                                  <div class="album-title">
+                                    <strong
+                                      ><a
+                                        [routerLink]="['/social-network/profile/', post.tasaId]"
+                                        routerLinkActive="router-link-active"
+                                        >{{ post.userName }}</a
+                                      ></strong
+                                    >
+                                  </div>
+                                  <div class="album-date">{{ getNotiDay(post) }}</div>
+                                </div>
+                                <button
+                                  *ngIf="post.userId == user.email"
+                                  mat-mini-fab
+                                  color="primary"
+                                  style="z-index: 9;"
+                                  matTooltipPosition="below"
+                                  matTooltip="Delete Post"
+                                  (click)="deletePost(post.id, postIndex)"
+                                >
+                                  <mat-icon>delete</mat-icon>
+                                </button>
+                              </div>
+                              <div class="row album-content no-gutters">
+                                <div class="mb-2 mt-1 col-12" [class.pl-3]="post.imageUrl == '' && post.videoUrl == ''">
+                                  {{ post.content }}
+                                </div>
+                                <div class="pl-2 text-center" *ngIf="post.imageUrl != ''">
+                                  <a [href]="post.imageUrl" target="_blank">
+                                    <img [src]="post.imageUrl" width="250" height="250" class="p-2 curPoint" />
+                                  </a>
+                                </div>
+                                <div class="pl-2 text-center" *ngIf="post.videoUrl != ''">
+                                  <video height="240" controls>
+                                    <source [src]="post.videoUrl" type="video/mp4" />
+                                    <source [src]="post.videoUrl" type="video/ogg" />
+                                    Your browser does not support the video tag.
+                                  </video>
+                                  <!-- <a [href]="post.videoUrl" target="_blank">
+                                    <span class="text-primary mr-2">
+                                      <i class="fas fa-video fa-3x"></i>
+                                    </span>
+                                  </a> -->
+                                </div>
+                              </div>
+                              <div class="pb-0 px-2 album-actions border-bottom pb-1">
+                                <a class="album-action align-middle mr-2" (click)="openUserInteractionPopover(post)">
+                                  <!-- <i *ngIf="isReactionPresent('like', post)" class="fa-flip-horizontal fa-xs fas fa-thumbs-up pl-1"></i> -->
+                                  <img
+                                    *ngIf="isReactionPresent('like', post)"
                                     src="./assets/images/social/like.svg"
                                     class="pr-1 curPoint interactIcon"
-                                    width="20px"
+                                    width="25px"
                                   />
-                                  <span class="pr-2">Like</span>
-                                </span>
-                                <span *ngIf="!isReacted('like', post)" (click)="interactionApiCall('like', post)">
-                                  <i
-                                    id="not-liked"
-                                    *ngIf="!isReacted('like', post)"
-                                    class="fa-flip-horizontal far fa-thumbs-up pl-1"
-                                  ></i>
-                                  <span class="pr-2">Like</span>
-                                </span>
-                              </span>
-                              <span
-                                *ngIf="isReacted('clap', post)"
-                                class="pr-2"
-                                (click)="interactionApiCall('clap', post, 'removeReactionFromPost')"
+                                  <img
+                                    *ngIf="isReactionPresent('clap', post)"
+                                    src="./assets/images/social/celebrate.svg"
+                                    class="pr-1 curPoint interactIcon"
+                                    width="25px"
+                                  />
+                                  <img
+                                    *ngIf="isReactionPresent('congrats', post)"
+                                    src="./assets/images/social/congrats.svg"
+                                    class="pr-1 curPoint interactIcon"
+                                    width="25px"
+                                  />
+                                  <img
+                                    *ngIf="isReactionPresent('curious', post)"
+                                    src="./assets/images/social/curious.svg"
+                                    class="pr-1 curPoint interactIcon"
+                                    width="25px"
+                                  />
+                                  <span class="fa-xs underlineClass" *ngIf="post.reactions != null">
+                                    {{ post.reactions != null ? post.reactions.length : '0' }} Reactions</span
+                                  >
+                                </a>
+                                <a
+                                  *ngIf="post.comments != null"
+                                  (click)="post.isCommentShow = !post.isCommentShow"
+                                  class="album-action small underlineClass"
+                                >
+                                  {{ post.comments != null ? post.comments.length : '0' }} Comments
+                                </a>
+                              </div>
+                              <div class="px-0 ml-2 mr-3 mt-1 pb-2 album-actions">
+                                <a
+                                  class="album-action p-2 m-0 btm-bar-action-1"
+                                  (mouseenter)="userInteractionPopover($event)"
+                                  data-id="{{ post.id }}"
+                                >
+                                  <span *ngIf="noOtherReactionPresent(post)">
+                                    <span
+                                      *ngIf="isReacted('like', post)"
+                                      (click)="interactionApiCall('like', post, 'removeReactionFromPost')"
+                                    >
+                                      <!-- <i id="liked" *ngIf="isReacted('like', post)" class="fa-flip-horizontal fas fa-thumbs-up pl-1"></i> -->
+                                      <img
+                                        id="liked"
+                                        *ngIf="isReacted('like', post)"
+                                        src="./assets/images/social/like.svg"
+                                        class="pr-1 curPoint interactIcon"
+                                        width="20px"
+                                      />
+                                      <span class="pr-2">Like</span>
+                                    </span>
+                                    <span *ngIf="!isReacted('like', post)" (click)="interactionApiCall('like', post)">
+                                      <i
+                                        id="not-liked"
+                                        *ngIf="!isReacted('like', post)"
+                                        class="fa-flip-horizontal far fa-thumbs-up pl-1"
+                                      ></i>
+                                      <span class="pr-2">Like</span>
+                                    </span>
+                                  </span>
+                                  <span
+                                    *ngIf="isReacted('clap', post)"
+                                    class="pr-2"
+                                    (click)="interactionApiCall('clap', post, 'removeReactionFromPost')"
+                                  >
+                                    <img
+                                      src="./assets/images/social/celebrate.svg"
+                                      class="pr-1 curPoint interactIcon"
+                                      width="20px"
+                                    />Clap
+                                  </span>
+                                  <span
+                                    *ngIf="isReacted('congrats', post)"
+                                    class="pr-2"
+                                    (click)="interactionApiCall('congrats', post, 'removeReactionFromPost')"
+                                  >
+                                    <img
+                                      src="./assets/images/social/congrats.svg"
+                                      class="pr-1 curPoint interactIcon"
+                                      width="20px"
+                                    />Congrats
+                                  </span>
+                                  <span
+                                    *ngIf="isReacted('curious', post)"
+                                    class=""
+                                    (click)="interactionApiCall('curious', post, 'removeReactionFromPost')"
+                                  >
+                                    <img
+                                      src="./assets/images/social/curious.svg"
+                                      class="pr-1 curPoint interactIcon"
+                                      width="20px"
+                                    />Curious
+                                  </span>
+                                </a>
+                                <a
+                                  (click)="post.isCommentShow = !post.isCommentShow; post.reply = !post.reply"
+                                  class="album-action btm-bar-action-2 p-2 m-0"
+                                >
+                                  <svg
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    fill="none"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    class="css-i6dzq1"
+                                    viewBox="0 0 24 24"
+                                  >
+                                    <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" />
+                                  </svg>
+                                  <span class="">Comment</span>
+                                </a>
+                              </div>
+                              <ng-template
+                                [ngTemplateOutlet]="comments"
+                                [ngTemplateOutletContext]="{ post: post, iteration: 0 }"
                               >
-                                <img
-                                  src="./assets/images/social/celebrate.svg"
-                                  class="pr-1 curPoint interactIcon"
-                                  width="20px"
-                                />Clap
-                              </span>
-                              <span
-                                *ngIf="isReacted('congrats', post)"
-                                class="pr-2"
-                                (click)="interactionApiCall('congrats', post, 'removeReactionFromPost')"
-                              >
-                                <img
-                                  src="./assets/images/social/congrats.svg"
-                                  class="pr-1 curPoint interactIcon"
-                                  width="20px"
-                                />Congrats
-                              </span>
-                              <span
-                                *ngIf="isReacted('curious', post)"
-                                class=""
-                                (click)="interactionApiCall('curious', post, 'removeReactionFromPost')"
-                              >
-                                <img
-                                  src="./assets/images/social/curious.svg"
-                                  class="pr-1 curPoint interactIcon"
-                                  width="20px"
-                                />Curious
-                              </span>
-                            </a>
-                            <a
-                              (click)="post.isCommentShow = !post.isCommentShow; post.reply = !post.reply"
-                              class="album-action btm-bar-action-2 p-2 m-0"
-                            >
-                              <svg
-                                stroke="currentColor"
-                                stroke-width="2"
-                                fill="none"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                class="css-i6dzq1"
-                                viewBox="0 0 24 24"
-                              >
-                                <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" />
-                              </svg>
-                              <span class="">Comment</span>
-                            </a>
+                              </ng-template>
+                            </div>
                           </div>
-                          <ng-template
-                            [ngTemplateOutlet]="comments"
-                            [ngTemplateOutletContext]="{ post: post, iteration: 0 }"
-                          >
-                          </ng-template>
+                          <ng-container *ngIf="socialConfig.allSocialPost.length == 0">
+                            <div class="text-center m-auto animated fadeIn mt-2">
+                              <div class="col-12 text-center">
+                                <img src="./assets/images/no-record.gif" style="height: 300px;" class="d-block m-auto" />
+                                <h6 class="text-primary mb-2 mt-2">No Post Yet...!</h6>
+                              </div>
+                            </div>
+                          </ng-container>
                         </div>
                       </div>
-                      <ng-container *ngIf="socialConfig.allSocialPost.length == 0">
-                        <div class="text-center m-auto animated fadeIn mt-2">
-                          <div class="col-12 text-center">
-                            <img src="./assets/images/no-record.gif" style="height: 300px;" class="d-block m-auto" />
-                            <h6 class="text-primary mb-2 mt-2">No Post Yet...!</h6>
-                          </div>
-                        </div>
-                      </ng-container>
                     </div>
                   </div>
                 </div>
@@ -486,6 +493,7 @@
             </div>
           </div>
         </div>
+
       </section>
     </mat-drawer-content>
   </mat-drawer-container>

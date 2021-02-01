@@ -3,8 +3,8 @@
     <div class="mainmenu-area" id="mainmenu-area">
       <div class="mainmenu-area-bg"></div>
       <nav class="navbar py-0 pb-1">
-        <div class="container-fluid d-flex align-items-center">
-          <div class="row w100">
+        <div class="d-flex container-fluid align-items-center">
+          <div class="row w100 no-gutters">
             <div class="col-1">
               <div class="navbar-header pt-1 border-none">
                 <a [routerLink]="['/home']" class="navbar-brand img-responsive p-0 mr-0"
@@ -210,6 +210,9 @@
                   <ng-container *ngIf="user.type == 'Recruiter'">
                     <ng-template *ngTemplateOutlet="recruiterMenu"></ng-template>
                   </ng-container>
+                  <ng-container *ngIf="user">
+                    <ng-template *ngTemplateOutlet="notifications"></ng-template>
+                  </ng-container>
                 </div>
               </div>
             </div>
@@ -225,7 +228,6 @@
     <li>
       <a class="curPoint px-2 py-4" (click)="partnerWithUs()">Partner With us</a>
     </li>
-    <li class="explore-li"><a class="curPoint">Explore</a></li>
     <li><a (click)="scrollToFaq('faqs')" class="curPoint px-2 py-4">FAQ</a></li>
     <li>
       <a [matMenuTriggerFor]="menu" class="curPoint px-2 py-4"
@@ -265,9 +267,130 @@
       </span>
     </li>
     <li *ngIf="!user" class="mt-4">
-      <span class="rounded-pill btn-behaviour curPoint mx-2 py-2 px-3 font-weight-bold" matTooltip="Sign Up as a Recruiter on TaSA" matTooltipPosition="below" color="primary" (click)="signup('recruiter')">
+      <span
+        class="rounded-pill btn-behaviour curPoint mx-2 py-2 px-3 font-weight-bold"
+        matTooltip="Sign Up as a Recruiter on TaSA"
+        matTooltipPosition="below"
+        color="primary"
+        (click)="signup('recruiter')"
+      >
         Recruiter
       </span>
+    </li>
+  </ul>
+</ng-template>
+
+<ng-template #recruiterMenu>
+  <ul id="nav" class="nav navbar-nav pull-right float-right">
+    <li>
+      <a [matMenuTriggerFor]="recruiter" class="curPoint px-2 py-4">
+        <i class="fas fa-tools pr-2"></i> My Operation<i class="fas fa-caret-down pl-1"></i>
+        <mat-menu #recruiter="matMenu">
+          <div class="sidebar-submenu">
+            <button mat-menu-item [routerLink]="['/recruiter/jobs']" class="h6">
+              Jobs
+            </button>
+          </div>
+        </mat-menu>
+      </a>
+    </li>
+  </ul>
+</ng-template>
+
+<ng-template #adminMenu>
+  <ul id="nav" class="nav navbar-nav pull-right float-right">
+    <li>
+      <a [matMenuTriggerFor]="admin" class="curPoint px-2 py-4"
+        >My Operation<i class="fas fa-caret-down pl-1"></i>
+        <mat-menu #admin="matMenu">
+          <div class="sidebar-submenu">
+            <button mat-menu-item [routerLink]="['/admin/deactive-user']" class="h6">
+              Active / Deactive User
+            </button>
+            <button mat-menu-item [routerLink]="['/admin/tier']" class="h6">
+              Tiers
+            </button>
+            <button mat-menu-item [routerLink]="['/admin/lovs']" class="h6">
+              Lovs
+            </button>
+            <button mat-menu-item [routerLink]="['/admin/news']" class="h6">
+              News
+            </button>
+            <button mat-menu-item [routerLink]="['/admin/organization']" class="h6">
+              Organization
+            </button>
+            <button mat-menu-item [routerLink]="['/admin/jobs']" class="h6">
+              Jobs
+            </button>
+            <button mat-menu-item [routerLink]="['/testimonial']" class="h6">
+              Testimonial
+            </button>
+            <button mat-menu-item [routerLink]="['/admin/partners']" class="h6">
+              Partners
+            </button>
+          </div>
+        </mat-menu>
+      </a>
+    </li>
+  </ul>
+</ng-template>
+
+<ng-template #notifications>
+  <ul
+    id="notificationMenu"
+    class="notifications"
+    [ngClass]="{ 'notifications-message': notificationConfig.currentView === 1 }"
+  >
+    <li class="titlebar text-center pt-2">
+      <h6 class="title caps text-primary" *ngIf="notificationConfig.currentView === 0">NOTIFICATIONS</h6>
+      <h6 class="title caps text-primary" *ngIf="notificationConfig.currentView === 1">MESSAGES</h6>
+      <span class="settings"><i class="icon-cog"></i> </span>
+    </li>
+    <div class="notifbox">
+      <li
+        class="notif curPoint unread"
+        (click)="notiRedirect(item, i)"
+        *ngFor="let item of notificationsData; let i = index"
+      >
+        <a>
+          <div class="imageblock ml-1">
+            <button mat-mini-fab *ngIf="item.jobId != '' && item.jobId != 'string'">
+              <mat-icon>work</mat-icon>
+            </button>
+            <button mat-mini-fab *ngIf="item.courseId != '' && item.courseId != 'string'">
+              <mat-icon>school</mat-icon>
+            </button>
+            <button mat-mini-fab color="warn" *ngIf="item.connRequestId != '' && item.connRequestId != 'string'">
+              <mat-icon>person</mat-icon>
+            </button>
+            <button mat-mini-fab color="warn" *ngIf="item.messageId != '' && item.messageId != 'string'">
+              <mat-icon>message</mat-icon>
+            </button>
+            <button
+              mat-mini-fab
+              color="primary"
+              *ngIf="item.courseId === '' && item.jobId === '' && item.connRequestId === '' && item.messageId === ''"
+            >
+              <mat-icon>notifications_active</mat-icon>
+            </button>
+          </div>
+          <div class="messageblock">
+            <div class="message">{{ item.message }}</div>
+            <div class="messageinfo"><i class="icon-trophy"></i>{{ getNotiDay(item) }}</div>
+          </div>
+        </a>
+      </li>
+      <ng-container *ngIf="notificationsData.length == 0">
+        <div class="text-center m-auto animated fadeIn mt-2">
+          <div class="col-12 text-center">
+            <img src="../../../assets/images/no-record.gif" style="height: 150px;" class="d-block m-auto" />
+            <h6 class="text-primary">You’re all caught up!...!</h6>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+    <li class="seeall" *ngIf="notificationConfig.currentView === 0">
+      <a [routerLink]="['/notifications']" (click)="onClickOfSellAllNoti()">See All</a>
     </li>
   </ul>
 </ng-template>
@@ -337,11 +460,11 @@
             <button mat-menu-item [routerLink]="['/user/course']" class="h6">
               My Courses
             </button>
-            <button mat-menu-item [routerLink]="['/user/fav-course']" class="h6">
-              Favorite Courses
-            </button>
             <button mat-menu-item [routerLink]="['/all-course']" class="h6">
               All Courses
+            </button>
+            <button mat-menu-item [routerLink]="['/user/fav-course']" class="h6">
+              Favorite Courses
             </button>
           </div>
         </mat-menu>
@@ -349,7 +472,7 @@
     </li>
     <li>
       <a [matMenuTriggerFor]="profile" class="curPoint px-2 py-4">
-        <i class="fas fa-unlock-alt pr-2"></i>Profile<i class="fas fa-caret-down pl-1"></i>
+        <i class="fas fa-unlock-alt pr-2"></i>Settings<i class="fas fa-caret-down pl-1"></i>
         <mat-menu #profile="matMenu">
           <div class="sidebar-submenu">
             <button mat-menu-item [routerLink]="['/my-plan']" class="h6">
@@ -374,8 +497,30 @@
         </mat-menu>
       </a>
     </li>
+    <li class="p-0">
+      <a
+        matTooltipPosition="below"
+        (click)="setNotificationData('other')"
+        class="notification-popup curPoint text-white mt-2"
+        matTooltip="Notification"
+      >
+        <i class="fa fa-bell" id="notiRing"></i>
+        <span class="badge badge-pill badge-warning notification">{{ notificationConfig.otherCount }}</span>
+      </a>
+    </li>
+    <li class="p-0">
+      <a
+        matTooltipPosition="below"
+        (click)="setNotificationData('message')"
+        class="notification-popup curPoint text-white mt-2"
+        matTooltip="Messages"
+      >
+        <i class="fas fa-comment-alt text-white"></i>
+        <span class="badge badge-pill badge-warning notification">{{ notificationConfig.messageCount }}</span>
+      </a>
+    </li>
     <li>
-      <a  class="curPoint">
+      <a class="curPoint">
         <img
           *ngIf="!user.image || user.image == 'string'"
           matTooltipPosition="below"
@@ -394,10 +539,11 @@
           alt="User picture"
           (click)="callUpload($event)"
         />
-        <span [matMenuTriggerFor]="userMenu">{{ user.firstName + ' '+ user.lastName }}</span><i class="fas fa-caret-down pl-1"></i>
+        <span [matMenuTriggerFor]="userMenu">{{user.firstName}}</span
+        ><i class="fas fa-caret-down pl-1"></i>
         <mat-menu #userMenu="matMenu">
           <button mat-menu-item [routerLink]="['/home']" class="h6">
-            <i class="fas fa-chart-line pr-3 text-primary"></i> Home
+            <i class="fas fa-home pr-3 text-primary"></i> Home
           </button>
           <button mat-menu-item [routerLink]="['/dashboard']" class="h6">
             <i class="fas fa-chart-line pr-3 text-primary"></i> Dashboard
@@ -405,61 +551,6 @@
           <button mat-menu-item (click)="logout()" class="h6">
             <i class="fa fa-power-off pr-3 text-primary"></i> Logout
           </button>
-        </mat-menu>
-      </a>
-    </li>
-  </ul>
-</ng-template>
-
-<ng-template #recruiterMenu>
-  <ul id="nav" class="nav navbar-nav pull-right float-right">
-    <li>
-      <a [matMenuTriggerFor]="recruiter" class="curPoint px-2 py-4">
-        <i class="fas fa-tools pr-2"></i> My Operation<i class="fas fa-caret-down pl-1"></i>
-        <mat-menu #recruiter="matMenu">
-          <div class="sidebar-submenu">
-            <button mat-menu-item [routerLink]="['/recruiter/jobs']" class="h6">
-              Jobs
-            </button>
-          </div>
-        </mat-menu>
-      </a>
-    </li>
-  </ul>
-</ng-template>
-
-<ng-template #adminMenu>
-  <ul id="nav" class="nav navbar-nav pull-right float-right">
-    <li>
-      <a [matMenuTriggerFor]="admin" class="curPoint px-2 py-4"
-        >My Operation<i class="fas fa-caret-down pl-1"></i>
-        <mat-menu #admin="matMenu">
-          <div class="sidebar-submenu">
-            <button mat-menu-item [routerLink]="['/admin/deactive-user']" class="h6">
-              Active / Deactive User
-            </button>
-            <button mat-menu-item [routerLink]="['/admin/tier']" class="h6">
-              Tiers
-            </button>
-            <button mat-menu-item [routerLink]="['/admin/lovs']" class="h6">
-              Lovs
-            </button>
-            <button mat-menu-item [routerLink]="['/admin/news']" class="h6">
-              News
-            </button>
-            <button mat-menu-item [routerLink]="['/admin/organization']" class="h6">
-              Organization
-            </button>
-            <button mat-menu-item [routerLink]="['/admin/jobs']" class="h6">
-              Jobs
-            </button>
-            <button mat-menu-item [routerLink]="['/testimonial']" class="h6">
-              Testimonial
-            </button>
-            <button mat-menu-item [routerLink]="['/admin/partners']" class="h6">
-              Partners
-            </button>
-          </div>
         </mat-menu>
       </a>
     </li>

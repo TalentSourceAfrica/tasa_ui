@@ -374,9 +374,9 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     this.routerSubscription();
-    setInterval(() => {
-      this.getNotifications();
-    }, 300000);
+    // setInterval(() => {
+    //   this.getNotifications();
+    // }, 300000);
 
     if (this.sharedService.deviceDetectorService.isMobile()) {
       $('.page-wrapper').removeClass('toggled');

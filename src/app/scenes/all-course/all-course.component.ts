@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { Router, RouterEvent, NavigationEnd } from '@angular/router';
 import { PageEvent } from '@angular/material/paginator';
 import { filter, delay } from 'rxjs/operators';
@@ -17,6 +17,7 @@ import { Subscription } from 'rxjs';
   selector: 'app-all-course',
   templateUrl: './all-course.component.html',
   styleUrls: ['./all-course.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class AllCourseComponent implements OnInit {
   @ViewChild('filterDrawer', { static: false }) filterDrawer: any;

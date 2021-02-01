@@ -1,0 +1,364 @@
+<div class="left-side-wrapper">
+  <div class="row no-gutters">
+    <div class="col-12">
+      <div class="card animated bounceInUp" *ngIf="recommendedSwitch.course">
+        <div class="card-header d-flex align-items-center">
+          <div class="h2 mb-0 mr-3 text-primary" *ngIf="recommendedCourses.data.length">
+            {{ recommendedCourses.data.length }}
+          </div>
+          <div class="flex">
+            <h4 class="card-title mt-3">Recommended Courses</h4>
+            <!-- <p class="card-subtitle">Best score</p> -->
+          </div>
+        </div>
+        <div class="card-body p-2 min-vertical-h-30 max-vertical-h-30 stylishSlimScroll flow-y-auto flow-x-hidden">
+          <div *ngIf="recommendedCourses.data.length && !recommendedCourses.isFetching" class="row pr-1 no-gutters">
+            <div
+              class="col-12 border mb-1 curPoint courseList"
+              *ngFor="let course of recommendedCourses.data"
+              [routerLink]="['/course/', course.key]"
+              routerLinkActive="router-link-active"
+            >
+              <div class="row no-gutters">
+                <!-- <span class="flag-discount" *ngIf="course.discountPercentage > 0"
+                          >{{ course.discountPercentage }}% Off</span
+                        > -->
+                <div class="col-4">
+                  <img [src]="course.image_url" alt="Course picture" />
+                </div>
+                <div class="col-8 p-2">
+                  <h6 class="card-title text-truncate" [title]="course.title">
+                    {{ course.title }}
+                  </h6>
+                  <p class="card-intro">
+                    {{ course.subject }}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="recommendedCourses.data.length == 0 && !recommendedCourses.isFetching">
+            <div class="text-center m-auto animated fadeIn">
+              <div class="col-12 text-center">
+                <img src="../../../assets/images/no-record.gif" style="height: 200px;" class="d-block m-auto" />
+                <h6 class="text-primary">No Recommended Course Yet...!</h6>
+              </div>
+            </div>
+          </div>
+          <ng-template *ngIf="recommendedCourses.isFetching" [ngTemplateOutlet]="loader"></ng-template>
+        </div>
+      </div>
+      <div class="card animated bounceInUp" *ngIf="recommendedSwitch.jobs">
+        <div class="card-header">
+          <div class="media align-items-center">
+            <div class="h2 mb-0 mr-3 text-primary" *ngIf="recommendedJobs.data.length">
+              {{ recommendedJobs.data.length }}
+            </div>
+            <div class="flex">
+              <h4 class="card-title mt-3">Recommended Jobs</h4>
+              <!-- <p class="card-subtitle">4 days streak this week</p> -->
+            </div>
+          </div>
+        </div>
+        <div class="card-body p-2 jobs min-vertical-h-30 max-vertical-h-30 stylishSlimScroll flow-y-auto flow-x-hidden">
+          <div *ngIf="recommendedJobs.data.length && !recommendedJobs.isFetching" class="row pr-1 no-gutters">
+            <div
+              class="recommended-jobs col-12 border mb-1 curPoint job-list p-2"
+              [routerLink]="['/job/', job.id]"
+              *ngFor="let job of recommendedJobs.data"
+            >
+              <div class="d-flex">
+                <span>
+                  <img
+                    class="user-pic img-responsive img-circle curPoint"
+                    src="../../../assets/images/TSA_logo_new.small.png"
+                    alt="Job"
+                  />
+                </span>
+                <span class="d-flex">
+                  <h6 class="card-title text-truncate mt-2" [title]="job.title">
+                    {{ job.title }}
+                  </h6>
+                </span>
+              </div>
+              <div class="card-intro">
+                <div class="d-flex">
+                  <span class="text-muted pl-1 d-flex text-bold" style="justify-content: center;"
+                    ><span class="material-icons pr-1 text-primary">
+                      work
+                    </span>
+                    {{ job.experienceFrom }} - {{ job.experienceTo }} Year</span
+                  >
+                  <span class="text-muted pl-2 d-flex text-bold" style="justify-content: center;"
+                    ><span class="material-icons pr-1 text-primary">
+                      location_city
+                    </span>
+                    {{ job.location }}</span
+                  >
+                </div>
+                <span class="badge badge-info p-1 ml-1 mt-2" *ngFor="let item of job.tags">{{ item }}</span>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="recommendedJobs.data.length == 0 && !recommendedJobs.isFetching">
+            <div class="text-center m-auto animated fadeIn">
+              <div class="col-12 text-center">
+                <img src="../../../assets/images/no-record.gif" style="height: 190px;" class="d-block m-auto" />
+                <h6 class="text-primary">No Recommended Jobs...!</h6>
+              </div>
+            </div>
+          </div>
+          <ng-template *ngIf="recommendedJobs.isFetching" [ngTemplateOutlet]="loader"></ng-template>
+        </div>
+      </div>
+    </div>
+    <div class="col-12">
+      <div class="card animated bounceInUp" *ngIf="userActionSwitch.appliedJobs">
+        <div class="card-header d-flex align-items-center">
+          <div class="h2 mb-0 mr-3 text-primary" *ngIf="jobApplications.length">{{ jobApplications.length }}</div>
+          <div class="flex">
+            <h4 class="card-title mt-3">Jobs Applied</h4>
+            <!-- <p class="card-subtitle">4 days streak this week</p> -->
+          </div>
+        </div>
+        <div class="card-body p-2 jobs min-vertical-h-30 max-vertical-h-30 stylishSlimScroll flow-y-auto flow-x-hidden">
+          <div *ngIf="jobApplications.length" class="row pr-1 no-gutters">
+            <div
+              class="col-12 border mb-1 curPoint job-list p-2"
+              [routerLink]="['/job/', job.id]"
+              *ngFor="let job of jobApplications"
+            >
+              <div class="d-flex">
+                <span>
+                  <img
+                    class="user-pic img-responsive img-circle curPoint"
+                    src="../../../assets/images/TSA_logo_new.small.png"
+                    alt="Job"
+                  />
+                </span>
+                <span>
+                  <h6 class="card-title text-truncate" [title]="job.title">
+                    {{ job.title }}
+                  </h6>
+                </span>
+                <span class="pl-2 text-right">
+                  <span class="badge badge-warning p-1" *ngIf="job.jobStatus == 'Applied'">{{ job.jobStatus }}</span>
+                  <span class="badge badge-dark p-1" *ngIf="job.jobStatus == 'Under Review'">{{ job.jobStatus }}</span>
+                  <span class="badge badge-success p-1" *ngIf="job.jobStatus == 'Accepted'">{{ job.jobStatus }}</span>
+                  <span class="badge badge-danger p-1" *ngIf="job.jobStatus == 'Rejected'">{{ job.jobStatus }}</span>
+                </span>
+              </div>
+              <div class="card-intro">
+                <div class="d-flex">
+                  <span class="text-muted pl-1 d-flex text-bold" style="justify-content: center;"
+                    ><span class="material-icons pr-1 text-primary">
+                      work
+                    </span>
+                    {{ job.experienceFrom }} - {{ job.experienceTo }} Year</span
+                  >
+                  <span class="text-muted pl-2 d-flex text-bold" style="justify-content: center;"
+                    ><span class="material-icons pr-1 text-primary">
+                      location_city
+                    </span>
+                    {{ job.location }}</span
+                  >
+                </div>
+                <span class="badge badge-info p-1 ml-1 mt-2" *ngFor="let item of job.tags">{{ item }}</span>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="jobApplications.length == 0">
+            <div class="text-center m-auto animated fadeIn">
+              <div class="col-12 text-center">
+                <img src="../../../assets/images/no-record.gif" style="height: 170px;" class="d-block m-auto" />
+                <h6 class="text-primary">No Applied Jobs Yet...!</h6>
+                <button
+                  mat-flat-button
+                  color="primary"
+                  *ngIf="!isAdmin"
+                  [routerLink]="['/jobs/listings']"
+                  class="rounded-pill ml-2"
+                >
+                  Go To All Jobs
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card animated bounceInUp" *ngIf="userActionSwitch.favoriteCourse">
+        <div class="card-header d-flex align-items-center">
+          <div class="h2 mb-0 mr-3 text-primary" *ngIf="allFavCourse.length">
+            {{ allFavCourse.length }}
+          </div>
+          <div class="flex">
+            <h4 class="card-title mt-3">Favorite Courses</h4>
+            <!-- <p class="card-subtitle">Best score</p> -->
+          </div>
+        </div>
+        <div class="card-body p-2 min-vertical-h-30 max-vertical-h-30 stylishSlimScroll flow-y-auto flow-x-hidden">
+          <div  class="row pr-1 no-gutters">
+            <div
+              class="col-12 border mb-1 curPoint courseList"
+              *ngFor="let course of allFavCourse"
+              [routerLink]="['/course/', course.key]"
+              routerLinkActive="router-link-active"
+            >
+              <div class="row no-gutters">
+                <!-- <span class="flag-discount" *ngIf="course.discountPercentage > 0"
+                          >{{ course.discountPercentage }}% Off</span
+                        > -->
+                <div class="col-4">
+                  <img [src]="course.image_url" alt="Course picture" />
+                </div>
+                <div class="col-8 p-2">
+                  <h6 class="card-title text-truncate" [title]="course.title">
+                    {{ course.title }}
+                  </h6>
+                  <p class="card-intro">
+                    {{ course.subject }}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="allFavCourse.length == 0">
+            <div class="text-center m-auto animated fadeIn">
+              <div class="col-12 text-center">
+                <img src="../../../assets/images/no-record.gif" style="height: 200px;" class="d-block m-auto" />
+                <h6 class="text-primary">No Favorite Course Yet...!</h6>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card animated bounceInUp" *ngIf="userActionSwitch.recentlyViewedCourse">
+        <div class="card-header d-flex align-items-center">
+          <div class="h2 mb-0 mr-3 text-primary" *ngIf="recentlyViewedCourse.length">
+            {{ recentlyViewedCourse.length }}
+          </div>
+          <div class="flex">
+            <h4 class="card-title mt-3">Recently Viewed Courses</h4>
+            <!-- <p class="card-subtitle">Best score</p> -->
+          </div>
+        </div>
+        <div class="card-body p-2 min-vertical-h-30 max-vertical-h-30 stylishSlimScroll flow-y-auto flow-x-hidden">
+          <div  class="row pr-1 no-gutters">
+            <div
+              class="col-12 border mb-1 curPoint courseList"
+              *ngFor="let course of recentlyViewedCourse"
+              [routerLink]="['/course/', course.key]"
+              routerLinkActive="router-link-active"
+            >
+              <div class="row no-gutters">
+                <!-- <span class="flag-discount" *ngIf="course.discountPercentage > 0"
+                          >{{ course.discountPercentage }}% Off</span
+                        > -->
+                <div class="col-4">
+                  <img [src]="course.image_url" alt="Course picture" />
+                </div>
+                <div class="col-8 p-2">
+                  <h6 class="card-title text-truncate" [title]="course.title">
+                    {{ course.title }}
+                  </h6>
+                  <p class="card-intro">
+                    {{ course.subject }}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="allFavCourse.length == 0">
+            <div class="text-center m-auto animated fadeIn">
+              <div class="col-12 text-center">
+                <img src="../../../assets/images/no-record.gif" style="height: 200px;" class="d-block m-auto" />
+                <h6 class="text-primary">No Favorite Course Yet...!</h6>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card animated bounceInUp" *ngIf="userActionSwitch.savedJobs">
+        <div class="card-header d-flex align-items-center">
+          <div class="h2 mb-0 mr-3 text-primary" *ngIf="savedJobs.length">{{ savedJobs.length }}</div>
+          <div class="flex">
+            <h4 class="card-title mt-3">Saved Jobs</h4>
+            <!-- <p class="card-subtitle">4 days streak this week</p> -->
+          </div>
+        </div>
+        <div class="card-body p-2 jobs min-vertical-h-30 max-vertical-h-30 stylishSlimScroll flow-y-auto flow-x-hidden">
+          <div *ngIf="savedJobs.length" class="row pr-1 no-gutters">
+            <div
+              class="col-12 border mb-1 curPoint job-list p-2"
+              [routerLink]="['/job/', job.id]"
+              *ngFor="let job of savedJobs"
+            >
+              <div class="d-flex">
+                <span>
+                  <img
+                    class="user-pic img-responsive img-circle curPoint"
+                    src="../../../assets/images/TSA_logo_new.small.png"
+                    alt="Job"
+                  />
+                </span>
+                <span>
+                  <h6 class="card-title text-truncate" [title]="job.title">
+                    {{ job.title }}
+                  </h6>
+                </span>
+                <span class="pl-2 text-right">
+                  <span class="badge badge-warning p-1" *ngIf="job.jobStatus == 'Applied'">{{ job.jobStatus }}</span>
+                  <span class="badge badge-dark p-1" *ngIf="job.jobStatus == 'Under Review'">{{ job.jobStatus }}</span>
+                  <span class="badge badge-success p-1" *ngIf="job.jobStatus == 'Accepted'">{{ job.jobStatus }}</span>
+                  <span class="badge badge-danger p-1" *ngIf="job.jobStatus == 'Rejected'">{{ job.jobStatus }}</span>
+                </span>
+              </div>
+              <div class="card-intro">
+                <div class="d-flex">
+                  <span class="text-muted pl-1 d-flex text-bold" style="justify-content: center;"
+                    ><span class="material-icons pr-1 text-primary">
+                      work
+                    </span>
+                    {{ job.experienceFrom }} - {{ job.experienceTo }} Year</span
+                  >
+                  <span class="text-muted pl-2 d-flex text-bold" style="justify-content: center;"
+                    ><span class="material-icons pr-1 text-primary">
+                      location_city
+                    </span>
+                    {{ job.location }}</span
+                  >
+                </div>
+                <span class="badge badge-info p-1 ml-1 mt-2" *ngFor="let item of job.tags">{{ item }}</span>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="jobApplications.length == 0">
+            <div class="text-center m-auto animated fadeIn">
+              <div class="col-12 text-center">
+                <img src="../../../assets/images/no-record.gif" style="height: 170px;" class="d-block m-auto" />
+                <h6 class="text-primary">No Applied Jobs Yet...!</h6>
+                <button
+                  mat-flat-button
+                  color="primary"
+                  *ngIf="!isAdmin"
+                  [routerLink]="['/jobs/listings']"
+                  class="rounded-pill ml-2"
+                >
+                  Go To All Jobs
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #loader>
+  <div class="col-12 animated fadeIn" *ngFor="let item of [1, 2, 3]">
+    <div class="card ml-0 mr-0" style="height: 50px !important;">
+      <div class="card-img skeleton"></div>
+    </div>
+  </div>
+</ng-template>

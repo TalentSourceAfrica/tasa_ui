@@ -10,6 +10,7 @@ import { MaterialModule } from '@app/modules/material.module';
 import { RouterModule } from '@angular/router';
 import { UserSavedJobsComponent } from './user-saved-jobs.component';
 import { UserSavedJobsRoutingModule } from './user-saved-jobs-routing.module';
+import { LeftSideModule } from '@app/partials/left-side/left-side.module';
 
 @NgModule({
   imports: [
@@ -22,6 +23,7 @@ import { UserSavedJobsRoutingModule } from './user-saved-jobs-routing.module';
     MaterialModule,
     RouterModule,
     UserSavedJobsRoutingModule,
+    LeftSideModule,
   ],
   declarations: [UserSavedJobsComponent],
   entryComponents: [],

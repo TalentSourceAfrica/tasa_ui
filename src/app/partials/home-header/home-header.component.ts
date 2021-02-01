@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { AuthenticationService, CredentialsService } from '@app/auth';
 import { SharedService } from '@app/services/shared.service';
 import { Router } from '@angular/router';
@@ -11,12 +11,21 @@ declare var jQuery: any;
   selector: 'app-home-header',
   templateUrl: './home-header.component.html',
   styleUrls: ['./home-header.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class HomeHeaderComponent implements OnInit {
   // courseConfig: any = {
   //   subjects: [],
   // };
   @ViewChild('file', { static: false }) public file: any;
+  notificationConfig: any = {
+    messageCount: 0,
+    messageNotifications: [],
+    otherCount: 0,
+    otherNotifications: [],
+    currentView: 0, //  0 = other notifcations , 1 = message notifications;
+  };
+  notificationsData: any = [];
   isAdmin: boolean = false;
   menuHidden = true;
   searchCourseText: any = '';
@@ -48,7 +57,7 @@ export class HomeHeaderComponent implements OnInit {
   ) {
     this.jobConfig.searchConfig = JSON.parse(JSON.stringify(jobsSearchData));
     this.courseConfig.searchConfig = JSON.parse(JSON.stringify(courseSearchData));
-    if(this.user){
+    if (this.user) {
       this.user.type.toLowerCase() === 'admin' ? (this.isAdmin = true) : (this.isAdmin = false);
     }
   }
@@ -256,7 +265,7 @@ export class HomeHeaderComponent implements OnInit {
     this.authenticationService.openLoginPopup();
   }
 
-  callUpload(event:any) {
+  callUpload(event: any) {
     event.stopPropagation();
     event.preventDefault();
     this.file.nativeElement.click();
@@ -301,13 +310,105 @@ export class HomeHeaderComponent implements OnInit {
     );
   }
 
+  onClickOfSellAllNoti() {
+    $(this).toggleClass('open');
+    $('#notificationMenu').toggleClass('open');
+  }
+
+  notiRedirect(_noti: any, _notiIndex: number) {
+    let $t = this;
+    let apiUrl = $t.sharedService.urlService.apiCallWithParams('readNotification', { '{notificationId}': _noti.id });
+    $t.sharedService.configService.post(apiUrl).subscribe(
+      (response: any) => {},
+      (error) => {
+        console.log(error);
+      }
+    );
+    $t.notificationsData.splice(_notiIndex, 1);
+    if (_noti.jobId !== '') {
+      this.router.navigate(['/job/' + _noti.jobId], { replaceUrl: true });
+    } else if (_noti.courseId !== '') {
+      this.router.navigate(['/course/' + _noti.courseId], { replaceUrl: true });
+    } else if (_noti.connRequestId !== '') {
+      this.router.navigate(['/social-network/network/'], { replaceUrl: true });
+    } else if (_noti.messageId !== '') {
+      this.router.navigate(['/social-network/conversation/'], {
+        replaceUrl: true,
+        queryParams: { userId: _noti.from },
+      });
+    }
+
+    this.onClickOfSellAllNoti();
+  }
+
+  setNotificationData(_type: string) {
+    if (_type === 'other') {
+      this.notificationsData = this.notificationConfig.otherNotifications;
+      this.notificationConfig.currentView = 0;
+    } else {
+      this.notificationsData = this.notificationConfig.messageNotifications;
+      this.notificationConfig.currentView = 1;
+    }
+  }
+
+  getNotiDay(_noti: any) {
+    const dateofvisit = this.sharedService.plugins.mom(_noti.createdOn);
+    const today = this.sharedService.plugins.mom();
+    const day = today.diff(dateofvisit, 'days');
+    if (day === 0) {
+      return 'Today';
+    } else {
+      return day + ' Days Ago';
+    }
+  }
+
+  getNotifications() {
+    let $t = this;
+    if ($t.user && $t.user.email) {
+      let apiUrl = $t.sharedService.urlService.apiCallWithParams('getNewNotifications', { '{userId}': $t.user.email });
+      $t.sharedService.configService.get(apiUrl).subscribe(
+        (response: any) => {
+          $t.notificationConfig.messageNotifications = response.responseObj.filter((d: any) => d.messageId !== '');
+          $t.notificationConfig.messageCount = $t.notificationConfig.messageNotifications.length;
+          $t.notificationConfig.otherNotifications = response.responseObj.filter((d: any) => d.messageId === '');
+          $t.notificationConfig.otherCount = $t.notificationConfig.otherNotifications.length;
+          if ($t.notificationsData.length) {
+            // $t.audioPlayerRef.nativeElement.play();
+            $('#notiRing').addClass('bell-ring');
+            setTimeout(() => {
+              $('#notiRing').removeClass('bell-ring');
+            }, 2000);
+          }
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    }
+  }
+
   ngOnInit(): void {
     this.fetchCourseFilter();
+    setInterval(() => {
+      this.getNotifications();
+    }, 300000);
   }
 
   ngAfterViewInit(): void {
     jQuery('#mainmenu-area').sticky({
       topSpacing: 0,
+    });
+    jQuery('.notification-popup').click((event: any) => {
+      jQuery(this).toggleClass('open');
+      jQuery('#notificationMenu').toggleClass('open');
+    });
+
+    jQuery(document).on('click', (event: any) => {
+      if (!jQuery(event.target).closest('.notification-popup').length) {
+        if (jQuery('#notificationMenu').hasClass('open')) {
+          jQuery('#notificationMenu').toggleClass('open');
+        }
+      }
     });
   }
 }

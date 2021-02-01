@@ -9,6 +9,8 @@ import { AllJobListingsComponent } from './all-job-listings.component';
 import { JobsApplyPopupModule } from '@app/partials/popups/jobs/jobs-apply-popup/jobs-apply-popup.module';
 
 import { MaterialModule } from '@app/modules/material.module';
+import { LeftSideModule } from '@app/partials/left-side/left-side.module';
+
 
 @NgModule({
   imports: [
@@ -19,6 +21,7 @@ import { MaterialModule } from '@app/modules/material.module';
     AllJobListingsRoutingModule,
     MaterialModule,
     JobsApplyPopupModule,
+    LeftSideModule
   ],
   declarations: [AllJobListingsComponent],
   entryComponents: [],

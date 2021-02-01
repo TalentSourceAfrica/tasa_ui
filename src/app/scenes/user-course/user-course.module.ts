@@ -9,6 +9,7 @@ import { MaterialModule } from '@app/modules/material.module';
 import { RouterModule } from '@angular/router';
 import { UserCourseRoutingModule } from './user-course-routing.module';
 import { UserCourseComponent } from './user-course.component';
+import { LeftSideModule } from '@app/partials/left-side/left-side.module';
 
 @NgModule({
   imports: [
@@ -20,6 +21,7 @@ import { UserCourseComponent } from './user-course.component';
     MaterialModule,
     RouterModule,
     UserCourseRoutingModule,
+    LeftSideModule,
   ],
   declarations: [UserCourseComponent],
 })

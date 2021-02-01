@@ -12,6 +12,7 @@ import { CredentialsService, AuthenticationService } from '@app/auth';
 //popups
 import { JobsApplyPopupComponent } from '@app/partials/popups/jobs/jobs-apply-popup/jobs-apply-popup.component';
 import { Subscription } from 'rxjs';
+import { LeftSideComponent } from '@app/partials/left-side/left-side.component';
 
 @Component({
   selector: 'app-all-job-listings',
@@ -41,14 +42,6 @@ export class AllJobListingsComponent implements OnInit {
   countries: any = [];
   currentView = 1;
   private currMsgSubscribe = new Subscription();
-  recommendedCourses:any = {
-    isFetching : false,
-    data:[]
-  }
-  recommendedJobs:any = {
-    isFetching : false,
-    data:[]
-  }
   constructor(
     public sharedService: SharedService,
     public router: Router,
@@ -58,38 +51,6 @@ export class AllJobListingsComponent implements OnInit {
     this.searchConfig = JSON.parse(JSON.stringify(jobsSearchData));
     this.uds = this.sharedService.plugins.undSco;
     this.user && this.user.type.toLowerCase() === 'admin' ? (this.isAdmin = true) : (this.isAdmin = false);
-  }
-
-  getRecommendedCourses() {
-    let $t = this;
-    let apiUrl = '';
-    $t.recommendedCourses.isFetching = true;
-    apiUrl = $t.sharedService.urlService.apiCallWithParams('getRecommendedCourses', { '{userId}': $t.user.email });
-    $t.sharedService.configService.get(apiUrl).subscribe(
-      (response: any) => {
-        $t.recommendedCourses.data = response.responseObj;
-        $t.recommendedCourses.isFetching = false;
-      },
-      (error) => {
-        $t.recommendedCourses.isFetching = false;
-      }
-    );
-  }
-
-  getRecommendedJobs() {
-    let $t = this;
-    let apiUrl = '';
-    $t.recommendedJobs.isFetching = true;
-    apiUrl = $t.sharedService.urlService.apiCallWithParams('getRecommendedJobs', { '{userId}': $t.user.email });
-    $t.sharedService.configService.get(apiUrl).subscribe(
-      (response: any) => {
-        $t.recommendedJobs.data = response.responseObj;
-        $t.recommendedJobs.isFetching = false;
-      },
-      (error) => {
-        $t.recommendedJobs.isFetching = false;
-      }
-    );
   }
 
   changeAssetView(_view: number) {
@@ -242,7 +203,6 @@ export class AllJobListingsComponent implements OnInit {
             d['isSaved'] = savedJobIdArr.includes(d.id) ? true : false;
           });
         });
-        console.log(this.allJobs);
         this.length = response.responseObj.length;
         this.isLoading = false;
         if (!this.sharedService.deviceDetectorService.isMobile()) {
@@ -276,7 +236,6 @@ export class AllJobListingsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getRecommendedCourses();
     this.sharedService.utilityService.requiredStyleForHomeHeader();
     window.scrollTo(0, 0);
     this.init();

@@ -1,58 +1,65 @@
 <div class="saved-jobs-wrapper">
-  <div class="container">
-    <ol class="breadcrumb mt-3">
-      <li class="breadcrumb-item curPoint"><a [routerLink]="['/home']">Home</a></li>
-      <li class="breadcrumb-item curPoint"><a [routerLink]="['/jobs/listings']">All Jobs</a></li>
-      <li class="breadcrumb-item active"><a>Saved Jobs</a></li>
-    </ol>
-    <div class="sec-title">
-      <div class="title">My Saved Jobs</div>
-    </div>
+  <div>
     <section class="All-course-page-section min-vertical-h-100">
       <div class="row no-gutters">
-        <ng-container *ngIf="allJobs.length">
-          <div class="row no-gutters w100 mt-2 d-none">
-            <div class="col text-right">
-              <div id="toggleBar" class="btn-group btn-group-sm border border-secondary" role="group">
-                <button
-                  [class.current]="currentView == 1"
-                  (click)="changeAssetView(1)"
-                  matTooltip="Grid View"
-                  matTooltipPosition="below"
-                  type="button"
-                  class="btn btn-secondary py-2 px-3"
-                >
-                  <i class="fa fas fa-th-large"></i>
-                </button>
-                <button
-                  [class.current]="currentView == 2"
-                  (click)="changeAssetView(2)"
-                  matTooltip="List View"
-                  matTooltipPosition="below"
-                  type="button"
-                  class="btn btn-secondary py-2 px-3"
-                >
-                  <i class="fa fas fa-th-list"></i>
-                </button>
-              </div>
+        <div class="col-3 bg-white">
+          <app-left-side></app-left-side>
+        </div>
+        <div class="col-7">
+          <div class="w100">
+            <ol class="breadcrumb mt-3">
+              <li class="breadcrumb-item curPoint"><a [routerLink]="['/home']">Home</a></li>
+              <li class="breadcrumb-item curPoint"><a [routerLink]="['/jobs/listings']">All Jobs</a></li>
+              <li class="breadcrumb-item active"><a>Saved Jobs</a></li>
+            </ol>
+            <div class="sec-title">
+              <div class="title">My Saved Jobs</div>
             </div>
-          </div>
+            <ng-container *ngIf="allJobs.length">
+              <div class="row no-gutters w100 mt-2 d-none">
+                <div class="col text-right">
+                  <div id="toggleBar" class="btn-group btn-group-sm border border-secondary" role="group">
+                    <button
+                      [class.current]="currentView == 1"
+                      (click)="changeAssetView(1)"
+                      matTooltip="Grid View"
+                      matTooltipPosition="below"
+                      type="button"
+                      class="btn btn-secondary py-2 px-3"
+                    >
+                      <i class="fa fas fa-th-large"></i>
+                    </button>
+                    <button
+                      [class.current]="currentView == 2"
+                      (click)="changeAssetView(2)"
+                      matTooltip="List View"
+                      matTooltipPosition="below"
+                      type="button"
+                      class="btn btn-secondary py-2 px-3"
+                    >
+                      <i class="fa fas fa-th-list"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
 
-          <div class="row w100 max-vertical-h-70 stylishSlimScroll flow-y-auto flow-x-hidden" id="jobsArea">
-            <ng-container *ngIf="currentView == 1">
-              <ng-template [ngTemplateOutlet]="jobsGridView"></ng-template>
+              <div class="row w100 max-vertical-h-70 stylishSlimScroll flow-y-auto flow-x-hidden" id="jobsArea">
+                <ng-container *ngIf="currentView == 1">
+                  <ng-template [ngTemplateOutlet]="jobsGridView"></ng-template>
+                </ng-container>
+              </div>
+            </ng-container>
+
+            <ng-container *ngIf="allJobs.length == 0">
+              <div class="text-center m-auto animated fadeIn mt-2">
+                <div class="col-12 text-center">
+                  <img src="../../../assets/images/no-record.gif" style="height: 300px;" class="d-block m-auto" />
+                  <h6 class="text-primary">No Saved Jobs Yet...!</h6>
+                </div>
+              </div>
             </ng-container>
           </div>
-        </ng-container>
-
-        <ng-container *ngIf="allJobs.length == 0">
-          <div class="text-center m-auto animated fadeIn mt-2">
-            <div class="col-12 text-center">
-              <img src="../../../assets/images/no-record.gif" style="height: 300px;" class="d-block m-auto" />
-              <h6 class="text-primary">No Saved Jobs Yet...!</h6>
-            </div>
-          </div>
-        </ng-container>
+        </div>
       </div>
     </section>
   </div>
