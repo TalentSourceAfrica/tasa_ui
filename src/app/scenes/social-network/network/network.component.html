@@ -1,22 +1,27 @@
 <div class="my-network-wrapper">
-  <div class="container">
-    <ol class="breadcrumb mt-3">
-      <li class="breadcrumb-item curPoint"><a [routerLink]="['/dashboard']">Dashboard</a></li>
-      <li class="breadcrumb-item active"><a>My Network</a></li>
-    </ol>
-    <div class="sec-title">
-      <div class="title">Connections Request</div>
+  <div class="row no-gutters">
+    <div class="col-md-3 col-sm-12 bg-white">
+      <app-left-side></app-left-side>
     </div>
-    <ng-container *ngIf="networkConfig.isLoading">
-      <div class="col-12 animated fadeIn" *ngFor="let item of [1, 2, 3, 4, 5, 6]">
-        <div class="card ml-0 mr-0 my-4" style="height: 100px !important;">
-          <div class="card-img skeleton"></div>
-        </div>
+    <div class="col-md-7 col-sm-12">
+      <ol class="breadcrumb mt-3">
+        <li class="breadcrumb-item curPoint"><a [routerLink]="['/dashboard']">Dashboard</a></li>
+        <li class="breadcrumb-item active"><a>My Network</a></li>
+      </ol>
+      <div class="sec-title">
+        <div class="title">Connections Request</div>
       </div>
-    </ng-container>
-    <ng-container>
-      <ng-template *ngTemplateOutlet="network"></ng-template>
-    </ng-container>
+      <ng-container *ngIf="networkConfig.isLoading">
+        <div class="col-12 animated fadeIn" *ngFor="let item of [1, 2, 3, 4, 5, 6]">
+          <div class="card ml-0 mr-0 my-4" style="height: 100px !important;">
+            <div class="card-img skeleton"></div>
+          </div>
+        </div>
+      </ng-container>
+      <ng-container>
+        <ng-template *ngTemplateOutlet="network"></ng-template>
+      </ng-container>
+    </div>
   </div>
 </div>
 

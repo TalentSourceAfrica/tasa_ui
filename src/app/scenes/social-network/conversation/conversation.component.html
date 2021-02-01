@@ -1,22 +1,27 @@
 <div class="conversation-wrapper">
-  <div class="container">
-    <ol class="breadcrumb mt-3">
-      <li class="breadcrumb-item curPoint"><a [routerLink]="['/dashboard']">Dashboard</a></li>
-      <li class="breadcrumb-item active"><a>My Conversations</a></li>
-    </ol>
-    <div class="sec-title">
-      <div class="title">Messages</div>
+  <div class="row no-gutters">
+    <div class="col-md-3 col-sm-12 bg-white">
+      <app-left-side></app-left-side>
     </div>
-    <!-- <ng-container *ngIf="networkConfig.isLoading">
-        <div class="col-12 animated fadeIn" *ngFor="let item of [1, 2, 3, 4, 5, 6]">
-          <div class="card ml-0 mr-0 my-4" style="height: 100px !important;">
-            <div class="card-img skeleton"></div>
-          </div>
-        </div>
-      </ng-container> -->
-    <ng-container *ngIf="user">
-      <ng-template *ngTemplateOutlet="chatSection"></ng-template>
-    </ng-container>
+    <div class="col-md-7 col-sm-12">
+      <ol class="breadcrumb mt-3">
+        <li class="breadcrumb-item curPoint"><a [routerLink]="['/dashboard']">Dashboard</a></li>
+        <li class="breadcrumb-item active"><a>My Conversations</a></li>
+      </ol>
+      <div class="sec-title">
+        <div class="title">Messages</div>
+      </div>
+      <!-- <ng-container *ngIf="networkConfig.isLoading">
+            <div class="col-12 animated fadeIn" *ngFor="let item of [1, 2, 3, 4, 5, 6]">
+              <div class="card ml-0 mr-0 my-4" style="height: 100px !important;">
+                <div class="card-img skeleton"></div>
+              </div>
+            </div>
+          </ng-container> -->
+      <ng-container *ngIf="user">
+        <ng-template *ngTemplateOutlet="chatSection"></ng-template>
+      </ng-container>
+    </div>
   </div>
 </div>
 
@@ -161,7 +166,11 @@
           <i class="fab fa-linkedin-in"></i>
         </div>
       </div>
-      <mat-progress-bar mode="indeterminate" *ngIf="connectionConfig.isFetchingMsgList" color="primary"></mat-progress-bar>
+      <mat-progress-bar
+        mode="indeterminate"
+        *ngIf="connectionConfig.isFetchingMsgList"
+        color="primary"
+      ></mat-progress-bar>
       <div class="messages" [ngClass]="{ 'd-flex align-items-center': connectionConfig.currentMsgList.length === 0 }">
         <ul *ngIf="connectionConfig.currentMsgList.length && !connectionConfig.isFetchingMsgList">
           <li
@@ -221,12 +230,7 @@
                 </mat-menu>
               </span>
             </p>
-            <button
-              mat-icon-button
-              (click)="replyOnReply(item)"
-              *ngIf="item.to === user.email"
-              class="material-icons"
-            >
+            <button mat-icon-button (click)="replyOnReply(item)" *ngIf="item.to === user.email" class="material-icons">
               <mat-icon>reply</mat-icon>
             </button>
           </li>

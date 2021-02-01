@@ -13,8 +13,7 @@ import { ProfileComponent } from './profile.component';
 import { SocialConnectionsModule } from '@app/partials/social-network/social-connections/social-connections.module';
 import { NgxDocViewerModule } from 'ngx-doc-viewer';
 import { SocialnetworkService } from '../socialnetwork.service';
-
-
+import { LeftSideModule } from '@app/partials/left-side/left-side.module';
 
 @NgModule({
   imports: [
@@ -30,9 +29,10 @@ import { SocialnetworkService } from '../socialnetwork.service';
     ProfileRoutingModule,
     SocialConnectionsModule,
     NgxDocViewerModule,
+    LeftSideModule,
   ],
   declarations: [ProfileComponent],
-  providers:[SocialnetworkService],
+  providers: [SocialnetworkService],
   schemas: [NO_ERRORS_SCHEMA],
 })
 export class ProfileModule {}

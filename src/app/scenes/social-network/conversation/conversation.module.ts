@@ -11,6 +11,7 @@ import { NgxEmojiPickerModule } from 'ngx-emoji-picker';
 import { ConversationRoutingModule } from './conversation-routing.module';
 import { ConversationComponent } from './conversation.component';
 import { NameFilterPipe } from '@app/pipes/name-filter.pipe';
+import { LeftSideModule } from '@app/partials/left-side/left-side.module';
 
 @NgModule({
   imports: [
@@ -25,6 +26,7 @@ import { NameFilterPipe } from '@app/pipes/name-filter.pipe';
     ReactiveFormsModule,
     ConversationRoutingModule,
     NgxEmojiPickerModule,
+    LeftSideModule,
   ],
   declarations: [ConversationComponent, NameFilterPipe],
   entryComponents: [],

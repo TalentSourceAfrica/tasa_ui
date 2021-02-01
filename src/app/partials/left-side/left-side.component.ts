@@ -48,7 +48,7 @@ export class LeftSideComponent implements OnInit {
       for (const property in this.recommendedSwitch) {
         this.recommendedSwitch[property] = !this.recommendedSwitch[property];
       }
-    }, 5000);
+    }, 10000);
   }
 
   setLogicForUserActionsCard() {
@@ -59,7 +59,7 @@ export class LeftSideComponent implements OnInit {
           break;
         }
       }
-    }, 5000);
+    }, 10000);
   }
 
   getRecommendedCourses() {

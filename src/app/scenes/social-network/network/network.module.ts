@@ -9,6 +9,7 @@ import { MaterialModule } from '@app/modules/material.module';
 import { RouterModule } from '@angular/router';
 import { NetworkComponent } from './network.component';
 import { NetworkRoutingModule } from './network-routing.module';
+import { LeftSideModule } from '@app/partials/left-side/left-side.module';
 
 @NgModule({
   imports: [
@@ -22,6 +23,7 @@ import { NetworkRoutingModule } from './network-routing.module';
     FormsModule,
     ReactiveFormsModule,
     NetworkRoutingModule,
+    LeftSideModule,
   ],
   declarations: [NetworkComponent],
   schemas: [NO_ERRORS_SCHEMA],
