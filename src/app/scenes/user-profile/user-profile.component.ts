@@ -945,7 +945,7 @@ export class UserProfileComponent implements OnInit {
     $t.userDetails.state = personalDetailsValues.state;
     $t.userDetails.city = personalDetailsValues.city;
     $t.userDetails.district = personalDetailsValues.district;
-    $t.userDetails.postalCode = personalDetailsValues.postalCode;
+    $t.userDetails.postalCode = parseInt(personalDetailsValues.postalCode);
     $t.userDetails.language = personalDetailsValues.language;
     $t.userDetails.identifier = personalDetailsValues.identifier;
     $t.userDetails.bio = personalDetailsValues.bio;

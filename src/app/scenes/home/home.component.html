@@ -671,7 +671,7 @@
   <!--ADDMISSION AREA END-->
 </div>
 
-<ng-template #normalForm>
+<!-- <ng-template #normalForm>
   <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" novalidate>
     <div class="p-2"></div>
 
@@ -919,7 +919,7 @@
     </div>
   </form>
 </ng-template>
-
+ -->
 <ng-template #detailedForm>
   <mat-horizontal-stepper [linear]="'true'" #stepper>
     <form [formGroup]="userDetailsForm" novalidate>
@@ -985,7 +985,6 @@
                 formControlName="email"
                 class="form-control form-control-prepended"
                 placeholder="Your email address"
-                (blur)="checkEmail()"
                 [ngClass]="{ 'ng-invalid ng-touched': !isEmailAvailable }"
               />
               <div class="input-group-prepend">
@@ -1439,6 +1438,39 @@
                 >
                   Career Goal is required
                 </small>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="linkedin">Linkedin</label>
+            <div class="input-group input-group-merge">
+              <input
+                id="linkedin"
+                type="text"
+                formControlName="linkedin"
+                class="form-control form-control-prepended"
+                placeholder="Your Linkedin"
+              />
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <span class="far fa-flag"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="twitter">Twitter</label>
+            <div class="input-group input-group-merge">
+              <input
+                id="twitter"
+                formControlName="twitter"
+                class="form-control form-control-prepended"
+                placeholder="Your Twitter"
+              />
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <span class="far fa-flag"></span>
+                </div>
               </div>
             </div>
           </div>

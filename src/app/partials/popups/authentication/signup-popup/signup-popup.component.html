@@ -462,7 +462,7 @@
   <mat-horizontal-stepper [linear]="'true'" #stepper>
     <form [formGroup]="userDetailsForm" novalidate>
       <mat-step>
-        <div class="pt-3 pl-2 pr-2 pb-2 min-vertical-h-30 max-vertical-h-50 flow-auto stylishScroll">
+        <div class="pt-3 pl-2 pr-2 pb-2 min-vertical-h-40 max-vertical-h-40 flow-auto stylishSlimScroll">
           <div class="form-group">
             <label class="form-label" for="name">First Name <sup class="text-danger">*</sup></label>
             <div class="input-group input-group-merge">
@@ -696,15 +696,15 @@
         </div>
       </mat-step>
       <mat-step>
-        <div class="pt-3 pl-2 pr-2 pb-2 min-vertical-h-30 max-vertical-h-50 flow-auto stylishScroll">
+        <div class="pt-3 pl-2 pr-2 pb-2 min-vertical-h-40 max-vertical-h-40 flow-auto stylishSlimScroll">
           <div class="form-group">
-            <label class="form-label" for="highestDegree">Highest Degree <sup class="text-danger">*</sup></label>
+            <label class="form-label" for="highestDegree">Degree <sup class="text-danger">*</sup></label>
             <div class="input-group input-group-merge">
               <input
                 id="highestDegree"
                 formControlName="highestDegree"
                 class="form-control form-control-prepended"
-                placeholder="Your Highest Degree"
+                placeholder="Your Degree"
               />
               <div class="input-group-prepend">
                 <div class="input-group-text">
@@ -792,7 +792,7 @@
             </small>
           </div>
           <div class="form-group">
-            <label class="form-label" for="minor">Minor <sup class="text-danger">*</sup></label>
+            <label class="form-label" for="minor">Minor</label>
             <div class="input-group input-group-merge">
               <input
                 id="major"
@@ -823,24 +823,24 @@
               </div>
             </div>
           </div> -->
-          <div class="text-center">
-            <button mat-flat-button color="default" matStepperPrevious class="rounded-pill ml-2 bg-theme">
-              Back
-            </button>
-            <button mat-flat-button color="primary" matStepperNext class="rounded-pill ml-2">
-              Next
-            </button>
-          </div>
+        </div>
+        <div class="text-center">
+          <button mat-flat-button color="default" matStepperPrevious class="rounded-pill ml-2 bg-theme">
+            Back
+          </button>
+          <button mat-flat-button color="primary" matStepperNext class="rounded-pill ml-2">
+            Next
+          </button>
         </div>
       </mat-step>
       <mat-step>
-        <div class="pt-3 pl-2 pr-2 pb-2 min-vertical-h-30 max-vertical-h-50 flow-auto stylishScroll">
+        <div class="pt-3 pl-2 pr-2 pb-2 min-vertical-h-40 max-vertical-h-40 flow-auto stylishSlimScroll">
           <div class="form-group">
             <label class="form-label" for="experience">Experience</label>
             <div class="input-group input-group-merge">
               <input
                 id="experience"
-                formControlName="experience"
+                formControlName="experience1"
                 class="form-control form-control-prepended"
                 placeholder="Your Experience"
               />
@@ -883,68 +883,68 @@
               </div>
             </div>
           </div>
-          <div class="text-center">
-            <button mat-flat-button color="default" matStepperPrevious class="rounded-pill ml-2 bg-theme">
-              Back
-            </button>
-            <button mat-flat-button color="primary" matStepperNext class="rounded-pill ml-2">
-              Next
-            </button>
+          <div class="form-group">
+              <label class="form-label" for="areaOfPreference">Area Of Preference <sup class="text-danger">*</sup></label>
+              <div class="input-group input-group-merge">
+                <input
+                  id="areaOfPreference"
+                  formControlName="areaOfPreference"
+                  class="form-control form-control-prepended"
+                  placeholder="Your Area of Preference"
+                />
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <span class="fas fa-chalkboard-teacher"></span>
+                  </div>
+                </div>
+              </div>
+              <small
+                [hidden]="
+                  userDetailsForm.controls.areaOfPreference.valid || userDetailsForm.controls.areaOfPreference.untouched
+                "
+                class="text-danger"
+                translate
+              >
+                Area Of Preference is required
+              </small>
           </div>
+        <div class="form-group">
+          <label class="form-label" for="preferredRole">Preferred Role <sup class="text-danger">*</sup></label>
+          <div class="input-group input-group-merge">
+            <input
+              id="preferredRole"
+              formControlName="preferredRole"
+              class="form-control form-control-prepended"
+              placeholder="Your Preferred Role"
+            />
+            <div class="input-group-prepend">
+              <div class="input-group-text">
+                <span class="fas fa-user-tie"></span>
+              </div>
+            </div>
+          </div>
+          <small
+            [hidden]="
+              userDetailsForm.controls.preferredRole.valid || userDetailsForm.controls.preferredRole.untouched
+            "
+            class="text-danger"
+            translate
+          >
+            Preferred Role is required
+          </small>
+        </div>
+        </div>
+        <div class="text-center">
+          <button mat-flat-button color="default" matStepperPrevious class="rounded-pill ml-2 bg-theme">
+            Back
+          </button>
+          <button mat-flat-button color="primary" matStepperNext class="rounded-pill ml-2">
+            Next
+          </button>
         </div>
       </mat-step>
       <mat-step>
-        <div class="pt-3 pl-2 pr-2 pb-2 min-vertical-h-30 max-vertical-h-50 flow-auto stylishScroll">
-          <div class="form-group">
-            <label class="form-label" for="areaOfPreference">Area Of Preference <sup class="text-danger">*</sup></label>
-            <div class="input-group input-group-merge">
-              <input
-                id="areaOfPreference"
-                formControlName="areaOfPreference"
-                class="form-control form-control-prepended"
-                placeholder="Your Area of Preference"
-              />
-              <div class="input-group-prepend">
-                <div class="input-group-text">
-                  <span class="fas fa-chalkboard-teacher"></span>
-                </div>
-              </div>
-            </div>
-            <small
-              [hidden]="
-                userDetailsForm.controls.areaOfPreference.valid || userDetailsForm.controls.areaOfPreference.untouched
-              "
-              class="text-danger"
-              translate
-            >
-              Area Of Preference is required
-            </small>
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="preferredRole">Preferred Role <sup class="text-danger">*</sup></label>
-            <div class="input-group input-group-merge">
-              <input
-                id="preferredRole"
-                formControlName="preferredRole"
-                class="form-control form-control-prepended"
-                placeholder="Your Preferred Role"
-              />
-              <div class="input-group-prepend">
-                <div class="input-group-text">
-                  <span class="fas fa-user-tie"></span>
-                </div>
-              </div>
-            </div>
-            <small
-              [hidden]="
-                userDetailsForm.controls.preferredRole.valid || userDetailsForm.controls.preferredRole.untouched
-              "
-              class="text-danger"
-              translate
-            >
-              Preferred Role is required
-            </small>
-          </div>
+        <div class="pt-3 pl-2 pr-2 pb-2 min-vertical-h-40 max-vertical-h-40 flow-auto stylishSlimScroll">
           <div class="form-group">
             <label class="form-label" for="careerGoals">Career Goal <sup class="text-danger">*</sup></label>
             <div class="input-group input-group-merge">
@@ -968,6 +968,39 @@
               Career Goal is required
             </small>
           </div>
+          <div class="form-group">
+            <label class="form-label" for="linkedin">Linkedin</label>
+            <div class="input-group input-group-merge">
+              <input
+                id="linkedin"
+                type="text"
+                formControlName="linkedin"
+                class="form-control form-control-prepended"
+                placeholder="Your Linkedin"
+              />
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <span class="far fa-flag"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="twitter">Twitter</label>
+            <div class="input-group input-group-merge">
+              <input
+                id="twitter"
+                formControlName="twitter"
+                class="form-control form-control-prepended"
+                placeholder="Your Twitter"
+              />
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <span class="far fa-flag"></span>
+                </div>
+              </div>
+            </div>
+          </div>
           <div class="form-group text-center">
             <div class="custom-control custom-checkbox mb-2 pt-2">
               <input id="terms" type="checkbox" class="custom-control-input" formControlName="termsCond" required="" />
@@ -983,20 +1016,20 @@
               >
             </div>
           </div>
-          <div class="text-center">
-            <button mat-flat-button color="default" matStepperPrevious class="rounded-pill ml-2 bg-theme">
-              Back
-            </button>
-            <button
-                mat-flat-button
-                color="primary"
-                (click)="onSubmit()"
-                [disabled]="userDetailsForm.invalid"
-                class="rounded-pill ml-2 w30"
-              >
-                Sign Up
-            </button>
-          </div>
+        </div>
+        <div class="text-center">
+          <button mat-flat-button color="default" matStepperPrevious class="rounded-pill ml-2 bg-theme">
+            Back
+          </button>
+          <button
+              mat-flat-button
+              color="primary"
+              (click)="onSubmit()"
+              [disabled]="userDetailsForm.invalid"
+              class="rounded-pill ml-2 w30"
+            >
+              Sign Up
+          </button>
         </div>
       </mat-step>
     </form>
@@ -1005,9 +1038,9 @@
 
 <ng-template #detailedRecruiterForm>
     <mat-horizontal-stepper [linear]="'true'" #stepper>
-      <form [formGroup]="userDetailsForm" (ngSubmit)="onSubmit()" novalidate>
+      <form [formGroup]="userDetailsForm" novalidate>
         <mat-step>
-          <div class="pt-3 pl-2 pr-2 pb-2 min-vertical-h-30 max-vertical-h-50 flow-auto stylishScroll">
+          <div class="pt-3 pl-2 pr-2 pb-2 min-vertical-h-40 max-vertical-h-40 flow-auto stylishSlimScroll">
             <div class="form-group">
               <label class="form-label" for="name">First Name <sup class="text-danger">*</sup></label>
               <div class="input-group input-group-merge">
@@ -1170,6 +1203,15 @@
                 Confirm Password must match
               </small>
             </div>
+          </div>
+          <div class="text-center">
+            <button mat-flat-button color="primary" matStepperNext class="rounded-pill ml-2">
+              Next
+            </button>
+          </div>
+        </mat-step>
+        <mat-step>
+          <div class="pt-3 pl-2 pr-2 pb-2 min-vertical-h-40 max-vertical-h-40 flow-auto stylishSlimScroll">          
             <div class="form-group">
               <label class="form-label" for="city">City <sup class="text-danger">*</sup></label>
               <div class="input-group input-group-merge">
@@ -1269,122 +1311,16 @@
             </div>
           </div>
           <div class="text-center">
+            <button mat-flat-button color="default" matStepperPrevious class="rounded-pill ml-2 bg-theme">
+              Back
+            </button>
             <button mat-flat-button color="primary" matStepperNext class="rounded-pill ml-2">
               Next
             </button>
           </div>
         </mat-step>
         <mat-step>
-          <div class="pt-3 pl-2 pr-2 pb-2 min-vertical-h-30 max-vertical-h-50 flow-auto stylishScroll">
-            <div class="form-group">
-              <label class="form-label" for="areaOfPreference">Area Of Preference <sup class="text-danger">*</sup></label>
-              <div class="input-group input-group-merge">
-                <input
-                  id="areaOfPreference"
-                  formControlName="areaOfPreference"
-                  class="form-control form-control-prepended"
-                  placeholder="Your Area of Preference"
-                />
-                <div class="input-group-prepend">
-                  <div class="input-group-text">
-                    <span class="fas fa-chalkboard-teacher"></span>
-                  </div>
-                </div>
-              </div>
-              <small
-                [hidden]="
-                  userDetailsForm.controls.areaOfPreference.valid || userDetailsForm.controls.areaOfPreference.untouched
-                "
-                class="text-danger"
-                translate
-              >
-                Area Of Preference is required
-              </small>
-            </div>
-            <div class="form-group">
-              <label class="form-label" for="preferredRole">Preferred Role <sup class="text-danger">*</sup></label>
-              <div class="input-group input-group-merge">
-                <input
-                  id="preferredRole"
-                  formControlName="preferredRole"
-                  class="form-control form-control-prepended"
-                  placeholder="Your Preferred Role"
-                />
-                <div class="input-group-prepend">
-                  <div class="input-group-text">
-                    <span class="fas fa-user-tie"></span>
-                  </div>
-                </div>
-              </div>
-              <small
-                [hidden]="
-                  userDetailsForm.controls.preferredRole.valid || userDetailsForm.controls.preferredRole.untouched
-                "
-                class="text-danger"
-                translate
-              >
-                Preferred Role is required
-              </small>
-            </div>
-            <div class="form-group">
-              <label class="form-label" for="careerGoals">Career Goal <sup class="text-danger">*</sup></label>
-              <div class="input-group input-group-merge">
-                <input
-                  id="careerGoals"
-                  formControlName="careerGoals"
-                  class="form-control form-control-prepended"
-                  placeholder="Your Career Goal"
-                />
-                <div class="input-group-prepend">
-                  <div class="input-group-text">
-                    <span class="fas fa-bullseye"></span>
-                  </div>
-                </div>
-              </div>
-              <small
-                [hidden]="userDetailsForm.controls.careerGoals.valid || userDetailsForm.controls.careerGoals.untouched"
-                class="text-danger"
-                translate
-              >
-                Career Goal is required
-              </small>
-            </div>
-            <div class="text-center">
-              <button mat-flat-button color="default" matStepperPrevious class="rounded-pill ml-2 bg-theme">
-                Back
-              </button>
-              <button mat-flat-button color="primary" matStepperNext class="rounded-pill ml-2">
-                Next
-              </button>
-            </div>
-          </div>
-        </mat-step>
-        <mat-step>
-          <div class="pt-3 pl-2 pr-2 pb-2 min-vertical-h-30 max-vertical-h-50 flow-auto stylishScroll">
-            <div class="form-group">
-              <label class="form-label" for="location">Location <sup class="text-danger">*</sup></label>
-              <div class="input-group input-group-merge">
-                <input
-                  id="location"
-                  type="text"
-                  formControlName="location"
-                  class="form-control form-control-prepended"
-                  placeholder="Your location"
-                />
-                <div class="input-group-prepend">
-                  <div class="input-group-text">
-                    <span class="far fa-address-card"></span>
-                  </div>
-                </div>
-              </div>
-              <small
-                [hidden]="userDetailsForm.controls.location.valid || userDetailsForm.controls.location.untouched"
-                class="text-danger"
-                translate
-              >
-                Location is required
-              </small>
-            </div>
+          <div class="pt-3 pl-2 pr-2 pb-2 min-vertical-h-40 max-vertical-h-40 flow-auto stylishSlimScroll">
             <div class="form-group">
               <label class="form-label" for="description">Description <sup class="text-danger">*</sup></label>
               <div class="input-group input-group-merge">
@@ -1463,7 +1399,7 @@
                   id="industry"
                   formControlName="industry"
                   class="form-control form-control-prepended"
-                  placeholder="Your Postal Code"
+                  placeholder="Your Industry"
                 />
                 <div class="input-group-prepend">
                   <div class="input-group-text">
@@ -1479,66 +1415,18 @@
                 Industry is required
               </small>
             </div>
-            <div class="text-center">
-              <button mat-flat-button color="default" matStepperPrevious class="rounded-pill ml-2 bg-theme">
-                Back
-              </button>
-              <button mat-flat-button color="primary" matStepperNext class="rounded-pill ml-2">
-                Next
-              </button>
-            </div>
+          </div>
+          <div class="text-center">
+            <button mat-flat-button color="default" matStepperPrevious class="rounded-pill ml-2 bg-theme">
+              Back
+            </button>
+            <button mat-flat-button color="primary" matStepperNext class="rounded-pill ml-2">
+              Next
+            </button>
           </div>
         </mat-step>
         <mat-step>
-          <div class="pt-3 pl-2 pr-2 pb-2 min-vertical-h-30 max-vertical-h-50 flow-auto stylishScroll">
-            <div class="form-group">
-              <label class="form-label" for="contactNo">Contact Number <sup class="text-danger">*</sup></label>
-              <div class="input-group input-group-merge">
-                <input
-                  id="contactNo"
-                  type="text"
-                  formControlName="contactNo"
-                  class="form-control form-control-prepended"
-                  placeholder="Your Contact Number"
-                />
-                <div class="input-group-prepend">
-                  <div class="input-group-text">
-                    <span class="far fa-address-card"></span>
-                  </div>
-                </div>
-              </div>
-              <small
-                [hidden]="userDetailsForm.controls.contactNo.valid || userDetailsForm.controls.contactNo.untouched"
-                class="text-danger"
-                translate
-              >
-                Contact Number is required
-              </small>
-            </div>
-            <div class="form-group">
-              <label class="form-label" for="contactEmail">Contact Email address <sup class="text-danger">*</sup></label>
-              <div class="input-group input-group-merge">
-                <input
-                  id="contactEmail"
-                  type="contactEmail"
-                  formControlName="contactEmail"
-                  class="form-control form-control-prepended"
-                  placeholder="Your email address"
-                />
-                <div class="input-group-prepend">
-                  <div class="input-group-text">
-                    <span class="far fa-envelope"></span>
-                  </div>
-                </div>
-              </div>
-              <small
-                [hidden]="userDetailsForm.controls.contactEmail.valid || userDetailsForm.controls.contactEmail.untouched"
-                class="text-danger"
-                translate
-              >
-                Contact Email is required
-              </small>
-            </div>
+          <div class="pt-3 pl-2 pr-2 pb-2 min-vertical-h-40 max-vertical-h-40 flow-auto stylishSlimScroll">
             <div class="form-group">
               <label class="form-label" for="website">Website <sup class="text-danger">*</sup></label>
               <div class="input-group input-group-merge">
@@ -1564,7 +1452,7 @@
               </small>
             </div>
             <div class="form-group">
-              <label class="form-label" for="linkedin">Linkedin <sup class="text-danger">*</sup></label>
+              <label class="form-label" for="linkedin">Linkedin</label>
               <div class="input-group input-group-merge">
                 <input
                   id="linkedin"
@@ -1579,16 +1467,9 @@
                   </div>
                 </div>
               </div>
-              <small
-                [hidden]="userDetailsForm.controls.linkedin.valid || userDetailsForm.controls.linkedin.untouched"
-                class="text-danger"
-                translate
-              >
-                Linkedin is required
-              </small>
             </div>
             <div class="form-group">
-              <label class="form-label" for="twitter">Twitter <sup class="text-danger">*</sup></label>
+              <label class="form-label" for="twitter">Twitter</label>
               <div class="input-group input-group-merge">
                 <input
                   id="twitter"
@@ -1602,16 +1483,10 @@
                   </div>
                 </div>
               </div>
-              <small
-                [hidden]="userDetailsForm.controls.twitter.valid || userDetailsForm.controls.twitter.untouched"
-                class="text-danger"
-                translate
-              >
-                Twitter is required
-              </small>
             </div>
             <div class="form-group text-center">
               <div class="custom-control custom-checkbox mb-2 pt-2">
+                <mat-checkbox id="terms" class="custom-control-input" formControlName="termsCond" required></mat-checkbox>
                 <input id="terms" type="checkbox" class="custom-control-input" formControlName="termsCond" required="" />
                 <label for="terms" class="custom-control-label text-black-70"
                   >I agree to the
@@ -1625,20 +1500,20 @@
                 >
               </div>
             </div>
-            <div class="text-center">
-              <button mat-flat-button color="default" matStepperPrevious class="rounded-pill ml-2 bg-theme">
-                Back
-              </button>
-               <button
-                mat-flat-button
-                color="primary"
-                type="submit"
-                [disabled]="userDetailsForm.invalid"
-                class="rounded-pill ml-2 w30"
-              >
-                Sign Up
+          </div>
+          <div class="text-center">
+            <button mat-flat-button color="default" matStepperPrevious class="rounded-pill ml-2 bg-theme">
+              Back
             </button>
-            </div>
+             <button
+              mat-flat-button
+              color="primary"
+              (click)="onSubmit()"
+              [disabled]="userDetailsForm.invalid"
+              class="rounded-pill ml-2 w30"
+            >
+              Sign Up
+          </button>
           </div>
         </mat-step>
       </form>
