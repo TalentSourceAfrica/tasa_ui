@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AuthenticationService, CredentialsService } from '@app/auth';
 import { SharedService } from '@app/services/shared.service';
 import { Router } from '@angular/router';
@@ -16,6 +16,7 @@ export class HomeHeaderComponent implements OnInit {
   // courseConfig: any = {
   //   subjects: [],
   // };
+  @ViewChild('file', { static: false }) public file: any;
   isAdmin: boolean = false;
   menuHidden = true;
   searchCourseText: any = '';
@@ -205,6 +206,32 @@ export class HomeHeaderComponent implements OnInit {
     }
   }
 
+  handleFileInput(event: any) {
+    let $t = this;
+    let apiUrl = $t.sharedService.urlService.apiCallWithParams('uploadUserImage', { '{email}': $t.user.email });
+    let files = event.target.files;
+    var form = new FormData();
+    form.append('file', files[0], files[0].name);
+    if ($t.sharedService.utilityService.ValidateImageUpload(files[0].name)) {
+      $t.sharedService.uiService.showApiStartPopMsg('Updating User Avatar...');
+
+      $t.sharedService.configService.post(apiUrl, form).subscribe(
+        (response: any) => {
+          $t.sharedService.uiService.showApiSuccessPopMsg('User Avatar Updated...');
+          $t.user.image = response.url;
+          $t.authenticationService.login($t.user);
+        },
+        (error) => {
+          $t.sharedService.uiService.showApiErrorPopMsg('Something Went Wrong, Please Try Again After Sometime...');
+        }
+      );
+    } else {
+      $t.sharedService.uiService.showApiErrorPopMsg(
+        'Uploaded File is not a Valid Image. Only JPG, PNG and JPEG files are allowed.'
+      );
+    }
+  }
+
   signup(_case: string) {
     this.authenticationService.openSignupPopup(_case);
   }
@@ -227,6 +254,12 @@ export class HomeHeaderComponent implements OnInit {
 
   login() {
     this.authenticationService.openLoginPopup();
+  }
+
+  callUpload(event:any) {
+    event.stopPropagation();
+    event.preventDefault();
+    this.file.nativeElement.click();
   }
 
   partnerWithUs() {

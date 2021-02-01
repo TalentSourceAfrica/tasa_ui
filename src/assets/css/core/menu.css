@@ -207,9 +207,9 @@ ul#nav li.active > a {
 END MENU VARIENT
 ------------------------------*/
 
-.is-sticky ul#nav li a {
+/* .is-sticky ul#nav li a {
   padding: 20px 15px;
-}
+} */
 
 .is-sticky .mainmenu-area {
   -webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.14), 0 4px 8px rgba(0, 0, 0, 0.28);

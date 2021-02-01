@@ -386,6 +386,9 @@ export class HomeComponent implements OnInit {
 
   checkEmail() {
     let $t = this;
+    if(typeof $t.signupForm  === 'undefined'){
+      return;
+    }
     let apiUrl = $t.sharedService.urlService.apiCallWithParams('checkEmail', {
       '{email}': $t.signupForm.value.email,
     });

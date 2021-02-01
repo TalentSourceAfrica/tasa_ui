@@ -196,4 +196,10 @@ $light-blue: #523f6d80;
   height: 50px;
 }
 
+.navbar-nav li a:hover > i::before {
+  display: inline-block;
+  color: white;
+  animation: swing ease-in-out 1s 1 alternate;
+}
+
 //----------------------------header section ----------------------------------//

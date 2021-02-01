@@ -137,7 +137,7 @@
               Level up with in-demand credentials from top universities.
             </p>
           </div>
-        </div>        
+        </div>
       </div>
     </div>
   </section>
@@ -152,7 +152,7 @@
             <div class="text-center mb-3">
               <h2 class="xs-font20">Sign Up</h2>
               <!-- <p class="card-subtitle"> -->
-                <!-- <mat-form-field appearance="fill">
+              <!-- <mat-form-field appearance="fill">
                   <mat-select (selectionChange)="signupTypeChange()" [(ngModel)]="userType.value" ngDefaultControl>
                     <mat-option *ngFor="let item of signupType" [value]="item.value">
                       {{ item.viewValue }}
@@ -164,7 +164,7 @@
             <div class="d-flex align-items-center no-gutters signup-wrapper" data-aos="zoom-out-up">
               <div class="navbar-shadow bg-white shadow-lg w100">
                 <div class="card-body">
-                  <ng-container *ngTemplateOutlet="detailedForm"></ng-container>  
+                  <ng-container *ngTemplateOutlet="detailedForm"></ng-container>
                   <!-- <div *ngIf="userType.value == 0 || userType.value == 1">
                     <ng-container *ngTemplateOutlet="userDetailsForm"></ng-container>  
                   </div>
@@ -673,9 +673,7 @@
 
 <ng-template #normalForm>
   <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" novalidate>
-    <div class="p-2">
-      
-    </div>
+    <div class="p-2"></div>
 
     <div class="form-group text-center">
       <div class="custom-control custom-checkbox mb-2 pt-2">
@@ -926,7 +924,8 @@
   <mat-horizontal-stepper [linear]="'true'" #stepper>
     <form [formGroup]="userDetailsForm" novalidate>
       <mat-step>
-        <div class="pt-3 pl-2 pr-2 pb-2 min-vertical-h-50 max-vertical-h-50 stylishScroll flow-auto">
+        <ng-template matStepLabel>Personal Details</ng-template>
+        <div class="pt-3 pl-2 pr-2 pb-2 min-vertical-h-50 max-vertical-h-50 stylishSlimScroll flow-auto">
           <div class="d-flex">
             <div class="form-group col-6 pl-0">
               <label class="form-label" for="name">First Name <sup class="text-danger">*</sup></label>
@@ -976,7 +975,7 @@
                 Last Name is required
               </small>
             </div>
-          </div>  
+          </div>
           <div class="form-group">
             <label class="form-label" for="email">Email address <sup class="text-danger">*</sup></label>
             <div class="input-group input-group-merge">
@@ -1048,7 +1047,10 @@
                 </div>
               </div>
               <small
-                *ngIf="!userDetailsForm.controls.confirmPassword.untouched && userDetailsForm.controls.confirmPassword.errors?.required"
+                *ngIf="
+                  !userDetailsForm.controls.confirmPassword.untouched &&
+                  userDetailsForm.controls.confirmPassword.errors?.required
+                "
                 class="text-danger"
                 translate
               >
@@ -1059,7 +1061,7 @@
               </small>
             </div>
           </div>
-          <div class="d-flex"> 
+          <div class="d-flex">
             <div class="form-group col-6 pl-0">
               <label class="form-label" for="city">City <sup class="text-danger">*</sup></label>
               <div class="input-group input-group-merge">
@@ -1108,7 +1110,7 @@
               </small>
             </div>
           </div>
-          <div class="d-flex"> 
+          <div class="d-flex">
             <div class="form-group col-6 pl-0">
               <label class="form-label" for="country">Country <sup class="text-danger">*</sup></label>
               <div class="input-group input-group-merge">
@@ -1159,142 +1161,193 @@
                 Postal Code is required
               </small>
             </div>
-          </div>  
+          </div>
         </div>
-         <div class="text-center">
+        <div class="text-center">
           <button mat-flat-button color="primary" matStepperNext class="rounded-pill ml-2">
             Next
           </button>
         </div>
       </mat-step>
       <mat-step>
-        <div class="pt-3 pl-2 pr-2 pb-2 min-vertical-h-50 max-vertical-h-50 stylishScroll flow-auto">
-          <div class="form-group">
-            <label class="form-label" for="highestDegree">Highest Degree <sup class="text-danger">*</sup></label>
-            <div class="input-group input-group-merge">
-              <input
-                id="highestDegree"
-                formControlName="highestDegree"
-                class="form-control form-control-prepended"
-                placeholder="Your Highest Degree"
-              />
-              <div class="input-group-prepend">
-                <div class="input-group-text">
-                  <span class="fas fa-graduation-cap w10"></span>
+        <ng-template matStepLabel>Education Details</ng-template>
+        <div class="pt-3 pl-2 pr-2 pb-2 max-vertical-h-50 stylishSlimScroll flow-auto">
+          <div class="row no-gutters">
+            <div class="col-md-6 col-sm-12">
+              <div class="form-group pr-2">
+                <label class="form-label" for="highestDegree">Highest Degree <sup class="text-danger">*</sup></label>
+                <div class="input-group input-group-merge">
+                  <input
+                    id="highestDegree"
+                    formControlName="highestDegree"
+                    class="form-control form-control-prepended"
+                    placeholder="Your Highest Degree"
+                  />
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">
+                      <span class="fas fa-graduation-cap w10"></span>
+                    </div>
+                  </div>
+                </div>
+                <small
+                  [hidden]="
+                    userDetailsForm.controls.highestDegree.valid || userDetailsForm.controls.highestDegree.untouched
+                  "
+                  class="text-danger"
+                  translate
+                >
+                  Highest Degree is required
+                </small>
+              </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+              <div class="form-group pr-2">
+                <label class="form-label" for="college">College <sup class="text-danger">*</sup></label>
+                <div class="input-group input-group-merge">
+                  <input
+                    id="college"
+                    formControlName="college"
+                    class="form-control form-control-prepended"
+                    placeholder="Your College"
+                  />
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">
+                      <span class="fas fa-school w10"></span>
+                    </div>
+                  </div>
+                </div>
+                <small
+                  [hidden]="userDetailsForm.controls.college.valid || userDetailsForm.controls.college.untouched"
+                  class="text-danger"
+                  translate
+                >
+                  College is required
+                </small>
+              </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+              <div class="form-group pr-2">
+                <label class="form-label" for="university">University <sup class="text-danger">*</sup></label>
+                <div class="input-group input-group-merge">
+                  <input
+                    id="university"
+                    formControlName="university"
+                    class="form-control form-control-prepended"
+                    placeholder="Your University"
+                  />
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">
+                      <span class="fas fa-university w10"></span>
+                    </div>
+                  </div>
+                </div>
+                <small
+                  [hidden]="userDetailsForm.controls.university.valid || userDetailsForm.controls.university.untouched"
+                  class="text-danger"
+                  translate
+                >
+                  University is required
+                </small>
+              </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+              <div class="form-group pr-2">
+                <label class="form-label" for="major">Major <sup class="text-danger">*</sup></label>
+                <div class="input-group input-group-merge">
+                  <input
+                    id="major"
+                    formControlName="major"
+                    class="form-control form-control-prepended"
+                    placeholder="Your Major"
+                  />
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">
+                      <span class="fas fa-user-graduate w10"></span>
+                    </div>
+                  </div>
+                </div>
+                <small
+                  [hidden]="userDetailsForm.controls.major.valid || userDetailsForm.controls.major.untouched"
+                  class="text-danger"
+                  translate
+                >
+                  Major is required
+                </small>
+              </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+              <div class="form-group pr-2">
+                <label class="form-label" for="major">Minor</label>
+                <div class="input-group input-group-merge">
+                  <input
+                    id="major"
+                    formControlName="minor"
+                    class="form-control form-control-prepended"
+                    placeholder="Your Minor"
+                  />
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">
+                      <span class="fas fa-user-graduate w10"></span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-            <small
-              [hidden]="
-                userDetailsForm.controls.highestDegree.valid || userDetailsForm.controls.highestDegree.untouched
-              "
-              class="text-danger"
-              translate
-            >
-              Highest Degree is required
-            </small>
+            <div class="col-md-6 col-sm-12">
+              <div class="form-group pr-2">
+                <label class="form-label" for="experience">Experience</label>
+                <div class="input-group input-group-merge">
+                  <input
+                    id="experience"
+                    formControlName="experience"
+                    class="form-control form-control-prepended"
+                    placeholder="Your Experience"
+                  />
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">
+                      <span class="fas fa-briefcase"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+              <div class="form-group pr-2">
+                <label class="form-label" for="organization">Organization</label>
+                <div class="input-group input-group-merge">
+                  <input
+                    id="organization"
+                    formControlName="organization"
+                    class="form-control form-control-prepended"
+                    placeholder="Your Organization"
+                  />
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">
+                      <span class="far fa-building"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+              <div class="form-group pr-2">
+                <label class="form-label" for="currentRole">Current Role</label>
+                <div class="input-group input-group-merge">
+                  <input
+                    id="currentRole"
+                    formControlName="currentRole"
+                    class="form-control form-control-prepended"
+                    placeholder="Your Current Role"
+                  />
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">
+                      <span class="fas fa-user-tie"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="form-group">
-            <label class="form-label" for="college">College <sup class="text-danger">*</sup></label>
-            <div class="input-group input-group-merge">
-              <input
-                id="college"
-                formControlName="college"
-                class="form-control form-control-prepended"
-                placeholder="Your College"
-              />
-              <div class="input-group-prepend">
-                <div class="input-group-text">
-                  <span class="fas fa-school w10"></span>
-                </div>
-              </div>
-            </div>
-            <small
-              [hidden]="userDetailsForm.controls.college.valid || userDetailsForm.controls.college.untouched"
-              class="text-danger"
-              translate
-            >
-              College is required
-            </small>
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="university">University <sup class="text-danger">*</sup></label>
-            <div class="input-group input-group-merge">
-              <input
-                id="university"
-                formControlName="university"
-                class="form-control form-control-prepended"
-                placeholder="Your University"
-              />
-              <div class="input-group-prepend">
-                <div class="input-group-text">
-                  <span class="fas fa-university w10"></span>
-                </div>
-              </div>
-            </div>
-            <small
-              [hidden]="userDetailsForm.controls.university.valid || userDetailsForm.controls.university.untouched"
-              class="text-danger"
-              translate
-            >
-              University is required
-            </small>
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="major">Major <sup class="text-danger">*</sup></label>
-            <div class="input-group input-group-merge">
-              <input
-                id="major"
-                formControlName="major"
-                class="form-control form-control-prepended"
-                placeholder="Your Major"
-              />
-              <div class="input-group-prepend">
-                <div class="input-group-text">
-                  <span class="fas fa-user-graduate w10"></span>
-                </div>
-              </div>
-            </div>
-            <small
-              [hidden]="userDetailsForm.controls.major.valid || userDetailsForm.controls.major.untouched"
-              class="text-danger"
-              translate
-            >
-              Major is required
-            </small>
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="major">Minor</label>
-            <div class="input-group input-group-merge">
-              <input
-                id="major"
-                formControlName="minor"
-                class="form-control form-control-prepended"
-                placeholder="Your Minor"
-              />
-              <div class="input-group-prepend">
-                <div class="input-group-text">
-                  <span class="fas fa-user-graduate w10"></span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- <div class="form-group">
-            <label class="form-label" for="certificate">Certificate</label>
-            <div class="input-group input-group-merge">
-              <input
-                id="certificate"
-                formControlName="certificate"
-                class="form-control form-control-prepended"
-                placeholder="Your Certificate"
-              />
-              <div class="input-group-prepend">
-                <div class="input-group-text">
-                  <span class="fas fa-award w10"></span>
-                </div>
-              </div>
-            </div>
-          </div> -->
         </div>
         <div class="text-center">
           <button mat-flat-button color="default" matStepperPrevious class="rounded-pill ml-2 bg-theme">
@@ -1306,139 +1359,88 @@
         </div>
       </mat-step>
       <mat-step>
-        <div class="pt-3 pl-2 pr-2 pb-2 min-vertical-h-50 max-vertical-h-50 stylishScroll flow-auto">
-          <div class="form-group">
-            <label class="form-label" for="experience">Experience</label>
-            <div class="input-group input-group-merge">
-              <input
-                id="experience"
-                formControlName="experience"
-                class="form-control form-control-prepended"
-                placeholder="Your Experience"
-              />
-              <div class="input-group-prepend">
-                <div class="input-group-text">
-                  <span class="fas fa-briefcase"></span>
+        <ng-template matStepLabel>Career Details</ng-template>
+        <div class="pt-3 pl-2 pr-2 pb-2 max-vertical-h-50 stylishSlimScroll flow-auto">
+          <div class="row no-gutters">
+            <div class="col-md-6 col-sm-12">
+              <div class="form-group pr-2">
+                <label class="form-label" for="areaOfPreference">Area Of Preference <sup class="text-danger">*</sup></label>
+                <div class="input-group input-group-merge">
+                  <input
+                    id="areaOfPreference"
+                    formControlName="areaOfPreference"
+                    class="form-control form-control-prepended"
+                    placeholder="Your Area of Preference"
+                  />
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">
+                      <span class="fas fa-chalkboard-teacher"></span>
+                    </div>
+                  </div>
                 </div>
+                <small
+                  [hidden]="
+                    userDetailsForm.controls.areaOfPreference.valid || userDetailsForm.controls.areaOfPreference.untouched
+                  "
+                  class="text-danger"
+                  translate
+                >
+                  Area Of Preference is required
+                </small>
               </div>
             </div>
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="organization">Organization</label>
-            <div class="input-group input-group-merge">
-              <input
-                id="organization"
-                formControlName="organization"
-                class="form-control form-control-prepended"
-                placeholder="Your Organization"
-              />
-              <div class="input-group-prepend">
-                <div class="input-group-text">
-                  <span class="far fa-building"></span>
+            <div class="col-md-6 col-sm-12">
+              <div class="form-group pr-2">
+                <label class="form-label" for="preferredRole">Preferred Role <sup class="text-danger">*</sup></label>
+                <div class="input-group input-group-merge">
+                  <input
+                    id="preferredRole"
+                    formControlName="preferredRole"
+                    class="form-control form-control-prepended"
+                    placeholder="Your Preferred Role"
+                  />
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">
+                      <span class="fas fa-user-tie"></span>
+                    </div>
+                  </div>
                 </div>
+                <small
+                  [hidden]="
+                    userDetailsForm.controls.preferredRole.valid || userDetailsForm.controls.preferredRole.untouched
+                  "
+                  class="text-danger"
+                  translate
+                >
+                  Preferred Role is required
+                </small>
               </div>
             </div>
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="currentRole">Current Role</label>
-            <div class="input-group input-group-merge">
-              <input
-                id="currentRole"
-                formControlName="currentRole"
-                class="form-control form-control-prepended"
-                placeholder="Your Current Role"
-              />
-              <div class="input-group-prepend">
-                <div class="input-group-text">
-                  <span class="fas fa-user-tie"></span>
+            <div class="col-md-6 col-sm-12">
+              <div class="form-group pr-2">
+                <label class="form-label" for="careerGoals">Career Goal <sup class="text-danger">*</sup></label>
+                <div class="input-group input-group-merge">
+                  <input
+                    id="careerGoals"
+                    formControlName="careerGoals"
+                    class="form-control form-control-prepended"
+                    placeholder="Your Career Goal"
+                  />
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">
+                      <span class="fas fa-bullseye"></span>
+                    </div>
+                  </div>
                 </div>
+                <small
+                  [hidden]="userDetailsForm.controls.careerGoals.valid || userDetailsForm.controls.careerGoals.untouched"
+                  class="text-danger"
+                  translate
+                >
+                  Career Goal is required
+                </small>
               </div>
             </div>
-          </div>
-        </div>
-        <div class="text-center">
-          <button mat-flat-button color="default" matStepperPrevious class="rounded-pill ml-2 bg-theme">
-            Back
-          </button>
-          <button mat-flat-button color="primary" matStepperNext class="rounded-pill ml-2">
-            Next
-          </button>
-        </div>
-      </mat-step>
-      <mat-step>
-        <div class="pt-3 pl-2 pr-2 pb-2 min-vertical-h-50 max-vertical-h-50 stylishScroll flow-auto">
-          <div class="form-group">
-            <label class="form-label" for="areaOfPreference">Area Of Preference <sup class="text-danger">*</sup></label>
-            <div class="input-group input-group-merge">
-              <input
-                id="areaOfPreference"
-                formControlName="areaOfPreference"
-                class="form-control form-control-prepended"
-                placeholder="Your Area of Preference"
-              />
-              <div class="input-group-prepend">
-                <div class="input-group-text">
-                  <span class="fas fa-chalkboard-teacher"></span>
-                </div>
-              </div>
-            </div>
-            <small
-              [hidden]="
-                userDetailsForm.controls.areaOfPreference.valid || userDetailsForm.controls.areaOfPreference.untouched
-              "
-              class="text-danger"
-              translate
-            >
-              Area Of Preference is required
-            </small>
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="preferredRole">Preferred Role <sup class="text-danger">*</sup></label>
-            <div class="input-group input-group-merge">
-              <input
-                id="preferredRole"
-                formControlName="preferredRole"
-                class="form-control form-control-prepended"
-                placeholder="Your Preferred Role"
-              />
-              <div class="input-group-prepend">
-                <div class="input-group-text">
-                  <span class="fas fa-user-tie"></span>
-                </div>
-              </div>
-            </div>
-            <small
-              [hidden]="
-                userDetailsForm.controls.preferredRole.valid || userDetailsForm.controls.preferredRole.untouched
-              "
-              class="text-danger"
-              translate
-            >
-              Preferred Role is required
-            </small>
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="careerGoals">Career Goal <sup class="text-danger">*</sup></label>
-            <div class="input-group input-group-merge">
-              <input
-                id="careerGoals"
-                formControlName="careerGoals"
-                class="form-control form-control-prepended"
-                placeholder="Your Career Goal"
-              />
-              <div class="input-group-prepend">
-                <div class="input-group-text">
-                  <span class="fas fa-bullseye"></span>
-                </div>
-              </div>
-            </div>
-            <small
-              [hidden]="userDetailsForm.controls.careerGoals.valid || userDetailsForm.controls.careerGoals.untouched"
-              class="text-danger"
-              translate
-            >
-              Career Goal is required
-            </small>
           </div>
           <div class="form-group text-center">
             <div class="custom-control custom-checkbox mb-2 pt-2">
@@ -1461,19 +1463,19 @@
             Back
           </button>
           <button
-              mat-flat-button
-              color="primary"
-              (click)="onSubmit()"
-              [disabled]="userDetailsForm.invalid"
-              class="rounded-pill ml-2 w30"
-            >
-              Sign Up
+            mat-flat-button
+            color="primary"
+            (click)="onSubmit()"
+            [disabled]="userDetailsForm.invalid"
+            class="rounded-pill ml-2 w30"
+          >
+            Sign Up
           </button>
         </div>
       </mat-step>
     </form>
   </mat-horizontal-stepper>
-</ng-template>  
+</ng-template>
 
 <div class="signup-modal">
   <div id="myModal" class="modal" [ngClass]="{ 'd-block': doc != '' }">
@@ -1483,4 +1485,3 @@
     </div>
   </div>
 </div>
-
