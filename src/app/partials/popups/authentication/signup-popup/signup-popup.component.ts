@@ -49,7 +49,7 @@ export class SignupPopupComponent implements OnInit {
         this.userDetailsForm = this.formBuilder.group({
           firstName: ['', [Validators.required]],
           lastName: ['', [Validators.required]],
-          email: ['', [Validators.required, Validators.email]],
+          email: [this.popupData.email != undefined ? this.popupData.email : '', [Validators.required, Validators.email]],
           password: ['', [Validators.required]],
           confirmPassword: ['', [Validators.required]],
           termsCond: [true, [Validators.required]],

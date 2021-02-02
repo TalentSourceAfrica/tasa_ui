@@ -22,6 +22,7 @@ export class ProfileComponent implements OnInit {
     isConnected: false,
   };
   isCurrentUser: boolean = true;
+  mom: any;
 
   constructor(
     public credentialsService: CredentialsService,
@@ -32,11 +33,16 @@ export class ProfileComponent implements OnInit {
     private socialnetworkService: SocialnetworkService
   ) {
     this.sharedService.utilityService.changeMessage('FETCH-USER-PROFILE');
+    this.mom = this.sharedService.plugins.mom;
   }
 
   get user(): any | null {
     const credentials = this.credentialsService.credentials;
     return credentials ? credentials : null;
+  }
+
+  getDate(_dateToFormat: any) {
+    return this.mom(_dateToFormat).format('YYYY-MM-DD');
   }
 
   fetchUser() {
