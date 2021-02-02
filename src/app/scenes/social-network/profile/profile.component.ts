@@ -66,10 +66,12 @@ export class ProfileComponent implements OnInit {
     this.userConfig.isConnected = false;
     this.socialnetworkService.getAllConnections().subscribe(
       (response: any) => {
-        if (response.connections.filter((d: any) => d.tasaId === this.userConfig.tasaId).length) {
-          this.userConfig.isConnected = true;
-        } else {
-          this.userConfig.isConnected = false;
+        if (response && response.connections) {
+          if (response.connections.filter((d: any) => d.tasaId === this.userConfig.tasaId).length) {
+            this.userConfig.isConnected = true;
+          } else {
+            this.userConfig.isConnected = false;
+          }
         }
         this.userConfig.fetchingUser = false;
       },
@@ -110,7 +112,6 @@ export class ProfileComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
-    this.conectionDrawer.open();
     this.cdr.detectChanges();
   }
 

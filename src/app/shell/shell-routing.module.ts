@@ -105,7 +105,7 @@ const routes: Routes = [
           ),
       },
       {
-        path: 'user/saved-course',
+        path: 'user/saved-jobs',
         canActivate: [AuthenticationGuard],
         loadChildren: () =>
           import('@app/scenes/user-saved-jobs/user-saved-jobs.module').then((m) => m.UserSavedJobsModule),

@@ -16,72 +16,80 @@
         </div> -->
     </mat-drawer>
     <mat-drawer-content>
-      <div class="container">
-        <ol class="breadcrumb mt-3">
-          <li class="breadcrumb-item curPoint"><a [routerLink]="['/home']">Home</a></li>
-          <li class="breadcrumb-item active"><a>All Favorite Courses</a></li>
-        </ol>
-        <div class="sec-title">
-          <div class="title">My Favorite Courses</div>
+      <div class="row no-gutters">
+        <div class="col-md-3 col-sm-12 bg-white">
+          <app-left-side></app-left-side>
         </div>
-        <section class="All-course-page-section min-vertical-h-100">
-          <div class="row no-gutters">
-            <ng-container *ngIf="allCourse.length">
-              <div class="row w100 max-vertical-h-80 stylishSlimScroll flow-y-auto flow-x-hidden">
-                <div
-                  class="col-md-4 col-lg-4 col-sm-6 animated fadeIn"
-                  (click)="courseView(course)"
-                  *ngFor="let course of allCourse"
-                >
-                  <div class="card curPoint">
-                    <span class="flag-discount" *ngIf="course.discountPercentage > 0"
-                      >{{ course.discountPercentage }}% Off</span
-                    >
-                    <button
-                      mat-mini-fab
-                      color="primary"
-                      style="z-index: 9; right: 10px; color: orangered;"
-                      class="position-absolute mt-2"
-                      matTooltipPosition="below"
-                      matTooltip="Remove From Favorite"
-                      (click)="addToFavorite(false, course, $event)"
-                      *ngIf="user && user.type.toLowerCase() != 'admin'"
-                    >
-                      <mat-icon>favorite</mat-icon>
-                    </button>
-                    <div class="card-img">
-                      <img [src]="course.image_url" />
-                    </div>
-                    <div class="card-body pl-3 pr-3">
-                      <h5 class="card-title">
-                        {{ course.title }}
-                      </h5>
-                      <p class="card-intro">
-                        {{ course.subject }}
-                      </p>
-                      <!-- <div class="text-right">
-                        <span class="badge badge-info p-2" style="font-size: 12px;">{{
-                          (course?.entitlements)[0]?.price | currency: 'USD'
-                        }}</span>
-                      </div> -->
+        <div class="col-md-7 col-sm-12">
+          <ol class="breadcrumb mt-3">
+            <li class="breadcrumb-item curPoint"><a [routerLink]="['/home']">Home</a></li>
+            <li class="breadcrumb-item active"><a>All Favorite Courses</a></li>
+          </ol>
+          <div class="sec-title">
+            <div class="title">My Favorite Courses</div>
+          </div>
+          <section class="All-course-page-section min-vertical-h-100">
+            <div class="row no-gutters">
+              <ng-container *ngIf="allCourse.length">
+                <div class="row w100 max-vertical-h-80 stylishSlimScroll flow-y-auto flow-x-hidden">
+                  <div
+                    class="col-md-4 col-lg-4 col-sm-6 animated fadeIn"
+                    (click)="courseView(course)"
+                    *ngFor="let course of allCourse"
+                  >
+                    <div class="card curPoint">
+                      <span class="flag-discount" *ngIf="course.discountPercentage > 0"
+                        >{{ course.discountPercentage }}% Off</span
+                      >
+                      <button
+                        mat-mini-fab
+                        color="primary"
+                        style="z-index: 9; right: 10px; color: orangered;"
+                        class="position-absolute mt-2"
+                        matTooltipPosition="below"
+                        matTooltip="Remove From Favorite"
+                        (click)="addToFavorite(false, course, $event)"
+                        *ngIf="user && user.type.toLowerCase() != 'admin'"
+                      >
+                        <mat-icon>favorite</mat-icon>
+                      </button>
+                      <div class="card-img">
+                        <img [src]="course.image_url" />
+                      </div>
+                      <div class="card-body pl-3 pr-3">
+                        <h5 class="card-title">
+                          {{ course.title }}
+                        </h5>
+                        <p class="card-intro">
+                          {{ course.subject }}
+                        </p>
+                        <!-- <div class="text-right">
+                          <span class="badge badge-info p-2" style="font-size: 12px;">{{
+                            (course?.entitlements)[0]?.price | currency: 'USD'
+                          }}</span>
+                        </div> -->
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </ng-container>
-            <ng-container *ngIf="allCourse.length == 0">
-              <div class="text-center m-auto animated fadeIn">
-                <div class="col-12 text-center">
-                  <img src="../../../assets/images/no-record.gif" style="height: 300px;" class="d-block m-auto" />
-                  <h6 class="text-primary">You Haven't Favorite Any Courses Yet...!</h6>
-                  <button mat-flat-button color="primary" [routerLink]="['/all-course']" class="rounded-pill ml-2">
-                    Go To All Courses
-                  </button>
+              </ng-container>
+              <ng-container *ngIf="allCourse.length == 0">
+                <div class="text-center m-auto animated fadeIn">
+                  <div class="col-12 text-center">
+                    <img src="../../../assets/images/no-record.gif" style="height: 300px;" class="d-block m-auto" />
+                    <h6 class="text-primary">You Haven't Favorite Any Courses Yet...!</h6>
+                    <button mat-flat-button color="primary" [routerLink]="['/all-course']" class="rounded-pill ml-2">
+                      Go To All Courses
+                    </button>
+                  </div>
                 </div>
-              </div>
-            </ng-container>
-          </div>
-        </section>
+              </ng-container>
+            </div>
+          </section>
+        </div>
+        <div class="col-md-2 col-sm-12">
+          <app-right-side></app-right-side>
+        </div>
       </div>
     </mat-drawer-content>
   </mat-drawer-container>

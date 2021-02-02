@@ -1,6 +1,6 @@
-<div class="left-side-wrapper">
+<div class="left-side-wrapper bg-theme">
   <div class="row no-gutters">
-    <div class="col-12">
+    <div class="col-12" (mouseover)="clearIntervalForCard('recommended')" (mouseout)="setLogicForRecommendedCard()">
       <div class="card animated bounceInUp" *ngIf="recommendedSwitch.course">
         <div class="card-header d-flex align-items-center">
           <div class="h2 mb-0 mr-3 text-primary" *ngIf="recommendedCourses.data.length">
@@ -70,7 +70,7 @@
               <div class="d-flex">
                 <span>
                   <img
-                    class="user-pic img-responsive img-circle curPoint"
+                    class="circle-img img-responsive img-circle curPoint"
                     src="../../../assets/images/TSA_logo_new.small.png"
                     alt="Job"
                   />
@@ -112,7 +112,7 @@
         </div>
       </div>
     </div>
-    <div class="col-12">
+    <div class="col-12" (mouseover)="clearIntervalForCard('userAction')" (mouseout)="setLogicForUserActionsCard()">
       <div class="card animated bounceInUp" *ngIf="userActionSwitch.appliedJobs">
         <div class="card-header d-flex align-items-center">
           <div class="h2 mb-0 mr-3 text-primary" *ngIf="jobApplications.length">{{ jobApplications.length }}</div>
@@ -131,7 +131,7 @@
               <div class="d-flex">
                 <span>
                   <img
-                    class="user-pic img-responsive img-circle curPoint"
+                    class="circle-img img-responsive img-circle curPoint"
                     src="../../../assets/images/TSA_logo_new.small.png"
                     alt="Job"
                   />
@@ -197,7 +197,7 @@
           </div>
         </div>
         <div class="card-body p-2 min-vertical-h-30 max-vertical-h-30 stylishSlimScroll flow-y-auto flow-x-hidden">
-          <div  class="row pr-1 no-gutters">
+          <div class="row pr-1 no-gutters">
             <div
               class="col-12 border mb-1 curPoint courseList"
               *ngFor="let course of allFavCourse"
@@ -243,7 +243,7 @@
           </div>
         </div>
         <div class="card-body p-2 min-vertical-h-30 max-vertical-h-30 stylishSlimScroll flow-y-auto flow-x-hidden">
-          <div  class="row pr-1 no-gutters">
+          <div class="row pr-1 no-gutters">
             <div
               class="col-12 border mb-1 curPoint courseList"
               *ngFor="let course of recentlyViewedCourse"

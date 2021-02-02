@@ -14,6 +14,7 @@ import { SocialConnectionsModule } from '@app/partials/social-network/social-con
 import { NgxDocViewerModule } from 'ngx-doc-viewer';
 import { SocialnetworkService } from '../socialnetwork.service';
 import { LeftSideModule } from '@app/partials/left-side/left-side.module';
+import { RightSideModule } from '@app/partials/right-side/right-side.module';
 
 @NgModule({
   imports: [
@@ -30,6 +31,7 @@ import { LeftSideModule } from '@app/partials/left-side/left-side.module';
     SocialConnectionsModule,
     NgxDocViewerModule,
     LeftSideModule,
+    RightSideModule,
   ],
   declarations: [ProfileComponent],
   providers: [SocialnetworkService],

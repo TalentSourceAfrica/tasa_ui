@@ -13,10 +13,12 @@ export class LeftSideComponent implements OnInit {
   allFavCourse: any = [];
   recentlyViewedCourse: any = [];
   savedJobs: any = [];
+  recommendedSwitchInterval: any;
   recommendedSwitch: any = {
     course: true,
     jobs: false,
   };
+  userActionSwitchInterval: any;
   userActionSwitch: any = {
     appliedJobs: true,
     favoriteCourse: false,
@@ -44,7 +46,7 @@ export class LeftSideComponent implements OnInit {
   }
 
   setLogicForRecommendedCard() {
-    setInterval(() => {
+    this.recommendedSwitchInterval = setInterval(() => {
       for (const property in this.recommendedSwitch) {
         this.recommendedSwitch[property] = !this.recommendedSwitch[property];
       }
@@ -52,7 +54,7 @@ export class LeftSideComponent implements OnInit {
   }
 
   setLogicForUserActionsCard() {
-    setInterval(() => {
+    this.userActionSwitchInterval = setInterval(() => {
       for (const property in this.userActionSwitch) {
         this.userActionSwitch[property] = !this.userActionSwitch[property];
         if (this.userActionSwitch[property]) {
@@ -60,6 +62,17 @@ export class LeftSideComponent implements OnInit {
         }
       }
     }, 10000);
+  }
+
+  clearIntervalForCard(_type: string) {
+    switch (_type) {
+      case 'recommended':
+        this.recommendedSwitchInterval ? clearInterval(this.recommendedSwitchInterval) : null;
+        break;
+      case 'userAction':
+        this.userActionSwitchInterval ? clearInterval(this.recommendedSwitchInterval) : null;
+        break;
+    }
   }
 
   getRecommendedCourses() {

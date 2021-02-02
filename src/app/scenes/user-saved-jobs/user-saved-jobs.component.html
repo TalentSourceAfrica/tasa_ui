@@ -2,10 +2,10 @@
   <div>
     <section class="All-course-page-section min-vertical-h-100">
       <div class="row no-gutters">
-        <div class="col-3 bg-white">
+        <div class="col-md-3 col-sm-12 bg-white">
           <app-left-side></app-left-side>
         </div>
-        <div class="col-7">
+        <div class="col-md-7 col-sm-12">
           <div class="w100">
             <ol class="breadcrumb mt-3">
               <li class="breadcrumb-item curPoint"><a [routerLink]="['/home']">Home</a></li>
@@ -59,6 +59,9 @@
               </div>
             </ng-container>
           </div>
+        </div>
+        <div class="col-md-2 col-sm-12">
+          <app-right-side></app-right-side>
         </div>
       </div>
     </section>

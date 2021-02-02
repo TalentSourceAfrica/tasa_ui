@@ -21,7 +21,7 @@ import { MustMatch } from '@app/auth/must-match';
   encapsulation: ViewEncapsulation.None,
 })
 export class HomeComponent implements OnInit {
-  @ViewChild('stepper', {static: false}) stepper: any;
+  @ViewChild('stepper', { static: false }) stepper: any;
   isLoading = false;
   userDetailsForm: FormGroup;
   userDetails: any;
@@ -33,9 +33,49 @@ export class HomeComponent implements OnInit {
   courses: Array<object> = [];
   panelOpenState = false;
   menuHidden = true;
+
   /**
    * signup variable
    */
+  signupImages: any = [
+    {
+      id: 1,
+      url: 'https://static.pexels.com/photos/317383/pexels-photo-317383.jpeg',
+      text:
+        'You are talented ambitious and driven but often feel undervalued, unwelcome, invisible or shuttered from the opportunities you desire ',
+    },
+    {
+      id: 2,
+      url: 'https://static.pexels.com/photos/257897/pexels-photo-257897.jpeg',
+      text:
+        'We created TaSA as an oasis of belonging and visibility for people of Black/African, Latinx, Indigenous, and Southeast Asian descent',
+    },
+    {
+      id: 3,
+      url: 'https://static.pexels.com/photos/33972/pexels-photo.jpg',
+      text:
+        'We created TaSA as an oasis of belonging and visibility for people of Black/African, Latinx, Indigenous, and Southeast Asian descent',
+    },
+  ];
+  signupOwlOptions: OwlOptions = {
+    loop: true,
+    autoplay:true,
+    center: true,
+    dots: false,
+    autoHeight: true,
+    autoWidth: true,
+    responsive: {
+      0: {
+        items: 1,
+      },
+      600: {
+        items: 1,
+      },
+      1000: {
+        items: 1,
+      },
+    },
+  };
   signupForm: FormGroup;
   doc = '';
   organisationList: any = [];
@@ -64,123 +104,126 @@ export class HomeComponent implements OnInit {
   }
 
   initForm() {
-    this.userDetailsForm = this.formBuilder.group({
-      firstName: ['', [Validators.required]],
-      lastName: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required]],
-      confirmPassword: ['', [Validators.required]],
-      termsCond: [true, [Validators.required]],
-      country: ['', [Validators.required]],
-      state: ['', [Validators.required]],
-      city: ['', [Validators.required]],
-      postalCode: ['', [Validators.required]],
-      degreeFromDate: [null],
-      degreeToDate: [null],
-      highestDegree: ['', [Validators.required]],
-      college: ['', [Validators.required]],
-      university: ['', [Validators.required]],
-      major: ['', [Validators.required]],
-      minor: [''],
-      description: [''],
-      // certificate: [''],
-      experience: [''],
-      experienceFrom: [null],
-      experienceTo: [null],
-      organization: [''],
-      currentRole: [''],
-      // project: [''],
-      areaOfPreference: ['', [Validators.required]],
-      preferredRole: ['', [Validators.required]],
-      careerGoals: ['', [Validators.required]],
-      linkedin: [''],
-      twitter: ['']
-    }, {
-      validator: MustMatch('password', 'confirmPassword')
-    });
+    this.userDetailsForm = this.formBuilder.group(
+      {
+        firstName: ['', [Validators.required]],
+        lastName: ['', [Validators.required]],
+        email: ['', [Validators.required, Validators.email]],
+        password: ['', [Validators.required]],
+        confirmPassword: ['', [Validators.required]],
+        termsCond: [true, [Validators.required]],
+        country: ['', [Validators.required]],
+        state: ['', [Validators.required]],
+        city: ['', [Validators.required]],
+        postalCode: ['', [Validators.required]],
+        degreeFromDate: [null],
+        degreeToDate: [null],
+        highestDegree: ['', [Validators.required]],
+        college: ['', [Validators.required]],
+        university: ['', [Validators.required]],
+        major: ['', [Validators.required]],
+        minor: [''],
+        description: [''],
+        // certificate: [''],
+        experience: [''],
+        experienceFrom: [null],
+        experienceTo: [null],
+        organization: [''],
+        currentRole: [''],
+        // project: [''],
+        areaOfPreference: ['', [Validators.required]],
+        preferredRole: ['', [Validators.required]],
+        careerGoals: ['', [Validators.required]],
+        linkedin: [''],
+        twitter: [''],
+      },
+      {
+        validator: MustMatch('password', 'confirmPassword'),
+      }
+    );
   }
 
   setNewUserObj(_payload: any) {
     this.newUserObj = {
-     tasaId:'',
-     type:_payload.type,
-     email: _payload.email,
-     emailVerified:'',
-     password: _payload.password,
-     username: _payload.username,
-     firstName: _payload.firstName,
-     lastName: _payload.lastName,
-     profileSummary:'',
-     orgId:'',
-     enrolledCourses:[],
-     favoriteCourses:[],
-     recentlyViewed:[],
-     savedJobs:[],
-     recentlyViewedJobs:[],
-     recommendedCourses:[],
-     wrongPasswordCount:0,
-     resetPassword:'',
-     active:'',
-     token:'',
-     tokenCreationDate: null,
-     gcpdocument:[],
-     middleName: '',
-     suffix: '',
-     bio:'',
-     dob: null,
-     address1: '',
-     address2: '',
-     country: _payload.country,
-     state: _payload.state,
-     city: _payload.city,
-     district: '',
-     postalCode: _payload.postalCode,
-     language: '',
-     identifier: '',
-     billingAddress1: '',
-     billingAddress2: '',
-     billingCity: '',
-     billingState: '',
-     billingPostalCode: '',
-     image: '',
-     education: _payload.education,
-     experience: _payload.experience,
-     certificate:[],
-     areaOfPreference: _payload.areaOfPreference,
-     preferredRole: _payload.preferredRole,
-     careerGoals: '',
-     teachingExperience: '',
-     univTaught: '',
-     collegeTaught: '',
-     specialization: '',
-     licenseNo: '',
-     organizationName: '',
-     location: '',
-     description: '',
-     about: '',
-     vision: '',
-     noOfEmployee: '',
-     industry: '',
-     media: '',
-     noOfOpenings: '',
-     natureOfOpening : '',
-     clients: '',
-     collaborator:'',
-     dateOfEstablishment: '',
-     contactNo: '',
-     contactEmail: '',
-     subscription: '',
-     website: '',
-     linkedIn: _payload.linkedin,
-     twitter: _payload.twitter,
-     team: '',
-     signedOn: null,
-     updatedOn: null,
-     createdBy:'',
-     updatedBy:'',
-     xml:'',
-     ein:''
-    }
+      tasaId: '',
+      type: _payload.type,
+      email: _payload.email,
+      emailVerified: '',
+      password: _payload.password,
+      username: _payload.username,
+      firstName: _payload.firstName,
+      lastName: _payload.lastName,
+      profileSummary: '',
+      orgId: '',
+      enrolledCourses: [],
+      favoriteCourses: [],
+      recentlyViewed: [],
+      savedJobs: [],
+      recentlyViewedJobs: [],
+      recommendedCourses: [],
+      wrongPasswordCount: 0,
+      resetPassword: '',
+      active: '',
+      token: '',
+      tokenCreationDate: null,
+      gcpdocument: [],
+      middleName: '',
+      suffix: '',
+      bio: '',
+      dob: null,
+      address1: '',
+      address2: '',
+      country: _payload.country,
+      state: _payload.state,
+      city: _payload.city,
+      district: '',
+      postalCode: _payload.postalCode,
+      language: '',
+      identifier: '',
+      billingAddress1: '',
+      billingAddress2: '',
+      billingCity: '',
+      billingState: '',
+      billingPostalCode: '',
+      image: '',
+      education: _payload.education,
+      experience: _payload.experience,
+      certificate: [],
+      areaOfPreference: _payload.areaOfPreference,
+      preferredRole: _payload.preferredRole,
+      careerGoals: '',
+      teachingExperience: '',
+      univTaught: '',
+      collegeTaught: '',
+      specialization: '',
+      licenseNo: '',
+      organizationName: '',
+      location: '',
+      description: '',
+      about: '',
+      vision: '',
+      noOfEmployee: '',
+      industry: '',
+      media: '',
+      noOfOpenings: '',
+      natureOfOpening: '',
+      clients: '',
+      collaborator: '',
+      dateOfEstablishment: '',
+      contactNo: '',
+      contactEmail: '',
+      subscription: '',
+      website: '',
+      linkedIn: _payload.linkedin,
+      twitter: _payload.twitter,
+      team: '',
+      signedOn: null,
+      updatedOn: null,
+      createdBy: '',
+      updatedBy: '',
+      xml: '',
+      ein: '',
+    };
   }
 
   onSubmit() {
@@ -188,26 +231,27 @@ export class HomeComponent implements OnInit {
     let apiUrl = $t.sharedService.urlService.simpleApiCall('signup');
     $t.sharedService.uiService.showApiStartPopMsg('Creating Account...');
     let payload = { ...JSON.parse(JSON.stringify($t.userDetailsForm.value)), type: $t.userType.dbValue };
-    payload['username'] = Math.floor(Math.random()*90000) + 10000;
-    let areaOfPreference: any = [], preferredRole: any = [];
+    payload['username'] = Math.floor(Math.random() * 90000) + 10000;
+    let areaOfPreference: any = [],
+      preferredRole: any = [];
     payload['experience'] = [];
-    payload.experience.push({ 
+    payload.experience.push({
       experience: '',
       currentRole: [],
       description: [],
       organization: JSON.parse(JSON.stringify(payload.organization)),
       experienceTo: JSON.parse(JSON.stringify(payload.experienceTo)),
-      experienceFrom: JSON.parse(JSON.stringify(payload.experienceFrom))
+      experienceFrom: JSON.parse(JSON.stringify(payload.experienceFrom)),
     });
     payload['education'] = [];
     payload.education.push({
-        highestDegree: JSON.parse(JSON.stringify(payload.highestDegree)),
-        college: [],
-        university: [],
-        major: JSON.parse(JSON.stringify(payload.major)),
-        minor: [],
-        degreeFromDate: JSON.parse(JSON.stringify(payload.degreeFromDate)),
-        degreeToDate: JSON.parse(JSON.stringify(payload.degreeToDate))
+      highestDegree: JSON.parse(JSON.stringify(payload.highestDegree)),
+      college: [],
+      university: [],
+      major: JSON.parse(JSON.stringify(payload.major)),
+      minor: [],
+      degreeFromDate: JSON.parse(JSON.stringify(payload.degreeFromDate)),
+      degreeToDate: JSON.parse(JSON.stringify(payload.degreeToDate)),
     });
     payload.postalCode = parseInt(payload.postalCode);
     areaOfPreference.push(JSON.parse(JSON.stringify(payload.areaOfPreference)));
@@ -219,7 +263,7 @@ export class HomeComponent implements OnInit {
     payload.education[0].college.push(JSON.parse(JSON.stringify(payload.college)));
     payload.education[0].university.push(JSON.parse(JSON.stringify(payload.university)));
     payload.education[0].minor.push(JSON.parse(JSON.stringify(payload.minor)));
-    delete payload['currentRole']; 
+    delete payload['currentRole'];
     delete payload['description'];
     delete payload['organization'];
     delete payload['experienceTo'];
@@ -478,7 +522,7 @@ export class HomeComponent implements OnInit {
 
   checkEmail() {
     let $t = this;
-    if(typeof $t.signupForm  === 'undefined'){
+    if (typeof $t.signupForm === 'undefined') {
       return;
     }
     let apiUrl = $t.sharedService.urlService.apiCallWithParams('checkEmail', {
@@ -493,7 +537,7 @@ export class HomeComponent implements OnInit {
     );
   }
 
-  createOrganization(){
+  createOrganization() {
     this.popupData.authenticationService.opneCreateOrganization();
   }
 

@@ -83,21 +83,6 @@ export class AllCourseComponent implements OnInit {
       (response: any) => {
         this.allCourse = response.responseObj;
         this.isLoading = false;
-        setTimeout(() => {
-          if (!this.sharedService.deviceDetectorService.isMobile()) {
-            this.filterDrawer.open();
-
-            // if (!this.sharedService.deviceDetectorService.isMobile()) {
-            //   jQuery(document).scroll(() => {
-            //     if (jQuery('.footer-wrapper').length) {
-            //       this.checkOffset();
-            //     } else {
-            //       jQuery('#filterContent').css('position', 'fixed');
-            //     }
-            //   });
-            // }
-          }
-        }, 500);
       },
       (error) => {
         console.log(error);

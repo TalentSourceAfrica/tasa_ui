@@ -68,9 +68,6 @@ export class AllJobListingsComponent implements OnInit {
 
   applyFilter(_pageIndex?: number) {
     let $t = this;
-    if ($t.sharedService.deviceDetectorService.isMobile()) {
-      $t.filterDrawer.toggle();
-    }
     $t.isLoading = true;
     let apiUrl = $t.sharedService.urlService.apiCallWithParams('searchJobs', {
       '{page}': _pageIndex || 1,
@@ -205,9 +202,6 @@ export class AllJobListingsComponent implements OnInit {
         });
         this.length = response.responseObj.length;
         this.isLoading = false;
-        if (!this.sharedService.deviceDetectorService.isMobile()) {
-          this.filterDrawer.open();
-        }
       },
       (error) => {
         console.log(error);

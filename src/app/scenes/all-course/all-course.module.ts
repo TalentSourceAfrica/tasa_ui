@@ -12,6 +12,8 @@ import { AllCourseRoutingModule } from './all-course-routing.module';
 import { AllCourseComponent } from './all-course.component';
 import { EditCoursePopupComponent } from '@app/partials/popups/course/edit-course-popup/edit-course-popup.component';
 import { LeftSideModule } from '@app/partials/left-side/left-side.module';
+import { RightSideModule } from '@app/partials/right-side/right-side.module';
+
 
 @NgModule({
   imports: [
@@ -25,6 +27,7 @@ import { LeftSideModule } from '@app/partials/left-side/left-side.module';
     RouterModule,
     AllCourseRoutingModule,
     LeftSideModule,
+    RightSideModule
   ],
   declarations: [AllCourseComponent, EditCoursePopupComponent],
   entryComponents: [EditCoursePopupComponent],

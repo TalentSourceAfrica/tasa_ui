@@ -323,8 +323,28 @@ $light-blue: #523f6d80;
     }
   }
 }
-.notifications-message{
+.notifications-message {
   right: 60px;
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.user + .user {
+  margin-top: 18px;
+}
+
+.user-img {
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  margin-right: 15px;
+  object-fit: cover;
+  object-position: center;
+  border: 2px solid #ddd;
 }
 
 //----------------------------header section ----------------------------------//

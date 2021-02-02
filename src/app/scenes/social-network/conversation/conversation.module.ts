@@ -12,6 +12,7 @@ import { ConversationRoutingModule } from './conversation-routing.module';
 import { ConversationComponent } from './conversation.component';
 import { NameFilterPipe } from '@app/pipes/name-filter.pipe';
 import { LeftSideModule } from '@app/partials/left-side/left-side.module';
+import { RightSideModule } from '@app/partials/right-side/right-side.module';
 
 @NgModule({
   imports: [
@@ -27,6 +28,7 @@ import { LeftSideModule } from '@app/partials/left-side/left-side.module';
     ConversationRoutingModule,
     NgxEmojiPickerModule,
     LeftSideModule,
+    RightSideModule,
   ],
   declarations: [ConversationComponent, NameFilterPipe],
   entryComponents: [],

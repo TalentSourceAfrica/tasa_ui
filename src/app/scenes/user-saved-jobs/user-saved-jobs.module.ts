@@ -11,6 +11,7 @@ import { RouterModule } from '@angular/router';
 import { UserSavedJobsComponent } from './user-saved-jobs.component';
 import { UserSavedJobsRoutingModule } from './user-saved-jobs-routing.module';
 import { LeftSideModule } from '@app/partials/left-side/left-side.module';
+import { RightSideModule } from '@app/partials/right-side/right-side.module';
 
 @NgModule({
   imports: [
@@ -24,6 +25,7 @@ import { LeftSideModule } from '@app/partials/left-side/left-side.module';
     RouterModule,
     UserSavedJobsRoutingModule,
     LeftSideModule,
+    RightSideModule,
   ],
   declarations: [UserSavedJobsComponent],
   entryComponents: [],

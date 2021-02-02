@@ -53,14 +53,14 @@
                   color="primary"
                   style="z-index: 9;"
                   class="mr-1"
-                  (click)="filterDrawer.open()"
+                  (click)="filterDrawer.toggle()"
                   matTooltipPosition="below"
-                  matTooltip="Show Filter"
+                  matTooltip="Show/Hide Filter"
                   *ngIf="!isLoading"
                 >
                   <mat-icon>filter_list</mat-icon>
                 </button>
-  
+
                 <button
                   mat-mini-fab
                   color="primary"
@@ -73,7 +73,7 @@
                 >
                   <mat-icon>clear</mat-icon>
                 </button>
-  
+
                 <button
                   mat-mini-fab
                   color="primary"
@@ -108,7 +108,7 @@
                   <mat-icon>edit</mat-icon>
                 </button>
               </div>
-  
+
               <mat-paginator
                 class="col-12"
                 [length]="length"
@@ -192,7 +192,7 @@
                 <div class="text-center m-auto animated fadeIn">
                   <div class="col-12 min-vertical-h-90 max-vertical-h-90 flow-hidden text-center">
                     <img src="../../../assets/images/NoRecordFound.png" class="img-fluid d-block mx-auto w100 mt-5" />
-  
+
                     <button mat-flat-button color="primary" (click)="removeFilter()" class="rounded-pill ml-2">
                       Remove All Filters
                     </button>
@@ -201,6 +201,9 @@
               </ng-container>
             </div>
           </section>
+        </div>
+        <div class="col-md-2 col-sm-12">
+          <app-right-side></app-right-side>
         </div>
       </div>
     </mat-drawer-content>

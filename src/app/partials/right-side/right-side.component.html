@@ -1,0 +1,67 @@
+<div class="right-side-wrapper">
+  <div class="row no-gutters">
+    <div class="col-12">
+      <div class="card">
+        <img src="./assets/images/google-adsense.jpeg" alt="Google Adsense" />
+      </div>
+    </div>
+    <div class="col-12">
+      <div class="card animated bounceInUp">
+        <div class="card-header d-flex align-items-center">
+          <div class="h2 mb-0 mr-3 text-primary" *ngIf="newsConfig.data.length">
+            {{ newsConfig.data.length }}
+          </div>
+          <div class="flex">
+            <h4 class="card-title mt-3">News</h4>
+            <!-- <p class="card-subtitle">Best score</p> -->
+          </div>
+        </div>
+        <div class="card-body p-2 min-vertical-h-30 max-vertical-h-30 stylishSlimScroll flow-y-auto flow-x-hidden">
+          <div *ngIf="newsConfig.data.length && !newsConfig.isFetching" class="row pr-1 no-gutters">
+            <div class="col-12 border mb-1 curPoint courseList" *ngFor="let news of newsConfig.data">
+              <div class="row no-gutters">
+                <div class="col-4">
+                  <a *ngIf="news.image != '' && news.image != 'string'"><img [src]="news.image" alt="News" /></a>
+                  <a *ngIf="news.image == '' || news.image == 'string'"
+                    ><img src="./assets/images/blog/blog-3.jpg" alt="News"
+                  /></a>
+                </div>
+                <div class="col-8 p-2">
+                  <h6 class="card-title text-truncate" [title]="news.title">
+                    <a [href]="news.externalLink" target="_blank">{{ news.description }}</a>
+                  </h6>
+                  <p class="card-intro">
+                    {{ news.createdOn | date: 'MM/dd/yyyy' }}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="newsConfig.data.length == 0 && !newsConfig.isFetching">
+            <div class="text-center m-auto animated fadeIn">
+              <div class="col-12 text-center">
+                <img src="../../../assets/images/no-record.gif" style="height: 200px;" class="d-block m-auto" />
+                <h6 class="text-primary">No News Yet...!</h6>
+              </div>
+            </div>
+          </div>
+          <ng-template *ngIf="newsConfig.isFetching" [ngTemplateOutlet]="loader"></ng-template>
+        </div>
+      </div>
+    </div>
+    <div class="col-12">
+        <div class="card">
+          <img src="./assets/images/google-adsense-2.jpg" alt="Google Adsense" />
+        </div>
+      </div>
+  </div>
+</div>
+
+<ng-template #loader>
+  <div class="col-12 animated fadeIn" *ngFor="let item of [1, 2, 3]">
+    <div class="card ml-0 mr-0" style="height: 50px !important;">
+      <div class="card-img skeleton"></div>
+    </div>
+  </div>
+</ng-template>
+

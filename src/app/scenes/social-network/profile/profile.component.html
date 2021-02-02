@@ -66,11 +66,15 @@
                                       >{{ userConfig.user.firstName }} {{ userConfig.user.lastName }}</strong
                                     >
                                   </h1>
-                                  <span *ngIf="userConfig.isConnected" class="alert alert-success d-flex align-items-center mt-2" role="alert">
+                                  <span
+                                    *ngIf="userConfig.isConnected"
+                                    class="alert alert-success d-flex align-items-center mt-2"
+                                    role="alert"
+                                  >
                                     <span class="material-icons pr-2"> check_circle </span>Connected
                                   </span>
                                 </div>
-    
+
                                 <h3 class="text-white mt-0">
                                   <span class="text-primary">
                                     {{ userConfig.user.currentRole }} At {{ userConfig.user.organization }}
@@ -146,7 +150,8 @@
                               }}<span class="font-weight-light"></span>
                             </h3>
                             <div class="h5 font-weight-300">
-                              <i class="ni location_pin mr-2"></i>{{ userConfig.user.city }} , {{ userConfig.user.country }}
+                              <i class="ni location_pin mr-2"></i>{{ userConfig.user.city }} ,
+                              {{ userConfig.user.country }}
                             </div>
                             <div class="h5 mt-4">
                               <i class="ni business_briefcase-24 mr-2"></i>Solution Manager - Creative Tim Officer
@@ -329,7 +334,7 @@
                   </div>
                 </div>
               </div>
-    
+
               <ng-container *ngIf="userConfig.fetchingUser">
                 <div class="col-12 animated fadeIn" *ngFor="let item of [1]">
                   <div class="card ml-0 mr-0" style="height: 300px !important;">
@@ -344,8 +349,10 @@
               </ng-container>
             </div>
           </div>
+          <div class="col-md-2 col-sm-12">
+            <app-right-side></app-right-side>
+          </div>
         </div>
-
       </section>
     </mat-drawer-content>
   </mat-drawer-container>

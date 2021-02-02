@@ -10,6 +10,8 @@ import { RouterModule } from '@angular/router';
 import { NetworkComponent } from './network.component';
 import { NetworkRoutingModule } from './network-routing.module';
 import { LeftSideModule } from '@app/partials/left-side/left-side.module';
+import { RightSideModule } from '@app/partials/right-side/right-side.module';
+
 
 @NgModule({
   imports: [
@@ -24,6 +26,7 @@ import { LeftSideModule } from '@app/partials/left-side/left-side.module';
     ReactiveFormsModule,
     NetworkRoutingModule,
     LeftSideModule,
+    RightSideModule
   ],
   declarations: [NetworkComponent],
   schemas: [NO_ERRORS_SCHEMA],

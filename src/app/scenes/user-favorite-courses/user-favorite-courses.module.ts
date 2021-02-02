@@ -10,6 +10,8 @@ import { MaterialModule } from '@app/modules/material.module';
 import { RouterModule } from '@angular/router';
 import { UserFavoriteCoursesRoutingModule } from './user-favorite-courses-routing.module';
 import { UserFavoriteCoursesComponent } from './user-favorite-courses.component';
+import { LeftSideModule } from '@app/partials/left-side/left-side.module';
+import { RightSideModule } from '@app/partials/right-side/right-side.module';
 
 @NgModule({
   imports: [
@@ -22,6 +24,8 @@ import { UserFavoriteCoursesComponent } from './user-favorite-courses.component'
     MaterialModule,
     RouterModule,
     UserFavoriteCoursesRoutingModule,
+    RightSideModule,
+    LeftSideModule,
   ],
   declarations: [UserFavoriteCoursesComponent],
   entryComponents: [],

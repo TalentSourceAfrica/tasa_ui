@@ -14,6 +14,7 @@ import { UserInteractionSocialpostPopoverComponent } from '@app/partials/popups/
 import { SocialConnectionsModule } from '@app/partials/social-network/social-connections/social-connections.module';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
 import { LeftSideModule } from '@app/partials/left-side/left-side.module';
+import { RightSideModule } from '@app/partials/right-side/right-side.module';
 
 @NgModule({
   imports: [
@@ -31,6 +32,7 @@ import { LeftSideModule } from '@app/partials/left-side/left-side.module';
     NgxEmojiPickerModule,
     PickerModule,
     LeftSideModule,
+    RightSideModule,
   ],
   declarations: [SocialPostsComponent, UserInteractionSocialpostPopoverComponent],
   entryComponents: [UserInteractionSocialpostPopoverComponent],
