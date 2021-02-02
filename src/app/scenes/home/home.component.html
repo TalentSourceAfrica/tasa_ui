@@ -10,11 +10,13 @@
             <div class="col-md-8 col-lg-7 col-sm-12 col-xs-12">
               <div class="welcome-text">
                 <h1>Our Objective</h1>
-                <p>
+                <p class="mb-4">
                   To upskill, network and connect the millions of unemployed African college graduates with the job
                   opportunities they need, and provide companies with access and visibility to the high-skilled
                   talent-pool needed to meet their business goals on the continent.
                 </p>
+                <p>
+                <ng-template [ngTemplateOutlet]="sliderSignup"></ng-template>
               </div>
             </div>
           </div>
@@ -37,6 +39,8 @@
                   Meanwhile, the continent produced 10 million jobs per year within the same period and had a predicted
                   shortage of 31 million mid-high skill workers at the end of the decade.
                 </p>
+                <p>
+                <ng-template [ngTemplateOutlet]="sliderSignup"></ng-template>
                 <!-- <div class="home-button">
                   <form action="#">
                     <input type="search" name="search" id="search" placeholder="Search Courses" />
@@ -61,6 +65,8 @@
                   We aim to become Africa's #1 talent source by annually connecting 5 million job-seekers with
                   high-skill jobs in and outside SSA by 2040.
                 </p>
+                <p>
+                <ng-template [ngTemplateOutlet]="sliderSignup"></ng-template>
               </div>
             </div>
           </div>
@@ -79,12 +85,109 @@
                   TaSA Inc. seeks to bridge the gap between young Africans’ unmet demand for high-skill work, and
                   employers' unfulfilled need for high-capacity talent in Sub-Saharan Africa.
                 </p>
+                <p>
+                <ng-template [ngTemplateOutlet]="sliderSignup"></ng-template>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+    <div class="welcome-single-slide">
+      <div class="slide-bg-five slide-bg-overlay"></div>
+      <div class="welcome-area">
+        <div class="container">
+          <div class="row flex-v-center">
+            <div class="col-md-8 col-lg-7 col-sm-12 col-xs-12">
+              <div class="welcome-text">
+                <h1>Where talent meets opportunity.</h1>
+                <p>
+                  A place for Black/African, Latinx, Southeast Asian, and Indigenous people to connect with employers that align with their values, and build community with people that understand their perspective.
+                </p>
+                <p>
+                <ng-template [ngTemplateOutlet]="sliderSignup"></ng-template>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="welcome-single-slide">
+      <div class="slide-bg-six slide-bg-overlay"></div>
+      <div class="welcome-area">
+        <div class="container">
+          <div class="row flex-v-center">
+            <div class="col-md-8 col-lg-7 col-sm-12 col-xs-12">
+              <div class="welcome-text">
+                <h1>Where talent meets opportunity.</h1>
+                <p>
+                  A place for Black/African, Latinx, Southeast Asian, and Indigenous people to connect with employers that align with their values, and build community with people that understand their perspective.
+                </p>
+                <p>
+                <ng-template [ngTemplateOutlet]="sliderSignup"></ng-template>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="welcome-single-slide">
+      <div class="slide-bg-seven slide-bg-overlay"></div>
+      <div class="welcome-area">
+        <div class="container">
+          <div class="row flex-v-center">
+            <div class="col-md-8 col-lg-7 col-sm-12 col-xs-12">
+              <div class="welcome-text">
+               <h1>Where talent meets opportunity.</h1>
+                <p>
+                 A place for Black/African, Latinx, Southeast Asian, and Indigenous people to connect with employers that align with their values, and build community with people that understand their perspective.
+                </p>
+                <p>
+                <ng-template [ngTemplateOutlet]="sliderSignup"></ng-template>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="welcome-single-slide">
+      <div class="slide-bg-eight slide-bg-overlay"></div>
+      <div class="welcome-area">
+        <div class="container">
+          <div class="row flex-v-center">
+            <div class="col-md-8 col-lg-7 col-sm-12 col-xs-12">
+              <div class="welcome-text">
+                <h1>Where talent meets opportunity.</h1>
+                <p>
+                  A place for Black/African, Latinx, Southeast Asian, and Indigenous people to connect with employers that align with their values, and build community with people that understand their perspective.
+                </p>
+                <p>
+                <ng-template [ngTemplateOutlet]="sliderSignup"></ng-template>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="welcome-single-slide">
+      <div class="slide-bg-nine slide-bg-overlay"></div>
+      <div class="welcome-area">
+        <div class="container">
+          <div class="row flex-v-center">
+            <div class="col-md-8 col-lg-7 col-sm-12 col-xs-12">
+              <div class="welcome-text">
+                <h1>Where talent meets opportunity.</h1>
+                <p>
+                 A place for Black/African, Latinx, Southeast Asian, and Indigenous people to connect with employers that align with their values, and build community with people that understand their perspective.
+                </p>
+                <p>
+                <ng-template [ngTemplateOutlet]="sliderSignup"></ng-template>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>        
   </div>
   <!--WELCOME SLIDER AREA END-->
   <!-- </header> -->
@@ -1441,46 +1544,39 @@
               </div>
             </div>
           </div>
-          <div class="row no-gutters">
-            <div class="col-md-6 col-sm-12">
-              <div class="form-group pr-2">
-                <label class="form-label" for="linkedin">Linkedin</label>
-                <div class="input-group input-group-merge">
-                  <input
-                    id="linkedin"
-                    type="text"
-                    formControlName="linkedin"
-                    class="form-control form-control-prepended"
-                    placeholder="Your Linkedin"
-                  />
-                  <div class="input-group-prepend">
-                    <div class="input-group-text">
-                      <span class="far fa-flag"></span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-6 col-sm-12">
-              <div class="form-group">
-                <label class="form-label" for="twitter">Twitter</label>
-                <div class="input-group input-group-merge">
-                  <input
-                    id="twitter"
-                    formControlName="twitter"
-                    class="form-control form-control-prepended"
-                    placeholder="Your Twitter"
-                  />
-                  <div class="input-group-prepend">
-                    <div class="input-group-text">
-                      <span class="far fa-flag"></span>
-                    </div>
-                  </div>
+          <div class="form-group">
+            <label class="form-label" for="linkedin">Linkedin</label>
+            <div class="input-group input-group-merge">
+              <input
+                id="linkedin"
+                type="text"
+                formControlName="linkedin"
+                class="form-control form-control-prepended"
+                placeholder="Your Linkedin"
+              />
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <span class="far fa-flag"></span>
                 </div>
               </div>
             </div>
           </div>
-
+          <div class="form-group">
+            <label class="form-label" for="twitter">Twitter</label>
+            <div class="input-group input-group-merge">
+              <input
+                id="twitter"
+                formControlName="twitter"
+                class="form-control form-control-prepended"
+                placeholder="Your Twitter"
+              />
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <span class="far fa-flag"></span>
+                </div>
+              </div>
+            </div>
+          </div>
           <div class="form-group text-center">
             <div class="custom-control custom-checkbox mb-2 pt-2">
               <input id="terms" type="checkbox" class="custom-control-input" formControlName="termsCond" required="" />
@@ -1524,3 +1620,20 @@
     </div>
   </div>
 </div>
+
+<ng-template #sliderSignup>
+   <div class="input-group input-group-sm d-flex">
+    <input 
+      class="form-control form-control-sm rounded-pill inputClass"
+      type="email"
+      placeholder="Enter your email address"
+      [(ngModel)]="sliderSignUpMail" />
+    <span
+      class="rounded-pill btn-behaviour curPoint mx-2 py-2 px-3 font-weight-bold"
+      color="primary"
+      (click)="signup()"
+    >
+      Sign Up
+    </span>     
+  </div>
+</ng-template>

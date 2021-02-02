@@ -30,6 +30,7 @@ export class UserProfileComponent implements OnInit {
   university: any = [];
   organisationList: any = [];
   suportedFile: any = ['pdf', 'jpg', 'jpeg', 'png'];
+  mom: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -39,6 +40,7 @@ export class UserProfileComponent implements OnInit {
     private credentialsService: CredentialsService
   ) {
     this.userDetails = JSON.parse(JSON.stringify(this.user));
+    this.mom = this.sharedService.plugins.mom;
   }
 
   suffixes = [
@@ -278,28 +280,28 @@ export class UserProfileComponent implements OnInit {
   educationDetails = [
     {
       id: 'highestDegree',
-      label: 'Highest Degree',
+      label: 'Degree',
       type: 'text',
       formControlName: 'highestDegree',
-      placeholder: 'Your Highest Degree',
+      placeholder: 'Your Degree',
       prepend: 'fas fa-graduation-cap w10',
       mandatory: true,
     },
     {
       id: 'degreeFromDate',
-      label: 'Highest Degree From',
+      label: 'Degree From',
       type: 'date',
       formControlName: 'degreeFromDate',
-      placeholder: 'Your Highest Degree From',
+      placeholder: 'Your Degree From',
       prepend: 'fas fa-graduation-cap w10',
       mandatory: false,
     },
     {
       id: 'degreeToDate',
-      label: 'Highest Degree To',
+      label: 'Degree To',
       type: 'date',
       formControlName: 'degreeToDate',
-      placeholder: 'Your Highest Degree To',
+      placeholder: 'Your Degree To',
       prepend: 'fas fa-graduation-cap w10',
       mandatory: false,
     },
@@ -656,6 +658,11 @@ export class UserProfileComponent implements OnInit {
     },
   ];
 
+  getDateFM(_dateToFormat: any) {
+    return this.mom(_dateToFormat).format('YYYY-MM-DD');
+  }
+
+
   initForm(_type: string) {
     switch (_type) {
       case 'Mentor':
@@ -759,7 +766,7 @@ export class UserProfileComponent implements OnInit {
           lastName: [this.user.lastName],
           profileSummary: [this.user.profileSummary],
           email: [this.user.email],
-          dob: [this.user.dob],
+          dob: [this.getDateFM(this.user.dob)],
           addressLine1: [this.user.address1, [Validators.required]],
           addressLine2: [this.user.address2],
           country: [this.user.country, [Validators.required]],
@@ -839,8 +846,8 @@ export class UserProfileComponent implements OnInit {
          university: this.initFA('education', 'university', _data),
          major: [_data != undefined && _data.major != null ? _data.major : '', Validators.required],
          minor: this.initFA('education', 'minor', _data),
-         degreeFromDate: _data != undefined && _data.major != null ? _data.degreeFromDate : '',
-         degreeToDate: _data != undefined && _data.degreeToDate != null ? _data.degreeToDate : ''
+         degreeFromDate: _data != undefined && _data.major != null ? this.getDateFM(_data.degreeFromDate) : '',
+         degreeToDate: _data != undefined && _data.degreeToDate != null ? this.getDateFM(_data.degreeToDate) : ''
          // certificates: ''
       });
     } else {
@@ -849,8 +856,8 @@ export class UserProfileComponent implements OnInit {
         currentRole: [_data != undefined && _data.currentRole != null ? _data.currentRole : '', Validators.required],
         organization: [_data != undefined && _data.organization != null ? _data.organization : '', Validators.required],
         description: this.initFA('experience', 'description'),
-        experienceFrom : _data != undefined && _data.experienceFrom != null ? _data.experienceFrom : '',
-        experienceTo: _data != undefined && _data.experienceTo != null ? _data.experienceTo : ''
+        experienceFrom : _data != undefined && _data.experienceFrom != null ? this.getDateFM(_data.experienceFrom) : '',
+        experienceTo: _data != undefined && _data.experienceTo != null ? this.getDateFM(_data.experienceTo) : ''
       });
     }
   }

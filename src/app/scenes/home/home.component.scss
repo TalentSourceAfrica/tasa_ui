@@ -29,6 +29,44 @@ $grey: #7d7d7d;
     background: rgba(0, 0, 0, 0) url("../../../assets/images/slider/slide_4.jpg") no-repeat scroll center center / cover;
   }
 
+  .slide-bg-five {
+    background: rgba(0, 0, 0, 0) url("../../../assets/images/slider/slide_5.jpg") no-repeat scroll center center / cover;
+  }
+
+  .slide-bg-six {
+    background: rgba(0, 0, 0, 0) url("../../../assets/images/slider/slide_6.jpg") no-repeat scroll center center / cover;
+  }
+
+  .slide-bg-seven {
+    background: rgba(0, 0, 0, 0) url("../../../assets/images/slider/slide_7.jpg") no-repeat scroll center center / cover;
+  }
+
+  .slide-bg-eight {
+    background: rgba(0, 0, 0, 0) url("../../../assets/images/slider/slide_8.jpg") no-repeat scroll center center / cover;
+  }
+
+  .slide-bg-nine {
+    background: rgba(0, 0, 0, 0) url("../../../assets/images/slider/slide_9.jpg") no-repeat scroll center center / cover;
+  }
+
+  .btn-behaviour {
+    background-color: white !important;
+    color: #523f6d !important;
+    font-size: 16px !important;
+    &:hover {
+      background-color: #523f6d !important;
+      color: white !important;
+    }
+  }
+
+  .inputClass {
+    border: 3px solid #523f6d !important;
+    font-size: 17px !important;
+    color: #523f6d !important;
+    font-weight: bold;
+    animation: 1s ease 2s normal both 1 running fadeInUp;
+  }
+
   /*--------------------------------
     2. FEATURES AREA
 ---------------------------------*/
