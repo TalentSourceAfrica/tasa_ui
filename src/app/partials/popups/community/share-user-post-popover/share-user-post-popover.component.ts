@@ -77,7 +77,14 @@ export class ShareUserPostPopoverComponent implements OnInit {
 		//    createdOn:
 		//    content:
 		// }
-		this.popupData.onSubmit(payload);
+		let additionalUIFields: any = {
+			sharePostUserName: this.popupData.post.userName,
+			sharePostTasaId: this.popupData.post.tasaId,
+			sharePostEmail: this.popupData.post.email,
+			sharePostCreatedOn: this.popupData.post.createdOn,
+			sharePostOgUserImage: this.popupData.post.userImageUrl
+		};
+		this.popupData.onSubmit({ payload: payload, additionalUIFields: additionalUIFields });
 		this.dialogRef.close();
 	}
 

@@ -31,6 +31,7 @@ export class SocialPostsComponent implements OnInit {
       type: this.user.type,
       imageUrl: '',
     },
+    sharedPosts: []
   };
   postFilter: any = [
     { value: 0, viewValue: 'All Post' },
@@ -67,12 +68,13 @@ export class SocialPostsComponent implements OnInit {
     let $t = this;
     $t.sharedService.uiService.showApiStartPopMsg('Sharing Post...');
     let apiUrl = $t.sharedService.urlService.apiCallWithParams('sharePost', {
-      '{postId}': _fromDialog.sharePostId
+      '{postId}': _fromDialog.payload.sharePostId
     });
-    $t.sharedService.configService.post(apiUrl, _fromDialog).subscribe(
+    $t.sharedService.configService.post(apiUrl, _fromDialog.payload).subscribe(
       (response: any) => {
         $t.sharedService.uiService.showApiSuccessPopMsg('Post Shared...');
-        $t.socialConfig.allSocialPost.unshift(JSON.parse(JSON.stringify(response.responseObj)));
+        let newObj = {...response.responseObj, ..._fromDialog.additionalUIFields};
+        $t.socialConfig.allSocialPost.unshift(JSON.parse(JSON.stringify(newObj)));
         jQuery('#postsListing').animate({ scrollTop: 0 }, 'slow');
         $t.sharedService.utilityService.changeMessage('TRIGGER-HEADER-NOTIFICATIONS-UPDATE');
       },
@@ -101,11 +103,62 @@ export class SocialPostsComponent implements OnInit {
     let apiUrl = this.sharedService.urlService.simpleApiCall('getAllPosts');
     this.sharedService.configService.get(apiUrl).subscribe(
       (response: any) => {
-        this.socialConfig.allSocialPost = response.responseObj;
-        this.socialConfig.isLoading = false;
+        this.socialConfig.allSocialPost = JSON.parse(JSON.stringify(response.responseObj));
+        this.handleSharedPostInfo(this.socialConfig.allSocialPost);
       },
       (error) => {
         console.log(error);
+      }
+    );
+  }
+
+  handleSharedPostInfo(_allPosts: any) {
+    let additionalFields = (_source: any ,_matched: any) => {
+      _source['sharePostUserName'] = _matched.userName;
+      _source['sharePostTasaId'] = _matched.tasaId;
+      _source['sharePostEmail'] = _matched.userId;
+      _source['sharePostCreatedOn'] = _matched.createdOn;
+      _source['sharePostOgUserImage'] = _matched.userImageUrl;
+    };
+
+    _allPosts.forEach((x: any) => {
+      x.sharePostId != '' ? this.socialConfig.sharedPosts.push(x) : '';
+    });
+    this.socialConfig.sharedPosts.forEach((x: any, xi: number) => {
+      let post = x;
+      let found: boolean = false;
+      _allPosts.forEach((z: any) => {
+        if (z.id == post.sharePostId) {
+          found = true;
+          additionalFields(post, z);
+        }
+      });
+      if (!found) {
+        let callBack = (response: any) => {
+          additionalFields(post, response);
+        }
+        this.fetchPostById(post.sharePostId, callBack);
+      }
+      this.socialConfig.allSocialPost.forEach((po: any, i: number) => {
+        if (po.id == post.id) {
+          po = JSON.parse(JSON.stringify(post));
+        }
+      });
+    });
+    this.socialConfig.isLoading = false;
+  }
+
+  fetchPostById(_id: any, _callback: any) {
+    let $t = this;
+    let api = $t.sharedService.urlService.apiCallWithParams('getPostById', {
+      '{postId}': _id,
+    });
+    $t.sharedService.configService.get(api).subscribe(
+      (response: any) => {
+        _callback(response);
+      },
+      (error) => {
+        $t.sharedService.uiService.showApiErrorPopMsg(error);
       }
     );
   }
@@ -485,8 +538,8 @@ export class SocialPostsComponent implements OnInit {
     );
   }
 
-  getNotiDay(_post: any) {
-    const dateofvisit = this.sharedService.plugins.mom(_post.createdOn);
+  getNotiDay(_date: any) {
+    const dateofvisit = this.sharedService.plugins.mom(_date);
     const today = this.sharedService.plugins.mom();
     const day = today.diff(dateofvisit, 'days');
     if (day === 0) {

@@ -293,7 +293,7 @@
                             class="album box mb-4"
                             *ngFor="let post of socialConfig.allSocialPost; let postIndex = index"
                           >
-                            <div *ngIf="post.post">
+                            <div *ngIf="post.post && !socialConfig.isLoading">
                               <div class="status-main pt-3">
                                 <img
                                   matTooltipPosition="below"
@@ -313,7 +313,7 @@
                                       ></strong
                                     >
                                   </div>
-                                  <div class="album-date">{{ getNotiDay(post) }}</div>
+                                  <div class="album-date">{{ getNotiDay(post.createdOn) }}</div>
                                 </div>
                                 <button
                                   *ngIf="post.userId == user.email"
@@ -353,23 +353,23 @@
                                 <div class="status-main pt-3">
                                   <img
                                     matTooltipPosition="below"
-                                    [matTooltip]="post.userName"
-                                    [routerLink]="['/social-network/profile/', post.tasaId]"
+                                    [matTooltip]="post.sharePostUserName"
+                                    [routerLink]="['/social-network/profile/', post.sharePostTasaId]"
                                     routerLinkActive="router-link-active"
-                                    [src]="post.userImageUrl"
+                                    [src]="post.sharePostOgUserImage"
                                     class="status-img curPoint"
                                   />
                                   <div class="album-detail">
                                     <div class="album-title">
                                       <strong
                                         ><a
-                                          [routerLink]="['/social-network/profile/', post.tasaId]"
+                                          [routerLink]="['/social-network/profile/', post.sharePostTasaId]"
                                           routerLinkActive="router-link-active"
-                                          >{{ post.userName }}</a
+                                          >{{ post.sharePostUserName }}</a
                                         ></strong
                                       >
                                     </div>
-                                    <div class="album-date">{{ getNotiDay(post) }}</div>
+                                    <div class="album-date">{{ getNotiDay(post.sharePostCreatedOn) }}</div>
                                   </div>
                                 </div>
                                 <div class="row album-content no-gutters">
@@ -522,7 +522,7 @@
                               </ng-template>
                             </div>
                           </div>
-                          <ng-container *ngIf="socialConfig.allSocialPost.length == 0">
+                          <ng-container *ngIf="socialConfig.allSocialPost.length == 0 || socialConfig.isLoading">
                             <div class="text-center m-auto animated fadeIn mt-2">
                               <div class="col-12 text-center">
                                 <img src="./assets/images/no-record.gif" style="height: 300px;" class="d-block m-auto" />
