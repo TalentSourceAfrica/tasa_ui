@@ -3,6 +3,7 @@ import { CredentialsService } from '@app/auth';
 import { SharedService } from '@app/services/shared.service';
 
 import { UserInteractionSocialpostPopoverComponent } from '@app/partials/popups/community/user-interaction-socialpost-popover/user-interaction-socialpost-popover.component';
+import { ShareUserPostPopoverComponent } from '@app/partials/popups/community/share-user-post-popover/share-user-post-popover.component';
 
 declare var jQuery: any;
 
@@ -44,6 +45,42 @@ export class SocialPostsComponent implements OnInit {
     public sharedService: SharedService,
     public cdr: ChangeDetectorRef
   ) {}
+
+  openSharePostPopup(_post: any) {
+    let $t = this;
+    $t.sharedService.dialogService.open(ShareUserPostPopoverComponent, {
+      width: '50%',
+      position: {
+        top: '75px'
+      },
+      data: {
+        post: _post,
+        user: $t.user,
+        onSubmit: ((fromDialog: any) => {
+          $t.sharePost(fromDialog);
+        })
+      },
+    });
+  }
+
+  sharePost(_fromDialog: any) {
+    let $t = this;
+    $t.sharedService.uiService.showApiStartPopMsg('Sharing Post...');
+    let apiUrl = $t.sharedService.urlService.apiCallWithParams('sharePost', {
+      '{postId}': _fromDialog.sharePostId
+    });
+    $t.sharedService.configService.post(apiUrl, _fromDialog).subscribe(
+      (response: any) => {
+        $t.sharedService.uiService.showApiSuccessPopMsg('Post Shared...');
+        $t.socialConfig.allSocialPost.unshift(JSON.parse(JSON.stringify(response.responseObj)));
+        jQuery('#postsListing').animate({ scrollTop: 0 }, 'slow');
+        $t.sharedService.utilityService.changeMessage('TRIGGER-HEADER-NOTIFICATIONS-UPDATE');
+      },
+      (error) => {
+        $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
+      }
+    );
+  }
 
   onPostTypeChange() {
     switch (this.selectedPostFilter) {

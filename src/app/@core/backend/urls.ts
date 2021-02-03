@@ -52,7 +52,6 @@ export const urls: any = {
   updatePost: '/posts', // PU
   deletePost: '/socialPost/{postId}', // DE
   changePostStatus: '/posts/{postId}/{status}', // PO
-  sharePost: '/socialPost/share/{postId}', // PO
 
   // upload
   uploadMultiFile: '/uploadMultipleDocuments/{email}', // PO
@@ -112,6 +111,7 @@ export const urls: any = {
   removeComment: '/socialPost/removecomment/{postId}/{commentId}', // PO
   reactOnPost: '/socialPost/react/{postId}', // PO
   removeReactionFromPost: '/socialPost/removeReact/{postId}/{reactionId}', // PO
+  sharePost: '/socialPost/share/{postId}', // PO
 
   // Organisation
   getOrganisation: '/organization', // G

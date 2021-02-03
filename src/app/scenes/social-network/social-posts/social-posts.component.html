@@ -232,7 +232,7 @@
                                   color="primary"
                                   [disabled]="socialConfig.newPost.content == ''"
                                   (click)="createSocialPost()"
-                                  class="rounded-pill ml-2"
+                                  class="rounded-pill ml-2 curPoint"
                                 >
                                   Post
                                 </button>
@@ -256,6 +256,7 @@
                         </div>
                         <div
                           class="min-vertical-h-65 max-vertical-h-65 mt-2 stylishSlimScroll flow-y-auto flow-x-hidden pt-2 pl-4 pr-4"
+                          id="postsListing"
                         >
                           <div class="row no-gutters text-center">
                             <div class="col-9"><hr /></div>
@@ -346,6 +347,47 @@
                                       <i class="fas fa-video fa-3x"></i>
                                     </span>
                                   </a> -->
+                                </div>
+                              </div>
+                              <div *ngIf="post.sharePostId != ''" class="album-box share-status-box sharedPost mx-2 mb-4">
+                                <div class="status-main pt-3">
+                                  <img
+                                    matTooltipPosition="below"
+                                    [matTooltip]="post.userName"
+                                    [routerLink]="['/social-network/profile/', post.tasaId]"
+                                    routerLinkActive="router-link-active"
+                                    [src]="post.userImageUrl"
+                                    class="status-img curPoint"
+                                  />
+                                  <div class="album-detail">
+                                    <div class="album-title">
+                                      <strong
+                                        ><a
+                                          [routerLink]="['/social-network/profile/', post.tasaId]"
+                                          routerLinkActive="router-link-active"
+                                          >{{ post.userName }}</a
+                                        ></strong
+                                      >
+                                    </div>
+                                    <div class="album-date">{{ getNotiDay(post) }}</div>
+                                  </div>
+                                </div>
+                                <div class="row album-content no-gutters">
+                                  <div class="mb-2 mt-1 col-12" [class.pl-3]="post.sharePostImage == '' && post.sharePostVideo == ''">
+                                    {{ post.sharePostContent }}
+                                  </div>
+                                  <div class="pl-2 text-center" *ngIf="post.sharePostImage != ''">
+                                    <a [href]="post.sharePostImage" target="_blank">
+                                      <img [src]="post.sharePostImage" width="250" height="250" class="p-2 curPoint" />
+                                    </a>
+                                  </div>
+                                  <div class="pl-2 text-center" *ngIf="post.sharePostVideo != ''">
+                                    <video height="240" controls>
+                                      <source [src]="post.sharePostVideo" type="video/mp4" />
+                                      <source [src]="post.sharePostVideo" type="video/ogg" />
+                                      Your browser does not support the video tag.
+                                    </video>
+                                  </div>
                                 </div>
                               </div>
                               <div class="pb-0 px-2 album-actions border-bottom pb-1">
@@ -467,6 +509,10 @@
                                     <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" />
                                   </svg>
                                   <span class="">Comment</span>
+                                </a>
+                                <a class="album-action btm-bar-action-2 p-2 m-0" (click)="openSharePostPopup(post)">
+                                  <i class="fas fa-share"></i>
+                                  <span class="pl-1">Share</span>
                                 </a>
                               </div>
                               <ng-template
