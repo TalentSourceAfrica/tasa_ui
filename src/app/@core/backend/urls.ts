@@ -144,4 +144,8 @@ export const urls: any = {
   getAllMessages: '/chat/messages/all/{chatId}', // G
   getAllNewMessages: '/chat/messages/new/{chatId}/{userId}', // G
   readMessages: '/chat/read/{chatId}', // PO
+
+  // Group
+  createGroup : '/groups/{adminId}', // PO
+  getActiveFroup : '/groups/active', // G
 };
