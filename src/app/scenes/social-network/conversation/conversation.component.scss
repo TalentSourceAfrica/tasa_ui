@@ -100,11 +100,11 @@ $break-big: 900px;
           }
 
           img {
-            width: 50px;
+            width: 60px;
             border-radius: 50%;
             margin-top: 5px;
             border: 2px solid $red;
-            height: auto;
+            height: 60px;;
             float: left;
             cursor: pointer;
             @include transition(0.3s border ease);

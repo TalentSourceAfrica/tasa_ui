@@ -10,7 +10,7 @@ declare var jQuery: any;
 @Component({
   selector: 'app-home-header',
   templateUrl: './home-header.component.html',
-  styleUrls: ['./home-header.component.scss']
+  styleUrls: ['./home-header.component.scss'],
 })
 export class HomeHeaderComponent implements OnInit {
   // courseConfig: any = {
@@ -394,11 +394,11 @@ export class HomeHeaderComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
-    window.onload = (event:any) => {
+    window.onload = (event: any) => {
       jQuery('#mainmenu-area').sticky({
         topSpacing: 0,
       });
-      jQuery('.notification-popup').click((event: any) => {
+      jQuery('.notification-popup').on('click', (event: any) => {
         jQuery(this).toggleClass('open');
         jQuery('#notificationMenu').removeClass('d-none').toggleClass('open');
       });
