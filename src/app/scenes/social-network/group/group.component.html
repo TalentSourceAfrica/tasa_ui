@@ -1,0 +1,152 @@
+<div class="group-wrapper">
+  <div class="row no-gutters">
+    <div class="col-md-3 col-sm-12 bg-white">
+      <app-left-side></app-left-side>
+    </div>
+    <div class="col-md-7 col-sm-12">
+      <ol class="breadcrumb mt-3">
+        <li class="breadcrumb-item curPoint"><a [routerLink]="['/dashboard']">Dashboard</a></li>
+        <li class="breadcrumb-item active"><a>Groops</a></li>
+      </ol>
+      <div class="sec-title">
+        <div class="title">Groups</div>
+      </div>
+      <!-- <ng-container *ngIf="networkConfig.isLoading">
+          <div class="col-12 animated fadeIn" *ngFor="let item of [1, 2, 3, 4, 5, 6]">
+            <div class="card ml-0 mr-0 my-4" style="height: 100px !important;">
+              <div class="card-img skeleton"></div>
+            </div>
+          </div>
+        </ng-container> -->
+      <ng-container>
+        <ng-template *ngTemplateOutlet="groups"></ng-template>
+      </ng-container>
+    </div>
+    <div class="col-md-2 col-sm-12">
+      <app-right-side></app-right-side>
+    </div>
+  </div>
+</div>
+
+<ng-template #groups>
+  <mat-tab-group>
+    <mat-tab label="All Groups">
+      <div class="row no-gutters mt-3 max-vertical-h-70 stylishSlimScroll flow-y-auto flow-x-hidden">
+        <div class="col-6" *ngFor="let item of allGroups.data">
+          <div class="card m-1 p-2">
+            <div class="d-flex align-items-center">
+              <div class="row no-gutters">
+                <div class="col-2">
+                  <img
+                    class="status-img img-responsive img-thumbnail curPoint"
+                    src="{{ item.groupImageUrl }}"
+                    alt="Group picture"
+                  />
+                </div>
+                <div class="col-10 pl-3">
+                  <div class="d-flex align-items-center w100">
+                    <div class="flex-grow-1">
+                      <h6 class="mb-0">
+                        {{ item.groupTitle }}
+                      </h6>
+                      <h6
+                        class="text-muted text-truncate"
+                        [title]="item.groupDescription"
+                        *ngIf="item.groupDescription"
+                      >
+                        {{ item.groupDescription }}
+                      </h6>
+                    </div>
+
+                    <button
+                      mat-flat-button
+                      color="primary"
+                      matTooltipPosition="below"
+                      matTooltip="Send Request To Join The Group"
+                      (click)="sendRequest(item.groupId)"
+                      class="rounded-pill"
+                    >
+                      Send Request
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <ng-container *ngIf="!allGroups.isLoading && allGroups.data.length == 0">
+        <div class="text-center m-auto animated fadeIn">
+          <div class="col-12 text-center">
+            <img src="./assets/images/no-record.gif" style="height: 300px;" class="d-block m-auto" />
+            <h6 class="text-primary">No Active Groups...!</h6>
+          </div>
+        </div>
+      </ng-container>
+    </mat-tab>
+    <mat-tab label="My Group">
+      <div
+        *ngIf="myGroups.data.length"
+        class="row no-gutters mt-3 max-vertical-h-70 stylishSlimScroll flow-y-auto flow-x-hidden"
+      >
+        <div class="col-6" *ngFor="let item of myGroups.data; let i = index">
+          <div class="card m-1 p-2">
+            <div class="d-flex align-items-center">
+              <div class="row no-gutters">
+                <div class="col-2">
+                  <img
+                    class="status-img img-responsive img-thumbnail curPoint"
+                    src="{{ item.groupImageUrl }}"
+                    alt="Group picture"
+                  />
+                </div>
+                <div class="col-10 pl-3">
+                  <div class="d-flex align-items-center w100">
+                    <div class="flex-grow-1">
+                      <h6 class="mb-0">
+                        {{ item.groupTitle }}
+                      </h6>
+                      <h6
+                        class="text-muted text-truncate"
+                        [title]="item.groupDescription"
+                        *ngIf="item.groupDescription"
+                      >
+                        {{ item.groupDescription }}
+                      </h6>
+                    </div>
+                    <div class="d-flex w100 justify-content-end">
+                      <button mat-flat-button color="primary" (click)="invitePeople(item)" class="rounded-pill">
+                        Invite
+                      </button>
+                      <button
+                        mat-mini-fab
+                        color="warn"
+                        class="ml-2"
+                        matTooltipPosition="below"
+                        matTooltip="Remove"
+                        (click)="deleteGroup(item.groupId, i)"
+                      >
+                        <mat-icon>delete</mat-icon>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <ng-container *ngIf="!myGroups.isLoading && myGroups.data.length == 0">
+        <div class="text-center m-auto animated fadeIn">
+          <div class="col-12 text-center">
+            <img src="./assets/images/no-record.gif" style="height: 300px;" class="d-block m-auto" />
+            <h6 class="text-primary">You Haven't Created Any Group...!</h6>
+            <button mat-flat-button color="primary" (click)="createGroup()" class="rounded-pill ml-2">
+              Create group
+            </button>
+          </div>
+        </div>
+      </ng-container>
+    </mat-tab>
+  </mat-tab-group>
+</ng-template>

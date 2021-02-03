@@ -70,7 +70,7 @@ export class LeftSideComponent implements OnInit {
         this.recommendedSwitchInterval ? clearInterval(this.recommendedSwitchInterval) : null;
         break;
       case 'userAction':
-        this.userActionSwitchInterval ? clearInterval(this.recommendedSwitchInterval) : null;
+        this.userActionSwitchInterval ? clearInterval(this.userActionSwitchInterval) : null;
         break;
     }
   }

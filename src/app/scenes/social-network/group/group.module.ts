@@ -7,16 +7,12 @@ import { I18nModule } from '@app/i18n';
 import { AuthModule } from '@app/auth';
 import { MaterialModule } from '@app/modules/material.module';
 import { RouterModule } from '@angular/router';
-import { ProfileRoutingModule } from './profile-routing.module';
-import { ProfileComponent } from './profile.component';
-
-import { SocialConnectionsModule } from '@app/partials/social-network/social-connections/social-connections.module';
-import { NgxDocViewerModule } from 'ngx-doc-viewer';
-import { SocialnetworkService } from '../socialnetwork.service';
 import { LeftSideModule } from '@app/partials/left-side/left-side.module';
 import { RightSideModule } from '@app/partials/right-side/right-side.module';
+import { GroupComponent } from './group.component';
+import { GroupRoutingModule } from './group-routing.module';
 import { CreateGroupPopupModule } from '@app/partials/popups/group/create-group-popup/create-group-popup.module';
-
+import { InviteUserPopupComponent } from '@app/partials/popups/group/invite-user-popup/invite-user-popup.component';
 
 @NgModule({
   imports: [
@@ -29,15 +25,12 @@ import { CreateGroupPopupModule } from '@app/partials/popups/group/create-group-
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
-    ProfileRoutingModule,
-    SocialConnectionsModule,
-    NgxDocViewerModule,
+    GroupRoutingModule,
     LeftSideModule,
     RightSideModule,
-    CreateGroupPopupModule
+    CreateGroupPopupModule,
   ],
-  declarations: [ProfileComponent],
-  providers: [SocialnetworkService],
+  declarations: [GroupComponent, InviteUserPopupComponent],
   schemas: [NO_ERRORS_SCHEMA],
 })
-export class ProfileModule {}
+export class GroupModule {}

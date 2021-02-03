@@ -45,6 +45,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 
 // import {DragDropModule} from '@angular/cdk/drag-drop';
 
@@ -80,6 +81,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatAutocompleteModule,
     MatPaginatorModule,
     MatSlideToggleModule,
+    MatBottomSheetModule,
     // MatButtonToggleModule,
     MatCardModule,
     // MatDividerModule,

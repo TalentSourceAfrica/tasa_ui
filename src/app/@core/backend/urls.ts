@@ -52,7 +52,7 @@ export const urls: any = {
   updatePost: '/posts', // PU
   deletePost: '/socialPost/{postId}', // DE
   changePostStatus: '/posts/{postId}/{status}', // PO
-  sharePost : '/socialPost/share/{postId}' , // PO
+  sharePost: '/socialPost/share/{postId}', // PO
 
   // upload
   uploadMultiFile: '/uploadMultipleDocuments/{email}', // PO
@@ -146,6 +146,10 @@ export const urls: any = {
   readMessages: '/chat/read/{chatId}', // PO
 
   // Group
-  createGroup : '/groups/{adminId}', // PO
-  getActiveFroup : '/groups/active', // G
+  createGroup: '/groups/{adminId}', // PO
+  deleteGroup: '/groups/{adminId}/{groupId}', // DE
+  getAllActiveFroup: '/groups/active', // G
+  getAllActiveGroupByUser: '/groups/mygroups/{userId}', // G
+  sendRequestToGroup: '/groupRequest​/{userId}/{groupId}', // PO
+  sendRequestToPeople: '/groupInvite/{adminId}/{userId}/{groupId}', // PO
 };

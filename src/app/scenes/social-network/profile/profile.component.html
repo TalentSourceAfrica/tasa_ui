@@ -17,7 +17,7 @@
     </mat-drawer>
     <mat-drawer-content>
       <section>
-        <div class="row no-gutters">
+        <div class="row">
           <div class="col-md-3 col-sm-12 bg-white">
             <app-left-side></app-left-side>
           </div>
@@ -103,6 +103,20 @@
                                     <strong class="text-primary">{{ userConfig.user.experience }} Years</strong></span
                                   >
                                 </h3>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-2" *ngIf="isCurrentUser">
+                            <div class="text-right">
+                              <div class="d-flex justify-content-end pt-3">
+                                <button
+                                  mat-flat-button
+                                  color="primary"
+                                  (click)="openCreateGroupPopup()"
+                                  class="rounded-pill ml-2 p-1 pl-2 pr-2 curPoint"
+                                >
+                                  Create Group
+                                </button>
                               </div>
                             </div>
                           </div>
@@ -258,7 +272,7 @@
                                     </h4>
                                   </div>
                                 </div>
-                                 <div class="col-lg-4" *ngIf="exp.degreeToDate != ''">
+                                <div class="col-lg-4" *ngIf="exp.degreeToDate != ''">
                                   <div class="form-group">
                                     <label class="form-control-label" for="input-email">Experience From</label>
                                     <h4 class="text-primary">
@@ -290,7 +304,7 @@
                             </div>
                             <hr class="my-4" />
                             <h3 class="heading-small text-muted mb-4">Educational Information</h3>
-                            <div class="pl-lg-4" *ngFor="let edu of userConfig.user.education;">
+                            <div class="pl-lg-4" *ngFor="let edu of userConfig.user.education">
                               <div class="row">
                                 <div class="col-lg-4" *ngIf="edu.highestDegree != ''">
                                   <div class="form-group focused">
@@ -333,9 +347,9 @@
                                   </div>
                                 </div>
                               </div>
-                              </div>  
-                              <hr class="my-4" />
-                              <ng-container *ngIf="userConfig.user.certificates && userConfig.user.certificates != ''">
+                            </div>
+                            <hr class="my-4" />
+                            <ng-container *ngIf="userConfig.user.certificates && userConfig.user.certificates != ''">
                               <!-- Description -->
                               <h3 class="heading-small text-muted mb-4">Certificate</h3>
                               <div class="pl-lg-4">

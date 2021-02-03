@@ -1,0 +1,115 @@
+<div class="d-flex align-items-center no-gutters signup-wrapper">
+  <div class="col-sm-8 col-md-12 col-lg-12 mx-auto">
+    <div class="navbar-shadow">
+      <div class="card-header text-center">
+        <h4 class="card-title">Create Group</h4>
+      </div>
+      <div class="card-body">
+        <ng-container *ngTemplateOutlet="groupFormTemplate"></ng-container>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #groupFormTemplate>
+  <form [formGroup]="groupForm" *ngIf="groupForm" (ngSubmit)="onSubmit()" novalidate>
+    <div class="p-2">
+      <div class="form-group">
+        <label class="form-label" for="name">Group Title <sup class="text-danger">*</sup></label>
+        <div class="input-group input-group-merge">
+          <input
+            id="name"
+            type="text"
+            formControlName="groupTitle"
+            class="form-control form-control-prepended"
+            placeholder="Type Group Title"
+          />
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <span class="far fa-user"></span>
+            </div>
+          </div>
+        </div>
+        <small
+          [hidden]="groupForm.controls.groupTitle.valid || groupForm.controls.groupTitle.untouched"
+          class="text-danger"
+          translate
+        >
+          Group title is required
+        </small>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="name">Group Description <sup class="text-danger">*</sup></label>
+        <div class="input-group input-group-merge">
+          <input
+            id="name"
+            type="text"
+            formControlName="groupDescription"
+            class="form-control form-control-prepended"
+            placeholder="Type Group Description"
+          />
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <span class="far fa-user"></span>
+            </div>
+          </div>
+        </div>
+        <small
+          [hidden]="groupForm.controls.groupDescription.valid || groupForm.controls.groupDescription.untouched"
+          class="text-danger"
+          translate
+        >
+          Group Description is required
+        </small>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="name">Group Image <sup class="text-danger">*</sup></label>
+        <div class="input-group input-group-merge">
+          <input
+            id="name"
+            type="text"
+            formControlName="groupImageUrl"
+            class="form-control form-control-prepended"
+            placeholder="Select Group Image"
+          />
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <span class="material-icons pl-2 text-primary curPoint" (click)="uploadImage()">
+                cloud_upload
+              </span>
+            </div>
+          </div>
+        </div>
+        <small
+          [hidden]="groupForm.controls.groupImageUrl.valid || groupForm.controls.groupImageUrl.untouched"
+          class="text-danger"
+          translate
+        >
+          Organization Image is required
+        </small>
+      </div>
+    </div>
+
+    <div class="form-group text-center">
+      <button
+        mat-flat-button
+        color="primary"
+        type="submit"
+        [disabled]="groupForm.invalid"
+        class="rounded-pill ml-2 w50"
+      >
+        Save Group
+      </button>
+    </div>
+  </form>
+</ng-template>
+
+<input
+  type="file"
+  #orgfile
+  class="d-none"
+  accept="image/*"
+  id="imageUpload"
+  multiple
+  (change)="handleFileInput($event)"
+/>

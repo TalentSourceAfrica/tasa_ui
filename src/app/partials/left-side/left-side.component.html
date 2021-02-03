@@ -1,7 +1,7 @@
 <div class="left-side-wrapper">
   <div class="row no-gutters">
     <div class="col-12" (mouseover)="clearIntervalForCard('recommended')" (mouseout)="setLogicForRecommendedCard()">
-      <div class="card animated bounceInUp" *ngIf="recommendedSwitch.course">
+      <div class="card animated bounceInUp bg-primary-more-light" *ngIf="recommendedSwitch.course">
         <div class="card-header d-flex align-items-center">
           <div class="h2 mb-0 mr-3 text-primary" *ngIf="recommendedCourses.data.length">
             {{ recommendedCourses.data.length }}
@@ -48,7 +48,7 @@
           <ng-template *ngIf="recommendedCourses.isFetching" [ngTemplateOutlet]="loader"></ng-template>
         </div>
       </div>
-      <div class="card animated bounceInUp" *ngIf="recommendedSwitch.jobs">
+      <div class="card animated bounceInUp bg-primary-more-light" *ngIf="recommendedSwitch.jobs">
         <div class="card-header">
           <div class="media align-items-center">
             <div class="h2 mb-0 mr-3 text-primary" *ngIf="recommendedJobs.data.length">
@@ -113,7 +113,7 @@
       </div>
     </div>
     <div class="col-12" (mouseover)="clearIntervalForCard('userAction')" (mouseout)="setLogicForUserActionsCard()">
-      <div class="card animated bounceInUp" *ngIf="userActionSwitch.appliedJobs">
+      <div class="card animated bounceInUp bg-primary-more-light" *ngIf="userActionSwitch.appliedJobs">
         <div class="card-header d-flex align-items-center">
           <div class="h2 mb-0 mr-3 text-primary" *ngIf="jobApplications.length">{{ jobApplications.length }}</div>
           <div class="flex">
@@ -186,7 +186,7 @@
           </div>
         </div>
       </div>
-      <div class="card animated bounceInUp" *ngIf="userActionSwitch.favoriteCourse">
+      <div class="card animated bounceInUp bg-primary-more-light" *ngIf="userActionSwitch.favoriteCourse">
         <div class="card-header d-flex align-items-center">
           <div class="h2 mb-0 mr-3 text-primary" *ngIf="allFavCourse.length">
             {{ allFavCourse.length }}
@@ -232,7 +232,7 @@
           </div>
         </div>
       </div>
-      <div class="card animated bounceInUp" *ngIf="userActionSwitch.recentlyViewedCourse">
+      <div class="card animated bounceInUp bg-primary-more-light" *ngIf="userActionSwitch.recentlyViewedCourse">
         <div class="card-header d-flex align-items-center">
           <div class="h2 mb-0 mr-3 text-primary" *ngIf="recentlyViewedCourse.length">
             {{ recentlyViewedCourse.length }}
@@ -278,7 +278,7 @@
           </div>
         </div>
       </div>
-      <div class="card animated bounceInUp" *ngIf="userActionSwitch.savedJobs">
+      <div class="card animated bounceInUp bg-primary-more-light" *ngIf="userActionSwitch.savedJobs">
         <div class="card-header d-flex align-items-center">
           <div class="h2 mb-0 mr-3 text-primary" *ngIf="savedJobs.length">{{ savedJobs.length }}</div>
           <div class="flex">

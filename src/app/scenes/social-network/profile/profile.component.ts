@@ -2,10 +2,15 @@ import { Component, OnInit, ViewChild, ChangeDetectorRef, ViewEncapsulation } fr
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { untilDestroyed } from '@app/@core';
+import { delay } from 'rxjs/operators';
+
+//service
+import { SocialnetworkService } from '../socialnetwork.service';
 import { CredentialsService } from '@app/auth';
 import { SharedService } from '@app/services/shared.service';
-import { delay } from 'rxjs/operators';
-import { SocialnetworkService } from '../socialnetwork.service';
+
+// component
+import { CreateGroupPopupComponent } from '@app/partials/popups/group/create-group-popup/create-group-popup.component';
 
 @Component({
   selector: 'app-profile',
@@ -87,6 +92,14 @@ export class ProfileComponent implements OnInit {
         this.sharedService.uiService.showApiErrorPopMsg(error.error.message);
       }
     );
+  }
+
+  openCreateGroupPopup() {
+    this.sharedService.dialogService.open(CreateGroupPopupComponent, {
+      width: '450px',
+      data: { authenticationService: this, credentialsService: this.credentialsService, user: this.user },
+      disableClose: false,
+    });
   }
 
   ngOnInit(): void {

@@ -214,6 +214,7 @@ $light-blue: #523f6d80;
   transition: 0.2s;
   opacity: 0;
   right: 135px;
+  z-index: 0;
   &:before {
     content: "";
     height: 10px;
@@ -228,7 +229,6 @@ $light-blue: #523f6d80;
   &.open {
     opacity: 1;
     transition: 0.4s;
-    z-index: 999;
   }
   li {
     padding: 5px;

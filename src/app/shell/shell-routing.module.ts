@@ -202,6 +202,11 @@ const routes: Routes = [
             loadChildren: () =>
               import('@app/scenes/social-network/conversation/conversation.module').then((m) => m.ConversationModule),
           },
+          {
+            path: 'group',
+            canActivate: [AuthenticationGuard],
+            loadChildren: () => import('@app/scenes/social-network/group/group.module').then((m) => m.GroupModule),
+          },
         ],
       },
       { path: '', redirectTo: '/home', pathMatch: 'full' },

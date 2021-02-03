@@ -1,0 +1,69 @@
+<div class="d-flex align-items-center no-gutters invite-user-wrapper">
+  <div class="col-sm-8 col-md-12 col-lg-12 mx-auto">
+    <div class="navbar-shadow">
+      <div class="card-header text-center">
+        <h4 class="card-title">
+          Invite People For Group <strong class="text-primary">{{ popupData.group.groupTitle }}</strong>
+        </h4>
+      </div>
+      <div class="card-body">
+        <ng-container *ngTemplateOutlet="groupFormTemplate"></ng-container>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #groupFormTemplate>
+  <div class="max-vertical-h-50 stylishSlimScroll flow-y-auto flow-x-hidden p-2">
+    <ng-container *ngIf="!allUsers.isLoading">
+      <mat-radio-group
+        aria-labelledby="example-radio-group-label"
+        class="example-radio-group"
+        [(ngModel)]="selectedUser"
+      >
+        <mat-radio-button class="example-radio-button d-block" *ngFor="let item of allUsers.data" [value]="item">
+          <div class="d-flex align-items-center pt-1">
+            <img
+              *ngIf="!item.image || item.image == 'string'"
+              src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
+              class="user-img ml-2"
+              alt="{{ item.firstName }} {{ item.lastName }}"
+            />
+            <img
+              *ngIf="item.image && item.image != 'string'"
+              [src]="item.image"
+              alt="{{ item.firstName }} {{ item.lastName }}"
+              class="user-img ml-2"
+            />
+            <span class="ml-1" [title]="item.firstName + ' ' + item.lastName">
+              {{ item.firstName }} {{ item.lastName }}</span
+            >
+          </div>
+        </mat-radio-button>
+      </mat-radio-group>
+    </ng-container>
+    <div *ngIf="allUsers.isLoading">
+      <ng-container *ngTemplateOutlet="loader"></ng-container>
+    </div>
+  </div>
+  <div class="text-center">
+    <button
+      mat-flat-button
+      color="primary"
+      class="mt-4"
+      [disabled]="!selectedUser"
+      (click)="submit()"
+      class="rounded-pill ml-2"
+    >
+      Send Invite
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #loader>
+  <div class="col-12 animated fadeIn" *ngFor="let item of [1, 2, 3, 4, 5]">
+    <div class="card ml-0 mr-0" style="height: 50px !important;">
+      <div class="card-img skeleton"></div>
+    </div>
+  </div>
+</ng-template>

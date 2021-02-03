@@ -338,7 +338,7 @@
 <ng-template #notifications>
   <ul
     id="notificationMenu"
-    class="notifications"
+    class="notifications d-none"
     [ngClass]="{ 'notifications-message': notificationConfig.currentView === 1 }"
   >
     <li class="titlebar text-center pt-2">
@@ -430,6 +430,14 @@
             >
               Inbox
             </button>
+            <button
+            mat-menu-item
+            [routerLink]="['/social-network/group']"
+            routerLinkActive="router-link-active"
+            class="h6"
+          >
+            Group
+          </button>
           </div>
         </mat-menu>
       </a>

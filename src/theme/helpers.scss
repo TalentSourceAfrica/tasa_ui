@@ -152,7 +152,11 @@ body {
 }
 
 .bg-primary-light {
-  background: rgb(234 232 238);
+  background: rgb(234 232 238) !important;
+}
+
+.bg-primary-more-light {
+  background: #fafafa !important;
 }
 
 .top-0 {
@@ -1596,6 +1600,16 @@ button:hover,
 
 .mat-tab-label-active {
   background: #eae8ee !important;
+}
+
+.user-img {
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  margin-right: 15px;
+  object-fit: cover;
+  object-position: center;
+  border: 2px solid #ddd;
 }
 
 .skeleton {
