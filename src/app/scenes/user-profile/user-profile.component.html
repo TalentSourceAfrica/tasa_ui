@@ -21,7 +21,7 @@
               >
               <div class="input-group input-group-merge">
                 <input
-                  *ngIf="entry.id != 'country' && entry.id != 'suffix' && entry.id != 'bio' && entry.id != 'ein'"
+                  *ngIf="entry.id != 'country' && entry.id != 'suffix' && entry.id != 'profileSummary' && entry.id != 'ein'"
                   id="{{ entry.id }}"
                   type="{{ entry.type }}"
                   formControlName="{{ entry.formControlName }}"
@@ -57,11 +57,11 @@
                   </mat-option>
                 </mat-select>
                 <textarea
-                  *ngIf="entry.id == 'bio'"
+                  *ngIf="entry.id == 'profileSummary'"
                   formControlName="{{ entry.formControlName }}"
                   placeholder="{{ entry.placeholder }}"
-                  rows="5"
-                  class="form-control form-control-prepended"
+                  rows="7"
+                  class="form-control form-control-prepended stylishSlimScroll"
                 >
                 </textarea>
                 <div *ngIf="entry.id != 'ein'" class="input-group-prepend">
@@ -987,7 +987,7 @@
       (click)="submitDetails('Mentee')"
       class="rounded-pill ml-2"
     >
-      Edit Details
+      Update
     </button>
     <button
       *ngIf="user.type == 'Mentor'"
@@ -996,7 +996,7 @@
       (click)="submitDetails('Mentor')"
       class="rounded-pill ml-2"
     >
-      Edit Details
+      Update
     </button>
     <button
       *ngIf="user.type == 'Recruiter'"
@@ -1005,7 +1005,7 @@
       (click)="submitDetails('Recruiter')"
       class="rounded-pill ml-2"
     >
-      Edit Details
+      Update
     </button>
   </div>
 </div>
