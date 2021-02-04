@@ -734,7 +734,7 @@ export class UserProfileComponent implements OnInit {
           lastName: [this.user.lastName],
           email: [this.user.email],
           dob: [''],
-          addressLine1: [this.user.address1, [Validators.required]],
+          addressLine1: [this.user.address1],
           addressLine2: [''],
           country: [this.user.country, [Validators.required]],
           state: [this.user.state, [Validators.required]],
@@ -942,7 +942,7 @@ export class UserProfileComponent implements OnInit {
     $t.userDetails.suffix = personalDetailsValues.suffix;
     $t.userDetails.firstName = personalDetailsValues.firstName;
     $t.userDetails.middleName = personalDetailsValues.middleName;
-    $t.userDetails.profileSummary = personalDetailsValues.profileSummary;
+    $t.userDetails.profileSummary = personalDetailsValues.profileSummary == undefined ? null : personalDetailsValues.profileSummary;
     $t.userDetails.lastName = personalDetailsValues.lastName;
     $t.userDetails.email = personalDetailsValues.email;
     $t.userDetails.dob = personalDetailsValues.dob;
@@ -961,6 +961,8 @@ export class UserProfileComponent implements OnInit {
     $t.userDetails.billingCity = personalDetailsValues.billingCity;
     $t.userDetails.billingState = personalDetailsValues.billingState;
     $t.userDetails.billingPostalCode = personalDetailsValues.billingPostalCode;
+    $t.userDetails.areaOfPreference = [];
+    $t.userDetails.preferredRole = [];
     if (_type != 'Recruiter') {
       let educationDetailsValues = $t.educationDetailsForm.value.educationDetailsFA;
       $t.userDetails.education = [];
@@ -982,7 +984,6 @@ export class UserProfileComponent implements OnInit {
       });
       let careerPreferenceDetailsValues = $t.careerPreferenceDetailsForm.value;
       $t.userDetails.areaOfPreference = [];
-      $t.userDetails.preferredRole = [];
       careerPreferenceDetailsValues.areaOfPreference.forEach((x: any) =>{
         $t.userDetails.areaOfPreference.push(x.name);
       });
@@ -1021,7 +1022,7 @@ export class UserProfileComponent implements OnInit {
       $t.userDetails.natureOfOpening = careerOpeningDetailsValues.natureOfOpening;
       $t.userDetails.clients = careerOpeningDetailsValues.clients;
       $t.userDetails.collaborator = careerOpeningDetailsValues.collaborator;
-      $t.userDetails.dateOfEstablishment = careerOpeningDetailsValues.dateOfEstablishment;
+      $t.userDetails.dateOfEstablishment = careerOpeningDetailsValues.dateOfEstablishment == '' ? null : careerOpeningDetailsValues.dateOfEstablishment;
     }
   }
 
@@ -1129,7 +1130,7 @@ export class UserProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.userDetails);
+    console.log(this.user);
     window.scrollTo(0, 0);
     this.getCountry();
     this.getOrganisation();

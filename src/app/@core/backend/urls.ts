@@ -94,6 +94,7 @@ export const urls: any = {
   removeSavedJob: '/users/removesavedjob/{userId}/{jobId}', // G
   publishJob: '/job/publish/{jobId}/{status}', // PO
   listUnlist: '/job/unlist/{jobId}/{status}', // PO
+  getJobsByOrg: '/job​/organization​/dashboard​/{orgId}', // G
 
   // Dashboard
   getRecommendedCourses: '/recs/courses/{userId}', // G

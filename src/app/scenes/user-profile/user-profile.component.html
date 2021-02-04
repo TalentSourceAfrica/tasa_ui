@@ -13,10 +13,13 @@
         <div class="pt-5 pl-2 pr-2 pb-2 card p-3 animated fadeIn">
           <div class="px-3 max-vertical-h-50 overflow-x-hidden stylishSlimScroll">
             <div class="form-group" *ngFor="let entry of personalDetails; let index = i">
-              <label *ngIf="entry.id != 'ein'" class="form-label" for="{{ entry.id }}"
+              <label *ngIf="entry.id != 'ein' && entry.id != 'profileSummary'" class="form-label" for="{{ entry.id }}"
                 >{{ entry.label }} <sup *ngIf="entry.mandatory" class="text-danger">*</sup></label
               >
               <label *ngIf="entry.id == 'ein' && user.type == 'Recruiter'" class="form-label" for="{{ entry.id }}"
+                >{{ entry.label }} <sup *ngIf="entry.mandatory" class="text-danger">*</sup></label
+              >
+              <label *ngIf="entry.id == 'profileSummary' && user.type != 'Recruiter'" class="form-label" for="{{ entry.id }}"
                 >{{ entry.label }} <sup *ngIf="entry.mandatory" class="text-danger">*</sup></label
               >
               <div class="input-group input-group-merge">
@@ -57,14 +60,14 @@
                   </mat-option>
                 </mat-select>
                 <textarea
-                  *ngIf="entry.id == 'profileSummary'"
+                  *ngIf="entry.id == 'profileSummary' && user.type != 'Recruiter'"
                   formControlName="{{ entry.formControlName }}"
                   placeholder="{{ entry.placeholder }}"
                   rows="7"
                   class="form-control form-control-prepended stylishSlimScroll"
                 >
                 </textarea>
-                <div *ngIf="entry.id != 'ein'" class="input-group-prepend">
+                <div *ngIf="entry.id != 'ein' && entry.id != 'profileSummary'" class="input-group-prepend">
                   <div class="input-group-text">
                     <span class="{{ entry.prepend }}"></span>
                   </div>
@@ -74,7 +77,12 @@
                     <span class="{{ entry.prepend }}"></span>
                   </div>
                 </div>
-              </div>
+                <div *ngIf="entry.id == 'profileSummary' && user.type != 'Recruiter'" class="input-group-prepend">
+                  <div class="input-group-text">
+                    <span class="{{ entry.prepend }}"></span>
+                  </div>
+               </div>
+              </div>              
               <small
                 *ngIf="entry.id == 'address1'"
                 [hidden]="
