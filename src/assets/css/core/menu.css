@@ -4,10 +4,10 @@
 
 .header-top-area {
   left: 0;
-  position: absolute;
   top: 0;
   width: 100%;
-  z-index: 999;
+  position: relative;
+  z-index: 9;
 }
 
 .mainmenu-area {
@@ -211,6 +211,13 @@ END MENU VARIENT
   padding: 20px 15px;
 } */
 
+.is-sticky {
+  position: absolute !important;
+  left: 0;
+  top: 0;
+  width: 100%;
+  z-index: 2;
+}
 .is-sticky .mainmenu-area {
   -webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.14), 0 4px 8px rgba(0, 0, 0, 0.28);
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.14), 0 4px 8px rgba(0, 0, 0, 0.28);

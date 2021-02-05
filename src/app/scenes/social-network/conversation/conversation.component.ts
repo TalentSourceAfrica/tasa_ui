@@ -34,8 +34,10 @@ export class ConversationComponent implements OnInit {
     selectedUser: undefined,
     currentConnection: undefined,
     isFetchingMsgList: false,
+    isGroupSelected: false,
     currentMsgList: [],
   };
+  groups: any = [];
   constructor(
     private credentialsService: CredentialsService,
     public sharedService: SharedService,
@@ -53,20 +55,25 @@ export class ConversationComponent implements OnInit {
     $t.connectedUserConfig.isLoading = true;
     let api1: any;
     let api2: any;
-
+    let api3: any;
     let apiUrl1 = $t.sharedService.urlService.apiCallWithParams('getAllNetworkConnections', {
       '{userId}': $t.user.email,
     });
     let apiUrl2 = $t.sharedService.urlService.apiCallWithParams('myConnections', {
       '{userId}': $t.user.email,
     });
-
+    let apiUrl3 = $t.sharedService.urlService.apiCallWithParams('getAllActiveGroupByUser', {
+      '{userId}': $t.user.email,
+    });
     api1 = $t.sharedService.configService.get(apiUrl1);
     api2 = $t.sharedService.configService.get(apiUrl2);
-    forkJoin([api1, api2]).subscribe(
+    api3 = $t.sharedService.configService.get(apiUrl3);
+
+    forkJoin([api1, api2, api3]).subscribe(
       (results: any) => {
         const result1 = results[0];
         const result2 = results[1].responseObj;
+        const result3 = results[2].responseObj;
         const userId = this.activatedRoute.snapshot.queryParamMap.get('userId');
         let getChatId = (d: any) => {
           if (result2.filter((data: any) => data.from === d.id || data.to === d.id).length) {
@@ -99,6 +106,17 @@ export class ConversationComponent implements OnInit {
             }
           }
         }
+        if (result3.length) {
+          $t.uds.each(result3, (d: any) => {
+            $t.connectedUserConfig.data.push({
+              groupTitle: d.groupTitle,
+              groupImageUrl: d.groupImageUrl,
+              groupDescription: d.groupDescription,
+              groupId: d.groupId,
+            });
+          });
+        }
+        console.log($t.connectedUserConfig);
         $t.connectedUserConfig.isLoading = false;
       },
       (error) => {
@@ -108,17 +126,40 @@ export class ConversationComponent implements OnInit {
     );
   }
 
-  afterUserSelected(_user: any) {
+  getAllGroup() {
+    let $t = this;
+    let apiUrl = $t.sharedService.urlService.apiCallWithParams('getAllActiveGroupByUser', {
+      '{userId}': $t.user.email,
+    });
+    $t.sharedService.configService.get(apiUrl).subscribe(
+      (response: any) => {
+        $t.groups = response.responseObj ? response.responseObj : [];
+      },
+      (error) => {}
+    );
+  }
+
+  afterUserSelected(_user: any, _isGroup?: boolean) {
     this.connectionConfig.selectedUser = _user;
-    this.message = '';
-    if (_user.chatId == null) {
-      setTimeout(() => {
-        this.connectionConfig.isFetchingMsgList = true;
-        this.startConnection(this.connectionConfig.selectedUser);
-      }, 1000); 
+    if (_isGroup) {
+      this.connectionConfig.isGroupSelected = true;
     } else {
+      this.connectionConfig.isGroupSelected = false;
+    }
+    this.message = '';
+    if(!this.connectionConfig.isGroupSelected){
+      if (_user.chatId == null) {
+        setTimeout(() => {
+          this.connectionConfig.isFetchingMsgList = true;
+          this.startConnection(this.connectionConfig.selectedUser);
+        }, 1000);
+      } else {
+        this.getAllChatByChatId();
+      }
+    }else {
       this.getAllChatByChatId();
     }
+
   }
 
   handleSelection(event: any) {
@@ -133,7 +174,8 @@ export class ConversationComponent implements OnInit {
     }
     payload = {
       id: '',
-      chatId: $t.connectionConfig.selectedUser.chatId,
+      chatId: !$t.connectionConfig.isGroupSelected ? $t.connectionConfig.selectedUser.chatId : '',
+      groupId: $t.connectionConfig.isGroupSelected ? this.connectionConfig.selectedUser.groupId : '',
       message: $t.message,
       contentType: $t.attachmentConfig.fileType,
       contentUrl: $t.attachmentConfig.file,
@@ -174,10 +216,19 @@ export class ConversationComponent implements OnInit {
 
   getAllChatByChatId() {
     let $t = this;
+    let apiUrl:any;
     $t.connectionConfig.isFetchingMsgList = true;
-    let apiUrl = $t.sharedService.urlService.apiCallWithParams('getAllMessages', {
-      '{chatId}': $t.connectionConfig.selectedUser.chatId,
-    });
+
+    if($t.connectionConfig.isGroupSelected){
+      apiUrl = $t.sharedService.urlService.apiCallWithParams('getAllMessagesByGroup', {
+        '{groupId}': $t.connectionConfig.selectedUser.groupId,
+      });
+    }else {
+      apiUrl = $t.sharedService.urlService.apiCallWithParams('getAllMessages', {
+        '{chatId}': $t.connectionConfig.selectedUser.chatId,
+      });
+    }
+ 
     $t.sharedService.configService.get(apiUrl).subscribe(
       (response: any) => {
         $t.connectionConfig.currentMsgList = response.responseObj.reverse();
@@ -318,6 +369,7 @@ export class ConversationComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllConnections();
+    this.getAllGroup();
   }
 
   ngAfterViewInit(): void {

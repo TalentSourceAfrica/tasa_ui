@@ -57,7 +57,8 @@ export class LoginPopupComponent implements OnInit {
           this.dialogRef.close();
           this.router.navigate(['/dashboard'], { replaceUrl: true });
           setTimeout(() => {
-            jQuery('.dashboard-wrapper').addClass('margin-top-100-px');
+            // jQuery('.dashboard-wrapper').addClass('margin-top-100-px');
+            jQuery('.header-top-area').removeClass('position-absolute');
           }, 500);
         },
         (error) => {

@@ -59,7 +59,7 @@ export class ProfileComponent implements OnInit {
     });
     $t.sharedService.configService.get(apiUrl).subscribe(
       (response: any) => {
-        $t.userConfig.user = response;
+      $t.userConfig.user = response.responseObj;
         $t.userConfig.user.tasaId != $t.user.tasaId ? ($t.isCurrentUser = false) : ($t.isCurrentUser = true);
         if (!$t.isCurrentUser) {
           $t.fetchConnections();

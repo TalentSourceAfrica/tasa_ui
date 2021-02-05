@@ -89,27 +89,40 @@
           <li
             class="contact"
             [ngClass]="{ active: connectionConfig.selectedUser?.id === item.id }"
-            (click)="afterUserSelected(item)"
             *ngFor="let item of connectedUserConfig.data | nameFilter: searchedName; let first = first"
           >
-            <div class="wrap">
-              <span class="contact-status"></span>
-              <img
-                src="{{
-                  item.imageUrl
-                    ? item.imageUrl
-                    : 'https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg'
-                }}"
-                alt="User Image"
-                class="shadow-lg"
-              />
-              <div class="meta">
-                <p class="name text-truncate" title="{{ item.firstName }} {{ item.lastName }}">
-                  {{ item.firstName }} {{ item.lastName }}
-                </p>
-                <!-- <p class="preview">You just got LITT up, Mike.</p> -->
+            <ng-container *ngIf="!item?.groupId">
+              <div class="wrap" (click)="afterUserSelected(item)">
+                <span class="contact-status"></span>
+                <img
+                  src="{{
+                    item.imageUrl
+                      ? item.imageUrl
+                      : 'https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg'
+                  }}"
+                  alt="User Image"
+                  class="shadow-lg"
+                />
+                <div class="meta">
+                  <p class="name text-truncate" title="{{ item.firstName }} {{ item.lastName }}">
+                    {{ item.firstName }} {{ item.lastName }}
+                  </p>
+                  <!-- <p class="preview">You just got LITT up, Mike.</p> -->
+                </div>
               </div>
-            </div>
+            </ng-container>
+            <ng-container *ngIf="item?.groupId">
+              <div class="wrap" (click)="afterUserSelected(item, true)">
+                <span class="contact-status"></span>
+                <img src="{{ item.groupImageUrl }}" alt="Group Image" class="shadow-lg" />
+                <div class="meta">
+                  <p class="name text-truncate" title="{{ item.groupTitle }}">
+                    {{ item.groupTitle }}
+                  </p>
+                  <!-- <p class="preview">You just got LITT up, Mike.</p> -->
+                </div>
+              </div>
+            </ng-container>
           </li>
           <!-- <li class="contact active">
             <div class="wrap">
@@ -161,7 +174,7 @@
             routerLinkActive="router-link-active"
             >{{ connectionConfig.selectedUser?.firstName }} {{ connectionConfig.selectedUser?.lastName }}
           </a>
-          ( <span class="text-muted">{{ connectionConfig.selectedUser?.summary }}</span> )
+          <!-- ( <span class="text-muted">{{ connectionConfig.selectedUser?.summary }}</span> ) -->
         </p>
         <div class="social-media">
           <i class="fab fa-facebook-f"></i>

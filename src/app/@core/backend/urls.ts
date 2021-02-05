@@ -7,7 +7,7 @@
 export const urls: any = {
   // Authentication
   getUsers: '/users', // G
-  getUserById: '/user/{tasaId}', // G
+  getUserById: '/users/view/{tasaId}', // G
   login: '/login', // PO
   signup: '/signup', // PO
   checkUsername: '/checkUserName/{userName}', // PO
@@ -144,10 +144,11 @@ export const urls: any = {
   getAllMessages: '/chat/messages/all/{chatId}', // G
   getAllNewMessages: '/chat/messages/new/{chatId}/{userId}', // G
   readMessages: '/chat/read/{chatId}', // PO
+  getAllMessagesByGroup: '/chat/group/all/{groupId}', // G
 
   // Group
   createGroup: '/groups/{adminId}', // PO
-  deleteGroup: '/groups/{adminId}/{groupId}', // DE
+  deleteGroup: '/groups/hard/{adminId}/{groupId}', // DE
   getAllActiveFroup: '/groups/active', // G
   getAllActiveGroupByUser: '/groups/mygroups/{userId}', // G
   sendRequestToGroup: '/groupRequest​/{userId}/{groupId}', // PO

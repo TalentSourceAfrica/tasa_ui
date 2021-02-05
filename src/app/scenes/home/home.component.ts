@@ -558,7 +558,7 @@ export class HomeComponent implements OnInit {
 
   ngAfterViewInit(): void {
     $('.mainmenu-area').css({ background: 'transparent' });
-    $('.header-top-area').css({ position: 'absolute' });
+    $('.header-top-area').addClass('position-absolute');
     $(document).on(
       'ready',
       (function ($) {
