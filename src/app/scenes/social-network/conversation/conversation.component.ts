@@ -113,7 +113,6 @@ export class ConversationComponent implements OnInit {
             });
           });
         }
-        console.log($t.connectedUserConfig);
         $t.connectedUserConfig.isLoading = false;
       },
       (error) => {
