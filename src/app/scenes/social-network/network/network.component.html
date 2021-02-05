@@ -62,9 +62,9 @@
                           >{{ item.firstName }} {{ item.lastName }}</a
                         >
                       </h6>
-                      <h6 class="text-muted text-truncate" [title]="item.summary" *ngIf="item.summary">
+                      <!-- <h6 class="text-muted text-truncate" [title]="item.summary" *ngIf="item.summary">
                         {{ item.summary }}
-                      </h6>
+                      </h6> -->
                     </div>
                     <button
                       mat-mini-fab
@@ -102,6 +102,7 @@
               <div class="row no-gutters">
                 <div class="col-2">
                   <img
+                    *ngIf="!item?.groupId || item?.groupId === ''"
                     [routerLink]="['/social-network/profile/', item.fromTasaId]"
                     routerLinkActive="router-link-active"
                     class="status-img img-responsive img-thumbnail curPoint"
@@ -112,16 +113,37 @@
                     }}"
                     alt="User picture"
                   />
+                  <img
+                    *ngIf="item?.groupId || item?.groupId !== ''"
+                    class="status-img img-responsive img-thumbnail"
+                    src="{{ item.groupImageUrl }}"
+                    alt="Group picture"
+                  />
                 </div>
                 <div class="col-10 pl-3">
                   <h6 class="mb-0">
                     <a
+                      *ngIf="!item?.groupId || item?.groupId === ''"
                       [routerLink]="['/social-network/profile/', item.fromTasaId]"
                       routerLinkActive="router-link-active"
                       >{{ item.fromName }}</a
                     >
+                    <a *ngIf="item?.groupId || item?.groupId !== ''">Group - {{ item.groupTitle }}</a>
                   </h6>
-                  <h6 class="text-muted">{{ item.fromSummary }}</h6>
+                  <h1
+                    class="text-muted text-truncate"
+                    *ngIf="!item?.groupId || item?.groupId === ''"
+                    [title]="item.fromSummary"
+                  >
+                    {{ item.fromSummary }}
+                  </h1>
+                  <h1
+                    class="text-muted text-truncate"
+                    *ngIf="item?.groupId || item?.groupId !== ''"
+                    [title]="item.groupDescription"
+                  >
+                    {{ item.groupDescription }}
+                  </h1>
                   <div class="d-flex w100 justify-content-end">
                     <button mat-flat-button color="primary" (click)="approve(item.id, i)" class="rounded-pill">
                       Approve

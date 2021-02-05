@@ -44,7 +44,7 @@ export class InviteUserPopupComponent implements OnInit {
     });
     this.sharedService.configService.post(apiUrl).subscribe(
       (response: any) => {
-        this.sharedService.uiService.showApiSuccessPopMsg('Invite Send...');
+        this.sharedService.uiService.showApiSuccessPopMsg(response.message);
         this.dialogRef.close();
       },
       (error) => {

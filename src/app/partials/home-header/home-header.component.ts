@@ -394,21 +394,19 @@ export class HomeHeaderComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
-    window.onload = (event: any) => {
-      jQuery('#mainmenu-area').sticky({
-        topSpacing: 0,
-      });
-      jQuery('.notification-popup').on('click', (event: any) => {
-        jQuery(this).toggleClass('open');
-        jQuery('#notificationMenu').removeClass('d-none').toggleClass('open');
-      });
-      jQuery(document).on('click', (event: any) => {
-        if (!jQuery(event.target).closest('.notification-popup').length) {
-          if (jQuery('#notificationMenu').hasClass('open')) {
-            jQuery('#notificationMenu').addClass('d-none').toggleClass('open');
-          }
+    jQuery('#mainmenu-area').sticky({
+      topSpacing: 0,
+    });
+    jQuery('.notification-popup').on('click', (event: any) => {
+      jQuery(this).toggleClass('open');
+      jQuery('#notificationMenu').removeClass('d-none').toggleClass('open');
+    });
+    jQuery(document).on('click', (event: any) => {
+      if (!jQuery(event.target).closest('.notification-popup').length) {
+        if (jQuery('#notificationMenu').hasClass('open')) {
+          jQuery('#notificationMenu').addClass('d-none').toggleClass('open');
         }
-      });
-    };
+      }
+    });
   }
 }

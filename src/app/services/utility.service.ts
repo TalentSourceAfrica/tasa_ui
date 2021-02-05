@@ -199,6 +199,7 @@ export class UtilityService {
         break;
     }
     localStorage.setItem('tasa-search-course', JSON.stringify(_courseSearchData));
+    jQuery('.header-top-area').removeClass('position-absolute');
     this.router.navigate(['/all-course'], { replaceUrl: true });
     if (this.router.url === '/all-course') {
       this.changeMessage('TRIGGER-COURSE-SEARCH');

@@ -57,7 +57,6 @@ export class LoginPopupComponent implements OnInit {
           this.dialogRef.close();
           this.router.navigate(['/dashboard'], { replaceUrl: true });
           setTimeout(() => {
-            // jQuery('.dashboard-wrapper').addClass('margin-top-100-px');
             jQuery('.header-top-area').removeClass('position-absolute');
           }, 500);
         },
@@ -65,24 +64,6 @@ export class LoginPopupComponent implements OnInit {
           this.sharedService.uiService.showApiErrorPopMsg(error.error.message);
         }
       );
-    // login$
-    //   .pipe(
-    //     finalize(() => {
-    //       this.loginForm.markAsPristine();
-    //       this.isLoading = false;
-    //     }),
-    //     untilDestroyed(this)
-    //   )
-    //   .subscribe(
-    //     (credentials: any) => {
-    //       log.debug(`${credentials.username} successfully logged in`);
-    //       this.router.navigate([this.route.snapshot.queryParams.redirect || '/'], { replaceUrl: true });
-    //     },
-    //     (error: any) => {
-    //       log.debug(`Login error: ${error}`);
-    //       this.error = error;
-    //     }
-    //   );
   }
 
   forgotPass() {

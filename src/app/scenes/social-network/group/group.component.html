@@ -6,7 +6,7 @@
     <div class="col-md-7 col-sm-12">
       <ol class="breadcrumb mt-3">
         <li class="breadcrumb-item curPoint"><a [routerLink]="['/dashboard']">Dashboard</a></li>
-        <li class="breadcrumb-item"><a>Community</a></li>
+        <li class="breadcrumb-itemGroup picture"><a>Community</a></li>
         <li class="breadcrumb-item active"><a>Groups</a></li>
       </ol>
       <div class="sec-title">
@@ -39,7 +39,7 @@
               <div class="row no-gutters">
                 <div class="col-2">
                   <img
-                    class="status-img img-responsive img-thumbnail curPoint"
+                    class="group-img img-responsive img-thumbnail curPoint"
                     src="{{ item.groupImageUrl }}"
                     alt="Group picture"
                   />
@@ -96,7 +96,7 @@
               <div class="row no-gutters">
                 <div class="col-2">
                   <img
-                    class="status-img img-responsive img-thumbnail curPoint"
+                    class="group-img img-responsive img-thumbnail curPoint"
                     src="{{ item.groupImageUrl }}"
                     alt="Group picture"
                   />

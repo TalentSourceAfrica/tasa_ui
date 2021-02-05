@@ -15,7 +15,6 @@
                   opportunities they need, and provide companies with access and visibility to the high-skilled
                   talent-pool needed to meet their business goals on the continent.
                 </p>
-                <p>
                 <ng-template [ngTemplateOutlet]="sliderSignup"></ng-template>
               </div>
             </div>
@@ -39,7 +38,6 @@
                   Meanwhile, the continent produced 10 million jobs per year within the same period and had a predicted
                   shortage of 31 million mid-high skill workers at the end of the decade.
                 </p>
-                <p>
                 <ng-template [ngTemplateOutlet]="sliderSignup"></ng-template>
                 <!-- <div class="home-button">
                   <form action="#">
@@ -65,7 +63,6 @@
                   We aim to become Africa's #1 talent source by annually connecting 5 million job-seekers with
                   high-skill jobs in and outside SSA by 2040.
                 </p>
-                <p>
                 <ng-template [ngTemplateOutlet]="sliderSignup"></ng-template>
               </div>
             </div>
@@ -85,7 +82,6 @@
                   TaSA Inc. seeks to bridge the gap between young Africans’ unmet demand for high-skill work, and
                   employers' unfulfilled need for high-capacity talent in Sub-Saharan Africa.
                 </p>
-                <p>
                 <ng-template [ngTemplateOutlet]="sliderSignup"></ng-template>
               </div>
             </div>
@@ -104,7 +100,6 @@
                 <p>
                   A place for Black/African, Latinx, Southeast Asian, and Indigenous people to connect with employers that align with their values, and build community with people that understand their perspective.
                 </p>
-                <p>
                 <ng-template [ngTemplateOutlet]="sliderSignup"></ng-template>
               </div>
             </div>
@@ -123,7 +118,6 @@
                 <p>
                   A place for Black/African, Latinx, Southeast Asian, and Indigenous people to connect with employers that align with their values, and build community with people that understand their perspective.
                 </p>
-                <p>
                 <ng-template [ngTemplateOutlet]="sliderSignup"></ng-template>
               </div>
             </div>
@@ -142,7 +136,6 @@
                 <p>
                  A place for Black/African, Latinx, Southeast Asian, and Indigenous people to connect with employers that align with their values, and build community with people that understand their perspective.
                 </p>
-                <p>
                 <ng-template [ngTemplateOutlet]="sliderSignup"></ng-template>
               </div>
             </div>
@@ -161,7 +154,6 @@
                 <p>
                   A place for Black/African, Latinx, Southeast Asian, and Indigenous people to connect with employers that align with their values, and build community with people that understand their perspective.
                 </p>
-                <p>
                 <ng-template [ngTemplateOutlet]="sliderSignup"></ng-template>
               </div>
             </div>
@@ -180,7 +172,6 @@
                 <p>
                  A place for Black/African, Latinx, Southeast Asian, and Indigenous people to connect with employers that align with their values, and build community with people that understand their perspective.
                 </p>
-                <p>
                 <ng-template [ngTemplateOutlet]="sliderSignup"></ng-template>
               </div>
             </div>
@@ -247,8 +238,8 @@
   <!--FEATURES TOP AREA END-->
 
   <!--ABOUT TOP CONTENT AREA-->
-  <section class="section-padding bg-theme">
-    <div class="text-center mb-3">
+  <section class="section-padding">
+    <div class="text-center pb-4">
       <h2 class="xs-font20">Sign Up</h2>
       <!-- <p class="card-subtitle"> -->
       <!-- <mat-form-field appearance="fill">
@@ -260,20 +251,20 @@
           </mat-form-field> -->
       <!-- </p> -->
     </div>
-    <div class="row m-auto w70">
-      <div class="col-6 p-0">
-        <div class="wow animated fadeIn wrapper">
+    <div class="row m-auto w70 mt-5">
+      <div class="col-sm-6 col-md-6 p-0">
+        <div class="wow animated fadeIn wrapper shadow-lg mt-3">
             <owl-carousel-o [options]="signupOwlOptions">
               <ng-container *ngFor="let slide of signupImages">
                 <ng-template class="slide shadow-lg" carouselSlide [id]="slide.id">
-                  <img [src]="slide.url" class="min-vertical-h-55" [alt]="slide.id" [title]="slide.id"/>
-                  <h4 class="text-white position-absolute" style="top:60%">{{slide.text}}</h4>
+                  <img [src]="slide.url" class="min-vertical-h-60 signup-slide-images" [alt]="slide.id" [title]="slide.id"/>
+                  <h4 class="text-white position-absolute signup-slide-text" style="top:60%">{{slide.text}}</h4>
                 </ng-template>
               </ng-container>
-            </owl-carousel-o>  
+            </owl-carousel-o>
         </div>
       </div>
-      <div class="col-6 p-0">
+      <div class="col-sm-6 col-md-6 p-0">
         <div class="wow animated fadeIn">
           <div class="d-flex align-items-center no-gutters signup-wrapper">
             <div class="navbar-shadow bg-white shadow-lg w100">
@@ -331,18 +322,18 @@
   <!--ABOUT AREA-->
   <section class="section-padding about-area bg-theme" id="about">
     <div class="container-fluid">
-      <div class="row flex-v-center">
-        <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12" data-aos="zoom-in-right">
+      <div class="row flex-v-center w70 text-center m-auto">
+        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12" data-aos="zoom-in-right">
           <div class="about-content xs-mb50 wow fadeIn">
-            <h3 class="xs-font20 mb30">About Us.</h3>
-            <p>
+            <h3 class="xs-font20 mb30">About Us</h3>
+            <h5 class="text-muted">
               To upskill, network and connect the millions of unemployed African college graduates with the job
               opportunities they need, and provide companies with access and visibility to the high-skilled talent-pool
               needed to meet their business goals on the continent.
-            </p>
+            </h5>
           </div>
         </div>
-        <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12" data-aos="zoom-in-left">
+        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 mt-4" data-aos="zoom-in-left">
           <div class="video-promo-details wow fadeIn">
             <video width="100%" height="500" controls muted="" loop="" playsinline="">
               <source src="https://www.kuwaconsultinggroup.com/images/kuwa2.mp4" type="video/mp4" />
@@ -374,12 +365,15 @@
       <div class="row course-list">
         <div *ngFor="let course of courses">
           <div class="single-course mb20 w80 curPoint">
-            <img [src]="course.image_url" alt="" />
-            <div class="course-details p-3 min-vertical-h-30">
+            <img [src]="course.image_url" alt="Course Image" />
+            <div class="course-details p-3">
               <h3 class="font18">{{ course.title }}</h3>
-              <div [innerHTML]="course.short_description"></div>
+              <p class="card-intro">
+                {{ course.subjects[0].name }}
+              </p>
+              <!-- <div [innerHTML]="course.short_description"></div> -->
             </div>
-            <div class="text-center position-relative mb-1">
+            <div class="text-center enroll-div position-absolute mb-3">
               <button mat-flat-button color="primary" (click)="enroll(course)" class="rounded-pill ml-2">
                 ENROLL
               </button>
@@ -441,7 +435,7 @@
 
       <div class="news-slider pb-2">
         <div class="single-blog-item sm-mb30 xs-mb30 wow fadeInUp mb-2" data-wow-delay="0.2s" *ngFor="let item of news">
-          <div class="blog-thumb" style="height: 170px;">
+          <div class="blog-thumb" style="height: 150px;">
             <a *ngIf="item.image != '' && item.image != 'string'"><img [src]="item.image" alt="News" /></a>
             <a *ngIf="item.image == '' || item.image == 'string'"
               ><img src="../../../assets/images/blog/blog-3.jpg" alt="News"
@@ -1038,7 +1032,7 @@
     <form [formGroup]="userDetailsForm" novalidate>
       <mat-step>
         <ng-template matStepLabel>Personal Details</ng-template>
-        <div class="pt-3 pl-2 pr-2 pb-2 min-vertical-h-45">
+        <div class="pt-3 pl-2 pr-2 pb-2 min-vertical-h-50">
           <div class="d-flex">
             <div class="form-group col-6 pl-0">
               <label class="form-label" for="name">First Name <sup class="text-danger">*</sup></label>
@@ -1283,7 +1277,7 @@
       </mat-step>
       <mat-step>
         <ng-template matStepLabel>Education Details</ng-template>
-        <div class="pt-3 pl-2 pr-2 pb-2 min-vertical-h-45">
+        <div class="pt-3 pl-2 pr-2 pb-2 min-vertical-h-50">
           <div class="row no-gutters">
             <div class="col-md-6 col-sm-12">
               <div class="form-group pr-2">
@@ -1472,7 +1466,7 @@
       </mat-step>
       <mat-step>
         <ng-template matStepLabel>Career Details</ng-template>
-        <div class="pt-3 pl-2 pr-2 pb-2 min-vertical-h-45">
+        <div class="pt-3 pl-2 pr-2 pb-2 min-vertical-h-50">
           <div class="row no-gutters">
             <div class="col-md-6 col-sm-12">
               <div class="form-group pr-2">
@@ -1639,12 +1633,12 @@
 <ng-template #sliderSignup>
    <div class="input-group input-group-sm d-flex">
     <input 
-      class="form-control form-control-sm rounded-pill inputClass"
+      class="form-control form-control-sm p-4 rounded-pill inputClass"
       type="email"
       placeholder="Enter your email address"
       [(ngModel)]="sliderSignUpMail" />
     <span
-      class="rounded-pill btn-behaviour curPoint mx-2 py-2 px-3 font-weight-bold"
+      class="rounded-pill btn-behaviour curPoint mx-2 pt-3 font-weight-bold w20 text-center"
       color="primary"
       (click)="signup()"
     >
