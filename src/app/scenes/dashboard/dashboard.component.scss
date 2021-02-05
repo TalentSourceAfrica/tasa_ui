@@ -79,7 +79,66 @@
     border-width: 0 15px 22px 0;
     border-color: transparent transparent #ffc107 transparent;
   }
+  .table-container {
+    position: relative;
+    min-height: 200px
+  }
+  .mat-table-container {
+    position: relative;
+    max-height: 500px;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  .mat-header-cell {
+    color: white;
+    font-weight: bold;
+  }
+  .mat-column-organization,
+  .mat-column-title,
+  .mat-column-createdBy {
+    min-width: 175px;
+    font-size: 13px;
+  }
+  .mat-header-row {
+    background-color: #9d6ae4;
+  }
+  .mat-paginator {
+    background-color: #9d6ae4 !important;
+    font-weight: bold !important;
+    color: white !important;
+  }
+  .mat-column-applicationReceivedCount,
+  .mat-column-applicationRejectedCount,
+  .mat-column-applicationAcceptedCount {
+    min-width: 122px;
+    font-size: 13px;
+  }
+  .mat-row {
+    &:hover {
+      background-color: #9d6ae4;
+      color: white;
+    }
+  }
+  .mat-row > td:hover {
+    color: white;
+  }
+ /*  .mat-row:nth-child(even){
+      background-color: #b491e4;
+  }
+          
+  .mat-row:nth-child(odd){
+      background-color: white;
+  } */
+  .a-hover:hover {
+    color: white;
+  }
+  .mat-paginator-range-actions {
+    margin-top: 0px;
+  }
 }
 .owl-stage-outer {
   padding: 20px !important;
 }
+
+/* #9d6ae4 - new */
+/* #867899 - tasaColor */

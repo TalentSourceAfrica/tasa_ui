@@ -1,0 +1,221 @@
+<div class="profile-wrapper">
+  <div class="main-container">
+    <div class="timeline pl-2">
+      <div
+        class="timeline-right mb-4 max-vertical-h-65 overflow-x-hidden stylishSlimScroll"
+      >
+        <div class="status box share-status-box">
+          <div class="row status-main no-gutters">
+            <img
+              [src]="popupData.user.image"
+              [routerLink]="['/social-network/profile/', popupData.user.tasaId]"
+              routerLinkActive="router-link-active"
+              class="status-img curPoint"
+              [class.mr-1]="newPost.videoUrl != ''"
+            />
+            <textarea
+              id="postBox-share"
+              class="row no-gutters status-textarea mb-1"
+              [class.col-12]="newPost.imageUrl != '' || newPost.videoUrl != ''"
+              [(ngModel)]="newPost.content"
+              placeholder="What do you think about this post?"
+              (keyup.enter)="createSocialPost()"
+            ></textarea>
+            <div *ngIf="newPost.imageUrl != ''">
+              <a class="pl-5" [href]="newPost.imageUrl" target="_blank">
+                <img [src]="newPost.imageUrl" class="p-2 curPoint post-image img-thumbnail" />
+              </a>
+            </div>
+            <div *ngIf="newPost.videoUrl != ''">
+              <video width="500" height="240" controls class="pl-5">
+                <source [src]="newPost.videoUrl" type="video/mp4" />
+                <source [src]="newPost.videoUrl" type="video/ogg" />
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          </div>
+          <div class="album-box share-status-box postToShare mx-2 mb-4">
+            <div *ngIf="popupData.post">
+              <div class="status-main pt-3">
+                <img
+                  matTooltipPosition="below"
+                  [matTooltip]="popupData.post.userName"
+                  [routerLink]="['/social-network/profile/', popupData.post.tasaId]"
+                  routerLinkActive="router-link-active"
+                  [src]="popupData.post.userImageUrl"
+                  class="status-img curPoint"
+                />
+                <div class="album-detail">
+                  <div class="album-title">
+                    <strong
+                      ><a
+                        [routerLink]="['/social-network/profile/', popupData.post.tasaId]"
+                        routerLinkActive="router-link-active"
+                        >{{ popupData.post.userName }}</a
+                      ></strong
+                    >
+                  </div>
+                  <div class="album-date">{{ getNotiDay(popupData.post) }}</div>
+                </div>
+              </div>
+              <div class="row album-content no-gutters">
+                <div class="mb-2 mt-1 col-12" [class.pl-3]="popupData.post.imageUrl == '' && popupData.post.videoUrl == ''">
+                  {{ popupData.post.content }}
+                </div>
+                <div class="pl-2 text-center" *ngIf="popupData.post.imageUrl != ''">
+                  <a [href]="popupData.post.imageUrl" target="_blank">
+                    <img [src]="popupData.post.imageUrl" width="250" height="250" class="p-2 curPoint" />
+                  </a>
+                </div>
+                <div class="pl-2 text-center" *ngIf="popupData.post.videoUrl != ''">
+                  <video height="240" controls>
+                    <source [src]="popupData.post.videoUrl" type="video/mp4" />
+                    <source [src]="popupData.post.videoUrl" type="video/ogg" />
+                    Your browser does not support the video tag.
+                  </video>
+                </div>
+                  <div *ngIf="popupData.post.sharePostId != ''" class="album-box share-status-box sharedPost mx-2 mb-4">
+                    <div class="status-main pt-3">
+                      <img
+                        matTooltipPosition="below"
+                        [matTooltip]="popupData.post.userName"
+                        [routerLink]="['/social-network/profile/', popupData.post.tasaId]"
+                        routerLinkActive="router-link-active"
+                        [src]="popupData.post.userImageUrl"
+                        class="status-img curPoint"
+                      />
+                      <div class="album-detail">
+                        <div class="album-title">
+                          <strong
+                            ><a
+                              [routerLink]="['/social-network/profile/', popupData.post.tasaId]"
+                              routerLinkActive="router-link-active"
+                              >{{ popupData.post.userName }}</a
+                            ></strong
+                          >
+                        </div>
+                        <div class="album-date">{{ getNotiDay(popupData.post) }}</div>
+                      </div>
+                    </div>
+                    <div class="row album-content no-gutters">
+                      <div class="mb-2 mt-1 col-12" [class.pl-3]="popupData.post.sharePostImage == '' && popupData.post.sharePostVideo == ''">
+                        {{ popupData.post.sharePostContent }}
+                      </div>
+                      <div class="pl-2 text-center" *ngIf="popupData.post.sharePostImage != ''">
+                        <a [href]="popupData.post.sharePostImage" target="_blank">
+                          <img [src]="popupData.post.sharePostImage" width="250" height="250" class="p-2 curPoint" />
+                        </a>
+                      </div>
+                      <div class="pl-2 text-center" *ngIf="popupData.post.sharePostVideo != ''">
+                        <video height="240" controls>
+                          <source [src]="popupData.post.sharePostVideo" type="video/mp4" />
+                          <source [src]="popupData.post.sharePostVideo" type="video/ogg" />
+                          Your browser does not support the video tag.
+                        </video>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+          <mat-progress-bar mode="indeterminate" *ngIf="isUploadingFile" color="primary"></mat-progress-bar>
+          <div class="status-actions">
+            <div class="row no-gutters">
+              <div class="col-8">
+                <button
+                  mat-mini-fab
+                  color="primary"
+                  style="z-index: 9;"
+                  class="mr-2"
+                  (click)="triggerImageUpload()"
+                  matTooltipPosition="below"
+                  matTooltip="Add Image - Supported Formats are .jpeg, .jpg, .gif, .png"
+                >
+                  <mat-icon>add_a_photo</mat-icon>
+                </button>
+                <button
+                  mat-mini-fab
+                  color="primary"
+                  style="z-index: 9;"
+                  class="mr-2"
+                  (click)="triggerVideoUpload()"
+                  matTooltipPosition="below"
+                  matTooltip="Add Video - Supported Formats are .mp4, .mov, .wmv, .flv, .avi, .webm"
+                >
+                  <mat-icon>video_library</mat-icon>
+                </button>
+                <!-- <button
+                  mat-mini-fab
+                  class="attachment"
+                  [ngClass]="{
+                    'attachment-two': newPost.imageUrl != '' || newPost.videoUrl != ''
+                  }"
+                  (click)="toggled = !toggled"
+                  [(emojiPickerIf)]="toggled"
+                  [emojiPickerDirection]="'right'"
+                  (emojiPickerSelect)="handleSelection($event)"
+                  matTooltipPosition="below"
+                  matTooltip="Add Emoji"
+                >
+                  <mat-icon style="height: 27px; margin-right: 2px;">😄</mat-icon>
+                </button> -->
+                <button
+                  *ngIf="newPost.imageUrl != ''"
+                  mat-mini-fab
+                  color="primary"
+                  style="z-index: 9;"
+                  class="mr-2"
+                  (click)="newPost.imageUrl = ''"
+                  matTooltipPosition="below"
+                  matTooltip="Remove Image"
+                >
+                  <span class="fa-stack">
+                    <i class="fas fa-slash fa-lg fa-stack-1x"></i>
+                    <i class="far fa-image fa-lg fa-stack-1x"></i>
+                  </span>
+                </button>
+                <button
+                  *ngIf="newPost.videoUrl != ''"
+                  mat-mini-fab
+                  color="primary"
+                  style="z-index: 9;"
+                  class="mr-2"
+                  (click)="newPost.videoUrl = ''"
+                  matTooltipPosition="below"
+                  matTooltip="Remove Video"
+                >
+                  <i class="fas fa-video-slash"></i>
+                </button>
+              </div>
+              <div class="col-4 text-right">
+                <button
+                  mat-flat-button
+                  color="primary"
+                  [disabled]="newPost.content == ''"
+                  (click)="createSocialPost()"
+                  class="rounded-pill ml-2"
+                >
+                  Share
+                </button>
+              </div>
+            </div>
+          </div>
+          <input
+            id="imageUpload"
+            class="d-none"
+            #imageShareFileUpload
+            type="file"
+            (change)="uploadFile($event, 'image')"
+          />
+          <input
+            id="videoUpload"
+            class="d-none"
+            #videoShareFileUpload
+            type="file"
+            (change)="uploadFile($event, 'video')"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

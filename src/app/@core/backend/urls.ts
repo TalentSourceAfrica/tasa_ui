@@ -52,7 +52,6 @@ export const urls: any = {
   updatePost: '/posts', // PU
   deletePost: '/socialPost/{postId}', // DE
   changePostStatus: '/posts/{postId}/{status}', // PO
-  sharePost: '/socialPost/share/{postId}', // PO
 
   // upload
   uploadMultiFile: '/uploadMultipleDocuments/{email}', // PO
@@ -95,6 +94,7 @@ export const urls: any = {
   removeSavedJob: '/users/removesavedjob/{userId}/{jobId}', // G
   publishJob: '/job/publish/{jobId}/{status}', // PO
   listUnlist: '/job/unlist/{jobId}/{status}', // PO
+  getJobsByOrg: '/job​/organization​/dashboard​/{orgId}', // G
 
   // Dashboard
   getRecommendedCourses: '/recs/courses/{userId}', // G
@@ -112,6 +112,7 @@ export const urls: any = {
   removeComment: '/socialPost/removecomment/{postId}/{commentId}', // PO
   reactOnPost: '/socialPost/react/{postId}', // PO
   removeReactionFromPost: '/socialPost/removeReact/{postId}/{reactionId}', // PO
+  sharePost: '/socialPost/share/{postId}', // PO
 
   // Organisation
   getOrganisation: '/organization', // G
