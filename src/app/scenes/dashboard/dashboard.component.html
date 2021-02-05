@@ -508,7 +508,7 @@
                     <td mat-cell *matCellDef="let row"><a class="curPoint text-truncate a-hover" [routerLink]="['/job/', row.jobId]"><u>{{ row.title }}</u></a></td>
                   </ng-container>
                   <ng-container matColumnDef="createdBy">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Recruiter Name</th>
+                    <th mat-header-cell *matHeaderCellDef disableClear>Recruiter Name</th>
                     <td mat-cell *matCellDef="let row"><a class="curPoint text-truncate a-hover" [routerLink]="['/social-network/profile/', row.tasaId]"><u>{{ row.createdBy }}</u></a></td>
                   </ng-container>
                   <ng-container matColumnDef="applicationReceivedCount">
