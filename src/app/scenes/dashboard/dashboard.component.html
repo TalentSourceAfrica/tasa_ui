@@ -497,7 +497,7 @@
         <div class="card">
           <div class="card-body p-0">
             <div class="table-container">
-              <div class="mat-table-container stylishSlimScroll">
+              <div class="mat-table-container stylishSlimScroll min-vertical-h-40 max-vertical-h-40">
                 <table mat-table [dataSource]="matTableConfig.data" matSort matSortActive="createdBy" matSortDisableClear matSortDirection="desc">
                   <ng-container matColumnDef="organization">
                     <th mat-header-cell *matHeaderCellDef>Organization</th>
@@ -509,22 +509,61 @@
                   </ng-container>
                   <ng-container matColumnDef="createdBy">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Recruiter Name</th>
-                    <td mat-cell *matCellDef="let row">{{ row.createdBy }}</td>
+                    <td mat-cell *matCellDef="let row"><a class="curPoint text-truncate a-hover" [routerLink]="['/social-network/profile/', row.tasaId]"><u>{{ row.createdBy }}</u></a></td>
                   </ng-container>
                   <ng-container matColumnDef="applicationReceivedCount">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Applied</th>
-                    <td mat-cell *matCellDef="let row">{{ row.applicationReceivedCount }}</td>
+                    <td mat-cell *matCellDef="let row">
+                      <div class="floating-actions">
+                        <a class="ml-2 text-white curPoint" matTooltipPosition="below" matTooltip="Show All Applicants" (click)="showApplicants(row, $event, 'Applied')">
+                          <button
+                            class="action bg-primary mt-3 mb-2 curPoint"
+                            [matBadge]="row.applicationReceivedCount"
+                            matBadgePosition="after"
+                            matBadgeColor="accent"
+                            (click)="showApplicants(row, $event, 'Applied')">
+                            <i class="fas fa-users fa-lg"></i>
+                          </button>
+                        </a>
+                      </div> 
+                    </td>
                   </ng-container>
                   <ng-container matColumnDef="applicationRejectedCount">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Rejected</th>
-                    <td mat-cell *matCellDef="let row">{{ row.applicationRejectedCount }}</td>
+                    <td mat-cell *matCellDef="let row">
+                      <div class="floating-actions">
+                        <a class="ml-2 text-white curPoint" matTooltipPosition="below" matTooltip="Show Rejected Applicant" (click)="showApplicants(row, $event, 'Rejected')" >
+                          <button
+                            class="action bg-danger mt-3 mb-2"
+                            [matBadge]="row.applicationRejectedCount"
+                            matBadgePosition="after"
+                            matBadgeColor="accent"
+                            (click)="showApplicants(row, $event, 'Rejected')">
+                            <i class="fas fa-users fa-lg"></i>
+                          </button>
+                        </a>
+                      </div>
+                    </td>
                   </ng-container>
                   <ng-container matColumnDef="applicationAcceptedCount">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Accepted</th>
-                    <td mat-cell *matCellDef="let row">{{ row.applicationAcceptedCount }}</td>
+                    <td mat-cell *matCellDef="let row">
+                      <div class="floating-actions">
+                        <a class="ml-2 text-white curPoint" matTooltipPosition="below" matTooltip="Show Accepted Applicants" (click)="showApplicants(row, $event, 'Accepted')">
+                          <button
+                            class="action bg-success mt-3 mb-2"
+                            [matBadge]="row.applicationAcceptedCount"
+                            matBadgePosition="after"
+                            matBadgeColor="accent"
+                            (click)="showApplicants(row, $event, 'Accepted')">
+                            <i class="fas fa-users fa-lg"></i>
+                          </button>
+                        </a>
+                      </div>
+                    </td>
                   </ng-container>
                   <tr mat-header-row *matHeaderRowDef="matTableConfig.cols; sticky: true"></tr>
-                  <tr mat-row *matRowDef="let row; columns: matTableConfig.cols;"></tr>
+                  <tr mat-row *matRowDef="let row; columns: matTableConfig.cols;" class="table-row"></tr>
                 </table>
               </div>  
               <mat-paginator [length]="matTableConfig.resultsLength" [pageSize]="25"></mat-paginator>

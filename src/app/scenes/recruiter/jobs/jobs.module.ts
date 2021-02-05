@@ -12,7 +12,8 @@ import { NgxDocViewerModule } from 'ngx-doc-viewer';
 
 import { JobsRoutingModule } from './jobs-routing.module';
 import { JobsComponent } from './jobs.component';
-import { ShowApplicantsComponent } from '@app/partials/popups/recruiter/show-applicants/show-applicants.component';
+// import { ShowApplicantsComponent } from '@app/partials/popups/recruiter/show-applicants/show-applicants.component';
+import { ShowApplicantsModule } from '@app/partials/popups/recruiter/show-applicants/show-applicants.module';
 
 @NgModule({
   imports: [
@@ -26,9 +27,10 @@ import { ShowApplicantsComponent } from '@app/partials/popups/recruiter/show-app
     RouterModule,
     JobsRoutingModule,
     NgxDocViewerModule,
+    ShowApplicantsModule
   ],
-  declarations: [JobsComponent, ShowApplicantsComponent],
-  entryComponents: [ShowApplicantsComponent],
+  declarations: [JobsComponent],
+  entryComponents: [],
   schemas: [NO_ERRORS_SCHEMA],
 })
 export class JobsModule {}

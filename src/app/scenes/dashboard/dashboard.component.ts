@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { CredentialsService } from '@app/auth';
 import { SharedService } from '@app/services/shared.service';
 import { OwlOptions } from 'ngx-owl-carousel-o';
+import { MatSort, Sort } from '@angular/material/sort';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { ShowApplicantsComponent } from '@app/partials/popups/recruiter/show-applicants/show-applicants.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,6 +13,8 @@ import { OwlOptions } from 'ngx-owl-carousel-o';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
   isAdmin: boolean = false;
   uds: any;
   postData: any = [];
@@ -70,505 +75,7 @@ export class DashboardComponent implements OnInit {
     },
   };
   matTableConfig: any = {
-    data: [{
-      orgId: "7dcf052856dc41e4b3d54bcbe5a55310",
-      jobId: "2c7fb77c4ebe4e509a5ea4ff207c9746",
-      organisation: "TaSA",
-      title: "Pre-Sales Engineer",
-      createdBy: "Avishek Saha",
-      applicationReceivedCount: 1,
-      applicationRejectedCount: 0,
-      applicationAcceptedCount: 0
-    },
-    {
-      orgId: "7dcf052856dc41e4b3d54bcbe5a55310",
-      jobId: "2c7fb77c4ebe4e509a5ea4ff207c9746",
-      organisation: "TaSA",
-      title: "Pre-Sales Engineer",
-      createdBy: "Avishek Saha",
-      applicationReceivedCount: 1,
-      applicationRejectedCount: 0,
-      applicationAcceptedCount: 0
-    },{
-      orgId: "7dcf052856dc41e4b3d54bcbe5a55310",
-      jobId: "2c7fb77c4ebe4e509a5ea4ff207c9746",
-      organisation: "TaSA",
-      title: "Pre-Sales Engineer",
-      createdBy: "Avishek Saha",
-      applicationReceivedCount: 1,
-      applicationRejectedCount: 0,
-      applicationAcceptedCount: 0
-    },{
-      orgId: "7dcf052856dc41e4b3d54bcbe5a55310",
-      jobId: "2c7fb77c4ebe4e509a5ea4ff207c9746",
-      organisation: "TaSA",
-      title: "Pre-Sales Engineer",
-      createdBy: "Avishek Saha",
-      applicationReceivedCount: 1,
-      applicationRejectedCount: 0,
-      applicationAcceptedCount: 0
-    },{
-      orgId: "7dcf052856dc41e4b3d54bcbe5a55310",
-      jobId: "2c7fb77c4ebe4e509a5ea4ff207c9746",
-      organisation: "TaSA",
-      title: "Pre-Sales Engineer",
-      createdBy: "Avishek Saha",
-      applicationReceivedCount: 1,
-      applicationRejectedCount: 0,
-      applicationAcceptedCount: 0
-    },{
-      orgId: "7dcf052856dc41e4b3d54bcbe5a55310",
-      jobId: "2c7fb77c4ebe4e509a5ea4ff207c9746",
-      organisation: "TaSA",
-      title: "Pre-Sales Engineer",
-      createdBy: "Avishek Saha",
-      applicationReceivedCount: 1,
-      applicationRejectedCount: 0,
-      applicationAcceptedCount: 0
-    },{
-      orgId: "7dcf052856dc41e4b3d54bcbe5a55310",
-      jobId: "2c7fb77c4ebe4e509a5ea4ff207c9746",
-      organisation: "TaSA",
-      title: "Pre-Sales Engineer",
-      createdBy: "Avishek Saha",
-      applicationReceivedCount: 1,
-      applicationRejectedCount: 0,
-      applicationAcceptedCount: 0
-    },{
-      orgId: "7dcf052856dc41e4b3d54bcbe5a55310",
-      jobId: "2c7fb77c4ebe4e509a5ea4ff207c9746",
-      organisation: "TaSA",
-      title: "Pre-Sales Engineer",
-      createdBy: "Avishek Saha",
-      applicationReceivedCount: 1,
-      applicationRejectedCount: 0,
-      applicationAcceptedCount: 0
-    },{
-      orgId: "7dcf052856dc41e4b3d54bcbe5a55310",
-      jobId: "2c7fb77c4ebe4e509a5ea4ff207c9746",
-      organisation: "TaSA",
-      title: "Pre-Sales Engineer",
-      createdBy: "Avishek Saha",
-      applicationReceivedCount: 1,
-      applicationRejectedCount: 0,
-      applicationAcceptedCount: 0
-    },
-    {
-      orgId: "7dcf052856dc41e4b3d54bcbe5a55310",
-      jobId: "2c7fb77c4ebe4e509a5ea4ff207c9746",
-      organisation: "TaSA",
-      title: "Pre-Sales Engineer",
-      createdBy: "Avishek Saha",
-      applicationReceivedCount: 1,
-      applicationRejectedCount: 0,
-      applicationAcceptedCount: 0
-    },
-    {
-      orgId: "7dcf052856dc41e4b3d54bcbe5a55310",
-      jobId: "2c7fb77c4ebe4e509a5ea4ff207c9746",
-      organisation: "TaSA",
-      title: "Pre-Sales Engineer",
-      createdBy: "Avishek Saha",
-      applicationReceivedCount: 1,
-      applicationRejectedCount: 0,
-      applicationAcceptedCount: 0
-    },{
-      orgId: "7dcf052856dc41e4b3d54bcbe5a55310",
-      jobId: "2c7fb77c4ebe4e509a5ea4ff207c9746",
-      organisation: "TaSA",
-      title: "Pre-Sales Engineer",
-      createdBy: "Avishek Saha",
-      applicationReceivedCount: 1,
-      applicationRejectedCount: 0,
-      applicationAcceptedCount: 0
-    },{
-      orgId: "7dcf052856dc41e4b3d54bcbe5a55310",
-      jobId: "2c7fb77c4ebe4e509a5ea4ff207c9746",
-      organisation: "TaSA",
-      title: "Pre-Sales Engineer",
-      createdBy: "Avishek Saha",
-      applicationReceivedCount: 1,
-      applicationRejectedCount: 0,
-      applicationAcceptedCount: 0
-    },{
-      orgId: "7dcf052856dc41e4b3d54bcbe5a55310",
-      jobId: "2c7fb77c4ebe4e509a5ea4ff207c9746",
-      organisation: "TaSA",
-      title: "Pre-Sales Engineer",
-      createdBy: "Avishek Saha",
-      applicationReceivedCount: 1,
-      applicationRejectedCount: 0,
-      applicationAcceptedCount: 0
-    },{
-      orgId: "7dcf052856dc41e4b3d54bcbe5a55310",
-      jobId: "2c7fb77c4ebe4e509a5ea4ff207c9746",
-      organisation: "TaSA",
-      title: "Pre-Sales Engineer",
-      createdBy: "Avishek Saha",
-      applicationReceivedCount: 1,
-      applicationRejectedCount: 0,
-      applicationAcceptedCount: 0
-    },{
-      orgId: "7dcf052856dc41e4b3d54bcbe5a55310",
-      jobId: "2c7fb77c4ebe4e509a5ea4ff207c9746",
-      organisation: "TaSA",
-      title: "Pre-Sales Engineer",
-      createdBy: "Avishek Saha",
-      applicationReceivedCount: 1,
-      applicationRejectedCount: 0,
-      applicationAcceptedCount: 0
-    },{
-      orgId: "7dcf052856dc41e4b3d54bcbe5a55310",
-      jobId: "2c7fb77c4ebe4e509a5ea4ff207c9746",
-      organisation: "TaSA",
-      title: "Pre-Sales Engineer",
-      createdBy: "Avishek Saha",
-      applicationReceivedCount: 1,
-      applicationRejectedCount: 0,
-      applicationAcceptedCount: 0
-    },{
-      orgId: "7dcf052856dc41e4b3d54bcbe5a55310",
-      jobId: "2c7fb77c4ebe4e509a5ea4ff207c9746",
-      organisation: "TaSA",
-      title: "Pre-Sales Engineer",
-      createdBy: "Avishek Saha",
-      applicationReceivedCount: 1,
-      applicationRejectedCount: 0,
-      applicationAcceptedCount: 0
-    },
-    {
-      orgId: "7dcf052856dc41e4b3d54bcbe5a55310",
-      jobId: "2c7fb77c4ebe4e509a5ea4ff207c9746",
-      organisation: "TaSA",
-      title: "Pre-Sales Engineer",
-      createdBy: "Avishek Saha",
-      applicationReceivedCount: 1,
-      applicationRejectedCount: 0,
-      applicationAcceptedCount: 0
-    },
-    {
-      orgId: "7dcf052856dc41e4b3d54bcbe5a55310",
-      jobId: "2c7fb77c4ebe4e509a5ea4ff207c9746",
-      organisation: "TaSA",
-      title: "Pre-Sales Engineer",
-      createdBy: "Avishek Saha",
-      applicationReceivedCount: 1,
-      applicationRejectedCount: 0,
-      applicationAcceptedCount: 0
-    },{
-      orgId: "7dcf052856dc41e4b3d54bcbe5a55310",
-      jobId: "2c7fb77c4ebe4e509a5ea4ff207c9746",
-      organisation: "TaSA",
-      title: "Pre-Sales Engineer",
-      createdBy: "Avishek Saha",
-      applicationReceivedCount: 1,
-      applicationRejectedCount: 0,
-      applicationAcceptedCount: 0
-    },{
-      orgId: "7dcf052856dc41e4b3d54bcbe5a55310",
-      jobId: "2c7fb77c4ebe4e509a5ea4ff207c9746",
-      organisation: "TaSA",
-      title: "Pre-Sales Engineer",
-      createdBy: "Avishek Saha",
-      applicationReceivedCount: 1,
-      applicationRejectedCount: 0,
-      applicationAcceptedCount: 0
-    },{
-      orgId: "7dcf052856dc41e4b3d54bcbe5a55310",
-      jobId: "2c7fb77c4ebe4e509a5ea4ff207c9746",
-      organisation: "TaSA",
-      title: "Pre-Sales Engineer",
-      createdBy: "Avishek Saha",
-      applicationReceivedCount: 1,
-      applicationRejectedCount: 0,
-      applicationAcceptedCount: 0
-    },{
-      orgId: "7dcf052856dc41e4b3d54bcbe5a55310",
-      jobId: "2c7fb77c4ebe4e509a5ea4ff207c9746",
-      organisation: "TaSA",
-      title: "Pre-Sales Engineer",
-      createdBy: "Avishek Saha",
-      applicationReceivedCount: 1,
-      applicationRejectedCount: 0,
-      applicationAcceptedCount: 0
-    },{
-      orgId: "7dcf052856dc41e4b3d54bcbe5a55310",
-      jobId: "2c7fb77c4ebe4e509a5ea4ff207c9746",
-      organisation: "TaSA",
-      title: "Pre-Sales Engineer",
-      createdBy: "Avishek Saha",
-      applicationReceivedCount: 1,
-      applicationRejectedCount: 0,
-      applicationAcceptedCount: 0
-    },{
-      orgId: "7dcf052856dc41e4b3d54bcbe5a55310",
-      jobId: "2c7fb77c4ebe4e509a5ea4ff207c9746",
-      organisation: "TaSA",
-      title: "Pre-Sales Engineer",
-      createdBy: "Avishek Saha",
-      applicationReceivedCount: 1,
-      applicationRejectedCount: 0,
-      applicationAcceptedCount: 0
-    },{
-      orgId: "7dcf052856dc41e4b3d54bcbe5a55310",
-      jobId: "2c7fb77c4ebe4e509a5ea4ff207c9746",
-      organisation: "TaSA",
-      title: "Pre-Sales Engineer",
-      createdBy: "Avishek Saha",
-      applicationReceivedCount: 1,
-      applicationRejectedCount: 0,
-      applicationAcceptedCount: 0
-    },
-    {
-      orgId: "7dcf052856dc41e4b3d54bcbe5a55310",
-      jobId: "2c7fb77c4ebe4e509a5ea4ff207c9746",
-      organisation: "TaSA",
-      title: "Pre-Sales Engineer",
-      createdBy: "Avishek Saha",
-      applicationReceivedCount: 1,
-      applicationRejectedCount: 0,
-      applicationAcceptedCount: 0
-    },
-    {
-      orgId: "7dcf052856dc41e4b3d54bcbe5a55310",
-      jobId: "2c7fb77c4ebe4e509a5ea4ff207c9746",
-      organisation: "TaSA",
-      title: "Pre-Sales Engineer",
-      createdBy: "Avishek Saha",
-      applicationReceivedCount: 1,
-      applicationRejectedCount: 0,
-      applicationAcceptedCount: 0
-    },{
-      orgId: "7dcf052856dc41e4b3d54bcbe5a55310",
-      jobId: "2c7fb77c4ebe4e509a5ea4ff207c9746",
-      organisation: "TaSA",
-      title: "Pre-Sales Engineer",
-      createdBy: "Avishek Saha",
-      applicationReceivedCount: 1,
-      applicationRejectedCount: 0,
-      applicationAcceptedCount: 0
-    },{
-      orgId: "7dcf052856dc41e4b3d54bcbe5a55310",
-      jobId: "2c7fb77c4ebe4e509a5ea4ff207c9746",
-      organisation: "TaSA",
-      title: "Pre-Sales Engineer",
-      createdBy: "Avishek Saha",
-      applicationReceivedCount: 1,
-      applicationRejectedCount: 0,
-      applicationAcceptedCount: 0
-    },{
-      orgId: "7dcf052856dc41e4b3d54bcbe5a55310",
-      jobId: "2c7fb77c4ebe4e509a5ea4ff207c9746",
-      organisation: "TaSA",
-      title: "Pre-Sales Engineer",
-      createdBy: "Avishek Saha",
-      applicationReceivedCount: 1,
-      applicationRejectedCount: 0,
-      applicationAcceptedCount: 0
-    },{
-      orgId: "7dcf052856dc41e4b3d54bcbe5a55310",
-      jobId: "2c7fb77c4ebe4e509a5ea4ff207c9746",
-      organisation: "TaSA",
-      title: "Pre-Sales Engineer",
-      createdBy: "Avishek Saha",
-      applicationReceivedCount: 1,
-      applicationRejectedCount: 0,
-      applicationAcceptedCount: 0
-    },{
-      orgId: "7dcf052856dc41e4b3d54bcbe5a55310",
-      jobId: "2c7fb77c4ebe4e509a5ea4ff207c9746",
-      organisation: "TaSA",
-      title: "Pre-Sales Engineer",
-      createdBy: "Avishek Saha",
-      applicationReceivedCount: 1,
-      applicationRejectedCount: 0,
-      applicationAcceptedCount: 0
-    },{
-      orgId: "7dcf052856dc41e4b3d54bcbe5a55310",
-      jobId: "2c7fb77c4ebe4e509a5ea4ff207c9746",
-      organisation: "TaSA",
-      title: "Pre-Sales Engineer",
-      createdBy: "Avishek Saha",
-      applicationReceivedCount: 1,
-      applicationRejectedCount: 0,
-      applicationAcceptedCount: 0
-    },{
-      orgId: "7dcf052856dc41e4b3d54bcbe5a55310",
-      jobId: "2c7fb77c4ebe4e509a5ea4ff207c9746",
-      organisation: "TaSA",
-      title: "Pre-Sales Engineer",
-      createdBy: "Avishek Saha",
-      applicationReceivedCount: 1,
-      applicationRejectedCount: 0,
-      applicationAcceptedCount: 0
-    },
-    {
-      orgId: "7dcf052856dc41e4b3d54bcbe5a55310",
-      jobId: "2c7fb77c4ebe4e509a5ea4ff207c9746",
-      organisation: "TaSA",
-      title: "Pre-Sales Engineer",
-      createdBy: "Avishek Saha",
-      applicationReceivedCount: 1,
-      applicationRejectedCount: 0,
-      applicationAcceptedCount: 0
-    },
-    {
-      orgId: "7dcf052856dc41e4b3d54bcbe5a55310",
-      jobId: "2c7fb77c4ebe4e509a5ea4ff207c9746",
-      organisation: "TaSA",
-      title: "Pre-Sales Engineer",
-      createdBy: "Avishek Saha",
-      applicationReceivedCount: 1,
-      applicationRejectedCount: 0,
-      applicationAcceptedCount: 0
-    },{
-      orgId: "7dcf052856dc41e4b3d54bcbe5a55310",
-      jobId: "2c7fb77c4ebe4e509a5ea4ff207c9746",
-      organisation: "TaSA",
-      title: "Pre-Sales Engineer",
-      createdBy: "Avishek Saha",
-      applicationReceivedCount: 1,
-      applicationRejectedCount: 0,
-      applicationAcceptedCount: 0
-    },{
-      orgId: "7dcf052856dc41e4b3d54bcbe5a55310",
-      jobId: "2c7fb77c4ebe4e509a5ea4ff207c9746",
-      organisation: "TaSA",
-      title: "Pre-Sales Engineer",
-      createdBy: "Avishek Saha",
-      applicationReceivedCount: 1,
-      applicationRejectedCount: 0,
-      applicationAcceptedCount: 0
-    },{
-      orgId: "7dcf052856dc41e4b3d54bcbe5a55310",
-      jobId: "2c7fb77c4ebe4e509a5ea4ff207c9746",
-      organisation: "TaSA",
-      title: "Pre-Sales Engineer",
-      createdBy: "Avishek Saha",
-      applicationReceivedCount: 1,
-      applicationRejectedCount: 0,
-      applicationAcceptedCount: 0
-    },{
-      orgId: "7dcf052856dc41e4b3d54bcbe5a55310",
-      jobId: "2c7fb77c4ebe4e509a5ea4ff207c9746",
-      organisation: "TaSA",
-      title: "Pre-Sales Engineer",
-      createdBy: "Avishek Saha",
-      applicationReceivedCount: 1,
-      applicationRejectedCount: 0,
-      applicationAcceptedCount: 0
-    },{
-      orgId: "7dcf052856dc41e4b3d54bcbe5a55310",
-      jobId: "2c7fb77c4ebe4e509a5ea4ff207c9746",
-      organisation: "TaSA",
-      title: "Pre-Sales Engineer",
-      createdBy: "Avishek Saha",
-      applicationReceivedCount: 1,
-      applicationRejectedCount: 0,
-      applicationAcceptedCount: 0
-    },{
-      orgId: "7dcf052856dc41e4b3d54bcbe5a55310",
-      jobId: "2c7fb77c4ebe4e509a5ea4ff207c9746",
-      organisation: "TaSA",
-      title: "Pre-Sales Engineer",
-      createdBy: "Avishek Saha",
-      applicationReceivedCount: 1,
-      applicationRejectedCount: 0,
-      applicationAcceptedCount: 0
-    },{
-      orgId: "7dcf052856dc41e4b3d54bcbe5a55310",
-      jobId: "2c7fb77c4ebe4e509a5ea4ff207c9746",
-      organisation: "TaSA",
-      title: "Pre-Sales Engineer",
-      createdBy: "Avishek Saha",
-      applicationReceivedCount: 1,
-      applicationRejectedCount: 0,
-      applicationAcceptedCount: 0
-    },
-    {
-      orgId: "7dcf052856dc41e4b3d54bcbe5a55310",
-      jobId: "2c7fb77c4ebe4e509a5ea4ff207c9746",
-      organisation: "TaSA",
-      title: "Pre-Sales Engineer",
-      createdBy: "Avishek Saha",
-      applicationReceivedCount: 1,
-      applicationRejectedCount: 0,
-      applicationAcceptedCount: 0
-    },
-    {
-      orgId: "7dcf052856dc41e4b3d54bcbe5a55310",
-      jobId: "2c7fb77c4ebe4e509a5ea4ff207c9746",
-      organisation: "TaSA",
-      title: "Pre-Sales Engineer",
-      createdBy: "Avishek Saha",
-      applicationReceivedCount: 1,
-      applicationRejectedCount: 0,
-      applicationAcceptedCount: 0
-    },{
-      orgId: "7dcf052856dc41e4b3d54bcbe5a55310",
-      jobId: "2c7fb77c4ebe4e509a5ea4ff207c9746",
-      organisation: "TaSA",
-      title: "Pre-Sales Engineer",
-      createdBy: "Avishek Saha",
-      applicationReceivedCount: 1,
-      applicationRejectedCount: 0,
-      applicationAcceptedCount: 0
-    },{
-      orgId: "7dcf052856dc41e4b3d54bcbe5a55310",
-      jobId: "2c7fb77c4ebe4e509a5ea4ff207c9746",
-      organisation: "TaSA",
-      title: "Pre-Sales Engineer",
-      createdBy: "Avishek Saha",
-      applicationReceivedCount: 1,
-      applicationRejectedCount: 0,
-      applicationAcceptedCount: 0
-    },{
-      orgId: "7dcf052856dc41e4b3d54bcbe5a55310",
-      jobId: "2c7fb77c4ebe4e509a5ea4ff207c9746",
-      organisation: "TaSA",
-      title: "Pre-Sales Engineer",
-      createdBy: "Avishek Saha",
-      applicationReceivedCount: 1,
-      applicationRejectedCount: 0,
-      applicationAcceptedCount: 0
-    },{
-      orgId: "7dcf052856dc41e4b3d54bcbe5a55310",
-      jobId: "2c7fb77c4ebe4e509a5ea4ff207c9746",
-      organisation: "TaSA",
-      title: "Pre-Sales Engineer",
-      createdBy: "Avishek Saha",
-      applicationReceivedCount: 1,
-      applicationRejectedCount: 0,
-      applicationAcceptedCount: 0
-    },{
-      orgId: "7dcf052856dc41e4b3d54bcbe5a55310",
-      jobId: "2c7fb77c4ebe4e509a5ea4ff207c9746",
-      organisation: "TaSA",
-      title: "Pre-Sales Engineer",
-      createdBy: "Avishek Saha",
-      applicationReceivedCount: 1,
-      applicationRejectedCount: 0,
-      applicationAcceptedCount: 0
-    },{
-      orgId: "7dcf052856dc41e4b3d54bcbe5a55310",
-      jobId: "2c7fb77c4ebe4e509a5ea4ff207c9746",
-      organisation: "TaSA",
-      title: "Pre-Sales Engineer",
-      createdBy: "Avishek Saha",
-      applicationReceivedCount: 1,
-      applicationRejectedCount: 0,
-      applicationAcceptedCount: 0
-    },{
-      orgId: "7dcf052856dc41e4b3d54bcbe5a55310",
-      jobId: "2c7fb77c4ebe4e509a5ea4ff207c9746",
-      organisation: "TaSA",
-      title: "Pre-Sales Engineer",
-      createdBy: "Avishek Saha",
-      applicationReceivedCount: 1,
-      applicationRejectedCount: 0,
-      applicationAcceptedCount: 0
-    }
-    ],
+    data: [],
     cols: ['organization', 'title', 'createdBy', 'applicationReceivedCount', 'applicationRejectedCount', 'applicationAcceptedCount'], 
     resultsLength: 0
   };
@@ -583,20 +90,34 @@ export class DashboardComponent implements OnInit {
     this.uds = this.sharedService.plugins.undSco;
   }
 
+  showApplicants(job: any, event: any, applicantStatus: string) {
+    event.stopPropagation();
+    event.preventDefault();
+    this.sharedService.dialogService.open(ShowApplicantsComponent, {
+      width: '80%',
+      data: {
+        job: job,
+        user: this.user,
+        applicantStatus: applicantStatus,
+      },
+      disableClose: false,
+    });
+  }  
+
   getJobsForOrganization() {
     let $t = this;
-    $t.matTableConfig.resultsLength = $t.matTableConfig.data.length;
-    // let api = $t.sharedService.urlService.apiCallWithParams('getJobsByOrg', {
-    //     '{orgId}': $t.user.orgId
-    // });
-    // $t.sharedService.configService.get(api).subscribe(
-    //   (response: any) => {
-    //     $t.matTableConfig.data = response.responseObj;
-    //   },
-    //   error => {
-    //     $t.sharedService.uiService.showApiErrorPopMsg(error);
-    //   }
-    // );
+    let api = $t.sharedService.urlService.apiCallWithParams('getJobsByOrg', {
+        '{orgId}': $t.user.orgId
+    });
+    $t.sharedService.configService.get(api).subscribe(
+      (response: any) => {
+        $t.matTableConfig.data = response.responseObj;
+        $t.matTableConfig.resultsLength = $t.matTableConfig.data.length;
+      },
+      error => {
+        $t.sharedService.uiService.showApiErrorPopMsg(error);
+      }
+    );
   }
 
   goToHome() {
