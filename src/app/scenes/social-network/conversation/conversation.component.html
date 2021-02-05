@@ -161,19 +161,35 @@
     <div class="content">
       <div class="contact-profile" *ngIf="connectionConfig.selectedUser">
         <img
+          *ngIf="!connectionConfig.selectedUser?.groupId"
           src="{{
             connectionConfig.selectedUser?.imageUrl
               ? connectionConfig.selectedUser?.imageUrl
               : 'https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg'
           }}"
-          alt=""
+          alt="User Image"
         />
-        <p>
+        <img
+          *ngIf="connectionConfig.selectedUser?.groupId"
+          src="{{ connectionConfig.selectedUser?.groupImageUrl }}"
+          alt="Group Image"
+        />
+        <p *ngIf="!connectionConfig.selectedUser?.groupId">
           <a
             [routerLink]="['/social-network/profile/', connectionConfig.selectedUser?.tasaId]"
             routerLinkActive="router-link-active"
             >{{ connectionConfig.selectedUser?.firstName }} {{ connectionConfig.selectedUser?.lastName }}
           </a>
+
+          <!-- ( <span class="text-muted">{{ connectionConfig.selectedUser?.summary }}</span> ) -->
+        </p>
+        <p *ngIf="connectionConfig.selectedUser?.groupId">
+          <a
+            [routerLink]="['/social-network/profile/', connectionConfig.selectedUser?.tasaId]"
+            routerLinkActive="router-link-active"
+            >{{ connectionConfig.selectedUser?.groupTitle }}
+          </a>
+
           <!-- ( <span class="text-muted">{{ connectionConfig.selectedUser?.summary }}</span> ) -->
         </p>
         <div class="social-media">
@@ -195,6 +211,7 @@
             (mouseover)="item.mouseOvered = true"
             (mouseout)="item.mouseOvered = false"
           >
+          <ng-container *ngIf="item.groupId === ''">
             <img
               *ngIf="item.from === user.email"
               src="{{
@@ -202,17 +219,25 @@
                   ? user.image
                   : 'https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg'
               }}"
-              alt=""
+              alt="User Image"
             />
+          </ng-container>
+          <ng-container *ngIf="item.groupId !== ''">
             <img
-              *ngIf="item.to === user.email"
-              src="{{
-                connectionConfig.selectedUser?.imageUrl
-                  ? connectionConfig.selectedUser?.imageUrl
-                  : 'https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg'
-              }}"
-              alt=""
+              src="{{getUserImageForGroupMsg(item)}}"
+              alt="User Image"
             />
+          </ng-container>
+              <img
+                *ngIf="item.to === user.email"
+                src="{{
+                  connectionConfig.selectedUser?.imageUrl
+                    ? connectionConfig.selectedUser?.imageUrl
+                    : 'https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg'
+                }}"
+                alt="User Image"
+              />
+
             <p>
               <span *ngIf="item.contentType === 'reply-on-reply'" [innerHtml]="item.contentUrl"></span>
               {{ item.message }}
@@ -251,7 +276,7 @@
             </button>
           </li>
         </ul>
-        <ng-container *ngIf="connectionConfig.currentMsgList.length == 0">
+        <ng-container *ngIf="!connectionConfig.selectedUser">
           <div class="text-center m-auto animated fadeIn">
             <div>
               <h1>💬</h1>

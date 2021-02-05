@@ -24,6 +24,7 @@
           <div class="col-md-7 col-sm-12">
             <ol class="breadcrumb mt-3">
               <li class="breadcrumb-item curPoint"><a [routerLink]="['/dashboard']">Dashboard</a></li>
+              <li class="breadcrumb-item active">Community</li>
               <li class="breadcrumb-item active">Social Posts</li>
             </ol>
             <div class="sec-title">
@@ -349,8 +350,8 @@
                                   </a> -->
                                 </div>
                               </div>
-                              <div *ngIf="post.sharePostId != ''" class="album-box share-status-box sharedPost mx-2 mb-4">
-                                <div class="status-main pt-3">
+                              <div *ngIf="post.sharePostId != ''" class="album-box share-status-box sharedPost shadow-sm m-auto border w80 mx-2 mb-4">
+                                <div class="status-main p-2">
                                   <img
                                     matTooltipPosition="below"
                                     [matTooltip]="post.sharePostUserName"
@@ -372,7 +373,7 @@
                                     <div class="album-date">{{ getNotiDay(post.sharePostCreatedOn) }}</div>
                                   </div>
                                 </div>
-                                <div class="row album-content no-gutters">
+                                <div class="row album-content p-2 no-gutters">
                                   <div class="mb-2 mt-1 col-12" [class.pl-3]="post.sharePostImage == '' && post.sharePostVideo == ''">
                                     {{ post.sharePostContent }}
                                   </div>
@@ -390,7 +391,7 @@
                                   </div>
                                 </div>
                               </div>
-                              <div class="pb-0 px-2 album-actions border-bottom pb-1">
+                              <div class="pb-0 px-2 album-actions border-bottom pb-1 mt-1">
                                 <a class="album-action align-middle mr-2" (click)="openUserInteractionPopover(post)">
                                   <!-- <i *ngIf="isReactionPresent('like', post)" class="fa-flip-horizontal fa-xs fas fa-thumbs-up pl-1"></i> -->
                                   <img

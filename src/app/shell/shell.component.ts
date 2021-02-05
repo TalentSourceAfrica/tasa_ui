@@ -16,6 +16,7 @@ export class ShellComponent implements OnInit {
   get user(): any | null {
     if (location.hash != '#/home') {
       this.isHome = false;
+      jQuery('.header-top-area').removeClass('position-absolute');
     } else {
       this.isHome = true;
     }

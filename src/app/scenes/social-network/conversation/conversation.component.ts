@@ -35,6 +35,7 @@ export class ConversationComponent implements OnInit {
     currentConnection: undefined,
     isFetchingMsgList: false,
     isGroupSelected: false,
+    selectedGroupMembers: [],
     currentMsgList: [],
   };
   groups: any = [];
@@ -45,10 +46,6 @@ export class ConversationComponent implements OnInit {
   ) {
     this.uds = this.sharedService.plugins.undSco;
   }
-
-  // startConnection : '/chat/start/{from}/{to}', // PO
-  // sendMessage : '/chat/messages/send', // PO
-  // getAllMessages : '/chat/all/{chatId}', // G
 
   getAllConnections() {
     let $t = this;
@@ -143,11 +140,20 @@ export class ConversationComponent implements OnInit {
     this.connectionConfig.selectedUser = _user;
     if (_isGroup) {
       this.connectionConfig.isGroupSelected = true;
+      let apiUrl = this.sharedService.urlService.apiCallWithParams('getGroupInfo', {
+        '{groupId}': this.connectionConfig.selectedUser.groupId,
+      });
+      this.sharedService.configService.get(apiUrl).subscribe(
+        (response: any) => {
+          this.connectionConfig.selectedGroupMembers = response.responseObj.members;
+        },
+        (error) => {}
+      );
     } else {
       this.connectionConfig.isGroupSelected = false;
     }
     this.message = '';
-    if(!this.connectionConfig.isGroupSelected){
+    if (!this.connectionConfig.isGroupSelected) {
       if (_user.chatId == null) {
         setTimeout(() => {
           this.connectionConfig.isFetchingMsgList = true;
@@ -156,10 +162,18 @@ export class ConversationComponent implements OnInit {
       } else {
         this.getAllChatByChatId();
       }
-    }else {
+    } else {
       this.getAllChatByChatId();
     }
+  }
 
+  getUserImageForGroupMsg(_group: any) {
+    const imageUrl = this.connectionConfig.selectedGroupMembers.find((d: any) => d.email === _group.from).imageUrl;
+    if (imageUrl) {
+      return imageUrl;
+    } else {
+      return 'https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg';
+    }
   }
 
   handleSelection(event: any) {
@@ -216,19 +230,19 @@ export class ConversationComponent implements OnInit {
 
   getAllChatByChatId() {
     let $t = this;
-    let apiUrl:any;
+    let apiUrl: any;
     $t.connectionConfig.isFetchingMsgList = true;
 
-    if($t.connectionConfig.isGroupSelected){
+    if ($t.connectionConfig.isGroupSelected) {
       apiUrl = $t.sharedService.urlService.apiCallWithParams('getAllMessagesByGroup', {
         '{groupId}': $t.connectionConfig.selectedUser.groupId,
       });
-    }else {
+    } else {
       apiUrl = $t.sharedService.urlService.apiCallWithParams('getAllMessages', {
         '{chatId}': $t.connectionConfig.selectedUser.chatId,
       });
     }
- 
+
     $t.sharedService.configService.get(apiUrl).subscribe(
       (response: any) => {
         $t.connectionConfig.currentMsgList = response.responseObj.reverse();
@@ -254,18 +268,23 @@ export class ConversationComponent implements OnInit {
 
   getAllNewChatByChatIdAndUserId() {
     let $t = this;
+    let apiUrl: any;
     if ($t.connectionConfig.selectedUser) {
-      let apiUrl = $t.sharedService.urlService.apiCallWithParams('getAllNewMessages', {
-        '{chatId}': $t.connectionConfig.selectedUser.chatId,
-        '{userId}': $t.user.email,
-      });
+      if (!$t.connectionConfig.isGroupSelected) {
+        apiUrl = $t.sharedService.urlService.apiCallWithParams('getAllNewMessages', {
+          '{chatId}': $t.connectionConfig.selectedUser.chatId,
+          '{userId}': $t.user.email,
+        });
+      } else {
+        apiUrl = $t.sharedService.urlService.apiCallWithParams('getAllNewMessagesByGroup', {
+          '{groupId}': $t.connectionConfig.selectedUser.groupId,
+          '{userId}': $t.user.email,
+        });
+      }
       $t.sharedService.configService.get(apiUrl).subscribe(
         (response: any) => {
           if (response.responseObj.length) {
             $t.audioPlayerRef.nativeElement.play();
-            // $t.uds.each(response,(d:any) => {
-            //   $t.connectionConfig.currentMsgList.push(d);
-            // })
             $t.getAllChatByChatId();
           }
         },
@@ -276,13 +295,23 @@ export class ConversationComponent implements OnInit {
 
   readMessages() {
     let $t = this;
-    let apiUrl = $t.sharedService.urlService.apiCallWithParams('readMessages', {
-      '{chatId}': $t.connectionConfig.selectedUser.chatId,
-    });
-    $t.sharedService.configService.post(apiUrl).subscribe(
-      (response: any) => {},
-      (error) => {}
-    );
+    let apiUrl: any;
+    if ($t.connectionConfig.selectedUser) {
+      if (!$t.connectionConfig.isGroupSelected) {
+        apiUrl = $t.sharedService.urlService.apiCallWithParams('readMessages', {
+          '{chatId}': $t.connectionConfig.selectedUser.chatId,
+        });
+      } else {
+        apiUrl = $t.sharedService.urlService.apiCallWithParams('readMessagesGroup', {
+          '{groupId}': $t.connectionConfig.selectedUser.groupId,
+          '{userId}': $t.user.email,
+        });
+      }
+      $t.sharedService.configService.post(apiUrl).subscribe(
+        (response: any) => {},
+        (error) => {}
+      );
+    }
   }
 
   downloadChatFile(_type: string, _link: any) {

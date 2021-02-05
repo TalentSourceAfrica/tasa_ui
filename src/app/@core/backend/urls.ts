@@ -19,7 +19,7 @@ export const urls: any = {
   checkCurrentPassword: '/checkPassword/{email}/{currentPassword}', // PO
   activateUser: '/users/activate/{userId}', // PO
   deactivateUser: '/users/deactivate/{userId}', // PO
-  searchUser: '/user/search/{page}/{size}/{searchText}', // G
+  searchUser: '/users/search/{page}/{size}/{searchText}', // G
 
   // location
   getCountry: '/locations', // G
@@ -145,11 +145,14 @@ export const urls: any = {
   getAllMessages: '/chat/messages/all/{chatId}', // G
   getAllNewMessages: '/chat/messages/new/{chatId}/{userId}', // G
   readMessages: '/chat/read/{chatId}', // PO
-  getAllMessagesByGroup: '/chat/group/all/{groupId}', // G
+  getAllMessagesByGroup: '/chat/messages/group/all/{groupId}', // G
+  getAllNewMessagesByGroup: '/chat/messages/group/new/{groupId}/{userId}', // G
+  readMessagesGroup : '/chat/group/read/{groupId}/{userId}', // PO
 
   // Group
   createGroup: '/groups/{adminId}', // PO
   deleteGroup: '/groups/hard/{adminId}/{groupId}', // DE
+  getGroupInfo: '/groups/{groupId}', // G
   getAllActiveFroup: '/groups/active', // G
   getAllActiveGroupByUser: '/groups/mygroups/{userId}', // G
   sendRequestToGroup: '/groupRequest​/{userId}/{groupId}', // PO
