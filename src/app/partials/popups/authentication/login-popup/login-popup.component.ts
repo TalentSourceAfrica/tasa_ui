@@ -55,7 +55,7 @@ export class LoginPopupComponent implements OnInit {
           this.popupData.authenticationService.setToken(JSON.parse(response.data).access_token);
           this.sharedService.uiService.closePopMsg();
           this.dialogRef.close();
-          this.router.navigate(['/dashboard'], { replaceUrl: true });
+          this.router.navigate(['/social-network/posts'], { replaceUrl: true });
           setTimeout(() => {
             jQuery('.header-top-area').removeClass('position-absolute');
           }, 500);

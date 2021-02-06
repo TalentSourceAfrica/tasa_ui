@@ -64,7 +64,7 @@ export class HomeHeaderComponent implements OnInit {
   }
 
   processData() {
-    localStorage.setItem('cartConfig', this.cartService.fetchData());
+    localStorage.setItem('cartConfig', JSON.stringify(this.cartService.fetchData()));
   }
 
   globalSearch() {

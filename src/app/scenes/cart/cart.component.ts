@@ -34,6 +34,8 @@ export class CartComponent implements OnInit {
     },
   ];
 
+  cartDetails:any;
+
   publicKey = 'FLWPUBK_TEST-ce36b868ed8ed63aefaec7ebf85d0117-X';
   customerDetails = { name: 'Demo Customer  Name', email: 'customer@mail.com', phone_number: '08100000000' };
   customizations = {
@@ -108,6 +110,7 @@ export class CartComponent implements OnInit {
   // }
 
   ngOnInit(): void {
+    this.cartDetails = this.cartService.fetchData();
     console.log(this.cartService.fetchData())
   }
 }

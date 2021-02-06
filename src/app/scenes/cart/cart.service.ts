@@ -12,7 +12,7 @@ export class CartService {
 
   setData() {
     if (localStorage.getItem('cartConfig')) {
-      this.cartConfig = localStorage.getItem('cartConfig');
+      this.cartConfig = JSON.parse(localStorage.getItem('cartConfig'));
       localStorage.removeItem('cartConfig');
     }
   }
@@ -38,11 +38,11 @@ export class CartService {
 
   setCartForSubscription(_data: Object) {
     this.intializeConfig();
-    this.cartConfig.isCourse = true;
-    this.cartConfig.courseData = _data;
+    this.cartConfig.isSubscription = true;
+    this.cartConfig.subscriptionData = _data;
   }
 
   fetchData() {
-    return { ...this.cartConfig };
+    return Object.assign(this.cartConfig);
   }
 }

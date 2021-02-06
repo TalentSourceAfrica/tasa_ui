@@ -9,16 +9,47 @@
     </div>
   </div>
   <div class="row no-gutters">
-    <div class="col-12">
-      <ng-template [ngTemplateOutlet]="cartDetails"></ng-template>
+    <div class="col-12" *ngIf="cartDetails.isSubscription">
+      <ng-template [ngTemplateOutlet]="cartSubscriptionDetails"></ng-template>
     </div>
-    <div class="col-12 mt-1">
+    <div class="col-12" *ngIf="cartDetails.isCourse">
+      <ng-template [ngTemplateOutlet]="cartCourseDetails"></ng-template>
+    </div>
+    <div class="col-12 mt-1" *ngIf="(cartDetails | json) != ({} | json)">
       <ng-template [ngTemplateOutlet]="cartCheckout"></ng-template>
+    </div>
+    <div class="col-12 mt-1" *ngIf="(cartDetails | json) === ({} | json)">
+      <ng-template [ngTemplateOutlet]="noData"></ng-template>
     </div>
   </div>
 </div>
-
-<ng-template #cartDetails>
+<ng-template #cartSubscriptionDetails>
+  <div>
+    <ul class="products max-vertical-h-50 stylishSlimScroll flow-y-auto flow-x-hidden">
+      <li class="row shadow-lg no-gutters animated fadeIn">
+        <div class="col-10 d-flex align-items-center left">
+          <div class="thumbnail">
+            <h2 class="caps shadow-sm">{{ cartDetails.subscriptionData.name }}</h2>
+          </div>
+          <div class="detail">
+            <div class="name">
+              <a>Features</a>
+            </div>
+            <div class="description text-truncate" *ngFor="let item of cartDetails.subscriptionData.feature">
+              {{ item.description }}
+            </div>
+          </div>
+        </div>
+        <div class="col-2 d-flex align-items-center right">
+          <div class="remove">
+            <div class="price badge badge-info p-2">{{ cartDetails.subscriptionData.price | currency }}</div>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</ng-template>
+<ng-template #cartCourseDetails>
   <div *ngIf="products.length > 0">
     <ul class="products min-vertical-h-50 max-vertical-h-50 stylishSlimScroll flow-y-auto flow-x-hidden">
       <li class="row shadow animated fadeIn" *ngFor="let product of products">
@@ -52,7 +83,7 @@
   </div>
 </ng-template>
 <ng-template #cartCheckout>
-  <section class="container animated fadeIn" style="border-top: 4px solid #523f6d;" *ngIf="products.length > 0">
+  <section class="p-2 animated fadeIn" style="border-top: 4px solid #523f6d;" *ngIf="products.length > 0">
     <div class="promotion">
       <label for="promo-code">Have A Promo Code?</label>
       <input type="text" id="promo-code" /> <button type="button"></button>
@@ -60,10 +91,12 @@
 
     <div class="summary">
       <ul>
-        <li>Subtotal <span>$ 350</span></li>
+        <!-- <li>Subtotal <span>$ 350</span></li>
         <li>Discount <span> 30%</span></li>
-        <li>Tax <span> 10%</span></li>
-        <li class="total">Total <span>$400</span></li>
+        <li>Tax <span> 10%</span></li> -->
+        <li class="total" *ngIf="cartDetails.isSubscription">
+          Total <span>{{ cartDetails.subscriptionData.price | currency }}</span>
+        </li>
       </ul>
     </div>
 
@@ -75,6 +108,21 @@
   </section>
 </ng-template>
 
+<ng-template #noData>
+  <div class="text-center m-auto animated fadeIn">
+    <div class="col-12 text-center">
+      <img src="./assets/images/no-record.gif" style="height: 300px;" class="d-block m-auto" />
+      <h6 class="text-primary">Nothing Added To Cart ...!</h6>
+      <div class="m-auto pt-3">
+        <button mat-flat-button color="primary" [routerLink]="['/all-course']" class="rounded-pill">
+          Add Course
+        </button>
+        <button mat-flat-button color="primary" [routerLink]="['/subscription-plans']" class="rounded-pill ml-2">
+          Add Subscription
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
 <button type="button" (click)="makePayment()">Pay Now</button>
-
-
