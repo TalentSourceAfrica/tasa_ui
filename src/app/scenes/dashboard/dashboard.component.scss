@@ -1,3 +1,6 @@
+$blue: #523f6d;
+$light-blue: #523f6d80;
+
 .dashboard-wrapper {
   .user-pic {
     width: 45px;
@@ -100,10 +103,10 @@
     font-size: 13px;
   }
   .mat-header-row {
-    background-color: #9d6ae4;
+    background-color: $blue;
   }
   .mat-paginator {
-    background-color: #9d6ae4 !important;
+    background-color: $blue !important;
     font-weight: bold !important;
     color: white !important;
   }
@@ -116,7 +119,7 @@
   .mat-row {
 /*     display: inline-flex !important; */
     &:hover {
-      background-color: #9d6ae4;
+      background-color: #ddd;
       color: white;
     }
   }

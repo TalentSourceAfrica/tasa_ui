@@ -9,7 +9,7 @@
         <div class="title">Dashboard</div>
       </div>
 
-      <div class="card border-left-3 border-left-primary card-2by1">
+      <div class="card m-0 border-left-3 border-left-primary card-2by1">
         <div class="card-body">
           <div class="media flex-wrap align-items-center">
             <div class="media-left">
@@ -493,12 +493,12 @@
           </div> -->
         </div>
       </div>
-      <div class="pt-3 pb-3" *ngIf="user.type == 'Recruiter'">
-        <div class="card">
+      <div class="pt-4 pb-3" *ngIf="user.type == 'Recruiter'">
+        <div class="card m-0">
           <div class="card-body p-0">
             <div class="table-container">
               <div class="mat-table-container stylishSlimScroll min-vertical-h-40 max-vertical-h-40">
-                <table mat-table [dataSource]="matTableConfig.data" matSort matSortActive="createdBy" matSortDisableClear matSortDirection="desc">
+                <table mat-table class="w100" [dataSource]="matTableConfig.data" matSort matSortActive="createdBy" matSortDisableClear matSortDirection="desc">
                   <ng-container matColumnDef="organization">
                     <th mat-header-cell *matHeaderCellDef>Organization</th>
                     <td mat-cell *matCellDef="let row"><a class="curPoint text-truncate a-hover" [routerLink]="['/organization/', row.orgId]"><u>{{ row.organisation }}</u></a></td>
@@ -574,7 +574,7 @@
 
       <!--RECENTLY VIEWED JOBS AREA AREA-->
       <br />
-      <section class="recently-viewed-course" *ngIf="user?.recentlyViewedJobs?.length">
+      <section class="recently-viewed-course" *ngIf="user?.recentlyViewedJobs?.length > 1">
         <div class="row no-gutters">
           <div class="col-12">
             <div class="sec-title text-center">
