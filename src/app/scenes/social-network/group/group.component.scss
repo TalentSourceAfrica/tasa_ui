@@ -1,6 +1,8 @@
 .group-wrapper {
   .group-img {
     height: 60px;
-    width: 100px;
+    min-width: 80px;
+    max-width: 80px;
+
   }
 }

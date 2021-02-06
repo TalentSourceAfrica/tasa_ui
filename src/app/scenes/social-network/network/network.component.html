@@ -130,13 +130,13 @@
                     >
                     <a *ngIf="item?.groupId || item?.groupId !== ''">Group - {{ item.groupTitle }}</a>
                   </h6>
-                  <h1
+                  <h6
                     class="text-muted text-truncate"
                     *ngIf="!item?.groupId || item?.groupId === ''"
                     [title]="item.fromSummary"
                   >
                     {{ item.fromSummary }}
-                  </h1>
+                  </h6>
                   <h1
                     class="text-muted text-truncate"
                     *ngIf="item?.groupId || item?.groupId !== ''"

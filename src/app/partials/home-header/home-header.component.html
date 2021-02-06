@@ -67,7 +67,7 @@
               </div>
             </div>
             <div class="col-md-4 explore-section pt-3" *ngIf="user">
-              <div class="input-group global-search">
+              <div class="input-group global-search w95">
                 <mat-select
                   [(value)]="globalSearchType"
                   (selectionChange)="searchGlobalText = ''"
@@ -201,15 +201,52 @@
                   <ng-template *ngTemplateOutlet="noUserMenu"></ng-template>
                 </div>
                 <div class="nav-wrapper" *ngIf="user">
+                  <ul id="nav" class="nav navbar-nav pull-right float-right">
+                    <ng-container *ngIf="user.type == 'Recruiter'">
+                      <ng-template *ngTemplateOutlet="recruiterMenu"></ng-template>
+                    </ng-container>
                   <ng-container>
                     <ng-template *ngTemplateOutlet="studentMenu"></ng-template>
                   </ng-container>
                   <ng-container *ngIf="user.type == 'Admin'">
                     <ng-template *ngTemplateOutlet="adminMenu"></ng-template>
                   </ng-container>
-                  <ng-container *ngIf="user.type == 'Recruiter'">
-                    <ng-template *ngTemplateOutlet="recruiterMenu"></ng-template>
-                  </ng-container>
+                  <li>
+                    <a class="curPoint">
+                      <img
+                        *ngIf="!user.image || user.image == 'string'"
+                        matTooltipPosition="below"
+                        matTooltip="Upload Avatar"
+                        class="user-pic img-responsive img-circle curPoint"
+                        src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
+                        alt="User picture"
+                        (click)="callUpload($event)"
+                      />
+                      <img
+                        *ngIf="user.image && user.image != 'string'"
+                        matTooltipPosition="below"
+                        matTooltip="Upload Avatar"
+                        class="user-pic img-responsive img-circle curPoint"
+                        [src]="user.image"
+                        alt="User picture"
+                        (click)="callUpload($event)"
+                      />
+                      <span [matMenuTriggerFor]="userMenu">{{user.firstName}}</span
+                      ><i class="fas fa-caret-down pl-1"></i>
+                      <mat-menu #userMenu="matMenu">
+                        <button mat-menu-item [routerLink]="['/home']" class="h6">
+                          <i class="fas fa-home pr-3 text-primary"></i> Home
+                        </button>
+                        <button mat-menu-item [routerLink]="['/dashboard']" class="h6">
+                          <i class="fas fa-chart-line pr-3 text-primary"></i> Dashboard
+                        </button>
+                        <button mat-menu-item (click)="logout()" class="h6">
+                          <i class="fa fa-power-off pr-3 text-primary"></i> Logout
+                        </button>
+                      </mat-menu>
+                    </a>
+                  </li>
+                  </ul>
                   <ng-container *ngIf="user">
                     <ng-template *ngTemplateOutlet="notifications"></ng-template>
                   </ng-container>
@@ -281,7 +318,6 @@
 </ng-template>
 
 <ng-template #recruiterMenu>
-  <ul id="nav" class="nav navbar-nav pull-right float-right">
     <li>
       <a [matMenuTriggerFor]="recruiter" class="curPoint px-2 py-4">
         <i class="fas fa-tools pr-2"></i>My Operation<i class="fas fa-caret-down pl-1"></i>
@@ -294,11 +330,9 @@
         </mat-menu>
       </a>
     </li>
-  </ul>
 </ng-template>
 
 <ng-template #adminMenu>
-  <ul id="nav" class="nav navbar-nav pull-right float-right">
     <li>
       <a [matMenuTriggerFor]="admin" class="curPoint px-2 py-4"
         >My Operation<i class="fas fa-caret-down pl-1"></i>
@@ -332,7 +366,6 @@
         </mat-menu>
       </a>
     </li>
-  </ul>
 </ng-template>
 
 <ng-template #notifications>
@@ -396,7 +429,6 @@
 </ng-template>
 
 <ng-template #studentMenu>
-  <ul id="nav" class="nav navbar-nav pull-right float-right">
     <li>
       <a [matMenuTriggerFor]="community" class="curPoint px-2 py-4">
         <i class="far fa-comment-alt pr-2"></i> Community<i class="fas fa-caret-down pl-1"></i>
@@ -442,7 +474,7 @@
         </mat-menu>
       </a>
     </li>
-    <li>
+    <li *ngIf="user.type !== 'Recruiter'">
       <a [matMenuTriggerFor]="jobs" class="curPoint px-2 py-4"
         ><i class="fas fa-briefcase pr-2"></i> Jobs<i class="fas fa-caret-down pl-1"></i>
         <mat-menu #jobs="matMenu">
@@ -527,42 +559,6 @@
         <span class="badge badge-pill badge-warning notification">{{ notificationConfig.messageCount }}</span>
       </a>
     </li>
-    <li>
-      <a class="curPoint">
-        <img
-          *ngIf="!user.image || user.image == 'string'"
-          matTooltipPosition="below"
-          matTooltip="Upload Avatar"
-          class="user-pic img-responsive img-circle curPoint"
-          src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
-          alt="User picture"
-          (click)="callUpload($event)"
-        />
-        <img
-          *ngIf="user.image && user.image != 'string'"
-          matTooltipPosition="below"
-          matTooltip="Upload Avatar"
-          class="user-pic img-responsive img-circle curPoint"
-          [src]="user.image"
-          alt="User picture"
-          (click)="callUpload($event)"
-        />
-        <span [matMenuTriggerFor]="userMenu">{{user.firstName}}</span
-        ><i class="fas fa-caret-down pl-1"></i>
-        <mat-menu #userMenu="matMenu">
-          <button mat-menu-item [routerLink]="['/home']" class="h6">
-            <i class="fas fa-home pr-3 text-primary"></i> Home
-          </button>
-          <button mat-menu-item [routerLink]="['/dashboard']" class="h6">
-            <i class="fas fa-chart-line pr-3 text-primary"></i> Dashboard
-          </button>
-          <button mat-menu-item (click)="logout()" class="h6">
-            <i class="fa fa-power-off pr-3 text-primary"></i> Logout
-          </button>
-        </mat-menu>
-      </a>
-    </li>
-  </ul>
 </ng-template>
 
 <input type="file" #file class="d-none" id="imageUpload" (change)="handleFileInput($event)" />

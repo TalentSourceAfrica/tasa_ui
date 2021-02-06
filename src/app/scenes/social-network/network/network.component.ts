@@ -91,7 +91,7 @@ export class NetworkComponent implements OnInit {
       $t.sharedService.configService.post(apiUrl).subscribe(
         (response: any) => {
           $t.networkConfig.data.splice(index, 1);
-          $t.sharedService.uiService.showApiStartPopMsg('Rejected...!');
+          $t.sharedService.uiService.showApiSuccessPopMsg('Rejected...!');
         },
         (error) => {
           $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);

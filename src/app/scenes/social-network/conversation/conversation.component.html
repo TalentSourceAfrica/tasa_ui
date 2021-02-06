@@ -206,7 +206,7 @@
       <div class="messages" [ngClass]="{ 'd-flex align-items-center': connectionConfig.currentMsgList.length === 0 }">
         <ul *ngIf="connectionConfig.currentMsgList.length && !connectionConfig.isFetchingMsgList">
           <li
-            [ngClass]="{ replies: item.from === user.email, sent: item.to === user.email, 'last-msg': last }"
+            [ngClass]="{ replies: item.from === user.email, sent: item.to === user.email || item.to === null , 'last-msg': last }"
             *ngFor="let item of connectionConfig.currentMsgList; let last = last"
             (mouseover)="item.mouseOvered = true"
             (mouseout)="item.mouseOvered = false"

@@ -8,6 +8,7 @@ import { delay } from 'rxjs/operators';
 import { SocialnetworkService } from '../socialnetwork.service';
 import { CredentialsService } from '@app/auth';
 import { SharedService } from '@app/services/shared.service';
+import Swal from 'sweetalert2';
 
 // component
 import { CreateGroupPopupComponent } from '@app/partials/popups/group/create-group-popup/create-group-popup.component';
@@ -59,7 +60,7 @@ export class ProfileComponent implements OnInit {
     });
     $t.sharedService.configService.get(apiUrl).subscribe(
       (response: any) => {
-      $t.userConfig.user = response.responseObj;
+        $t.userConfig.user = response.responseObj;
         $t.userConfig.user.tasaId != $t.user.tasaId ? ($t.isCurrentUser = false) : ($t.isCurrentUser = true);
         if (!$t.isCurrentUser) {
           $t.fetchConnections();
@@ -115,19 +116,45 @@ export class ProfileComponent implements OnInit {
 
   connect() {
     let $t = this;
-    $t.sharedService.uiService.showApiStartPopMsg('Sending Request...!');
-    let apiUrl = $t.sharedService.urlService.apiCallWithParams('sendNetworkConnectionRequest', {
-      '{fromUserId}': $t.user.email,
-      '{toUserId}': $t.userConfig.user.email,
-    });
-    $t.sharedService.configService.post(apiUrl).subscribe(
-      (response: any) => {
-        $t.sharedService.uiService.showApiSuccessPopMsg('Request Send...!');
+    Swal.fire({
+      title: 'Why do you want to connect?',
+      input: 'text',
+      inputAttributes: {
+        autocapitalize: 'off',
       },
-      (error) => {
-        $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
+      showCancelButton: true,
+      confirmButtonText: 'Send',
+      confirmButtonClass: 'rounded-pill shadow-sm',
+      cancelButtonClass: 'rounded-pill shadow-sm',
+      showLoaderOnConfirm: true,
+      preConfirm: (data) => {
+        if (data === '') {
+          Swal.showValidationMessage('Please enter message');
+        }
+      },
+      allowOutsideClick: () => !Swal.isLoading(),
+    }).then((result) => {
+      if (result) {
+        if (result.dismiss) {
+          Swal.close();
+        }
+        if (result.value) {
+          $t.sharedService.uiService.showApiStartPopMsg('Sending Request...!');
+          let apiUrl = $t.sharedService.urlService.apiCallWithParams('sendNetworkConnectionRequest', {
+            '{fromUserId}': $t.user.email,
+            '{toUserId}': $t.userConfig.user.email,
+          });
+          $t.sharedService.configService.post(apiUrl,result.value).subscribe(
+            (response: any) => {
+              $t.sharedService.uiService.showApiSuccessPopMsg('Request Send...!');
+            },
+            (error) => {
+              $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
+            }
+          );
+        }
       }
-    );
+    });
   }
 
   ngAfterViewInit(): void {

@@ -3,6 +3,7 @@ import { CredentialsService } from '@app/auth';
 import { CreateGroupPopupComponent } from '@app/partials/popups/group/create-group-popup/create-group-popup.component';
 import { InviteUserPopupComponent } from '@app/partials/popups/group/invite-user-popup/invite-user-popup.component';
 import { SharedService } from '@app/services/shared.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-group',
@@ -14,7 +15,6 @@ export class GroupComponent implements OnInit {
     data: [],
     isLoading: false,
   };
-
   myGroups: any = {
     data: [],
     isLoading: false,
@@ -53,19 +53,45 @@ export class GroupComponent implements OnInit {
   }
 
   sendRequest(grpId: any) {
-    this.sharedService.uiService.showApiStartPopMsg('Sendind Request to Admin...');
-    let apiUrl = this.sharedService.urlService.apiCallWithParams('sendRequestToGroup', {
-      '{userId}': this.user.email,
-      '{groupId}': grpId,
-    });
-    this.sharedService.configService.post(apiUrl).subscribe(
-      (response: any) => {
-        this.sharedService.uiService.showApiSuccessPopMsg('Request Send.');
+    Swal.fire({
+      title: 'Why do you want to join ?',
+      input: 'text',
+      inputAttributes: {
+        autocapitalize: 'off',
       },
-      (error) => {
-        this.sharedService.uiService.showApiErrorPopMsg(error.error.message);
+      showCancelButton: true,
+      confirmButtonText: 'Send',
+      confirmButtonClass: 'rounded-pill shadow-sm',
+      cancelButtonClass: 'rounded-pill shadow-sm',
+      showLoaderOnConfirm: true,
+      preConfirm: (data) => {
+        if (data === '') {
+          Swal.showValidationMessage('Please enter message');
+        }
+      },
+      allowOutsideClick: () => !Swal.isLoading(),
+    }).then((result) => {
+      if (result) {
+        if (result.dismiss) {
+          Swal.close();
+        }
+        if (result.value) {
+          this.sharedService.uiService.showApiStartPopMsg('Sendind Request to Admin...');
+          let apiUrl = this.sharedService.urlService.apiCallWithParams('sendRequestToGroup', {
+            '{userId}': this.user.email,
+            '{groupId}': grpId,
+          });
+          this.sharedService.configService.post(apiUrl, result.value).subscribe(
+            (response: any) => {
+              this.sharedService.uiService.showApiSuccessPopMsg('Request Send.');
+            },
+            (error) => {
+              this.sharedService.uiService.showApiErrorPopMsg(error.error.message);
+            }
+          );
+        }
       }
-    );
+    });
   }
 
   invitePeople(grp: any) {

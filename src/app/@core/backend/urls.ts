@@ -155,6 +155,6 @@ export const urls: any = {
   getGroupInfo: '/groups/{groupId}', // G
   getAllActiveFroup: '/groups/active', // G
   getAllActiveGroupByUser: '/groups/mygroups/{userId}', // G
-  sendRequestToGroup: '/groupRequest​/{userId}/{groupId}', // PO
+  sendRequestToGroup: '/groupRequest/{userId}/{groupId}', // PO
   sendRequestToPeople: '/groupInvite/{adminId}/{userId}/{groupId}', // PO
 };
