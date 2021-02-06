@@ -1,8 +1,9 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, HostListener, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { AuthenticationService, CredentialsService } from '@app/auth';
 import { SharedService } from '@app/services/shared.service';
 import { Router } from '@angular/router';
 import { courseSearchData, jobsSearchData } from '@app/models/constants';
+import { CartService } from '@app/scenes/cart/cart.service';
 
 //extra
 declare var jQuery: any;
@@ -13,9 +14,9 @@ declare var jQuery: any;
   styleUrls: ['./home-header.component.scss'],
 })
 export class HomeHeaderComponent implements OnInit {
-  // courseConfig: any = {
-  //   subjects: [],
-  // };
+  @HostListener('window:beforeunload', ['$event']) unloadHandler(event: Event) {
+    this.processData();
+  }
   @ViewChild('file', { static: false }) public file: any;
   notificationConfig: any = {
     messageCount: 0,
@@ -52,13 +53,18 @@ export class HomeHeaderComponent implements OnInit {
     private router: Router,
     public sharedService: SharedService,
     private authenticationService: AuthenticationService,
-    private credentialsService: CredentialsService
+    private credentialsService: CredentialsService,
+    private cartService: CartService
   ) {
     this.jobConfig.searchConfig = JSON.parse(JSON.stringify(jobsSearchData));
     this.courseConfig.searchConfig = JSON.parse(JSON.stringify(courseSearchData));
     if (this.user) {
       this.user.type.toLowerCase() === 'admin' ? (this.isAdmin = true) : (this.isAdmin = false);
     }
+  }
+
+  processData() {
+    localStorage.setItem('cartConfig', this.cartService.fetchData());
   }
 
   globalSearch() {

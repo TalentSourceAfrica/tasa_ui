@@ -274,13 +274,15 @@ export class JobsComponent implements OnInit {
   }
 
   checkOffset() {
-    if (
-      jQuery('#filterContent').offset().top + jQuery('#filterContent').height() >=
-      jQuery('.footer-wrapper').offset().top - 10
-    )
-      jQuery('#filterContent').css('position', 'absolute');
-    if (jQuery(document).scrollTop() + window.innerHeight < jQuery('.footer-wrapper').offset().top)
-      jQuery('#filterContent').css('position', 'fixed');
+    if (jQuery('#filterContent').offset()) {
+      if (
+        jQuery('#filterContent').offset().top + jQuery('#filterContent').height() >=
+        jQuery('.footer-wrapper').offset().top - 10
+      )
+        jQuery('#filterContent').css('position', 'absolute');
+      if (jQuery(document).scrollTop() + window.innerHeight < jQuery('.footer-wrapper').offset().top)
+        jQuery('#filterContent').css('position', 'fixed');
+    }
   }
 
   get user(): any | null {

@@ -205,47 +205,59 @@
                     <ng-container *ngIf="user.type == 'Recruiter'">
                       <ng-template *ngTemplateOutlet="recruiterMenu"></ng-template>
                     </ng-container>
-                  <ng-container>
-                    <ng-template *ngTemplateOutlet="studentMenu"></ng-template>
-                  </ng-container>
-                  <ng-container *ngIf="user.type == 'Admin'">
-                    <ng-template *ngTemplateOutlet="adminMenu"></ng-template>
-                  </ng-container>
-                  <li>
-                    <a class="curPoint">
-                      <img
-                        *ngIf="!user.image || user.image == 'string'"
-                        matTooltipPosition="below"
-                        matTooltip="Upload Avatar"
-                        class="user-pic img-responsive img-circle curPoint"
-                        src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
-                        alt="User picture"
-                        (click)="callUpload($event)"
-                      />
-                      <img
-                        *ngIf="user.image && user.image != 'string'"
-                        matTooltipPosition="below"
-                        matTooltip="Upload Avatar"
-                        class="user-pic img-responsive img-circle curPoint"
-                        [src]="user.image"
-                        alt="User picture"
-                        (click)="callUpload($event)"
-                      />
-                      <span [matMenuTriggerFor]="userMenu">{{user.firstName}}</span
-                      ><i class="fas fa-caret-down pl-1"></i>
-                      <mat-menu #userMenu="matMenu">
-                        <button mat-menu-item [routerLink]="['/home']" class="h6">
-                          <i class="fas fa-home pr-3 text-primary"></i> Home
-                        </button>
-                        <button mat-menu-item [routerLink]="['/dashboard']" class="h6">
-                          <i class="fas fa-chart-line pr-3 text-primary"></i> Dashboard
-                        </button>
-                        <button mat-menu-item (click)="logout()" class="h6">
-                          <i class="fa fa-power-off pr-3 text-primary"></i> Logout
-                        </button>
-                      </mat-menu>
-                    </a>
-                  </li>
+                    <ng-container *ngIf="user.type == 'Admin'">
+                      <ng-template *ngTemplateOutlet="adminMenu"></ng-template>
+                    </ng-container>
+                    <ng-container>
+                      <ng-template *ngTemplateOutlet="studentMenu"></ng-template>
+                    </ng-container>
+                    <li>
+                      <a class="curPoint">
+                        <img
+                          *ngIf="!user.image || user.image == 'string'"
+                          matTooltipPosition="below"
+                          matTooltip="Upload Avatar"
+                          class="user-pic img-responsive img-circle curPoint"
+                          src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
+                          alt="User picture"
+                          (click)="callUpload($event)"
+                        />
+                        <img
+                          *ngIf="user.image && user.image != 'string'"
+                          matTooltipPosition="below"
+                          matTooltip="Upload Avatar"
+                          class="user-pic img-responsive img-circle curPoint"
+                          [src]="user.image"
+                          alt="User picture"
+                          (click)="callUpload($event)"
+                        />
+                        <span [matMenuTriggerFor]="userMenu">{{ user.firstName }}</span
+                        ><i class="fas fa-caret-down pl-1"></i>
+                        <mat-menu #userMenu="matMenu">
+                          <button mat-menu-item [routerLink]="['/home']" class="h6">
+                            <i class="fas fa-home pr-3 text-primary"></i> Home
+                          </button>
+                          <button mat-menu-item [routerLink]="['/dashboard']" class="h6">
+                            <i class="fas fa-chart-line pr-3 text-primary"></i> Dashboard
+                          </button>
+                          <button mat-menu-item [routerLink]="['/subscription-plans']" class="h6">
+                            <i class="fa fa-tags pr-3 text-primary"></i> Subscription Plans
+                          </button>
+                          <button mat-menu-item [routerLink]="['/testimonial']" class="h6">
+                            <i class="fas fa-pen-alt pr-3 text-primary"></i> Add Testimonial
+                          </button>
+                          <button mat-menu-item [routerLink]="['/digital-assets']" class="h6">
+                            <i class="fa fa-folder-open pr-3 text-primary"></i> Documents
+                          </button>
+                          <button mat-menu-item [routerLink]="['/cart']" class="h6">
+                            <i class="fas fa-cart-plus pr-3 text-primary"></i> Cart
+                          </button>
+                          <button mat-menu-item (click)="logout()" class="h6">
+                            <i class="fa fa-power-off pr-3 text-primary"></i> Logout
+                          </button>
+                        </mat-menu>
+                      </a>
+                    </li>
                   </ul>
                   <ng-container *ngIf="user">
                     <ng-template *ngTemplateOutlet="notifications"></ng-template>
@@ -318,54 +330,54 @@
 </ng-template>
 
 <ng-template #recruiterMenu>
-    <li>
-      <a [matMenuTriggerFor]="recruiter" class="curPoint px-2 py-4">
-        <i class="fas fa-tools pr-2"></i>Operation<i class="fas fa-caret-down pl-1"></i>
-        <mat-menu #recruiter="matMenu">
-          <div class="sidebar-submenu">
-            <button mat-menu-item [routerLink]="['/recruiter/jobs']" class="h6">
-              Jobs
-            </button>
-          </div>
-        </mat-menu>
-      </a>
-    </li>
+  <li>
+    <a [matMenuTriggerFor]="recruiter" class="curPoint px-2 py-4">
+      <i class="fas fa-tools pr-2"></i>Operation<i class="fas fa-caret-down pl-1"></i>
+      <mat-menu #recruiter="matMenu">
+        <div class="sidebar-submenu">
+          <button mat-menu-item [routerLink]="['/recruiter/jobs']" class="h6">
+            Jobs
+          </button>
+        </div>
+      </mat-menu>
+    </a>
+  </li>
 </ng-template>
 
 <ng-template #adminMenu>
-    <li>
-      <a [matMenuTriggerFor]="admin" class="curPoint px-2 py-4"
-        >My Operation<i class="fas fa-caret-down pl-1"></i>
-        <mat-menu #admin="matMenu">
-          <div class="sidebar-submenu">
-            <button mat-menu-item [routerLink]="['/admin/deactive-user']" class="h6">
-              Active / Deactive User
-            </button>
-            <button mat-menu-item [routerLink]="['/admin/tier']" class="h6">
-              Tiers
-            </button>
-            <button mat-menu-item [routerLink]="['/admin/lovs']" class="h6">
-              Lovs
-            </button>
-            <button mat-menu-item [routerLink]="['/admin/news']" class="h6">
-              News
-            </button>
-            <button mat-menu-item [routerLink]="['/admin/organization']" class="h6">
-              Organization
-            </button>
-            <button mat-menu-item [routerLink]="['/admin/jobs']" class="h6">
-              Jobs
-            </button>
-            <button mat-menu-item [routerLink]="['/testimonial']" class="h6">
-              Testimonial
-            </button>
-            <button mat-menu-item [routerLink]="['/admin/partners']" class="h6">
-              Partners
-            </button>
-          </div>
-        </mat-menu>
-      </a>
-    </li>
+  <li>
+    <a [matMenuTriggerFor]="admin" class="curPoint px-2 py-4"
+      >Operations<i class="fas fa-caret-down pl-1"></i>
+      <mat-menu #admin="matMenu">
+        <div class="sidebar-submenu">
+          <button mat-menu-item [routerLink]="['/admin/deactive-user']" class="h6">
+            Active / Deactive User
+          </button>
+          <button mat-menu-item [routerLink]="['/admin/tier']" class="h6">
+            Tiers
+          </button>
+          <button mat-menu-item [routerLink]="['/admin/lovs']" class="h6">
+            Lovs
+          </button>
+          <button mat-menu-item [routerLink]="['/admin/news']" class="h6">
+            News
+          </button>
+          <button mat-menu-item [routerLink]="['/admin/organization']" class="h6">
+            Organization
+          </button>
+          <button mat-menu-item [routerLink]="['/admin/jobs']" class="h6">
+            Jobs
+          </button>
+          <button mat-menu-item [routerLink]="['/testimonial']" class="h6">
+            Testimonial
+          </button>
+          <button mat-menu-item [routerLink]="['/admin/partners']" class="h6">
+            Partners
+          </button>
+        </div>
+      </mat-menu>
+    </a>
+  </li>
 </ng-template>
 
 <ng-template #notifications>
@@ -379,7 +391,7 @@
       <h6 class="title caps text-primary" *ngIf="notificationConfig.currentView === 1">MESSAGES</h6>
       <span class="settings"><i class="icon-cog"></i> </span>
     </li>
-    <div class="notifbox">
+    <div class="notifbox text-left">
       <li
         class="notif curPoint unread"
         (click)="notiRedirect(item, i)"
@@ -429,40 +441,40 @@
 </ng-template>
 
 <ng-template #studentMenu>
-    <li>
-      <a [matMenuTriggerFor]="community" class="curPoint px-2 py-4">
-        <i class="far fa-comment-alt pr-2"></i> Community<i class="fas fa-caret-down pl-1"></i>
-        <mat-menu #community="matMenu">
-          <div class="sidebar-submenu">
-            <button mat-menu-item [routerLink]="['/social-network/posts']" class="h6">
-              All Post
-            </button>
-            <button
-              (click)="showProfile(user.tasaId)"
-              mat-menu-item
-              routerLinkActive="router-link-active"
-              [routerLink]="['/user/saved-course']"
-              class="h6"
-            >
-              My Profile
-            </button>
-            <button
-              mat-menu-item
-              routerLinkActive="router-link-active"
-              [routerLink]="['/social-network/network']"
-              class="h6"
-            >
-              Network
-            </button>
-            <button
-              mat-menu-item
-              [routerLink]="['/social-network/conversation']"
-              routerLinkActive="router-link-active"
-              class="h6"
-            >
-              Inbox
-            </button>
-            <button
+  <li>
+    <a [matMenuTriggerFor]="community" class="curPoint px-2 py-4">
+      <i class="far fa-comment-alt pr-2"></i> Community<i class="fas fa-caret-down pl-1"></i>
+      <mat-menu #community="matMenu">
+        <div class="sidebar-submenu">
+          <button mat-menu-item [routerLink]="['/social-network/posts']" class="h6">
+            All Post
+          </button>
+          <button
+            (click)="showProfile(user.tasaId)"
+            mat-menu-item
+            routerLinkActive="router-link-active"
+            [routerLink]="['/user/saved-course']"
+            class="h6"
+          >
+            My Profile
+          </button>
+          <button
+            mat-menu-item
+            routerLinkActive="router-link-active"
+            [routerLink]="['/social-network/network']"
+            class="h6"
+          >
+            Network
+          </button>
+          <button
+            mat-menu-item
+            [routerLink]="['/social-network/conversation']"
+            routerLinkActive="router-link-active"
+            class="h6"
+          >
+            Inbox
+          </button>
+          <button
             mat-menu-item
             [routerLink]="['/social-network/group']"
             routerLinkActive="router-link-active"
@@ -470,95 +482,86 @@
           >
             Group
           </button>
-          </div>
-        </mat-menu>
-      </a>
-    </li>
-    <li *ngIf="user.type !== 'Recruiter'">
-      <a [matMenuTriggerFor]="jobs" class="curPoint px-2 py-4"
-        ><i class="fas fa-briefcase pr-2"></i> Jobs<i class="fas fa-caret-down pl-1"></i>
-        <mat-menu #jobs="matMenu">
-          <div class="sidebar-submenu">
-            <button mat-menu-item [routerLink]="['/jobs/listings']" class="h6">
-              All Job Listings
-            </button>
-            <button mat-menu-item [routerLink]="['/user/saved-jobs']" class="h6">
-              Saved Jobs
-            </button>
-            <button mat-menu-item [routerLink]="['/jobs/my-applications']" class="h6">
-              Applied Jobs
-            </button>
-          </div>
-        </mat-menu>
-      </a>
-    </li>
-    <li>
-      <a [matMenuTriggerFor]="courses" class="curPoint px-2 py-4">
-        <i class="fas fa-graduation-cap pr-2"></i>Courses<i class="fas fa-caret-down pl-1"></i>
-        <mat-menu #courses="matMenu">
-          <div class="sidebar-submenu">
-            <button mat-menu-item [routerLink]="['/user/course']" class="h6">
-              My Courses
-            </button>
-            <button mat-menu-item [routerLink]="['/all-course']" class="h6">
-              All Courses
-            </button>
-            <button mat-menu-item [routerLink]="['/user/fav-course']" class="h6">
-              Favorite Courses
-            </button>
-          </div>
-        </mat-menu>
-      </a>
-    </li>
-    <li>
-      <a [matMenuTriggerFor]="profile" class="curPoint px-2 py-4">
-        <i class="fas fa-unlock-alt pr-2"></i>Settings<i class="fas fa-caret-down pl-1"></i>
-        <mat-menu #profile="matMenu">
-          <div class="sidebar-submenu">
-            <button mat-menu-item [routerLink]="['/my-plan']" class="h6">
-              My Subscriptions
-            </button>
-            <button mat-menu-item [routerLink]="['/reset-password']" class="h6">
-              Update Password
-            </button>
-            <button mat-menu-item [routerLink]="['/user/profile']" class="h6">
-              Edit Profile
-            </button>
-            <button mat-menu-item [routerLink]="['/testimonial']" class="h6">
-              Add Testimonial
-            </button>
-            <button mat-menu-item [routerLink]="['/dashboard']" class="h6">
-              Dashboard
-            </button>
-            <button mat-menu-item [routerLink]="['/digital-assets']" class="h6">
-              Documents
-            </button>
-          </div>
-        </mat-menu>
-      </a>
-    </li>
-    <li class="p-0">
-      <a
-        matTooltipPosition="below"
-        (click)="setNotificationData('other')"
-        class="notification-popup curPoint text-white mt-2"
-        matTooltip="Notification"
-      >
-        <i class="fa fa-bell" id="notiRing"></i>
-        <span class="badge badge-pill badge-warning notification">{{ notificationConfig.otherCount }}</span>
-      </a>
-    </li>
-    <li class="p-0">
-      <a
-        matTooltipPosition="below"
-        (click)="setNotificationData('message')"
-        class="notification-popup curPoint text-white mt-2"
-        matTooltip="Messages"
-      >
-        <i class="fas fa-comment-alt text-white"></i>
-        <span class="badge badge-pill badge-warning notification">{{ notificationConfig.messageCount }}</span>
-      </a>
-    </li>
+        </div>
+      </mat-menu>
+    </a>
+  </li>
+  <li *ngIf="user.type !== 'Recruiter'">
+    <a [matMenuTriggerFor]="jobs" class="curPoint px-2 py-4"
+      ><i class="fas fa-briefcase pr-2"></i> Jobs<i class="fas fa-caret-down pl-1"></i>
+      <mat-menu #jobs="matMenu">
+        <div class="sidebar-submenu">
+          <button mat-menu-item [routerLink]="['/jobs/listings']" class="h6">
+            All Job Listings
+          </button>
+          <button mat-menu-item [routerLink]="['/user/saved-jobs']" class="h6">
+            Saved Jobs
+          </button>
+          <button mat-menu-item [routerLink]="['/jobs/my-applications']" class="h6">
+            Applied Jobs
+          </button>
+        </div>
+      </mat-menu>
+    </a>
+  </li>
+  <li>
+    <a [matMenuTriggerFor]="courses" class="curPoint px-2 py-4">
+      <i class="fas fa-graduation-cap pr-2"></i>Courses<i class="fas fa-caret-down pl-1"></i>
+      <mat-menu #courses="matMenu">
+        <div class="sidebar-submenu">
+          <button mat-menu-item [routerLink]="['/user/course']" class="h6">
+            My Courses
+          </button>
+          <button mat-menu-item [routerLink]="['/all-course']" class="h6">
+            All Courses
+          </button>
+          <button mat-menu-item [routerLink]="['/user/fav-course']" class="h6">
+            Favorite Courses
+          </button>
+        </div>
+      </mat-menu>
+    </a>
+  </li>
+  <li>
+    <a [matMenuTriggerFor]="profile" class="curPoint px-2 py-4">
+      <i class="fas fa-unlock-alt pr-2"></i>Settings<i class="fas fa-caret-down pl-1"></i>
+      <mat-menu #profile="matMenu">
+        <div class="sidebar-submenu">
+          <button mat-menu-item [routerLink]="['/my-plan']" class="h6">
+            My Subscriptions
+          </button>
+          <button mat-menu-item [routerLink]="['/reset-password']" class="h6">
+            Update Password
+          </button>
+          <button mat-menu-item [routerLink]="['/user/profile']" class="h6">
+            Edit Profile
+          </button>
+        </div>
+      </mat-menu>
+    </a>
+  </li>
+  <li class="p-0">
+    <a
+      matTooltipPosition="below"
+      (click)="setNotificationData('other')"
+      class="notification-popup curPoint text-white mt-2"
+      matTooltip="Notification"
+    >
+      <i class="fa fa-bell" id="notiRing"></i>
+      <span class="badge badge-pill badge-warning notification">{{ notificationConfig.otherCount }}</span>
+    </a>
+  </li>
+  <li class="p-0">
+    <a
+      matTooltipPosition="below"
+      (click)="setNotificationData('message')"
+      class="notification-popup curPoint text-white mt-2"
+      matTooltip="Messages"
+    >
+      <i class="fas fa-comment-alt text-white"></i>
+      <span class="badge badge-pill badge-warning notification">{{ notificationConfig.messageCount }}</span>
+    </a>
+  </li>
 </ng-template>
 
 <input type="file" #file class="d-none" id="imageUpload" (change)="handleFileInput($event)" />

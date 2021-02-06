@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { SharedService } from '@app/services/shared.service';
+import { CartService } from '../cart/cart.service';
+import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-subscription-plans',
@@ -8,7 +11,7 @@ import { SharedService } from '@app/services/shared.service';
 })
 export class SubscriptionPlansComponent implements OnInit {
   tiers: any;
-  constructor(public sharedService: SharedService) {}
+  constructor(public sharedService: SharedService, private cartService: CartService, private router: Router) {}
 
   getTiers() {
     let apiUrl = this.sharedService.urlService.simpleApiCall('getTiers');
@@ -20,6 +23,30 @@ export class SubscriptionPlansComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+
+  subscribeNow(item: any) {
+    let _callback = () => {
+      this.cartService.setCartForSubscription(item);
+      Swal.fire({
+        title: 'Added To Cart', // title of the modal
+        text: '', // description of the modal
+        type: 'success', // warning, error, success, info, and question,
+        backdrop: true,
+        confirmButtonClass: 'rounded-pill shadow-sm',
+        cancelButtonClass: 'rounded-pill shadow-sm',
+        confirmButtonText: 'Go To Cart!',
+        showCancelButton: true,
+      }).then((isConfirm) => {
+        if (isConfirm.value) {
+          Swal.close();
+          this.router.navigate(['/cart']);
+        } else {
+          Swal.close();
+        }
+      });
+    };
+    this.sharedService.uiService.showPreConfirmPopMsg('Do You Want To Add This To Cart', _callback);
   }
 
   ngOnInit(): void {

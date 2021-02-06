@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { SharedService } from '@app/services/shared.service';
+import { CartService } from './cart.service';
+
+// import { Flutterwave, InlinePaymentOptions, PaymentSuccessResponse } from 'flutterwave-angular-v3';
 
 @Component({
   selector: 'app-cart',
@@ -30,40 +34,80 @@ export class CartComponent implements OnInit {
     },
   ];
 
-  constructor() {}
+  publicKey = 'FLWPUBK_TEST-ce36b868ed8ed63aefaec7ebf85d0117-X';
+  customerDetails = { name: 'Demo Customer  Name', email: 'customer@mail.com', phone_number: '08100000000' };
+  customizations = {
+    title: 'Customization Title',
+    description: 'Customization Description',
+    logo: 'https://flutterwave.com/images/logo-colored.svg',
+  };
+  meta = { counsumer_id: '7898', consumer_mac: 'kjs9s8ss7dd' };
+
+  // paymentData: InlinePaymentOptions = {
+  //   public_key: this.publicKey,
+  //   tx_ref: this.generateReference(),
+  //   amount: 10,
+  //   currency: 'NGN',
+  //   payment_options: 'card,ussd',
+  //   redirect_url: '',
+  //   meta: this.meta,
+  //   customer: this.customerDetails,
+  //   customizations: this.customizations,
+  //   callback: this.makePaymentCallback,
+  //   onclose: this.closedPaymentModal,
+  //   callbackContext: this,
+  // };
+
+  constructor(public sharedService: SharedService, private cartService: CartService) {}
 
   makePayment() {
-  //   FlutterwaveCheckout({
-  //     public_key: 'FLWPUBK_TEST-SANDBOXDEMOKEY-X',
-  //     tx_ref: 'hooli-tx-1920bbtyt',
-  //     amount: 54600,
-  //     currency: 'NGN',
-  //     country: 'NG',
-  //     payment_options: 'card, mobilemoneyghana, ussd',
-  //     // specified redirect URL
-  //     redirect_url: 'https://callbacks.piedpiper.com/flutterwave.aspx?ismobile=34',
-  //     meta: {
-  //       consumer_id: 23,
-  //       consumer_mac: '92a3-912ba-1192a',
-  //     },
-  //     customer: {
-  //       email: 'user@gmail.com',
-  //       phone_number: '08102909304',
-  //       name: 'yemi desola',
-  //     },
-  //     callback: function (data:any) {
-  //       console.log(data);
-  //     },
-  //     onclose: function () {
-  //       // close modal
-  //     },
-  //     customizations: {
-  //       title: 'My store',
-  //       description: 'Payment for items in cart',
-  //       logo: 'https://assets.piedpiper.com/logo.png',
-  //     },
-  //   });
-  }
+    sessionStorage.setItem('isPaymentAPI', 'true');
+    let apiUrl = 'https://api.flutterwave.com/v3/payments';
+    let payload = {
+      tx_ref: 'hooli-tx-1920bbtytty',
+      amount: '100',
+      currency: 'NGN',
+      redirect_url: 'https://webhook.site/9d0b00ba-9a69-44fa-a43d-a82c33c36fdc',
+      payment_options: 'card',
+      meta: {
+        consumer_id: 23,
+        consumer_mac: '92a3-912ba-1192a',
+      },
+      customer: {
+        email: 'user@gmail.com',
+        phonenumber: '080****4528',
+        name: 'Yemi Desola',
+      },
+      customizations: {
+        title: 'Pied Piper Payments',
+        description: "Middleout isn't free. Pay the price",
+        logo: 'https://assets.piedpiper.com/logo.png',
+      },
+    };
 
-  ngOnInit(): void {}
+    this.sharedService.configService.post(apiUrl, payload).subscribe(
+      (response) => {
+        console.log(response);
+        sessionStorage.removeItem('isPaymentAPI');
+      },
+      (error) => {
+        console.log(error);
+        sessionStorage.removeItem('isPaymentAPI');
+      }
+    );
+  }
+  // makePaymentCallback(response: PaymentSuccessResponse): void {
+  //   console.log('Payment callback', response);
+  // }
+  // generateReference(): string {
+  //   let date = new Date();
+  //   return date.getTime().toString();
+  // }
+  // closedPaymentModal(): void {
+  //   console.log('payment is closed');
+  // }
+
+  ngOnInit(): void {
+    console.log(this.cartService.fetchData())
+  }
 }

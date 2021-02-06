@@ -22,6 +22,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { ContactUsModule } from './scenes/contact-us/contact-us.module';
 import { CourseModule } from './scenes/course/course.module';
 import { ResetPasswordModule } from './scenes/reset-password/reset-password.module';
+import { FlutterwaveModule } from "flutterwave-angular-v3"
 
 //component
 import { LoginPopupComponent } from './partials/popups/authentication/login-popup/login-popup.component';
@@ -48,6 +49,7 @@ import { UserDetailsPopupComponent } from './partials/popups/authentication/user
     ContactUsModule,
     CourseModule,
     ResetPasswordModule,
+    FlutterwaveModule
   ],
   declarations: [AppComponent, LoginPopupComponent, UserDetailsPopupComponent],
   providers: [],

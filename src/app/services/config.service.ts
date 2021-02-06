@@ -50,9 +50,14 @@ export class ConfigService {
       Expires: 'Sat, 01 Jan 2000 00:00:00 GMT',
       'If-Modified-Since': '0',
     };
-    if (this.cookieService.get('access_token') && this.cookieService.get('access_token') !== '') {
-      this.apiHeaders = this.apiHeaders.set('Authorization', `Bearer ${this.cookieService.get('access_token')}`);
+    if (sessionStorage.getItem('isPaymentAPI')) {
+      this.apiHeaders = this.apiHeaders.set('Authorization', 'Bearer FLWSECK_TEST-89895f07ab4316fc9858e2f9b88eca2d-X');
+    } else {
+      if (this.cookieService.get('access_token') && this.cookieService.get('access_token') !== '') {
+        this.apiHeaders = this.apiHeaders.set('Authorization', `Bearer ${this.cookieService.get('access_token')}`);
+      }
     }
+
     Object.keys(commonheaders).forEach((c) => {
       this.apiHeaders = this.apiHeaders.set(c, commonheaders[c]);
     });
