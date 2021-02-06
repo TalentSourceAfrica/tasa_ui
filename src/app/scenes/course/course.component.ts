@@ -4,6 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CredentialsService, AuthenticationService } from '@app/auth';
 import { DomSanitizer } from '@angular/platform-browser';
 import { untilDestroyed } from '@app/@core';
+import { CartService } from '../cart/cart.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-course',
@@ -24,7 +26,8 @@ export class CourseComponent implements OnInit {
     public credentialsService: CredentialsService,
     public authenticationService: AuthenticationService,
     public router: Router,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private cartService: CartService
   ) {
     this.courseConfig.courseKey = this.route.snapshot.params.key;
     this.uds = this.sharedService.plugins.undSco;
@@ -72,7 +75,27 @@ export class CourseComponent implements OnInit {
     if ($t.user == null) {
       $t.authenticationService.openLoginPopup();
     } else {
-      // call the cart
+      let _callback = () => {
+        $t.cartService.setCartForCourse($t.courseConfig.course);
+        Swal.fire({
+          title: 'Added To Cart', // title of the modal
+          text: '', // description of the modal
+          type: 'success', // warning, error, success, info, and question,
+          backdrop: true,
+          confirmButtonClass: 'rounded-pill shadow-sm',
+          cancelButtonClass: 'rounded-pill shadow-sm',
+          confirmButtonText: 'Go To Cart!',
+          showCancelButton: true,
+        }).then((isConfirm) => {
+          if (isConfirm.value) {
+            Swal.close();
+            this.router.navigate(['/cart']);
+          } else {
+            Swal.close();
+          }
+        });
+      };
+      this.sharedService.uiService.showPreConfirmPopMsg('Do You Want To Add This To Cart', _callback);
     }
   }
 

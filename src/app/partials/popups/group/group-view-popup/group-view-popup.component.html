@@ -1,0 +1,61 @@
+<div class="d-flex align-items-center no-gutters invite-user-wrapper">
+  <div class="col-sm-8 col-md-12 col-lg-12 mx-auto">
+    <div class="navbar-shadow">
+      <div class="card-header text-center">
+        <h4 class="card-title">
+        Group Members Of -
+          <strong class="text-primary" *ngIf="!groupDetailsConfig.isLoading">{{
+            groupDetailsConfig.data.title
+          }}</strong>
+        </h4>
+      </div>
+      <div class="card-body">
+        <ng-container *ngTemplateOutlet="groupDetails"></ng-container>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #groupDetails>
+  <ng-container *ngIf="!groupDetailsConfig.isLoading">
+    <div class="max-vertical-h-50 stylishSlimScroll flow-y-auto flow-x-hidden">
+      <div
+        class="col-md-6 col-xl-6 col-sm-12 animated fadeIn"
+        *ngFor="let user of groupDetailsConfig.data.members; let i = index"
+      >
+        <div class="card d-flex align-items-center">
+          <div class="p-3 text-center">
+            <img
+              (click)="showProfile(user.tasaId)"
+              class="user-img mr-2 img-responsive img-thumbnail curPoint"
+              src="{{
+                user.imageUrl
+                  ? user.imageUrl
+                  : 'https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg'
+              }}"
+              alt="User picture"
+            />
+          </div>
+          <div>
+            <div class="ml-2 d-block">
+              <h5 class="card-title text-muted text-truncate" title="{{ user.name }}">
+                {{ user.name }}
+              </h5>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  <div *ngIf="groupDetailsConfig.isLoading">
+    <ng-container *ngTemplateOutlet="loader"></ng-container>
+  </div>
+</ng-template>
+
+<ng-template #loader>
+  <div class="col-12 animated fadeIn" *ngFor="let item of [1, 2, 3, 4, 5]">
+    <div class="card ml-0 mr-0" style="height: 50px !important;">
+      <div class="card-img skeleton"></div>
+    </div>
+  </div>
+</ng-template>

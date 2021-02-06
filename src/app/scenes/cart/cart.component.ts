@@ -34,7 +34,7 @@ export class CartComponent implements OnInit {
     },
   ];
 
-  cartDetails:any;
+  cartDetails: any;
 
   publicKey = 'FLWPUBK_TEST-ce36b868ed8ed63aefaec7ebf85d0117-X';
   customerDetails = { name: 'Demo Customer  Name', email: 'customer@mail.com', phone_number: '08100000000' };
@@ -97,6 +97,28 @@ export class CartComponent implements OnInit {
         sessionStorage.removeItem('isPaymentAPI');
       }
     );
+    // var settings = {
+    //   async: true,
+    //   crossDomain: true,
+    //   url: 'https://api.flutterwave.com/v3/payments',
+    //   method: 'POST',
+    //   headers: {
+    //     authorization: 'Bearer FLWSECK_TEST-89895f07ab4316fc9858e2f9b88eca2d-X',
+    //     'content-type': 'application/json',
+    //     'cache-control': 'no-cache',
+    //     'postman-token': '4b889e90-14a6-01e4-d195-e19db693318a',
+    //     'Access-Control-Allow-Methods': 'GET, PUT, POST, DELETE, PATCH, OPTIONS',
+    //     'Access-Control-Allow-Origin': '*',
+    //     'Cache-Control': 'no-cache',
+    //   },
+    //   processData: false,
+    //   data:
+    //     '{"tx_ref":"hooli-tx-1920bbt3433","amount":"100","currency":"USD","redirect_url":"https://webhook.site/9d0b00ba-9a69-44fa-a43d-a82c33c36fdc","payment_options":"card","meta":{"consumer_id":23,"consumer_mac":"92a3-912ba-1192a"},"customer":{"email":"user@gmail.com","phonenumber":"080****4528","name":"Yemi Desola"},"customizations":{"title":"Pied Piper Payments","description":"Middleout isn\'t free. Pay the price","logo":"https://assets.piedpiper.com/logo.png"}}\n\n',
+    // };
+
+    // $.ajax(settings).done(function (response) {
+    //   console.log(response);
+    // });
   }
   // makePaymentCallback(response: PaymentSuccessResponse): void {
   //   console.log('Payment callback', response);
@@ -111,6 +133,6 @@ export class CartComponent implements OnInit {
 
   ngOnInit(): void {
     this.cartDetails = this.cartService.fetchData();
-    console.log(this.cartService.fetchData())
+    console.log(this.cartService.fetchData());
   }
 }

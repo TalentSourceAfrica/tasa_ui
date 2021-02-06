@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CredentialsService } from '@app/auth';
 import { CreateGroupPopupComponent } from '@app/partials/popups/group/create-group-popup/create-group-popup.component';
+import { GroupViewPopupComponent } from '@app/partials/popups/group/group-view-popup/group-view-popup.component';
 import { InviteUserPopupComponent } from '@app/partials/popups/group/invite-user-popup/invite-user-popup.component';
 import { SharedService } from '@app/services/shared.service';
+
 import Swal from 'sweetalert2';
 
 @Component({
@@ -100,6 +102,14 @@ export class GroupComponent implements OnInit {
     this.sharedService.dialogService.open(InviteUserPopupComponent, {
       width: '450px',
       data: { authenticationService: this, credentialsService: this.credentialsService, group: grp, user: this.user },
+      disableClose: false,
+    });
+  }
+
+  viewGroup(_group:any){
+    this.sharedService.dialogService.open(GroupViewPopupComponent, {
+      width: '450px',
+      data: { authenticationService: this, credentialsService: this.credentialsService, group: _group, user: this.user },
       disableClose: false,
     });
   }

@@ -75,7 +75,16 @@
                         {{ item.groupDescription }}
                       </h6>
                     </div>
-
+                    <button
+                      mat-mini-fab
+                      color="warn"
+                      class="ml-2 mr-1"
+                      matTooltipPosition="below"
+                      matTooltip="View Group Members"
+                      (click)="viewGroup(item)"
+                    >
+                      <mat-icon>visibility</mat-icon>
+                    </button>
                     <button
                       mat-flat-button
                       color="primary"
@@ -85,7 +94,7 @@
                       (click)="sendRequest(item.groupId)"
                       class="rounded-pill"
                     >
-                      Send Request
+                      Request
                     </button>
                   </div>
                 </div>
@@ -124,7 +133,7 @@
         *ngIf="myGroups.data.length"
         class="row no-gutters mt-3 max-vertical-h-70 stylishSlimScroll flow-y-auto flow-x-hidden"
       >
-        <div class="col-6" *ngFor="let item of myGroups.data | groupFilter: myGroupSearchText ; let i = index">
+        <div class="col-6" *ngFor="let item of myGroups.data | groupFilter: myGroupSearchText; let i = index">
           <div class="card m-1 p-2">
             <div class="d-flex align-items-center">
               <div class="row no-gutters w100">
@@ -150,6 +159,16 @@
                       </h6>
                     </div>
                     <div class="d-flex w100 justify-content-end">
+                      <button
+                        mat-mini-fab
+                        color="warn"
+                        class="ml-2 mr-1"
+                        matTooltipPosition="below"
+                        matTooltip="View Group Members"
+                        (click)="viewGroup(item)"
+                      >
+                        <mat-icon>visibility</mat-icon>
+                      </button>
                       <button
                         mat-flat-button
                         color="primary"
