@@ -1,711 +1,721 @@
 <div class="dashboard-wrapper mb-3">
   <div class="page mt-2 mb-4">
-    <div class="container page__container mt-4">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item curPoint"><a (click)="goToHome()">Home</a></li>
-        <li class="breadcrumb-item active">Dashboard</li>
-      </ol>
-      <div class="sec-title">
-        <div class="title">Dashboard</div>
+    <div class="row no-gutters">
+      <div class="col-md-2 col-sm-12">
       </div>
-
-      <div class="card m-0 border-left-3 border-left-primary card-2by1">
-        <div class="card-body">
-          <div class="media flex-wrap align-items-center">
-            <div class="media-left">
-              <i class="material-icons text-muted-light text-primary">credit_card</i>
-            </div>
-            <!-- <div class="media-body" style="min-width: 180px;">
-              Your subscription ends on <strong>25 February 2015</strong>
-            </div> -->
-            <div class="media-body pl-3 h6" style="min-width: 180px;">
-              YOU HAVEN'T SUBSCRIBED TO ANY PLAN <strong>Trust Us ! We offer best plans</strong>
-            </div>
-            <div class="media-right mt-2 mt-xs-plus-0">
-              <button mat-flat-button color="primary" [routerLink]="['/subscription-plans']" class="rounded-pill ml-2">
-                Subscribe Now
-              </button>
-            </div>
+      <div class="col-md-8 col-sm-12">
+        <div class="page__container mt-4">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item curPoint"><a (click)="goToHome()">Home</a></li>
+            <li class="breadcrumb-item active">Dashboard</li>
+          </ol>
+          <div class="sec-title">
+            <div class="title">Dashboard</div>
           </div>
-        </div>
-      </div>
-      <div class="row" *ngIf="user.type != 'Recruiter'">
-        <div class="col-lg-7">
-          <div class="card mt-2">
-            <div class="card-header d-flex align-items-center">
-              <div class="h2 mb-0 mr-3 text-primary" *ngIf="recommendedCourses.data.length">
-                {{ recommendedCourses.data.length }}
-              </div>
-              <div class="flex">
-                <h4 class="card-title mt-3">Recommended Courses</h4>
-                <!-- <p class="card-subtitle">Best score</p> -->
-              </div>
-            </div>
-            <div class="card-body p-2 min-vertical-h-30 max-vertical-h-30 stylishSlimScroll flow-y-auto flow-x-hidden">
-              <div *ngIf="recommendedCourses.data.length && !recommendedCourses.isFetching" class="row pr-1 no-gutters">
-                <div
-                  class="col-12 border mb-1 curPoint courseList"
-                  (click)="courseView(course.key)"
-                  *ngFor="let course of recommendedCourses.data"
-                >
-                  <div class="row no-gutters">
-                    <!-- <span class="flag-discount" *ngIf="course.discountPercentage > 0"
-                      >{{ course.discountPercentage }}% Off</span
-                    > -->
-                    <div class="col-4">
-                      <img [src]="course.image_url" alt="Course picture" />
-                    </div>
-                    <div class="col-8 p-2">
-                      <h6 class="card-title text-truncate" [title]="course.title">
-                        {{ course.title }}
-                      </h6>
-                      <p class="card-intro">
-                        {{ course.subject }}
-                      </p>
-                    </div>
-                  </div>
+    
+          <div class="card m-0 border-left-3 border-left-primary card-2by1">
+            <div class="card-body">
+              <div class="media flex-wrap align-items-center">
+                <div class="media-left">
+                  <i class="material-icons text-muted-light text-primary">credit_card</i>
                 </div>
-              </div>
-              <div *ngIf="recommendedCourses.data.length == 0  && !recommendedCourses.isFetching">
-                <div class="text-center m-auto animated fadeIn">
-                  <div class="col-12 text-center">
-                    <img src="../../../assets/images/no-record.gif" style="height: 200px;" class="d-block m-auto" />
-                    <h6 class="text-primary">No Recommended Course Yet...!</h6>
-                  </div>
+                <!-- <div class="media-body" style="min-width: 180px;">
+                  Your subscription ends on <strong>25 February 2015</strong>
+                </div> -->
+                <div class="media-body pl-3 h6" style="min-width: 180px;">
+                  YOU HAVEN'T SUBSCRIBED TO ANY PLAN <strong>Trust Us ! We offer best plans</strong>
                 </div>
-              </div>
-              <ng-template *ngIf="recommendedCourses.isFetching" [ngTemplateOutlet]="loader"></ng-template>
-            </div>
-          </div>
-          <div class="card mt-2">
-            <div class="card-header d-flex align-items-center">
-              <div class="h2 mb-0 mr-3 text-primary" *ngIf="user.favoriteCourses.length">
-                {{ user.favoriteCourses.length }}
-              </div>
-              <div class="flex">
-                <h4 class="card-title mt-3">Favourite Courses</h4>
-              </div>
-            </div>
-            <div class="card-body p-2 min-vertical-h-30 max-vertical-h-30 stylishSlimScroll flow-y-auto flow-x-hidden">
-              <div *ngIf="user.favoriteCourses.length" class="row pr-1 no-gutters">
-                <div
-                  class="col-12 border mb-1 courseList curPoint"
-                  (click)="courseView(course.key)"
-                  *ngFor="let course of user.favoriteCourses"
-                >
-                  <div class="row no-gutters">
-                    <!-- <span class="flag-discount" *ngIf="course.discountPercentage > 0"
-                      >{{ course.discountPercentage }}% Off</span
-                    > -->
-                    <div class="col-4">
-                      <img [src]="course.image_url" alt="Course picture" />
-                    </div>
-                    <div class="col-8 p-2">
-                      <h6 class="card-title text-truncate" [title]="course.title">
-                        {{ course.title }}
-                      </h6>
-                      <p class="card-intro">
-                        {{ course.subject }}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div *ngIf="user.favoriteCourses.length == 0">
-                <div class="text-center m-auto animated fadeIn">
-                  <div class="col-12 text-center">
-                    <img src="../../../assets/images/no-record.gif" style="height: 200px;" class="d-block m-auto" />
-                    <h6 class="text-primary">No Favourite Course Yet...!</h6>
-                  </div>
+                <div class="media-right mt-2 mt-xs-plus-0">
+                  <button mat-flat-button color="primary" [routerLink]="['/subscription-plans']" class="rounded-pill ml-2">
+                    Subscribe Now
+                  </button>
                 </div>
               </div>
             </div>
           </div>
-          <!-- <div class="card mt-2">
-            <div class="card-header">
-              <div class="media align-items-center">
-                <div class="media-body">
-                  <h4 class="card-title">Courses</h4>
-                  <p class="card-subtitle">Your recent courses</p>
-                </div>
-                <div class="media-right">
-                  <a class="btn btn-sm btn-primary" href="fixed-student-my-courses.html">My courses</a>
-                </div>
-              </div>
-            </div>
-
-            <ul class="list-group list-group-fit mb-0" style="z-index: initial;">
-              <li class="list-group-item" style="z-index: initial;">
-                <div class="d-flex align-items-center">
-                  <a href="fixed-student-take-course.html" class="avatar avatar-4by3 avatar-sm mr-3">
-                    <img src="../../../assets/images/gulp.png" alt="course" class="avatar-img rounded user-pic" />
-                  </a>
+          <div class="row mt-3" *ngIf="user.type != 'Recruiter'">
+            <div class="col-lg-7">
+              <div class="card m-0 mt-2">
+                <div class="card-header d-flex align-items-center">
+                  <div class="h2 mb-0 mr-3 text-primary" *ngIf="recommendedCourses.data.length">
+                    {{ recommendedCourses.data.length }}
+                  </div>
                   <div class="flex">
-                    <a href="fixed-student-take-course.html" class="text-body"
-                      ><strong>Learn Vue.js Fundamentals</strong></a
+                    <h4 class="card-title mt-3">Recommended Courses</h4>
+                    <!-- <p class="card-subtitle">Best score</p> -->
+                  </div>
+                </div>
+                <div class="card-body p-2 min-vertical-h-30 max-vertical-h-30 stylishSlimScroll flow-y-auto flow-x-hidden">
+                  <div *ngIf="recommendedCourses.data.length && !recommendedCourses.isFetching" class="row pr-1 no-gutters">
+                    <div
+                      class="col-12 border mb-1 curPoint courseList"
+                      (click)="courseView(course.key)"
+                      *ngFor="let course of recommendedCourses.data"
                     >
-                    <div class="d-flex align-items-center">
-                      <div class="progress" style="width: 100px;">
-                        <div
-                          class="progress-bar bg-primary"
-                          role="progressbar"
-                          style="width: 25%;"
-                          aria-valuenow="25"
-                          aria-valuemin="0"
-                          aria-valuemax="100"
-                        ></div>
-                      </div>
-                      <small class="text-muted ml-2">25%</small>
-                    </div>
-                  </div>
-                  <div class="dropdown ml-3">
-                    <a href="#" class="dropdown-toggle text-muted" data-caret="false" data-toggle="dropdown">
-                      <i class="material-icons">more_vert</i>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right">
-                      <a class="dropdown-item" href="fixed-student-take-course.html">Continue</a>
-                    </div>
-                  </div>
-                </div>
-              </li>
-
-              <li class="list-group-item" style="z-index: initial;">
-                <div class="d-flex align-items-center">
-                  <a href="fixed-student-take-course.html" class="avatar avatar-4by3 avatar-sm mr-3">
-                    <img src="../../../assets/images/vuejs.png" alt="course" class="avatar-img rounded user-pic" />
-                  </a>
-                  <div class="flex">
-                    <a href="fixed-student-take-course.html" class="text-body"><strong>Angular in Steps</strong></a>
-                    <div class="d-flex align-items-center">
-                      <div class="progress" style="width: 100px;">
-                        <div
-                          class="progress-bar bg-success"
-                          role="progressbar"
-                          style="width: 100%;"
-                          aria-valuenow="100"
-                          aria-valuemin="0"
-                          aria-valuemax="100"
-                        ></div>
-                      </div>
-                      <small class="text-muted ml-2">100%</small>
-                    </div>
-                  </div>
-                  <div class="dropdown ml-3">
-                    <a href="#" class="dropdown-toggle text-muted" data-caret="false" data-toggle="dropdown">
-                      <i class="material-icons">more_vert</i>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right">
-                      <a class="dropdown-item" href="fixed-student-take-course.html">Continue</a>
-                    </div>
-                  </div>
-                </div>
-              </li>
-
-              <li class="list-group-item" style="z-index: initial;">
-                <div class="d-flex align-items-center">
-                  <a href="fixed-student-take-course.html" class="avatar avatar-4by3 avatar-sm mr-3">
-                    <img src="../../../assets/images/nodejs.png" alt="course" class="avatar-img rounded user-pic" />
-                  </a>
-                  <div class="flex">
-                    <a href="fixed-student-take-course.html" class="text-body"
-                      ><strong>Bootstrap Foundations</strong></a
-                    >
-                    <div class="d-flex align-items-center">
-                      <div class="progress" style="width: 100px;">
-                        <div
-                          class="progress-bar bg-warning"
-                          role="progressbar"
-                          style="width: 80%;"
-                          aria-valuenow="80"
-                          aria-valuemin="0"
-                          aria-valuemax="100"
-                        ></div>
-                      </div>
-                      <small class="text-muted ml-2">80%</small>
-                    </div>
-                  </div>
-                  <div class="dropdown ml-3">
-                    <a href="#" class="dropdown-toggle text-muted" data-caret="false" data-toggle="dropdown">
-                      <i class="material-icons">more_vert</i>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right">
-                      <a class="dropdown-item" href="fixed-student-take-course.html">Continue</a>
-                    </div>
-                  </div>
-                </div>
-              </li>
-            </ul>
-          </div> -->
-          <!-- 
-          <div class="card mt-2">
-            <div class="card-header">
-              <div class="media align-items-center">
-                <div class="media-body">
-                  <h4 class="card-title">Quizzes</h4>
-                  <p class="card-subtitle">Your Performance</p>
-                </div>
-                <div class="media-right">
-                  <a class="btn btn-sm btn-primary" href="#">Quiz results</a>
-                </div>
-              </div>
-            </div>
-
-            <ul class="list-group list-group-fit mb-0">
-              <li class="list-group-item">
-                <div class="media align-items-center">
-                  <div class="media-body">
-                    <a class="text-body" href="fixed-student-quiz-results.html"
-                      ><strong>Title of quiz goes here?</strong></a
-                    ><br />
-                    <div class="d-flex align-items-center">
-                      <small class="text-black-50 text-uppercase mr-2">Course</small>
-                      <a href="fixed-student-take-course.html">Basics of HTML</a>
-                    </div>
-                  </div>
-                  <div class="media-right text-center d-flex align-items-center">
-                    <span class="text-black-50 mr-3">Good</span>
-                    <h4 class="mb-0">5.8</h4>
-                  </div>
-                </div>
-              </li>
-
-              <li class="list-group-item">
-                <div class="media align-items-center">
-                  <div class="media-body">
-                    <a class="text-body" href="fixed-student-quiz-results.html"
-                      ><strong>Directives &amp; Routing</strong></a
-                    ><br />
-                    <div class="d-flex align-items-center">
-                      <small class="text-black-50 text-uppercase mr-2">Course</small>
-                      <a href="fixed-student-take-course.html">Angular in Steps</a>
-                    </div>
-                  </div>
-                  <div class="media-right text-center d-flex align-items-center">
-                    <span class="text-black-50 mr-3">Great</span>
-                    <h4 class="mb-0 text-success">9.8</h4>
-                  </div>
-                </div>
-              </li>
-
-              <li class="list-group-item">
-                <div class="media align-items-center">
-                  <div class="media-body">
-                    <a class="text-body" href="fixed-student-quiz-results.html"
-                      ><strong>Responsive &amp; Retina</strong></a
-                    ><br />
-                    <div class="d-flex align-items-center">
-                      <small class="text-black-50 text-uppercase mr-2">Course</small>
-                      <a href="fixed-student-take-course.html">Bootstrap Foundations</a>
-                    </div>
-                  </div>
-                  <div class="media-right text-center d-flex align-items-center">
-                    <span class="text-black-50 mr-3">Failed</span>
-                    <h4 class="mb-0 text-danger">2.8</h4>
-                  </div>
-                </div>
-              </li>
-            </ul>
-          </div> -->
-        </div>
-        <div class="col-lg-5">
-          <div class="card mt-2">
-            <div class="card-header d-flex align-items-center">
-              <div class="h2 mb-0 mr-3 text-primary" *ngIf="jobApplications.length">{{ jobApplications.length }}</div>
-              <div class="flex">
-                <h4 class="card-title mt-3">Jobs Applied</h4>
-                <!-- <p class="card-subtitle">4 days streak this week</p> -->
-              </div>
-            </div>
-            <div
-              class="card-body p-2 jobs min-vertical-h-30 max-vertical-h-30 stylishSlimScroll flow-y-auto flow-x-hidden"
-            >
-              <div *ngIf="jobApplications.length" class="row pr-1 no-gutters">
-                <div
-                  class="col-12 border mb-1 curPoint job-list p-2"
-                  [routerLink]="['/job/', job.id]"
-                  *ngFor="let job of jobApplications"
-                >
-                  <div class="d-flex">
-                    <span>
-                      <img
-                        class="user-pic img-responsive img-circle curPoint"
-                        src="../../../assets/images/TSA_logo_new.small.png"
-                        alt="Job"
-                      />
-                    </span>
-                    <span>
-                      <h6 class="card-title text-truncate" [title]="job.title">
-                        {{ job.title }}
-                      </h6>
-                    </span>
-                    <span class="pl-2 text-right">
-                      <span class="badge badge-warning p-1" *ngIf="job.jobStatus == 'Applied'">{{
-                        job.jobStatus
-                      }}</span>
-                      <span class="badge badge-dark p-1" *ngIf="job.jobStatus == 'Under Review'">{{
-                        job.jobStatus
-                      }}</span>
-                      <span class="badge badge-success p-1" *ngIf="job.jobStatus == 'Accepted'">{{
-                        job.jobStatus
-                      }}</span>
-                      <span class="badge badge-danger p-1" *ngIf="job.jobStatus == 'Rejected'">{{
-                        job.jobStatus
-                      }}</span>
-                    </span>
-                  </div>
-                  <div class="card-intro">
-                    <div class="d-flex">
-                      <span class="text-muted pl-1 d-flex text-bold" style="justify-content: center;"
-                        ><span class="material-icons pr-1 text-primary">
-                          work
-                        </span>
-                        {{ job.experienceFrom }} - {{ job.experienceTo }} Year</span
-                      >
-                      <span class="text-muted pl-2 d-flex text-bold" style="justify-content: center;"
-                        ><span class="material-icons pr-1 text-primary">
-                          location_city
-                        </span>
-                        {{ job.location }}</span
-                      >
-                    </div>
-                    <span class="badge badge-info p-1 ml-1 mt-2" *ngFor="let item of job.tags">{{ item }}</span>
-                  </div>
-                </div>
-              </div>
-              <div *ngIf="jobApplications.length == 0">
-                <div class="text-center m-auto animated fadeIn">
-                  <div class="col-12 text-center">
-                    <img src="../../../assets/images/no-record.gif" style="height: 170px;" class="d-block m-auto" />
-                    <h6 class="text-primary">No Applied Jobs Yet...!</h6>
-                    <button
-                      mat-flat-button
-                      color="primary"
-                      *ngIf="!isAdmin"
-                      [routerLink]="['/jobs/listings']"
-                      class="rounded-pill ml-2"
-                    >
-                      Go To All Jobs
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="card mt-2">
-            <div class="card-header">
-              <div class="media align-items-center">
-                <div class="h2 mb-0 mr-3 text-primary" *ngIf="recommendedJobs.data.length">
-                  {{ recommendedJobs.data.length }}
-                </div>
-                <div class="flex">
-                  <h4 class="card-title mt-3">Recommended Jobs</h4>
-                  <!-- <p class="card-subtitle">4 days streak this week</p> -->
-                </div>
-              </div>
-            </div>
-            <div
-              class="card-body p-2 jobs min-vertical-h-30 max-vertical-h-30 stylishSlimScroll flow-y-auto flow-x-hidden"
-            >
-              <div *ngIf="recommendedJobs.data.length && !recommendedJobs.isFetching" class="row pr-1 no-gutters">
-                <div
-                  class="recommended-jobs col-12 border mb-1 curPoint job-list p-2"
-                  [routerLink]="['/job/', job.id]"
-                  *ngFor="let job of recommendedJobs.data"
-                >
-                  <div class="d-flex">
-                    <span>
-                      <img
-                        class="user-pic img-responsive img-circle curPoint"
-                        src="../../../assets/images/TSA_logo_new.small.png"
-                        alt="Job"
-                      />
-                    </span>
-                    <span class="d-flex">
-                      <h6 class="card-title text-truncate mt-2" [title]="job.title">
-                        {{ job.title }}
-                      </h6>
-                    </span>
-                  </div>
-                  <div class="card-intro">
-                    <div class="d-flex">
-                      <span class="text-muted pl-1 d-flex text-bold" style="justify-content: center;"
-                        ><span class="material-icons pr-1 text-primary">
-                          work
-                        </span>
-                        {{ job.experienceFrom }} - {{ job.experienceTo }} Year</span
-                      >
-                      <span class="text-muted pl-2 d-flex text-bold" style="justify-content: center;"
-                        ><span class="material-icons pr-1 text-primary">
-                          location_city
-                        </span>
-                        {{ job.location }}</span
-                      >
-                    </div>
-                    <span class="badge badge-info p-1 ml-1 mt-2" *ngFor="let item of job.tags">{{ item }}</span>
-                  </div>
-                </div>
-              </div>
-              <div *ngIf="recommendedJobs.data.length == 0 && !recommendedJobs.isFetching">
-                <div class="text-center m-auto animated fadeIn">
-                  <div class="col-12 text-center">
-                    <img src="../../../assets/images/no-record.gif" style="height: 190px;" class="d-block m-auto" />
-                    <h6 class="text-primary">No Recommended Jobs...!</h6>
-                  </div>
-                </div>
-              </div>
-              <ng-template *ngIf="recommendedJobs.isFetching" [ngTemplateOutlet]="loader"></ng-template>
-            </div>
-          </div>
-          <!-- <div class="card mt-2" *ngIf="user.recentlyViewedJobs?.length">
-            <div class="card-header">
-              <div class="media align-items-center">
-                <div class="h2 mb-0 mr-3 text-primary">
-                  {{ user.recentlyViewedJobs.length }}
-                </div>
-                <div class="flex">
-                  <h4 class="card-title mt-3">Recently Viewed Jobs</h4>
-                </div>
-              </div>
-            </div>
-            <div class="card-body p-2 jobs">
-              <div
-                *ngIf="user.recentlyViewedJobs?.length"
-                class="row pr-1 no-gutters min-vertical-h-30 max-vertical-h-30 stylishSlimScroll flow-y-auto flow-x-hidden"
-              >
-                <div
-                  class="col-12 border mb-1 curPoint job-list p-2"
-                  [routerLink]="['/job/', job.id]"
-                  *ngFor="let job of user.recentlyViewedJobs"
-                >
-                  <div class="d-flex">
-                    <span>
-                      <h6 class="card-title text-truncate" [title]="job.title">
-                        {{ job.title }}
-                      </h6>
-                    </span>
-                  </div>
-                  <div class="card-intro">
-                    <span class="badge badge-info p-1 ml-1" *ngFor="let item of job.tags">{{ item }}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div> -->
-        </div>
-      </div>
-      <div class="pt-4 pb-3" *ngIf="user.type == 'Recruiter'">
-        <div class="card m-0">
-          <div class="card-body p-0">
-            <div class="table-container">
-              <div class="mat-table-container stylishSlimScroll min-vertical-h-40 max-vertical-h-40">
-                <table mat-table class="w100" [dataSource]="matTableConfig.data" matSort matSortActive="createdBy" matSortDisableClear matSortDirection="desc">
-                  <ng-container matColumnDef="organization">
-                    <th mat-header-cell *matHeaderCellDef>Organization</th>
-                    <td mat-cell *matCellDef="let row"><a class="curPoint text-truncate a-hover" [routerLink]="['/organization/', row.orgId]"><u>{{ row.organisation }}</u></a></td>
-                  </ng-container>
-                  <ng-container matColumnDef="title">
-                    <th mat-header-cell *matHeaderCellDef>Job Title</th>
-                    <td mat-cell *matCellDef="let row"><a class="curPoint text-truncate a-hover" [routerLink]="['/job/', row.jobId]"><u>{{ row.title }}</u></a></td>
-                  </ng-container>
-                  <ng-container matColumnDef="createdBy">
-                    <th mat-header-cell *matHeaderCellDef disableClear>Recruiter Name</th>
-                    <td mat-cell *matCellDef="let row"><a class="curPoint text-truncate a-hover" [routerLink]="['/social-network/profile/', row.tasaId]"><u>{{ row.createdBy }}</u></a></td>
-                  </ng-container>
-                  <ng-container matColumnDef="applicationReceivedCount">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Applied</th>
-                    <td mat-cell *matCellDef="let row">
-                      <div class="floating-actions">
-                        <a class="ml-2 text-white curPoint" matTooltipPosition="below" matTooltip="Show All Applicants" (click)="showApplicants(row, $event, 'Applied')">
-                          <button
-                            class="action bg-primary mt-3 mb-2 curPoint"
-                            [matBadge]="row.applicationReceivedCount"
-                            matBadgePosition="after"
-                            matBadgeColor="accent"
-                            (click)="showApplicants(row, $event, 'Applied')">
-                            <i class="fas fa-users fa-lg"></i>
-                          </button>
-                        </a>
-                      </div> 
-                    </td>
-                  </ng-container>
-                  <ng-container matColumnDef="applicationRejectedCount">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Rejected</th>
-                    <td mat-cell *matCellDef="let row">
-                      <div class="floating-actions">
-                        <a class="ml-2 text-white curPoint" matTooltipPosition="below" matTooltip="Show Rejected Applicant" (click)="showApplicants(row, $event, 'Rejected')" >
-                          <button
-                            class="action bg-danger mt-3 mb-2"
-                            [matBadge]="row.applicationRejectedCount"
-                            matBadgePosition="after"
-                            matBadgeColor="accent"
-                            (click)="showApplicants(row, $event, 'Rejected')">
-                            <i class="fas fa-users fa-lg"></i>
-                          </button>
-                        </a>
-                      </div>
-                    </td>
-                  </ng-container>
-                  <ng-container matColumnDef="applicationAcceptedCount">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Accepted</th>
-                    <td mat-cell *matCellDef="let row">
-                      <div class="floating-actions">
-                        <a class="ml-2 text-white curPoint" matTooltipPosition="below" matTooltip="Show Accepted Applicants" (click)="showApplicants(row, $event, 'Accepted')">
-                          <button
-                            class="action bg-success mt-3 mb-2"
-                            [matBadge]="row.applicationAcceptedCount"
-                            matBadgePosition="after"
-                            matBadgeColor="accent"
-                            (click)="showApplicants(row, $event, 'Accepted')">
-                            <i class="fas fa-users fa-lg"></i>
-                          </button>
-                        </a>
-                      </div>
-                    </td>
-                  </ng-container>
-                  <tr mat-header-row *matHeaderRowDef="matTableConfig.cols; sticky: true"></tr>
-                  <tr mat-row *matRowDef="let row; columns: matTableConfig.cols;" class="table-row"></tr>
-                </table>
-              </div>  
-              <mat-paginator [length]="matTableConfig.resultsLength" [pageSize]="25"></mat-paginator>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!--RECENTLY VIEWED JOBS AREA AREA-->
-      <br />
-      <section class="recently-viewed-course" *ngIf="user?.recentlyViewedJobs?.length > 1">
-        <div class="row no-gutters">
-          <div class="col-12">
-            <div class="sec-title text-center">
-              <div class="title">
-                <span class="mt-3 h4 text-bold">{{ user.recentlyViewedJobs.length }} Recently Viewed Jobs</span>
-              </div>
-            </div>
-            <owl-carousel-o [options]="courseOptions">
-              <ng-container *ngFor="let job of user.recentlyViewedJobs; let i = index">
-                <ng-template carouselSlide [id]="i">
-                  <div class="pt-3 pb-3">
-                    <div class="card zoomCard curPoint" [routerLink]="['/job/', job.id]">
-                      <div class="card-img">
-                        <img src="../../../assets/images/TSA_logo_new.small.png" alt="Logo" />
-                      </div>
-                      <div class="card-body pl-3 pr-3">
-                        <h5 class="card-title text-truncate" [title]="job.title">
-                          {{ job.title }}
-                        </h5>
-                        <p class="card-intro">
-                          <marquee behavior="" direction="">
-                            <span class="badge badge-info p-1 ml-1" *ngFor="let item of job.tags">{{ item }}</span>
-                          </marquee>
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </ng-template>
-              </ng-container>
-            </owl-carousel-o>
-          </div>
-        </div>
-      </section>
-      <!--RECENTLY VIEWED JOBS AREA AREA-->
-
-      <!--RECENTLY VIEWED COURSE AREA AREA-->
-      <br />
-      <section class="recently-viewed-course" *ngIf="user?.recentlyViewed?.length">
-        <div class="row no-gutters">
-          <div class="col-12">
-            <div class="sec-title text-center">
-              <div class="title">
-                <span class="mt-3 h4 text-bold">{{ user.recentlyViewed.length }} Recently Viewed Course</span>
-              </div>
-            </div>
-            <owl-carousel-o [options]="courseOptions">
-              <ng-container *ngFor="let course of user.recentlyViewed; let i = index">
-                <ng-template carouselSlide [width]="'300'" [id]="i">
-                  <div class="pt-3 pb-3">
-                    <div class="card curPoint zoomCard" (click)="courseView(course.key)">
-                      <span class="flag-discount" style="width: 25%;" *ngIf="course.discountPercentage > 0"
-                        >{{ course.discountPercentage }}% Off</span
-                      >
-                      <div class="card-img">
-                        <img [src]="course.image_url" />
-                      </div>
-                      <div class="card-body pl-3 pr-3">
-                        <h5 class="card-title text-truncate" [title]="course.title">
-                          {{ course.title }}
-                        </h5>
-                        <p class="card-intro">
-                          {{ course.subject }}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </ng-template>
-              </ng-container>
-            </owl-carousel-o>
-          </div>
-        </div>
-      </section>
-      <!--RECENTLY VIEWED COURSE AREA AREA-->
-
-      <!--TESTMONIAL AREA AREA-->
-      <br />
-      <section class="testmonial-area mt-3 pt-3">
-        <div class="row no-gutters">
-          <div class="col-md-12">
-            <div class="testmonial-slider">
-              <div class="sec-title text-center">
-                <div class="title h4 text-bold">What Fellow Tasa Member Says</div>
-              </div>
-              <owl-carousel-o [options]="postOptions">
-                <ng-container *ngFor="let item of postData; let i = index">
-                  <ng-template carouselSlide [id]="i">
-                    <div class="main-gallery">
-                      <div class="gallery-cell">
-                        <div class="testimonial m-4">
-                          <div class="d-flex" style="justify-content: center;">
-                            <img
-                              class="testimonial-avatar"
-                              *ngIf="item.image != '' && item.image != 'string'"
-                              [src]="item.image"
-                              alt="User picture"
-                            />
-                            <img
-                              class="testimonial-avatar"
-                              *ngIf="item.image == '' || item.image == 'string'"
-                              src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
-                              alt="User picture"
-                            />
-                          </div>
-                          <span class="testimonial-author text-primary p-2 h5">{{ item.name }}</span>
-                          <div class="mb-4 d-flex" style="justify-content: center;">
-                            <span class="pr-2"
-                              ><strong>{{ item.courseName }}</strong> -
-                              <ngb-rating
-                                [max]="5"
-                                style="font-size: 25px; color: #ffc107;"
-                                [(rate)]="item.rating"
-                                [readonly]="true"
-                              ></ngb-rating
-                            ></span>
-                          </div>
-                          <q class="testimonial-quote pb-2">{{ item.review }}</q>
-                          <span class="testimonial-author" *ngIf="item.orgPlaced != ''"
-                            >Placed At : {{ item.orgPlaced }}</span
-                          >
+                      <div class="row no-gutters">
+                        <!-- <span class="flag-discount" *ngIf="course.discountPercentage > 0"
+                          >{{ course.discountPercentage }}% Off</span
+                        > -->
+                        <div class="col-4">
+                          <img [src]="course.image_url" alt="Course picture" />
+                        </div>
+                        <div class="col-8 p-2">
+                          <h6 class="card-title text-truncate" [title]="course.title">
+                            {{ course.title }}
+                          </h6>
+                          <p class="card-intro">
+                            {{ course.subject }}
+                          </p>
                         </div>
                       </div>
                     </div>
-                  </ng-template>
-                </ng-container>
-              </owl-carousel-o>
+                  </div>
+                  <div *ngIf="recommendedCourses.data.length == 0  && !recommendedCourses.isFetching">
+                    <div class="text-center m-auto animated fadeIn">
+                      <div class="col-12 text-center">
+                        <img src="../../../assets/images/no-record.gif" style="height: 200px;" class="d-block m-auto" />
+                        <h6 class="text-primary">No Recommended Course Yet...!</h6>
+                      </div>
+                    </div>
+                  </div>
+                  <ng-template *ngIf="recommendedCourses.isFetching" [ngTemplateOutlet]="loader"></ng-template>
+                </div>
+              </div>
+              <div class="card m-0 mt-2">
+                <div class="card-header d-flex align-items-center">
+                  <div class="h2 mb-0 mr-3 text-primary" *ngIf="user.favoriteCourses.length">
+                    {{ user.favoriteCourses.length }}
+                  </div>
+                  <div class="flex">
+                    <h4 class="card-title mt-3">Favourite Courses</h4>
+                  </div>
+                </div>
+                <div class="card-body p-2 min-vertical-h-30 max-vertical-h-30 stylishSlimScroll flow-y-auto flow-x-hidden">
+                  <div *ngIf="user.favoriteCourses.length" class="row pr-1 no-gutters">
+                    <div
+                      class="col-12 border mb-1 courseList curPoint"
+                      (click)="courseView(course.key)"
+                      *ngFor="let course of user.favoriteCourses"
+                    >
+                      <div class="row no-gutters">
+                        <!-- <span class="flag-discount" *ngIf="course.discountPercentage > 0"
+                          >{{ course.discountPercentage }}% Off</span
+                        > -->
+                        <div class="col-4">
+                          <img [src]="course.image_url" alt="Course picture" />
+                        </div>
+                        <div class="col-8 p-2">
+                          <h6 class="card-title text-truncate" [title]="course.title">
+                            {{ course.title }}
+                          </h6>
+                          <p class="card-intro">
+                            {{ course.subject }}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div *ngIf="user.favoriteCourses.length == 0">
+                    <div class="text-center m-auto animated fadeIn">
+                      <div class="col-12 text-center">
+                        <img src="../../../assets/images/no-record.gif" style="height: 200px;" class="d-block m-auto" />
+                        <h6 class="text-primary">No Favourite Course Yet...!</h6>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- <div class="card mt-2">
+                <div class="card-header">
+                  <div class="media align-items-center">
+                    <div class="media-body">
+                      <h4 class="card-title">Courses</h4>
+                      <p class="card-subtitle">Your recent courses</p>
+                    </div>
+                    <div class="media-right">
+                      <a class="btn btn-sm btn-primary" href="fixed-student-my-courses.html">My courses</a>
+                    </div>
+                  </div>
+                </div>
+    
+                <ul class="list-group list-group-fit mb-0" style="z-index: initial;">
+                  <li class="list-group-item" style="z-index: initial;">
+                    <div class="d-flex align-items-center">
+                      <a href="fixed-student-take-course.html" class="avatar avatar-4by3 avatar-sm mr-3">
+                        <img src="../../../assets/images/gulp.png" alt="course" class="avatar-img rounded user-pic" />
+                      </a>
+                      <div class="flex">
+                        <a href="fixed-student-take-course.html" class="text-body"
+                          ><strong>Learn Vue.js Fundamentals</strong></a
+                        >
+                        <div class="d-flex align-items-center">
+                          <div class="progress" style="width: 100px;">
+                            <div
+                              class="progress-bar bg-primary"
+                              role="progressbar"
+                              style="width: 25%;"
+                              aria-valuenow="25"
+                              aria-valuemin="0"
+                              aria-valuemax="100"
+                            ></div>
+                          </div>
+                          <small class="text-muted ml-2">25%</small>
+                        </div>
+                      </div>
+                      <div class="dropdown ml-3">
+                        <a href="#" class="dropdown-toggle text-muted" data-caret="false" data-toggle="dropdown">
+                          <i class="material-icons">more_vert</i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                          <a class="dropdown-item" href="fixed-student-take-course.html">Continue</a>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+    
+                  <li class="list-group-item" style="z-index: initial;">
+                    <div class="d-flex align-items-center">
+                      <a href="fixed-student-take-course.html" class="avatar avatar-4by3 avatar-sm mr-3">
+                        <img src="../../../assets/images/vuejs.png" alt="course" class="avatar-img rounded user-pic" />
+                      </a>
+                      <div class="flex">
+                        <a href="fixed-student-take-course.html" class="text-body"><strong>Angular in Steps</strong></a>
+                        <div class="d-flex align-items-center">
+                          <div class="progress" style="width: 100px;">
+                            <div
+                              class="progress-bar bg-success"
+                              role="progressbar"
+                              style="width: 100%;"
+                              aria-valuenow="100"
+                              aria-valuemin="0"
+                              aria-valuemax="100"
+                            ></div>
+                          </div>
+                          <small class="text-muted ml-2">100%</small>
+                        </div>
+                      </div>
+                      <div class="dropdown ml-3">
+                        <a href="#" class="dropdown-toggle text-muted" data-caret="false" data-toggle="dropdown">
+                          <i class="material-icons">more_vert</i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                          <a class="dropdown-item" href="fixed-student-take-course.html">Continue</a>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+    
+                  <li class="list-group-item" style="z-index: initial;">
+                    <div class="d-flex align-items-center">
+                      <a href="fixed-student-take-course.html" class="avatar avatar-4by3 avatar-sm mr-3">
+                        <img src="../../../assets/images/nodejs.png" alt="course" class="avatar-img rounded user-pic" />
+                      </a>
+                      <div class="flex">
+                        <a href="fixed-student-take-course.html" class="text-body"
+                          ><strong>Bootstrap Foundations</strong></a
+                        >
+                        <div class="d-flex align-items-center">
+                          <div class="progress" style="width: 100px;">
+                            <div
+                              class="progress-bar bg-warning"
+                              role="progressbar"
+                              style="width: 80%;"
+                              aria-valuenow="80"
+                              aria-valuemin="0"
+                              aria-valuemax="100"
+                            ></div>
+                          </div>
+                          <small class="text-muted ml-2">80%</small>
+                        </div>
+                      </div>
+                      <div class="dropdown ml-3">
+                        <a href="#" class="dropdown-toggle text-muted" data-caret="false" data-toggle="dropdown">
+                          <i class="material-icons">more_vert</i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                          <a class="dropdown-item" href="fixed-student-take-course.html">Continue</a>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div> -->
+              <!-- 
+              <div class="card mt-2">
+                <div class="card-header">
+                  <div class="media align-items-center">
+                    <div class="media-body">
+                      <h4 class="card-title">Quizzes</h4>
+                      <p class="card-subtitle">Your Performance</p>
+                    </div>
+                    <div class="media-right">
+                      <a class="btn btn-sm btn-primary" href="#">Quiz results</a>
+                    </div>
+                  </div>
+                </div>
+    
+                <ul class="list-group list-group-fit mb-0">
+                  <li class="list-group-item">
+                    <div class="media align-items-center">
+                      <div class="media-body">
+                        <a class="text-body" href="fixed-student-quiz-results.html"
+                          ><strong>Title of quiz goes here?</strong></a
+                        ><br />
+                        <div class="d-flex align-items-center">
+                          <small class="text-black-50 text-uppercase mr-2">Course</small>
+                          <a href="fixed-student-take-course.html">Basics of HTML</a>
+                        </div>
+                      </div>
+                      <div class="media-right text-center d-flex align-items-center">
+                        <span class="text-black-50 mr-3">Good</span>
+                        <h4 class="mb-0">5.8</h4>
+                      </div>
+                    </div>
+                  </li>
+    
+                  <li class="list-group-item">
+                    <div class="media align-items-center">
+                      <div class="media-body">
+                        <a class="text-body" href="fixed-student-quiz-results.html"
+                          ><strong>Directives &amp; Routing</strong></a
+                        ><br />
+                        <div class="d-flex align-items-center">
+                          <small class="text-black-50 text-uppercase mr-2">Course</small>
+                          <a href="fixed-student-take-course.html">Angular in Steps</a>
+                        </div>
+                      </div>
+                      <div class="media-right text-center d-flex align-items-center">
+                        <span class="text-black-50 mr-3">Great</span>
+                        <h4 class="mb-0 text-success">9.8</h4>
+                      </div>
+                    </div>
+                  </li>
+    
+                  <li class="list-group-item">
+                    <div class="media align-items-center">
+                      <div class="media-body">
+                        <a class="text-body" href="fixed-student-quiz-results.html"
+                          ><strong>Responsive &amp; Retina</strong></a
+                        ><br />
+                        <div class="d-flex align-items-center">
+                          <small class="text-black-50 text-uppercase mr-2">Course</small>
+                          <a href="fixed-student-take-course.html">Bootstrap Foundations</a>
+                        </div>
+                      </div>
+                      <div class="media-right text-center d-flex align-items-center">
+                        <span class="text-black-50 mr-3">Failed</span>
+                        <h4 class="mb-0 text-danger">2.8</h4>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div> -->
+            </div>
+            <div class="col-lg-5">
+              <div class="card m-0 mt-2">
+                <div class="card-header d-flex align-items-center">
+                  <div class="h2 mb-0 mr-3 text-primary" *ngIf="jobApplications.length">{{ jobApplications.length }}</div>
+                  <div class="flex">
+                    <h4 class="card-title mt-3">Jobs Applied</h4>
+                    <!-- <p class="card-subtitle">4 days streak this week</p> -->
+                  </div>
+                </div>
+                <div
+                  class="card-body p-2 jobs min-vertical-h-30 max-vertical-h-30 stylishSlimScroll flow-y-auto flow-x-hidden"
+                >
+                  <div *ngIf="jobApplications.length" class="row pr-1 no-gutters">
+                    <div
+                      class="col-12 border mb-1 curPoint job-list p-2"
+                      [routerLink]="['/job/', job.id]"
+                      *ngFor="let job of jobApplications"
+                    >
+                      <div class="d-flex">
+                        <span>
+                          <img
+                            class="user-pic img-responsive img-circle curPoint"
+                            src="../../../assets/images/TSA_logo_new.small.png"
+                            alt="Job"
+                          />
+                        </span>
+                        <span>
+                          <h6 class="card-title text-truncate" [title]="job.title">
+                            {{ job.title }}
+                          </h6>
+                        </span>
+                        <span class="pl-2 text-right">
+                          <span class="badge badge-warning p-1" *ngIf="job.jobStatus == 'Applied'">{{
+                            job.jobStatus
+                          }}</span>
+                          <span class="badge badge-dark p-1" *ngIf="job.jobStatus == 'Under Review'">{{
+                            job.jobStatus
+                          }}</span>
+                          <span class="badge badge-success p-1" *ngIf="job.jobStatus == 'Accepted'">{{
+                            job.jobStatus
+                          }}</span>
+                          <span class="badge badge-danger p-1" *ngIf="job.jobStatus == 'Rejected'">{{
+                            job.jobStatus
+                          }}</span>
+                        </span>
+                      </div>
+                      <div class="card-intro">
+                        <div class="d-flex">
+                          <span class="text-muted pl-1 d-flex text-bold" style="justify-content: center;"
+                            ><span class="material-icons pr-1 text-primary">
+                              work
+                            </span>
+                            {{ job.experienceFrom }} - {{ job.experienceTo }} Year</span
+                          >
+                          <span class="text-muted pl-2 d-flex text-bold" style="justify-content: center;"
+                            ><span class="material-icons pr-1 text-primary">
+                              location_city
+                            </span>
+                            {{ job.location }}</span
+                          >
+                        </div>
+                        <span class="badge badge-info p-1 ml-1 mt-2" *ngFor="let item of job.tags">{{ item }}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div *ngIf="jobApplications.length == 0">
+                    <div class="text-center m-auto animated fadeIn">
+                      <div class="col-12 text-center">
+                        <img src="../../../assets/images/no-record.gif" style="height: 170px;" class="d-block m-auto" />
+                        <h6 class="text-primary">No Applied Jobs Yet...!</h6>
+                        <button
+                          mat-flat-button
+                          color="primary"
+                          *ngIf="!isAdmin"
+                          [routerLink]="['/jobs/listings']"
+                          class="rounded-pill ml-2"
+                        >
+                          Go To All Jobs
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card m-0 mt-2">
+                <div class="card-header">
+                  <div class="media align-items-center">
+                    <div class="h2 mb-0 mr-3 text-primary" *ngIf="recommendedJobs.data.length">
+                      {{ recommendedJobs.data.length }}
+                    </div>
+                    <div class="flex">
+                      <h4 class="card-title mt-3">Recommended Jobs</h4>
+                      <!-- <p class="card-subtitle">4 days streak this week</p> -->
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="card-body p-2 jobs min-vertical-h-30 max-vertical-h-30 stylishSlimScroll flow-y-auto flow-x-hidden"
+                >
+                  <div *ngIf="recommendedJobs.data.length && !recommendedJobs.isFetching" class="row pr-1 no-gutters">
+                    <div
+                      class="recommended-jobs col-12 border mb-1 curPoint job-list p-2"
+                      [routerLink]="['/job/', job.id]"
+                      *ngFor="let job of recommendedJobs.data"
+                    >
+                      <div class="d-flex">
+                        <span>
+                          <img
+                            class="user-pic img-responsive img-circle curPoint"
+                            src="../../../assets/images/TSA_logo_new.small.png"
+                            alt="Job"
+                          />
+                        </span>
+                        <span class="d-flex">
+                          <h6 class="card-title text-truncate mt-2" [title]="job.title">
+                            {{ job.title }}
+                          </h6>
+                        </span>
+                      </div>
+                      <div class="card-intro">
+                        <div class="d-flex">
+                          <span class="text-muted pl-1 d-flex text-bold" style="justify-content: center;"
+                            ><span class="material-icons pr-1 text-primary">
+                              work
+                            </span>
+                            {{ job.experienceFrom }} - {{ job.experienceTo }} Year</span
+                          >
+                          <span class="text-muted pl-2 d-flex text-bold" style="justify-content: center;"
+                            ><span class="material-icons pr-1 text-primary">
+                              location_city
+                            </span>
+                            {{ job.location }}</span
+                          >
+                        </div>
+                        <span class="badge badge-info p-1 ml-1 mt-2" *ngFor="let item of job.tags">{{ item }}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div *ngIf="recommendedJobs.data.length == 0 && !recommendedJobs.isFetching">
+                    <div class="text-center m-auto animated fadeIn">
+                      <div class="col-12 text-center">
+                        <img src="../../../assets/images/no-record.gif" style="height: 190px;" class="d-block m-auto" />
+                        <h6 class="text-primary">No Recommended Jobs...!</h6>
+                      </div>
+                    </div>
+                  </div>
+                  <ng-template *ngIf="recommendedJobs.isFetching" [ngTemplateOutlet]="loader"></ng-template>
+                </div>
+              </div>
+              <!-- <div class="card mt-2" *ngIf="user.recentlyViewedJobs?.length">
+                <div class="card-header">
+                  <div class="media align-items-center">
+                    <div class="h2 mb-0 mr-3 text-primary">
+                      {{ user.recentlyViewedJobs.length }}
+                    </div>
+                    <div class="flex">
+                      <h4 class="card-title mt-3">Recently Viewed Jobs</h4>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-body p-2 jobs">
+                  <div
+                    *ngIf="user.recentlyViewedJobs?.length"
+                    class="row pr-1 no-gutters min-vertical-h-30 max-vertical-h-30 stylishSlimScroll flow-y-auto flow-x-hidden"
+                  >
+                    <div
+                      class="col-12 border mb-1 curPoint job-list p-2"
+                      [routerLink]="['/job/', job.id]"
+                      *ngFor="let job of user.recentlyViewedJobs"
+                    >
+                      <div class="d-flex">
+                        <span>
+                          <h6 class="card-title text-truncate" [title]="job.title">
+                            {{ job.title }}
+                          </h6>
+                        </span>
+                      </div>
+                      <div class="card-intro">
+                        <span class="badge badge-info p-1 ml-1" *ngFor="let item of job.tags">{{ item }}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div> -->
             </div>
           </div>
+          <div class="pt-4 pb-3" *ngIf="user.type == 'Recruiter'">
+            <div class="card m-0">
+              <div class="card-body p-0">
+                <div class="table-container">
+                  <div class="mat-table-container stylishSlimScroll min-vertical-h-40 max-vertical-h-40">
+                    <table mat-table class="w100" [dataSource]="matTableConfig.data" matSort matSortActive="createdBy" matSortDisableClear matSortDirection="desc">
+                      <ng-container matColumnDef="organization">
+                        <th mat-header-cell *matHeaderCellDef>Organization</th>
+                        <td mat-cell *matCellDef="let row"><a class="curPoint text-truncate a-hover" [routerLink]="['/organization/', row.orgId]"><u>{{ row.organisation }}</u></a></td>
+                      </ng-container>
+                      <ng-container matColumnDef="title">
+                        <th mat-header-cell *matHeaderCellDef>Job Title</th>
+                        <td mat-cell *matCellDef="let row"><a class="curPoint text-truncate a-hover" [routerLink]="['/job/', row.jobId]"><u>{{ row.title }}</u></a></td>
+                      </ng-container>
+                      <ng-container matColumnDef="createdBy">
+                        <th mat-header-cell *matHeaderCellDef disableClear>Recruiter Name</th>
+                        <td mat-cell *matCellDef="let row"><a class="curPoint text-truncate a-hover" [routerLink]="['/social-network/profile/', row.tasaId]"><u>{{ row.createdBy }}</u></a></td>
+                      </ng-container>
+                      <ng-container matColumnDef="applicationReceivedCount">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Applied</th>
+                        <td mat-cell *matCellDef="let row">
+                          <div class="floating-actions">
+                            <a class="ml-2 text-white curPoint" matTooltipPosition="below" matTooltip="Show All Applicants" (click)="showApplicants(row, $event, 'Applied')">
+                              <button
+                                class="action bg-primary mt-3 mb-2 curPoint"
+                                [matBadge]="row.applicationReceivedCount"
+                                matBadgePosition="after"
+                                matBadgeColor="accent"
+                                (click)="showApplicants(row, $event, 'Applied')">
+                                <i class="fas fa-users fa-lg"></i>
+                              </button>
+                            </a>
+                          </div> 
+                        </td>
+                      </ng-container>
+                      <ng-container matColumnDef="applicationRejectedCount">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Rejected</th>
+                        <td mat-cell *matCellDef="let row">
+                          <div class="floating-actions">
+                            <a class="ml-2 text-white curPoint" matTooltipPosition="below" matTooltip="Show Rejected Applicant" (click)="showApplicants(row, $event, 'Rejected')" >
+                              <button
+                                class="action bg-danger mt-3 mb-2"
+                                [matBadge]="row.applicationRejectedCount"
+                                matBadgePosition="after"
+                                matBadgeColor="accent"
+                                (click)="showApplicants(row, $event, 'Rejected')">
+                                <i class="fas fa-users fa-lg"></i>
+                              </button>
+                            </a>
+                          </div>
+                        </td>
+                      </ng-container>
+                      <ng-container matColumnDef="applicationAcceptedCount">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Accepted</th>
+                        <td mat-cell *matCellDef="let row">
+                          <div class="floating-actions">
+                            <a class="ml-2 text-white curPoint" matTooltipPosition="below" matTooltip="Show Accepted Applicants" (click)="showApplicants(row, $event, 'Accepted')">
+                              <button
+                                class="action bg-success mt-3 mb-2"
+                                [matBadge]="row.applicationAcceptedCount"
+                                matBadgePosition="after"
+                                matBadgeColor="accent"
+                                (click)="showApplicants(row, $event, 'Accepted')">
+                                <i class="fas fa-users fa-lg"></i>
+                              </button>
+                            </a>
+                          </div>
+                        </td>
+                      </ng-container>
+                      <tr mat-header-row *matHeaderRowDef="matTableConfig.cols; sticky: true"></tr>
+                      <tr mat-row *matRowDef="let row; columns: matTableConfig.cols;" class="table-row"></tr>
+                    </table>
+                  </div>  
+                  <mat-paginator [length]="matTableConfig.resultsLength" [pageSize]="25"></mat-paginator>
+                </div>
+              </div>
+            </div>
+          </div>
+    
+          <!--RECENTLY VIEWED JOBS AREA AREA-->
+          <br />
+          <section class="recently-viewed-course" *ngIf="user?.recentlyViewedJobs?.length > 1">
+            <div class="row no-gutters">
+              <div class="col-12">
+                <div class="sec-title text-center">
+                  <div class="title">
+                    <span class="mt-3 h4 text-bold">{{ user.recentlyViewedJobs.length }} Recently Viewed Jobs</span>
+                  </div>
+                </div>
+                <owl-carousel-o [options]="courseOptions">
+                  <ng-container *ngFor="let job of user.recentlyViewedJobs; let i = index">
+                    <ng-template carouselSlide [id]="i">
+                      <div class="pt-3 pb-3">
+                        <div class="card zoomCard curPoint" [routerLink]="['/job/', job.id]">
+                          <div class="card-img">
+                            <img src="../../../assets/images/TSA_logo_new.small.png" alt="Logo" />
+                          </div>
+                          <div class="card-body pl-3 pr-3">
+                            <h5 class="card-title text-truncate" [title]="job.title">
+                              {{ job.title }}
+                            </h5>
+                            <p class="card-intro">
+                              <marquee behavior="" direction="">
+                                <span class="badge badge-info p-1 ml-1" *ngFor="let item of job.tags">{{ item }}</span>
+                              </marquee>
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </ng-template>
+                  </ng-container>
+                </owl-carousel-o>
+              </div>
+            </div>
+          </section>
+          <!--RECENTLY VIEWED JOBS AREA AREA-->
+    
+          <!--RECENTLY VIEWED COURSE AREA AREA-->
+          <br />
+          <section class="recently-viewed-course" *ngIf="user?.recentlyViewed?.length">
+            <div class="row no-gutters">
+              <div class="col-12">
+                <div class="sec-title text-center">
+                  <div class="title">
+                    <span class="mt-3 h4 text-bold">{{ user.recentlyViewed.length }} Recently Viewed Course</span>
+                  </div>
+                </div>
+                <owl-carousel-o [options]="courseOptions">
+                  <ng-container *ngFor="let course of user.recentlyViewed; let i = index">
+                    <ng-template carouselSlide [width]="'300'" [id]="i">
+                      <div class="pt-3 pb-3">
+                        <div class="card curPoint zoomCard" (click)="courseView(course.key)">
+                          <span class="flag-discount" style="width: 25%;" *ngIf="course.discountPercentage > 0"
+                            >{{ course.discountPercentage }}% Off</span
+                          >
+                          <div class="card-img">
+                            <img [src]="course.image_url" />
+                          </div>
+                          <div class="card-body pl-3 pr-3">
+                            <h5 class="card-title text-truncate" [title]="course.title">
+                              {{ course.title }}
+                            </h5>
+                            <p class="card-intro">
+                              {{ course.subject }}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </ng-template>
+                  </ng-container>
+                </owl-carousel-o>
+              </div>
+            </div>
+          </section>
+          <!--RECENTLY VIEWED COURSE AREA AREA-->
+    
+          <!--TESTMONIAL AREA AREA-->
+          <br />
+          <section class="testmonial-area mt-3 pt-3">
+            <div class="row no-gutters">
+              <div class="col-md-12">
+                <div class="testmonial-slider">
+                  <div class="sec-title text-center">
+                    <div class="title h4 text-bold">What Fellow Tasa Member Says</div>
+                  </div>
+                  <owl-carousel-o [options]="postOptions">
+                    <ng-container *ngFor="let item of postData; let i = index">
+                      <ng-template carouselSlide [id]="i">
+                        <div class="main-gallery">
+                          <div class="gallery-cell">
+                            <div class="testimonial m-4">
+                              <div class="d-flex" style="justify-content: center;">
+                                <img
+                                  class="testimonial-avatar"
+                                  *ngIf="item.image != '' && item.image != 'string'"
+                                  [src]="item.image"
+                                  alt="User picture"
+                                />
+                                <img
+                                  class="testimonial-avatar"
+                                  *ngIf="item.image == '' || item.image == 'string'"
+                                  src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
+                                  alt="User picture"
+                                />
+                              </div>
+                              <span class="testimonial-author text-primary p-2 h5">{{ item.name }}</span>
+                              <div class="mb-4 d-flex" style="justify-content: center;">
+                                <span class="pr-2"
+                                  ><strong>{{ item.courseName }}</strong> -
+                                  <ngb-rating
+                                    [max]="5"
+                                    style="font-size: 25px; color: #ffc107;"
+                                    [(rate)]="item.rating"
+                                    [readonly]="true"
+                                  ></ngb-rating
+                                ></span>
+                              </div>
+                              <q class="testimonial-quote pb-2">{{ item.review }}</q>
+                              <span class="testimonial-author" *ngIf="item.orgPlaced != ''"
+                                >Placed At : {{ item.orgPlaced }}</span
+                              >
+                            </div>
+                          </div>
+                        </div>
+                      </ng-template>
+                    </ng-container>
+                  </owl-carousel-o>
+                </div>
+              </div>
+            </div>
+          </section>
+          <!--TESTMONIAL AREA AREA END-->
         </div>
-      </section>
-      <!--TESTMONIAL AREA AREA END-->
+      </div>
+      <div class="col-md-2 col-sm-12">
+        <app-right-side></app-right-side>
+      </div>
     </div>
+
   </div>
 </div>
 

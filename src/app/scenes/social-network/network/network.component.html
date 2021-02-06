@@ -97,8 +97,22 @@
         class="row no-gutters mt-3 max-vertical-h-70 stylishSlimScroll flow-y-auto flow-x-hidden"
       >
         <div class="col-6" *ngFor="let item of networkConfig.data; let i = index">
-          <div class="card m-1 p-2">
-            <div class="d-flex align-items-center">
+          <div class="card m-1">
+            <div class="bg-primary-more-light p-1 text-center mb-1" *ngIf="item?.groupId || item?.groupId !== ''">
+              <img
+                [routerLink]="['/social-network/profile/', item.fromTasaId]"
+                routerLinkActive="router-link-active"
+                class="user-img mr-2 img-responsive img-thumbnail curPoint"
+                src="{{
+                  item.fromImage
+                    ? item.fromImage
+                    : 'https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg'
+                }}"
+                alt="User picture"
+              />
+              {{ item.fromName }}
+            </div>
+            <div class="d-flex align-items-center p-2">
               <div class="row no-gutters">
                 <div class="col-2">
                   <img
@@ -137,13 +151,13 @@
                   >
                     {{ item.fromSummary }}
                   </h6>
-                  <h1
+                  <h6
                     class="text-muted text-truncate"
                     *ngIf="item?.groupId || item?.groupId !== ''"
                     [title]="item.groupDescription"
                   >
                     {{ item.groupDescription }}
-                  </h1>
+                  </h6>
                   <div class="d-flex w100 justify-content-end">
                     <button mat-flat-button color="primary" (click)="approve(item.id, i)" class="rounded-pill">
                       Approve

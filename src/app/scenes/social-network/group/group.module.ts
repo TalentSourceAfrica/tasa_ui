@@ -13,6 +13,7 @@ import { GroupComponent } from './group.component';
 import { GroupRoutingModule } from './group-routing.module';
 import { CreateGroupPopupModule } from '@app/partials/popups/group/create-group-popup/create-group-popup.module';
 import { InviteUserPopupComponent } from '@app/partials/popups/group/invite-user-popup/invite-user-popup.component';
+import { GroupFilterPipe } from '@app/pipes/group-filter.pipe';
 
 @NgModule({
   imports: [
@@ -30,7 +31,7 @@ import { InviteUserPopupComponent } from '@app/partials/popups/group/invite-user
     RightSideModule,
     CreateGroupPopupModule,
   ],
-  declarations: [GroupComponent, InviteUserPopupComponent],
+  declarations: [GroupComponent, InviteUserPopupComponent, GroupFilterPipe],
   schemas: [NO_ERRORS_SCHEMA],
 })
 export class GroupModule {}

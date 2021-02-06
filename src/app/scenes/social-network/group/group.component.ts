@@ -11,6 +11,8 @@ import Swal from 'sweetalert2';
   styleUrls: ['./group.component.scss'],
 })
 export class GroupComponent implements OnInit {
+  groupSearchText: string = '';
+  myGroupSearchText: string = '';
   allGroups: any = {
     data: [],
     isLoading: false,

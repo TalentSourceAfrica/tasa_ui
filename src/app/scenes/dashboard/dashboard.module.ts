@@ -15,6 +15,8 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard.component';
 import { RouterModule } from '@angular/router';
 import { ShowApplicantsModule } from '@app/partials/popups/recruiter/show-applicants/show-applicants.module';
+import { RightSideModule } from '@app/partials/right-side/right-side.module';
+
 
 @NgModule({
   imports: [
@@ -30,7 +32,8 @@ import { ShowApplicantsModule } from '@app/partials/popups/recruiter/show-applic
     MatTableModule,
     ShowApplicantsModule,
     MatSortModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    RightSideModule
   ],
   declarations: [DashboardComponent],
 })
