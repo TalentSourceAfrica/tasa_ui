@@ -38,10 +38,11 @@ export class InviteUserPopupComponent implements OnInit {
 
   submit() {
     Swal.fire({
-      title: 'Why do you want to join ?',
+      title: '',
       input: 'text',
       inputAttributes: {
         autocapitalize: 'off',
+        placeholder:'Type Your Message'
       },
       showCancelButton: true,
       confirmButtonText: 'Send',

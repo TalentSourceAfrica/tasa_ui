@@ -313,12 +313,12 @@
           <button mat-menu-item [routerLink]="['/about-us']" class="h6">
             <i class="fas fa-address-card pr-3 text-primary"></i>About Us
           </button>
-          <button mat-menu-item [routerLink]="['/our-process']" class="h6">
+          <!-- <button mat-menu-item [routerLink]="['/our-process']" class="h6">
             <i class="fas fa-stream pr-3 text-primary"></i>Our Process
           </button>
           <button mat-menu-item [routerLink]="['/our-partner']" class="h6">
             <i class="fas fa-handshake pr-3 text-primary"></i>Our Partner
-          </button>
+          </button> -->
           <button mat-menu-item [routerLink]="['/contact-us']" class="h6">
             <i class="fas fa-address-book pr-3 text-primary"></i>Contact Us
           </button>
@@ -475,7 +475,7 @@
       <mat-menu #community="matMenu">
         <div class="sidebar-submenu">
           <button mat-menu-item [routerLink]="['/social-network/posts']" class="h6">
-            All Post
+            <i class="fas fa-list pr-3 text-primary"></i> All Post
           </button>
           <button
             (click)="showProfile(user.tasaId)"
@@ -484,7 +484,7 @@
             [routerLink]="['/user/saved-course']"
             class="h6"
           >
-            My Profile
+          <i class="far fa-user pr-3 text-primary"></i> My Profile
           </button>
           <button
             mat-menu-item
@@ -492,7 +492,7 @@
             [routerLink]="['/social-network/network']"
             class="h6"
           >
-            Network
+          <i class="fas fa-network-wired pr-3 text-primary"></i> Network
           </button>
           <button
             mat-menu-item
@@ -500,7 +500,7 @@
             routerLinkActive="router-link-active"
             class="h6"
           >
-            Inbox
+          <i class="fas fa-inbox pr-3 text-primary"></i> Inbox
           </button>
           <button
             mat-menu-item
@@ -508,7 +508,7 @@
             routerLinkActive="router-link-active"
             class="h6"
           >
-            Group
+          <i class="fas fa-users pr-3 text-primary"></i> Group
           </button>
         </div>
       </mat-menu>
@@ -520,13 +520,13 @@
       <mat-menu #jobs="matMenu">
         <div class="sidebar-submenu">
           <button mat-menu-item [routerLink]="['/jobs/listings']" class="h6">
-            All Job Listings
+            <i class="fas fa-list pr-3 text-primary"></i> All Job Listings
           </button>
           <button mat-menu-item [routerLink]="['/user/saved-jobs']" class="h6">
-            Saved Jobs
+            <i class="fas fa-save pr-3 text-primary"></i> Saved Jobs
           </button>
           <button mat-menu-item [routerLink]="['/jobs/my-applications']" class="h6">
-            Applied Jobs
+            <i class="fas fa-check-circle pr-3 text-primary"></i> Applied Jobs
           </button>
         </div>
       </mat-menu>
@@ -538,13 +538,13 @@
       <mat-menu #courses="matMenu">
         <div class="sidebar-submenu">
           <button mat-menu-item [routerLink]="['/user/course']" class="h6">
-            My Courses
+            <i class="fas fa-book-reader pr-3 text-primary"></i> My Courses
           </button>
           <button mat-menu-item [routerLink]="['/all-course']" class="h6">
-            All Courses
+            <i class="fas fa-book pr-3 text-primary"></i> All Courses
           </button>
           <button mat-menu-item [routerLink]="['/user/fav-course']" class="h6">
-            Favorite Courses
+            <i class="fas fa-heart pr-3 text-primary"></i> Favorite Courses
           </button>
         </div>
       </mat-menu>
@@ -556,13 +556,13 @@
       <mat-menu #profile="matMenu">
         <div class="sidebar-submenu">
           <button mat-menu-item [routerLink]="['/my-plan']" class="h6">
-            My Subscriptions
+            <i class="fa fa-tags pr-3 text-primary"></i> My Subscriptions
           </button>
           <button mat-menu-item [routerLink]="['/reset-password']" class="h6">
-            Update Password
+            <i class="fas fa-key  pr-3 text-primary"></i> Update Password
           </button>
           <button mat-menu-item [routerLink]="['/user/profile']" class="h6">
-            Edit Profile
+            <i class="fas fa-user-edit pr-3 text-primary"></i> Edit Profile
           </button>
         </div>
       </mat-menu>

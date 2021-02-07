@@ -19,28 +19,30 @@
 <ng-template #groupDetails>
   <ng-container *ngIf="!groupDetailsConfig.isLoading">
     <div class="max-vertical-h-50 stylishSlimScroll flow-y-auto flow-x-hidden">
-      <div
-        class="col-md-6 col-xl-6 col-sm-12 animated fadeIn"
-        *ngFor="let user of groupDetailsConfig.data.members; let i = index"
-      >
-        <div class="card d-flex align-items-center">
-          <div class="p-3 text-center">
-            <img
-              (click)="showProfile(user.tasaId)"
-              class="user-img mr-2 img-responsive img-thumbnail curPoint"
-              src="{{
-                user.imageUrl
-                  ? user.imageUrl
-                  : 'https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg'
-              }}"
-              alt="User picture"
-            />
-          </div>
-          <div>
-            <div class="ml-2 d-block">
-              <h5 class="card-title text-muted text-truncate" title="{{ user.name }}">
-                {{ user.name }}
-              </h5>
+      <div class="row no-gutters w100">
+        <div
+          class="col-md-6 col-xl-6 col-sm-12 animated fadeIn"
+          *ngFor="let user of groupDetailsConfig.data.members; let i = index"
+        >
+          <div class="card d-flex align-items-center">
+            <div class="p-3 text-center">
+              <img
+                (click)="showProfile(user.tasaId)"
+                class="user-img mr-2 img-responsive img-thumbnail curPoint"
+                src="{{
+                  user.imageUrl
+                    ? user.imageUrl
+                    : 'https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg'
+                }}"
+                alt="User picture"
+              />
+            </div>
+            <div>
+              <div class="ml-2 d-block">
+                <h5 class="card-title text-muted text-truncate" title="{{ user.name }}">
+                  {{ user.name }}
+                </h5>
+              </div>
             </div>
           </div>
         </div>

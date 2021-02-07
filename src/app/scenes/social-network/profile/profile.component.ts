@@ -117,10 +117,11 @@ export class ProfileComponent implements OnInit {
   connect() {
     let $t = this;
     Swal.fire({
-      title: 'Why do you want to connect?',
+      title: '',
       input: 'text',
       inputAttributes: {
         autocapitalize: 'off',
+        placeholder: 'Type Your Message'
       },
       showCancelButton: true,
       confirmButtonText: 'Send',

@@ -241,7 +241,7 @@ export class ConfigService {
           case 400: // Bad Request
           case 401: // Unauthorized
           case 403: // Forbidden
-          case 404: // Forbidden
+          case 404: // Not Found
           case 405: // Method Not Allowed
             if (!_.isUndefined(error) && !_.isUndefined(error.error)) {
               if (_.isObject(error.error) && _.keys(error.error).length) {

@@ -58,10 +58,11 @@ export class GroupComponent implements OnInit {
 
   sendRequest(grpId: any) {
     Swal.fire({
-      title: 'Why do you want to join ?',
+      title: '',
       input: 'text',
       inputAttributes: {
         autocapitalize: 'off',
+        placeholder:'Type Your Message'
       },
       showCancelButton: true,
       confirmButtonText: 'Send',
