@@ -213,7 +213,7 @@ $light-blue: #523f6d80;
   top: 50px;
   transition: 0.2s;
   opacity: 0;
-  right: 150px;
+  right: 85px;
   z-index: 0;
   &:before {
     content: "";
@@ -331,7 +331,7 @@ $light-blue: #523f6d80;
 }
 
 .notifications-message {
-  right: 75px;
+  right: 40px;
 }
 
 .user {

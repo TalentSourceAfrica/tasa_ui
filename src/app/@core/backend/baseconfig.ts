@@ -7,7 +7,7 @@ import { WINDOW } from '../backend/window.service';
 export class BaseConfig {
   @Inject(WINDOW) public window: Window;
 
-  domain: string = '35.247.161.145';
+  domain: string = this.getDomain();
   localRestHost: string = 'http://' + this.domain;
   windowLocation: any = window.location;
   restHost: string = window.location.origin;
@@ -23,6 +23,14 @@ export class BaseConfig {
 
   constructor() {
     this.init();
+  }
+
+  getDomain() {
+    if (location.hostname.indexOf('localhost') === 0) {
+      return '35.247.161.145';
+    } else {
+      return '35.245.16.205';
+    }
   }
 
   init() {
