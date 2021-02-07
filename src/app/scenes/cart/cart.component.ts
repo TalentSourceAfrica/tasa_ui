@@ -4,6 +4,8 @@ import { CartService } from './cart.service';
 import { flutterWaveKeys } from '@app/models/constants';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CredentialsService } from '@app/auth';
+import { Route } from '@angular/compiler/src/core';
+import { Router } from '@angular/router';
 declare var FlutterwaveCheckout: any;
 @Component({
   selector: 'app-cart',
@@ -42,7 +44,8 @@ export class CartComponent implements OnInit {
     public sharedService: SharedService,
     private cartService: CartService,
     private formBuilder: FormBuilder,
-    private credentialsService: CredentialsService
+    private credentialsService: CredentialsService,
+    private router: Router
   ) {}
 
   private createForm() {
@@ -58,13 +61,13 @@ export class CartComponent implements OnInit {
     const customer = this.customerForm.getRawValue();
     FlutterwaveCheckout({
       public_key: flutterWaveKeys['Public Key'],
-      tx_ref: this.uuidv4Generator(),
-      amount: this.amount,
+      tx_ref: $t.uuidv4Generator(),
+      amount: $t.amount,
       currency: 'USD',
       country: 'US',
-      payment_options: 'card, mobilemoneyghana, ussd',
+      payment_options: 'account, banktransfer, payattitude, mpesa, mobilemoneyfranco, paga, card, mobilemoneyghana, ussd',
       // specified redirect URL
-      redirect_url: location.origin.concat('/#/transaction'),
+      // redirect_url: location.origin.concat('/#/transaction'),
       meta: {
         consumer_id: 23,
         consumer_mac: '92a3-912ba-1192a',
@@ -75,8 +78,7 @@ export class CartComponent implements OnInit {
         name: customer.name,
       },
       callback: function (data: any) {
-        console.log(data);
-        $t.cartService.clearCart();
+        $t.afterPayment(data);
       },
       onclose: function () {
         // close modal
@@ -84,7 +86,7 @@ export class CartComponent implements OnInit {
       customizations: {
         title: 'TaSA',
         description: 'Payment for items in cart',
-        logo: 'https://assets.piedpiper.com/logo.png',
+        logo: 'https://tasainc.com/images/TSA_logo_Final.jpg',
       },
     });
   }
@@ -95,6 +97,45 @@ export class CartComponent implements OnInit {
         v = c == 'x' ? r : (r & 0x3) | 0x8;
       return v.toString(16);
     });
+  }
+
+  afterPayment(_data: any) {
+    let $t = this;
+    let apiUrl: any;
+    let payload = {
+      transactionId: _data.transaction_id,
+      transactionStatus: _data.status,
+      transactionAmount: _data.amount,
+      transactionOn: '',
+      type: '',
+      subscriptionId: '',
+      courseId: '',
+    };
+    if ($t.cartDetails.isCourse) {
+      apiUrl = $t.sharedService.urlService.apiCallWithParams('buyCourse', {
+        '{tasaId}': $t.user.tasaId,
+        '{courseId}': $t.cartDetails.courseData.key,
+      });
+    } else if ($t.cartDetails.isSubscription) {
+      apiUrl = $t.sharedService.urlService.apiCallWithParams('subscribeForTier', {
+        '{tasaId}': $t.user.tasaId,
+        '{subscriptionId}': $t.cartDetails.subscriptionData.id,
+      });
+    }
+    $t.sharedService.uiService.showApiStartPopMsg('Processing...');
+    $t.sharedService.configService.post(apiUrl, payload).subscribe(
+      (response: any) => {
+        $t.cartService.clearCart();
+        $t.sharedService.uiService.showApiSuccessPopMsg(response.message);
+        setTimeout(() => {
+          $t.sharedService.uiService.closePopMsg();
+          $t.router.navigate(['/transaction'], { replaceUrl: true });
+        }, 1000);
+      },
+      (error) => {
+        $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
+      }
+    );
   }
 
   public loadScript(url: string) {

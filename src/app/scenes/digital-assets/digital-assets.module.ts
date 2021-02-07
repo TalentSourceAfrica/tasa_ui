@@ -12,6 +12,8 @@ import { DigitalAssetsComponent } from './digital-assets.component';
 import { IvyGalleryModule } from 'angular-gallery';
 import { NgxDocViewerModule } from 'ngx-doc-viewer';
 import { LeftSideModule } from '@app/partials/left-side/left-side.module';
+import { RightSideModule } from '@app/partials/right-side/right-side.module';
+
 
 @NgModule({
   imports: [
@@ -26,6 +28,7 @@ import { LeftSideModule } from '@app/partials/left-side/left-side.module';
     IvyGalleryModule,
     NgxDocViewerModule,
     LeftSideModule,
+    RightSideModule
   ],
   declarations: [DigitalAssetsComponent],
   schemas: [NO_ERRORS_SCHEMA],

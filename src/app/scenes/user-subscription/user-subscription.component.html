@@ -3,5 +3,29 @@
     <li class="breadcrumb-item curPoint"><a [routerLink]="['/home']">Home</a></li>
     <li class="breadcrumb-item active">My Plans</li>
   </ol>
-  <app-no-subscription [message]="'Trust Us ! We offer best plans'"></app-no-subscription>
+  <div class="sec-title">
+    <div class="title">My Subscription</div>
+  </div>
+  <ng-container *ngIf="!mySubscription">
+    <app-no-subscription [message]="'Trust Us ! We offer best plans'"></app-no-subscription>
+  </ng-container>
+  <ng-container *ngIf="mySubscription">
+    <div class="row no-gutters w60 m-auto">
+      <div class="col-12 animated fadeIn">
+        <div class="card m-0 curPoint">
+          <div class="card-img text-center">
+            <h2 class="caps shadow-sm">{{ mySubscription.subscriptionId }}</h2>
+          </div>
+          <div class="card-body pl-3 pr-3">
+            <h5 class="card-title">Total Amount : {{ mySubscription.loadedAmount | currency }}</h5>
+
+            <h5 class="card-title">Remaning Amount : {{ mySubscription.balanceAmount | currency }}</h5>
+            <h5 class="card-title">
+              Status : <h5 class="badge badge-success">{{ mySubscription.transactionStatus }}</h5>
+            </h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
 </div>

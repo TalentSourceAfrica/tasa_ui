@@ -41,14 +41,21 @@
         <div class="col-md-4">
           <div class="card mt-2">
             <div class="card-body text-center">
-              <p>
-                <button mat-flat-button color="primary" (click)="addToCart()" class="rounded-pill ml-2">
-                  Get Course
+              <div>
+                <button mat-flat-button color="primary" (click)="addToCart('buy')" class="rounded-pill ml-2">
+                  Buy Course
                   <strong
                     ><span>{{ courseConfig.course?.offerPrice | currency: 'USD' }}</span></strong
                   >
                 </button>
-              </p>
+                <hr/>
+                <button mat-flat-button color="primary" (click)="addToCart('enroll')" class="rounded-pill ml-2">
+                  Enroll Course
+                  <strong
+                    ><span>{{ courseConfig.course?.offerPrice | currency: 'USD' }}</span></strong
+                  >
+                </button>
+              </div>
               <!-- <div class="page-separator">
                 <div class="page-separator__text">or</div>
               </div> -->

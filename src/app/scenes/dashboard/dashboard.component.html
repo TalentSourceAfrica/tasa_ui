@@ -22,16 +22,33 @@
                   Your subscription ends on <strong>25 February 2015</strong>
                 </div> -->
                 <div class="media-body pl-3 h6" style="min-width: 180px;">
+                <ng-container *ngIf="!user.currentSubscription">
                   YOU HAVEN'T SUBSCRIBED TO ANY PLAN <strong>Trust Us ! We offer best plans</strong>
+                </ng-container>
+                <ng-container *ngIf="user.currentSubscription">
+                  YOU SUBSCRIBED TO <strong>{{user.currentSubscription.name}}</strong> PLAN
+                </ng-container>
                 </div>
                 <div class="media-right mt-2 mt-xs-plus-0">
                   <button
                     mat-flat-button
                     color="primary"
+                    *ngIf="!user.currentSubscription"
                     [routerLink]="['/subscription-plans']"
                     class="rounded-pill ml-2"
                   >
                     Subscribe Now
+                  </button>
+                </div>
+                <div class="media-right mt-2 mt-xs-plus-0">
+                  <button
+                    mat-flat-button
+                    color="primary"
+                    *ngIf="user.currentSubscription"
+                    [routerLink]="['/my-plan']"
+                    class="rounded-pill ml-2"
+                  >
+                    View
                   </button>
                 </div>
               </div>

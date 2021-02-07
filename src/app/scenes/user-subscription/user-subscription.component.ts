@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CredentialsService } from '@app/auth';
 
 @Component({
   selector: 'app-user-subscription',
@@ -6,7 +7,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./user-subscription.component.scss'],
 })
 export class UserSubscriptionComponent implements OnInit {
-  constructor() {}
+  mySubscription: any;
+  constructor(private credentialsService: CredentialsService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.mySubscription = this.user.currentSubscription;
+  }
+
+  get user(): any | null {
+    const credentials = this.credentialsService.credentials;
+    return credentials ? credentials : null;
+  }
 }

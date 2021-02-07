@@ -10,23 +10,36 @@
           <li class="breadcrumb-item active"><a>Courses</a></li>
           <li class="breadcrumb-item active">My Course</li>
         </ol>
-        <div id="happy-sad-container" class="d-flex align-items-center">
-          <div id="error-box">
-            <div class="dot"></div>
-            <div class="dot two"></div>
-            <div class="sad-face">
-              <div class="eye"></div>
-              <div class="eye right"></div>
-              <div class="mouth sad"></div>
-            </div>
-            <div class="shadow move"></div>
-            <div class="message">
-              <h1 class="alert">You Haven't Subscribed To Any Course Yet</h1>
-              <h5 class="text-white">Trust Us ! We offer best Courses</h5>
-            </div>
-            <button class="button-box" [routerLink]="['/all-course']"><h1 class="text-primary">All Course</h1></button>
-          </div>
+        <div class="sec-title">
+          <div class="title">My Enrolled or Buyed Courses</div>
         </div>
+
+        <ng-container *ngIf="myCourses.length === 0">
+          <app-no-subscription [message]="'Trust Us ! We offer best Course'"></app-no-subscription>
+        </ng-container>
+        <ng-container *ngIf="myCourses.length">
+          <div class="row w100 max-vertical-h-80 stylishSlimScroll flow-y-auto flow-x-hidden">
+            <div
+              class="col-md-4 col-lg-4 col-sm-6 animated fadeIn"
+              (click)="courseView(item.course)"
+              *ngFor="let item of myCourses"
+            >
+              <div class="card m-0 curPoint">
+                <div class="card-img">
+                  <img [src]="item.course.image_url" />
+                </div>
+                <div class="card-body pl-3 pr-3">
+                  <h5 class="card-title">
+                    {{ item.course.title }}
+                  </h5>
+                  <p class="card-intro">
+                    {{ item.course.subject }}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
       </div>
     </div>
     <div class="col-md-2 col-sm-12">

@@ -157,4 +157,12 @@ export const urls: any = {
   getAllActiveGroupByUser: '/groups/mygroups/{userId}', // G
   sendRequestToGroup: '/groupRequest/{userId}/{groupId}', // PO
   sendRequestToPeople: '/groupInvite/{adminId}/{userId}/{groupId}', // PO
+
+  // Subscription
+  subscribeForTier : '/subs/subscribe/{tasaId}/{subscriptionId}', // PO
+  buyCourse : '/subs/buy/{tasaId}/{courseId}', // PO
+  enrollCourse : '/subs/enroll/{tasaId}/{courseId}', // PO
+  getSubscription: '/subs/{id}', // G
+  canByCourse : '/subs/canBuy/{tasaId}/{courseId}', // G
+  canEnrollCourse : '/subs/canEnroll/{tasaId}/{courseId}', // G
 };
