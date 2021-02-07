@@ -79,6 +79,7 @@
                     ><i class="fas fa-university pr-2 text-primary"></i>Organization</mat-option
                   >
                   <mat-option value="job"><i class="fas fa-briefcase pr-2 text-primary"></i>Job</mat-option>
+                  <mat-option value="freelance"><i class="fas fa-user pr-2 text-primary"></i>Freelancer</mat-option>
                 </mat-select>
                 <input
                   type="text"
@@ -98,6 +99,33 @@
                     <mat-option
                       (click)="showProfile(item.tasaId)"
                       *ngFor="let item of userSearchConfig.data"
+                      [value]="item"
+                      class="mb-2 mt-2"
+                    >
+                      <img
+                        *ngIf="!item.image || item.image == 'string'"
+                        src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
+                        class="user-img"
+                        alt="{{ item.firstName }} {{ item.lastName }}"
+                      />
+                      <img
+                        *ngIf="item.image && item.image != 'string'"
+                        [src]="item.image"
+                        alt="{{ item.firstName }} {{ item.lastName }}"
+                        class="user-img"
+                      />
+                      <span [title]="item.firstName + ' ' + item.lastName">
+                        {{ item.firstName }} {{ item.lastName }}</span
+                      >
+                    </mat-option>
+                  </ng-container>
+                  <ng-container *ngIf="globalSearchType == 'freelance'">
+                    <mat-option *ngIf="freelanceConfig.isFetching">
+                      <i class="fas fa-circle-notch pr-2 text-primary"></i> Fetching...
+                    </mat-option>
+                    <mat-option
+                      (click)="showProfile(item.tasaId)"
+                      *ngFor="let item of freelanceConfig.data"
                       [value]="item"
                       class="mb-2 mt-2"
                     >

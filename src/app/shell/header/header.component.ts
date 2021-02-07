@@ -51,6 +51,11 @@ export class HeaderComponent implements OnInit {
     data: [],
     searchConfig: '',
   };
+  freelanceConfig: any = {
+    isFetching: false,
+    data: [],
+    searchConfig: ''
+  }
   constructor(
     private httpClient: HttpClient,
     private router: Router,
@@ -86,17 +91,22 @@ export class HeaderComponent implements OnInit {
 
   globalSearch() {
     let $t = this;
-    if ($t.globalSearchType === 'profile') {
-      $t.userSearch();
-    }
-    if ($t.globalSearchType === 'organization') {
-      $t.orgSearch();
-    }
-    if ($t.globalSearchType === 'job') {
-      $t.jobSearch();
-    }
-    if ($t.globalSearchType === 'course') {
-      $t.courseSearch();
+    switch($t.globalSearchType) {
+        case 'profile':
+          $t.userSearch();
+          break;
+        case 'organization':
+          $t.orgSearch();
+          break;
+        case 'job':
+          $t.jobSearch();
+          break;
+        case 'course':
+          $t.courseSearch();
+          break;
+        case 'freelance':
+          $t.freeLanceSearch();
+          break;        
     }
   }
 
@@ -191,6 +201,30 @@ export class HeaderComponent implements OnInit {
         (error) => {
           $t.courseConfig.isFetching = false;
           $t.courseConfig.data = [];
+        }
+      );
+    }
+  }
+
+  freeLanceSearch() {
+    let $t = this;
+    $t.freelanceConfig.isFetching = true;
+    $t.freelanceConfig.data = [];
+    if ($t.searchGlobalText != '') {
+      let apiUrl = $t.sharedService.urlService.apiCallWithParams('searchFreelancer', {
+        '{page}': 1,
+        '{size}': 50,
+        '{searchText}': $t.searchGlobalText,
+      });
+      $t.sharedService.configService.post(apiUrl).subscribe(
+        (response: any) => {
+          $t.freelanceConfig.isFetching = false;
+          $t.freelanceConfig.data = response.responseObj;
+          $('#globalSearchInput').focus();
+        },
+        (error) => {
+          $t.freelanceConfig.isFetching = false;
+          $t.freelanceConfig.data = [];
         }
       );
     }
