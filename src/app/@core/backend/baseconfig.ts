@@ -29,7 +29,7 @@ export class BaseConfig {
     if (location.hostname.indexOf('localhost') === 0) {
       return '35.247.161.145';
     } else {
-      return '35.245.16.205';
+      return '35.247.90.252:8080';
     }
   }
 
