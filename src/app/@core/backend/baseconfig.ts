@@ -27,7 +27,8 @@ export class BaseConfig {
 
   getDomain() {
     if (location.hostname.indexOf('localhost') === 0) {
-      return '35.247.161.145';
+      // return '35.247.161.145';
+      return '35.247.90.252:8080';
     } else {
       return '35.247.90.252:8080';
     }
