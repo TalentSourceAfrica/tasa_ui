@@ -36,7 +36,7 @@ export class BaseConfig {
   init() {
     if (this.windowLocation.hostname.indexOf('localhost') === 0) {
       this.restHost = this.localRestHost;
-      //   this.localSocketRestHost = this.localSocketRestHost;
+      // this.localSocketRestHost = this.localSocketRestHost;
       this.envExtension = '-playground';
       this.env = 'DEV';
       this.isLocal = '&local=true';
@@ -47,9 +47,11 @@ export class BaseConfig {
       if (this.windowLocation.search.indexOf('online') > 0) {
         this.env = 'DEV-ONLINE';
       }
-    } else if (this.pathname.indexOf('-playground') !== -1) {
-      this.envExtension = '-playground';
-      this.env = 'PLAYGROUND';
+    } else {
+      // Prod Env
+      this.restHost = this.localRestHost;
+      this.envExtension = '-production';
+      this.env = 'PROD';
     }
     this.restPath = this.restHost + '/tasaapi/v1';
 
