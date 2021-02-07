@@ -75,30 +75,32 @@
                         {{ item.groupDescription }}
                       </h6>
                     </div>
-                    <button
-                      mat-mini-fab
-                      color="warn"
-                      class="ml-2 mr-1"
-                      matTooltipPosition="below"
-                      matTooltip="View Group Members"
-                      (click)="viewGroup(item)"
-                    >
-                      <mat-icon>visibility</mat-icon>
-                    </button>
-                    <button
-                      mat-flat-button
-                      color="primary"
-                      *ngIf="user.email !== item.createdBy"
-                      matTooltipPosition="below"
-                      matTooltip="Send Request To Join The Group"
-                      (click)="sendRequest(item.groupId)"
-                      class="rounded-pill"
-                    >
-                      Request
-                    </button>
                   </div>
                 </div>
               </div>
+            </div>
+            <div class="card-footer w100 text-center mt-1">
+              <button
+                mat-mini-fab
+                color="warn"
+                class="ml-2 mr-1"
+                matTooltipPosition="below"
+                matTooltip="View Group Members"
+                (click)="viewGroup(item)"
+              >
+                <mat-icon>visibility</mat-icon>
+              </button>
+              <button
+                mat-flat-button
+                color="primary"
+                *ngIf="user.email !== item.createdBy"
+                matTooltipPosition="below"
+                matTooltip="Send Request To Join The Group"
+                (click)="sendRequest(item.groupId)"
+                class="rounded-pill"
+              >
+                Request
+              </button>
             </div>
           </div>
         </div>
@@ -158,40 +160,40 @@
                         {{ item.groupDescription }}
                       </h6>
                     </div>
-                    <div class="d-flex w100 justify-content-end">
-                      <button
-                        mat-mini-fab
-                        color="warn"
-                        class="ml-2 mr-1"
-                        matTooltipPosition="below"
-                        matTooltip="View Group Members"
-                        (click)="viewGroup(item)"
-                      >
-                        <mat-icon>visibility</mat-icon>
-                      </button>
-                      <button
-                        mat-flat-button
-                        color="primary"
-                        *ngIf="user.email === item.createdBy"
-                        (click)="invitePeople(item)"
-                        class="rounded-pill"
-                      >
-                        Invite
-                      </button>
-                      <button
-                        mat-mini-fab
-                        color="warn"
-                        class="ml-2"
-                        matTooltipPosition="below"
-                        matTooltip="Remove"
-                        (click)="deleteGroup(item.groupId, i)"
-                      >
-                        <mat-icon>delete</mat-icon>
-                      </button>
-                    </div>
                   </div>
                 </div>
               </div>
+            </div>
+            <div class="card-footer w100 text-center mt-1">
+              <button
+                mat-mini-fab
+                color="warn"
+                class="ml-2 mr-1"
+                matTooltipPosition="below"
+                matTooltip="View Group Members"
+                (click)="viewGroup(item)"
+              >
+                <mat-icon>visibility</mat-icon>
+              </button>
+              <button
+                mat-flat-button
+                color="primary"
+                *ngIf="user.email === item.createdBy"
+                (click)="invitePeople(item)"
+                class="rounded-pill"
+              >
+                Invite
+              </button>
+              <button
+                mat-mini-fab
+                color="warn"
+                class="ml-2"
+                matTooltipPosition="below"
+                matTooltip="Remove"
+                (click)="deleteGroup(item.groupId, i)"
+              >
+                <mat-icon>delete</mat-icon>
+              </button>
             </div>
           </div>
         </div>

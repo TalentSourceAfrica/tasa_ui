@@ -80,7 +80,7 @@ export class GroupComponent implements OnInit {
           Swal.close();
         }
         if (result.value) {
-          this.sharedService.uiService.showApiStartPopMsg('Sendind Request to Admin...');
+          this.sharedService.uiService.showApiStartPopMsg('Sending Request to Admin...');
           let apiUrl = this.sharedService.urlService.apiCallWithParams('sendRequestToGroup', {
             '{userId}': this.user.email,
             '{groupId}': grpId,
