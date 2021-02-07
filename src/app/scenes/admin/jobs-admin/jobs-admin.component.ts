@@ -42,7 +42,7 @@ export class JobsAdminComponent implements OnInit {
     this.searchConfig = JSON.parse(JSON.stringify(jobsSearchData));
   }
 
-   changeAssetView(_view: number) {
+  changeAssetView(_view: number) {
     this.currentView = _view;
     setTimeout(() => {
       if (this.currentView == 1) {
@@ -126,8 +126,8 @@ export class JobsAdminComponent implements OnInit {
     let $t = this;
     $t.sharedService.uiService.showApiStartPopMsg('Updating Status...');
     let apiUrl = $t.sharedService.urlService.apiCallWithParams('publishJob', {
-	  '{jobId}': _job.id,
-	  '{status}': _statusToSet,
+      '{jobId}': _job.id,
+      '{status}': _statusToSet,
     });
     $t.sharedService.configService.post(apiUrl).subscribe(
       (response: any) => {
@@ -168,7 +168,7 @@ export class JobsAdminComponent implements OnInit {
   }
 
   init() {
-  	this.getJobs(1);
+    this.getJobs(1);
     this.getCountry();
   }
 

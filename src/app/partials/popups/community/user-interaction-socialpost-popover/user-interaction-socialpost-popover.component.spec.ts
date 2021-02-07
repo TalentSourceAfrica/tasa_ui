@@ -8,9 +8,8 @@ describe('UserInteractionSocialpostPopoverComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ UserInteractionSocialpostPopoverComponent ]
-    })
-    .compileComponents();
+      declarations: [UserInteractionSocialpostPopoverComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

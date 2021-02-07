@@ -19,8 +19,12 @@
         <li class="breadcrumb-item active text-truncate">{{ jobConfig?.job?.title }}</li>
       </ol>
       <h1 class="h2 mb-1">{{ jobConfig?.job?.title }}</h1>
-      <h6 class="alert alert-warning w90" *ngIf="!isCurrentDateIsExpDate" >Job posting will expire on {{ getFormatDate(jobConfig?.job?.expireOn) }}</h6>
-      <h6 class="alert alert-danger w90" *ngIf="isCurrentDateIsExpDate" >Job posting expired on {{ getFormatDate(jobConfig?.job?.expireOn) }}</h6>
+      <h6 class="alert alert-warning w90" *ngIf="!isCurrentDateIsExpDate">
+        Job posting will expire on {{ getFormatDate(jobConfig?.job?.expireOn) }}
+      </h6>
+      <h6 class="alert alert-danger w90" *ngIf="isCurrentDateIsExpDate">
+        Job posting expired on {{ getFormatDate(jobConfig?.job?.expireOn) }}
+      </h6>
       <div class="row">
         <div class="col-md-8">
           <div class="card my-4 m-0">

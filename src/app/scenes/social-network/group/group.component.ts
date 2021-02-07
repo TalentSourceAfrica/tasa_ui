@@ -106,10 +106,15 @@ export class GroupComponent implements OnInit {
     });
   }
 
-  viewGroup(_group:any){
+  viewGroup(_group: any) {
     this.sharedService.dialogService.open(GroupViewPopupComponent, {
       width: '450px',
-      data: { authenticationService: this, credentialsService: this.credentialsService, group: _group, user: this.user },
+      data: {
+        authenticationService: this,
+        credentialsService: this.credentialsService,
+        group: _group,
+        user: this.user,
+      },
       disableClose: false,
     });
   }

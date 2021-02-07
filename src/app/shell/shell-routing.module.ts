@@ -87,6 +87,11 @@ const routes: Routes = [
         loadChildren: () => import('@app/scenes/cart/cart.module').then((m) => m.CartModule),
       },
       {
+        path: 'transaction',
+        canActivate: [AuthenticationGuard],
+        loadChildren: () => import('@app/scenes/transaction/transaction.module').then((m) => m.TransactionModule),
+      },
+      {
         path: 'user/profile',
         canActivate: [AuthenticationGuard],
         loadChildren: () => import('@app/scenes/user-profile/user-profile.module').then((m) => m.UserProfileModule),

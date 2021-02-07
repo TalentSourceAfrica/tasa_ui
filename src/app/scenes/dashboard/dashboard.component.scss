@@ -84,7 +84,7 @@ $light-blue: #523f6d80;
   }
   .table-container {
     position: relative;
-    min-height: 200px
+    min-height: 200px;
   }
   .mat-table-container {
     position: relative;
@@ -115,7 +115,7 @@ $light-blue: #523f6d80;
     font-size: 15px;
   }
   .mat-row {
-/*     display: inline-flex !important; */
+    /*     display: inline-flex !important; */
     &:hover {
       background-color: #ddd;
       color: white;
@@ -128,7 +128,7 @@ $light-blue: #523f6d80;
     min-height: 45px;
     max-height: 45px;
   }
- /*  .mat-row:nth-child(even){
+  /*  .mat-row:nth-child(even){
       background-color: #b491e4;
   }
           
@@ -141,7 +141,7 @@ $light-blue: #523f6d80;
   .mat-paginator-range-actions {
     margin-top: 0px !important;
   }
-   .floating-actions {
+  .floating-actions {
     bottom: 50px;
     right: 50px;
     display: flex;

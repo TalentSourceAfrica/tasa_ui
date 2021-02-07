@@ -6,7 +6,7 @@ import { CredentialsService } from '@app/auth';
 @Component({
   selector: 'app-organization-view',
   templateUrl: './organization-view.component.html',
-  styleUrls: ['./organization-view.component.scss']
+  styleUrls: ['./organization-view.component.scss'],
 })
 export class OrganizationViewComponent implements OnInit {
   orgConfig: any = {

@@ -59,7 +59,7 @@ export class HomeComponent implements OnInit {
   ];
   signupOwlOptions: OwlOptions = {
     loop: true,
-    autoplay:true,
+    autoplay: true,
     center: true,
     dots: false,
     autoHeight: true,

@@ -25,7 +25,7 @@ import { HomeHeaderComponent } from '@app/partials/home-header/home-header.compo
     MaterialModule,
     FormsModule,
     ShellRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   declarations: [HeaderComponent, ShellComponent, FooterComponent, HomeHeaderComponent],
   schemas: [NO_ERRORS_SCHEMA],

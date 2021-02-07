@@ -95,7 +95,7 @@ export const urls: any = {
   publishJob: '/job/publish/{jobId}/{status}', // PO
   listUnlist: '/job/unlist/{jobId}/{status}', // PO
   getJobsByOrg: '/job/organization/dashboard/{orgId}', // G
- 
+
   // Dashboard
   getRecommendedCourses: '/recs/courses/{userId}', // G
   getRecommendedJobs: '/recs/jobs/{userId}', // G
@@ -147,7 +147,7 @@ export const urls: any = {
   readMessages: '/chat/read/{chatId}', // PO
   getAllMessagesByGroup: '/chat/messages/group/all/{groupId}', // G
   getAllNewMessagesByGroup: '/chat/messages/group/new/{groupId}/{userId}', // G
-  readMessagesGroup : '/chat/group/read/{groupId}/{userId}', // PO
+  readMessagesGroup: '/chat/group/read/{groupId}/{userId}', // PO
 
   // Group
   createGroup: '/groups/{adminId}', // PO

@@ -9,7 +9,7 @@ import { SignupPopupComponent } from '@app/partials/popups/authentication/signup
 import { LoginPopupComponent } from '@app/partials/popups/authentication/login-popup/login-popup.component';
 import { ForgotPasswordPopupComponent } from '@app/partials/popups/authentication/forgot-password-popup/forgot-password-popup.component';
 import { UserDetailsPopupComponent } from '@app/partials/popups/authentication/user-details-popup/user-details-popup.component';
-import { CreateOrganizationComponent } from '@app/partials/popups/recruiter/create-organization/create-organization.component'; 
+import { CreateOrganizationComponent } from '@app/partials/popups/recruiter/create-organization/create-organization.component';
 
 // export interface LoginContext {
 //   username: string;
@@ -65,7 +65,7 @@ export class AuthenticationService {
   openSignupPopup(_case: any, _email?: any) {
     this.sharedService.dialogService.open(SignupPopupComponent, {
       width: '600px',
-      data: { authenticationService: this, case: _case, email: _email},
+      data: { authenticationService: this, case: _case, email: _email },
       disableClose: false,
     });
   }

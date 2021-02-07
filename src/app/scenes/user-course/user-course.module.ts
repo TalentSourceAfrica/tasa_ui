@@ -12,7 +12,6 @@ import { UserCourseComponent } from './user-course.component';
 import { LeftSideModule } from '@app/partials/left-side/left-side.module';
 import { RightSideModule } from '@app/partials/right-side/right-side.module';
 
-
 @NgModule({
   imports: [
     CommonModule,
@@ -24,7 +23,7 @@ import { RightSideModule } from '@app/partials/right-side/right-side.module';
     RouterModule,
     UserCourseRoutingModule,
     LeftSideModule,
-    RightSideModule
+    RightSideModule,
   ],
   declarations: [UserCourseComponent],
 })

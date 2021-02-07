@@ -226,4 +226,12 @@
   </form>
 </ng-template>
 
-<input type="file" #orgfile class="d-none" accept="image/*" id="imageUpload" multiple (change)="handleFileInput($event)" />
+<input
+  type="file"
+  #orgfile
+  class="d-none"
+  accept="image/*"
+  id="imageUpload"
+  multiple
+  (change)="handleFileInput($event)"
+/>

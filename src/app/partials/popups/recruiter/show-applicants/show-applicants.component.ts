@@ -101,7 +101,9 @@ export class ShowApplicantsComponent implements OnInit {
       case 'All':
         break;
       case 'Applied':
-        this.popupData.job.applicants = this.popupData.job.applicants.filter((d: any) => d.status != 'Accepted' && d.status != 'Rejected');
+        this.popupData.job.applicants = this.popupData.job.applicants.filter(
+          (d: any) => d.status != 'Accepted' && d.status != 'Rejected'
+        );
         break;
       case 'Accepted':
         this.popupData.job.applicants = this.popupData.job.applicants.filter((d: any) => d.status === 'Accepted');

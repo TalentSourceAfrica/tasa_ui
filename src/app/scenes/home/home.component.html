@@ -98,7 +98,8 @@
               <div class="welcome-text">
                 <h1>Where talent meets opportunity.</h1>
                 <p>
-                  A place for Black/African, Latinx, Southeast Asian, and Indigenous people to connect with employers that align with their values, and build community with people that understand their perspective.
+                  A place for Black/African, Latinx, Southeast Asian, and Indigenous people to connect with employers
+                  that align with their values, and build community with people that understand their perspective.
                 </p>
                 <ng-template [ngTemplateOutlet]="sliderSignup"></ng-template>
               </div>
@@ -116,7 +117,8 @@
               <div class="welcome-text">
                 <h1>Where talent meets opportunity.</h1>
                 <p>
-                  A place for Black/African, Latinx, Southeast Asian, and Indigenous people to connect with employers that align with their values, and build community with people that understand their perspective.
+                  A place for Black/African, Latinx, Southeast Asian, and Indigenous people to connect with employers
+                  that align with their values, and build community with people that understand their perspective.
                 </p>
                 <ng-template [ngTemplateOutlet]="sliderSignup"></ng-template>
               </div>
@@ -132,9 +134,10 @@
           <div class="row flex-v-center">
             <div class="col-md-8 col-lg-7 col-sm-12 col-xs-12">
               <div class="welcome-text">
-               <h1>Where talent meets opportunity.</h1>
+                <h1>Where talent meets opportunity.</h1>
                 <p>
-                 A place for Black/African, Latinx, Southeast Asian, and Indigenous people to connect with employers that align with their values, and build community with people that understand their perspective.
+                  A place for Black/African, Latinx, Southeast Asian, and Indigenous people to connect with employers
+                  that align with their values, and build community with people that understand their perspective.
                 </p>
                 <ng-template [ngTemplateOutlet]="sliderSignup"></ng-template>
               </div>
@@ -152,7 +155,8 @@
               <div class="welcome-text">
                 <h1>Where talent meets opportunity.</h1>
                 <p>
-                  A place for Black/African, Latinx, Southeast Asian, and Indigenous people to connect with employers that align with their values, and build community with people that understand their perspective.
+                  A place for Black/African, Latinx, Southeast Asian, and Indigenous people to connect with employers
+                  that align with their values, and build community with people that understand their perspective.
                 </p>
                 <ng-template [ngTemplateOutlet]="sliderSignup"></ng-template>
               </div>
@@ -170,7 +174,8 @@
               <div class="welcome-text">
                 <h1>Where talent meets opportunity.</h1>
                 <p>
-                 A place for Black/African, Latinx, Southeast Asian, and Indigenous people to connect with employers that align with their values, and build community with people that understand their perspective.
+                  A place for Black/African, Latinx, Southeast Asian, and Indigenous people to connect with employers
+                  that align with their values, and build community with people that understand their perspective.
                 </p>
                 <ng-template [ngTemplateOutlet]="sliderSignup"></ng-template>
               </div>
@@ -178,7 +183,7 @@
           </div>
         </div>
       </div>
-    </div>        
+    </div>
   </div>
   <!--WELCOME SLIDER AREA END-->
   <!-- </header> -->
@@ -254,22 +259,27 @@
     <div class="row m-auto w70 mt-5">
       <div class="col-sm-6 col-md-6 p-0">
         <div class="wow animated fadeIn wrapper shadow-lg mt-3">
-            <owl-carousel-o [options]="signupOwlOptions">
-              <ng-container *ngFor="let slide of signupImages">
-                <ng-template class="slide shadow-lg" carouselSlide [id]="slide.id">
-                  <img [src]="slide.url" class="min-vertical-h-60 signup-slide-images" [alt]="slide.id" [title]="slide.id"/>
-                  <h4 class="text-white position-absolute signup-slide-text" style="top:60%">{{slide.text}}</h4>
-                </ng-template>
-              </ng-container>
-            </owl-carousel-o>
+          <owl-carousel-o [options]="signupOwlOptions">
+            <ng-container *ngFor="let slide of signupImages">
+              <ng-template class="slide shadow-lg" carouselSlide [id]="slide.id">
+                <img
+                  [src]="slide.url"
+                  class="min-vertical-h-60 signup-slide-images"
+                  [alt]="slide.id"
+                  [title]="slide.id"
+                />
+                <h4 class="text-white position-absolute signup-slide-text" style="top: 60%;">{{ slide.text }}</h4>
+              </ng-template>
+            </ng-container>
+          </owl-carousel-o>
         </div>
       </div>
       <div class="col-sm-6 col-md-6 p-0">
         <div class="wow animated fadeIn">
           <div class="d-flex align-items-center no-gutters signup-wrapper">
             <div class="navbar-shadow bg-white shadow-lg w100">
-                <ng-container *ngTemplateOutlet="detailedForm"></ng-container>
-                <!-- <div *ngIf="userType.value == 0 || userType.value == 1">
+              <ng-container *ngTemplateOutlet="detailedForm"></ng-container>
+              <!-- <div *ngIf="userType.value == 0 || userType.value == 1">
                     <ng-container *ngTemplateOutlet="userDetailsForm"></ng-container>  
                   </div>
                   <div *ngIf="userType.value == 2">
@@ -1629,18 +1639,19 @@
 </div>
 
 <ng-template #sliderSignup>
-   <div class="input-group input-group-sm d-flex mt-2">
-    <input 
+  <div class="input-group input-group-sm d-flex mt-2">
+    <input
       class="form-control form-control-sm p-4 rounded-pill inputClass"
       type="email"
       placeholder="Enter your email address"
-      [(ngModel)]="sliderSignUpMail" />
+      [(ngModel)]="sliderSignUpMail"
+    />
     <span
       class="rounded-pill btn-behaviour curPoint mx-2 pt-3 font-weight-bold w20 text-center"
       color="primary"
       (click)="signup()"
     >
       Sign Up
-    </span>     
+    </span>
   </div>
 </ng-template>

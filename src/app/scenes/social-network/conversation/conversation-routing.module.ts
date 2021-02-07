@@ -3,7 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { extract } from '@app/i18n';
 import { ConversationComponent } from './conversation.component';
 
-
 const routes: Routes = [
   {
     path: '',
@@ -15,6 +14,6 @@ const routes: Routes = [
 ];
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class ConversationRoutingModule { }
+export class ConversationRoutingModule {}

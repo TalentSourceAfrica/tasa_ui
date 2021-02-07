@@ -1,0 +1,16 @@
+<div class="transaction-wrapper">
+  <div class="container mt-4">
+    <div class="message success" *ngIf="transactionConfig.status === 'successful'">
+      <i class="message-icon fas fa-check-circle"></i>
+      <p class="message-text">Transaction successful!</p>
+      <h6 class="message-text">All The Transaction Details Is Sent To Your Mail.</h6>
+      <button class="message-button" [routerLink]="['/dashboard']">Go To Dashboard</button>
+    </div>
+
+    <div class="message error" *ngIf="transactionConfig.status !== 'successful'">
+      <i class="message-icon fas fa-times-circle"></i>
+      <p class="message-text">Uh oh! Something went wrong.</p>
+      <button class="message-button" [routerLink]="['/cart']">Back</button>
+    </div>
+  </div>
+</div>

@@ -3,7 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { extract } from '@app/i18n';
 import { NetworkComponent } from './network.component';
 
-
 const routes: Routes = [
   {
     path: '',
@@ -15,6 +14,6 @@ const routes: Routes = [
 ];
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class NetworkRoutingModule { }
+export class NetworkRoutingModule {}

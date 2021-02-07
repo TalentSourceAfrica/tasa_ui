@@ -31,7 +31,7 @@ export class SocialPostsComponent implements OnInit {
       type: this.user.type,
       imageUrl: '',
     },
-    sharedPosts: []
+    sharedPosts: [],
   };
   postFilter: any = [
     { value: 0, viewValue: 'All Post' },
@@ -52,14 +52,14 @@ export class SocialPostsComponent implements OnInit {
     $t.sharedService.dialogService.open(ShareUserPostPopoverComponent, {
       width: '50%',
       position: {
-        top: '75px'
+        top: '75px',
       },
       data: {
         post: _post,
         user: $t.user,
-        onSubmit: ((fromDialog: any) => {
+        onSubmit: (fromDialog: any) => {
           $t.sharePost(fromDialog);
-        })
+        },
       },
     });
   }
@@ -68,12 +68,12 @@ export class SocialPostsComponent implements OnInit {
     let $t = this;
     $t.sharedService.uiService.showApiStartPopMsg('Sharing Post...');
     let apiUrl = $t.sharedService.urlService.apiCallWithParams('sharePost', {
-      '{postId}': _fromDialog.payload.sharePostId
+      '{postId}': _fromDialog.payload.sharePostId,
     });
     $t.sharedService.configService.post(apiUrl, _fromDialog.payload).subscribe(
       (response: any) => {
         $t.sharedService.uiService.showApiSuccessPopMsg('Post Shared...');
-        let newObj = {...response.responseObj, ..._fromDialog.additionalUIFields};
+        let newObj = { ...response.responseObj, ..._fromDialog.additionalUIFields };
         $t.socialConfig.allSocialPost.unshift(JSON.parse(JSON.stringify(newObj)));
         jQuery('#postsListing').animate({ scrollTop: 0 }, 'slow');
         $t.sharedService.utilityService.changeMessage('TRIGGER-HEADER-NOTIFICATIONS-UPDATE');
@@ -113,7 +113,7 @@ export class SocialPostsComponent implements OnInit {
   }
 
   handleSharedPostInfo(_allPosts: any) {
-    let additionalFields = (_source: any ,_matched: any) => {
+    let additionalFields = (_source: any, _matched: any) => {
       _source['sharePostUserName'] = _matched.userName;
       _source['sharePostTasaId'] = _matched.tasaId;
       _source['sharePostEmail'] = _matched.userId;
@@ -136,7 +136,7 @@ export class SocialPostsComponent implements OnInit {
       if (!found) {
         let callBack = (response: any) => {
           additionalFields(post, response);
-        }
+        };
         this.fetchPostById(post.sharePostId, callBack);
       }
       this.socialConfig.allSocialPost.forEach((po: any, i: number) => {
@@ -607,20 +607,20 @@ export class SocialPostsComponent implements OnInit {
     // if (_comment.comments.length != 0) {
     //   _comment.isCommentShow = !_comment.isCommentShow;
     // } else {
-      let api = $t.sharedService.urlService.apiCallWithParams('getPostById', {
-        '{postId}': _comment.id,
-      });
-      $t.sharedService.configService.get(api).subscribe(
-        (response: any) => {
-          response.responseObj.comments.forEach((d: any) => {
-            _comment.comments.push(d);
-          });
-          _comment.isCommentShow = !_comment.isCommentShow;
-        },
-        (error) => {
-          $t.sharedService.uiService.showApiErrorPopMsg(error);
-        }
-      );
+    let api = $t.sharedService.urlService.apiCallWithParams('getPostById', {
+      '{postId}': _comment.id,
+    });
+    $t.sharedService.configService.get(api).subscribe(
+      (response: any) => {
+        response.responseObj.comments.forEach((d: any) => {
+          _comment.comments.push(d);
+        });
+        _comment.isCommentShow = !_comment.isCommentShow;
+      },
+      (error) => {
+        $t.sharedService.uiService.showApiErrorPopMsg(error);
+      }
+    );
     // }
   }
 

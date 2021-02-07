@@ -28,7 +28,7 @@ export class HeaderComponent implements OnInit {
     messageNotifications: [],
     otherCount: 0,
     otherNotifications: [],
-    currentView : 0 //  0 = other notifcations , 1 = message notifications;
+    currentView: 0, //  0 = other notifcations , 1 = message notifications;
   };
   notificationsData: any = [];
   searchGlobalText: any = '';
@@ -60,9 +60,9 @@ export class HeaderComponent implements OnInit {
   ) {
     this.jobConfig.searchConfig = JSON.parse(JSON.stringify(jobsSearchData));
     this.courseConfig.searchConfig = JSON.parse(JSON.stringify(courseSearchData));
-    if(this.user){
+    if (this.user) {
       this.user.type.toLowerCase() === 'admin' ? (this.isAdmin = true) : (this.isAdmin = false);
-    }  
+    }
   }
 
   gsVal() {
@@ -277,9 +277,9 @@ export class HeaderComponent implements OnInit {
       let apiUrl = $t.sharedService.urlService.apiCallWithParams('getNewNotifications', { '{userId}': $t.user.email });
       $t.sharedService.configService.get(apiUrl).subscribe(
         (response: any) => {
-          $t.notificationConfig.messageNotifications = response.responseObj.filter((d:any) => d.messageId !== '');
+          $t.notificationConfig.messageNotifications = response.responseObj.filter((d: any) => d.messageId !== '');
           $t.notificationConfig.messageCount = $t.notificationConfig.messageNotifications.length;
-          $t.notificationConfig.otherNotifications = response.responseObj.filter((d:any) => d.messageId === '');
+          $t.notificationConfig.otherNotifications = response.responseObj.filter((d: any) => d.messageId === '');
           $t.notificationConfig.otherCount = $t.notificationConfig.otherNotifications.length;
           if ($t.notificationsData.length) {
             // $t.audioPlayerRef.nativeElement.play();
@@ -357,11 +357,11 @@ export class HeaderComponent implements OnInit {
     this.sharedService.utilityService.changeMessage('FETCH-USER-PROFILE');
   }
 
-  setNotificationData(_type:string){
-    if(_type === 'other'){
+  setNotificationData(_type: string) {
+    if (_type === 'other') {
       this.notificationsData = this.notificationConfig.otherNotifications;
       this.notificationConfig.currentView = 0;
-    }else {
+    } else {
       this.notificationsData = this.notificationConfig.messageNotifications;
       this.notificationConfig.currentView = 1;
     }
@@ -418,7 +418,7 @@ export class HeaderComponent implements OnInit {
       }
     });
 
-    $('.notification-popup').click((event:any) => {
+    $('.notification-popup').click((event: any) => {
       $(this).toggleClass('open');
       $('#notificationMenu').toggleClass('open');
     });

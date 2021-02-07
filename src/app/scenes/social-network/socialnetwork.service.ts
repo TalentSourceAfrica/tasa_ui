@@ -9,10 +9,9 @@ import { Observable } from 'rxjs';
 export class SocialnetworkService {
   constructor(private sharedService: SharedService, private credentialsService: CredentialsService) {}
 
-  getAllusers():Observable<any> {
+  getAllusers(): Observable<any> {
     let apiUrl = this.sharedService.urlService.simpleApiCall('getUsers');
     return this.sharedService.configService.get(apiUrl);
-    
   }
 
   getAllConnections() {

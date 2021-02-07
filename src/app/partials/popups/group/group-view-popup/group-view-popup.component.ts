@@ -18,7 +18,7 @@ export class GroupViewPopupComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<GroupViewPopupComponent>,
     public sharedService: SharedService,
-    private router:Router
+    private router: Router
   ) {
     this.popupData = data;
   }

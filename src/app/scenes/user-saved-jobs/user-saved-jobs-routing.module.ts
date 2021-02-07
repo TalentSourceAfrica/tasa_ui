@@ -3,7 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { extract } from '@app/i18n';
 import { UserSavedJobsComponent } from './user-saved-jobs.component';
 
-
 const routes: Routes = [
   {
     path: '',
@@ -18,4 +17,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class UserSavedJobsRoutingModule { }
+export class UserSavedJobsRoutingModule {}

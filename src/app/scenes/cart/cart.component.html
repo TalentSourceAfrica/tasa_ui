@@ -28,7 +28,7 @@
     <ul class="products max-vertical-h-50 stylishSlimScroll flow-y-auto flow-x-hidden">
       <li class="row shadow-lg no-gutters animated fadeIn">
         <div class="col-10 d-flex align-items-center left">
-          <div class="thumbnail">
+          <div class="thumbnail text-center">
             <h2 class="caps shadow-sm">{{ cartDetails.subscriptionData.name }}</h2>
           </div>
           <div class="detail">
@@ -83,27 +83,113 @@
 </ng-template>
 <ng-template #cartCheckout>
   <section class="p-2 animated fadeIn" style="border-top: 4px solid #523f6d;">
-    <div class="promotion">
-      <label for="promo-code">Have A Promo Code?</label>
-      <input type="text" id="promo-code" /> <button type="button"></button>
+    <form [formGroup]="customerForm" novalidate>
+      <div class="row no-gutters w100">
+        <div class="col-md-4 col-sm-6">
+          <div class="form-group p-2">
+            <label class="form-label" for="email">Your email <sup class="text-danger">*</sup></label>
+            <div class="input-group input-group-merge">
+              <input
+                id="email"
+                type="email"
+                formControlName="email"
+                class="form-control form-control-prepended"
+                placeholder="Type email"
+              />
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <span class="far fa-envelope"></span>
+                </div>
+              </div>
+            </div>
+            <small
+              [hidden]="customerForm.controls.email.valid || customerForm.controls.email.untouched"
+              class="text-danger"
+              translate
+            >
+              Email is required
+            </small>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-6">
+          <div class="form-group p-2">
+            <label class="form-label" for="fullname">Your Full Name<sup class="text-danger">*</sup></label>
+            <div class="input-group input-group-merge">
+              <input
+                id="fullname"
+                type="text"
+                formControlName="name"
+                class="form-control form-control-prepended"
+                placeholder="Your Full Name"
+              />
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <span class="fas fa-key"></span>
+                </div>
+              </div>
+            </div>
+            <small
+              [hidden]="customerForm.controls.name.valid || customerForm.controls.name.untouched"
+              class="text-danger"
+              translate
+            >
+              Full Name is required
+            </small>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-6">
+          <div class="form-group p-2">
+            <label class="form-label" for="phoneNumber">Your Phone Number<sup class="text-danger">*</sup></label>
+            <div class="input-group input-group-merge">
+              <input
+                id="phoneNumber"
+                type="text"
+                formControlName="phoneNumber"
+                class="form-control form-control-prepended"
+                placeholder="Your Phone Number"
+              />
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <span class="fas fa-key"></span>
+                </div>
+              </div>
+            </div>
+            <small
+              [hidden]="customerForm.controls.phoneNumber.valid || customerForm.controls.phoneNumber.untouched"
+              class="text-danger"
+              translate
+            >
+              Phone Number is required
+            </small>
+          </div>
+        </div>
+      </div>
+    </form>
+    <div class="row no-gutters w100">
+      <div class="col-12">
+        <div class="summary text-right">
+          <ul>
+            <!-- <li>Subtotal <span>$ 350</span></li>
+            <li>Discount <span> 30%</span></li>
+            <li>Tax <span> 10%</span></li> -->
+            <li class="total" *ngIf="cartDetails.isSubscription">
+              Total <span>{{ cartDetails.subscriptionData.price | currency }}</span>
+            </li>
+            <li class="total" *ngIf="cartDetails.isCourse">
+              Total <span>{{ cartDetails.courseData.offerPrice | currency }}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
-
-    <div class="summary">
-      <ul>
-        <!-- <li>Subtotal <span>$ 350</span></li>
-        <li>Discount <span> 30%</span></li>
-        <li>Tax <span> 10%</span></li> -->
-        <li class="total" *ngIf="cartDetails.isSubscription">
-          Total <span>{{ cartDetails.subscriptionData.price | currency }}</span>
-        </li>
-        <li class="total" *ngIf="cartDetails.isCourse">
-          Total <span>{{ cartDetails.courseData.offerPrice | currency }}</span>
-        </li>
-      </ul>
-    </div>
-
     <div class="checkout">
-      <button mat-flat-button color="primary" class="rounded-pill ml-2">
+      <button
+        mat-flat-button
+        color="primary"
+        (click)="makePayment()"
+        [disabled]="customerForm.invalid"
+        class="rounded-pill ml-2"
+      >
         Checkout
       </button>
     </div>
@@ -126,5 +212,3 @@
     </div>
   </div>
 </ng-template>
-
-<button type="button" (click)="makePayment()">Pay Now</button>

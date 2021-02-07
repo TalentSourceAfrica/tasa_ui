@@ -12,7 +12,6 @@ import { OrganizationComponent } from './organization.component';
 import { OrganizationRoutingModule } from './organization-routing.module';
 import { CreateOrganizationModule } from '@app/partials/popups/recruiter/create-organization/create-organization.module';
 
-
 @NgModule({
   imports: [
     CommonModule,
@@ -24,9 +23,9 @@ import { CreateOrganizationModule } from '@app/partials/popups/recruiter/create-
     MaterialModule,
     RouterModule,
     OrganizationRoutingModule,
-    CreateOrganizationModule
+    CreateOrganizationModule,
   ],
   declarations: [OrganizationComponent],
   schemas: [NO_ERRORS_SCHEMA],
 })
-export class OrganizationModule { }
+export class OrganizationModule {}

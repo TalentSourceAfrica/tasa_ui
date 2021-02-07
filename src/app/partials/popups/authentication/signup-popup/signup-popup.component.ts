@@ -11,7 +11,7 @@ import { MustMatch } from '@app/auth/must-match';
   selector: 'app-signup-popup',
   templateUrl: './signup-popup.component.html',
   styleUrls: ['./signup-popup.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class SignupPopupComponent implements OnInit {
   @ViewChild('stepper', { static: false }) stepper: any;
@@ -38,7 +38,6 @@ export class SignupPopupComponent implements OnInit {
     private dialogRef: MatDialogRef<SignupPopupComponent>,
     private sharedService: SharedService,
     private credentialsService: CredentialsService
-
   ) {
     this.popupData = data;
     this.userType = this.signupType[this.popupData.case == 'student' ? 0 : 2];
@@ -47,68 +46,76 @@ export class SignupPopupComponent implements OnInit {
 
   initForm() {
     if (this.popupData.case == 'student') {
-      this.userDetailsForm = this.formBuilder.group({
-        firstName: ['', [Validators.required]],
-        lastName: ['', [Validators.required]],
-        email: [this.popupData.email != undefined ? this.popupData.email : '', [Validators.required, Validators.email]],
-        password: ['', [Validators.required]],
-        confirmPassword: ['', [Validators.required]],
-        termsCond: [true, [Validators.required]],
-        country: ['', [Validators.required]],
-        state: ['', [Validators.required]],
-        city: ['', [Validators.required]],
-        postalCode: ['', [Validators.required]],
+      this.userDetailsForm = this.formBuilder.group(
+        {
+          firstName: ['', [Validators.required]],
+          lastName: ['', [Validators.required]],
+          email: [
+            this.popupData.email != undefined ? this.popupData.email : '',
+            [Validators.required, Validators.email],
+          ],
+          password: ['', [Validators.required]],
+          confirmPassword: ['', [Validators.required]],
+          termsCond: [true, [Validators.required]],
+          country: ['', [Validators.required]],
+          state: ['', [Validators.required]],
+          city: ['', [Validators.required]],
+          postalCode: ['', [Validators.required]],
 
-        highestDegree: ['', [Validators.required]],
-        college: ['', [Validators.required]],
-        university: ['', [Validators.required]],
-        major: ['', [Validators.required]],
-        minor: [''],
-        degreeFromDate: [null],
-        degreeToDate: [null],
-        // certificate: [''],
-        organization: [''],
-        experience1: [''],
-        currentRole: [''],
-        description: [''],
-        experienceFrom: [null],
-        experienceTo: [null],
+          highestDegree: ['', [Validators.required]],
+          college: ['', [Validators.required]],
+          university: ['', [Validators.required]],
+          major: ['', [Validators.required]],
+          minor: [''],
+          degreeFromDate: [null],
+          degreeToDate: [null],
+          // certificate: [''],
+          organization: [''],
+          experience1: [''],
+          currentRole: [''],
+          description: [''],
+          experienceFrom: [null],
+          experienceTo: [null],
 
-        areaOfPreference: ['', [Validators.required]],
-        preferredRole: ['', [Validators.required]],
-        careerGoals: ['', [Validators.required]],
-        linkedin: [''],
-        twitter: ['']
-      }, {
-        validator: MustMatch('password', 'confirmPassword')
-      });
+          areaOfPreference: ['', [Validators.required]],
+          preferredRole: ['', [Validators.required]],
+          careerGoals: ['', [Validators.required]],
+          linkedin: [''],
+          twitter: [''],
+        },
+        {
+          validator: MustMatch('password', 'confirmPassword'),
+        }
+      );
     } else {
-
-      this.userDetailsForm = this.formBuilder.group({
-        firstName: ['', [Validators.required]],
-        lastName: ['', [Validators.required]],
-        email: ['', [Validators.required, Validators.email]],
-        password: ['', [Validators.required]],
-        confirmPassword: ['', [Validators.required]],
-        termsCond: [true, [Validators.required]],
-        country: ['', [Validators.required]],
-        organizationName: ['', [Validators.required]],
-        state: ['', [Validators.required]],
-        city: ['', [Validators.required]],
-        postalCode: ['', [Validators.required]],
-        location: [''],
-        description: ['', [Validators.required]],
-        about: ['', [Validators.required]],
-        noEmp: ['', [Validators.required]],
-        industry: ['', [Validators.required]],
-        contactNo: [''],
-        contactEmail: [''],
-        website: ['', [Validators.required]],
-        linkedin: [''],
-        twitter: [''],
-      }, {
-        validator: MustMatch('password', 'confirmPassword')
-      });
+      this.userDetailsForm = this.formBuilder.group(
+        {
+          firstName: ['', [Validators.required]],
+          lastName: ['', [Validators.required]],
+          email: ['', [Validators.required, Validators.email]],
+          password: ['', [Validators.required]],
+          confirmPassword: ['', [Validators.required]],
+          termsCond: [true, [Validators.required]],
+          country: ['', [Validators.required]],
+          organizationName: ['', [Validators.required]],
+          state: ['', [Validators.required]],
+          city: ['', [Validators.required]],
+          postalCode: ['', [Validators.required]],
+          location: [''],
+          description: ['', [Validators.required]],
+          about: ['', [Validators.required]],
+          noEmp: ['', [Validators.required]],
+          industry: ['', [Validators.required]],
+          contactNo: [''],
+          contactEmail: [''],
+          website: ['', [Validators.required]],
+          linkedin: [''],
+          twitter: [''],
+        },
+        {
+          validator: MustMatch('password', 'confirmPassword'),
+        }
+      );
     }
   }
 
@@ -203,8 +210,8 @@ export class SignupPopupComponent implements OnInit {
       createdBy: '',
       updatedBy: '',
       xml: '',
-      ein: ''
-    }
+      ein: '',
+    };
   }
 
   onSubmit() {
@@ -212,7 +219,8 @@ export class SignupPopupComponent implements OnInit {
     let apiUrl = $t.sharedService.urlService.simpleApiCall('signup');
     $t.sharedService.uiService.showApiStartPopMsg('Creating Account...');
     let payload = { ...JSON.parse(JSON.stringify($t.userDetailsForm.value)), type: $t.userType.dbValue };
-    let areaOfPreference: any = [], preferredRole: any = [];
+    let areaOfPreference: any = [],
+      preferredRole: any = [];
     payload['username'] = Math.floor(Math.random() * 90000) + 10000;
     if ($t.popupData.case == 'student') {
       payload['experience'] = [];
@@ -222,7 +230,7 @@ export class SignupPopupComponent implements OnInit {
         description: [],
         organization: JSON.parse(JSON.stringify(payload.organization)),
         experienceTo: JSON.parse(JSON.stringify(payload.experienceTo)),
-        experienceFrom: JSON.parse(JSON.stringify(payload.experienceFrom))
+        experienceFrom: JSON.parse(JSON.stringify(payload.experienceFrom)),
       });
       payload['education'] = [];
       payload.education.push({
@@ -232,7 +240,7 @@ export class SignupPopupComponent implements OnInit {
         major: JSON.parse(JSON.stringify(payload.major)),
         minor: [],
         degreeFromDate: JSON.parse(JSON.stringify(payload.degreeFromDate)),
-        degreeToDate: JSON.parse(JSON.stringify(payload.degreeFromDate))
+        degreeToDate: JSON.parse(JSON.stringify(payload.degreeFromDate)),
       });
       payload.postalCode = parseInt(payload.postalCode);
       areaOfPreference.push(JSON.parse(JSON.stringify(payload.areaOfPreference)));
@@ -354,7 +362,7 @@ export class SignupPopupComponent implements OnInit {
       (response: any) => {
         response.data == 'Y' ? ($t.isEmailAvailable = true) : ($t.isEmailAvailable = false);
       },
-      (error) => { }
+      (error) => {}
     );
   }
 

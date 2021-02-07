@@ -27,7 +27,7 @@ import { ShowApplicantsModule } from '@app/partials/popups/recruiter/show-applic
     RouterModule,
     JobsRoutingModule,
     NgxDocViewerModule,
-    ShowApplicantsModule
+    ShowApplicantsModule,
   ],
   declarations: [JobsComponent],
   entryComponents: [],

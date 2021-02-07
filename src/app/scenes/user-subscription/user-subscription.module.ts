@@ -8,6 +8,8 @@ import { MaterialModule } from '@app/modules/material.module';
 import { RouterModule } from '@angular/router';
 import { UserSubscriptionRoutingModule } from './user-subscription-routing.module';
 import { UserSubscriptionComponent } from './user-subscription.component';
+import { SharedModule } from '@app/@shared';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
@@ -19,6 +21,8 @@ import { UserSubscriptionComponent } from './user-subscription.component';
     MaterialModule,
     RouterModule,
     UserSubscriptionRoutingModule,
+    SharedModule,
+    FormsModule,
   ],
   declarations: [UserSubscriptionComponent],
 })

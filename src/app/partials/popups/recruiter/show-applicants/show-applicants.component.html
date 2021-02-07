@@ -3,17 +3,21 @@
     <div class="navbar-shadow">
       <div class="card-header text-center">
         <h4 class="card-title">
-          {{ popupData.applicantStatus }} Applicants For - <strong class="text-primary">{{ popupData.job.title }}</strong>
+          {{ popupData.applicantStatus }} Applicants For -
+          <strong class="text-primary">{{ popupData.job.title }}</strong>
         </h4>
       </div>
-      <div *ngIf="popupData.job.applicants.length != 0" class="row p-4 no-gutters max-vertical-h-80 stylishSlimScroll flow-y-auto flow-x-hidden">
+      <div
+        *ngIf="popupData.job.applicants.length != 0"
+        class="row p-4 no-gutters max-vertical-h-80 stylishSlimScroll flow-y-auto flow-x-hidden"
+      >
         <ng-container *ngTemplateOutlet="applicants"></ng-container>
       </div>
       <ng-container *ngIf="popupData.job.applicants.length == 0">
         <div class="text-center m-auto animated fadeIn mt-2">
           <div class="col-12 text-center">
             <img src="./assets/images/no-record.gif" style="height: 300px;" class="d-block m-auto" />
-            <h6 class="text-primary mb-2 mt-2">No {{ popupData.applicantStatus }} Applications Yet...! </h6>
+            <h6 class="text-primary mb-2 mt-2">No {{ popupData.applicantStatus }} Applications Yet...!</h6>
           </div>
         </div>
       </ng-container>

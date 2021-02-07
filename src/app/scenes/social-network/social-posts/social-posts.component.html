@@ -126,14 +126,19 @@
                             <textarea
                               id="postBox"
                               class="row no-gutters status-textarea mb-1"
-                              [class.col-12]="socialConfig.newPost.imageUrl != '' || socialConfig.newPost.videoUrl != ''"
+                              [class.col-12]="
+                                socialConfig.newPost.imageUrl != '' || socialConfig.newPost.videoUrl != ''
+                              "
                               [(ngModel)]="socialConfig.newPost.content"
                               placeholder="What's on you mind?"
                               (keyup.enter)="createSocialPost()"
                             ></textarea>
                             <div *ngIf="socialConfig.newPost.imageUrl != ''">
                               <a class="pl-5" [href]="socialConfig.newPost.imageUrl" target="_blank">
-                                <img [src]="socialConfig.newPost.imageUrl" class="p-2 curPoint post-image img-thumbnail" />
+                                <img
+                                  [src]="socialConfig.newPost.imageUrl"
+                                  class="p-2 curPoint post-image img-thumbnail"
+                                />
                               </a>
                             </div>
                             <div *ngIf="socialConfig.newPost.videoUrl != ''">
@@ -173,7 +178,11 @@
                               </mat-card-content>
                             </mat-card> -->
                           </div>
-                          <mat-progress-bar mode="indeterminate" *ngIf="isUploadingFile" color="primary"></mat-progress-bar>
+                          <mat-progress-bar
+                            mode="indeterminate"
+                            *ngIf="isUploadingFile"
+                            color="primary"
+                          ></mat-progress-bar>
                           <div class="status-actions">
                             <div class="row no-gutters">
                               <div class="col-8">
@@ -279,7 +288,8 @@
                             mat-mini-fab
                             class="attachment"
                             [ngClass]="{
-                              'attachment-two': socialConfig.newPost.imageUrl != '' || socialConfig.newPost.videoUrl != ''
+                              'attachment-two':
+                                socialConfig.newPost.imageUrl != '' || socialConfig.newPost.videoUrl != ''
                             }"
                             (click)="toggled = !toggled"
                             [(emojiPickerIf)]="toggled"
@@ -350,7 +360,10 @@
                                   </a> -->
                                 </div>
                               </div>
-                              <div *ngIf="post.sharePostId != ''" class="album-box share-status-box sharedPost shadow-sm m-auto border w80 mx-2 mb-4">
+                              <div
+                                *ngIf="post.sharePostId != ''"
+                                class="album-box share-status-box sharedPost shadow-sm m-auto border w80 mx-2 mb-4"
+                              >
                                 <div class="status-main p-2">
                                   <img
                                     matTooltipPosition="below"
@@ -374,7 +387,10 @@
                                   </div>
                                 </div>
                                 <div class="row album-content p-2 no-gutters">
-                                  <div class="mb-2 mt-1 col-12" [class.pl-3]="post.sharePostImage == '' && post.sharePostVideo == ''">
+                                  <div
+                                    class="mb-2 mt-1 col-12"
+                                    [class.pl-3]="post.sharePostImage == '' && post.sharePostVideo == ''"
+                                  >
                                     {{ post.sharePostContent }}
                                   </div>
                                   <div class="pl-2 text-center" *ngIf="post.sharePostImage != ''">
@@ -526,7 +542,11 @@
                           <ng-container *ngIf="socialConfig.allSocialPost.length == 0 || socialConfig.isLoading">
                             <div class="text-center m-auto animated fadeIn mt-2">
                               <div class="col-12 text-center">
-                                <img src="./assets/images/no-record.gif" style="height: 300px;" class="d-block m-auto" />
+                                <img
+                                  src="./assets/images/no-record.gif"
+                                  style="height: 300px;"
+                                  class="d-block m-auto"
+                                />
                                 <h6 class="text-primary mb-2 mt-2">No Post Yet...!</h6>
                               </div>
                             </div>

@@ -19,12 +19,17 @@
               <label *ngIf="entry.id == 'ein' && user.type == 'Recruiter'" class="form-label" for="{{ entry.id }}"
                 >{{ entry.label }} <sup *ngIf="entry.mandatory" class="text-danger">*</sup></label
               >
-              <label *ngIf="entry.id == 'profileSummary' && user.type != 'Recruiter'" class="form-label" for="{{ entry.id }}"
+              <label
+                *ngIf="entry.id == 'profileSummary' && user.type != 'Recruiter'"
+                class="form-label"
+                for="{{ entry.id }}"
                 >{{ entry.label }} <sup *ngIf="entry.mandatory" class="text-danger">*</sup></label
               >
               <div class="input-group input-group-merge">
                 <input
-                  *ngIf="entry.id != 'country' && entry.id != 'suffix' && entry.id != 'profileSummary' && entry.id != 'ein'"
+                  *ngIf="
+                    entry.id != 'country' && entry.id != 'suffix' && entry.id != 'profileSummary' && entry.id != 'ein'
+                  "
                   id="{{ entry.id }}"
                   type="{{ entry.type }}"
                   formControlName="{{ entry.formControlName }}"
@@ -81,8 +86,8 @@
                   <div class="input-group-text">
                     <span class="{{ entry.prepend }}"></span>
                   </div>
-               </div>
-              </div>              
+                </div>
+              </div>
               <small
                 *ngIf="entry.id == 'address1'"
                 [hidden]="
@@ -130,12 +135,7 @@
             </div>
           </div>
           <div class="text-center">
-            <button
-              mat-flat-button
-              color="primary"
-              matStepperNext
-              class="rounded-pill ml-2"
-            >
+            <button mat-flat-button color="primary" matStepperNext class="rounded-pill ml-2">
               Next
             </button>
           </div>
@@ -147,7 +147,11 @@
         <div class="pt-5 pl-2 pr-2 pb-2 card p-3 animated fadeIn">
           <div formArrayName="educationDetailsFA" class="ng-invalid-none">
             <div class="overflow-x-hidden stylishSlimScroll">
-              <div class="pl-3 form-group ng-invalid-none" *ngFor="let arrEntry of fc(educationDetailsForm, 'educationDetailsFA'); let ef = index" [formGroupName]="ef">
+              <div
+                class="pl-3 form-group ng-invalid-none"
+                *ngFor="let arrEntry of fc(educationDetailsForm, 'educationDetailsFA'); let ef = index"
+                [formGroupName]="ef"
+              >
                 <div *ngIf="ef == 0" class="col-12 text-right">
                   <button
                     color="primary"
@@ -155,29 +159,38 @@
                     class="rounded-pill ml-2"
                     matTooltip="Enter More Education"
                     matTooltipPosition="above"
-                    (click)="addSection(educationDetailsForm, 'educationDetailsFA', 'education')">
+                    (click)="addSection(educationDetailsForm, 'educationDetailsFA', 'education')"
+                  >
                     <mat-icon>add</mat-icon> Enter More Education
-                  </button>   
-                </div>  
-                <div class="pl-2 pr-2 pb-2 card p-3 animated fadeIn" [ngClass]="{'pt-5': ef == 0, 'pt-2': ef != 0}">
+                  </button>
+                </div>
+                <div class="pl-2 pr-2 pb-2 card p-3 animated fadeIn" [ngClass]="{ 'pt-5': ef == 0, 'pt-2': ef != 0 }">
                   <div class="form-group mb-2" *ngFor="let entry of educationDetails; let i = index">
                     <div *ngIf="ef != 0 && i == 0" class="col-12 text-right pr-0">
                       <button
                         color="primary"
                         mat-mini-fab
                         class="rounded-pill ml-2"
-                        (click)="deleteSection(educationDetailsForm, 'educationDetailsFA', ef)">
+                        (click)="deleteSection(educationDetailsForm, 'educationDetailsFA', ef)"
+                      >
                         <mat-icon>delete</mat-icon>
-                      </button>  
+                      </button>
                     </div>
                     <div *ngIf="entry.id != 'degreeFromDate' && entry.id != 'degreeToDate'" class="d-flex">
-                      <label 
-                        class="form-label mt-2 px-0 col" 
-                        for="{{ entry.id }}">
+                      <label class="form-label mt-2 px-0 col" for="{{ entry.id }}">
                         {{ entry.label }} <sup *ngIf="entry.mandatory" class="text-danger">*</sup>
                       </label>
                     </div>
-                    <div *ngIf="entry.id != 'college' && entry.id != 'university' && entry.id != 'minor' && entry.id != 'degreeFromDate' && entry.id != 'degreeToDate'" class="input-group input-group-merge">
+                    <div
+                      *ngIf="
+                        entry.id != 'college' &&
+                        entry.id != 'university' &&
+                        entry.id != 'minor' &&
+                        entry.id != 'degreeFromDate' &&
+                        entry.id != 'degreeToDate'
+                      "
+                      class="input-group input-group-merge"
+                    >
                       <input
                         *ngIf="entry.id != 'certificates'"
                         id="{{ entry.id }}"
@@ -205,7 +218,9 @@
                       <div class="input-group-prepend">
                         <div class="input-group-text">
                           <span *ngIf="entry.id != 'certificates'" class="{{ entry.prepend }}"></span>
-                          <span *ngIf="entry.id == 'certificates'" class="px-1 material-icons curPoint">cloud_upload</span>
+                          <span *ngIf="entry.id == 'certificates'" class="px-1 material-icons curPoint"
+                            >cloud_upload</span
+                          >
                         </div>
                       </div>
                     </div>
@@ -217,9 +232,13 @@
                     </div>
                     <div *ngIf="entry.id == 'degreeFromDate'" class="d-flex col-12 px-0 pt-2">
                       <div *ngFor="let record of educationDetails" class="">
-                        <div *ngIf="record.id == 'degreeFromDate' || record.id == 'degreeToDate'" class="pl-0 col-12 input-group input-group-merge" [class.pr-0]="record.id == 'degreeToDate'">
+                        <div
+                          *ngIf="record.id == 'degreeFromDate' || record.id == 'degreeToDate'"
+                          class="pl-0 col-12 input-group input-group-merge"
+                          [class.pr-0]="record.id == 'degreeToDate'"
+                        >
                           <label class="form-label pl-0 col-12" for="{{ record.id }}"
-                              >{{ record.label }} <sup *ngIf="record.mandatory" class="text-danger">*</sup>
+                            >{{ record.label }} <sup *ngIf="record.mandatory" class="text-danger">*</sup>
                           </label>
                           <br />
                           <input
@@ -235,15 +254,18 @@
                             </div>
                           </div>
                         </div>
-                      </div> 
-                    </div> 
+                      </div>
+                    </div>
                     <ng-container *ngIf="entry.id == 'college'" formArrayName="college">
-                      <div class="pb-1" *ngFor="let val of getFA(educationDetailsForm, 'educationDetailsFA', ef, 'college'); let v = index">
+                      <div
+                        class="pb-1"
+                        *ngFor="
+                          let val of getFA(educationDetailsForm, 'educationDetailsFA', ef, 'college');
+                          let v = index
+                        "
+                      >
                         <div class="d-flex">
-                          <div
-                            class="input-group input-group-merge ng-invalid-none pl-0 pr-1 mt-1"
-                            [formGroupName]="v"
-                          >
+                          <div class="input-group input-group-merge ng-invalid-none pl-0 pr-1 mt-1" [formGroupName]="v">
                             <input
                               id="{{ entry.id }}"
                               formControlName="name"
@@ -263,38 +285,44 @@
                             matTooltip="Remove College"
                             matTooltipPosition="above"
                             class="rounded-pill ml-2"
-                            (click)="removeMore(educationDetailsForm, 'educationDetailsFA', ef, entry.id, v)">
+                            (click)="removeMore(educationDetailsForm, 'educationDetailsFA', ef, entry.id, v)"
+                          >
                             <mat-icon>remove</mat-icon>
                           </button>
-                           <button
+                          <button
                             *ngIf="v == 0"
                             color="primary"
                             mat-mini-fab
                             matTooltip="Add Another College"
                             matTooltipPosition="above"
                             class="rounded-pill ml-2 mb-1 addMoreBtn"
-                            (click)="addMore(educationDetailsForm, 'educationDetailsFA', ef, entry.id)">
+                            (click)="addMore(educationDetailsForm, 'educationDetailsFA', ef, entry.id)"
+                          >
                             <mat-icon>add</mat-icon>
                           </button>
                         </div>
                         <small
                           [hidden]="
-                            fc(educationDetailsForm, 'educationDetailsFA')[ef].controls.college.controls[v].valid || fc(educationDetailsForm, 'educationDetailsFA')[ef].controls.college.controls[v].untouched
+                            fc(educationDetailsForm, 'educationDetailsFA')[ef].controls.college.controls[v].valid ||
+                            fc(educationDetailsForm, 'educationDetailsFA')[ef].controls.college.controls[v].untouched
                           "
                           class="text-danger"
                           translate
                         >
                           College is required
                         </small>
-                      </div>  
+                      </div>
                     </ng-container>
                     <ng-container *ngIf="entry.id == 'university'" formArrayName="university">
-                      <div class="pb-1" *ngFor="let val of getFA(educationDetailsForm, 'educationDetailsFA', ef, 'university'); let u = index">
+                      <div
+                        class="pb-1"
+                        *ngFor="
+                          let val of getFA(educationDetailsForm, 'educationDetailsFA', ef, 'university');
+                          let u = index
+                        "
+                      >
                         <div class="d-flex">
-                          <div
-                            class="input-group input-group-merge ng-invalid-none pl-0 pr-1 mt-1"
-                            [formGroupName]="u"
-                          >
+                          <div class="input-group input-group-merge ng-invalid-none pl-0 pr-1 mt-1" [formGroupName]="u">
                             <input
                               id="{{ entry.id }}"
                               formControlName="name"
@@ -314,38 +342,44 @@
                             matTooltip="Remove University"
                             matTooltipPosition="above"
                             class="rounded-pill ml-2"
-                            (click)="removeMore(educationDetailsForm, 'educationDetailsFA', ef, entry.id, u)">
+                            (click)="removeMore(educationDetailsForm, 'educationDetailsFA', ef, entry.id, u)"
+                          >
                             <mat-icon>remove</mat-icon>
                           </button>
-                           <button
+                          <button
                             *ngIf="u == 0"
                             color="primary"
                             mat-mini-fab
                             matTooltip="Add Another University"
                             matTooltipPosition="above"
                             class="rounded-pill ml-2 mb-1 addMoreBtn"
-                            (click)="addMore(educationDetailsForm, 'educationDetailsFA', ef, entry.id)">
+                            (click)="addMore(educationDetailsForm, 'educationDetailsFA', ef, entry.id)"
+                          >
                             <mat-icon>add</mat-icon>
                           </button>
                         </div>
-                         <small
+                        <small
                           [hidden]="
-                            fc(educationDetailsForm, 'educationDetailsFA')[ef].controls.university.controls[u].valid || fc(educationDetailsForm, 'educationDetailsFA')[ef].controls.university.controls[u].untouched
+                            fc(educationDetailsForm, 'educationDetailsFA')[ef].controls.university.controls[u].valid ||
+                            fc(educationDetailsForm, 'educationDetailsFA')[ef].controls.university.controls[u].untouched
                           "
                           class="text-danger"
                           translate
-                           >
+                        >
                           University is required
                         </small>
-                      </div>  
+                      </div>
                     </ng-container>
                     <ng-container *ngIf="entry.id == 'minor'" formArrayName="minor">
-                      <div class="pb-1" *ngFor="let val of getFA(educationDetailsForm, 'educationDetailsFA', ef, 'minor'); let m = index">
+                      <div
+                        class="pb-1"
+                        *ngFor="
+                          let val of getFA(educationDetailsForm, 'educationDetailsFA', ef, 'minor');
+                          let m = index
+                        "
+                      >
                         <div class="d-flex">
-                          <div
-                            class="input-group input-group-merge ng-invalid-none pl-0 pr-1 mt-1"
-                            [formGroupName]="m"
-                          >
+                          <div class="input-group input-group-merge ng-invalid-none pl-0 pr-1 mt-1" [formGroupName]="m">
                             <input
                               id="{{ entry.id }}"
                               formControlName="name"
@@ -365,26 +399,29 @@
                             matTooltip="Remove Minor"
                             matTooltipPosition="above"
                             class="rounded-pill ml-2"
-                            (click)="removeMore(educationDetailsForm, 'educationDetailsFA', ef, entry.id, m)">
+                            (click)="removeMore(educationDetailsForm, 'educationDetailsFA', ef, entry.id, m)"
+                          >
                             <mat-icon>remove</mat-icon>
                           </button>
-                           <button
+                          <button
                             *ngIf="m == 0"
                             color="primary"
                             mat-mini-fab
                             matTooltip="Add Another Minor"
                             matTooltipPosition="above"
                             class="rounded-pill ml-2 mb-1 addMoreBtn"
-                            (click)="addMore(educationDetailsForm, 'educationDetailsFA', ef, entry.id)">
+                            (click)="addMore(educationDetailsForm, 'educationDetailsFA', ef, entry.id)"
+                          >
                             <mat-icon>add</mat-icon>
                           </button>
                         </div>
-                      </div>    
+                      </div>
                     </ng-container>
                     <small
                       *ngIf="entry.id == 'highestDegree'"
                       [hidden]="
-                        fc(educationDetailsForm, 'educationDetailsFA')[ef].controls.highestDegree.valid || fc(educationDetailsForm, 'educationDetailsFA')[ef].controls.highestDegree.untouched
+                        fc(educationDetailsForm, 'educationDetailsFA')[ef].controls.highestDegree.valid ||
+                        fc(educationDetailsForm, 'educationDetailsFA')[ef].controls.highestDegree.untouched
                       "
                       class="text-danger"
                       translate
@@ -393,7 +430,10 @@
                     </small>
                     <small
                       *ngIf="entry.id == 'major'"
-                      [hidden]="fc(educationDetailsForm, 'educationDetailsFA')[ef].controls.major.valid || fc(educationDetailsForm, 'educationDetailsFA')[ef].controls.major.untouched"
+                      [hidden]="
+                        fc(educationDetailsForm, 'educationDetailsFA')[ef].controls.major.valid ||
+                        fc(educationDetailsForm, 'educationDetailsFA')[ef].controls.major.untouched
+                      "
                       class="text-danger"
                       translate
                     >
@@ -402,7 +442,8 @@
                     <small
                       *ngIf="entry.id == 'certificates'"
                       [hidden]="
-                       fc(educationDetailsForm, 'educationDetailsFA')[ef].controls.certificates.valid || fc(educationDetailsForm, 'educationDetailsFA')[ef].controls.certificates.untouched
+                        fc(educationDetailsForm, 'educationDetailsFA')[ef].controls.certificates.valid ||
+                        fc(educationDetailsForm, 'educationDetailsFA')[ef].controls.certificates.untouched
                       "
                       class="text-danger"
                       translate
@@ -412,21 +453,16 @@
                   </div>
                 </div>
               </div>
-            </div>  
-          </div>
-           <div class="text-center">
-              <button mat-flat-button color="default" matStepperPrevious class="rounded-pill ml-2 bg-theme">
-                Back
-              </button>
-              <button
-                mat-flat-button
-                color="primary"
-                matStepperNext
-                class="rounded-pill ml-2"
-              >
-                Next
-              </button>
             </div>
+          </div>
+          <div class="text-center">
+            <button mat-flat-button color="default" matStepperPrevious class="rounded-pill ml-2 bg-theme">
+              Back
+            </button>
+            <button mat-flat-button color="primary" matStepperNext class="rounded-pill ml-2">
+              Next
+            </button>
+          </div>
         </div>
       </form>
     </mat-step>
@@ -436,7 +472,11 @@
           <div formArrayName="experienceDetailsFA" class="ng-invalid-none">
             <ng-template matStepLabel>Experience Details</ng-template>
             <div class="overflow-x-hidden stylishSlimScroll">
-              <div class="pl-3 form-group ng-invalid-none" *ngFor="let arrEntry of fc(experienceDetailsForm, 'experienceDetailsFA'); let ef = index" [formGroupName]="ef">
+              <div
+                class="pl-3 form-group ng-invalid-none"
+                *ngFor="let arrEntry of fc(experienceDetailsForm, 'experienceDetailsFA'); let ef = index"
+                [formGroupName]="ef"
+              >
                 <div *ngIf="ef == 0" class="col-12 text-right">
                   <button
                     color="primary"
@@ -444,25 +484,33 @@
                     class="rounded-pill ml-2"
                     matTooltip="Enter More Experience"
                     matTooltipPosition="above"
-                    (click)="addSection(experienceDetailsForm, 'experienceDetailsFA', 'experience')">
+                    (click)="addSection(experienceDetailsForm, 'experienceDetailsFA', 'experience')"
+                  >
                     <mat-icon>add</mat-icon> Enter More Experience
-                  </button>   
-                </div>  
-                <div class="pl-2 pr-2 pb-2 card p-3 animated fadeIn" [ngClass]="{'pt-5': ef == 0, 'pt-2': ef != 0}">
+                  </button>
+                </div>
+                <div class="pl-2 pr-2 pb-2 card p-3 animated fadeIn" [ngClass]="{ 'pt-5': ef == 0, 'pt-2': ef != 0 }">
                   <div class="form-group" *ngFor="let entry of experienceDetails; let i = index">
                     <div *ngIf="ef != 0 && i == 0" class="col-12 text-right pr-0">
                       <button
                         color="primary"
                         mat-mini-fab
                         class="rounded-pill ml-2"
-                        (click)="deleteSection(experienceDetailsForm, 'experienceDetailsFA', ef)">
+                        (click)="deleteSection(experienceDetailsForm, 'experienceDetailsFA', ef)"
+                      >
                         <mat-icon>delete</mat-icon>
-                      </button>  
-                    </div>  
-                    <label *ngIf="entry.id != 'experienceTo' && entry.id != 'experienceFrom'" class="form-label" for="{{ entry.id }}"
+                      </button>
+                    </div>
+                    <label
+                      *ngIf="entry.id != 'experienceTo' && entry.id != 'experienceFrom'"
+                      class="form-label"
+                      for="{{ entry.id }}"
                       >{{ entry.label }} <sup *ngIf="entry.mandatory" class="text-danger">*</sup></label
                     >
-                    <div *ngIf="entry.id != 'experienceTo' &&  entry.id != 'experienceFrom'" class="input-group input-group-merge">
+                    <div
+                      *ngIf="entry.id != 'experienceTo' && entry.id != 'experienceFrom'"
+                      class="input-group input-group-merge"
+                    >
                       <input
                         id="{{ entry.id }}"
                         formControlName="{{ entry.formControlName }}"
@@ -477,9 +525,13 @@
                     </div>
                     <div *ngIf="entry.id == 'experienceTo'" class="d-flex col-12 px-0">
                       <div *ngFor="let record of experienceDetails" class="">
-                        <div *ngIf="record.id == 'experienceTo' || record.id == 'experienceFrom'" class="pl-0 col-12 input-group input-group-merge" [class.pr-0]="record.id == 'experienceTo'">
+                        <div
+                          *ngIf="record.id == 'experienceTo' || record.id == 'experienceFrom'"
+                          class="pl-0 col-12 input-group input-group-merge"
+                          [class.pr-0]="record.id == 'experienceTo'"
+                        >
                           <label class="form-label pl-0 col-12" for="{{ record.id }}"
-                              >{{ record.label }} <sup *ngIf="record.mandatory" class="text-danger">*</sup>
+                            >{{ record.label }} <sup *ngIf="record.mandatory" class="text-danger">*</sup>
                           </label>
                           <br />
                           <input
@@ -489,18 +541,22 @@
                             type="{{ record.type }}"
                             placeholder="{{ record.placeholder }}"
                           />
-                          <div *ngIf="record.id == 'experienceTo' || record.id == 'experienceFrom'" class="input-group-prepend">
+                          <div
+                            *ngIf="record.id == 'experienceTo' || record.id == 'experienceFrom'"
+                            class="input-group-prepend"
+                          >
                             <div class="input-group-text">
                               <span class="{{ record.prepend }}"></span>
                             </div>
                           </div>
                         </div>
-                      </div> 
-                    </div>  
+                      </div>
+                    </div>
                     <small
                       *ngIf="entry.id == 'experience'"
                       [hidden]="
-                        fc(experienceDetailsForm, 'experienceDetailsFA')[ef].controls.experience.valid || fc(experienceDetailsForm, 'experienceDetailsFA')[ef].controls.experience.untouched
+                        fc(experienceDetailsForm, 'experienceDetailsFA')[ef].controls.experience.valid ||
+                        fc(experienceDetailsForm, 'experienceDetailsFA')[ef].controls.experience.untouched
                       "
                       class="text-danger"
                       translate
@@ -510,7 +566,8 @@
                     <small
                       *ngIf="entry.id == 'organization'"
                       [hidden]="
-                        fc(experienceDetailsForm, 'experienceDetailsFA')[ef].controls.organization.valid || fc(experienceDetailsForm, 'experienceDetailsFA')[ef].controls.organization.untouched
+                        fc(experienceDetailsForm, 'experienceDetailsFA')[ef].controls.organization.valid ||
+                        fc(experienceDetailsForm, 'experienceDetailsFA')[ef].controls.organization.untouched
                       "
                       class="text-danger"
                       translate
@@ -520,31 +577,27 @@
                     <small
                       *ngIf="entry.id == 'currentRole'"
                       [hidden]="
-                        fc(experienceDetailsForm, 'experienceDetailsFA')[ef].controls.currentRole.valid || fc(experienceDetailsForm, 'experienceDetailsFA')[ef].controls.currentRole.untouched
+                        fc(experienceDetailsForm, 'experienceDetailsFA')[ef].controls.currentRole.valid ||
+                        fc(experienceDetailsForm, 'experienceDetailsFA')[ef].controls.currentRole.untouched
                       "
                       class="text-danger"
                       translate
                     >
                       Current Role is required
                     </small>
-                  </div>  
+                  </div>
                 </div>
               </div>
-            </div>  
-          </div>
-           <div class="text-center">
-              <button mat-flat-button color="default" matStepperPrevious class="rounded-pill ml-2 bg-theme">
-                Back
-              </button>
-              <button
-                mat-flat-button
-                color="primary"
-                matStepperNext
-                class="rounded-pill ml-2"
-              >
-                Next
-              </button>
             </div>
+          </div>
+          <div class="text-center">
+            <button mat-flat-button color="default" matStepperPrevious class="rounded-pill ml-2 bg-theme">
+              Back
+            </button>
+            <button mat-flat-button color="primary" matStepperNext class="rounded-pill ml-2">
+              Next
+            </button>
+          </div>
         </div>
       </form>
     </mat-step>
@@ -587,12 +640,7 @@
             <button mat-flat-button color="default" matStepperPrevious class="rounded-pill ml-2 bg-theme">
               Back
             </button>
-            <button
-              mat-flat-button
-              color="primary"
-              matStepperNext
-              class="rounded-pill ml-2"
-            >
+            <button mat-flat-button color="primary" matStepperNext class="rounded-pill ml-2">
               Next
             </button>
           </div>
@@ -622,12 +670,12 @@
                 </div>
               </div>
               <ng-container *ngIf="entry.id == 'areaOfPreference'" formArrayName="areaOfPreference">
-                <div class="pb-1" *ngFor="let pref of getF(careerPreferenceDetailsForm, 'areaOfPreference'); let v = index">
+                <div
+                  class="pb-1"
+                  *ngFor="let pref of getF(careerPreferenceDetailsForm, 'areaOfPreference'); let v = index"
+                >
                   <div class="d-flex">
-                    <div
-                      class="input-group input-group-merge ng-invalid-none pl-0 pr-1 mt-1"
-                      [formGroupName]="v"
-                    >
+                    <div class="input-group input-group-merge ng-invalid-none pl-0 pr-1 mt-1" [formGroupName]="v">
                       <input
                         id="{{ entry.id }}"
                         formControlName="name"
@@ -647,38 +695,41 @@
                       matTooltip="Remove Area Of Preference"
                       matTooltipPosition="above"
                       class="rounded-pill ml-2"
-                      (click)="deleteSection(careerPreferenceDetailsForm, 'areaOfPreference', v)">
+                      (click)="deleteSection(careerPreferenceDetailsForm, 'areaOfPreference', v)"
+                    >
                       <mat-icon>remove</mat-icon>
                     </button>
-                     <button
+                    <button
                       *ngIf="v == 0"
                       color="primary"
                       mat-mini-fab
                       matTooltip="Add Another Area Of Preference"
                       matTooltipPosition="above"
                       class="rounded-pill ml-2 mb-1 addMoreBtn"
-                      (click)="addMore(careerPreferenceDetailsForm, 'areaOfPreference', null, entry.id)">
+                      (click)="addMore(careerPreferenceDetailsForm, 'areaOfPreference', null, entry.id)"
+                    >
                       <mat-icon>add</mat-icon>
                     </button>
                   </div>
                   <small
                     [hidden]="
-                      getF(careerPreferenceDetailsForm, 'areaOfPreference')[v].valid || getF(careerPreferenceDetailsForm, 'areaOfPreference')[v].untouched
+                      getF(careerPreferenceDetailsForm, 'areaOfPreference')[v].valid ||
+                      getF(careerPreferenceDetailsForm, 'areaOfPreference')[v].untouched
                     "
                     class="text-danger"
                     translate
                   >
-                   Area Of Preference is required
+                    Area Of Preference is required
                   </small>
-                </div>  
+                </div>
               </ng-container>
               <ng-container *ngIf="entry.id == 'preferredRole'" formArrayName="preferredRole">
-                <div class="pb-1" *ngFor="let pref of getF(careerPreferenceDetailsForm, 'preferredRole'); let v = index">
+                <div
+                  class="pb-1"
+                  *ngFor="let pref of getF(careerPreferenceDetailsForm, 'preferredRole'); let v = index"
+                >
                   <div class="d-flex">
-                    <div
-                      class="input-group input-group-merge ng-invalid-none pl-0 pr-1 mt-1"
-                      [formGroupName]="v"
-                    >
+                    <div class="input-group input-group-merge ng-invalid-none pl-0 pr-1 mt-1" [formGroupName]="v">
                       <input
                         id="{{ entry.id }}"
                         formControlName="name"
@@ -698,30 +749,33 @@
                       matTooltip="Remove Area Of Preference"
                       matTooltipPosition="above"
                       class="rounded-pill ml-2"
-                      (click)="deleteSection(careerPreferenceDetailsForm, 'preferredRole', v)">
+                      (click)="deleteSection(careerPreferenceDetailsForm, 'preferredRole', v)"
+                    >
                       <mat-icon>remove</mat-icon>
                     </button>
-                     <button
+                    <button
                       *ngIf="v == 0"
                       color="primary"
                       mat-mini-fab
                       matTooltip="Add Another Area Of Preference"
                       matTooltipPosition="above"
                       class="rounded-pill ml-2 mb-1 addMoreBtn"
-                      (click)="addMore(careerPreferenceDetailsForm, 'preferredRole', null, entry.id)">
+                      (click)="addMore(careerPreferenceDetailsForm, 'preferredRole', null, entry.id)"
+                    >
                       <mat-icon>add</mat-icon>
                     </button>
                   </div>
                   <small
                     [hidden]="
-                      getF(careerPreferenceDetailsForm, 'preferredRole')[v].valid || getF(careerPreferenceDetailsForm, 'preferredRole')[v].untouched
+                      getF(careerPreferenceDetailsForm, 'preferredRole')[v].valid ||
+                      getF(careerPreferenceDetailsForm, 'preferredRole')[v].untouched
                     "
                     class="text-danger"
                     translate
                   >
                     Preferred Role is required
                   </small>
-                </div>  
+                </div>
               </ng-container>
               <small
                 *ngIf="entry.id == 'careerGoals'"
@@ -855,12 +909,7 @@
             <button mat-flat-button color="default" matStepperPrevious class="rounded-pill ml-2 bg-theme">
               Back
             </button>
-            <button
-              mat-flat-button
-              color="primary"
-              matStepperNext
-              class="rounded-pill ml-2"
-            >
+            <button mat-flat-button color="primary" matStepperNext class="rounded-pill ml-2">
               Next
             </button>
           </div>
@@ -896,12 +945,7 @@
             <button mat-flat-button color="default" matStepperPrevious class="rounded-pill ml-2 bg-theme">
               Back
             </button>
-            <button
-              mat-flat-button
-              color="primary"
-              matStepperNext
-              class="rounded-pill ml-2"
-            >
+            <button mat-flat-button color="primary" matStepperNext class="rounded-pill ml-2">
               Next
             </button>
           </div>

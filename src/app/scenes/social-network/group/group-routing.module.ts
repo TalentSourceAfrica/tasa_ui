@@ -3,7 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { extract } from '@app/i18n';
 import { GroupComponent } from './group.component';
 
-
 const routes: Routes = [
   {
     path: '',
@@ -16,6 +15,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class GroupRoutingModule { }
+export class GroupRoutingModule {}

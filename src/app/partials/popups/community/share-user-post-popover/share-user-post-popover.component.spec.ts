@@ -8,9 +8,8 @@ describe('ShareUserPostPopoverComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ShareUserPostPopoverComponent ]
-    })
-    .compileComponents();
+      declarations: [ShareUserPostPopoverComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

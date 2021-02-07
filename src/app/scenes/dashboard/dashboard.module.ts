@@ -17,7 +17,6 @@ import { RouterModule } from '@angular/router';
 import { ShowApplicantsModule } from '@app/partials/popups/recruiter/show-applicants/show-applicants.module';
 import { RightSideModule } from '@app/partials/right-side/right-side.module';
 
-
 @NgModule({
   imports: [
     CommonModule,
@@ -33,7 +32,7 @@ import { RightSideModule } from '@app/partials/right-side/right-side.module';
     ShowApplicantsModule,
     MatSortModule,
     MatPaginatorModule,
-    RightSideModule
+    RightSideModule,
   ],
   declarations: [DashboardComponent],
 })

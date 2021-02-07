@@ -17,7 +17,6 @@ import { LeftSideModule } from '@app/partials/left-side/left-side.module';
 import { RightSideModule } from '@app/partials/right-side/right-side.module';
 import { CreateGroupPopupModule } from '@app/partials/popups/group/create-group-popup/create-group-popup.module';
 
-
 @NgModule({
   imports: [
     CommonModule,
@@ -34,7 +33,7 @@ import { CreateGroupPopupModule } from '@app/partials/popups/group/create-group-
     NgxDocViewerModule,
     LeftSideModule,
     RightSideModule,
-    CreateGroupPopupModule
+    CreateGroupPopupModule,
   ],
   declarations: [ProfileComponent],
   providers: [SocialnetworkService],

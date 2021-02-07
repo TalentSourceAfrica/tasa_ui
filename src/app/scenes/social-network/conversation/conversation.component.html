@@ -206,37 +206,38 @@
       <div class="messages" [ngClass]="{ 'd-flex align-items-center': connectionConfig.currentMsgList.length === 0 }">
         <ul *ngIf="connectionConfig.currentMsgList.length && !connectionConfig.isFetchingMsgList">
           <li
-            [ngClass]="{ replies: item.from === user.email, sent: item.to === user.email || item.to === null , 'last-msg': last }"
+            [ngClass]="{
+              replies: item.from === user.email,
+              sent: item.to === user.email || item.to === null,
+              'last-msg': last
+            }"
             *ngFor="let item of connectionConfig.currentMsgList; let last = last"
             (mouseover)="item.mouseOvered = true"
             (mouseout)="item.mouseOvered = false"
           >
-          <ng-container *ngIf="item.groupId === ''">
-            <img
-              *ngIf="item.from === user.email"
-              src="{{
-                user.image != ''
-                  ? user.image
-                  : 'https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg'
-              }}"
-              alt="User Image"
-            />
-          </ng-container>
-          <ng-container *ngIf="item.groupId !== ''">
-            <img
-              src="{{getUserImageForGroupMsg(item)}}"
-              alt="User Image"
-            />
-          </ng-container>
+            <ng-container *ngIf="item.groupId === ''">
               <img
-                *ngIf="item.to === user.email"
+                *ngIf="item.from === user.email"
                 src="{{
-                  connectionConfig.selectedUser?.imageUrl
-                    ? connectionConfig.selectedUser?.imageUrl
+                  user.image != ''
+                    ? user.image
                     : 'https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg'
                 }}"
                 alt="User Image"
               />
+            </ng-container>
+            <ng-container *ngIf="item.groupId !== ''">
+              <img src="{{ getUserImageForGroupMsg(item) }}" alt="User Image" />
+            </ng-container>
+            <img
+              *ngIf="item.to === user.email"
+              src="{{
+                connectionConfig.selectedUser?.imageUrl
+                  ? connectionConfig.selectedUser?.imageUrl
+                  : 'https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg'
+              }}"
+              alt="User Image"
+            />
 
             <p>
               <span *ngIf="item.contentType === 'reply-on-reply'" [innerHtml]="item.contentUrl"></span>

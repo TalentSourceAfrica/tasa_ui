@@ -179,11 +179,10 @@ export class JobViewComponent implements OnInit {
       }
     });
   }
-  
+
   ngOnDestroy(): void {
     //Called once, before the instance is destroyed.
     //Add 'implements OnDestroy' to the class.
-    
   }
   get user(): any | null {
     const credentials = this.credentialsService.credentials;

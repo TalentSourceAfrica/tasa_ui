@@ -1,9 +1,7 @@
 <div class="profile-wrapper">
   <div class="main-container">
     <div class="timeline pl-2">
-      <div
-        class="timeline-right mb-4 max-vertical-h-65 overflow-x-hidden stylishSlimScroll"
-      >
+      <div class="timeline-right mb-4 max-vertical-h-65 overflow-x-hidden stylishSlimScroll">
         <div class="status box share-status-box">
           <div class="row status-main no-gutters">
             <img
@@ -59,7 +57,10 @@
                 </div>
               </div>
               <div class="row album-content no-gutters">
-                <div class="mb-2 mt-1 col-12" [class.pl-3]="popupData.post.imageUrl == '' && popupData.post.videoUrl == ''">
+                <div
+                  class="mb-2 mt-1 col-12"
+                  [class.pl-3]="popupData.post.imageUrl == '' && popupData.post.videoUrl == ''"
+                >
                   {{ popupData.post.content }}
                 </div>
                 <div class="pl-2 text-center" *ngIf="popupData.post.imageUrl != ''">
@@ -74,47 +75,50 @@
                     Your browser does not support the video tag.
                   </video>
                 </div>
-                  <div *ngIf="popupData.post.sharePostId != ''" class="album-box share-status-box sharedPost mx-2 mb-4">
-                    <div class="status-main pt-3">
-                      <img
-                        matTooltipPosition="below"
-                        [matTooltip]="popupData.post.userName"
-                        [routerLink]="['/social-network/profile/', popupData.post.tasaId]"
-                        routerLinkActive="router-link-active"
-                        [src]="popupData.post.userImageUrl"
-                        class="status-img curPoint"
-                      />
-                      <div class="album-detail">
-                        <div class="album-title">
-                          <strong
-                            ><a
-                              [routerLink]="['/social-network/profile/', popupData.post.tasaId]"
-                              routerLinkActive="router-link-active"
-                              >{{ popupData.post.userName }}</a
-                            ></strong
-                          >
-                        </div>
-                        <div class="album-date">{{ getNotiDay(popupData.post) }}</div>
+                <div *ngIf="popupData.post.sharePostId != ''" class="album-box share-status-box sharedPost mx-2 mb-4">
+                  <div class="status-main pt-3">
+                    <img
+                      matTooltipPosition="below"
+                      [matTooltip]="popupData.post.userName"
+                      [routerLink]="['/social-network/profile/', popupData.post.tasaId]"
+                      routerLinkActive="router-link-active"
+                      [src]="popupData.post.userImageUrl"
+                      class="status-img curPoint"
+                    />
+                    <div class="album-detail">
+                      <div class="album-title">
+                        <strong
+                          ><a
+                            [routerLink]="['/social-network/profile/', popupData.post.tasaId]"
+                            routerLinkActive="router-link-active"
+                            >{{ popupData.post.userName }}</a
+                          ></strong
+                        >
                       </div>
-                    </div>
-                    <div class="row album-content no-gutters">
-                      <div class="mb-2 mt-1 col-12" [class.pl-3]="popupData.post.sharePostImage == '' && popupData.post.sharePostVideo == ''">
-                        {{ popupData.post.sharePostContent }}
-                      </div>
-                      <div class="pl-2 text-center" *ngIf="popupData.post.sharePostImage != ''">
-                        <a [href]="popupData.post.sharePostImage" target="_blank">
-                          <img [src]="popupData.post.sharePostImage" width="250" height="250" class="p-2 curPoint" />
-                        </a>
-                      </div>
-                      <div class="pl-2 text-center" *ngIf="popupData.post.sharePostVideo != ''">
-                        <video height="240" controls>
-                          <source [src]="popupData.post.sharePostVideo" type="video/mp4" />
-                          <source [src]="popupData.post.sharePostVideo" type="video/ogg" />
-                          Your browser does not support the video tag.
-                        </video>
-                      </div>
+                      <div class="album-date">{{ getNotiDay(popupData.post) }}</div>
                     </div>
                   </div>
+                  <div class="row album-content no-gutters">
+                    <div
+                      class="mb-2 mt-1 col-12"
+                      [class.pl-3]="popupData.post.sharePostImage == '' && popupData.post.sharePostVideo == ''"
+                    >
+                      {{ popupData.post.sharePostContent }}
+                    </div>
+                    <div class="pl-2 text-center" *ngIf="popupData.post.sharePostImage != ''">
+                      <a [href]="popupData.post.sharePostImage" target="_blank">
+                        <img [src]="popupData.post.sharePostImage" width="250" height="250" class="p-2 curPoint" />
+                      </a>
+                    </div>
+                    <div class="pl-2 text-center" *ngIf="popupData.post.sharePostVideo != ''">
+                      <video height="240" controls>
+                        <source [src]="popupData.post.sharePostVideo" type="video/mp4" />
+                        <source [src]="popupData.post.sharePostVideo" type="video/ogg" />
+                        Your browser does not support the video tag.
+                      </video>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

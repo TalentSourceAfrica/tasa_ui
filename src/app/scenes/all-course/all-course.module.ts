@@ -14,7 +14,6 @@ import { EditCoursePopupComponent } from '@app/partials/popups/course/edit-cours
 import { LeftSideModule } from '@app/partials/left-side/left-side.module';
 import { RightSideModule } from '@app/partials/right-side/right-side.module';
 
-
 @NgModule({
   imports: [
     CommonModule,
@@ -27,7 +26,7 @@ import { RightSideModule } from '@app/partials/right-side/right-side.module';
     RouterModule,
     AllCourseRoutingModule,
     LeftSideModule,
-    RightSideModule
+    RightSideModule,
   ],
   declarations: [AllCourseComponent, EditCoursePopupComponent],
   entryComponents: [EditCoursePopupComponent],

@@ -21,3 +21,9 @@ export const jobsSearchData = {
 };
 
 export const applicantJobStatus = ['Applied', 'Under Review', 'Accepted', 'Rejected', 'Withdrawn'];
+
+export const flutterWaveKeys = {
+  'Public Key': 'FLWPUBK_TEST-ce36b868ed8ed63aefaec7ebf85d0117-X',
+  'Secret Key': 'FLWSECK_TEST-89895f07ab4316fc9858e2f9b88eca2d-X',
+  'Encryption Key': 'FLWSECK_TEST24647b096e99',
+};

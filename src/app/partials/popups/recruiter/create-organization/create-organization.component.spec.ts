@@ -8,9 +8,8 @@ describe('CreateOrganizationComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CreateOrganizationComponent ]
-    })
-    .compileComponents();
+      declarations: [CreateOrganizationComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

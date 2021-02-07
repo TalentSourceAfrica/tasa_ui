@@ -144,7 +144,7 @@ export class ProfileComponent implements OnInit {
             '{fromUserId}': $t.user.email,
             '{toUserId}': $t.userConfig.user.email,
           });
-          $t.sharedService.configService.post(apiUrl,result.value).subscribe(
+          $t.sharedService.configService.post(apiUrl, result.value).subscribe(
             (response: any) => {
               $t.sharedService.uiService.showApiSuccessPopMsg('Request Send...!');
             },

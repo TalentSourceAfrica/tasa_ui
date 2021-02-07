@@ -143,8 +143,8 @@ $light-blue: #523f6d80;
   }
 
   .promotion:hover > button {
-    border-color: $light-blue;;
-    background-color: $light-blue;;
+    border-color: $light-blue;
+    background-color: $light-blue;
   }
 
   .promotion > button::after {
@@ -163,7 +163,7 @@ $light-blue: #523f6d80;
 
   .summary ul li span {
     display: inline-block;
-    width: 30%;
+    width: 10%;
   }
 
   .summary ul li.total {
@@ -193,11 +193,6 @@ $light-blue: #523f6d80;
 
     .detail {
       width: 65%;
-    }
-
-    .promotion,
-    .summary {
-      width: 50%;
     }
 
     .checkout {

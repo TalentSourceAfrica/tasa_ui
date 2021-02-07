@@ -18,7 +18,11 @@
       >
         <div class="w90 d-flex align-items-center">
           <img
-            src="{{ user.imageUrl ? user.imageUrl : 'https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg'}}"
+            src="{{
+              user.imageUrl
+                ? user.imageUrl
+                : 'https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg'
+            }}"
             class="user-img"
             alt="{{ user.firstName }} {{ user.lastName }}"
           />

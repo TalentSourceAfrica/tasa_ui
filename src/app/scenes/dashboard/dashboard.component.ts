@@ -10,7 +10,7 @@ import { ShowApplicantsComponent } from '@app/partials/popups/recruiter/show-app
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -19,14 +19,14 @@ export class DashboardComponent implements OnInit {
   uds: any;
   postData: any = [];
   courses: any = [];
-  recommendedCourses:any = {
-    isFetching : false,
-    data:[]
-  }
-  recommendedJobs:any = {
-    isFetching : false,
-    data:[]
-  }
+  recommendedCourses: any = {
+    isFetching: false,
+    data: [],
+  };
+  recommendedJobs: any = {
+    isFetching: false,
+    data: [],
+  };
   jobApplications: any = [];
   postOptions: OwlOptions = {
     loop: true,
@@ -76,8 +76,15 @@ export class DashboardComponent implements OnInit {
   };
   matTableConfig: any = {
     data: [],
-    cols: ['organization', 'title', 'createdBy', 'applicationReceivedCount', 'applicationRejectedCount', 'applicationAcceptedCount'], 
-    resultsLength: 0
+    cols: [
+      'organization',
+      'title',
+      'createdBy',
+      'applicationReceivedCount',
+      'applicationRejectedCount',
+      'applicationAcceptedCount',
+    ],
+    resultsLength: 0,
   };
   matTabData: any = [];
 
@@ -102,19 +109,19 @@ export class DashboardComponent implements OnInit {
       },
       disableClose: false,
     });
-  }  
+  }
 
   getJobsForOrganization() {
     let $t = this;
     let api = $t.sharedService.urlService.apiCallWithParams('getJobsByOrg', {
-        '{orgId}': $t.user.orgId
+      '{orgId}': $t.user.orgId,
     });
     $t.sharedService.configService.get(api).subscribe(
       (response: any) => {
         $t.matTableConfig.data = response.responseObj;
         $t.matTableConfig.resultsLength = $t.matTableConfig.data.length;
       },
-      error => {
+      (error) => {
         $t.sharedService.uiService.showApiErrorPopMsg(error);
       }
     );
@@ -220,6 +227,6 @@ export class DashboardComponent implements OnInit {
     this.getRecommendedCourses();
     this.getRecommendedJobs();
     this.getJobsApplications();
-    this.user.type == 'Recruiter' ? this.getJobsForOrganization() : ''
+    this.user.type == 'Recruiter' ? this.getJobsForOrganization() : '';
   }
 }

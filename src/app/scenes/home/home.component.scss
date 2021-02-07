@@ -718,13 +718,13 @@ $grey: #7d7d7d;
       min-height: 190px;
     }
   }
-  .signup-slide-images{
+  .signup-slide-images {
     filter: blur(8px);
     -webkit-filter: blur(8px);
   }
-  .signup-slide-text{
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0, 0.4); /* Black w/opacity/see-through */
+  .signup-slide-text {
+    background-color: rgb(0, 0, 0); /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4); /* Black w/opacity/see-through */
     color: white;
     font-weight: bold;
     border: 3px solid #f1f1f1;

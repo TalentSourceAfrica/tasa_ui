@@ -21,9 +21,9 @@ import { JobsAdminRoutingModule } from './jobs-admin-routing.module';
     I18nModule,
     MaterialModule,
     RouterModule,
-    JobsAdminRoutingModule
+    JobsAdminRoutingModule,
   ],
   declarations: [JobsAdminComponent],
   schemas: [NO_ERRORS_SCHEMA],
 })
-export class JobsAdminModule { }
+export class JobsAdminModule {}

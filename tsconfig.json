@@ -16,6 +16,7 @@
     "lib": ["es2018", "dom"],
     "baseUrl": "./",
     "paths": {
+      // "@angular/*": ["../node_modules/@angular/*"],
       "@app/*": ["src/app/*"],
       "@core": ["src/app/@core"],
       "@core/*": ["src/app/@core/*"],
@@ -28,6 +29,8 @@
     "fullTemplateTypeCheck": true,
     "strictInjectionParameters": true,
     "preserveWhitespaces": true,
-    "enableIvy": true
+    "enableIvy": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": false
   }
 }

@@ -1,10 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'groupFilter'
+  name: 'groupFilter',
 })
 export class GroupFilterPipe implements PipeTransform {
-
   transform(value: any, args: string): unknown {
     if (!value) return null;
     if (!args) return value;
@@ -13,5 +12,4 @@ export class GroupFilterPipe implements PipeTransform {
       return JSON.stringify(item).toLowerCase().includes(args);
     });
   }
-
 }

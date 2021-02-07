@@ -1,8 +1,8 @@
 <div class="jobs-admin-wrapper">
   <mat-drawer-container class="jobs-admin-wrapper" [hasBackdrop]="false">
-  	<mat-drawer #filterDrawer [position]="'end'" [mode]="'over'" class="flow-hidden">
-  		<div id="course-filter" style="width: 300px;">
-         <div class="row d-flex align-items-center border-bottom">
+    <mat-drawer #filterDrawer [position]="'end'" [mode]="'over'" class="flow-hidden">
+      <div id="course-filter" style="width: 300px;">
+        <div class="row d-flex align-items-center border-bottom">
           <div class="col-9">
             <p class="m-0 pl-2 h5 text-primary">Filters</p>
           </div>
@@ -11,236 +11,239 @@
               <mat-icon class="text-primary">clear</mat-icon>
             </button>
           </div>
-         </div>
-         <ng-template [ngTemplateOutlet]="filterActions"></ng-template>
         </div>
-  	</mat-drawer>
-  	<mat-drawer-content>
-  		<div class="container">
-  		  <ol class="breadcrumb mt-3">
-		    <li class="breadcrumb-item curPoint"><a [routerLink]="['/home']">Home</a></li>
-		    <li class="breadcrumb-item active">Jobs</li>
-		  </ol>
-		  <div class="sec-title pb-0">
-		    <div class="title" *ngIf="allJobs.length == 0">All Jobs</div>
-		    <div class="title" *ngIf="allJobs.length">
-		      All Jobs : <strong>{{ allJobs.length }} Jobs Found</strong>
-		    </div>
-		  </div>
-		  <section *ngIf="!isLoading" class="mt-2">
-		  	<div class="row no-gutters">
-			  	<div class="position-absolute mt-2 ml-2">
-	              <button
-	                mat-mini-fab
-	                color="primary"
-	                style="z-index: 9;"
-	                class="mr-1"
-	                (click)="filterDrawer.open()"
-	                matTooltipPosition="below"
-	                matTooltip="Show Filter"
-	                *ngIf="!isLoading && allJobs.length"
-	              >
-	                <mat-icon>filter_list</mat-icon>
-	              </button>
+        <ng-template [ngTemplateOutlet]="filterActions"></ng-template>
+      </div>
+    </mat-drawer>
+    <mat-drawer-content>
+      <div class="container">
+        <ol class="breadcrumb mt-3">
+          <li class="breadcrumb-item curPoint"><a [routerLink]="['/home']">Home</a></li>
+          <li class="breadcrumb-item active">Jobs</li>
+        </ol>
+        <div class="sec-title pb-0">
+          <div class="title" *ngIf="allJobs.length == 0">All Jobs</div>
+          <div class="title" *ngIf="allJobs.length">
+            All Jobs : <strong>{{ allJobs.length }} Jobs Found</strong>
+          </div>
+        </div>
+        <section *ngIf="!isLoading" class="mt-2">
+          <div class="row no-gutters">
+            <div class="position-absolute mt-2 ml-2">
+              <button
+                mat-mini-fab
+                color="primary"
+                style="z-index: 9;"
+                class="mr-1"
+                (click)="filterDrawer.open()"
+                matTooltipPosition="below"
+                matTooltip="Show Filter"
+                *ngIf="!isLoading && allJobs.length"
+              >
+                <mat-icon>filter_list</mat-icon>
+              </button>
 
-	              <button
-	                mat-mini-fab
-	                color="primary"
-	                style="z-index: 9;"
-	                class="mr-1"
-	                *ngIf="!isLoading && checkFilter() != 0"
-	                matTooltipPosition="below"
-	                matTooltip="Remove Filter"
-	                (click)="removeFilter()"
-	              >
-	                <mat-icon>clear</mat-icon>
-	              </button>
+              <button
+                mat-mini-fab
+                color="primary"
+                style="z-index: 9;"
+                class="mr-1"
+                *ngIf="!isLoading && checkFilter() != 0"
+                matTooltipPosition="below"
+                matTooltip="Remove Filter"
+                (click)="removeFilter()"
+              >
+                <mat-icon>clear</mat-icon>
+              </button>
 
-	              <button
-	                mat-mini-fab
-	                color="primary"
-	                style="z-index: 9;"
-	                class="d-none mr-1"
-	                *ngIf="!isLoading && checkFilter() != 0"
-	                matTooltipPosition="below"
-	                matTooltip="Remove Filter"
-	                (click)="removeFilter()"
-	              >
-	                <mat-icon>clear</mat-icon>
-	              </button>
-	            </div>
-	            <mat-paginator
-	              class="col-12"
-	              [length]="length"
-	              [pageSize]="pageSize"
-	              [pageSizeOptions]="pageSizeOptions"
-	              (page)="pageEvent = pagination($event)"
-	              *ngIf="!isLoading">
-	            </mat-paginator>
-			  </div>
-			  <div class="row no-gutters mt-2 mb-1">
-				<div class="col text-right">
-				  <div id="toggleBar" class="btn-group btn-group-sm border border-secondary" role="group">
-					<button
-					  [class.current]="currentView == 1"
-					  (click)="changeAssetView(1)"
-					  matTooltip="Grid View"
-					  matTooltipPosition="below"
-					  type="button"
-					  class="btn btn-secondary py-2 px-3"
-					>
-					  <i class="fa fas fa-th-large"></i>
-					</button>
-					<button
-					  [class.current]="currentView == 2"
-					  (click)="changeAssetView(2)"
-					  matTooltip="List View"
-					  matTooltipPosition="below"
-					  type="button"
-					  class="btn btn-secondary py-2 px-3"
-					>
-					  <i class="fa fas fa-th-list"></i>
-					</button>
-				  </div>
-				</div>
-			</div>
-		  </section>	
-		  <section>
-		  	<ng-container *ngIf="isLoading">
-			  	<div class="row no-gutters">
-	              <div
-	                class="col-md-4 col-lg-6 col-sm-8 animated fadeIn"
-	                *ngFor="let item of [1, 2, 3, 4]">
-	                <div class="card">
-	                  <div class="card-img skeleton"></div>
-	                  <div class="card-body">
-	                    <h2 class="card-title skeleton"></h2>
-	                    <p class="card-intro skeleton"></p>
-	                    <h2 class="card-title skeleton"></h2>
-	                    <h2 class="card-title skeleton"></h2>
-	                  </div>
-	                </div>
-	              </div>
-	            </div>  
-            </ng-container>
-		    <ng-container *ngIf="!isLoading && allJobs.length">
-		      <div class="row min-vertical-h-80 max-vertical-h-80 stylishSlimScroll flow-y-auto flow-x-hidden mr-1">
-		        <ng-container *ngIf="currentView == 1">
-                  <ng-template [ngTemplateOutlet]="jobsGridView"></ng-template>
-                </ng-container>
-                <ng-container *ngIf="currentView == 2">
-                  <ng-template [ngTemplateOutlet]="jobsListView"></ng-template>
-                </ng-container>
-		      </div>
-		    </ng-container>
-		     <ng-container *ngIf="!isLoading && allJobs.length == 0 && checkFilter() == 0">
-              <div class="text-center m-auto animated fadeIn mt-2">
-                <div class="col-12 text-center">
-                  <img src="../../../assets/images/no-record.gif" style="height: 300px;" class="d-block m-auto" />
-                  <h6 class="text-primary">No Jobs Yet...!</h6>
+              <button
+                mat-mini-fab
+                color="primary"
+                style="z-index: 9;"
+                class="d-none mr-1"
+                *ngIf="!isLoading && checkFilter() != 0"
+                matTooltipPosition="below"
+                matTooltip="Remove Filter"
+                (click)="removeFilter()"
+              >
+                <mat-icon>clear</mat-icon>
+              </button>
+            </div>
+            <mat-paginator
+              class="col-12"
+              [length]="length"
+              [pageSize]="pageSize"
+              [pageSizeOptions]="pageSizeOptions"
+              (page)="pageEvent = pagination($event)"
+              *ngIf="!isLoading"
+            >
+            </mat-paginator>
+          </div>
+          <div class="row no-gutters mt-2 mb-1">
+            <div class="col text-right">
+              <div id="toggleBar" class="btn-group btn-group-sm border border-secondary" role="group">
+                <button
+                  [class.current]="currentView == 1"
+                  (click)="changeAssetView(1)"
+                  matTooltip="Grid View"
+                  matTooltipPosition="below"
+                  type="button"
+                  class="btn btn-secondary py-2 px-3"
+                >
+                  <i class="fa fas fa-th-large"></i>
+                </button>
+                <button
+                  [class.current]="currentView == 2"
+                  (click)="changeAssetView(2)"
+                  matTooltip="List View"
+                  matTooltipPosition="below"
+                  type="button"
+                  class="btn btn-secondary py-2 px-3"
+                >
+                  <i class="fa fas fa-th-list"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section>
+          <ng-container *ngIf="isLoading">
+            <div class="row no-gutters">
+              <div class="col-md-4 col-lg-6 col-sm-8 animated fadeIn" *ngFor="let item of [1, 2, 3, 4]">
+                <div class="card">
+                  <div class="card-img skeleton"></div>
+                  <div class="card-body">
+                    <h2 class="card-title skeleton"></h2>
+                    <p class="card-intro skeleton"></p>
+                    <h2 class="card-title skeleton"></h2>
+                    <h2 class="card-title skeleton"></h2>
+                  </div>
                 </div>
               </div>
-            </ng-container>
-		  </section>
-  		</div>	
-  	</mat-drawer-content>	
-  </mat-drawer-container>	
+            </div>
+          </ng-container>
+          <ng-container *ngIf="!isLoading && allJobs.length">
+            <div class="row min-vertical-h-80 max-vertical-h-80 stylishSlimScroll flow-y-auto flow-x-hidden mr-1">
+              <ng-container *ngIf="currentView == 1">
+                <ng-template [ngTemplateOutlet]="jobsGridView"></ng-template>
+              </ng-container>
+              <ng-container *ngIf="currentView == 2">
+                <ng-template [ngTemplateOutlet]="jobsListView"></ng-template>
+              </ng-container>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="!isLoading && allJobs.length == 0 && checkFilter() == 0">
+            <div class="text-center m-auto animated fadeIn mt-2">
+              <div class="col-12 text-center">
+                <img src="../../../assets/images/no-record.gif" style="height: 300px;" class="d-block m-auto" />
+                <h6 class="text-primary">No Jobs Yet...!</h6>
+              </div>
+            </div>
+          </ng-container>
+        </section>
+      </div>
+    </mat-drawer-content>
+  </mat-drawer-container>
 </div>
 
 <ng-template #jobsGridView>
-	<div class="col-md-6 col-xl-6 col-sm-12 animated fadeIn" *ngFor="let job of allJobs; let i = index">
-	  <div class="card d-flex align-items-center">
-	    <div class="card-img">
-	      <img src="../../../assets/images/TSA_logo_new.small.png" />
-	    </div>
-	    <div class="card-body w100 pt-3">
-	      <div class="row">
-	        <div class="col-12">
-	          <div class="row mx-auto">
-	            <div class="row mx-auto card-title w75 pb-2 m-0">
-	              <h6 class="text-truncate" [title]="job.title">
-	                {{ job.title }}
-	                <span
-	                  [attr.data-desc]="job.description"
-	                  class="material-icons pl-1 pt-1 text-muted fa-lg curPoint job-description"
-	                  >info
-	                </span>
-	              </h6>
-	            </div>
-	            <div class="w25 pt-1 text-right">
-	              <span
-	                class="badge h4 p-1"
-	                [ngClass]="{
-	                  'badge-success': job.status == 'Active',
-	                  'badge-danger': job.status == 'Inactive'
-	                }"
-	                >{{ job.status }}</span
-	              >
-	            </div>
-	          </div>
-	          <div class="row mx-auto">
-	            <div class="pb-2 w50 text-primary text-bold caps m-0">Location : &nbsp;</div>
-	            <div>{{ job.location }}</div>
-	          </div>
-	          <div class="row mx-auto">
-	            <div class="pb-2 w50 text-primary text-bold caps m-0">Created By : &nbsp;</div>
-	            <div>{{ job.createdBy }}</div>
-	          </div>
-	          <div class="row mx-auto">
-	            <div class="w50 pb-2 text-primary text-bold caps m-0">Experience :</div>
-	            <div>{{ job.experienceFrom }} - {{ job.experienceTo }} Years</div>
-	          </div>
-	          <div class="row mx-auto">
-	            <div class="w50 text-primary text-bold caps pb-2 m-0">No of Openings :</div>
-	            <div>{{ job.countOfOpenings }}</div>
-	          </div>
-	          <marquee class="card-intro mt-2" style="display: flex;">
-	            <span class="pr-1 p-1" *ngFor="let item of job.tags">
-	              <badge class="badge badge-info">{{ item }}</badge>
-	            </span>
-	          </marquee>
-	        </div>
-	      </div>
-	    </div>
-	    <div class="w100 border-top p-2">
-	      <div class="text-center">
-	        <button
-	        mat-mini-fab
-	        color="primary"
-	        matTooltipPosition="below"
-	        class="mr-2"
-	        matTooltip="View Job"
-	        (click)="viewJob(job)"
-	      >
-	        <mat-icon class="mb-1">remove_red_eye</mat-icon>
-	      </button>
-	        <button
-	          *ngIf="job.status == 'Active'"
-	          mat-flat-button
-	          color="primary"
-	          (click)="changeJobStatus(job, 'Inactive')"
-	          class="rounded-pill ml-2"
-	        >
-	          Inactive
-	        </button>
-	        <button
-	          *ngIf="job.status == 'Inactive'"
-	          mat-flat-button
-	          color="primary"
-	          (click)="changeJobStatus(job, 'Active')"
-	          class="rounded-pill ml-2"
-	        >
-	          Active
-	        </button>
-	      </div>
-	    </div>
-	  </div>
-	</div>
-</ng-template>	
+  <div class="col-md-6 col-xl-6 col-sm-12 animated fadeIn" *ngFor="let job of allJobs; let i = index">
+    <div class="card d-flex align-items-center">
+      <div class="card-img">
+        <img src="../../../assets/images/TSA_logo_new.small.png" />
+      </div>
+      <div class="card-body w100 pt-3">
+        <div class="row">
+          <div class="col-12">
+            <div class="row mx-auto">
+              <div class="row mx-auto card-title w75 pb-2 m-0">
+                <h6 class="text-truncate" [title]="job.title">
+                  {{ job.title }}
+                  <span
+                    [attr.data-desc]="job.description"
+                    class="material-icons pl-1 pt-1 text-muted fa-lg curPoint job-description"
+                    >info
+                  </span>
+                </h6>
+              </div>
+              <div class="w25 pt-1 text-right">
+                <span
+                  class="badge h4 p-1"
+                  [ngClass]="{
+                    'badge-success': job.status == 'Active',
+                    'badge-danger': job.status == 'Inactive'
+                  }"
+                  >{{ job.status }}</span
+                >
+              </div>
+            </div>
+            <div class="row mx-auto">
+              <div class="pb-2 w50 text-primary text-bold caps m-0">Location : &nbsp;</div>
+              <div>{{ job.location }}</div>
+            </div>
+            <div class="row mx-auto">
+              <div class="pb-2 w50 text-primary text-bold caps m-0">Created By : &nbsp;</div>
+              <div>{{ job.createdBy }}</div>
+            </div>
+            <div class="row mx-auto">
+              <div class="w50 pb-2 text-primary text-bold caps m-0">Experience :</div>
+              <div>{{ job.experienceFrom }} - {{ job.experienceTo }} Years</div>
+            </div>
+            <div class="row mx-auto">
+              <div class="w50 text-primary text-bold caps pb-2 m-0">No of Openings :</div>
+              <div>{{ job.countOfOpenings }}</div>
+            </div>
+            <marquee class="card-intro mt-2" style="display: flex;">
+              <span class="pr-1 p-1" *ngFor="let item of job.tags">
+                <badge class="badge badge-info">{{ item }}</badge>
+              </span>
+            </marquee>
+          </div>
+        </div>
+      </div>
+      <div class="w100 border-top p-2">
+        <div class="text-center">
+          <button
+            mat-mini-fab
+            color="primary"
+            matTooltipPosition="below"
+            class="mr-2"
+            matTooltip="View Job"
+            (click)="viewJob(job)"
+          >
+            <mat-icon class="mb-1">remove_red_eye</mat-icon>
+          </button>
+          <button
+            *ngIf="job.status == 'Active'"
+            mat-flat-button
+            color="primary"
+            (click)="changeJobStatus(job, 'Inactive')"
+            class="rounded-pill ml-2"
+          >
+            Inactive
+          </button>
+          <button
+            *ngIf="job.status == 'Inactive'"
+            mat-flat-button
+            color="primary"
+            (click)="changeJobStatus(job, 'Active')"
+            class="rounded-pill ml-2"
+          >
+            Active
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
 
 <ng-template #jobsListView>
   <mat-accordion>
-    <div class="col-12 animated fadeIn w100 mt-4 ml-2 mb-1" id="jobPanel-{{ i }}" *ngFor="let job of allJobs; let i = index">
+    <div
+      class="col-12 animated fadeIn w100 mt-4 ml-2 mb-1"
+      id="jobPanel-{{ i }}"
+      *ngFor="let job of allJobs; let i = index"
+    >
       <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" class="jobs-panel">
         <mat-expansion-panel-header class="d-flex align-items-center">
           <mat-panel-title class="pt-3">
@@ -341,24 +344,24 @@
             </div>
           </div>
           <div class="text-center mt-4">
-           <button
-	          *ngIf="job.status == 'Active'"
-	          mat-flat-button
-	          color="primary"
-	          (click)="changeJobStatus(job, 'Inactive')"
-	          class="rounded-pill ml-2"
-	        >
-	          Inactive
-	        </button>
-	        <button
-	          *ngIf="job.status == 'Inactive'"
-	          mat-flat-button
-	          color="primary"
-	          (click)="changeJobStatus(job, 'Active')"
-	          class="rounded-pill ml-2"
-	        >
-	          Active
-	        </button>
+            <button
+              *ngIf="job.status == 'Active'"
+              mat-flat-button
+              color="primary"
+              (click)="changeJobStatus(job, 'Inactive')"
+              class="rounded-pill ml-2"
+            >
+              Inactive
+            </button>
+            <button
+              *ngIf="job.status == 'Inactive'"
+              mat-flat-button
+              color="primary"
+              (click)="changeJobStatus(job, 'Active')"
+              class="rounded-pill ml-2"
+            >
+              Active
+            </button>
           </div>
         </div>
       </mat-expansion-panel>
