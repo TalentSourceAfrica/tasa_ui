@@ -27,10 +27,16 @@ export class BaseConfig {
 
   getDomain() {
     if (location.hostname.indexOf('localhost') === 0) {
+<<<<<<< HEAD
       // return '35.247.161.145';
       return '35.247.90.252:8080';
+=======
+      return '34.86.93.22';
+    } else if (location.hostname.indexOf('34.86.93.22') !== -1) {
+      return '34.86.93.22'; // Pre Prod Env
+>>>>>>> c12aa4b2f9edefc1db9b18b558f5f33e6e604924
     } else {
-      return '35.247.90.252:8080';
+      return '35.247.90.252:8080' // Prod Env
     }
   }
 
