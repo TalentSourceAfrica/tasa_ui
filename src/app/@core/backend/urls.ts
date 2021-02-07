@@ -20,6 +20,7 @@ export const urls: any = {
   activateUser: '/users/activate/{userId}', // PO
   deactivateUser: '/users/deactivate/{userId}', // PO
   searchUser: '/users/search/{page}/{size}/{searchText}', // G
+  searchFreelancer: '/users/freelancer/search/{page}/{size}/{searchText}', // G
 
   // location
   getCountry: '/locations', // G

@@ -16,6 +16,9 @@
       </div>
 
       <div class="card-body">
+        <h3 class="h3-class margin-btm text-center">Be visible, belong, and be you</h3>
+        <p class="text-center w50 mx-auto font-weight-bold">You’re talented ambitious and driven but often feel undervalued,
+unwelcome, invisible or shuttered from the opportunities you desire</p>
         <!-- <a href="student-dashboard.html" class="btn btn-light btn-block">
           <span class="fab fa-google mr-2"></span>
           Continue with Google
@@ -464,139 +467,152 @@
   <mat-horizontal-stepper [linear]="'true'" #stepper>
     <form [formGroup]="userDetailsForm" novalidate>
       <mat-step>
+        <div class="pt-3 pl-2 pr-2 pb-2 min-vertical-h-35 max-vertical-h-35 flow-auto stylishSlimScroll">
+          <div class="w50 mx-auto"> 
+            <div class="form-group d-block">
+              <label class="form-label" for="email">Email address <sup class="text-danger">*</sup></label>
+              <div class="input-group input-group-merge">
+                <input
+                  id="email"
+                  type="email"
+                  formControlName="email"
+                  class="form-control form-control-prepended"
+                  placeholder="Your email address"
+                  (blur)="checkEmail()"
+                  [ngClass]="{ 'ng-invalid ng-touched': !isEmailAvailable }"
+                />
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <span class="far fa-envelope"></span>
+                  </div>
+                </div>
+              </div>
+              <small
+                [hidden]="userDetailsForm.controls.email.valid || userDetailsForm.controls.email.untouched"
+                class="text-danger"
+                translate
+              >
+                Email is required
+              </small>
+              <small [hidden]="isEmailAvailable" class="text-danger" translate>
+                Email Address already exists
+              </small>
+            </div>
+            <div class="form-group d-block">
+              <label class="form-label" for="password">Password <sup class="text-danger">*</sup></label>
+              <div class="input-group input-group-merge">
+                <input
+                  id="password"
+                  type="password"
+                  formControlName="password"
+                  class="form-control form-control-prepended"
+                  placeholder="Choose a password"
+                />
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <span class="fas fa-key"></span>
+                  </div>
+                </div>
+              </div>
+              <small
+                [hidden]="userDetailsForm.controls.password.valid || userDetailsForm.controls.password.untouched"
+                class="text-danger"
+                translate
+              >
+                Password is required
+              </small>
+            </div>
+            <div class="form-group d-block">
+              <label class="form-label" for="password">Confirm Password <sup class="text-danger">*</sup></label>
+              <div class="input-group input-group-merge">
+                <input
+                  id="confirmPassword"
+                  type="password"
+                  formControlName="confirmPassword"
+                  class="form-control form-control-prepended"
+                  placeholder="Type password"
+                />
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <span class="fas fa-key"></span>
+                  </div>
+                </div>
+              </div>
+              <small
+                *ngIf="
+                  !userDetailsForm.controls.confirmPassword.untouched &&
+                  userDetailsForm.controls.confirmPassword.errors?.required
+                "
+                class="text-danger"
+                translate
+              >
+                Confirm Password is required
+              </small>
+              <small *ngIf="userDetailsForm.controls.confirmPassword.errors?.mustMatch" class="text-danger" translate>
+                Confirm Password must match
+              </small>
+            </div>
+          </div>  
+        </div>
+        <div class="text-center">
+          <button mat-flat-button color="primary" matStepperNext class="rounded-pill ml-2 w30">
+            Next
+          </button>
+        </div>
+      </mat-step>
+      <mat-step>
         <div class="pt-3 pl-2 pr-2 pb-2 min-vertical-h-40 max-vertical-h-40 flow-auto stylishSlimScroll">
-          <div class="form-group">
-            <label class="form-label" for="name">First Name <sup class="text-danger">*</sup></label>
-            <div class="input-group input-group-merge">
-              <input
-                id="name"
-                type="text"
-                formControlName="firstName"
-                class="form-control form-control-prepended"
-                placeholder="Your first name"
-              />
-              <div class="input-group-prepend">
-                <div class="input-group-text">
-                  <span class="far fa-user"></span>
+          <div class="d-flex">
+            <div class="form-group">
+              <label class="form-label" for="name">First Name <sup class="text-danger">*</sup></label>
+              <div class="input-group input-group-merge">
+                <input
+                  id="name"
+                  type="text"
+                  formControlName="firstName"
+                  class="form-control form-control-prepended"
+                  placeholder="Your first name"
+                />
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <span class="far fa-user"></span>
+                  </div>
                 </div>
               </div>
+              <small
+                [hidden]="userDetailsForm.controls.firstName.valid || userDetailsForm.controls.firstName.untouched"
+                class="text-danger"
+                translate
+              >
+                First Name is required
+              </small>
             </div>
-            <small
-              [hidden]="userDetailsForm.controls.firstName.valid || userDetailsForm.controls.firstName.untouched"
-              class="text-danger"
-              translate
-            >
-              First Name is required
-            </small>
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="name">Last Name <sup class="text-danger">*</sup></label>
-            <div class="input-group input-group-merge">
-              <input
-                id="name"
-                type="text"
-                formControlName="lastName"
-                class="form-control form-control-prepended"
-                placeholder="Your last name"
-              />
-              <div class="input-group-prepend">
-                <div class="input-group-text">
-                  <span class="far fa-user"></span>
+            <div class="form-group">
+              <label class="form-label" for="name">Last Name <sup class="text-danger">*</sup></label>
+              <div class="input-group input-group-merge">
+                <input
+                  id="name"
+                  type="text"
+                  formControlName="lastName"
+                  class="form-control form-control-prepended"
+                  placeholder="Your last name"
+                />
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <span class="far fa-user"></span>
+                  </div>
                 </div>
               </div>
+              <small
+                [hidden]="userDetailsForm.controls.lastName.valid || userDetailsForm.controls.lastName.untouched"
+                class="text-danger"
+                translate
+              >
+                Last Name is required
+              </small>
             </div>
-            <small
-              [hidden]="userDetailsForm.controls.lastName.valid || userDetailsForm.controls.lastName.untouched"
-              class="text-danger"
-              translate
-            >
-              Last Name is required
-            </small>
           </div>
-          <div class="form-group">
-            <label class="form-label" for="email">Email address <sup class="text-danger">*</sup></label>
-            <div class="input-group input-group-merge">
-              <input
-                id="email"
-                type="email"
-                formControlName="email"
-                class="form-control form-control-prepended"
-                placeholder="Your email address"
-                (blur)="checkEmail()"
-                [ngClass]="{ 'ng-invalid ng-touched': !isEmailAvailable }"
-              />
-              <div class="input-group-prepend">
-                <div class="input-group-text">
-                  <span class="far fa-envelope"></span>
-                </div>
-              </div>
-            </div>
-            <small
-              [hidden]="userDetailsForm.controls.email.valid || userDetailsForm.controls.email.untouched"
-              class="text-danger"
-              translate
-            >
-              Email is required
-            </small>
-            <small [hidden]="isEmailAvailable" class="text-danger" translate>
-              Email Address already exists
-            </small>
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="password">Password <sup class="text-danger">*</sup></label>
-            <div class="input-group input-group-merge">
-              <input
-                id="password"
-                type="password"
-                formControlName="password"
-                class="form-control form-control-prepended"
-                placeholder="Choose a password"
-              />
-              <div class="input-group-prepend">
-                <div class="input-group-text">
-                  <span class="fas fa-key"></span>
-                </div>
-              </div>
-            </div>
-            <small
-              [hidden]="userDetailsForm.controls.password.valid || userDetailsForm.controls.password.untouched"
-              class="text-danger"
-              translate
-            >
-              Password is required
-            </small>
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="password">Confirm Password <sup class="text-danger">*</sup></label>
-            <div class="input-group input-group-merge">
-              <input
-                id="confirmPassword"
-                type="password"
-                formControlName="confirmPassword"
-                class="form-control form-control-prepended"
-                placeholder="Type password"
-              />
-              <div class="input-group-prepend">
-                <div class="input-group-text">
-                  <span class="fas fa-key"></span>
-                </div>
-              </div>
-            </div>
-            <small
-              *ngIf="
-                !userDetailsForm.controls.confirmPassword.untouched &&
-                userDetailsForm.controls.confirmPassword.errors?.required
-              "
-              class="text-danger"
-              translate
-            >
-              Confirm Password is required
-            </small>
-            <small *ngIf="userDetailsForm.controls.confirmPassword.errors?.mustMatch" class="text-danger" translate>
-              Confirm Password must match
-            </small>
-          </div>
-          <div class="form-group">
+                    <div class="form-group">
             <label class="form-label" for="city">City <sup class="text-danger">*</sup></label>
             <div class="input-group input-group-merge">
               <input
@@ -693,15 +709,6 @@
               Postal Code is required
             </small>
           </div>
-        </div>
-        <div class="text-center">
-          <button mat-flat-button color="primary" matStepperNext class="rounded-pill ml-2">
-            Next
-          </button>
-        </div>
-      </mat-step>
-      <mat-step>
-        <div class="pt-3 pl-2 pr-2 pb-2 min-vertical-h-40 max-vertical-h-40 flow-auto stylishSlimScroll">
           <div class="form-group">
             <label class="form-label" for="highestDegree">Degree <sup class="text-danger">*</sup></label>
             <div class="input-group input-group-merge">

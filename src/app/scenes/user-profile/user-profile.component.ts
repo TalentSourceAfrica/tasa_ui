@@ -31,6 +31,8 @@ export class UserProfileComponent implements OnInit {
   organisationList: any = [];
   suportedFile: any = ['pdf', 'jpg', 'jpeg', 'png'];
   mom: any;
+  isFreelancer: boolean = false;
+  freeLancingDetailsForm: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -654,6 +656,120 @@ export class UserProfileComponent implements OnInit {
     },
   ];
 
+  freelancingDetails = [
+    {
+      id: 'fieldsOfExpertise',
+      label: 'Fields Of Expertise',
+      type: 'text',
+      formControlName: 'fieldsOfExpertise',
+      placeholder: 'Enter Fields Of Expertise',
+      prepend: 'fas fa-briefcase',
+      mandatory: true
+    },
+    {
+      id: 'pastGigs',
+      label: 'Previous Jobs',
+      type: 'text',
+      formControlName: 'pastGigs',
+      placeholder: 'Enter Previous jobs',
+      prepend: 'fas fa-briefcase',
+      mandatory: true
+    },
+    {
+      id: 'clients',
+      label: 'Clients',
+      type: 'text',
+      formControlName: 'clients',
+      placeholder: 'Enter Client Details',
+      prepend: 'fas fa-briefcase',
+      mandatory: false
+    },
+    {
+      id: 'memberSince',
+      label: 'Member Since',
+      type: 'date',
+      formControlName: 'memberSince',
+      placeholder: 'Enter Member Since',
+      prepend: 'fas fa-briefcase',
+      mandatory: true
+    },
+    {
+      id: 'countOfRating',
+      label: 'Count Of Rating',
+      type: 'number',
+      formControlName: 'countOfRating',
+      placeholder: 'Enter Count Of Rating',
+      prepend: 'fas fa-briefcase',
+      mandatory: false
+    },
+    {
+      id: 'averageRating',
+      label: 'Average Rating',
+      type: 'number',
+      formControlName: 'averageRating',
+      placeholder: 'Your Average Rating',
+      prepend: 'fas fa-briefcase',
+      mandatory: false
+    }
+  ];
+
+  pastGigsDetails = [
+    {
+      id: 'projectName',
+      label: 'Project Name',
+      type: 'text',
+      formControlName: 'projectName',
+      placeholder: 'Enter Project Name',
+      prepend: 'fas fa-briefcase',
+      mandatory: true
+    },
+    {
+      id: 'projectDesc',
+      label: 'Project Description',
+      type: 'text',
+      formControlName: 'projectDesc',
+      placeholder: 'Enter Project Description',
+      prepend: 'fas fa-briefcase',
+      mandatory: true
+    },
+    {
+      id: 'projectDuration',
+      label: 'Project Duration',
+      type: 'text',
+      formControlName: 'projectDuration',
+      placeholder: 'Enter Project Duration',
+      prepend: 'fas fa-briefcase',
+      mandatory: true
+    },
+    {
+      id: 'projectURL',
+      label: 'Project URL',
+      type: 'text',
+      formControlName: 'projectURL',
+      placeholder: 'Enter Project URL',
+      prepend: 'fas fa-briefcase',
+      mandatory: true
+    },
+    {
+      id: 'clientName',
+      label: 'Client Name',
+      type: 'text',
+      formControlName: 'clientName',
+      placeholder: 'Enter Client Name',
+      prepend: 'fas fa-briefcase',
+      mandatory: false
+    },
+    {
+      id: 'clientWebsite',
+      label: 'Client Website',
+      type: 'text',
+      formControlName: 'clientWebsite',
+      placeholder: 'Enter Client Website',
+      prepend: 'fas fa-briefcase',
+      mandatory: false
+    },
+  ];
+
   getDateFM(_dateToFormat: any) {
     return this.mom(_dateToFormat).format('YYYY-MM-DD');
   }
@@ -789,6 +905,26 @@ export class UserProfileComponent implements OnInit {
           preferredRole: this.initFAs('preferredRole'),
           careerGoals: [this.user.careerGoals, [Validators.required]],
         });
+        setTimeout(() => {
+          if (this.user.isFreelancer != null) {
+            this.isFreelancer = this.user.isFreelancer == 'true' ? true : false;
+            this.isFreelancer ? this.addFreeLancer('val') : '';
+          }
+        }, 100);
+    }
+  }
+
+  addFreeLancer(_event: any) {
+    if (this.isFreelancer) {
+      this.freeLancingDetailsForm = this.formBuilder.group({
+        isFreelancer: this.isFreelancer,
+        fieldsOfExpertise: this.initFAs('fieldsOfExpertise'),
+        pastGigs: this.initNewFA('pastGigs'),
+        clients: this.initFAs('clients'),
+        memberSince: ['', Validators.required],
+        countOfRating: 0,
+        averageRating: 0
+      });
     }
   }
 
@@ -820,7 +956,7 @@ export class UserProfileComponent implements OnInit {
   addMore(form: any, _which: string, _index: number, _where: string) {
     // console.log(form.controls[_which].controls[_index].controls[_where]);
     let fA =
-      _which == 'areaOfPreference' || _which == 'preferredRole'
+      _which == 'areaOfPreference' || _which == 'preferredRole' || _which == 'fieldsOfExpertise' || _which == 'clients'
         ? <FormArray>form.controls[_which]
         : <FormArray>form.controls[_which].controls[_index].controls[_where];
     fA.push(this.formBuilder.group({ name: ['', [Validators.required]] }));
@@ -850,15 +986,25 @@ export class UserProfileComponent implements OnInit {
         // certificates: ''
       });
     } else {
-      return this.formBuilder.group({
-        // experience: [_data != undefined && _data.experience != null ? _data.experience : '', Validators.required],
-        currentRole: [_data != undefined && _data.currentRole != null ? _data.currentRole : '', Validators.required],
-        organization: [_data != undefined && _data.organization != null ? _data.organization : '', Validators.required],
-        description: this.initFA('experience', 'description'),
-        experienceFrom:
-          _data != undefined && _data.experienceFrom != null ? this.getDateFM(_data.experienceFrom) : null,
-        experienceTo: _data != undefined && _data.experienceTo != null ? this.getDateFM(_data.experienceTo) : null,
-      });
+      if (_case == 'experience') {
+        return this.formBuilder.group({
+          // experience: [_data != undefined && _data.experience != null ? _data.experience : '', Validators.required],
+          currentRole: [_data != undefined && _data.currentRole != null ? _data.currentRole : '', Validators.required],
+          organization: [_data != undefined && _data.organization != null ? _data.organization : '', Validators.required],
+          description: this.initFA('experience', 'description'),
+          experienceFrom : _data != undefined && _data.experienceFrom != null ? this.getDateFM(_data.experienceFrom) : null,
+          experienceTo: _data != undefined && _data.experienceTo != null ? this.getDateFM(_data.experienceTo) : null
+        });
+      } else {
+        return this.formBuilder.group({
+          projectName: [_data != undefined && _data.projectName != null ? _data.projectName : '', Validators.required],
+          projectDesc: [_data != undefined && _data.projectDesc != null ? _data.projectDesc : '', Validators.required],
+          projectDuration: [_data != undefined && _data.projectDuration != null ? _data.projectDuration : '', Validators.required],
+          projectURL: [_data != undefined && _data.projectURL != null ? _data.projectURL : '', Validators.required],
+          clientName: [_data != undefined && _data.clientName != null ? _data.clientName : ''],
+          clientWebsite: [_data != undefined && _data.clientWebsite != null ? _data.clientWebsite : '']
+        });
+      }
     }
   }
 
@@ -897,7 +1043,7 @@ export class UserProfileComponent implements OnInit {
     const newFA = new FormArray([]);
     if (this.user[_case] != null && this.user[_case].length != 0) {
       this.user[_case].forEach((d: any) => {
-        newFA.push(this.formBuilder.group({ name: [d, [Validators.required]] }));
+        newFA.push(this.formBuilder.group({ name: [_case == 'clients' ? d.details : _case == 'fieldsOfExpertise' ? d.areaOfExpertise : d, [Validators.required]]}));
       });
     } else {
       newFA.push(this.formBuilder.group({ name: ['', [Validators.required]] }));
@@ -992,6 +1138,35 @@ export class UserProfileComponent implements OnInit {
         $t.userDetails.preferredRole.push(x.name);
       });
       $t.userDetails.careerGoals = careerPreferenceDetailsValues.careerGoals;
+      if ($t.isFreelancer) {
+        let freeLancingDetailsFormValues = $t.freeLancingDetailsForm.value;
+        $t.userDetails.isFreelancer = $t.isFreelancer ? 'true' : 'false';
+        $t.userDetails.fieldsOfExpertise = [];
+        freeLancingDetailsFormValues.fieldsOfExpertise.forEach((fe: any) => {
+          $t.userDetails.fieldsOfExpertise.push({areaOfExpertise: fe.name});
+        });
+        $t.userDetails.pastGigs = [];
+        freeLancingDetailsFormValues.pastGigs.forEach((pg: any) => {
+          $t.userDetails.pastGigs.push({
+            projectName: pg.projectName,
+            projectDesc: pg.projectDesc,
+            projectDuration: pg.projectDuration,
+            projectURL: pg.projectURL,
+            clientName: pg.clientName,
+            clientWebsite: pg.clientWebsite
+          });
+        });
+        $t.userDetails.clients = [];
+        freeLancingDetailsFormValues.clients.forEach((cl: any) => {
+          $t.userDetails.clients.push({
+            details: cl.name
+          });
+        });
+        $t.userDetails.memberSince = freeLancingDetailsFormValues.memberSince;
+        $t.userDetails.countOfRating = parseInt(freeLancingDetailsFormValues.countOfRating);
+        $t.userDetails.averageRating = parseInt(freeLancingDetailsFormValues.averageRating);
+        $t.userDetails.ratingTotal = null;
+      }
     }
     if (_type == 'Mentor') {
       let teachingExperienceValues = $t.teachingExperienceForm.value;

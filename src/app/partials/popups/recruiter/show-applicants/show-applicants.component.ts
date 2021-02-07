@@ -15,6 +15,8 @@ export class ShowApplicantsComponent implements OnInit {
   popupData: any;
   applicantJobStatus = applicantJobStatus;
   bulkStatus = '';
+  isLoading: boolean = true;
+
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<ShowApplicantsComponent>,
@@ -79,7 +81,7 @@ export class ShowApplicantsComponent implements OnInit {
       });
     }
     $t.sharedService.uiService.showApiStartPopMsg('Updating Applicants Status...');
-    let apiUrl = $t.sharedService.urlService.apiCallWithParams('updateJob', { '{jobId}': job.id });
+    let apiUrl = $t.sharedService.urlService.apiCallWithParams('updateJob', { '{jobId}': '234' });
     $t.sharedService.configService.put(apiUrl, job).subscribe(
       (response: any) => {
         $t.dialogRef.afterClosed().subscribe((result) => {
@@ -96,7 +98,7 @@ export class ShowApplicantsComponent implements OnInit {
     );
   }
 
-  ngOnInit(): void {
+  filterBasedOnStatus() {
     switch (this.popupData.applicantStatus) {
       case 'All':
         break;
@@ -118,5 +120,29 @@ export class ShowApplicantsComponent implements OnInit {
         this.popupData.job.applicants = this.popupData.job.applicants.filter((d: any) => d.status === 'Withdrawn');
         break;
     }
+    this.isLoading = false;
+  }
+
+  fetchJobDetails(_callback: any) {
+    let $t = this;
+    let api = $t.sharedService.urlService.apiCallWithParams('getJob', {
+      '{jobId}': $t.popupData.job.jobId
+    });
+    $t.sharedService.configService.get(api).subscribe(
+      (response: any) => {
+        $t.popupData.job = JSON.parse(JSON.stringify(response.responseObj));
+        _callback();
+      },
+      error => {
+        $t.sharedService.uiService.showApiErrorPopMsg(error.message);
+      }
+    );  
+  }
+
+  ngOnInit(): void { 
+    let callBack = () => {
+      this.filterBasedOnStatus();
+    };
+    this.fetchJobDetails(callBack);
   }
 }
