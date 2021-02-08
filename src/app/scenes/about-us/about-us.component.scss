@@ -2,59 +2,61 @@ $blue: #523f6d;
 $light-blue: #523f6d80;
 
 .about-us-wrapper {
-  .video-area .area-bg::before {
-    background: $blue none repeat scroll 0 0;
-    opacity: 0.75;
+  .section-header {
+    font-size: 16px;
+  }
+  .about-col {
+    padding: 25px;
+    p {
+      font-size: 16px;
+    }
+  }s
+  .vision {
+    background-color: $light-blue;
+    .about-content {
+      p {
+        font-size: 16px;
+      }
+    }
+  }
+  .card{
+    min-height:250px;
+    border-left: 10px solid $blue;
   }
 
-  .video-promo-details {
-    border-radius: 10px;
+  #call-to-action {
+    // background: linear-gradient(rgba(21, 86, 112, 0.1), rgba(0, 0, 0, 0.1)), url(../img/call-to-action\ image.webp) fixed center center;
+    background-size: cover;
+    padding: 60px 0;
   }
 
-  .video-promo-content {
-    color: #ffffff;
-    left: 0;
-    position: absolute;
-    text-align: center;
-    top: 50%;
-    -webkit-transform: translateY(-50%);
-    transform: translateY(-50%);
-    width: 100%;
+  #call-to-action h3 {
+    color: black;
+    font-size: 28px;
+    font-weight: 700;
   }
 
-  .video-area-popup {
-    background: #ffffff none repeat scroll 0 0;
-    border-radius: 50%;
-    color: $blue;
-    cursor: pointer;
+  #call-to-action p {
+    color: black;
+  }
+
+  #call-to-action .cta-btn {
+    font-family: "Montserrat", sans-serif;
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 16px;
+    letter-spacing: 1px;
     display: inline-block;
-    font-size: 30px;
-    height: 70px;
-    line-height: 1;
-    padding-left: 5px;
-    padding-top: 20px;
-    -webkit-transition: all 0.3s ease 0s;
-    transition: all 0.3s ease 0s;
-    width: 70px;
+    padding: 8px 28px;
+    border-radius: 25px;
+    transition: 0.5s;
+    margin-top: 10px;
+    border: 2px solid #000;
+    color: #000;
   }
-
-  .video-area-popup:hover {
-    background: $blue none repeat scroll 0 0;
-    -webkit-box-shadow: 0 0 10px 10px #ffffff;
-    box-shadow: 0 0 10px 10px #ffffff;
-    color: #ffffff;
-  }
-
-  .heading-title {
-    margin-bottom: 100px;
-  }
-  .text-center {
-    text-align: center;
-  }
-  .heading-title h3 {
-    margin-bottom: 0;
-    letter-spacing: 2px;
-    font-weight: normal;
+  #call-to-action .cta-btn:hover {
+    background: #3c5a99;
+    border: 2px solid #3c5a99;
   }
   .p-top-30 {
     padding-top: 30px;

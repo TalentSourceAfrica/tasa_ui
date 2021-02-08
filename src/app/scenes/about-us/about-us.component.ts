@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthenticationService } from '@app/auth';
 import { OurTeamComponent } from '@app/partials/popups/about-us/our-team/our-team.component';
 import { SharedService } from '@app/services/shared.service';
 
@@ -11,7 +12,7 @@ declare var jQuery: any;
   styleUrls: ['./about-us.component.scss'],
 })
 export class AboutUsComponent implements OnInit {
-  constructor(public sharedService: SharedService) {}
+  constructor(public sharedService: SharedService, private authenticationService: AuthenticationService) {}
 
   openMyTeam(_name: string, _type: number) {
     this.sharedService.dialogService.open(OurTeamComponent, {
@@ -19,6 +20,10 @@ export class AboutUsComponent implements OnInit {
       data: { name: _name, type: _type },
       disableClose: false,
     });
+  }
+
+  signup() {
+    this.authenticationService.openSignupPopup('student', '');
   }
 
   ngOnInit(): void {

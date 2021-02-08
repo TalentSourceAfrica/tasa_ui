@@ -14,39 +14,33 @@ $grey: #7d7d7d;
 -----------------------------*/
 
   .slide-bg-one {
-    background: rgba(0, 0, 0, 0) url("../../../assets/images/slider/slide_1.jpg") no-repeat scroll center center / cover;
+    filter: brightness(3);
+    background: url("../../../assets/images/slider/slide_1.jpg") no-repeat scroll center center / cover;
   }
 
   .slide-bg-two {
-    background: rgba(0, 0, 0, 0) url("../../../assets/images/slider/slide_2.jpg") no-repeat scroll center center / cover;
+    filter: brightness(3);
+    background: url("../../../assets/images/slider/slide_2.jpg") no-repeat scroll center center / cover;
   }
 
   .slide-bg-three {
-    background: rgba(0, 0, 0, 0) url("../../../assets/images/slider/slide_3.jpg") no-repeat scroll center center / cover;
+    filter: brightness(3);
+    background: url("../../../assets/images/slider/slide_3.jpg") no-repeat scroll center center / cover;
   }
 
   .slide-bg-four {
-    background: rgba(0, 0, 0, 0) url("../../../assets/images/slider/slide_4.jpg") no-repeat scroll center center / cover;
+    filter: brightness(3);
+    background: url("../../../assets/images/slider/slide_4.jpg") no-repeat scroll center center / cover;
   }
 
   .slide-bg-five {
-    background: rgba(0, 0, 0, 0) url("../../../assets/images/slider/slide_5.jpg") no-repeat scroll center center / cover;
+    filter: brightness(3);
+    background: url("../../../assets/images/slider/slide_5.jpg") no-repeat scroll center center / cover;
   }
 
   .slide-bg-six {
-    background: rgba(0, 0, 0, 0) url("../../../assets/images/slider/slide_6.jpg") no-repeat scroll center center / cover;
-  }
-
-  .slide-bg-seven {
-    background: rgba(0, 0, 0, 0) url("../../../assets/images/slider/slide_7.jpg") no-repeat scroll center center / cover;
-  }
-
-  .slide-bg-eight {
-    background: rgba(0, 0, 0, 0) url("../../../assets/images/slider/slide_8.jpg") no-repeat scroll center center / cover;
-  }
-
-  .slide-bg-nine {
-    background: rgba(0, 0, 0, 0) url("../../../assets/images/slider/slide_9.jpg") no-repeat scroll center center / cover;
+    filter: brightness(3);
+    background: url("../../../assets/images/slider/slide_6.jpg") no-repeat scroll center center / cover;
   }
 
   .btn-behaviour {
@@ -721,6 +715,7 @@ $grey: #7d7d7d;
   .signup-slide-images {
     filter: blur(8px);
     -webkit-filter: blur(8px);
+    height: 590px;
   }
   .signup-slide-text {
     background-color: rgb(0, 0, 0); /* Fallback color */

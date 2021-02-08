@@ -195,7 +195,7 @@ export class SignupPopupComponent implements OnInit {
       media: '',
       noOfOpenings: '',
       natureOfOpening: '',
-      clients: '',
+      clients: [],
       collaborator: '',
       dateOfEstablishment: '',
       contactNo: '',
