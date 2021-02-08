@@ -68,7 +68,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   signup() {
     this.dialogRef.close();
-    this.authenticationService.openSignupPopup();
+    this.authenticationService.openSignupPopup('student', '');
   }
 
   private createForm() {

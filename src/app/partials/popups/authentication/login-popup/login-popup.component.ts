@@ -73,7 +73,7 @@ export class LoginPopupComponent implements OnInit {
 
   signup() {
     this.dialogRef.close();
-    this.popupData.authenticationService.openSignupPopup();
+    this.popupData.authenticationService.openSignupPopup('student', '');
   }
 
   private createForm() {
