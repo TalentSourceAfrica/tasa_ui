@@ -55,6 +55,9 @@ export class LoginPopupComponent implements OnInit {
           this.popupData.authenticationService.setToken(JSON.parse(response.data).access_token);
           this.sharedService.uiService.closePopMsg();
           this.dialogRef.close();
+          // if (response.responseObj.city == null || response.responseObj.country == null || response.responseObj.dob == null) {
+          //   this.popupData.authenticationService.openUserDetailsPopup();
+          // }
           this.router.navigate(['/social-network/posts'], { replaceUrl: true });
           setTimeout(() => {
             jQuery('.header-top-area').removeClass('position-absolute');

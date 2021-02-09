@@ -32,6 +32,7 @@ export class SignupPopupComponent implements OnInit {
   isUsernameAvailable = true;
   isEmailAvailable = true;
   unamePattern = '^[a-zA-Z0-9_.-]*$';
+  show: boolean = false;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private formBuilder: FormBuilder,
@@ -62,20 +63,20 @@ export class SignupPopupComponent implements OnInit {
           city: ['', [Validators.required]],
           postalCode: ['', [Validators.required]],
 
-          highestDegree: ['', [Validators.required]],
-          college: ['', [Validators.required]],
-          university: ['', [Validators.required]],
-          major: ['', [Validators.required]],
-          minor: [''],
-          degreeFromDate: [null],
-          degreeToDate: [null],
+          // highestDegree: ['', [Validators.required]],
+          // college: ['', [Validators.required]],
+          // university: ['', [Validators.required]],
+          // major: ['', [Validators.required]],
+          // minor: [''],
+          // degreeFromDate: [null],
+          // degreeToDate: [null],
           // certificate: [''],
-          organization: [''],
-          experience1: [''],
-          currentRole: [''],
-          description: [''],
-          experienceFrom: [null],
-          experienceTo: [null],
+          // organization: [''],
+          // experience1: [''],
+          // currentRole: [''],
+          // description: [''],
+          // experienceFrom: [],
+          // experienceTo: [],
 
           areaOfPreference: ['', [Validators.required]],
           preferredRole: ['', [Validators.required]],
@@ -118,6 +119,28 @@ export class SignupPopupComponent implements OnInit {
       );
     }
   }
+
+  flipOnClick(_case: string) {
+    let flip = () => {
+        jQuery('.flip-card').find('.flip-card-inner').toggleClass('is-flipped');
+        setTimeout(() => {
+          jQuery('.flip-card').find('.flip-card-inner').find('#flip-card-front').toggleClass('d-none');
+          this.show = !this.show;
+        }, 200);
+    };
+    if (_case == 'flip') {
+      flip();
+    } else {
+      if (this.getForm().firstName.status == 'VALID' && this.getForm().lastName.status == 'VALID' ) {
+        this.onSubmit();
+      } else {
+        this.userDetailsForm.controls['firstName'].setErrors({'required': true});
+        this.userDetailsForm.controls['lastName'].setErrors({'required': true});
+        flip();
+      }
+    }
+  }
+
 
   initFAs(_case: string) {
     const newFA = new FormArray([]);
@@ -177,8 +200,8 @@ export class SignupPopupComponent implements OnInit {
       education: _payload.education,
       experience: _payload.experience,
       certificate: [],
-      areaOfPreference: _payload.areaOfPreference,
-      preferredRole: _payload.preferredRole,
+      areaOfPreference: [],
+      preferredRole: [],
       careerGoals: '',
       teachingExperience: '',
       univTaught: '',
@@ -221,57 +244,57 @@ export class SignupPopupComponent implements OnInit {
     let payload = { ...JSON.parse(JSON.stringify($t.userDetailsForm.value)), type: $t.userType.dbValue };
     let areaOfPreference: any = [],
       preferredRole: any = [];
-    payload['username'] = Math.floor(Math.random() * 90000) + 10000;
+    payload['username'] = payload.email;
     if ($t.popupData.case == 'student') {
       payload['experience'] = [];
-      payload.experience.push({
-        experience: JSON.parse(JSON.stringify(payload.experience1)),
-        currentRole: [],
-        description: [],
-        organization: JSON.parse(JSON.stringify(payload.organization)),
-        experienceTo: JSON.parse(JSON.stringify(payload.experienceTo)),
-        experienceFrom: JSON.parse(JSON.stringify(payload.experienceFrom)),
-      });
+      // payload.experience.push({
+      //   experience: JSON.parse(JSON.stringify(payload.experience1)),
+      //   currentRole: [],
+      //   description: [],
+      //   organization: JSON.parse(JSON.stringify(payload.organization)),
+      //   experienceTo: JSON.parse(JSON.stringify(payload.experienceTo)),
+      //   experienceFrom: JSON.parse(JSON.stringify(payload.experienceFrom)),
+      // });
       payload['education'] = [];
-      payload.education.push({
-        highestDegree: JSON.parse(JSON.stringify(payload.highestDegree)),
-        college: [],
-        university: [],
-        major: JSON.parse(JSON.stringify(payload.major)),
-        minor: [],
-        degreeFromDate: JSON.parse(JSON.stringify(payload.degreeFromDate)),
-        degreeToDate: JSON.parse(JSON.stringify(payload.degreeFromDate)),
-      });
-      payload.postalCode = parseInt(payload.postalCode);
-      areaOfPreference.push(JSON.parse(JSON.stringify(payload.areaOfPreference)));
-      preferredRole.push(JSON.parse(JSON.stringify(payload.preferredRole)));
-      payload.areaOfPreference = JSON.parse(JSON.stringify(areaOfPreference));
-      payload.preferredRole = JSON.parse(JSON.stringify(preferredRole));
-      payload.experience[0].currentRole.push(JSON.parse(JSON.stringify(payload.currentRole)));
-      payload.experience[0].description.push(JSON.parse(JSON.stringify(payload.description)));
-      payload.education[0].college.push(JSON.parse(JSON.stringify(payload.college)));
-      payload.education[0].university.push(JSON.parse(JSON.stringify(payload.university)));
-      payload.education[0].minor.push(JSON.parse(JSON.stringify(payload.minor)));
-      delete payload['currentRole'];
-      delete payload['description'];
-      delete payload['organization'];
-      delete payload['experienceTo'];
-      delete payload['experienceFrom'];
-      delete payload['highestDegree'];
-      delete payload['college'];
-      delete payload['university'];
-      delete payload['major'];
-      delete payload['minor'];
-      delete payload['degreeFromDate'];
-      delete payload['degreeToDate'];
-      delete payload['termsCond'];
-      delete payload['experience1'];
+      // payload.education.push({
+      //   highestDegree: JSON.parse(JSON.stringify(payload.highestDegree)),
+      //   college: [],
+      //   university: [],
+      //   major: JSON.parse(JSON.stringify(payload.major)),
+      //   minor: [],
+      //   degreeFromDate: JSON.parse(JSON.stringify(payload.degreeFromDate)),
+      //   degreeToDate: JSON.parse(JSON.stringify(payload.degreeFromDate)),
+      // });
+      // payload.postalCode = parseInt(payload.postalCode);
+      // areaOfPreference.push(JSON.parse(JSON.stringify(payload.areaOfPreference)));
+      // preferredRole.push(JSON.parse(JSON.stringify(payload.preferredRole)));
+      // payload.areaOfPreference = JSON.parse(JSON.stringify(areaOfPreference));
+      // payload.preferredRole = JSON.parse(JSON.stringify(preferredRole));
+      // payload.experience[0].currentRole.push(JSON.parse(JSON.stringify(payload.currentRole)));
+      // payload.experience[0].description.push(JSON.parse(JSON.stringify(payload.description)));
+      // payload.education[0].college.push(JSON.parse(JSON.stringify(payload.college)));
+      // payload.education[0].university.push(JSON.parse(JSON.stringify(payload.university)));
+      // payload.education[0].minor.push(JSON.parse(JSON.stringify(payload.minor)));
+      // delete payload['currentRole'];
+      // delete payload['description'];
+      // delete payload['organization'];
+      // delete payload['experienceTo'];
+      // delete payload['experienceFrom'];
+      // delete payload['highestDegree'];
+      // delete payload['college'];
+      // delete payload['university'];
+      // delete payload['major'];
+      // delete payload['minor'];
+      // delete payload['degreeFromDate'];
+      // delete payload['degreeToDate'];
+      // delete payload['termsCond'];
+      // delete payload['experience1'];
       $t.setNewUserObj(payload);
     }
     $t.sharedService.configService.post(apiUrl, $t.popupData.case == 'student' ? $t.newUserObj : payload).subscribe(
       (response: any) => {
         $t.userDetailsForm.reset();
-        $t.stepper.selectedIndex = 0;
+        // $t.stepper.selectedIndex = 0;
         $t.dialogRef.close();
         if ($t.userType.dbValue !== 'Recruiter') {
           $t.sharedService.uiService.showApiSuccessPopMsg('Please check inbox for successful verification...!');
@@ -280,9 +303,13 @@ export class SignupPopupComponent implements OnInit {
         }
       },
       (error) => {
-        $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
+         $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
       }
     );
+  }
+
+  getForm() {
+    return this.userDetailsForm.controls;
   }
 
   get user(): any | null {

@@ -46,3 +46,53 @@
 .h3-class {
   color: #9370db;
 }
+
+.signup-card-body {
+  background-color: lavender !important;
+}
+
+.form-label {
+  font-size: 15px;
+  font-weight: bold;
+}
+
+/* Flip Card Animtaion  Code */
+.flip-card {
+  background-color: lavender;
+  width: 400px;
+  height: 300px;
+  perspective: 1000px;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+  border: 2px solid #9370db;
+  border-radius: 20px;
+  background-color: white;
+}
+
+.is-flipped {
+  transform: rotateY(180deg);
+}
+
+#flip-card-front, #flip-card-back {
+  width: 100%;
+  -webkit-backface-visibility: hidden !important;
+  backface-visibility: hidden !important;
+}
+
+#flip-card-front {
+  color: black;
+  background-color: white;
+}
+
+#flip-card-back {
+  background-color: white;
+  color: black;
+  transform: rotateY(180deg);
+}
