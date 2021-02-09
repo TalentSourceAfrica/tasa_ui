@@ -50,6 +50,8 @@ export class CreateOrganizationComponent implements OnInit {
 
   initForm() {
     this.signupForm = this.formBuilder.group({
+      id: '',
+      activeFlag: '',
       orgName: ['', [Validators.required]],
       orgDesc: ['', [Validators.required]],
       orgImage: [{ value: '', disabled: true }, [Validators.required]],
@@ -58,6 +60,10 @@ export class CreateOrganizationComponent implements OnInit {
       contactPersonNo: ['', [Validators.required]],
       contactPersonName: ['', [Validators.required]],
       contactPersonDesignation: ['', [Validators.required]],
+      createdOn: null,
+      updatedOn: null,
+      createdBy: '',
+      updatedBy: ''
     });
   }
 
