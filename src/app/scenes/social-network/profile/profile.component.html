@@ -55,7 +55,14 @@
                               <div class="col-2">
                                 <div class="card-profile-image">
                                   <a>
-                                    <img [src]="userConfig.user.image" class="rounded-circle" />
+                                    <img
+                                      src="{{
+                                        userConfig.user.image !== ''
+                                          ? userConfig.user.image
+                                          : 'https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg'
+                                      }}"
+                                      class="rounded-circle"
+                                    />
                                   </a>
                                 </div>
                               </div>

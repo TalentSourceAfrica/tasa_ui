@@ -302,29 +302,33 @@
 
 <ng-template #noUserMenu>
   <ul id="nav" class="nav navbar-nav pull-right float-right">
-    <li>
+    <!-- <li>
       <a class="curPoint px-2 py-4" (click)="partnerWithUs()">Partner With us</a>
     </li>
-    <li><a (click)="scrollToFaq('faqs')" class="curPoint px-2 py-4">FAQ</a></li>
+    <li><a (click)="scrollToFaq('faqs')" class="curPoint px-2 py-4">FAQ</a></li> -->
     <li>
+      <a class="curPoint px-2 py-4" [routerLink]="['/about-us']">About Us</a>
+    </li>
+    <li><a [routerLink]="['/contact-us']" class="curPoint px-2 py-4">Contact Us</a></li>
+    <!-- <li>
       <a [matMenuTriggerFor]="menu" class="curPoint px-2 py-4"
         >Menu<i class="fas fa-caret-down pl-1"></i>
         <mat-menu #menu="matMenu">
           <button mat-menu-item [routerLink]="['/about-us']" class="h6">
             <i class="fas fa-address-card pr-3 text-primary"></i>About Us
           </button>
-          <!-- <button mat-menu-item [routerLink]="['/our-process']" class="h6">
+          <button mat-menu-item [routerLink]="['/our-process']" class="h6">
             <i class="fas fa-stream pr-3 text-primary"></i>Our Process
           </button>
           <button mat-menu-item [routerLink]="['/our-partner']" class="h6">
             <i class="fas fa-handshake pr-3 text-primary"></i>Our Partner
-          </button> -->
+          </button>
           <button mat-menu-item [routerLink]="['/contact-us']" class="h6">
             <i class="fas fa-address-book pr-3 text-primary"></i>Contact Us
           </button>
         </mat-menu>
       </a>
-    </li>
+    </li> -->
     <li *ngIf="!user" class="mt-4">
       <span
         class="rounded-pill curPoint btn-behaviour mx-2 py-2 px-3 font-weight-bold"

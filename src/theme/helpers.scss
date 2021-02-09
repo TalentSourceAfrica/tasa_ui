@@ -791,9 +791,8 @@ a {
 .mat-raised-button.mat-primary,
 .mat-fab.mat-primary,
 .mat-mini-fab.mat-primary {
-  background-color: #fff;
-  border: 2px solid #523f6d;
-  color: #523f6d;
+  background-color: #523f6d !important;
+  color: #fff !important;
   font-weight: 700;
 }
 
@@ -804,9 +803,9 @@ a {
 .mat-mini-fab.mat-primary {
   &:hover {
     &:enabled {
+      box-shadow: 5px 10px 10px 0 $light-blue !important;
       background-color: #523f6d !important;
       color: #fff !important;
-      box-shadow: 0 5px 10px 0 rgba(#000, 0.15) !important;
     }
   }
 }
