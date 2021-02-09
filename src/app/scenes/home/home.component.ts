@@ -628,7 +628,7 @@ export class HomeComponent implements OnInit {
           nav: true,
           autoplayHoverPause: true,
           navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>'],
-          autoplay: false,
+          autoplay: true,
           autoplayTimeout: 3000,
           margin: 0,
           /*animateIn: 'fadeIn',
