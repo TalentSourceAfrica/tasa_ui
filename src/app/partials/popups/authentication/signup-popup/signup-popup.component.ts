@@ -97,19 +97,20 @@ export class SignupPopupComponent implements OnInit {
           password: ['', [Validators.required]],
           confirmPassword: ['', [Validators.required]],
           termsCond: [true, [Validators.required]],
-          country: ['', [Validators.required]],
+          orgId: [''],
+          // country: ['', [Validators.required]],
           organizationName: ['', [Validators.required]],
-          state: ['', [Validators.required]],
-          city: ['', [Validators.required]],
-          postalCode: ['', [Validators.required]],
+          // state: ['', [Validators.required]],
+          // city: ['', [Validators.required]],
+          // postalCode: ['', [Validators.required]],
           location: [''],
-          description: ['', [Validators.required]],
-          about: ['', [Validators.required]],
-          noEmp: ['', [Validators.required]],
-          industry: ['', [Validators.required]],
+          // description: ['', [Validators.required]],
+          // about: ['', [Validators.required]],
+          // noEmp: ['', [Validators.required]],
+          // industry: ['', [Validators.required]],
           contactNo: [''],
           contactEmail: [''],
-          website: ['', [Validators.required]],
+          // website: ['', [Validators.required]],
           linkedin: [''],
           twitter: [''],
         },
@@ -128,17 +129,33 @@ export class SignupPopupComponent implements OnInit {
           this.show = !this.show;
         }, 200);
     };
-    if (_case == 'flip') {
-      flip();
-    } else {
-      if (this.getForm().firstName.status == 'VALID' && this.getForm().lastName.status == 'VALID' ) {
-        this.onSubmit();
-      } else {
-        this.userDetailsForm.controls['firstName'].setErrors({'required': true});
-        this.userDetailsForm.controls['lastName'].setErrors({'required': true});
-        flip();
-      }
+    switch(this.popupData.case) {
+      case 'student':
+        if (_case == 'flip') {
+          flip();
+        } else {
+          if (this.getForm().firstName.status == 'VALID' && this.getForm().lastName.status == 'VALID' ) {
+            this.onSubmit();
+          } else {
+            this.userDetailsForm.controls['firstName'].setErrors({'required': true});
+            this.userDetailsForm.controls['lastName'].setErrors({'required': true});
+            flip();
+          }
+        }
+        break;
+      case 'recruiter':
+        if (_case == 'flip') {
+          flip();
+        } else {
+          if (this.getForm().organizationName.status == 'VALID' && this.getForm().firstName.status == 'VALID' && this.getForm().lastName.status == 'VALID') {
+            this.onSubmit();
+          } else {
+            flip();
+          }
+        }
+        break; 
     }
+    
   }
 
 
@@ -165,7 +182,7 @@ export class SignupPopupComponent implements OnInit {
       firstName: _payload.firstName,
       lastName: _payload.lastName,
       profileSummary: '',
-      orgId: '',
+      orgId: _payload.orgId,
       enrolledCourses: [],
       favoriteCourses: [],
       recentlyViewed: [],
@@ -410,6 +427,10 @@ export class SignupPopupComponent implements OnInit {
         $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
       }
     );
+  }
+
+  setOrgId(_item: any) {
+    this.userDetailsForm.controls.orgId.patchValue(_item.id);
   }
 
   openTerms() {
