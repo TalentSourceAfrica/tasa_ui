@@ -12,6 +12,7 @@ import Swal from 'sweetalert2';
 
 // component
 import { CreateGroupPopupComponent } from '@app/partials/popups/group/create-group-popup/create-group-popup.component';
+import { EditUserPopupComponent } from '@app/partials/popups/authentication/edit-user-popup/edit-user-popup.component';
 
 @Component({
   selector: 'app-profile',
@@ -103,6 +104,44 @@ export class ProfileComponent implements OnInit {
     });
   }
 
+  editUser(_type: string) {
+    let userConfigToUpdate: any = {
+      type: _type,
+      data: [],
+    };
+    switch (_type) {
+      case 'User Information':
+        userConfigToUpdate.data = [
+          { label: 'Username', key: 'username' },
+          { label: 'Email', key: 'email' },
+          { label: 'Preferred Role', key: 'preferredRole' },
+          { label: 'Carrer Goal', key: 'careerGoals' },
+        ];
+        break;
+      case 'About Me':
+        userConfigToUpdate.data = [{ label: 'About Me', key: 'bio', textarea: true }];
+        break;
+      case 'Contact Information':
+        userConfigToUpdate.data = [
+          { label: 'Address', key: 'address1' },
+          { label: 'City', key: 'city' },
+          { label: 'Postal code', key: 'postalCode' },
+          { label: 'Country', key: 'country', isDropdown: true },
+        ];
+        break;
+    }
+
+    this.sharedService.dialogService.open(EditUserPopupComponent, {
+      width: '700px',
+      data: {
+        authenticationService: this,
+        credentialsService: this.credentialsService,
+        userConfigToUpdate: userConfigToUpdate,
+      },
+      disableClose: false,
+    });
+  }
+
   ngOnInit(): void {
     if (!this.user.image || this.user.image == 'string') {
       this.user.image = 'https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg';
@@ -121,7 +160,7 @@ export class ProfileComponent implements OnInit {
       input: 'text',
       inputAttributes: {
         autocapitalize: 'off',
-        placeholder: 'Type Your Message'
+        placeholder: 'Type Your Message',
       },
       showCancelButton: true,
       confirmButtonText: 'Send',

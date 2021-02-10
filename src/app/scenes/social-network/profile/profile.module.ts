@@ -7,15 +7,20 @@ import { I18nModule } from '@app/i18n';
 import { AuthModule } from '@app/auth';
 import { MaterialModule } from '@app/modules/material.module';
 import { RouterModule } from '@angular/router';
-import { ProfileRoutingModule } from './profile-routing.module';
-import { ProfileComponent } from './profile.component';
-
-import { SocialConnectionsModule } from '@app/partials/social-network/social-connections/social-connections.module';
-import { NgxDocViewerModule } from 'ngx-doc-viewer';
 import { SocialnetworkService } from '../socialnetwork.service';
+
+
+// Module
 import { LeftSideModule } from '@app/partials/left-side/left-side.module';
 import { RightSideModule } from '@app/partials/right-side/right-side.module';
 import { CreateGroupPopupModule } from '@app/partials/popups/group/create-group-popup/create-group-popup.module';
+import { ProfileRoutingModule } from './profile-routing.module';
+import { SocialConnectionsModule } from '@app/partials/social-network/social-connections/social-connections.module';
+import { NgxDocViewerModule } from 'ngx-doc-viewer';
+
+// Component
+import { EditUserPopupComponent } from '@app/partials/popups/authentication/edit-user-popup/edit-user-popup.component';
+import { ProfileComponent } from './profile.component';
 
 @NgModule({
   imports: [
@@ -35,7 +40,7 @@ import { CreateGroupPopupModule } from '@app/partials/popups/group/create-group-
     RightSideModule,
     CreateGroupPopupModule,
   ],
-  declarations: [ProfileComponent],
+  declarations: [ProfileComponent,EditUserPopupComponent],
   providers: [SocialnetworkService],
   schemas: [NO_ERRORS_SCHEMA],
 })

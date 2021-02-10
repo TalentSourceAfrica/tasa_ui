@@ -17,8 +17,8 @@
 
       <div class="card-body signup-card-body flow-hidden">
         <h3 class="h3-class margin-btm text-center">Be visible, belong, and be you</h3>
-        <p class="text-center w50 mx-auto font-weight-bold">You’re talented ambitious and driven but often feel undervalued,
-unwelcome, invisible or shuttered from the opportunities you desire</p>
+        <h6 class="text-center w90 mx-auto font-weight-bold">You’re talented ambitious and driven but often feel undervalued,
+unwelcome, invisible or shuttered from the opportunities you desire.</h6>
         <!-- <a href="student-dashboard.html" class="btn btn-light btn-block">
           <span class="fab fa-google mr-2"></span>
           Continue with Google
@@ -615,7 +615,8 @@ unwelcome, invisible or shuttered from the opportunities you desire</p>
         </button>
         <button mat-flat-button 
           color="primary" 
-          *ngIf="show" 
+          *ngIf="show"
+          [disabled]="getForm().firstName.status != 'VALID' || getForm().lastName.status != 'VALID'" 
           (click)="flipOnClick('submit')" 
           class="rounded-pill ml-2 w30">
           Alright! Let's Go!

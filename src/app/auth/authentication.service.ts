@@ -64,7 +64,7 @@ export class AuthenticationService {
 
   openSignupPopup(_case: any, _email?: any) {
     this.sharedService.dialogService.open(SignupPopupComponent, {
-      width: '800px',
+      width: '600px',
       position: {
         top: '100px'
       },

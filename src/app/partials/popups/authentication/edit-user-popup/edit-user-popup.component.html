@@ -1,0 +1,74 @@
+<div class="d-flex align-items-center no-gutters edit-profilr-wrapper">
+  <div class="col-sm-8 col-md-12 col-lg-12 mx-auto">
+    <div class="navbar-shadow">
+      <div class="card-header text-center">
+        <h5 class="card-title">Edit <strong class="text-primary">{{popupData.userConfigToUpdate.type}}</strong></h5>
+      </div>
+      <div class="p-4 no-gutters max-vertical-h-80 stylishScroll flow-y-auto flow-x-hidden animated fadeInUp">
+        <ng-container *ngTemplateOutlet="userProfile"></ng-container>
+      </div>
+      <div class="card-footer">
+        <div class="col-12 text-center mt-3">
+          <button mat-flat-button color="primary" (click)="submit()" class="rounded-pill ml-2">
+            Edit
+          </button>
+          <button mat-flat-button color="primary" mat-dialog-close="true" class="rounded-pill ml-2">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #userProfile>
+  <div class="row w100 no-gutters">
+    <div class="form-group col-12" *ngFor="let item of popupData.userConfigToUpdate.data">
+      <label class="form-label" for="name">{{ item.label }}</label>
+      <div class="input-group input-group-merge">
+        <input
+          [id]="item.label"
+          type="text"
+          *ngIf="!item?.textarea && !item?.isDropdown"
+          [(ngModel)]="user[item.key]"
+          class="form-control form-control-prepended"
+          placeholder="Your {{ item.label }}"
+        />
+        <textarea
+          [id]="item.label"
+          cols="30"
+          *ngIf="item?.textarea && !item?.isDropdown"
+          rows="10"
+          [(ngModel)]="user[item.key]"
+          class="form-control form-control-prepended"
+          placeholder="Your {{ item.label }}"
+        ></textarea>
+        <ng-container *ngIf="item?.isDropdown">
+            <ng-template  [ngTemplateOutlet]="country" [ngTemplateOutletContext]="{ data: item }">      
+        </ng-template>
+        </ng-container>
+
+        <div class="input-group-prepend">
+          <div class="input-group-text">
+            <span class="far fa-user"></span>
+          </div>
+        </div>
+      </div>
+      <!-- <small
+        [hidden]="userDetailsForm.controls.lastName.valid || userDetailsForm.controls.lastName.untouched"
+        class="text-danger"
+        translate
+      >
+        Last Name is required
+      </small> -->
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #country let-data="data">
+  <mat-select [(ngModel)]="data.key" placeholder="Your Country" required class="form-control form-control-prepended">
+    <mat-option *ngFor="let country of countries" [value]="country.code">
+      {{ country.title }}
+    </mat-option>
+  </mat-select>
+</ng-template>

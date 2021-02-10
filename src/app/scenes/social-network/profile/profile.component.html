@@ -120,7 +120,7 @@
                                   mat-flat-button
                                   color="primary"
                                   (click)="openCreateGroupPopup()"
-                                  class="rounded-pill ml-2 p-1 pl-2 pr-2 curPoint"
+                                  class="rounded-pill ml-2 p-1 pl-2 pr-2 curPoint w100"
                                 >
                                   Create Group
                                 </button>
@@ -201,7 +201,7 @@
                                 routerLinkActive="router-link-active"
                                 class="ml-2 rounded-pill"
                               >
-                                <mat-icon class="text-primary">settings</mat-icon>
+                                <mat-icon>settings</mat-icon>
                               </button>
                               <button
                                 mat-mini-fab
@@ -211,7 +211,7 @@
                                 (click)="conectionDrawer.toggle()"
                                 class="ml-2 rounded-pill"
                               >
-                                <mat-icon class="text-primary">groups</mat-icon>
+                                <mat-icon>groups</mat-icon>
                               </button>
                             </div>
                           </div>
@@ -219,7 +219,19 @@
                         <div class="card-body max-vertical-h-70 stylishSlimScroll flow-y-auto flow-x-hidden">
                           <form>
                             <!-- Description -->
-                            <h3 class="heading-small text-muted mb-4">About Me</h3>
+                            <div class="d-flex">
+                              <h3 class="heading-small text-muted mb-4 w50">About Me</h3>
+                              <div class="d-flex w100 justify-content-end">
+                                <mat-icon
+                                  class="text-primary curPoint"
+                                  matTooltipPosition="below"
+                                  matTooltip="Edit User Information"
+                                  (click)="editUser('About Me')"
+                                  >edit</mat-icon
+                                >
+                              </div>
+                            </div>
+
                             <div class="pl-lg-4">
                               <div class="form-group focused">
                                 <!-- <label>About Me</label> -->
@@ -228,7 +240,19 @@
                               </div>
                             </div>
                             <hr class="my-4" />
-                            <h3 class="heading-small text-muted mb-4">User Information</h3>
+                            <div class="d-flex">
+                              <h3 class="heading-small text-muted mb-4 w50">User Information</h3>
+                              <div class="d-flex w100 justify-content-end">
+                                <mat-icon
+                                  class="text-primary curPoint"
+                                  matTooltipPosition="below"
+                                  matTooltip="Edit User Information"
+                                  (click)="editUser('User Information')"
+                                  >edit</mat-icon
+                                >
+                              </div>
+                            </div>
+
                             <div class="pl-lg-4">
                               <div class="row">
                                 <div class="col-lg-6">
@@ -378,7 +402,18 @@
                             </ng-container>
                             <hr class="my-4" />
                             <!-- Address -->
-                            <h3 class="heading-small text-muted mb-4">Contact Information</h3>
+                            <div class="d-flex">
+                              <h3 class="heading-small text-muted mb-4 w50">Contact Information</h3>
+                              <div class="d-flex w100 justify-content-end">
+                                <mat-icon
+                                  class="text-primary curPoint"
+                                  matTooltipPosition="below"
+                                  matTooltip="Edit Contact Information"
+                                  (click)="editUser('Contact Information')"
+                                  >edit</mat-icon
+                                >
+                              </div>
+                            </div>
                             <div class="pl-lg-4">
                               <div class="row">
                                 <div class="col-md-12">

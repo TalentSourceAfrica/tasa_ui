@@ -8,7 +8,7 @@
     <div class="col-12">
       <div class="card animated bounceInUp">
         <div class="card-header d-flex align-items-center">
-          <div class="h2 mb-0 mr-3 text-primary" *ngIf="newsConfig.data.length">
+          <div class="h2 mb-0 mr-3 text-primary">
             {{ newsConfig.data.length }}
           </div>
           <div class="flex">
@@ -40,7 +40,7 @@
           <div *ngIf="newsConfig.data.length == 0 && !newsConfig.isFetching">
             <div class="text-center m-auto animated fadeIn">
               <div class="col-12 text-center">
-                <img src="../../../assets/images/no-record.gif" style="height: 200px;" class="d-block m-auto" />
+                <img src="../../../assets/images/no-record.gif" style="height: 100px;" class="d-block m-auto" />
                 <h6 class="text-primary">No News Yet...!</h6>
               </div>
             </div>
