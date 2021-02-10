@@ -233,9 +233,6 @@
                     <ng-container *ngIf="user.type == 'Recruiter'">
                       <ng-template *ngTemplateOutlet="recruiterMenu"></ng-template>
                     </ng-container>
-                    <ng-container *ngIf="user.type == 'Admin'">
-                      <ng-template *ngTemplateOutlet="adminMenu"></ng-template>
-                    </ng-container>
                     <ng-container>
                       <ng-template *ngTemplateOutlet="studentMenu"></ng-template>
                     </ng-container>
@@ -379,7 +376,7 @@
 <ng-template #adminMenu>
   <li>
     <a [matMenuTriggerFor]="admin" class="curPoint px-2 py-4"
-      >Operations<i class="fas fa-caret-down pl-1"></i>
+      ><i class="fas fa-wrench pr-2"></i>Operations<i class="fas fa-caret-down pl-1"></i>
       <mat-menu #admin="matMenu">
         <div class="sidebar-submenu">
           <button mat-menu-item [routerLink]="['/admin/deactive-user']" class="h6">
@@ -405,6 +402,22 @@
           </button>
           <button mat-menu-item [routerLink]="['/admin/partners']" class="h6">
             Partners
+          </button>
+          <button mat-menu-item [matMenuTriggerFor]="profile" class="h6">
+            Settings
+            <mat-menu #profile="matMenu">
+              <div class="sidebar-submenu">
+                <button mat-menu-item [routerLink]="['/my-plan']" class="h6">
+                  My Subscriptions
+                </button>
+                <button mat-menu-item [routerLink]="['/reset-password']" class="h6">
+                  Update Password
+                </button>
+                <button mat-menu-item [routerLink]="['/user/profile']" class="h6">
+                  Edit Profile
+                </button>
+              </div>
+            </mat-menu>
           </button>
         </div>
       </mat-menu>
@@ -554,7 +567,10 @@
       </mat-menu>
     </a>
   </li>
-  <li>
+  <ng-container *ngIf="user.type == 'Admin'">
+    <ng-template *ngTemplateOutlet="adminMenu"></ng-template>
+  </ng-container>
+  <li *ngIf="!isAdmin">
     <a [matMenuTriggerFor]="profile" class="curPoint px-2 py-4">
       <i class="fas fa-unlock-alt pr-2"></i>Settings<i class="fas fa-caret-down pl-1"></i>
       <mat-menu #profile="matMenu">
