@@ -14,6 +14,7 @@ import { CreateOrganizationModule } from '@app/partials/popups/recruiter/create-
 
 import { SignupPopupComponent } from '@app/partials/popups/authentication/signup-popup/signup-popup.component';
 import { ForgotPasswordPopupComponent } from '@app/partials/popups/authentication/forgot-password-popup/forgot-password-popup.component';
+import { NewSignupPopupComponent } from '@app/partials/popups/authentication/new-signup-popup/new-signup-popup.component';
 
 @NgModule({
   imports: [
@@ -29,7 +30,7 @@ import { ForgotPasswordPopupComponent } from '@app/partials/popups/authenticatio
     CreateOrganizationModule,
     CookieModule.forRoot(),
   ],
-  declarations: [SignupPopupComponent, ForgotPasswordPopupComponent],
+  declarations: [SignupPopupComponent, ForgotPasswordPopupComponent, NewSignupPopupComponent],
   schemas: [NO_ERRORS_SCHEMA],
 })
 export class AuthModule {}
