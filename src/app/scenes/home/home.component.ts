@@ -2,6 +2,7 @@ import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
 import { finalize } from 'rxjs/operators';
 import { OwlOptions, SlidesOutputData } from 'ngx-owl-carousel-o';
 import { OwlDOMData } from 'ngx-owl-carousel-o/lib/models/owlDOM-data.model';
+import { documents } from '@app/models/constants';
 
 // services
 import { SharedService } from '@app/services/shared.service';
@@ -541,8 +542,13 @@ export class HomeComponent implements OnInit {
     this.popupData.authenticationService.opneCreateOrganization();
   }
 
-  openTerms() {
-    this.doc = this.termsAndCondition;
+  openDoc(_type: string) {
+    if (_type === 'privacy') {
+      this.doc = documents.privacyPolicy;
+    }
+    if (_type === 'term') {
+      this.doc = this.termsAndCondition;
+    }
   }
 
   // signup code
@@ -567,19 +573,19 @@ export class HomeComponent implements OnInit {
         /*---------------------------
           SMOOTH SCROLL
       -----------------------------*/
-        $('ul#nav li a[href^="#"], a.navbar-brand, a.scrolltotop').on('click', function (event: any) {
-          var id = $(this).attr('href');
-          var offset = 60;
-          var target = $(id).offset().top - offset;
-          $('html, body').animate(
-            {
-              scrollTop: target,
-            },
-            1500,
-            'easeInOutExpo'
-          );
-          event.preventDefault();
-        });
+        // $('ul#nav li a[href^="#"], a.navbar-brand, a.scrolltotop').on('click', function (event: any) {
+        //   var id = $(this).attr('href');
+        //   var offset = 60;
+        //   var target = $(id).offset().top - offset;
+        //   $('html, body').animate(
+        //     {
+        //       scrollTop: target,
+        //     },
+        //     1500,
+        //     'easeInOutExpo'
+        //   );
+        //   event.preventDefault();
+        // });
 
         /*----------------------------
           MOBILE & DROPDOWN MENU

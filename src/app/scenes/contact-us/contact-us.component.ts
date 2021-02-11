@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { SharedService } from '@app/services/shared.service';
 import { delay } from 'rxjs/operators';
@@ -11,6 +11,7 @@ declare var jQuery: any;
   selector: 'app-contact-us',
   templateUrl: './contact-us.component.html',
   styleUrls: ['./contact-us.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class ContactUsComponent implements OnInit {
   contactUsForm!: FormGroup;
@@ -20,7 +21,7 @@ export class ContactUsComponent implements OnInit {
   initForm() {
     this.contactUsForm = this.formBuilder.group({
       firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
+      lastName: [''],
       contactNumber: [
         '',
         [Validators.required, Validators.pattern(this.sharedService.utilityService.CustomValidators.onlyNumber)],
@@ -28,6 +29,10 @@ export class ContactUsComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       message: ['', Validators.required],
     });
+  }
+
+  checkDisable(){
+    return this.contactUsForm.invalid;
   }
 
   submit() {
@@ -46,6 +51,9 @@ export class ContactUsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    setTimeout(() => {
+      jQuery('.header-top-area').removeClass('position-absolute');
+    }, 500);
     this.sharedService.utilityService.requiredStyleForHomeHeader();
     window.scrollTo(0, 0);
     this.initForm();

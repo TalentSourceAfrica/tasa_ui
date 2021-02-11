@@ -27,3 +27,7 @@ export const flutterWaveKeys = {
   'Secret Key': 'FLWSECK_TEST-89895f07ab4316fc9858e2f9b88eca2d-X',
   'Encryption Key': 'FLWSECK_TEST24647b096e99',
 };
+
+export const documents = {
+  privacyPolicy: 'https://storage.cloud.google.com/tasa-preprod-bucket/Tasa_PrivacyPolicy.pdf',
+};

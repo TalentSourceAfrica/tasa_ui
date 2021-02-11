@@ -135,7 +135,7 @@
   <!--FEATURES TOP AREA-->
   <section class="features-top-area" id="features">
     <div class="container">
-      <div class="row promo-content" data-aos="flip-up" data-aos-duration="2000">
+      <div class="row promo-content animated fadeInUp" >
         <div class="col-md-3 col-lg-3 col-sm-6 col-xs-12">
           <div class="text-icon-box mb20 xs-mb0 wow fadeInUp p-2" data-wow-delay="0.1s">
             <div class="box-icon features-box-icon">
@@ -281,8 +281,8 @@
   <section class="section-padding about-area bg-theme" id="about">
     <div class="container-fluid">
       <div class="row flex-v-center w70 text-center m-auto">
-        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12" data-aos="zoom-in-right">
-          <div class="about-content xs-mb50 wow fadeIn">
+        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+          <div class="about-content xs-mb50 animated fadeIn">
             <h3 class="xs-font20 mb30">About Us</h3>
             <h5 class="text-muted">
               To upskill, network and connect the millions of unemployed African college graduates with the job
@@ -291,8 +291,8 @@
             </h5>
           </div>
         </div>
-        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 mt-4" data-aos="zoom-in-left">
-          <div class="video-promo-details wow fadeIn">
+        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 mt-4 animated fadeInUp">
+          <div class="video-promo-details animated fadeIn">
             <video width="100%" height="500" controls muted="" loop="" playsinline="">
               <source src="https://www.kuwaconsultinggroup.com/images/kuwa2.mp4" type="video/mp4" />
               <source src="https://www.kuwaconsultinggroup.com/images/kuwa2.mp4" type="video/ogg" />
@@ -1549,11 +1549,11 @@
               <input id="terms" type="checkbox" class="custom-control-input" formControlName="termsCond" required="" />
               <label for="terms" class="custom-control-label text-black-70"
                 >I agree to the
-                <a class="text-black-70 curPoint" (click)="openTerms()" style="text-decoration: underline;"
+                <a class="text-black-70 curPoint" (click)="openDoc('terms')" style="text-decoration: underline;"
                   >Terms and Condition</a
                 >
                 And
-                <a class="text-black-70 curPoint" (click)="openTerms()" style="text-decoration: underline;"
+                <a class="text-black-70 curPoint" (click)="openDoc('privacy')" style="text-decoration: underline;"
                   >Privacy & Policy.</a
                 ></label
               >

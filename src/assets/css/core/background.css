@@ -6,6 +6,10 @@
   background: #a89fb670;
 }
 
+.bg-theme-dark{
+  background: #43335a;
+}
+
 .bg-transparent {
   background-color: transparent;
 }
