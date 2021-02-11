@@ -376,6 +376,10 @@ export class NewSignupPopupComponent implements OnInit {
 	    });
 	}
 
+	openDoc(){
+		
+	}
+
 	ngOnInit(): void {
 		this.init();
 	}

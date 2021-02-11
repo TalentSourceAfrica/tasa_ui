@@ -39,7 +39,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.i18nService.init(environment.defaultLanguage, environment.supportedLanguages);
 
     const onNavigationEnd = this.router.events.pipe(filter((event) => event instanceof NavigationEnd));
-
+    console.log(onNavigationEnd);
     // Change page title on navigation or language change, based on route data
     merge(this.translateService.onLangChange, onNavigationEnd)
       .pipe(
@@ -58,6 +58,9 @@ export class AppComponent implements OnInit, OnDestroy {
         const title = event.title;
         if (title) {
           this.titleService.setTitle(this.translateService.instant(title));
+        }
+        if(location.hash !== '#/home'){
+          jQuery('.header-top-area').removeClass('position-absolute');
         }
       });
   }

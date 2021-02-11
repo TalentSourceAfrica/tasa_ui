@@ -10,6 +10,7 @@ import { HomeComponent } from './home.component';
 import { MaterialModule } from '@app/modules/material.module';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxDocViewerModule } from 'ngx-doc-viewer';
 
 @NgModule({
   imports: [
@@ -23,6 +24,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
+    NgxDocViewerModule
   ],
   declarations: [HomeComponent],
   schemas: [NO_ERRORS_SCHEMA],

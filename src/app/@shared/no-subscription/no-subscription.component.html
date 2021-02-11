@@ -27,7 +27,7 @@
       <h1 class="alert">You Haven't Subscribed To Any Plan</h1>
       <h5 class="text-white">{{ message }}</h5>
     </div>
-    <button class="button-box" [routerLink]="['/subscription-plans']">
+    <button class="button-box" (click)="redirect()">
       <h1 class="text-primary">Subscribe Now</h1>
     </button>
   </div>

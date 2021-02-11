@@ -15,7 +15,7 @@
         </div>
 
         <ng-container *ngIf="myCourses.length === 0">
-          <app-no-subscription [message]="'Trust Us ! We offer best Course'"></app-no-subscription>
+          <app-no-subscription [isComingFrom]="'course'" [message]="'Trust Us ! We offer best Course'"></app-no-subscription>
         </ng-container>
         <ng-container *ngIf="myCourses.length">
           <div class="row w100 max-vertical-h-80 stylishSlimScroll flow-y-auto flow-x-hidden">

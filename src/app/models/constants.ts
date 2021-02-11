@@ -30,4 +30,5 @@ export const flutterWaveKeys = {
 
 export const documents = {
   privacyPolicy: 'https://storage.cloud.google.com/tasa-preprod-bucket/Tasa_PrivacyPolicy.pdf',
+  terms : 'https://storage.cloud.google.com/tasa-preprod-bucket/TERMS%20_OF_USE_Tasa.pdf'
 };

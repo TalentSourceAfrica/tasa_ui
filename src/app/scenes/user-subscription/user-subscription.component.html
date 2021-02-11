@@ -7,7 +7,7 @@
     <div class="title">My Subscription</div>
   </div>
   <ng-container *ngIf="!mySubscription">
-    <app-no-subscription [message]="'Trust Us ! We offer best plans'"></app-no-subscription>
+    <app-no-subscription [isComingFrom]="'subscription'" [message]="'Trust Us ! We offer best plans'"></app-no-subscription>
   </ng-container>
   <ng-container *ngIf="mySubscription">
     <div class="row no-gutters w60 m-auto">

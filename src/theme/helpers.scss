@@ -811,7 +811,7 @@ a {
 .mat-mini-fab.mat-primary {
   &:hover {
     &:enabled {
-      transition: 0.5s;
+      transition: 0.1s;
       box-shadow: 5px 10px 10px 0 $light-blue !important;
       border:2px solid #523f6d!important;
       background-color: #fff !important;
