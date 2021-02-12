@@ -119,9 +119,9 @@ export class ProfileComponent implements OnInit {
         break;
       case 'About':
         userConfigToUpdate.data = [
-          // { label: 'Email', key: 'email' },
           { label: 'City', key: 'city' },
           { label: 'Country', key: 'country', isDropdown: true },
+          { label: 'Date of Birth', key: 'dob', isDateTime: true },
           { label: 'Preferred Role', key: 'careerGoals' },
           { label: 'Professional Interest', key: 'preferredRole' },
           { label: 'Subjects/Topics of Preference', key: 'areaOfPreference' },
@@ -137,6 +137,10 @@ export class ProfileComponent implements OnInit {
         ];
         break;
       case 'Experience':
+        break;
+      case 'Education':
+        break;
+      case 'Certificate':
         break;
     }
 

@@ -1,4 +1,4 @@
-<div class="d-flex align-items-center no-gutters edit-profilr-wrapper">
+<div class="d-flex align-items-center no-gutters edit-profile-wrapper">
   <div class="col-sm-8 col-md-12 col-lg-12 mx-auto">
     <div class="navbar-shadow">
       <div class="card-header text-center">
@@ -38,7 +38,7 @@
           <input
             [id]="item.label"
             type="text"
-            *ngIf="!item?.textarea && !item?.isDropdown"
+            *ngIf="!item?.textarea && !item?.isDropdown && !item?.isDateTime"
             [(ngModel)]="user[item.key]"
             class="form-control form-control-prepended"
             placeholder="Your {{ item.label }}"
@@ -46,23 +46,28 @@
           <textarea
             [id]="item.label"
             cols="30"
-            *ngIf="item?.textarea && !item?.isDropdown"
+            *ngIf="item?.textarea && !item?.isDropdown && !item?.isDateTime"
             rows="10"
             [(ngModel)]="user[item.key]"
             class="form-control form-control-prepended"
             placeholder="Your {{ item.label }}"
           ></textarea>
+          <ng-container *ngIf="item?.isDateTime">
+            <input
+              matInput
+              class="form-control form-control-prepended"
+              [matDatepicker]="picker1"
+              readonly
+              [(ngModel)]="user[item.key]"
+            />
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1 color="primary"></mat-datepicker>
+          </ng-container>
+
           <ng-container *ngIf="item?.isDropdown">
             <ng-template [ngTemplateOutlet]="country" [ngTemplateOutletContext]="{ data: item }"> </ng-template>
           </ng-container>
         </div>
-        <!-- <small
-              [hidden]="userDetailsForm.controls.lastName.valid || userDetailsForm.controls.lastName.untouched"
-              class="text-danger"
-              translate
-            >
-              Last Name is required
-            </small> -->
       </div>
     </ng-container>
     <ng-container *ngIf="popupData.userConfigToUpdate.type === 'Experience' && user">
@@ -70,6 +75,12 @@
     </ng-container>
     <ng-container *ngIf="popupData.userConfigToUpdate.type === 'Education' && user">
       <ng-container *ngTemplateOutlet="education"></ng-container>
+    </ng-container>
+    <ng-container *ngIf="popupData.userConfigToUpdate.type === 'Certificate' && user">
+      <ng-container *ngTemplateOutlet="certificate"></ng-container>
+    </ng-container>
+    <ng-container *ngIf="popupData.userConfigToUpdate.type === 'Freelancer' && user">
+      <ng-container *ngTemplateOutlet="freelancer"></ng-container>
     </ng-container>
   </div>
 </ng-template>
@@ -194,13 +205,6 @@
 </ng-template>
 
 <ng-template #education>
-  <!-- college: ["PGTC"]
-degreeFromDate: null
-degreeToDate: null
-highestDegree: "MCA"
-major: "CS"
-minor: [""]
-university: ["Kol"] -->
   <div class="col-12 text-right">
     <button
       mat-mini-fab
@@ -280,9 +284,7 @@ university: ["Kol"] -->
             </div>
           </div>
           <div class="form-group">
-            <label class="form-label" for="description"
-              >Major<span class="text-danger pl-1 asterisk">*</span></label
-            >
+            <label class="form-label" for="description">Major<span class="text-danger pl-1 asterisk">*</span></label>
             <div class="input-group input-group-merge">
               <input
                 type="text"
@@ -293,9 +295,7 @@ university: ["Kol"] -->
             </div>
           </div>
           <div class="form-group">
-            <label class="form-label" for="description"
-              >Minor<span class="text-danger pl-1 asterisk">*</span></label
-            >
+            <label class="form-label" for="description">Minor<span class="text-danger pl-1 asterisk">*</span></label>
             <div class="input-group input-group-merge">
               <input
                 type="text"
@@ -345,10 +345,216 @@ university: ["Kol"] -->
   </div>
 </ng-template>
 
+<ng-template #certificate>
+  <div class="col-12 text-center">
+    <button
+      mat-mini-fab
+      color="primary"
+      matTooltipPosition="below"
+      matTooltip="Add More Certificate"
+      (click)="triggerUpload()"
+      class="ml-2 rounded-pill mb-2"
+    >
+      <mat-icon>cloud_upload</mat-icon>
+    </button>
+    <div class="mt-1">
+      <p>
+        <strong>Supported File :</strong>
+        <span class="text-muted ml-2" *ngFor="let item of certificateSuportedFile">{{ item }}</span>
+      </p>
+    </div>
+  </div>
+  <div class="form-group col-12">
+    <label class="form-label" for="name">Certificate(s)</label>
+    <div class="row no-gutters">
+      <div class="col-4 p-2" *ngFor="let item of user.certificate; let i = index">
+        <img
+          [src]="item.certificates[0]"
+          *ngIf="item.certificateType === 'image'"
+          class="img-thumbnail certificate-img"
+          alt="certificate"
+        />
+        <span
+          style="font-size: 100px;"
+          class="material-icons img-thumbnail certificate-img text-primary"
+          *ngIf="item.certificateType === 'pdf'"
+        >
+          picture_as_pdf
+        </span>
+        <mat-icon class="position-absolute curPoint" (click)="removeCertificate(i)">close</mat-icon>
+      </div>
+    </div>
+    <input id="certificateUpload" class="d-none" #uploadCertificate type="file" (change)="uploadFile($event)" />
+  </div>
+</ng-template>
+
+<ng-template #freelancer>
+  <div class="f-color d-flex">
+    <mat-slide-toggle
+      class="example-margin text-primary"
+      [checked]="user.isFreelancer"
+      (change)="(user.isFreelancer != user.isFreelancer)"
+      [(ngModel)]="user.isFreelancer"
+    >
+      Do you to be listed as a Freelancer on TaSA
+    </mat-slide-toggle>
+  </div>
+  <ng-container *ngIf="user.isFreelancer">
+    <div class="row no-gutters w100 mt-2">
+      <div class="form-group col-12">
+        <label class="form-label" for="projectName"
+          >Areas of Expertise<span class="text-danger pl-1 asterisk">*</span></label
+        >
+        <mat-chip-list #chipList aria-label="Fruit selection">
+          <mat-chip
+            *ngFor="let item of user.fieldsOfExpertise"
+            [selectable]="selectable"
+            [removable]="removable"
+            (removed)="remove(item)"
+          >
+            {{ item.areaOfExpertise }}
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+          </mat-chip>
+          <input
+            placeholder="New Skill..."
+            [matChipInputFor]="chipList"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            [matChipInputAddOnBlur]="addOnBlur"
+            (matChipInputTokenEnd)="add($event)"
+            class="form-control form-control-prepended"
+          />
+        </mat-chip-list>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="user.isFreelancer">
+    <ng-container *ngTemplateOutlet="gig"></ng-container>
+  </ng-container>
+</ng-template>
+
 <ng-template #country let-data="data">
-  <mat-select [(ngModel)]="user[data.key]" placeholder="Your Country" required class="form-control form-control-prepended">
+  <mat-select
+    [(ngModel)]="user[data.key]"
+    placeholder="Your Country"
+    required
+    class="form-control form-control-prepended"
+  >
     <mat-option *ngFor="let country of countries" [value]="country.title">
       {{ country.title }}
     </mat-option>
   </mat-select>
 </ng-template>
+
+<ng-template #gig>
+  <div class="col-12 text-right">
+    <button
+      mat-mini-fab
+      color="primary"
+      matTooltipPosition="below"
+      matTooltip="Add More Gigs"
+      (click)="addGig()"
+      class="ml-2 rounded-pill mb-2"
+    >
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+  <div class="form-group col-12" *ngFor="let item of user.pastGigs; let i = index">
+    <mat-accordion>
+      <mat-expansion-panel class="mb-1" [expanded]="i == 0">
+        <mat-expansion-panel-header>
+          <mat-panel-title class="text-primary">
+            <strong>Past Gig {{ i + 1 }}</strong>
+          </mat-panel-title>
+          <mat-panel-description class="d-flex justify-content-end">
+            <div class="text-right">
+              <mat-icon matTooltipPosition="below" matTooltip="Remove Past Gig" (click)="removeGig(i)"
+                >remove_circle_outline</mat-icon
+              >
+            </div>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div class="pt-2">
+          <div class="row no-gutters">
+            <div class="col-6">
+              <div class="form-group">
+                <label class="form-label" for="projectName"
+                  >Gig Title<span class="text-danger pl-1 asterisk">*</span></label
+                >
+                <div class="input-group input-group-merge">
+                  <input
+                    id="projectName{{ i }}"
+                    type="text"
+                    [(ngModel)]="item.projectName"
+                    class="form-control form-control-prepended"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group pl-2">
+                <label class="form-label" for="projectDesc"
+                  >Gig Details<span class="text-danger pl-1 asterisk">*</span></label
+                >
+                <div class="input-group input-group-merge">
+                  <input
+                    type="text"
+                    id="projectDesc{{ i }}"
+                    [(ngModel)]="item.projectDesc"
+                    class="form-control form-control-prepended"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group pl-2">
+                <label class="form-label" for="clientName"
+                  >Client Name<span class="text-danger pl-1 asterisk">*</span></label
+                >
+                <div class="input-group input-group-merge">
+                  <input
+                    type="text"
+                    id="clientName{{ i }}"
+                    [(ngModel)]="item.clientName"
+                    class="form-control form-control-prepended"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group pl-2">
+                <label class="form-label" for="projectDuration"
+                  >Gig Duration<span class="text-danger pl-1 asterisk">*</span></label
+                >
+                <div class="input-group input-group-merge">
+                  <input
+                    type="text"
+                    id="projectDuration{{ i }}"
+                    [(ngModel)]="item.projectDuration"
+                    class="form-control form-control-prepended"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+</ng-template>
+
+<!-- "fieldsOfExpertise": [
+{
+  "areaOfExpertise": "string"
+}
+],
+"pastGigs": [
+{
+  "projectName": "string",
+  "projectDesc": "string",
+  "projectDuration": "string",
+  "projectURL": "string",
+  "clientName": "string",
+  "clientWebsite": "string"
+}
+], -->

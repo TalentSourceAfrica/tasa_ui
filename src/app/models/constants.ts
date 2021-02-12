@@ -33,3 +33,7 @@ export const documents = {
   terms : 'https://storage.googleapis.com/tasa-public-content/TERMS%20_OF_USE_Tasa.pdf',
   introductionVideo :'https://storage.googleapis.com/tasa-public-content/TasaIntroductionVdo.mp4'
 };
+
+export const suportedFile = {
+  certificate: ['jpg', 'jpeg', 'png'],
+};

@@ -27,11 +27,9 @@ export class BaseConfig {
 
   getDomain() {
     if (location.hostname.indexOf('localhost') === 0) {
-      // return '34.86.93.22:8080';
-      return '35.247.90.252:8080'
+      return '34.86.93.22:8080';
     } else if (location.hostname.indexOf('34.86.93.22') !== -1) {
-      // return '34.86.93.22:8080'; // Pre Prod Env
-       return '35.247.90.252:8080'
+      return '34.86.93.22:8080'; // Pre Prod Env
     } else {
       return '35.247.90.252:8080' // Prod Env
     }
