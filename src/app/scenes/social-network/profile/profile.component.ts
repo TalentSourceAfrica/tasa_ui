@@ -6,7 +6,7 @@ import { delay } from 'rxjs/operators';
 
 //service
 import { SocialnetworkService } from '../socialnetwork.service';
-import { CredentialsService } from '@app/auth';
+import { AuthenticationService, CredentialsService } from '@app/auth';
 import { SharedService } from '@app/services/shared.service';
 import Swal from 'sweetalert2';
 
@@ -37,7 +37,8 @@ export class ProfileComponent implements OnInit {
     private route: ActivatedRoute,
     private cdr: ChangeDetectorRef,
     public sanitizer: DomSanitizer,
-    private socialnetworkService: SocialnetworkService
+    private socialnetworkService: SocialnetworkService,
+    private authenticationService: AuthenticationService
   ) {
     this.sharedService.utilityService.changeMessage('FETCH-USER-PROFILE');
     this.mom = this.sharedService.plugins.mom;
@@ -114,12 +115,18 @@ export class ProfileComponent implements OnInit {
         userConfigToUpdate.data = [
           { label: 'Username', key: 'username' },
           { label: 'Email', key: 'email' },
-          { label: 'Preferred Role', key: 'preferredRole' },
-          { label: 'Carrer Goal', key: 'careerGoals' },
         ];
         break;
-      case 'About Me':
-        userConfigToUpdate.data = [{ label: 'About Me', key: 'bio', textarea: true }];
+      case 'About':
+        userConfigToUpdate.data = [
+          // { label: 'Email', key: 'email' },
+          { label: 'City', key: 'city' },
+          { label: 'Country', key: 'country', isDropdown: true },
+          { label: 'Preferred Role', key: 'careerGoals' },
+          { label: 'Professional Interest', key: 'preferredRole' },
+          { label: 'Subjects/Topics of Preference', key: 'areaOfPreference' },
+          { label: 'About Me', key: 'bio', textarea: true },
+        ];
         break;
       case 'Contact Information':
         userConfigToUpdate.data = [
@@ -129,12 +136,14 @@ export class ProfileComponent implements OnInit {
           { label: 'Country', key: 'country', isDropdown: true },
         ];
         break;
+      case 'Experience':
+        break;
     }
 
     this.sharedService.dialogService.open(EditUserPopupComponent, {
       width: '700px',
       data: {
-        authenticationService: this,
+        authenticationService: this.authenticationService,
         credentialsService: this.credentialsService,
         userConfigToUpdate: userConfigToUpdate,
       },

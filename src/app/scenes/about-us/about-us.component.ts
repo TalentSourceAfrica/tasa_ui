@@ -6,6 +6,7 @@ import { SharedService } from '@app/services/shared.service';
 
 // extra
 declare var jQuery: any;
+import * as AOS from 'aos';
 
 @Component({
   selector: 'app-about-us',
@@ -73,5 +74,7 @@ export class AboutUsComponent implements OnInit {
     window.scrollTo(0, 0);
   }
 
-  ngAfterViewInit(): void {}
+  ngAfterViewInit(): void {
+    AOS.init();
+  }
 }

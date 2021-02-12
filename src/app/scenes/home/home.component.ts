@@ -21,6 +21,7 @@ import { MustMatch } from '@app/auth/must-match';
   styleUrls: ['./home.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
+
 export class HomeComponent implements OnInit {
   @ViewChild('stepper', { static: false }) stepper: any;
   isLoading = false;

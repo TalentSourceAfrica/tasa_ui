@@ -81,13 +81,13 @@
                                     <span class="material-icons pr-2"> check_circle </span>Connected
                                   </span>
                                 </div>
-
+<!-- 
                                 <h3 class="text-white mt-0">
                                   <span class="text-primary">
                                     {{ userConfig.user.currentRole }} At {{ userConfig.user.organization }}
                                   </span>
-                                </h3>
-                                <h3 class="text-white mt-0 mb-0">
+                                </h3> -->
+                                <h3 class="text-white mt-0 mb-1">
                                   <span
                                     >Lives In
                                     <strong class="text-primary"
@@ -97,11 +97,11 @@
                                 </h3>
                                 <h3 class="text-white mt-0 mb-0">
                                   <span
-                                    >Interested In
+                                    >Subjects/Topics of Preference
                                     <strong class="text-primary">{{ userConfig.user.areaOfPreference }}</strong></span
                                   >
                                 </h3>
-                                <h3
+                                <!-- <h3
                                   class="text-white mt-0 mb-5"
                                   *ngIf="userConfig.user.experience && userConfig.user.experience != ''"
                                 >
@@ -109,7 +109,7 @@
                                     >Total Experience
                                     <strong class="text-primary">{{ userConfig.user.experience }} Years</strong></span
                                   >
-                                </h3>
+                                </h3> -->
                               </div>
                             </div>
                           </div>
@@ -216,17 +216,17 @@
                             </div>
                           </div>
                         </div>
-                        <div class="card-body max-vertical-h-70 stylishSlimScroll flow-y-auto flow-x-hidden">
+                        <div class="card-body max-vertical-h-90 stylishSlimScroll flow-y-auto flow-x-hidden">
                           <form>
                             <!-- Description -->
                             <div class="d-flex">
-                              <h3 class="heading-small text-muted mb-4 w50">About Me</h3>
+                              <h3 class="heading-small text-muted mb-4 w50">About</h3>
                               <div class="d-flex w100 justify-content-end">
                                 <mat-icon
                                   class="text-primary curPoint"
                                   matTooltipPosition="below"
                                   matTooltip="Edit User Information"
-                                  (click)="editUser('About Me')"
+                                  (click)="editUser('About')"
                                   >edit</mat-icon
                                 >
                               </div>
@@ -271,14 +271,14 @@
                                 </div>
                                 <div class="col-lg-6">
                                   <div class="form-group">
-                                    <label class="form-control-label" for="input-email">Preferred Role </label>
+                                    <label class="form-control-label" for="input-email">Professional Interest</label>
                                     <h4 class="text-primary">{{ userConfig.user.preferredRole }}</h4>
                                     <!-- <input type="email" id="input-email" class="form-control form-control-alternative" placeholder="jesse@example.com"> -->
                                   </div>
                                 </div>
                                 <div class="col-lg-6">
                                   <div class="form-group">
-                                    <label class="form-control-label" for="input-email">Career Goal</label>
+                                    <label class="form-control-label" for="input-email">Preferred Role</label>
                                     <h4 class="text-primary">{{ userConfig.user.careerGoals }}</h4>
                                     <!-- <input type="email" id="input-email" class="form-control form-control-alternative" placeholder="jesse@example.com"> -->
                                   </div>
@@ -286,12 +286,26 @@
                               </div>
                             </div>
                             <hr class="my-4" />
-                            <h3 class="heading-small text-muted mb-4">Experience Information</h3>
-                            <div class="pl-lg-4" *ngFor="let exp of userConfig.user.experience; let index = i">
+                            <div class="d-flex">
+                              <h3 class="heading-small text-muted mb-4 w50">Experience</h3>
+                              <div class="d-flex w100 justify-content-end">
+                                <mat-icon
+                                  class="text-primary curPoint"
+                                  matTooltipPosition="below"
+                                  matTooltip="Edit User Information"
+                                  (click)="editUser('Experience')"
+                                  >edit</mat-icon
+                                >
+                              </div>
+                            </div>
+                            <div
+                              class="pl-lg-4"
+                              *ngFor="let exp of userConfig.user.experience; let i = index; let last = last"
+                            >
                               <div class="row">
                                 <div class="col-lg-4" *ngIf="exp.currentRole[0] != ''">
                                   <div class="form-group focused">
-                                    <label class="form-control-label" for="input-username">Current Role</label>
+                                    <label class="form-control-label" for="input-username">Designation</label>
                                     <h4 class="text-primary">{{ exp.currentRole[0] }}</h4>
                                   </div>
                                 </div>
@@ -305,7 +319,7 @@
                                 </div>
                                 <div class="col-lg-4" *ngIf="exp.degreeToDate != ''">
                                   <div class="form-group">
-                                    <label class="form-control-label" for="input-email">Experience From</label>
+                                    <label class="form-control-label" for="input-email">Job Start Date</label>
                                     <h4 class="text-primary">
                                       {{ getDate(exp.experienceFrom) }}
                                     </h4>
@@ -313,29 +327,41 @@
                                 </div>
                                 <div class="col-lg-4" *ngIf="exp.experienceTo != ''">
                                   <div class="form-group">
-                                    <label class="form-control-label" for="input-email">Experience To </label>
+                                    <label class="form-control-label" for="input-email">Job End Date</label>
                                     <h4 class="text-primary">
                                       {{ getDate(exp.experienceTo) }}
                                     </h4>
                                   </div>
                                 </div>
-                                <div class="col-lg-4" *ngIf="exp.experience != null">
+                                <!-- <div class="col-lg-4" *ngIf="exp.experience != null">
                                   <div class="form-group">
                                     <label class="form-control-label" for="input-email">Experience</label>
                                     <h4 class="text-primary">{{ exp.experience }}</h4>
                                   </div>
-                                </div>
-                                <div class="col-lg-4" *ngIf="exp.description[0] != ''">
+                                </div> -->
+                                <div class="col-lg-8" *ngIf="exp.description[0] != ''">
                                   <div class="form-group">
-                                    <label class="form-control-label" for="input-email">Description</label>
+                                    <label class="form-control-label" for="input-email">Job Description</label>
                                     <h4 class="text-primary">{{ exp.description[0] }}</h4>
                                   </div>
                                 </div>
                               </div>
+                              <hr *ngIf="userConfig.user.experience.length > 1 && !last" />
                             </div>
                             <hr class="my-4" />
-                            <h3 class="heading-small text-muted mb-4">Educational Information</h3>
-                            <div class="pl-lg-4" *ngFor="let edu of userConfig.user.education">
+                            <div class="d-flex">
+                              <h3 class="heading-small text-muted mb-4 w50">Education</h3>
+                              <div class="d-flex w100 justify-content-end">
+                                <mat-icon
+                                  class="text-primary curPoint"
+                                  matTooltipPosition="below"
+                                  matTooltip="Edit User Information"
+                                  (click)="editUser('Education')"
+                                  >edit</mat-icon
+                                >
+                              </div>
+                            </div>
+                            <div class="pl-lg-4" *ngFor="let edu of userConfig.user.education; let i = index; let last = last">
                               <div class="row">
                                 <div class="col-lg-4" *ngIf="edu.highestDegree != ''">
                                   <div class="form-group focused">
@@ -345,13 +371,13 @@
                                 </div>
                                 <div class="col-lg-4" *ngIf="edu.college[0] != ''">
                                   <div class="form-group">
-                                    <label class="form-control-label" for="input-email">College</label>
+                                    <label class="form-control-label" for="input-email">School/College</label>
                                     <h4 class="text-primary">{{ edu.college[0] }}</h4>
                                   </div>
                                 </div>
                                 <div class="col-lg-4" *ngIf="edu.degreeFromDate != ''">
                                   <div class="form-group">
-                                    <label class="form-control-label" for="input-email">Degree From </label>
+                                    <label class="form-control-label" for="input-email">Degree Start Date</label>
                                     <h4 class="text-primary">
                                       {{ getDate(edu.degreeFromDate) }}
                                     </h4>
@@ -359,7 +385,7 @@
                                 </div>
                                 <div class="col-lg-4" *ngIf="edu.degreeToDate != ''">
                                   <div class="form-group">
-                                    <label class="form-control-label" for="input-email">Degree To </label>
+                                    <label class="form-control-label" for="input-email">Degree End Date</label>
                                     <h4 class="text-primary">
                                       {{ getDate(edu.degreeToDate) }}
                                     </h4>
@@ -371,6 +397,13 @@
                                     <h4 class="text-primary">{{ edu.minor[0] }}</h4>
                                   </div>
                                 </div>
+                                <div class="col-lg-4" *ngIf="edu.major != ''">
+                                  <div class="form-group focused">
+                                    <label class="form-control-label" for="input-username">Major</label>
+                                    <h4 class="text-primary">{{ edu.major }}</h4>
+                                  </div>
+                                </div>
+
                                 <div class="col-lg-4">
                                   <div class="form-group focused">
                                     <label class="form-control-label" for="input-username">University</label>
@@ -378,12 +411,13 @@
                                   </div>
                                 </div>
                               </div>
+                              <hr *ngIf="userConfig.user.education.length > 1 && !last" />
                             </div>
                             <hr class="my-4" />
-                            <ng-container *ngIf="userConfig.user.certificates && userConfig.user.certificates != ''">
+                            <ng-container >
                               <!-- Description -->
                               <h3 class="heading-small text-muted mb-4">Certificate</h3>
-                              <div class="pl-lg-4">
+                              <div class="pl-lg-4" *ngIf="userConfig.user.certificates && userConfig.user.certificates != ''">
                                 <div class="form-group focused" style="height: 300px;">
                                   <ngx-doc-viewer
                                     *ngIf="userConfig.user.certificateType === 'pdf'"
