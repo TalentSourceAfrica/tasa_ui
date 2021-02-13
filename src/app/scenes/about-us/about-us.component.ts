@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from '@app/auth';
+import { documents } from '@app/models/constants';
 import { OurTeamComponent } from '@app/partials/popups/about-us/our-team/our-team.component';
 import { SharedService } from '@app/services/shared.service';
 
 // extra
 declare var jQuery: any;
 import * as AOS from 'aos';
+
 
 @Component({
   selector: 'app-about-us',
@@ -15,6 +17,7 @@ import * as AOS from 'aos';
 })
 export class AboutUsComponent implements OnInit {
   contactUsForm!: FormGroup;
+  documents = documents
   constructor(
     private formBuilder: FormBuilder,
     public sharedService: SharedService,

@@ -1,4 +1,4 @@
-<div class="new-container p-0 m-0">
+<div class="new-container signup-wrapper p-0 m-0">
   <div class="new-overlay" id="new-overlay">
     <div class="sign-in" id="sign-in">
       <h1>Welcome Back!</h1>
@@ -17,10 +17,10 @@
     <div class="sign-in" id="sign-in-info">
       <h1>Sign In</h1>
       <form [formGroup]="loginForm" novalidate class="form-class">
-        <div class="flip-card-pseudo animated fadeInUp card min-vertical-h-25 mt-3 w50 mx-auto">
+        <div class="flip-card-pseudo animated fadeInUp min-vertical-h-25 mt-3 w50 mx-auto">
           <div class="flip-card-inner-class p-2">
             <div id="flip-card-front-class" class="col-12 px-0">
-              <div class="form-group d-block">
+              <div class="form-group d-block text-left">
                 <label class="form-label" for="email">Email address <sup class="text-danger">*</sup></label>
                 <div class="input-group input-group-merge">
                   <input
@@ -44,7 +44,7 @@
                   Email is required
                 </small>
               </div>
-              <div class="form-group d-block">
+              <div class="form-group d-block text-left">
                 <label class="form-label" for="password">Password <sup class="text-danger">*</sup></label>
                 <div class="input-group input-group-merge">
                   <input
@@ -82,9 +82,9 @@
     <div class="sign-up px-0" id="sign-up-info">
       <h1>Sign Up</h1>
       <form [formGroup]="userDetailsForm" novalidate class="form-class">
-        <div class="flip-card animated fadeInUp card min-vertical-h-35 mt-3 w20 mx-auto">
-          <div class="flip-card-inner p-2">
-            <div id="flip-card-front" class="col-12 px-0">
+        <div class="flip-card animated fadeInUp min-vertical-h-35 mt-3 w20 mx-auto">
+          <div class="flip-card-inner">
+            <div id="flip-card-front" class="col-12 px-0 text-left">
               <div class="form-group d-block">
                 <label class="form-label" for="email">Email address <sup class="text-danger">*</sup></label>
                 <div class="input-group input-group-merge">
@@ -171,7 +171,7 @@
             </div>
             <div id="flip-card-back" class="">
               <h6 class="text-center">Before you proceed...</h6>
-              <div class="form-group pt-2">
+              <div class="form-group pt-2 text-left">
                 <label class="form-label" for="name">First Name <sup class="text-danger">*</sup></label>
                 <div class="input-group input-group-merge">
                   <input
@@ -199,7 +199,7 @@
                   First Name is required
                 </small>
               </div>
-              <div class="form-group">
+              <div class="form-group text-left">
                 <label class="form-label" for="name">Last Name <sup class="text-danger">*</sup></label>
                 <div class="input-group input-group-merge">
                   <input
@@ -244,11 +244,11 @@
                 />
                 <label for="terms" class="custom-control-label text-black-70"
                   >I agree to the
-                  <a class="text-black-70 curPoint" (click)="openDoc()" style="text-decoration: underline;"
+                  <a class="text-black-70 curPoint" (click)="openDoc('term')" style="text-decoration: underline;"
                     >Terms and Condition</a
                   >
                   And
-                  <a class="text-black-70 curPoint" (click)="openDoc()" style="text-decoration: underline;"
+                  <a class="text-black-70 curPoint" (click)="openDoc('privacy')" style="text-decoration: underline;"
                     >Privacy & Policy.</a
                   ></label
                 >
@@ -283,6 +283,19 @@
           </button>
         </div>
       </form>
+    </div>
+  </div>
+</div>
+
+<div class="terms-privacy-modal">
+  <div id="myModal" class="modal" [ngClass]="{ 'd-block': doc != '' }">
+    <div class="modal-content">
+      <div class="text-center p-3">
+        <button mat-flat-button color="primary" (click)="doc = ''" class="rounded-pill ml-2">
+          Close
+        </button>
+      </div>
+      <ngx-doc-viewer [url]="doc" viewer="url" style="width: 100%; height: 100%;"></ngx-doc-viewer>
     </div>
   </div>
 </div>

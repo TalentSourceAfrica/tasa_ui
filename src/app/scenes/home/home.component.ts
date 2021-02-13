@@ -26,6 +26,7 @@ export class HomeComponent implements OnInit {
   @ViewChild('stepper', { static: false }) stepper: any;
   isLoading = false;
   userDetailsForm: FormGroup;
+  documents = documents;
   userDetails: any;
   countries: any;
   newUserObj: any;

@@ -293,12 +293,13 @@
         </div>
         <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 mt-4 animated fadeInUp">
           <div class="video-promo-details animated fadeIn">
-            <video width="100%" height="500" controls muted="" loop="" playsinline="">
-              <source src="https://www.kuwaconsultinggroup.com/images/kuwa2.mp4" type="video/mp4" />
-              <source src="https://www.kuwaconsultinggroup.com/images/kuwa2.mp4" type="video/ogg" />
-              Your browser does not support the video tag.
-            </video>
-
+            <div class="d-flex container align-items-center m-auto">
+              <div class="w100 shadow-lg">
+                <video class="video-fluid z-depth-1" loop controls>
+                  <source [src]="documents.introductionVideo" type="video/mp4" />
+                </video>
+              </div>
+            </div>
             <!-- <div class="video-promo-content">
               <span data-video-id="j1S66liv1t8" class="video-area-popup mb30"><i class="fa fa-play"></i></span>
             </div>
@@ -1579,17 +1580,21 @@
   </mat-horizontal-stepper>
 </ng-template>
 
-<div class="signup-modal">
+<div class="terms-privacy-modal">
   <div id="myModal" class="modal" [ngClass]="{ 'd-block': doc != '' }">
     <div class="modal-content">
-      <span class="close curPoint" (click)="doc = ''">&times;</span>
+      <div class="text-center p-3">
+        <button mat-flat-button color="primary" (click)="doc = ''" class="rounded-pill ml-2">
+          Close
+        </button>
+      </div>
       <ngx-doc-viewer [url]="doc" viewer="url" style="width: 100%; height: 100%;"></ngx-doc-viewer>
     </div>
   </div>
 </div>
 
 <ng-template #sliderSignup>
-  <div class="input-group input-group-sm d-flex mt-2">
+  <div class="input-group input-group-sm d-flex mt-2" *ngIf="!user">
     <input
       class="form-control form-control-sm p-4 rounded-pill inputClass"
       type="email"

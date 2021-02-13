@@ -1,5 +1,5 @@
-:root{
-  --form-height:550px;
+:root {
+  --form-height: 550px;
   --form-width: 900px;
   /*  Sea Green */
   /* --left-color: #9fdeaf; */
@@ -8,20 +8,24 @@
   --right-color: #96dbe2;
 }
 
-body, html{
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  font-family: 'Helvetica Neue', sans-serif;
-  letter-spacing: 0.5px;
+.terms-privacy-modal {
+  .modal-content {
+    left: 5%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    height: 90%;
+    top: 5%;
+  }
 }
 
-.new-container{
+.new-container {
   width: var(--form-width);
   height: var(--form-height);
   position: relative;
   margin: auto;
-  box-shadow: 2px 10px 40px rgba(22,20,19,0.4);
+  box-shadow: 2px 10px 40px rgba(22, 20, 19, 0.4);
   /* border-radius: 10px; */
 }
 /* 
@@ -29,8 +33,8 @@ body, html{
       Overlay
 ----------------------
 */
-.new-overlay{
-  width: 100%; 
+.new-overlay {
+  width: 100%;
   height: 100%;
   position: absolute;
   z-index: 100;
@@ -40,15 +44,16 @@ body, html{
   clip: rect(0, 420px, var(--form-height), 0);
 }
 
-.open-sign-up{
-    animation: slideleft 1s linear forwards;
+.open-sign-up {
+  animation: slideleft 1s linear forwards;
 }
 
-.open-sign-in{
-    animation: slideright 1s linear forwards;
+.open-sign-in {
+  animation: slideright 1s linear forwards;
 }
 
-.new-overlay .sign-in, .new-overlay .sign-up{
+.new-overlay .sign-in,
+.new-overlay .sign-up {
   /*  Width is 420px - padding  */
   --padding: 4px;
   width: calc(420px - var(--padding) * 2);
@@ -61,40 +66,39 @@ body, html{
   text-align: center;
 }
 
-.new-overlay .sign-in{
+.new-overlay .sign-in {
   float: left;
 }
 
-.overlay-text-left-animation{
-    animation: text-slide-in-left 1s linear;
+.overlay-text-left-animation {
+  animation: text-slide-in-left 1s linear;
 }
-.overlay-text-left-animation-out{
-    animation: text-slide-out-left 1s linear;
+.overlay-text-left-animation-out {
+  animation: text-slide-out-left 1s linear;
 }
 
-.new-overlay .sign-up{
-  float:right;
+.new-overlay .sign-up {
+  float: right;
   &:hover {
     background-color: transparent;
     color: white;
   }
 }
 
-.overlay-text-right-animation{
-    animation: text-slide-in-right 1s linear;
+.overlay-text-right-animation {
+  animation: text-slide-in-right 1s linear;
 }
 
-.overlay-text-right-animation-out{
-    animation: text-slide-out-right 1s linear;
+.overlay-text-right-animation-out {
+  animation: text-slide-out-right 1s linear;
 }
 
-
-.new-overlay h1{
+.new-overlay h1 {
   margin: 0px 5px;
   font-size: 2.1rem;
 }
 
-.new-overlay p{
+.new-overlay p {
   margin: 20px 0px 30px;
   font-weight: 200;
 }
@@ -103,7 +107,8 @@ body, html{
       Buttons
 ------------------------
 */
-.switch-button, .control-button{
+.switch-button,
+.control-button {
   cursor: pointer;
   display: block;
   margin-left: auto;
@@ -117,24 +122,25 @@ body, html{
   color: white;
 }
 
-.switch-button{
+.switch-button {
   border: 2px solid;
 }
 
-.control-button{
+.control-button {
   border: none;
   margin-top: 15px;
 }
 
-.switch-button:focus, .control-button:focus{
-  outline:none;
+.switch-button:focus,
+.control-button:focus {
+  outline: none;
 }
 
-.control-button.up{
+.control-button.up {
   background-color: var(--left-color);
 }
 
-.control-button.in{
+.control-button.in {
   background-color: var(--right-color);
 }
 
@@ -143,17 +149,18 @@ body, html{
       Forms
 --------------------------
 */
-.form{
-  width: 100%; 
+.form {
+  width: 100%;
   height: 100%;
   position: absolute;
   border-radius: 10px;
 }
 
-.form .sign-in, .form .sign-up{
+.form .sign-in,
+.form .sign-up {
   --padding: 28px;
-  position:absolute;
-    /*  Width is 100% - 385px - padding  */
+  position: absolute;
+  /*  Width is 100% - 385px - padding  */
   width: calc(var(--form-width) - 385px - var(--padding) * 2);
   height: 100%;
   display: flex;
@@ -165,52 +172,52 @@ body, html{
 }
 
 /* Sign in is initially not displayed */
-.form .sign-in{
+.form .sign-in {
   display: none;
 }
 
-.form .sign-in{
-  left:0;
+.form .sign-in {
+  left: 0;
 }
 
-.form .sign-up{
+.form .sign-up {
   right: 0;
 }
 
-.form-right-slide-in{
+.form-right-slide-in {
   animation: form-slide-in-right 1s;
 }
 
-.form-right-slide-out{
+.form-right-slide-out {
   animation: form-slide-out-right 1s;
 }
 
-.form-left-slide-in{
+.form-left-slide-in {
   animation: form-slide-in-left 1s;
 }
 
-.form-left-slide-out{
+.form-left-slide-out {
   animation: form-slide-out-left 1s;
 }
 
-.form .sign-in h1{
+.form .sign-in h1 {
   color: var(--right-color);
   margin: 0;
 }
 
-.form .sign-up h1{
+.form .sign-up h1 {
   color: var(--left-color);
   margin: 0;
 }
 
-.social-media-buttons{
+.social-media-buttons {
   display: flex;
   justify-content: center;
   width: 100%;
   margin: 15px;
 }
 
-.social-media-buttons .icon{
+.social-media-buttons .icon {
   width: 40px;
   height: 40px;
   border: 1px solid #dadada;
@@ -221,19 +228,20 @@ body, html{
   margin: 10px 7px;
 }
 
-.small{
+.small {
   font-size: 13px;
   color: grey;
   font-weight: 200;
   margin: 5px;
 }
 
-.social-media-buttons .icon svg{
+.social-media-buttons .icon svg {
   width: 25px;
   height: 25px;
 }
 
-#sign-in-form input, #sign-up-form input{
+#sign-in-form input,
+#sign-up-form input {
   margin: 12px;
   font-size: 14px;
   padding: 15px;
@@ -241,23 +249,23 @@ body, html{
   font-weight: 300;
   border: none;
   background-color: #e4e4e494;
-  font-family: 'Helvetica Neue', sans-serif;
+  font-family: "Helvetica Neue", sans-serif;
   letter-spacing: 1.5px;
   padding-left: 20px;
 }
 
-#sign-in-form input::placeholder{
+#sign-in-form input::placeholder {
   letter-spacing: 1px;
 }
 
-.forgot-password{
+.forgot-password {
   font-size: 12px;
   display: inline-block;
   border-bottom: 2px solid #efebeb;
   padding-bottom: 3px;
 }
 
-.forgot-password:hover{
+.forgot-password:hover {
   cursor: pointer;
 }
 
@@ -266,45 +274,55 @@ body, html{
     Animation
 ---------------------------
 */
-@keyframes slideright{
-  0%{
+@keyframes slideright {
+  0% {
     clip: rect(0, 450px, var(--form-height), 0);
   }
-  30%{
-        clip: rect(0, 480px, var(--form-height), 0);
+  30% {
+    clip: rect(0, 480px, var(--form-height), 0);
   }
   /*  we want the width to be slightly larger here  */
-  50%{
-     clip: rect(0px, calc(var(--form-width) / 2 + 480px / 2), var(--form-height), calc(var(--form-width) / 2 - 480px / 2));
+  50% {
+    clip: rect(
+      0px,
+      calc(var(--form-width) / 2 + 480px / 2),
+      var(--form-height),
+      calc(var(--form-width) / 2 - 480px / 2)
+    );
   }
-  80%{
-         clip: rect(0px, var(--form-width), var(--form-height), calc(var(--form-width) - 480px));
+  80% {
+    clip: rect(0px, var(--form-width), var(--form-height), calc(var(--form-width) - 480px));
   }
-  100%{
-     clip: rect(0px, var(--form-width), var(--form-height), calc(var(--form-width) - 450px));
+  100% {
+    clip: rect(0px, var(--form-width), var(--form-height), calc(var(--form-width) - 450px));
   }
 }
 
-@keyframes slideleft{
-  100%{
+@keyframes slideleft {
+  100% {
     clip: rect(0, 450px, var(--form-height), 0);
   }
-  70%{
-        clip: rect(0, 480px, var(--form-height), 0);
+  70% {
+    clip: rect(0, 480px, var(--form-height), 0);
   }
   /*  we want the width to be slightly larger here  */
-  50%{
-     clip: rect(0px, calc(var(--form-width) / 2 + 480px / 2), var(--form-height), calc(var(--form-width) / 2 - 480px / 2));
+  50% {
+    clip: rect(
+      0px,
+      calc(var(--form-width) / 2 + 480px / 2),
+      var(--form-height),
+      calc(var(--form-width) / 2 - 480px / 2)
+    );
   }
-  30%{
-         clip: rect(0px, var(--form-width), var(--form-height), calc(var(--form-width) - 480px));
+  30% {
+    clip: rect(0px, var(--form-width), var(--form-height), calc(var(--form-width) - 480px));
   }
-  0%{
-     clip: rect(0px, var(--form-width), var(--form-height), calc(var(--form-width) - 450px));
+  0% {
+    clip: rect(0px, var(--form-width), var(--form-height), calc(var(--form-width) - 450px));
   }
 }
 
-@keyframes text-slide-in-left{
+@keyframes text-slide-in-left {
   0% {
     padding-left: 20px;
   }
@@ -313,7 +331,7 @@ body, html{
   }
 }
 
-@keyframes text-slide-in-right{
+@keyframes text-slide-in-right {
   0% {
     padding-right: 20px;
   }
@@ -322,7 +340,7 @@ body, html{
   }
 }
 
-@keyframes text-slide-out-left{
+@keyframes text-slide-out-left {
   0% {
     padding-left: 50px;
   }
@@ -331,7 +349,7 @@ body, html{
   }
 }
 
-@keyframes text-slide-out-right{
+@keyframes text-slide-out-right {
   0% {
     padding-right: 50px;
   }
@@ -340,47 +358,47 @@ body, html{
   }
 }
 
-@keyframes form-slide-in-right{
-  0%{
+@keyframes form-slide-in-right {
+  0% {
     padding-right: 100px;
   }
-  100%{
+  100% {
     padding-right: 50px;
   }
 }
 
-@keyframes form-slide-in-left{
-  0%{
+@keyframes form-slide-in-left {
+  0% {
     padding-left: 100px;
   }
-  100%{
+  100% {
     padding-left: 50px;
   }
 }
 
-@keyframes form-slide-out-right{
-  0%{
+@keyframes form-slide-out-right {
+  0% {
     padding-right: 50px;
   }
-  100%{
+  100% {
     padding-right: 80px;
   }
 }
 
-@keyframes form-slide-out-left{
-  0%{
+@keyframes form-slide-out-left {
+  0% {
     padding-left: 50px;
   }
-  100%{
+  100% {
     padding-left: 80px;
   }
 }
 
 .flip-card-pseudo {
-    min-width: 20vw !important;
-    max-width: 20vw !important;
-    max-height: 20vh !important;
-    min-height: 20vh !important;
+  min-width: 20vw !important;
+  max-width: 20vw !important;
+  max-height: 20vh !important;
+  min-height: 20vh !important;
 }
 
 .form-class {
@@ -403,7 +421,6 @@ body, html{
   width: 300px;
   height: 300px;
   perspective: 1000px;
-  padding: 20px;
   transition: 2s;
 }
 
