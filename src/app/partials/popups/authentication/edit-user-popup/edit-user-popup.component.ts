@@ -4,6 +4,7 @@ import { MatChipInputEvent } from '@angular/material/chips';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { suportedFile } from '@app/models/constants';
 import { SharedService } from '@app/services/shared.service';
+import { element } from 'protractor';
 
 @Component({
   selector: 'app-edit-user-popup',
@@ -78,6 +79,25 @@ export class EditUserPopupComponent implements OnInit {
           element.minor[0] === '' ||
           element.university[0] === '' ||
           element.degreeToDate === ''
+        ) {
+          isValid = false;
+        } else {
+          isValid = true;
+        }
+      });
+    } else if (this.popupData.userConfigToUpdate.type === 'About') {
+      this.popupData.userConfigToUpdate.data.forEach((element: any) => {
+        if (element['isRequired']) {
+          this.user[element.key] === '' ? (isValid = false) : null;
+        }
+      });
+    } else if (this.popupData.userConfigToUpdate.type === 'Freelancer') {
+      this.user.pastGigs.forEach((element: any) => {
+        if (
+          element.projectName === '' ||
+          element.projectDesc === '' ||
+          element.clientName === '' ||
+          element.projectDuration === ''
         ) {
           isValid = false;
         } else {

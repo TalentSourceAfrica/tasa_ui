@@ -33,7 +33,9 @@
   <div class="row w100 no-gutters">
     <ng-container *ngIf="popupData.userConfigToUpdate.type !== 'Experience'">
       <div class="form-group col-12" *ngFor="let item of popupData.userConfigToUpdate.data">
-        <label class="form-label" for="name">{{ item.label }}</label>
+        <label class="form-label" for="name"
+          >{{ item.label }}<span *ngIf="item.isRequired" class="text-danger pl-1 asterisk">*</span></label
+        >
         <div class="input-group input-group-merge">
           <input
             [id]="item.label"
@@ -381,7 +383,13 @@
         >
           picture_as_pdf
         </span>
-        <mat-icon class="position-absolute curPoint" (click)="removeCertificate(i)">close</mat-icon>
+        <mat-icon
+          class="position-absolute curPoint"
+          matTooltipPosition="below"
+          matTooltip="Remove Certificate"
+          (click)="removeCertificate(i)"
+          >close</mat-icon
+        >
       </div>
     </div>
     <input id="certificateUpload" class="d-none" #uploadCertificate type="file" (change)="uploadFile($event)" />
@@ -507,7 +515,7 @@
               </div>
             </div>
             <div class="col-6">
-              <div class="form-group pl-2">
+              <div class="form-group">
                 <label class="form-label" for="clientName"
                   >Client Name<span class="text-danger pl-1 asterisk">*</span></label
                 >
@@ -542,19 +550,3 @@
     </mat-accordion>
   </div>
 </ng-template>
-
-<!-- "fieldsOfExpertise": [
-{
-  "areaOfExpertise": "string"
-}
-],
-"pastGigs": [
-{
-  "projectName": "string",
-  "projectDesc": "string",
-  "projectDuration": "string",
-  "projectURL": "string",
-  "clientName": "string",
-  "clientWebsite": "string"
-}
-], -->

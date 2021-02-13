@@ -119,13 +119,14 @@ export class ProfileComponent implements OnInit {
         break;
       case 'About':
         userConfigToUpdate.data = [
-          { label: 'City', key: 'city' },
-          { label: 'Country', key: 'country', isDropdown: true },
-          { label: 'Date of Birth', key: 'dob', isDateTime: true },
+          { label: 'City', key: 'city', isRequired: true },
+          { label: 'Country', key: 'country', isDropdown: true, isRequired: true },
+          { label: 'State', key: 'state', isRequired: true },
+          { label: 'Date of Birth', key: 'dob', isDateTime: true, isRequired: true },
           { label: 'Preferred Role', key: 'careerGoals' },
           { label: 'Professional Interest', key: 'preferredRole' },
           { label: 'Subjects/Topics of Preference', key: 'areaOfPreference' },
-          { label: 'About Me', key: 'bio', textarea: true },
+          { label: 'About Me', key: 'bio', textarea: true, isRequired: true },
         ];
         break;
       case 'Contact Information':
@@ -141,6 +142,8 @@ export class ProfileComponent implements OnInit {
       case 'Education':
         break;
       case 'Certificate':
+        break;
+      case 'Freelancer':
         break;
     }
 
