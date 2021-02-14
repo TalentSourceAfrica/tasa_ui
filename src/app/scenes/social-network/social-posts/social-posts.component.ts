@@ -18,7 +18,7 @@ export class SocialPostsComponent implements OnInit {
   @ViewChild('imageFileUpload', { static: false }) imageFileUpload: any;
   @ViewChild('videoFileUpload', { static: false }) videoFileUpload: any;
   socialConfig: any = {
-    isLoading: true,
+    isLoading: false,
     allSocialPost: [],
     newPost: {
       content: '',
@@ -104,10 +104,12 @@ export class SocialPostsComponent implements OnInit {
     this.sharedService.configService.get(apiUrl).subscribe(
       (response: any) => {
         this.socialConfig.allSocialPost = JSON.parse(JSON.stringify(response.responseObj));
+        this.socialConfig.isLoading = false;
         this.handleSharedPostInfo(this.socialConfig.allSocialPost);
       },
       (error) => {
-        console.log(error);
+        this.socialConfig.isLoading = false;
+        this.sharedService.uiService.showApiErrorPopMsg(error.error.message);
       }
     );
   }
@@ -631,7 +633,7 @@ export class SocialPostsComponent implements OnInit {
     }
   }
   ngAfterViewInit(): void {
-    this.conectionDrawer.open();
+    // this.conectionDrawer.open();
     this.cdr.detectChanges();
   }
 }

@@ -8,7 +8,7 @@ export class BaseConfig {
   @Inject(WINDOW) public window: Window;
 
   domain: string = this.getDomain();
-  localRestHost: string = 'http://' + this.domain;
+  localRestHost: string = 'https://' + this.domain;
   windowLocation: any = window.location;
   restHost: string = window.location.origin;
   pathname: string = window.location.pathname;

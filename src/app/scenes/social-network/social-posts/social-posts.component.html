@@ -300,246 +300,260 @@
                           >
                             <mat-icon style="height: 27px; margin-right: 2px;">😄</mat-icon>
                           </button>
-                          <div
-                            class="album box mb-4"
-                            *ngFor="let post of socialConfig.allSocialPost; let postIndex = index"
-                          >
-                            <div *ngIf="post.post && !socialConfig.isLoading">
-                              <div class="status-main pt-3">
-                                <img
-                                  matTooltipPosition="below"
-                                  [matTooltip]="post.userName"
-                                  [routerLink]="['/social-network/profile/', post.tasaId]"
-                                  routerLinkActive="router-link-active"
-                                  [src]="post.userImageUrl"
-                                  class="status-img curPoint"
-                                />
-                                <div class="album-detail">
-                                  <div class="album-title">
-                                    <strong
-                                      ><a
-                                        [routerLink]="['/social-network/profile/', post.tasaId]"
-                                        routerLinkActive="router-link-active"
-                                        >{{ post.userName }}</a
-                                      ></strong
-                                    >
-                                  </div>
-                                  <div class="album-date">{{ getNotiDay(post.createdOn) }}</div>
-                                </div>
-                                <button
-                                  *ngIf="post.userId == user.email"
-                                  mat-mini-fab
-                                  color="primary"
-                                  style="z-index: 9;"
-                                  matTooltipPosition="below"
-                                  matTooltip="Delete Post"
-                                  (click)="deletePost(post.id, postIndex)"
-                                >
-                                  <mat-icon>delete</mat-icon>
-                                </button>
-                              </div>
-                              <div class="row album-content no-gutters">
-                                <div class="mb-2 mt-1 col-12" [class.pl-3]="post.imageUrl == '' && post.videoUrl == ''">
-                                  {{ post.content }}
-                                </div>
-                                <div class="pl-2 text-center" *ngIf="post.imageUrl != ''">
-                                  <a [href]="post.imageUrl" target="_blank">
-                                    <img [src]="post.imageUrl" width="250" height="250" class="p-2 curPoint" />
-                                  </a>
-                                </div>
-                                <div class="pl-2 text-center" *ngIf="post.videoUrl != ''">
-                                  <video height="240" controls>
-                                    <source [src]="post.videoUrl" type="video/mp4" />
-                                    <source [src]="post.videoUrl" type="video/ogg" />
-                                    Your browser does not support the video tag.
-                                  </video>
-                                  <!-- <a [href]="post.videoUrl" target="_blank">
-                                    <span class="text-primary mr-2">
-                                      <i class="fas fa-video fa-3x"></i>
-                                    </span>
-                                  </a> -->
-                                </div>
-                              </div>
-                              <div
-                                *ngIf="post.sharePostId != ''"
-                                class="album-box share-status-box sharedPost shadow-sm m-auto border w80 mx-2 mb-4"
-                              >
-                                <div class="status-main p-2">
+                          <ng-container *ngIf="socialConfig.isLoading">
+                            <ng-template [ngTemplateOutlet]="loader"></ng-template>
+                          </ng-container>
+                          <ng-container *ngIf="!socialConfig.isLoading && socialConfig.allSocialPost.length">
+                            <div
+                              class="album box mb-4"
+                              *ngFor="let post of socialConfig.allSocialPost; let postIndex = index"
+                            >
+                              <div *ngIf="post.post && !socialConfig.isLoading">
+                                <div class="status-main pt-3">
                                   <img
                                     matTooltipPosition="below"
-                                    [matTooltip]="post.sharePostUserName"
-                                    [routerLink]="['/social-network/profile/', post.sharePostTasaId]"
+                                    [matTooltip]="post.userName"
+                                    [routerLink]="['/social-network/profile/', post.tasaId]"
                                     routerLinkActive="router-link-active"
-                                    [src]="post.sharePostOgUserImage"
+                                    [src]="post.userImageUrl"
                                     class="status-img curPoint"
                                   />
                                   <div class="album-detail">
                                     <div class="album-title">
                                       <strong
                                         ><a
-                                          [routerLink]="['/social-network/profile/', post.sharePostTasaId]"
+                                          [routerLink]="['/social-network/profile/', post.tasaId]"
                                           routerLinkActive="router-link-active"
-                                          >{{ post.sharePostUserName }}</a
+                                          >{{ post.userName }}</a
                                         ></strong
                                       >
                                     </div>
-                                    <div class="album-date">{{ getNotiDay(post.sharePostCreatedOn) }}</div>
+                                    <div class="album-date">{{ getNotiDay(post.createdOn) }}</div>
                                   </div>
+                                  <button
+                                    *ngIf="post.userId == user.email"
+                                    mat-mini-fab
+                                    color="primary"
+                                    style="z-index: 9;"
+                                    matTooltipPosition="below"
+                                    matTooltip="Delete Post"
+                                    (click)="deletePost(post.id, postIndex)"
+                                  >
+                                    <mat-icon>delete</mat-icon>
+                                  </button>
                                 </div>
-                                <div class="row album-content p-2 no-gutters">
+                                <div class="row album-content no-gutters">
                                   <div
                                     class="mb-2 mt-1 col-12"
-                                    [class.pl-3]="post.sharePostImage == '' && post.sharePostVideo == ''"
+                                    [class.pl-3]="post.imageUrl == '' && post.videoUrl == ''"
                                   >
-                                    {{ post.sharePostContent }}
+                                    {{ post.content }}
                                   </div>
-                                  <div class="pl-2 text-center" *ngIf="post.sharePostImage != ''">
-                                    <a [href]="post.sharePostImage" target="_blank">
-                                      <img [src]="post.sharePostImage" width="250" height="250" class="p-2 curPoint" />
+                                  <div class="pl-2 text-center" *ngIf="post.imageUrl != ''">
+                                    <a [href]="post.imageUrl" target="_blank">
+                                      <img [src]="post.imageUrl" width="250" height="250" class="p-2 curPoint" />
                                     </a>
                                   </div>
-                                  <div class="pl-2 text-center" *ngIf="post.sharePostVideo != ''">
+                                  <div class="pl-2 text-center" *ngIf="post.videoUrl != ''">
                                     <video height="240" controls>
-                                      <source [src]="post.sharePostVideo" type="video/mp4" />
-                                      <source [src]="post.sharePostVideo" type="video/ogg" />
+                                      <source [src]="post.videoUrl" type="video/mp4" />
+                                      <source [src]="post.videoUrl" type="video/ogg" />
                                       Your browser does not support the video tag.
                                     </video>
+                                    <!-- <a [href]="post.videoUrl" target="_blank">
+                                    <span class="text-primary mr-2">
+                                      <i class="fas fa-video fa-3x"></i>
+                                    </span>
+                                  </a> -->
                                   </div>
                                 </div>
-                              </div>
-                              <div class="pb-0 px-2 album-actions border-bottom pb-1 mt-1">
-                                <a class="album-action align-middle mr-2" (click)="openUserInteractionPopover(post)">
-                                  <!-- <i *ngIf="isReactionPresent('like', post)" class="fa-flip-horizontal fa-xs fas fa-thumbs-up pl-1"></i> -->
-                                  <img
-                                    *ngIf="isReactionPresent('like', post)"
-                                    src="./assets/images/social/like.svg"
-                                    class="pr-1 curPoint interactIcon"
-                                    width="25px"
-                                  />
-                                  <img
-                                    *ngIf="isReactionPresent('clap', post)"
-                                    src="./assets/images/social/celebrate.svg"
-                                    class="pr-1 curPoint interactIcon"
-                                    width="25px"
-                                  />
-                                  <img
-                                    *ngIf="isReactionPresent('congrats', post)"
-                                    src="./assets/images/social/congrats.svg"
-                                    class="pr-1 curPoint interactIcon"
-                                    width="25px"
-                                  />
-                                  <img
-                                    *ngIf="isReactionPresent('curious', post)"
-                                    src="./assets/images/social/curious.svg"
-                                    class="pr-1 curPoint interactIcon"
-                                    width="25px"
-                                  />
-                                  <span class="fa-xs underlineClass" *ngIf="post.reactions != null">
-                                    {{ post.reactions != null ? post.reactions.length : '0' }} Reactions</span
-                                  >
-                                </a>
-                                <a
-                                  *ngIf="post.comments != null"
-                                  (click)="post.isCommentShow = !post.isCommentShow"
-                                  class="album-action small underlineClass"
+                                <div
+                                  *ngIf="post.sharePostId != ''"
+                                  class="album-box share-status-box sharedPost shadow-sm m-auto border w80 mx-2 mb-4"
                                 >
-                                  {{ post.comments != null ? post.comments.length : '0' }} Comments
-                                </a>
-                              </div>
-                              <div class="px-0 ml-2 mr-3 mt-1 pb-2 album-actions">
-                                <a
-                                  class="album-action p-2 m-0 btm-bar-action-1"
-                                  (mouseenter)="userInteractionPopover($event)"
-                                  data-id="{{ post.id }}"
-                                >
-                                  <span *ngIf="noOtherReactionPresent(post)">
-                                    <span
-                                      *ngIf="isReacted('like', post)"
-                                      (click)="interactionApiCall('like', post, 'removeReactionFromPost')"
-                                    >
-                                      <!-- <i id="liked" *ngIf="isReacted('like', post)" class="fa-flip-horizontal fas fa-thumbs-up pl-1"></i> -->
-                                      <img
-                                        id="liked"
-                                        *ngIf="isReacted('like', post)"
-                                        src="./assets/images/social/like.svg"
-                                        class="pr-1 curPoint interactIcon"
-                                        width="20px"
-                                      />
-                                      <span class="pr-2">Like</span>
-                                    </span>
-                                    <span *ngIf="!isReacted('like', post)" (click)="interactionApiCall('like', post)">
-                                      <i
-                                        id="not-liked"
-                                        *ngIf="!isReacted('like', post)"
-                                        class="fa-flip-horizontal far fa-thumbs-up pl-1"
-                                      ></i>
-                                      <span class="pr-2">Like</span>
-                                    </span>
-                                  </span>
-                                  <span
-                                    *ngIf="isReacted('clap', post)"
-                                    class="pr-2"
-                                    (click)="interactionApiCall('clap', post, 'removeReactionFromPost')"
-                                  >
+                                  <div class="status-main p-2">
                                     <img
+                                      matTooltipPosition="below"
+                                      [matTooltip]="post.sharePostUserName"
+                                      [routerLink]="['/social-network/profile/', post.sharePostTasaId]"
+                                      routerLinkActive="router-link-active"
+                                      [src]="post.sharePostOgUserImage"
+                                      class="status-img curPoint"
+                                    />
+                                    <div class="album-detail">
+                                      <div class="album-title">
+                                        <strong
+                                          ><a
+                                            [routerLink]="['/social-network/profile/', post.sharePostTasaId]"
+                                            routerLinkActive="router-link-active"
+                                            >{{ post.sharePostUserName }}</a
+                                          ></strong
+                                        >
+                                      </div>
+                                      <div class="album-date">{{ getNotiDay(post.sharePostCreatedOn) }}</div>
+                                    </div>
+                                  </div>
+                                  <div class="row album-content p-2 no-gutters">
+                                    <div
+                                      class="mb-2 mt-1 col-12"
+                                      [class.pl-3]="post.sharePostImage == '' && post.sharePostVideo == ''"
+                                    >
+                                      {{ post.sharePostContent }}
+                                    </div>
+                                    <div class="pl-2 text-center" *ngIf="post.sharePostImage != ''">
+                                      <a [href]="post.sharePostImage" target="_blank">
+                                        <img
+                                          [src]="post.sharePostImage"
+                                          width="250"
+                                          height="250"
+                                          class="p-2 curPoint"
+                                        />
+                                      </a>
+                                    </div>
+                                    <div class="pl-2 text-center" *ngIf="post.sharePostVideo != ''">
+                                      <video height="240" controls>
+                                        <source [src]="post.sharePostVideo" type="video/mp4" />
+                                        <source [src]="post.sharePostVideo" type="video/ogg" />
+                                        Your browser does not support the video tag.
+                                      </video>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="pb-0 px-2 album-actions border-bottom pb-1 mt-1">
+                                  <a class="album-action align-middle mr-2" (click)="openUserInteractionPopover(post)">
+                                    <!-- <i *ngIf="isReactionPresent('like', post)" class="fa-flip-horizontal fa-xs fas fa-thumbs-up pl-1"></i> -->
+                                    <img
+                                      *ngIf="isReactionPresent('like', post)"
+                                      src="./assets/images/social/like.svg"
+                                      class="pr-1 curPoint interactIcon"
+                                      width="25px"
+                                    />
+                                    <img
+                                      *ngIf="isReactionPresent('clap', post)"
                                       src="./assets/images/social/celebrate.svg"
                                       class="pr-1 curPoint interactIcon"
-                                      width="20px"
-                                    />Clap
-                                  </span>
-                                  <span
-                                    *ngIf="isReacted('congrats', post)"
-                                    class="pr-2"
-                                    (click)="interactionApiCall('congrats', post, 'removeReactionFromPost')"
-                                  >
+                                      width="25px"
+                                    />
                                     <img
+                                      *ngIf="isReactionPresent('congrats', post)"
                                       src="./assets/images/social/congrats.svg"
                                       class="pr-1 curPoint interactIcon"
-                                      width="20px"
-                                    />Congrats
-                                  </span>
-                                  <span
-                                    *ngIf="isReacted('curious', post)"
-                                    class=""
-                                    (click)="interactionApiCall('curious', post, 'removeReactionFromPost')"
-                                  >
+                                      width="25px"
+                                    />
                                     <img
+                                      *ngIf="isReactionPresent('curious', post)"
                                       src="./assets/images/social/curious.svg"
                                       class="pr-1 curPoint interactIcon"
-                                      width="20px"
-                                    />Curious
-                                  </span>
-                                </a>
-                                <a
-                                  (click)="post.isCommentShow = !post.isCommentShow; post.reply = !post.reply"
-                                  class="album-action btm-bar-action-2 p-2 m-0"
-                                >
-                                  <svg
-                                    stroke="currentColor"
-                                    stroke-width="2"
-                                    fill="none"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    class="css-i6dzq1"
-                                    viewBox="0 0 24 24"
+                                      width="25px"
+                                    />
+                                    <span class="fa-xs underlineClass" *ngIf="post.reactions != null">
+                                      {{ post.reactions != null ? post.reactions.length : '0' }} Reactions</span
+                                    >
+                                  </a>
+                                  <a
+                                    *ngIf="post.comments != null"
+                                    (click)="post.isCommentShow = !post.isCommentShow"
+                                    class="album-action small underlineClass"
                                   >
-                                    <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" />
-                                  </svg>
-                                  <span class="">Comment</span>
-                                </a>
-                                <a class="album-action btm-bar-action-2 p-2 m-0" (click)="openSharePostPopup(post)">
-                                  <i class="fas fa-share"></i>
-                                  <span class="pl-1">Share</span>
-                                </a>
+                                    {{ post.comments != null ? post.comments.length : '0' }} Comments
+                                  </a>
+                                </div>
+                                <div class="px-0 ml-2 mr-3 mt-1 pb-2 album-actions">
+                                  <a
+                                    class="album-action p-2 m-0 btm-bar-action-1"
+                                    (mouseenter)="userInteractionPopover($event)"
+                                    data-id="{{ post.id }}"
+                                  >
+                                    <span *ngIf="noOtherReactionPresent(post)">
+                                      <span
+                                        *ngIf="isReacted('like', post)"
+                                        (click)="interactionApiCall('like', post, 'removeReactionFromPost')"
+                                      >
+                                        <!-- <i id="liked" *ngIf="isReacted('like', post)" class="fa-flip-horizontal fas fa-thumbs-up pl-1"></i> -->
+                                        <img
+                                          id="liked"
+                                          *ngIf="isReacted('like', post)"
+                                          src="./assets/images/social/like.svg"
+                                          class="pr-1 curPoint interactIcon"
+                                          width="20px"
+                                        />
+                                        <span class="pr-2">Like</span>
+                                      </span>
+                                      <span *ngIf="!isReacted('like', post)" (click)="interactionApiCall('like', post)">
+                                        <i
+                                          id="not-liked"
+                                          *ngIf="!isReacted('like', post)"
+                                          class="fa-flip-horizontal far fa-thumbs-up pl-1"
+                                        ></i>
+                                        <span class="pr-2">Like</span>
+                                      </span>
+                                    </span>
+                                    <span
+                                      *ngIf="isReacted('clap', post)"
+                                      class="pr-2"
+                                      (click)="interactionApiCall('clap', post, 'removeReactionFromPost')"
+                                    >
+                                      <img
+                                        src="./assets/images/social/celebrate.svg"
+                                        class="pr-1 curPoint interactIcon"
+                                        width="20px"
+                                      />Clap
+                                    </span>
+                                    <span
+                                      *ngIf="isReacted('congrats', post)"
+                                      class="pr-2"
+                                      (click)="interactionApiCall('congrats', post, 'removeReactionFromPost')"
+                                    >
+                                      <img
+                                        src="./assets/images/social/congrats.svg"
+                                        class="pr-1 curPoint interactIcon"
+                                        width="20px"
+                                      />Congrats
+                                    </span>
+                                    <span
+                                      *ngIf="isReacted('curious', post)"
+                                      class=""
+                                      (click)="interactionApiCall('curious', post, 'removeReactionFromPost')"
+                                    >
+                                      <img
+                                        src="./assets/images/social/curious.svg"
+                                        class="pr-1 curPoint interactIcon"
+                                        width="20px"
+                                      />Curious
+                                    </span>
+                                  </a>
+                                  <a
+                                    (click)="post.isCommentShow = !post.isCommentShow; post.reply = !post.reply"
+                                    class="album-action btm-bar-action-2 p-2 m-0"
+                                  >
+                                    <svg
+                                      stroke="currentColor"
+                                      stroke-width="2"
+                                      fill="none"
+                                      stroke-linecap="round"
+                                      stroke-linejoin="round"
+                                      class="css-i6dzq1"
+                                      viewBox="0 0 24 24"
+                                    >
+                                      <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" />
+                                    </svg>
+                                    <span class="">Comment</span>
+                                  </a>
+                                  <a class="album-action btm-bar-action-2 p-2 m-0" (click)="openSharePostPopup(post)">
+                                    <i class="fas fa-share"></i>
+                                    <span class="pl-1">Share</span>
+                                  </a>
+                                </div>
+                                <ng-template
+                                  [ngTemplateOutlet]="comments"
+                                  [ngTemplateOutletContext]="{ post: post, iteration: 0 }"
+                                >
+                                </ng-template>
                               </div>
-                              <ng-template
-                                [ngTemplateOutlet]="comments"
-                                [ngTemplateOutletContext]="{ post: post, iteration: 0 }"
-                              >
-                              </ng-template>
                             </div>
-                          </div>
-                          <ng-container *ngIf="socialConfig.allSocialPost.length == 0 || socialConfig.isLoading">
+                          </ng-container>
+
+                          <ng-container *ngIf="socialConfig.allSocialPost.length == 0 || !socialConfig.isLoading">
                             <div class="text-center m-auto animated fadeIn mt-2">
                               <div class="col-12 text-center">
                                 <img
@@ -698,6 +712,14 @@
       >
         <mat-icon>add_circle_outline</mat-icon>
       </button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #loader>
+  <div class="col-12 animated fadeIn" *ngFor="let item of [1, 2, 3, 4, 5]">
+    <div class="card ml-0 mr-0" style="height: 100px !important;">
+      <div class="card-img skeleton"></div>
     </div>
   </div>
 </ng-template>

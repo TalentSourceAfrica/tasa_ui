@@ -7,15 +7,15 @@ import { I18nModule } from '@app/i18n';
 import { AuthModule } from '@app/auth';
 import { MaterialModule } from '@app/modules/material.module';
 import { RouterModule } from '@angular/router';
-import { NgxEmojiPickerModule } from 'ngx-emoji-picker';
+
 import { SocialPostsRoutingModule } from './social-posts-routing.module';
 import { SocialPostsComponent } from './social-posts.component';
 import { UserInteractionSocialpostPopoverComponent } from '@app/partials/popups/community/user-interaction-socialpost-popover/user-interaction-socialpost-popover.component';
 import { ShareUserPostPopoverComponent } from '@app/partials/popups/community/share-user-post-popover/share-user-post-popover.component';
 import { SocialConnectionsModule } from '@app/partials/social-network/social-connections/social-connections.module';
-import { PickerModule } from '@ctrl/ngx-emoji-mart';
 import { LeftSideModule } from '@app/partials/left-side/left-side.module';
 import { RightSideModule } from '@app/partials/right-side/right-side.module';
+import { NgxEmojiPickerModule } from 'ngx-emoji-picker';
 
 @NgModule({
   imports: [
@@ -31,7 +31,6 @@ import { RightSideModule } from '@app/partials/right-side/right-side.module';
     SocialPostsRoutingModule,
     SocialConnectionsModule,
     NgxEmojiPickerModule,
-    PickerModule,
     LeftSideModule,
     RightSideModule,
   ],

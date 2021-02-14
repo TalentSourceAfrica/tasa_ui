@@ -10,7 +10,7 @@ export const environment = {
   production: true,
   hmr: false,
   version: env.npm_package_version,
-  serverUrl: 'http://35.247.161.145/tasaapi',
+  serverUrl: 'https://35.247.161.145/tasaapi',
   defaultLanguage: 'en-US',
   supportedLanguages: ['en-US', 'fr-FR'],
   baseURI: 'http://35.247.161.145/tasaUI',
