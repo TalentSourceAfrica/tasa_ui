@@ -172,7 +172,7 @@ export class ProfileComponent implements OnInit {
   connect() {
     let $t = this;
     Swal.fire({
-      title: '',
+      title: 'Message',
       input: 'text',
       inputAttributes: {
         autocapitalize: 'off',

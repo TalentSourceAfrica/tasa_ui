@@ -58,7 +58,7 @@ export class GroupComponent implements OnInit {
 
   sendRequest(grpId: any) {
     Swal.fire({
-      title: '',
+      title: 'Message',
       input: 'text',
       inputAttributes: {
         autocapitalize: 'off',

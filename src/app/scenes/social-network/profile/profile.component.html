@@ -216,7 +216,7 @@
                             <!-- Description -->
                             <div class="d-flex">
                               <h3 class="heading-small text-muted mb-4 w50">About</h3>
-                              <div class="d-flex w100 justify-content-end">
+                              <div class="d-flex w100 justify-content-end" *ngIf="isCurrentUser">
                                 <mat-icon
                                   class="text-primary curPoint"
                                   matTooltipPosition="below"
@@ -281,7 +281,7 @@
                             <hr class="my-4" />
                             <div class="d-flex">
                               <h3 class="heading-small text-muted mb-4 w50">Experience</h3>
-                              <div class="d-flex w100 justify-content-end">
+                              <div class="d-flex w100 justify-content-end" *ngIf="isCurrentUser">
                                 <mat-icon
                                   class="text-primary curPoint"
                                   matTooltipPosition="below"
@@ -344,7 +344,7 @@
                             <hr class="my-4" />
                             <div class="d-flex">
                               <h3 class="heading-small text-muted mb-4 w50">Education</h3>
-                              <div class="d-flex w100 justify-content-end">
+                              <div class="d-flex w100 justify-content-end"  *ngIf="isCurrentUser">
                                 <mat-icon
                                   class="text-primary curPoint"
                                   matTooltipPosition="below"
@@ -414,7 +414,7 @@
                               <!-- Description -->
                               <div class="d-flex">
                                 <h3 class="heading-small text-muted mb-4 w50">Certification</h3>
-                                <div class="d-flex w100 justify-content-end">
+                                <div class="d-flex w100 justify-content-end" *ngIf="isCurrentUser">
                                   <mat-icon
                                     class="text-primary curPoint"
                                     matTooltipPosition="below"
@@ -454,7 +454,7 @@
                             <!-- Address -->
                             <div class="d-flex">
                               <h3 class="heading-small text-muted mb-4 w50">Freelance Experience</h3>
-                              <div class="d-flex w100 justify-content-end">
+                              <div class="d-flex w100 justify-content-end" *ngIf="isCurrentUser">
                                 <mat-icon
                                   class="text-primary curPoint"
                                   matTooltipPosition="below"
