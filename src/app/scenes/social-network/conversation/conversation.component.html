@@ -319,10 +319,10 @@
             <mat-icon color="primary">more_vert</mat-icon>
           </button>
           <mat-menu #menu="matMenu" yPosition="above">
-            <button mat-menu-item (mouseover)="toggled = true" [matMenuTriggerFor]="emoji">
+            <!-- <button mat-menu-item (mouseover)="toggled = true" [matMenuTriggerFor]="emoji">
               <mat-icon style="height: 27px; margin-right: 16px;">😄</mat-icon>
               <span>Add Emoji</span>
-            </button>
+            </button> -->
             <button mat-menu-item (click)="sendMedia('image')">
               <mat-icon class="text-primary">image</mat-icon>
               <span>Send Image</span>
@@ -332,14 +332,14 @@
               <span>Send Video</span>
             </button>
           </mat-menu>
-          <mat-menu #emoji="matMenu">
+          <!-- <mat-menu #emoji="matMenu">
             <div
               class="emoji-attachment"
               [emojiPickerDirection]="'left'"
               [(emojiPickerIf)]="toggled"
               (emojiPickerSelect)="handleSelection($event)"
             ></div>
-          </mat-menu>
+          </mat-menu> -->
           <button class="submit" matTooltipPosition="below" matTooltip="Send" (click)="newMessage()">
             <i class="fa fa-paper-plane" aria-hidden="true"></i>
           </button>

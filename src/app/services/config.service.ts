@@ -241,7 +241,7 @@ export class ConfigService {
           case 405: // Method Not Allowed
             if (!_.isUndefined(error) && !_.isUndefined(error.error)) {
               if (_.isObject(error.error) && _.keys(error.error).length) {
-                errPopupMessage = error.error.errorMessage;
+                errPopupMessage = error.error;
                 switch (error.error.errorType) {
                   case 'SessionExpired':
                   case 'InvalidCredentials':
