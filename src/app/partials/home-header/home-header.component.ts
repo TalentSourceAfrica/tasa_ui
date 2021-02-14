@@ -301,7 +301,7 @@ export class HomeHeaderComponent implements OnInit {
   }
 
   login() {
-    this.authenticationService.openLoginPopup();
+    this.authenticationService.openSignupPopup('sign-in');
   }
 
   callUpload(event: any) {

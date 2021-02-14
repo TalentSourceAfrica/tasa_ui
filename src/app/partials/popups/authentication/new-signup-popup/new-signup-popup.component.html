@@ -81,208 +81,430 @@
     </div>
     <div class="sign-up px-0" id="sign-up-info">
       <h1>Sign Up</h1>
-      <form [formGroup]="userDetailsForm" novalidate class="form-class">
-        <div class="flip-card animated fadeInUp min-vertical-h-35 mt-3 w20 mx-auto">
-          <div class="flip-card-inner">
-            <div id="flip-card-front" class="col-12 px-0 text-left">
-              <div class="form-group d-block">
-                <label class="form-label" for="email">Email address <sup class="text-danger">*</sup></label>
-                <div class="input-group input-group-merge">
-                  <input
-                    id="email"
-                    type="email"
-                    formControlName="email"
-                    class="form-control form-control-prepended"
-                    placeholder="Email address you would enter to sign in on TaSA"
-                    (blur)="checkEmail()"
-                    [ngClass]="{ 'ng-invalid ng-touched': !isEmailAvailable }"
-                  />
-                  <div class="input-group-prepend">
-                    <div class="input-group-text">
-                      <span class="far fa-envelope"></span>
-                    </div>
-                  </div>
-                </div>
-                <small
-                  [hidden]="userDetailsForm.controls.email.valid || userDetailsForm.controls.email.untouched"
-                  class="text-danger"
-                  translate
-                >
-                  Email is required
-                </small>
-                <small [hidden]="isEmailAvailable" class="text-danger" translate>
-                  Email Address already exists
-                </small>
-              </div>
-              <div class="form-group d-block">
-                <label class="form-label" for="password">Password <sup class="text-danger">*</sup></label>
-                <div class="input-group input-group-merge">
-                  <input
-                    id="password"
-                    type="password"
-                    formControlName="password"
-                    class="form-control form-control-prepended"
-                    placeholder="Use a stronger password for better protection"
-                  />
-                  <div class="input-group-prepend">
-                    <div class="input-group-text">
-                      <span class="fas fa-key"></span>
-                    </div>
-                  </div>
-                </div>
-                <small
-                  [hidden]="userDetailsForm.controls.password.valid || userDetailsForm.controls.password.untouched"
-                  class="text-danger"
-                  translate
-                >
-                  Password is required
-                </small>
-              </div>
-              <div class="form-group d-block">
-                <label class="form-label" for="password">Confirm Password <sup class="text-danger">*</sup></label>
-                <div class="input-group input-group-merge">
-                  <input
-                    id="confirmPassword"
-                    type="password"
-                    formControlName="confirmPassword"
-                    class="form-control form-control-prepended"
-                    placeholder="Enter your password again, just to be sure"
-                  />
-                  <div class="input-group-prepend">
-                    <div class="input-group-text">
-                      <span class="fas fa-key"></span>
-                    </div>
-                  </div>
-                </div>
-                <small
-                  *ngIf="
-                    !userDetailsForm.controls.confirmPassword.untouched &&
-                    userDetailsForm.controls.confirmPassword.errors?.required
-                  "
-                  class="text-danger"
-                  translate
-                >
-                  Confirm Password is required
-                </small>
-                <small *ngIf="userDetailsForm.controls.confirmPassword.errors?.mustMatch" class="text-danger" translate>
-                  Confirm Password must match
-                </small>
-              </div>
-            </div>
-            <div id="flip-card-back" class="">
-              <h6 class="text-center">Before you proceed...</h6>
-              <div class="form-group pt-2 text-left">
-                <label class="form-label" for="name">First Name <sup class="text-danger">*</sup></label>
-                <div class="input-group input-group-merge">
-                  <input
-                    id="name"
-                    type="text"
-                    formControlName="firstName"
-                    class="form-control form-control-prepended"
-                    placeholder="Enter your first name"
-                  />
-                  <div class="input-group-prepend">
-                    <div class="input-group-text">
-                      <span class="far fa-user"></span>
-                    </div>
-                  </div>
-                </div>
-                <small
-                  [hidden]="
-                    userDetailsForm.controls.firstName.valid ||
-                    userDetailsForm.controls.firstName.untouched ||
-                    !userDetailsForm.controls.firstName.errors.required
-                  "
-                  class="text-danger"
-                  translate
-                >
-                  First Name is required
-                </small>
-              </div>
-              <div class="form-group text-left">
-                <label class="form-label" for="name">Last Name <sup class="text-danger">*</sup></label>
-                <div class="input-group input-group-merge">
-                  <input
-                    id="name"
-                    type="text"
-                    formControlName="lastName"
-                    class="form-control form-control-prepended"
-                    placeholder="Enter your last name"
-                  />
-                  <div class="input-group-prepend">
-                    <div class="input-group-text">
-                      <span class="far fa-user"></span>
-                    </div>
-                  </div>
-                </div>
-                <small
-                  [hidden]="
-                    userDetailsForm.controls.lastName.valid ||
-                    userDetailsForm.controls.lastName.untouched ||
-                    !userDetailsForm.controls.lastName.errors.required
-                  "
-                  class="text-danger"
-                  translate
-                >
-                  Last Name is required
-                </small>
-              </div>
+      <ng-container *ngIf="popupData.case == 'student' || popupData.case == 'sign-in'">
+	      <form [formGroup]="userDetailsForm" novalidate class="form-class">
+	        <div class="flip-card animated fadeInUp min-vertical-h-35 mt-3 w20 mx-auto">
+	          <div class="flip-card-inner">
+	            <div id="flip-card-front" class="col-12 px-0 text-left">
+	              <div class="form-group d-block">
+	                <label class="form-label" for="email">Email address <sup class="text-danger">*</sup></label>
+	                <div class="input-group input-group-merge">
+	                  <input
+	                    id="email"
+	                    type="email"
+	                    formControlName="email"
+	                    class="form-control form-control-prepended"
+	                    placeholder="Email address you would enter to sign in on TaSA"
+	                    (blur)="checkEmail()"
+	                    [ngClass]="{ 'ng-invalid ng-touched': !isEmailAvailable }"
+	                  />
+	                  <div class="input-group-prepend">
+	                    <div class="input-group-text">
+	                      <span class="far fa-envelope"></span>
+	                    </div>
+	                  </div>
+	                </div>
+	                <small
+	                  [hidden]="userDetailsForm.controls.email.valid || userDetailsForm.controls.email.untouched"
+	                  class="text-danger"
+	                  translate
+	                >
+	                  Email is required
+	                </small>
+	                <small [hidden]="isEmailAvailable" class="text-danger" translate>
+	                  Email Address already exists
+	                </small>
+	              </div>
+	              <div class="form-group d-block">
+	                <label class="form-label" for="password">Password <sup class="text-danger">*</sup></label>
+	                <div class="input-group input-group-merge">
+	                  <input
+	                    id="password"
+	                    type="password"
+	                    formControlName="password"
+	                    class="form-control form-control-prepended"
+	                    placeholder="Use a stronger password for better protection"
+	                  />
+	                  <div class="input-group-prepend">
+	                    <div class="input-group-text">
+	                      <span class="fas fa-key"></span>
+	                    </div>
+	                  </div>
+	                </div>
+	                <small
+	                  [hidden]="userDetailsForm.controls.password.valid || userDetailsForm.controls.password.untouched"
+	                  class="text-danger"
+	                  translate
+	                >
+	                  Password is required
+	                </small>
+	              </div>
+	              <div class="form-group d-block">
+	                <label class="form-label" for="password">Confirm Password <sup class="text-danger">*</sup></label>
+	                <div class="input-group input-group-merge">
+	                  <input
+	                    id="confirmPassword"
+	                    type="password"
+	                    formControlName="confirmPassword"
+	                    class="form-control form-control-prepended"
+	                    placeholder="Enter your password again, just to be sure"
+	                  />
+	                  <div class="input-group-prepend">
+	                    <div class="input-group-text">
+	                      <span class="fas fa-key"></span>
+	                    </div>
+	                  </div>
+	                </div>
+	                <small
+	                  *ngIf="
+	                    !userDetailsForm.controls.confirmPassword.untouched &&
+	                    userDetailsForm.controls.confirmPassword.errors?.required
+	                  "
+	                  class="text-danger"
+	                  translate
+	                >
+	                  Confirm Password is required
+	                </small>
+	                <small *ngIf="userDetailsForm.controls.confirmPassword.errors?.mustMatch" class="text-danger" translate>
+	                  Confirm Password must match
+	                </small>
+	              </div>
+	            </div>
+	            <div id="flip-card-back" class="">
+	              <h6 class="text-center">Before you proceed...</h6>
+	              <div class="form-group pt-2 text-left">
+	                <label class="form-label" for="name">First Name <sup class="text-danger">*</sup></label>
+	                <div class="input-group input-group-merge">
+	                  <input
+	                    id="name"
+	                    type="text"
+	                    formControlName="firstName"
+	                    class="form-control form-control-prepended"
+	                    placeholder="Enter your first name"
+	                  />
+	                  <div class="input-group-prepend">
+	                    <div class="input-group-text">
+	                      <span class="far fa-user"></span>
+	                    </div>
+	                  </div>
+	                </div>
+	                <small
+	                  [hidden]="
+	                    userDetailsForm.controls.firstName.valid ||
+	                    userDetailsForm.controls.firstName.untouched ||
+	                    !userDetailsForm.controls.firstName.errors.required
+	                  "
+	                  class="text-danger"
+	                  translate
+	                >
+	                  First Name is required
+	                </small>
+	              </div>
+	              <div class="form-group text-left">
+	                <label class="form-label" for="name">Last Name <sup class="text-danger">*</sup></label>
+	                <div class="input-group input-group-merge">
+	                  <input
+	                    id="name"
+	                    type="text"
+	                    formControlName="lastName"
+	                    class="form-control form-control-prepended"
+	                    placeholder="Enter your last name"
+	                  />
+	                  <div class="input-group-prepend">
+	                    <div class="input-group-text">
+	                      <span class="far fa-user"></span>
+	                    </div>
+	                  </div>
+	                </div>
+	                <small
+	                  [hidden]="
+	                    userDetailsForm.controls.lastName.valid ||
+	                    userDetailsForm.controls.lastName.untouched ||
+	                    !userDetailsForm.controls.lastName.errors.required
+	                  "
+	                  class="text-danger"
+	                  translate
+	                >
+	                  Last Name is required
+	                </small>
+	              </div>
 
-              <div class="custom-control custom-checkbox mb-2 pt-2">
-                <mat-checkbox
-                  id="terms"
-                  class="custom-control-input"
-                  formControlName="termsCond"
-                  required
-                ></mat-checkbox>
-                <input
-                  id="terms"
-                  type="checkbox"
-                  class="custom-control-input"
-                  formControlName="termsCond"
-                  required=""
-                />
-                <label for="terms" class="custom-control-label text-black-70"
-                  >I agree to the
-                  <a class="text-black-70 curPoint" (click)="openDoc('term')" style="text-decoration: underline;"
-                    >Terms and Condition</a
-                  >
-                  And
-                  <a class="text-black-70 curPoint" (click)="openDoc('privacy')" style="text-decoration: underline;"
-                    >Privacy & Policy.</a
-                  ></label
-                >
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="mt-3 text-center">
-          <button
-            mat-flat-button
-            color="primary"
-            *ngIf="!show"
-            [disabled]="
-              getForm().confirmPassword.status != 'VALID' ||
-              getForm().password.status != 'VALID' ||
-              getForm().email.status != 'VALID'
-            "
-            (click)="flipOnClick('flip')"
-            class="rounded-pill ml-2 w30"
-          >
-            Sign Up For Free
-          </button>
-          <button
-            mat-flat-button
-            color="primary"
-            *ngIf="show"
-            [disabled]="getForm().firstName.status != 'VALID' || getForm().lastName.status != 'VALID'"
-            (click)="flipOnClick('submit')"
-            class="rounded-pill ml-2 w30"
-          >
-            Alright! Let's Go!
-          </button>
-        </div>
-      </form>
+	              <div class="custom-control custom-checkbox mb-2 pt-2">
+	                <mat-checkbox
+	                  id="terms"
+	                  class="custom-control-input"
+	                  formControlName="termsCond"
+	                  required
+	                ></mat-checkbox>
+	                <input
+	                  id="terms"
+	                  type="checkbox"
+	                  class="custom-control-input"
+	                  formControlName="termsCond"
+	                  required=""
+	                />
+	                <label for="terms" class="custom-control-label text-black-70"
+	                  >I agree to the
+	                  <a class="text-black-70 curPoint" (click)="openDoc('term')" style="text-decoration: underline;"
+	                    >Terms and Condition</a
+	                  >
+	                  And
+	                  <a class="text-black-70 curPoint" (click)="openDoc('privacy')" style="text-decoration: underline;"
+	                    >Privacy & Policy.</a
+	                  ></label
+	                >
+	              </div>
+	            </div>
+	          </div>
+	        </div>
+	        <div class="mt-3 text-center">
+	          <button
+	            mat-flat-button
+	            color="primary"
+	            *ngIf="!show"
+	            [disabled]="
+	              getForm().confirmPassword.status != 'VALID' ||
+	              getForm().password.status != 'VALID' ||
+	              getForm().email.status != 'VALID'
+	            "
+	            (click)="flipOnClick('flip')"
+	            class="rounded-pill ml-2 w30"
+	          >
+	            Sign Up For Free
+	          </button>
+	          <button
+	            mat-flat-button
+	            color="primary"
+	            *ngIf="show"
+	            [disabled]="getForm().firstName.status != 'VALID' || getForm().lastName.status != 'VALID'"
+	            (click)="flipOnClick('submit')"
+	            class="rounded-pill ml-2 w30"
+	          >
+	            Alright! Let's Go!
+	          </button>
+	        </div>
+	      </form>
+	  </ng-container>
+	  <ng-container *ngIf="popupData.case == 'recruiter'">
+	  	  <form [formGroup]="userDetailsForm" novalidate class="form-class">
+		    <div class="flip-card animated fadeInUp min-vertical-h-35 mt-3 w20 mx-auto">
+		      <div class="flip-card-inner p-2">
+		        <div id="flip-card-front" class="col-12 px-0">
+		          <div class="form-group">
+		            <label class="form-label" for="email">Email address <sup class="text-danger">*</sup></label>
+		            <div class="input-group input-group-merge">
+		              <input
+		                id="email"
+		                type="email"
+		                formControlName="email"
+		                class="form-control form-control-prepended"
+		                placeholder="Your email address"
+		                (blur)="checkEmail()"
+		                [ngClass]="{ 'ng-invalid ng-touched': !isEmailAvailable }"
+		              />
+		              <div class="input-group-prepend">
+		                <div class="input-group-text">
+		                  <span class="far fa-envelope"></span>
+		                </div>
+		              </div>
+		            </div>
+		            <small
+		              [hidden]="userDetailsForm.controls.email.valid || userDetailsForm.controls.email.untouched"
+		              class="text-danger"
+		              translate
+		            >
+		              Email is required
+		            </small>
+		            <small [hidden]="isEmailAvailable" class="text-danger" translate>
+		              Email Address already exists
+		            </small>
+		          </div>
+		          <div class="form-group">
+		            <label class="form-label" for="password">Password <sup class="text-danger">*</sup></label>
+		            <div class="input-group input-group-merge">
+		              <input
+		                id="password"
+		                type="password"
+		                formControlName="password"
+		                class="form-control form-control-prepended"
+		                placeholder="Choose a password"
+		              />
+		              <div class="input-group-prepend">
+		                <div class="input-group-text">
+		                  <span class="fas fa-key"></span>
+		                </div>
+		              </div>
+		            </div>
+		            <small
+		              [hidden]="userDetailsForm.controls.password.valid || userDetailsForm.controls.password.untouched"
+		              class="text-danger"
+		              translate
+		            >
+		              Password is required
+		            </small>
+		          </div>
+		          <div class="form-group">
+		            <label class="form-label" for="password">Confirm Password <sup class="text-danger">*</sup></label>
+		            <div class="input-group input-group-merge">
+		              <input
+		                id="confirmPassword"
+		                type="password"
+		                formControlName="confirmPassword"
+		                class="form-control form-control-prepended"
+		                placeholder="Type password"
+		              />
+		              <div class="input-group-prepend">
+		                <div class="input-group-text">
+		                  <span class="fas fa-key"></span>
+		                </div>
+		              </div>
+		            </div>
+		            <small
+		              *ngIf="
+		                !userDetailsForm.controls.confirmPassword.untouched &&
+		                userDetailsForm.controls.confirmPassword.errors?.required
+		              "
+		              class="text-danger"
+		              translate
+		            >
+		              Confirm Password is required
+		            </small>
+		            <small *ngIf="userDetailsForm.controls.confirmPassword.errors?.mustMatch" class="text-danger" translate>
+		              Confirm Password must match
+		            </small>
+		          </div>
+		        </div>
+		        <div id="flip-card-back" class="">
+		          <h6 class="text-center">Before you proceed...</h6>
+		          <div class="form-group">
+		            <label class="form-label" for="name">First Name <sup class="text-danger">*</sup></label>
+		            <div class="input-group input-group-merge">
+		              <input
+		                id="name"
+		                type="text"
+		                formControlName="firstName"
+		                class="form-control form-control-prepended"
+		                placeholder="Your first name"
+		              />
+		              <div class="input-group-prepend">
+		                <div class="input-group-text">
+		                  <span class="far fa-user"></span>
+		                </div>
+		              </div>
+		            </div>
+		            <small
+		              [hidden]="userDetailsForm.controls.firstName.valid || userDetailsForm.controls.firstName.untouched"
+		              class="text-danger"
+		              translate
+		            >
+		              First Name is required
+		            </small>
+		          </div>
+		          <div class="form-group">
+		            <label class="form-label" for="name">Last Name <sup class="text-danger">*</sup></label>
+		            <div class="input-group input-group-merge">
+		              <input
+		                id="name"
+		                type="text"
+		                formControlName="lastName"
+		                class="form-control form-control-prepended"
+		                placeholder="Your last name"
+		              />
+		              <div class="input-group-prepend">
+		                <div class="input-group-text">
+		                  <span class="far fa-user"></span>
+		                </div>
+		              </div>
+		            </div>
+		            <small
+		              [hidden]="userDetailsForm.controls.lastName.valid || userDetailsForm.controls.lastName.untouched"
+		              class="text-danger"
+		              translate
+		            >
+		              Last Name is required
+		            </small>
+		          </div>
+		          <div class="form-group">
+		            <label class="form-label" for="name"
+		              >Organization Name <sup class="text-danger">*</sup>&nbsp;&nbsp;<i
+		                class="underline curPoint text-primary"
+		                (click)="createOrganization()"
+		                >Add Organization</i
+		              ></label
+		            >
+		            <div class="input-group input-group-merge">
+		              <mat-select
+		                formControlName="organizationName"
+		                placeholder="Your Organization"
+		                required
+		                class="form-control form-control-prepended"
+		              >
+		                <mat-option *ngFor="let item of organisationList" (click)="setOrgId(item)" [value]="item.orgName">
+		                  {{ item.orgName }}
+		                </mat-option>
+		              </mat-select>
+		              <div class="input-group-prepend">
+		                <div class="input-group-text">
+		                  <span class="fas fa-university"></span>
+		                </div>
+		              </div>
+		            </div>
+		            <small
+		              [hidden]="
+		                userDetailsForm.controls.organizationName.valid || userDetailsForm.controls.organizationName.untouched
+		              "
+		              class="text-danger"
+		              translate
+		            >
+		              Organization Name is required
+		            </small>
+		          </div>
+		          <div class="custom-control custom-checkbox mb-2 pt-2">
+	                <mat-checkbox
+	                  id="terms"
+	                  class="custom-control-input"
+	                  formControlName="termsCond"
+	                  required
+	                ></mat-checkbox>
+	                <input
+	                  id="terms"
+	                  type="checkbox"
+	                  class="custom-control-input"
+	                  formControlName="termsCond"
+	                  required=""
+	                />
+	                <label for="terms" class="custom-control-label text-black-70"
+	                  >I agree to the
+	                  <a class="text-black-70 curPoint" (click)="openDoc('term')" style="text-decoration: underline;"
+	                    >Terms and Condition</a
+	                  >
+	                  And
+	                  <a class="text-black-70 curPoint" (click)="openDoc('privacy')" style="text-decoration: underline;"
+	                    >Privacy & Policy.</a
+	                  ></label
+	                >
+	              </div>
+		        </div>
+		      </div>
+		    </div>
+		    <div class="mt-3 text-center">
+		      <button 
+		        mat-flat-button color="primary" *ngIf="!show" 
+		        [disabled]="getForm().confirmPassword.status != 'VALID' || getForm().password.status != 'VALID' || getForm().email.status != 'VALID'" 
+		        (click)="flipOnClick('flip')" 
+		        class="rounded-pill ml-2 w30">
+		        Sign Up For Free
+		      </button>
+		      <button mat-flat-button 
+		        color="primary" 
+		        *ngIf="show" 
+		        (click)="flipOnClick('submit')" 
+		        class="rounded-pill ml-2 w30">
+		        Sign Up
+		      </button>
+		    </div>
+		  </form>
+	  </ng-container>    
     </div>
   </div>
 </div>

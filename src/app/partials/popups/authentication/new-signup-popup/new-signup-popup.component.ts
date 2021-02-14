@@ -30,6 +30,7 @@ export class NewSignupPopupComponent implements OnInit {
   ];
   userType = { value: 0, dbValue: 'Mentee', viewValue: 'Student / Professional' };
   isEmailAvailable = true;
+  organisationList: any = [];
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private sharedService: SharedService,
@@ -39,8 +40,6 @@ export class NewSignupPopupComponent implements OnInit {
   ) {
     this.popupData = data;
     this.userType = this.signupType[this.popupData.case == 'student' ? 0 : 2];
-    this.initForm();
-    this.createForm();
   }
 
   init() {
@@ -379,6 +378,28 @@ export class NewSignupPopupComponent implements OnInit {
     });
   }
 
+  getOrganisation() {
+    let $t = this;
+    let apiUrl = $t.sharedService.urlService.simpleApiCall('getActiveOrganization');
+    $t.sharedService.configService.get(apiUrl).subscribe(
+      (response: any) => {
+        $t.organisationList = response.responseObj;
+      },
+      (error: any) => {
+        $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
+      }
+    );
+  }
+
+  setOrgId(_item: any) {
+    this.userDetailsForm.controls.orgId.patchValue(_item.id);
+  }
+
+  createOrganization() {
+    this.popupData.authenticationService.opneCreateOrganization();
+  }
+
+
   openDoc(_type: string) {
     if (_type === 'privacy') {
       this.doc = documents.privacyPolicy;
@@ -390,6 +411,10 @@ export class NewSignupPopupComponent implements OnInit {
 
   ngOnInit(): void {
     this.init();
+    this.initForm();
+    this.createForm();
+    this.getOrganisation();
+    this.popupData.case == 'sign-in' ? jQuery('#slide-right-button').click() : '';
   }
 
   ngOnDestroy(): void {}
