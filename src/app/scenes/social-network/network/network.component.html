@@ -98,7 +98,7 @@
       >
         <div class="col-6" *ngFor="let item of networkConfig.data; let i = index">
           <div class="card m-1">
-            <div class="bg-primary-more-light p-1 text-center mb-1" *ngIf="item?.groupId || item?.groupId !== ''">
+            <div class="bg-primary-more-light p-1 text-center mb-1" *ngIf="item?.groupId">
               <img
                 [routerLink]="['/social-network/profile/', item.fromTasaId]"
                 routerLinkActive="router-link-active"
@@ -116,7 +116,7 @@
               <div class="row no-gutters">
                 <div class="col-2">
                   <img
-                    *ngIf="!item?.groupId || item?.groupId === ''"
+                    *ngIf="!item?.groupId"
                     [routerLink]="['/social-network/profile/', item.fromTasaId]"
                     routerLinkActive="router-link-active"
                     class="status-img img-responsive img-thumbnail curPoint"
@@ -128,7 +128,7 @@
                     alt="User picture"
                   />
                   <img
-                    *ngIf="item?.groupId || item?.groupId !== ''"
+                    *ngIf="item?.groupId"
                     class="status-img img-responsive img-thumbnail"
                     src="{{ item.groupImageUrl }}"
                     alt="Group picture"
@@ -137,23 +137,23 @@
                 <div class="col-10 pl-3">
                   <h6 class="mb-0">
                     <a
-                      *ngIf="!item?.groupId || item?.groupId === ''"
+                      *ngIf="!item?.groupId"
                       [routerLink]="['/social-network/profile/', item.fromTasaId]"
                       routerLinkActive="router-link-active"
                       >{{ item.fromName }}</a
                     >
-                    <a *ngIf="item?.groupId || item?.groupId !== ''">Group - {{ item.groupTitle }}</a>
+                    <a *ngIf="item?.groupId">Group - {{ item.groupTitle }}</a>
                   </h6>
                   <h6
                     class="text-muted text-truncate"
-                    *ngIf="!item?.groupId || item?.groupId === ''"
+                    *ngIf="!item?.groupId"
                     [title]="item.fromSummary"
                   >
                     {{ item.fromSummary }}
                   </h6>
                   <h6
                     class="text-muted text-truncate"
-                    *ngIf="item?.groupId || item?.groupId !== ''"
+                    *ngIf="item?.groupId"
                     [title]="item.groupDescription"
                   >
                     {{ item.groupDescription }}

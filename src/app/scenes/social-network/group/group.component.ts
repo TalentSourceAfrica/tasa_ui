@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { untilDestroyed } from '@app/@core';
 import { CredentialsService } from '@app/auth';
 import { CreateGroupPopupComponent } from '@app/partials/popups/group/create-group-popup/create-group-popup.component';
 import { GroupViewPopupComponent } from '@app/partials/popups/group/group-view-popup/group-view-popup.component';
 import { InviteUserPopupComponent } from '@app/partials/popups/group/invite-user-popup/invite-user-popup.component';
 import { SharedService } from '@app/services/shared.service';
+import { Subscription } from 'rxjs';
+import { delay } from 'rxjs/operators';
 
 import Swal from 'sweetalert2';
 
@@ -13,6 +16,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./group.component.scss'],
 })
 export class GroupComponent implements OnInit {
+  private currMsgSubscribe = new Subscription();
   groupSearchText: string = '';
   myGroupSearchText: string = '';
   allGroups: any = {
@@ -62,7 +66,7 @@ export class GroupComponent implements OnInit {
       input: 'text',
       inputAttributes: {
         autocapitalize: 'off',
-        placeholder:'Type Your Message'
+        placeholder: 'Type Your Message',
       },
       showCancelButton: true,
       confirmButtonText: 'Send',
@@ -153,10 +157,23 @@ export class GroupComponent implements OnInit {
   ngOnInit(): void {
     this.fetchAllGroups();
     this.fetchMygroup();
+
+    this.currMsgSubscribe = this.sharedService.utilityService.currentMessage
+      .pipe(delay(10), untilDestroyed(this))
+      .subscribe((message) => {
+        if (message === 'TRIGGER-ALL-GROUP') {
+          this.fetchAllGroups();
+          this.fetchMygroup();
+        }
+      });
   }
 
   get user(): any | null {
     const credentials = this.credentialsService.credentials;
     return credentials ? credentials : null;
+  }
+
+  ngOnDestroy(): void {
+    this.currMsgSubscribe.unsubscribe();
   }
 }

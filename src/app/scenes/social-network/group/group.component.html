@@ -33,7 +33,7 @@
   <mat-tab-group>
     <mat-tab label="All Groups">
       <div class="d-flex align-items-center mt-4">
-        <mat-form-field class="example-form-field w40 m-auto" style="font-size: 16px;">
+        <mat-form-field class="example-form-field w40 m-auto" *ngIf="allGroups.data.length" style="font-size: 16px;">
           <mat-label>Search Group</mat-label>
           <input matInput type="text" [(ngModel)]="groupSearchText" />
           <button
@@ -116,7 +116,7 @@
     </mat-tab>
     <mat-tab label="My Groups">
       <div class="d-flex align-items-center mt-4">
-        <mat-form-field class="example-form-field w40 m-auto" style="font-size: 16px;">
+        <mat-form-field class="example-form-field w40 m-auto" *ngIf="myGroups.data.length" style="font-size: 16px;">
           <mat-label>Search Group</mat-label>
           <input matInput type="text" [(ngModel)]="myGroupSearchText" />
           <button

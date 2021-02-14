@@ -43,6 +43,7 @@ export class CreateGroupPopupComponent implements OnInit {
       (response: any) => {
         $t.dialogRef.close();
         $t.sharedService.uiService.showApiSuccessPopMsg(response.message);
+        $t.sharedService.utilityService.changeMessage('TRIGGER-ALL-GROUP');
       },
       (error: any) => {
         $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
