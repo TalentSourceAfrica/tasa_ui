@@ -353,7 +353,7 @@
 </ng-template>
 
 <audio #audioOption>
-  <source src="http://soundbible.com/mp3/Elevator Ding-SoundBible.com-685385892.mp3" controls type="audio/mp3" />
+  <source [src]="documents.messageRingtone" controls type="audio/mp3" />
 </audio>
 
 <input id="imageUpload" class="d-none" #imageFileUpload type="file" (change)="uploadFile($event, 'image')" />

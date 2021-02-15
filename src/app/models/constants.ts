@@ -29,9 +29,10 @@ export const flutterWaveKeys = {
 };
 
 export const documents = {
-  privacyPolicy: 'https://storage.googleapis.com/tasa-public-content/Tasa_PrivacyPolicy.pdf',
-  terms: 'https://storage.googleapis.com/tasa-public-content/TERMS%20_OF_USE_Tasa.pdf',
-  introductionVideo: 'https://storage.googleapis.com/tasa-public-content/TasaIntroductionVdo.mp4',
+  privacyPolicy: 'https://assets.tasainc.com/docs/PrivacyPolicy.pdf',
+  terms: 'https://assets.tasainc.com/docs/TermOfUse.pdf',
+  introductionVideo: 'https://assets.tasainc.com/docs/IntroductionVideo.mp4',
+  messageRingtone: 'https://assets.tasainc.com/docs/ElevatorDing.mp3'
 };
 
 export const suportedFile = {

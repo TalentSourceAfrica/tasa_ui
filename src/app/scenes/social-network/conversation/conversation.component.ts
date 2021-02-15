@@ -1,8 +1,10 @@
 import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CredentialsService } from '@app/auth';
+import { documents } from '@app/models/constants';
 import { SharedService } from '@app/services/shared.service';
 import { Observable, forkJoin } from 'rxjs';
+
 
 //extra
 declare var jQuery: any;
@@ -39,6 +41,7 @@ export class ConversationComponent implements OnInit {
     currentMsgList: [],
   };
   groups: any = [];
+  documents = documents;
   constructor(
     private credentialsService: CredentialsService,
     public sharedService: SharedService,
