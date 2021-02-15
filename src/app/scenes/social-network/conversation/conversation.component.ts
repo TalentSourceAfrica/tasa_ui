@@ -175,8 +175,8 @@ export class ConversationComponent implements OnInit {
     }
   }
 
-  handleSelection(event: any) {
-    this.message += ' ' + event.char + ' ';
+  addEmoji(event: any) {
+    this.message += ' ' + event.emoji.native + ' ';
   }
 
   newMessage() {
@@ -247,10 +247,12 @@ export class ConversationComponent implements OnInit {
         $t.connectionConfig.currentMsgList = response.responseObj.reverse();
         $t.connectionConfig.isFetchingMsgList = false;
         setTimeout(() => {
-          if (document.querySelector('.last-msg')) {
-            document.querySelector('.last-msg').scrollIntoView({
-              behavior: 'smooth',
-            });
+          if($t.connectionConfig.currentMsgList.length > 8){
+            if (document.querySelector('.last-msg')) {
+              document.querySelector('.last-msg').scrollIntoView({
+                behavior: 'smooth',
+              });
+            }
           }
         }, 500);
         $t.readMessages();

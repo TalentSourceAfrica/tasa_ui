@@ -197,8 +197,10 @@ export class SocialPostsComponent implements OnInit {
     );
   }
 
-  handleSelection(event: any) {
-    this.socialConfig.newPost.content += ' ' + event.char + ' ';
+  addEmoji(event: any) {
+    console.log(event);
+    this.socialConfig.newPost.content += ' ' + event.emoji.native + ' ';
+    this.toggled = false;
   }
 
   postComment(msg: any, post: any, _comment?: any) {

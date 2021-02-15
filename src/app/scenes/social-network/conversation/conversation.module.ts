@@ -7,12 +7,12 @@ import { I18nModule } from '@app/i18n';
 import { AuthModule } from '@app/auth';
 import { MaterialModule } from '@app/modules/material.module';
 import { RouterModule } from '@angular/router';
-import { NgxEmojiPickerModule } from 'ngx-emoji-picker';
 import { ConversationRoutingModule } from './conversation-routing.module';
 import { ConversationComponent } from './conversation.component';
 import { NameFilterPipe } from '@app/pipes/name-filter.pipe';
 import { LeftSideModule } from '@app/partials/left-side/left-side.module';
 import { RightSideModule } from '@app/partials/right-side/right-side.module';
+import { PickerModule } from '@ctrl/ngx-emoji-mart';
 
 @NgModule({
   imports: [
@@ -26,9 +26,9 @@ import { RightSideModule } from '@app/partials/right-side/right-side.module';
     FormsModule,
     ReactiveFormsModule,
     ConversationRoutingModule,
-    NgxEmojiPickerModule,
     LeftSideModule,
     RightSideModule,
+    PickerModule
   ],
   declarations: [ConversationComponent, NameFilterPipe],
   entryComponents: [],

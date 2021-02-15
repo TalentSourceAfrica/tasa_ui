@@ -284,7 +284,7 @@
                               </mat-select>
                             </div>
                           </div>
-                          <!-- <button
+                          <button
                             mat-mini-fab
                             class="attachment"
                             [ngClass]="{
@@ -292,14 +292,17 @@
                                 socialConfig.newPost.imageUrl != '' || socialConfig.newPost.videoUrl != ''
                             }"
                             (click)="toggled = !toggled"
-                            [(emojiPickerIf)]="toggled"
-                            [emojiPickerDirection]="'right'"
-                            (emojiPickerSelect)="handleSelection($event)"
                             matTooltipPosition="below"
                             matTooltip="Add Emoji"
+                            [matMenuTriggerFor]="emojiMenu"
                           >
                             <mat-icon style="height: 27px; margin-right: 2px;">😄</mat-icon>
-                          </button> -->
+                          </button>
+                          <mat-menu #emojiMenu="matMenu" class="emoji-menu">
+                            <emoji-mart enableSearch="false" (emojiClick)="addEmoji($event)">
+                            </emoji-mart>
+                          </mat-menu>
+
                           <ng-container *ngIf="socialConfig.isLoading">
                             <ng-template [ngTemplateOutlet]="loader"></ng-template>
                           </ng-container>
