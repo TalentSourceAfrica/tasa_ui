@@ -176,7 +176,7 @@ export class SocialPostsComponent implements OnInit {
         this.socialConfig.isLoading = false;
       },
       (error) => {
-        console.log(error);
+        this.sharedService.uiService.showApiErrorPopMsg(error);
       }
     );
   }

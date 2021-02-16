@@ -21,7 +21,6 @@ import { MustMatch } from '@app/auth/must-match';
   styleUrls: ['./home.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-
 export class HomeComponent implements OnInit {
   @ViewChild('stepper', { static: false }) stepper: any;
   isLoading = false;
@@ -96,6 +95,34 @@ export class HomeComponent implements OnInit {
   /**
    * signup variable
    */
+  figuresData = [
+    {
+      title: '>= 30%',
+      text: 'of tribal enterprises layed off or furloughed 80-100% of their workforce (insert reference)',
+    },
+    {
+      title: '154,000',
+      text: 'Black women left the labor force in December 2020 alone (insert reference)',
+    },
+    {
+      title: '312%',
+      text:
+        'increase in Latina unemployment rate from Feb-April 2020. The largest and fastest increase of any group reference)',
+    },
+    {
+      title: '16-30%',
+      text:
+        'of (SEAAs) worked in service industry jobs--the industry hardest hit by COVID-19 job losses (insert reference)',
+    },
+    {
+      title: '< 5%',
+      text: 'Blacks and Latinx occupy <5% of Executive positions in the US and UK (Fast Company & The Guardian 2020)',
+    },
+    {
+      title: '> 50%',
+      text: 'Degree holders in Sub-Saharan Africa have >50% unemployment rate (ACET 2016)',
+    },
+  ];
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
@@ -440,8 +467,9 @@ export class HomeComponent implements OnInit {
       navText: ['<i class="fa fa-long-arrow-left"></i> Prev', 'Next <i class="fa fa-long-arrow-right"></i>'],
       autoplay: false,
       autoplayTimeout: 3000,
-      margin: 10,
+      margin: 9,
       responsiveClass: true,
+      width: 300,
       responsive: {
         0: {
           items: 1,
@@ -452,9 +480,6 @@ export class HomeComponent implements OnInit {
         },
         1000: {
           items: 3,
-        },
-        1200: {
-          items: 4,
         },
       },
     });

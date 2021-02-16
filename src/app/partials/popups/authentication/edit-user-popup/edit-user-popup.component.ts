@@ -38,9 +38,9 @@ export class EditUserPopupComponent implements OnInit {
       $t.sharedService.uiService.showApiStartPopMsg('Updating Details...');
       let apiUrl = $t.sharedService.urlService.simpleApiCall('getUsers');
       $t.sharedService.configService.put(apiUrl, $t.user).subscribe(
-        (response) => {
-          $t.popupData.authenticationService.login(response);
-          $t.sharedService.uiService.showApiSuccessPopMsg('User Updated Successfully');
+        (response:any) => {
+          $t.popupData.authenticationService.login(response.responseObj);
+          $t.sharedService.uiService.showApiSuccessPopMsg(response.message);
           $t.sharedService.utilityService.changeMessage('FETCH-USER-PROFILE');
           $t.dialogRef.close();
         },

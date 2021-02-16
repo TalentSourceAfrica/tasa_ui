@@ -9,6 +9,9 @@ $grey: #7d7d7d;
 @import url("https://fonts.googleapis.com/css?family=Poppins:400,500,600,700");
 
 .home-wrapper {
+  .course-3d-card {
+    transform: rotateY(40.7deg) rotateX(-12.7deg) rotateZ(-3deg);
+  }
   .video-fluid {
     width: 100%;
     height: auto;
@@ -48,20 +51,37 @@ $grey: #7d7d7d;
   }
 
   .btn-behaviour {
-    background-color: white !important;
-    color: #523f6d !important;
+    background-color: #523f6d !important;
+    color: white !important;
     font-size: 16px !important;
     &:hover {
-      background-color: #523f6d !important;
-      color: white !important;
+      transition: 0.1s;
+      box-shadow: 5px 10px 10px 0 $light-blue !important;
+      border: 2px solid #523f6d !important;
+      background-color: #fff !important;
+      color: #523f6d !important;
     }
   }
 
   .inputClass {
-    border: 3px solid #523f6d !important;
+    border: 2px solid #523f6d !important;
     font-size: 18px !important;
     color: #523f6d !important;
     animation: 1s ease 2s normal both 1 running fadeInUp;
+  }
+
+  .figures-wrapper {
+    min-height:200px;
+    &:hover {
+      transition: 0.5s;
+      box-shadow: 5px 10px 10px 0 $light-blue !important;
+    }
+    .figures-content {
+      &:hover {
+        transition: 0.5s;
+        transform: scale(1.2) !important;
+      }
+    }
   }
 
   /*--------------------------------

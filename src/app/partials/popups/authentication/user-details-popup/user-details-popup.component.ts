@@ -142,9 +142,9 @@ export class UserDetailsPopupComponent implements OnInit {
     $t.userDetails.website = user.website;
 
     $t.sharedService.configService.put(apiUrl, $t.userDetails).subscribe(
-      (response) => {
-        $t.popupData.authenticationService.login(response);
-        $t.sharedService.uiService.showApiSuccessPopMsg('Details Added Successfully');
+      (response:any) => {
+        $t.popupData.authenticationService.login(response.responseObj);
+          $t.sharedService.uiService.showApiSuccessPopMsg(response.message);
         $t.dialogRef.close();
         $t.router.navigate(['/dashboard'], { replaceUrl: true });
       },
