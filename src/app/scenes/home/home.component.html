@@ -1,14 +1,14 @@
 <!--START TOP AREA-->
 <div class="home-wrapper">
   <!--WELCOME SLIDER AREA-->
-  <div class="row no-gutters">
+  <div class="row no-gutters shadow">
     <div class="col-sm-6 col-12 d-flex">
       <div class="m-auto m-auto p-5 align-items-center">
-        <div class="welcome-text ">
-          <h1 class="text-shadow-white text-primary animated fadeInUp">Where talent meets opportunity.</h1>
+        <div class="welcome-text">
+          <h1 class="text-shadow-theme text-primary animated fadeInUp">Where talent meets opportunity.</h1>
           <h6 class="text-dark pb-3 animated fadeInUp">
-            A place for Black/African, Latinx, Southeast Asian, and Indigenous people to connect with employers
-            that align with their values, and build community with people that understand their perspective.
+            A place for Black/African, Latinx, Southeast Asian, and Indigenous people to connect with employers that
+            align with their values, and build community with people that understand their perspective.
           </h6>
           <ng-template [ngTemplateOutlet]="sliderSignup"></ng-template>
         </div>
@@ -28,6 +28,50 @@
                       To upskill, network and connect the millions of unemployed African college graduates with the job
                       opportunities they need, and provide companies with access and visibility to the high-skilled
                       talent-pool needed to meet their business goals on the continent.
+                    </p>
+                  </div> -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="welcome-single-slide">
+          <div class="slide-bg-seven slide-bg-overlay"></div>
+          <div class="welcome-area">
+            <div class="container">
+              <div class="row flex-v-center">
+                <div class="col-md-8 col-lg-7 col-sm-12 col-xs-12">
+                  <!-- <div class="welcome-text">
+                    <h1 class="text-shadow-white">The Gap</h1>
+                    <p class="text-shadow-white">
+                      50% of the 10 million annual college graduates in Sub-Saharan Africa over the past decade were unable
+                      to find jobs sometimes 5-years after graduating from University.
+                    </p>
+                    <p class="text-shadow-white">
+                      Meanwhile, the continent produced 10 million jobs per year within the same period and had a predicted
+                      shortage of 31 million mid-high skill workers at the end of the decade.
+                    </p>
+                  </div> -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="welcome-single-slide">
+          <div class="slide-bg-eight slide-bg-overlay"></div>
+          <div class="welcome-area">
+            <div class="container">
+              <div class="row flex-v-center">
+                <div class="col-md-8 col-lg-7 col-sm-12 col-xs-12">
+                  <!-- <div class="welcome-text">
+                    <h1 class="text-shadow-white">The Gap</h1>
+                    <p class="text-shadow-white">
+                      50% of the 10 million annual college graduates in Sub-Saharan Africa over the past decade were unable
+                      to find jobs sometimes 5-years after graduating from University.
+                    </p>
+                    <p class="text-shadow-white">
+                      Meanwhile, the continent produced 10 million jobs per year within the same period and had a predicted
+                      shortage of 31 million mid-high skill workers at the end of the decade.
                     </p>
                   </div> -->
                 </div>
@@ -139,7 +183,7 @@
   <!--FEATURES TOP AREA-->
   <section class="features-top-area" id="features">
     <div class="container">
-      <div class="row promo-content animated fadeInUp shadow-lg" >
+      <div class="row promo-content animated fadeInUp shadow-lg">
         <div class="col-md-3 col-lg-3 col-sm-6 col-xs-12">
           <div class="text-icon-box mb20 xs-mb0 wow fadeInUp p-2" data-wow-delay="0.1s">
             <div class="box-icon features-box-icon">
@@ -192,38 +236,114 @@
   <!--FIGURES START-->
   <section class="section-padding">
     <div class="container-fluid">
-        <div class="row no-gutters">
-          <div class="col-md-4 col-sm-12" *ngFor="let item of figuresData">
-            <div class="figures-wrapper d-flex text-center p-5">
-              <div class="figures-content align-items-center">
-                <h2 class="text-primary">{{item.title}}</h2>
-                <h6 class="p-3">{{item.text}}</h6>
-              </div>
+      <div class="row no-gutters">
+        <div class="col-md-4 col-sm-12" *ngFor="let item of figuresData">
+          <div class="figures-wrapper d-flex text-center p-5">
+            <div class="figures-content align-items-center">
+              <h2 class="text-primary">{{ item.title }}</h2>
+              <h6 class="p-3">{{ item.text }}</h6>
             </div>
           </div>
         </div>
+      </div>
     </div>
   </section>
   <!--FIGURES END-->
 
-  <!--ABOUT TOP CONTENT AREA-->
+  <!--FEATURES START-->
   <section class="section-padding">
     <div class="text-center pb-4">
+      <h2 class="xs-font20 caps pb-2">Features</h2>
+    </div>
+    <div class="row no-gutters">
+      <div class="col-md-7 col-sm-12">
+        <div class="">
+          <section id="timeline">
+            <div class="demo-card-wrapper">
+              <div class="demo-card demo-card--step1" data-aos="fade-right">
+                <div class="head">
+                  <div class="number-box">
+                    <span>01</span>
+                  </div>
+                  <h5>Network</h5>
+                </div>
+                <div class="body">
+                  <p>
+                    Make important professional connections or share professional insights on TaSA.
+                  </p>
+                  <!-- <img src="http://placehold.it/1000x500" alt="Graphic" /> -->
+                </div>
+              </div>
+
+              <div class="demo-card demo-card--step2" data-aos="fade-left">
+                <div class="head">
+                  <div class="number-box">
+                    <span>02</span>
+                  </div>
+                  <h5>Find Jobs</h5>
+                </div>
+                <div class="body">
+                  <p>
+                    Companies come to TaSA because they’re looking for you. We’ve made it easy for them to find you.
+                  </p>
+                  <!-- <img src="http://placehold.it/1000x500" alt="Graphic" /> -->
+                </div>
+              </div>
+
+              <div class="demo-card demo-card--step3" data-aos="fade-right">
+                <div class="head">
+                  <div class="number-box">
+                    <span>03</span>
+                  </div>
+                  <h5>Freelance</h5>
+                </div>
+                <div class="body">
+                  <p>
+                    Find freelance gigs or Black and Brown freelance pros with ease on TaSA.
+                  </p>
+                  <!-- <img src="http://placehold.it/1000x500" alt="Graphic" /> -->
+                </div>
+              </div>
+
+              <div class="demo-card demo-card--step3" data-aos="fade-right">
+                <div class="head">
+                  <div class="number-box">
+                    <span>04</span>
+                  </div>
+                  <h5>Learn</h5>
+                </div>
+                <div class="body">
+                  <p>
+                    GGain marketable skills with professional certificate courses from top universities.
+                  </p>
+                  <!-- <img src="http://placehold.it/1000x500" alt="Graphic" /> -->
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <div class="col-md-5 col-sm-12">
+        <div class="video-promo-details animated fadeInUp">
+          <div class="d-flex container align-items-center m-auto">
+            <div class="w100 shadow-lg">
+              <video class="video-fluid z-depth-1" loop controls>
+                <source [src]="documents.introductionVideo" type="video/mp4" />
+              </video>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--FEATURES END-->
+
+  <!--SIGN UP AREA START-->
+  <!-- <section class="section-padding">
+    <div class="text-center pb-4">
       <h2 class="xs-font20">Sign Up</h2>
-      <!-- <p class="card-subtitle"> -->
-      <!-- <mat-form-field appearance="fill">
-            <mat-select (selectionChange)="signupTypeChange()" [(ngModel)]="userType.value" ngDefaultControl>
-              <mat-option *ngFor="let item of signupType" [value]="item.value">
-                {{ item.viewValue }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field> -->
-      <!-- </p> -->
     </div>
     <div class="row m-auto w70 mt-5">
-      <!-- <div class="col-sm-6 col-md-6 p-0">
-  
-      </div> -->
       <div class="col-12 p-0">
         <div class="row no-gutters">
           <div class="col-md-6 col-12">
@@ -231,12 +351,7 @@
               <owl-carousel-o [options]="signupOwlOptions">
                 <ng-container *ngFor="let slide of signupImages">
                   <ng-template class="slide shadow-lg" carouselSlide [id]="slide.id">
-                    <img
-                      [src]="slide.url"
-                      class="signup-slide-images"
-                      [alt]="slide.id"
-                      [title]="slide.id"
-                    />
+                    <img [src]="slide.url" class="signup-slide-images" [alt]="slide.id" [title]="slide.id" />
                     <h4 class="text-white position-absolute signup-slide-text" style="top: 60%;">{{ slide.text }}</h4>
                   </ng-template>
                 </ng-container>
@@ -248,12 +363,6 @@
               <div class="d-flex align-items-center no-gutters signup-wrapper">
                 <div class="navbar-shadow bg-white shadow-lg w100">
                   <ng-container *ngTemplateOutlet="detailedForm"></ng-container>
-                  <!-- <div *ngIf="userType.value == 0 || userType.value == 1">
-                        <ng-container *ngTemplateOutlet="userDetailsForm"></ng-container>  
-                      </div>
-                      <div *ngIf="userType.value == 2">
-                        <ng-container *ngTemplateOutlet="recuiterForm"></ng-container>
-                      </div> -->
                 </div>
               </div>
             </div>
@@ -261,11 +370,11 @@
         </div>
       </div>
     </div>
-  </section>
-  <!--ABOUT TOP CONTENT AREA END-->
+  </section> -->
+  <!--SIGN UP AREA END-->
 
   <!--FUN FACT AREA AREA-->
-  <section class="fun-fact-area center white relative padding-100-70" id="fact">
+  <!-- <section class="fun-fact-area center white relative padding-100-70" id="fact">
     <div class="area-bg" data-stellar-background-ratio="0.6"></div>
     <div class="container">
       <div class="row">
@@ -295,11 +404,11 @@
         </div>
       </div>
     </div>
-  </section>
+  </section> -->
   <!--FUN FACT AREA AREA END-->
 
   <!--ABOUT AREA-->
-  <section class="section-padding about-area bg-theme" id="about">
+  <!-- <section class="section-padding about-area bg-theme" id="about">
     <div class="container-fluid">
       <div class="row flex-v-center w70 text-center m-auto">
         <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
@@ -321,15 +430,11 @@
                 </video>
               </div>
             </div>
-            <!-- <div class="video-promo-content">
-              <span data-video-id="j1S66liv1t8" class="video-area-popup mb30"><i class="fa fa-play"></i></span>
-            </div>
-            <img src="../../../assets/images/about/about.jpg" alt="" /> -->
           </div>
         </div>
       </div>
     </div>
-  </section>
+  </section> -->
   <!--ABOUT AREA END-->
 
   <!--COURSE AREA-->
@@ -338,7 +443,7 @@
       <div class="row">
         <div class="col-md-8 col-lg-12 col-md-offset-2 col-lg-offset-2 col-sm-12 col-xs-12">
           <div class="area-title text-center wow fadeIn">
-            <h2 class="xs-font26">Our Trending Courses</h2>
+            <h2 class="xs-font26 caps">OUR TRENDING COURSES</h2>
           </div>
         </div>
       </div>
@@ -403,12 +508,12 @@
   <!--TESTMONIAL AREA AREA END-->
 
   <!--BLOG AREA-->
-  <section class="blog-feed-area padding-top bg-theme" id="blog">
+  <section class="blog-feed-area padding-top bg-theme" id="blog" *ngIf="news.length">
     <div class="container">
       <div class="row">
         <div class="col-md-8 col-lg-12 col-md-offset-2 col-lg-offset-2 col-sm-12 col-xs-12">
           <div class="area-title text-center wow fadeIn">
-            <h2>News and Insights</h2>
+            <h2 class="caps">News and Insights</h2>
           </div>
         </div>
       </div>
@@ -437,12 +542,12 @@
   <!--BLOG AREA END-->
 
   <!--FAQS AREA-->
-  <section class="faqs-area padding-100-50" id="faqs">
+  <section class="faqs-area padding-100-50 d-none" id="faqs">
     <div class="container">
       <div class="row">
         <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
           <div class="area-title text-center wow fadeIn">
-            <h2>FAQS</h2>
+            <h2 class="caps">FAQS</h2>
           </div>
         </div>
       </div>

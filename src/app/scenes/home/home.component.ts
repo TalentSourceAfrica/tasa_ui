@@ -469,7 +469,6 @@ export class HomeComponent implements OnInit {
       autoplayTimeout: 3000,
       margin: 9,
       responsiveClass: true,
-      width: 300,
       responsive: {
         0: {
           items: 1,
@@ -480,6 +479,9 @@ export class HomeComponent implements OnInit {
         },
         1000: {
           items: 3,
+        },
+        1500: {
+          items: 4,
         },
       },
     });

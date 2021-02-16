@@ -49,6 +49,14 @@ $grey: #7d7d7d;
     filter: brightness(3);
     background: url("../../../assets/images/slider/slide_6.jpg") no-repeat scroll center center / cover;
   }
+  .slide-bg-seven {
+    filter: brightness(3);
+    background: url("../../../assets/images/slider/slide_7.jpg") no-repeat scroll center center / cover;
+  }
+  .slide-bg-eight {
+    filter: brightness(3);
+    background: url("../../../assets/images/slider/slide_8.jpg") no-repeat scroll center center / cover;
+  }
 
   .btn-behaviour {
     background-color: #523f6d !important;
@@ -580,7 +588,7 @@ $grey: #7d7d7d;
     #timeline .demo-card-wrapper {
       display: flex;
       flex-flow: column wrap;
-      width: 1170px;
+      width: 1000px;
       // height: 1650px;
       margin: 0 auto;
     }
@@ -619,11 +627,11 @@ $grey: #7d7d7d;
   }
   @media (min-width: 1000px) {
     #timeline .demo-card {
-      max-width: 450px;
+      max-width: 350px;
       // height: 400px;
       margin: 90px;
       margin-top: 45px;
-      margin-bottom: 45px;
+      margin-bottom: 10px;
     }
     #timeline .demo-card:nth-child(odd) {
       margin-right: 45px;
@@ -634,7 +642,7 @@ $grey: #7d7d7d;
       left: 100%;
     }
     #timeline .demo-card:nth-child(odd) .head::before {
-      left: 491.5px;
+      left: 406.5px;
     }
     #timeline .demo-card:nth-child(even) {
       margin-left: 54%;
@@ -645,7 +653,7 @@ $grey: #7d7d7d;
       right: 100%;
     }
     #timeline .demo-card:nth-child(even) .head::before {
-      right: 489.5px;
+      right: 387px;
     }
     #timeline .demo-card:nth-child(2) {
       margin-top: -32%;
