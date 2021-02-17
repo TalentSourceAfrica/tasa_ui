@@ -21,9 +21,9 @@
             <div class="col-12 border mb-1 curPoint courseList" *ngFor="let news of newsConfig.data">
               <div class="row no-gutters">
                 <div class="col-4">
-                  <a *ngIf="news.image != '' && news.image != 'string'"><img [src]="news.image" alt="News" /></a>
+                  <a *ngIf="news.image != '' && news.image != 'string'"><img [src]="news.image" class="news-image" alt="News" /></a>
                   <a *ngIf="news.image == '' || news.image == 'string'"
-                    ><img src="./assets/images/blog/blog-3.jpg" alt="News"
+                    ><img class="news-image" src="./assets/images/blog/blog-3.jpg" alt="News"
                   /></a>
                 </div>
                 <div class="col-8 p-2">

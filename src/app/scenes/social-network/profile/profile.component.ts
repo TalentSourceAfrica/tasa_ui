@@ -65,9 +65,8 @@ export class ProfileComponent implements OnInit {
       (response: any) => {
         $t.userConfig.user = response.responseObj;
         $t.userConfig.user.tasaId != $t.user.tasaId ? ($t.isCurrentUser = false) : ($t.isCurrentUser = true);
-        if (!$t.isCurrentUser) {
-          $t.fetchConnections();
-        } else {
+        $t.fetchConnections();
+        if ($t.isCurrentUser) {
           $t.userConfig.fetchingUser = false;
         }
       },
