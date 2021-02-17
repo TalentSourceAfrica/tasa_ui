@@ -1,0 +1,17 @@
+<div class="transaction-wrapper">
+    <div class="container mt-4">
+      <div class="message success" *ngIf="!isLoading && isUserVerified">
+        <i class="message-icon fas fa-check-circle"></i>
+        <p class="message-text">Verification Successful!</p>
+        <h6 class="message-text">Please Login In.</h6>
+        <button class="message-button" [routerLink]="['/home']">Go To Home</button>
+      </div>
+  
+      <div class="message error" *ngIf="!isLoading && !isUserVerified">
+        <i class="message-icon fas fa-times-circle"></i>
+        <p class="message-text">Verification Unsuccessful!</p>
+        <button class="message-button" [routerLink]="['/home']">Go To Home</button>
+      </div>
+    </div>
+  </div>
+  

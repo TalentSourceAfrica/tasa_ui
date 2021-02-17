@@ -29,11 +29,11 @@ export class BaseConfig {
     if (location.hostname.indexOf('tasainc') === 0) {
       return 'tasainc.com'; // 35.247.90.252:8080
     } else if (location.hostname.indexOf('34.86.93.22') !== -1) {
-      // return 'tasainc.com';
-      return '34.86.93.22:8080'; // Pre Prod Env
+      return 'tasainc.com';
+      // return '34.86.93.22:8080'; // Pre Prod Env
     } else {
-      // return 'tasainc.com';
-      return '34.86.93.22:8080'; // Pre Prod Env
+      return 'tasainc.com';
+      // return '34.86.93.22:8080'; // Pre Prod Env
     }
   }
 

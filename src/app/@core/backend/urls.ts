@@ -21,6 +21,7 @@ export const urls: any = {
   deactivateUser: '/users/deactivate/{userId}', // PO
   searchUser: '/users/search/{page}/{size}/{searchText}', // G
   searchFreelancer: '/users/freelancer/search/{page}/{size}/{searchText}', // G
+  verifyEmail: '/verifyemail/{hash}', // G
 
   // location
   getCountry: '/locations', // G
@@ -160,10 +161,10 @@ export const urls: any = {
   sendRequestToPeople: '/groupInvite/{adminId}/{userId}/{groupId}', // PO
 
   // Subscription
-  subscribeForTier : '/subs/subscribe/{tasaId}/{subscriptionId}', // PO
-  buyCourse : '/subs/buy/{tasaId}/{courseId}', // PO
-  enrollCourse : '/subs/enroll/{tasaId}/{courseId}', // PO
+  subscribeForTier: '/subs/subscribe/{tasaId}/{subscriptionId}', // PO
+  buyCourse: '/subs/buy/{tasaId}/{courseId}', // PO
+  enrollCourse: '/subs/enroll/{tasaId}/{courseId}', // PO
   getSubscription: '/subs/{id}', // G
-  canByCourse : '/subs/canBuy/{tasaId}/{courseId}', // G
-  canEnrollCourse : '/subs/canEnroll/{tasaId}/{courseId}', // G
+  canByCourse: '/subs/canBuy/{tasaId}/{courseId}', // G
+  canEnrollCourse: '/subs/canEnroll/{tasaId}/{courseId}', // G
 };

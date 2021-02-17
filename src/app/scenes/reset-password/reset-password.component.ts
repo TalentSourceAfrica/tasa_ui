@@ -33,12 +33,10 @@ export class ResetPasswordComponent implements OnInit {
 
   checkCurrentPassword(event: any) {
     let $t = this;
-
     let apiUrl = $t.sharedService.urlService.apiCallWithParams('checkCurrentPassword', {
       '{email}': $t.user.email,
       '{currentPassword}': event.target.value,
     });
-
     $t.sharedService.configService.post(apiUrl).subscribe(
       (response: any) => {
         if (response.data == 'Y') {
