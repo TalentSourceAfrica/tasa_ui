@@ -40,7 +40,7 @@
           <input
             [id]="item.label"
             type="text"
-            *ngIf="!item?.textarea && !item?.isDropdown && !item?.isDateTime"
+            *ngIf="!item?.textarea && !item?.isDropdown && !item?.isDateTime && !item?.isArray"
             [(ngModel)]="user[item.key]"
             class="form-control form-control-prepended"
             placeholder="Your {{ item.label }}"
@@ -48,13 +48,24 @@
           <textarea
             [id]="item.label"
             cols="30"
-            *ngIf="item?.textarea && !item?.isDropdown && !item?.isDateTime"
+            *ngIf="item?.textarea && !item?.isDropdown && !item?.isDateTime && !item?.isArray"
             rows="10"
             [(ngModel)]="user[item.key]"
             class="form-control form-control-prepended"
             placeholder="Your {{ item.label }}"
           ></textarea>
-          <ng-container *ngIf="item?.isDateTime">
+
+          <ng-container   *ngIf="item?.isArray && !item?.isDateTime">
+            <input
+            [id]="item.label"
+            type="text"
+            [(ngModel)]="user[item.key][0]"
+            class="form-control form-control-prepended"
+            placeholder="Your {{ item.label }}"
+          />
+          </ng-container>
+          
+          <ng-container *ngIf="item?.isDateTime && !item?.isArray">
             <input
               matInput
               class="form-control form-control-prepended"

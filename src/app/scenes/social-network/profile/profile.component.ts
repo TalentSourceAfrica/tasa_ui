@@ -125,8 +125,8 @@ export class ProfileComponent implements OnInit {
           { label: 'State', key: 'state', isRequired: true },
           { label: 'Date of Birth', key: 'dob', isDateTime: true, isRequired: true },
           { label: 'Preferred Role', key: 'careerGoals' },
-          { label: 'Professional Interest', key: 'preferredRole' },
-          { label: 'Subjects/Topics of Preference', key: 'areaOfPreference' },
+          { label: 'Professional Interest', key: 'preferredRole', isArray: true },
+          { label: 'Subjects/Topics of Preference', key: 'areaOfPreference', isArray: true },
           { label: 'About Me', key: 'bio', textarea: true, isRequired: true },
         ];
         break;
