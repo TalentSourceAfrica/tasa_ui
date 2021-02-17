@@ -27,6 +27,7 @@ export class ProfileComponent implements OnInit {
     user: {},
     tasaId: '',
     isConnected: false,
+    totalConnectedUser: 0,
   };
   isCurrentUser: boolean = true;
   mom: any;
@@ -81,6 +82,7 @@ export class ProfileComponent implements OnInit {
     this.socialnetworkService.getAllConnections().subscribe(
       (response: any) => {
         if (response && response.connections) {
+          this.userConfig.totalConnectedUser = response.connections.length;
           if (response.connections.filter((d: any) => d.tasaId === this.userConfig.tasaId).length) {
             this.userConfig.isConnected = true;
           } else {
