@@ -265,7 +265,7 @@
                           />
                         </div>
                         <div
-                          class="min-vertical-h-65 max-vertical-h-65 mt-2 stylishSlimScroll flow-y-auto flow-x-hidden pt-2 pl-4 pr-4"
+                          class="min-vertical-h-75 max-vertical-h-75 mt-2 stylishSlimScroll flow-y-auto flow-x-hidden pt-2 pl-4 pr-4"
                           id="postsListing"
                         >
                           <div class="row no-gutters text-center">
@@ -556,7 +556,7 @@
                             </div>
                           </ng-container>
 
-                          <ng-container *ngIf="socialConfig.allSocialPost.length == 0 || !socialConfig.isLoading">
+                          <ng-container *ngIf="socialConfig.allSocialPost.length == 0 && !socialConfig.isLoading">
                             <div class="text-center m-auto animated fadeIn mt-2">
                               <div class="col-12 text-center">
                                 <img

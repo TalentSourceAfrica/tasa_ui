@@ -154,6 +154,7 @@ export class ProfileComponent implements OnInit {
         authenticationService: this.authenticationService,
         credentialsService: this.credentialsService,
         userConfigToUpdate: userConfigToUpdate,
+        user: this.user,
       },
       disableClose: false,
     });

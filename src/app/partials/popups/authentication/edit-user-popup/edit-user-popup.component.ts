@@ -16,7 +16,7 @@ export class EditUserPopupComponent implements OnInit {
   popupData: any;
   countries: any;
   certificateSuportedFile = suportedFile.certificate;
-
+  user: any;
   //chips
   visible = true;
   selectable = true;
@@ -39,7 +39,7 @@ export class EditUserPopupComponent implements OnInit {
       $t.sharedService.uiService.showApiStartPopMsg('Updating Details...');
       let apiUrl = $t.sharedService.urlService.simpleApiCall('getUsers');
       $t.sharedService.configService.put(apiUrl, $t.user).subscribe(
-        (response:any) => {
+        (response: any) => {
           $t.popupData.authenticationService.login(response.responseObj);
           $t.sharedService.uiService.showApiSuccessPopMsg(response.message);
           $t.sharedService.utilityService.changeMessage('FETCH-USER-PROFILE');
@@ -100,6 +100,14 @@ export class EditUserPopupComponent implements OnInit {
           element.clientName === '' ||
           element.projectDuration === ''
         ) {
+          isValid = false;
+        } else {
+          isValid = true;
+        }
+      });
+    } else if (this.popupData.userConfigToUpdate.type === 'Certificate') {
+      this.user.certificate.forEach((element: any) => {
+        if (element.certificateName === '') {
           isValid = false;
         } else {
           isValid = true;
@@ -204,7 +212,7 @@ export class EditUserPopupComponent implements OnInit {
           const type =
             files[0].name.substring(files[0].name.lastIndexOf('.') + 1).toLowerCase() === 'pdf' ? 'pdf' : 'image';
           $t.user.certificate.unshift({
-            certificateName: files[0].name,
+            certificateName: '',
             certificateType: type,
             certificates: [response.url],
           });
@@ -229,11 +237,15 @@ export class EditUserPopupComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.user = JSON.parse(JSON.stringify(this.popupData.user));
     this.getCountry();
   }
-
-  get user(): any | null {
-    const credentials = this.popupData.credentialsService.credentials;
-    return credentials ? credentials : null;
+  ngAfterViewInit(): void {
+    this.cdr.detectChanges();
   }
+
+  // get user(): any | null {
+  //   const credentials = this.popupData.credentialsService.credentials;
+  //   return credentials ? Object.assign(credentials) : null;
+  // }
 }

@@ -260,7 +260,7 @@
                   <input
                     id="highestDegree{{ i }}"
                     type="text"
-                    [(ngModel)]="item.highestDegree[0]"
+                    [(ngModel)]="item.highestDegree"
                     class="form-control form-control-prepended"
                   />
                 </div>
@@ -275,7 +275,7 @@
                   <input
                     type="text"
                     id="college{{ i }}"
-                    [(ngModel)]="item.college"
+                    [(ngModel)]="item.college[0]"
                     class="form-control form-control-prepended"
                   />
                 </div>
@@ -401,7 +401,21 @@
           (click)="removeCertificate(i)"
           >close</mat-icon
         >
+        <div class="form-group pt-1">
+          <label class="form-label" for="certificateName"
+            >Certificate Name<span class="text-danger pl-1 asterisk">*</span></label
+          >
+          <div class="input-group input-group-merge">
+            <input
+              id="certificateName{{ i }}"
+              type="text"
+              [(ngModel)]="item.certificateName"
+              class="form-control form-control-prepended"
+            />
+          </div>
+        </div>
       </div>
+      
     </div>
     <input id="certificateUpload" class="d-none" #uploadCertificate type="file" (change)="uploadFile($event)" />
   </div>
