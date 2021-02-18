@@ -12,6 +12,10 @@ body {
   width: 100%;
 }
 
+.transition-1{
+  transition: all ease-out 0.3s;
+}
+
 .no-underline {
   text-decoration: none;
 }

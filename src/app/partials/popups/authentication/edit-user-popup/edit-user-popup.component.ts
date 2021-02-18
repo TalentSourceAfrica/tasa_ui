@@ -63,7 +63,7 @@ export class EditUserPopupComponent implements OnInit {
           element.organization === '' ||
           element.description === '' ||
           element.experienceFrom === '' ||
-          element.experienceTo === ''
+          element.experience === 'false' ? element.experienceTo == null || element.experienceTo === '' : false
         ) {
           isValid = false;
         } else {
@@ -123,7 +123,7 @@ export class EditUserPopupComponent implements OnInit {
     this.user.experience.push({
       currentRole: [''],
       description: [''],
-      experience: '',
+      experience: 'false',
       experienceFrom: '',
       experienceTo: '',
       organization: '',

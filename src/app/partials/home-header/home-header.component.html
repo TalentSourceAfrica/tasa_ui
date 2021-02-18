@@ -244,7 +244,6 @@
                           matTooltip="Upload Avatar"
                           class="user-pic img-responsive img-circle curPoint"
                           src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
-                          alt="User picture"
                           (click)="callUpload($event)"
                         />
                         <img
@@ -253,10 +252,10 @@
                           matTooltip="Upload Avatar"
                           class="user-pic img-responsive img-circle curPoint"
                           [src]="user.image"
-                          alt="User picture"
                           (click)="callUpload($event)"
                         />
-                        <span [matMenuTriggerFor]="userMenu">{{ user.firstName }}</span
+                        <span [matMenuTriggerFor]="userMenu" class="text-truncate"    matTooltipPosition="below"
+                        matTooltip="{{user.firstName}} {{user.lastName}}">{{ user.firstName }}</span
                         ><i class="fas fa-caret-down pl-1"></i>
                         <mat-menu #userMenu="matMenu">
                           <button mat-menu-item [routerLink]="['/home']" class="h6">

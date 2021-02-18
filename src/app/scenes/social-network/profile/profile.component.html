@@ -318,7 +318,7 @@
                                     </h4>
                                   </div>
                                 </div>
-                                <div class="col-lg-4" *ngIf="exp.experienceTo != ''">
+                                <div class="col-lg-4" *ngIf="!exp.experienceTo && exp.experience !== 'true'">
                                   <div class="form-group">
                                     <label class="form-control-label" for="input-email">Job End Date</label>
                                     <h4 class="text-primary">

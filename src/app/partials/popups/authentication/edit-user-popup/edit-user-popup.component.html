@@ -55,16 +55,16 @@
             placeholder="Your {{ item.label }}"
           ></textarea>
 
-          <ng-container   *ngIf="item?.isArray && !item?.isDateTime">
+          <ng-container *ngIf="item?.isArray && !item?.isDateTime">
             <input
-            [id]="item.label"
-            type="text"
-            [(ngModel)]="user[item.key][0]"
-            class="form-control form-control-prepended"
-            placeholder="Your {{ item.label }}"
-          />
+              [id]="item.label"
+              type="text"
+              [(ngModel)]="user[item.key][0]"
+              class="form-control form-control-prepended"
+              placeholder="Your {{ item.label }}"
+            />
           </ng-container>
-          
+
           <ng-container *ngIf="item?.isDateTime && !item?.isArray">
             <input
               matInput
@@ -120,11 +120,7 @@
           </mat-panel-title>
           <mat-panel-description class="d-flex justify-content-end">
             <div class="text-right">
-              <mat-icon
-                matTooltipPosition="below"
-                matTooltip="Remove Experience"
-                *ngIf="user.experience.length > 1"
-                (click)="removeExp(i)"
+              <mat-icon matTooltipPosition="below" matTooltip="Remove Experience" (click)="removeExp(i)"
                 >remove_circle_outline</mat-icon
               >
             </div>
@@ -194,7 +190,7 @@
                 <mat-datepicker #picker1 color="primary"></mat-datepicker>
               </div>
             </div>
-            <div class="form-group pl-2 w45">
+            <div class="form-group pl-2 w45" *ngIf="item.experience === 'false'">
               <label class="form-label" for="experienceTo"
                 >Job End Date<span class="text-danger pl-1 asterisk">*</span></label
               >
@@ -208,6 +204,19 @@
                 />
                 <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                 <mat-datepicker #picker2 color="primary"></mat-datepicker>
+              </div>
+            </div>
+            <div class="form-group pl-2 w45 d-flex align-items-center">
+              <div class="input-group input-group-merge">
+                <div class="f-color d-flex">
+                  <mat-slide-toggle
+                    class="example-margin text-primary"
+                    checked="{{ item.experience === 'true' ? true : false }}"
+                    (change)="item.experience === 'true' ? (item.experience = 'false') : (item.experience = 'true')"
+                  >
+                    Current Job
+                  </mat-slide-toggle>
+                </div>
               </div>
             </div>
           </div>
@@ -239,11 +248,7 @@
           </mat-panel-title>
           <mat-panel-description class="d-flex justify-content-end">
             <div class="text-right">
-              <mat-icon
-                matTooltipPosition="below"
-                matTooltip="Remove Education"
-                *ngIf="user.education.length > 1"
-                (click)="removeEdu(i)"
+              <mat-icon matTooltipPosition="below" matTooltip="Remove Education" (click)="removeEdu(i)"
                 >remove_circle_outline</mat-icon
               >
             </div>
@@ -415,7 +420,6 @@
           </div>
         </div>
       </div>
-      
     </div>
     <input id="certificateUpload" class="d-none" #uploadCertificate type="file" (change)="uploadFile($event)" />
   </div>

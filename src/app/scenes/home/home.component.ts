@@ -98,37 +98,86 @@ export class HomeComponent implements OnInit {
   figuresData = [
     {
       title: '> 2x',
-      text: 'as likely for Black, Latinx, and Indigenous American degree holders to be unemployed than it is for White degree holders to be unemployed.',
-      reference: '(Economic Policy Institute, 2020)'
+      text:
+        'as likely for Black, Latinx, and Indigenous American degree holders to be unemployed than it is for White degree holders to be unemployed.',
+      reference: '(Economic Policy Institute, 2020)',
     },
     {
       title: '> 50%',
       text: 'unemployment rate for degree holders in Sub-saharan Africa.',
-      reference: '(African Center for Economic Transformation, 2016)'
+      reference: '(African Center for Economic Transformation, 2016)',
     },
     {
       title: '< 5%',
-      text:
-        'Black women left the labor force in December 2020 alone.',
-        reference: '(National Womens Law Center, 2021)'
+      text: 'Black women left the labor force in December 2020 alone.',
+      reference: '(National Womens Law Center, 2021)',
     },
     {
       title: '154,000',
-      text:
-        'Black women left the labor force in December 2020 alone.',
-        reference: '(National Womens Law Center, 2021)'
+      text: 'Black women left the labor force in December 2020 alone.',
+      reference: '(National Womens Law Center, 2021)',
     },
     {
       title: '312%',
-      text: 'increase in unemployment rate for Latinas from Feb-April 2020. The largest and fastest increase of any group.',
-      reference: '(Economic Policy Institute, 2020)'
+      text:
+        'increase in unemployment rate for Latinas from Feb-April 2020. The largest and fastest increase of any group.',
+      reference: '(Economic Policy Institute, 2020)',
     },
     {
       title: '16-30%',
-      text: 'of Southeast Asian Americans worked in service Industry jobs--the industry hardest hit by COVID-19 related job losses.',
-      reference: '(Journal of Southeast Asian American Advancement, 2020)'
+      text:
+        'of Southeast Asian Americans worked in service Industry jobs--the industry hardest hit by COVID-19 related job losses.',
+      reference: '(Journal of Southeast Asian American Advancement, 2020)',
     },
   ];
+  colorConfig: any = {
+    selectedColor: '#523f6d',
+    colorArray: [
+      {
+        code: '#523f6d',
+      },
+      {
+        code: '#0097a7',
+      },
+      {
+        code: '#9c4ef7',
+      },
+      {
+        code: '#3c78d8',
+      },
+      {
+        code: '#f3993e',
+      },
+      {
+        code: '#9c4ef7',
+      },
+      {
+        code: '#3d97a7',
+      },
+      {
+        code: '#523f6d',
+      },
+      {
+        code: '#0097a7',
+      },
+      {
+        code: '#9c4ef7',
+      },
+      {
+        code: '#3c78d8',
+      },
+      {
+        code: '#f3993e',
+      },
+      {
+        code: '#9c4ef7',
+      },
+      {
+        code: '#3d97a7',
+      },
+    ],
+  };
+
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
@@ -601,6 +650,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
+    let $t = this;
     $('.mainmenu-area').css({ background: 'transparent' });
     $('.header-top-area').addClass('position-absolute');
     $(document).on(
@@ -675,8 +725,8 @@ export class HomeComponent implements OnInit {
           autoplay: true,
           autoplayTimeout: 3000,
           margin: 0,
-          /*animateIn: 'fadeIn',
-          animateOut: 'fadeOut',*/
+          animateOut: 'fadeOut',
+          animateIn: 'fadeIn',
           responsiveClass: true,
           responsive: {
             0: {
@@ -694,12 +744,8 @@ export class HomeComponent implements OnInit {
           },
         });
 
-        /*------------------------------
-          VIDEO POPUP
-      --------------------------------*/
-        var $videoModal = $('.video-area-popup');
-        $videoModal.modalVideo({
-          channel: 'youtube',
+        $homeSlider.on('changed.owl.carousel', (event: any) => {
+          $t.colorConfig.selectedColor = $t.colorConfig.colorArray[event.item.index].code;
         });
 
         /*---------------------------

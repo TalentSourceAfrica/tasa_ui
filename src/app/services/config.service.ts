@@ -261,7 +261,7 @@ export class ConfigService {
             errPopupMessage = 'Something Went Wrong. \n Due to below technical error \n' + error.error;
             Swal.fire({
               title: 'Something Went Wrong. \n Due to below technical error \n',
-              text: error.error, // description of the modal
+              text: error.error.message, // description of the modal
               type: 'error', // warning, error, success, info, and question,
               backdrop: true,
               allowOutsideClick: true,

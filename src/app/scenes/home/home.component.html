@@ -5,7 +5,7 @@
     <div class="col-sm-6 col-12 d-flex">
       <div class="m-auto m-auto p-5 align-items-center">
         <div class="welcome-text">
-          <h1 class="text-shadow-theme text-primary animated fadeInUp">Where talent meets opportunity.</h1>
+          <h1 class="text-shadow-theme animated fadeInUp transition-1" [style.color]="colorConfig.selectedColor">Where talent meets opportunity.</h1>
           <h6 class="text-dark pb-3 animated fadeInUp">
             A place for Black/African, Latinx, Southeast Asian, and Indigenous people to connect with employers that
             align with their values, and build community with people that understand their perspective.
@@ -504,7 +504,7 @@
       <div class="row">
         <div class="col-md-8 col-lg-12 col-md-offset-2 col-lg-offset-2 col-sm-12 col-xs-12">
           <div class="area-title text-center wow fadeIn">
-            <h2 class="caps">News and Insights</h2>
+            <h2 class="caps">NEWS & INSIGHTS</h2>
           </div>
         </div>
       </div>
@@ -1713,14 +1713,15 @@
 <ng-template #sliderSignup>
   <div class="input-group input-group-sm d-flex mt-2 animated fadeInUp" *ngIf="!user">
     <input
-      class="form-control form-control-sm p-4 inputClass"
+      class="form-control form-control-sm p-4 inputClass transition-1"
       type="email"
       placeholder="Enter your email address"
+      [style.border-color]="colorConfig.selectedColor"
       [(ngModel)]="sliderSignUpMail"
     />
     <span
-      class="rounded-pill btn-behaviour curPoint mx-2 pt-3 font-weight-bold w20 text-center"
-      color="primary"
+      class="rounded-pill btn-behaviour curPoint mx-2 pt-3 font-weight-bold w20 text-center transition-1"
+      [style.background-color]="colorConfig.selectedColor"
       (click)="signup()"
     >
       Sign Up
