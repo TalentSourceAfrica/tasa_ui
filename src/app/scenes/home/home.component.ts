@@ -483,6 +483,9 @@ export class HomeComponent implements OnInit {
         1500: {
           items: 4,
         },
+        2000: {
+          items: 5,
+        },
       },
     });
   }

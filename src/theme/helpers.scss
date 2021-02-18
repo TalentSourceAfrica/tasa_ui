@@ -8,6 +8,7 @@ body {
   font-size: 13px !important;
   line-height: 1.6em !important;
   font-weight: 400 !important;
+  zoom: 90%;
   width: 100%;
 }
 
@@ -804,8 +805,8 @@ a {
   font-weight: 700;
   height: 40px;
   &:enabled {
-  background-color: #523f6d !important;
-  color: #fff !important;
+    background-color: #523f6d !important;
+    color: #fff !important;
   }
 }
 
@@ -818,7 +819,7 @@ a {
     &:enabled {
       transition: 0.1s;
       box-shadow: 5px 10px 10px 0 $light-blue !important;
-      border:2px solid #523f6d!important;
+      border: 2px solid #523f6d !important;
       background-color: #fff !important;
       color: #523f6d !important;
     }
@@ -1651,6 +1652,6 @@ button:hover,
   }
 }
 
-.asterisk{
-  font-size: 20px;;
+.asterisk {
+  font-size: 20px;
 }

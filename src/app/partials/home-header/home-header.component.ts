@@ -52,8 +52,8 @@ export class HomeHeaderComponent implements OnInit {
   freelanceConfig: any = {
     isFetching: false,
     data: [],
-    searchConfig: ''
-  }
+    searchConfig: '',
+  };
   constructor(
     private router: Router,
     public sharedService: SharedService,
@@ -74,22 +74,22 @@ export class HomeHeaderComponent implements OnInit {
 
   globalSearch() {
     let $t = this;
-    switch($t.globalSearchType) {
-        case 'profile':
-          $t.userSearch();
-          break;
-        case 'organization':
-          $t.orgSearch();
-          break;
-        case 'job':
-          $t.jobSearch();
-          break;
-        case 'course':
-          $t.courseSearch();
-          break;
-        case 'freelance':
-          $t.freeLanceSearch();
-          break;        
+    switch ($t.globalSearchType) {
+      case 'profile':
+        $t.userSearch();
+        break;
+      case 'organization':
+        $t.orgSearch();
+        break;
+      case 'job':
+        $t.jobSearch();
+        break;
+      case 'course':
+        $t.courseSearch();
+        break;
+      case 'freelance':
+        $t.freeLanceSearch();
+        break;
     }
   }
 
@@ -380,7 +380,7 @@ export class HomeHeaderComponent implements OnInit {
     this.onClickOfSellAllNoti();
   }
 
-  setNotificationData(_type: string) {
+  setNotificationData(event: any, _type: string) {
     if (_type === 'other') {
       this.notificationsData = this.notificationConfig.otherNotifications;
       this.notificationConfig.currentView = 0;
@@ -431,22 +431,24 @@ export class HomeHeaderComponent implements OnInit {
     setInterval(() => {
       this.getNotifications();
     }, 300000);
+    setTimeout(() => {
+      jQuery('.notification-popup').click((event: any) => {
+        jQuery(this).toggleClass('open');
+        jQuery('#notificationMenu').removeClass('d-none').toggleClass('open');
+      });
+      jQuery(document).on('click', (event: any) => {
+        if (!jQuery(event.target).closest('.notification-popup').length) {
+          if (jQuery('#notificationMenu').hasClass('open')) {
+            jQuery('#notificationMenu').addClass('d-none').toggleClass('open');
+          }
+        }
+      });
+    }, 5000);
   }
 
   ngAfterViewInit(): void {
     jQuery('#mainmenu-area').sticky({
       topSpacing: 0,
-    });
-    jQuery('.notification-popup').on('click', (event: any) => {
-      jQuery(this).toggleClass('open');
-      jQuery('#notificationMenu').removeClass('d-none').toggleClass('open');
-    });
-    jQuery(document).on('click', (event: any) => {
-      if (!jQuery(event.target).closest('.notification-popup').length) {
-        if (jQuery('#notificationMenu').hasClass('open')) {
-          jQuery('#notificationMenu').addClass('d-none').toggleClass('open');
-        }
-      }
     });
   }
 }

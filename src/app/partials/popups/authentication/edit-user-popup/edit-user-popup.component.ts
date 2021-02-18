@@ -1,5 +1,5 @@
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { Component, Inject, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { suportedFile } from '@app/models/constants';
@@ -27,7 +27,8 @@ export class EditUserPopupComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<EditUserPopupComponent>,
-    public sharedService: SharedService
+    public sharedService: SharedService,
+    public cdr: ChangeDetectorRef
   ) {
     this.popupData = data;
   }
@@ -119,10 +120,11 @@ export class EditUserPopupComponent implements OnInit {
       experienceTo: '',
       organization: '',
     });
+    this.cdr.detectChanges();
   }
 
   addEdu() {
-    this.user.experience.push({
+    this.user.education.push({
       college: [''],
       degreeFromDate: '',
       degreeToDate: '',
@@ -131,6 +133,7 @@ export class EditUserPopupComponent implements OnInit {
       minor: [''],
       university: [''],
     });
+    this.cdr.detectChanges();
   }
 
   addGig() {
@@ -142,6 +145,7 @@ export class EditUserPopupComponent implements OnInit {
       clientName: '',
       clientWebsite: '',
     });
+    this.cdr.detectChanges();
   }
 
   add(event: MatChipInputEvent): void {
