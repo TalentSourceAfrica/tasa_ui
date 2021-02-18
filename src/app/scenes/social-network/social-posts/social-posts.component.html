@@ -347,10 +347,10 @@
                                 </div>
                                 <div class="row album-content no-gutters">
                                   <div
-                                    class="mb-2 mt-1 col-12"
+                                    class="mb-2 mt-1 col-12 contentData"
                                     [class.pl-3]="post.imageUrl == '' && post.videoUrl == ''"
                                   >
-                                    {{ post.content }}
+                                    {{ showContent(post) }}
                                   </div>
                                   <div class="pl-2 text-center" *ngIf="post.imageUrl != ''">
                                     <a [href]="post.imageUrl" target="_blank">
