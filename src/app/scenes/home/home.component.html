@@ -219,8 +219,10 @@
           <div class="figures-wrapper d-flex text-center p-5">
             <div class="figures-content align-items-center">
               <h2 class="text-primary">{{ item.title }}</h2>
-              <p class="p-3 text-primary d-block font-weight-light" style="font-size: 20px;">{{ item.text }}<br />
-              <span class="text-primary font-weight-light" style="font-size: 11px;">{{ item.reference }}</span></p>
+              <p class="p-3 text-primary d-block font-weight-light" style="font-size: 20px;">
+                {{ item.text }}<br />
+                <span class="text-primary font-weight-light" style="font-size: 11px;">{{ item.reference }}</span>
+              </p>
             </div>
           </div>
         </div>
@@ -239,7 +241,7 @@
         <div class="">
           <section id="timeline">
             <div class="demo-card-wrapper">
-              <div class="demo-card demo-card--step1" data-aos="fade-right">
+              <div class="demo-card demo-card--step1" data-aos="fade-right" data-aos-anchor-placement="center-bottom">
                 <div class="head">
                   <div class="number-box">
                     <h5 class="pt-1">Network</h5>
@@ -253,12 +255,11 @@
                 </div>
               </div>
 
-              <div class="demo-card demo-card--step2" data-aos="fade-left">
+              <div class="demo-card demo-card--step2" data-aos="fade-left" data-aos-anchor-placement="center-bottom">
                 <div class="head">
                   <div class="number-box">
                     <h5 class="pt-1">Find Jobs</h5>
                   </div>
-                
                 </div>
                 <div class="body">
                   <p>
@@ -268,12 +269,11 @@
                 </div>
               </div>
 
-              <div class="demo-card demo-card--step3" data-aos="fade-right">
+              <div class="demo-card demo-card--step3" data-aos="fade-right" data-aos-anchor-placement="center-bottom">
                 <div class="head">
                   <div class="number-box">
-                   <h5 class="pt-1">Freelance</h5>
+                    <h5 class="pt-1">Freelance</h5>
                   </div>
-                 
                 </div>
                 <div class="body">
                   <p>
@@ -283,7 +283,7 @@
                 </div>
               </div>
 
-              <div class="demo-card demo-card--step3" data-aos="fade-right">
+              <div class="demo-card demo-card--step3" data-aos="fade-right" data-aos-anchor-placement="center-bottom">
                 <div class="head">
                   <div class="number-box">
                     <h5 class="pt-1">Learn</h5>
@@ -416,7 +416,7 @@
 
   <!--COURSE AREA-->
   <section class="course-area padding-top" id="courses">
-    <div class="container-fluid">
+    <div>
       <div class="row">
         <div class="col-md-8 col-lg-12 col-md-offset-2 col-lg-offset-2 col-sm-12 col-xs-12">
           <div class="area-title text-center wow fadeIn">
@@ -424,21 +424,35 @@
           </div>
         </div>
       </div>
-      <div class="row course-list">
-        <div *ngFor="let course of courses">
-          <div class="single-course mb20 w80 curPoint">
-            <img [src]="course.image_url" alt="Course Image" />
-            <div class="course-details p-3">
-              <h3 class="font18">{{ course.title }}</h3>
-              <p class="card-intro">
-                {{ course.subjects[0].name }}
-              </p>
-              <!-- <div [innerHTML]="course.short_description"></div> -->
-            </div>
-            <div class="text-center enroll-div position-absolute mb-3">
-              <button mat-flat-button color="primary" (click)="enroll(course)" class="rounded-pill ml-2">
-                ENROLL
-              </button>
+      <div class="row">
+        <div class="col-3 d-flex align-items-center">
+          <div class="text-center">
+            <h3 class="text-shadow-theme text-primary animated fadeInUp">Upskill and stand out</h3>
+            <p>
+              <span class="text-primary font-weight-light" style="font-size: 13px;"
+                >Gain marketable skills with professional certificate courses from top universities
+              </span>
+            </p>
+          </div>
+        </div>
+        <div class="col-9 p-2">
+          <div class="course-list">
+            <div *ngFor="let course of courses">
+              <div class="single-course mb20 w80 curPoint">
+                <img [src]="course.image_url" alt="Course Image" />
+                <div class="course-details p-3">
+                  <h3 class="font18">{{ course.title }}</h3>
+                  <p class="card-intro">
+                    {{ course.subjects[0].name }}
+                  </p>
+                  <!-- <div [innerHTML]="course.short_description"></div> -->
+                </div>
+                <div class="text-center enroll-div position-absolute mb-3">
+                  <button mat-flat-button color="primary" (click)="enroll(course)" class="rounded-pill ml-2">
+                    ENROLL
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>

@@ -9,6 +9,35 @@ $grey: #7d7d7d;
 @import url("https://fonts.googleapis.com/css?family=Poppins:400,500,600,700");
 
 .home-wrapper {
+  .app-card-list {
+  display:inline-block;
+  width:100%;
+  float:right;
+  margin:0;
+  min-height: 75vh;
+  white-space:normal;
+  overflow-x: scroll;
+  margin-top:-70px;
+  
+  &::-webkit-scrollbar { 
+    display: none; 
+  }
+  
+  @media(min-width:768px) {
+      width:80%;
+      white-space:nowrap;
+      margin-top: 0;
+  }
+  
+  .card {
+    margin: 60px 30px;
+    display: inline-block;
+    
+    .card-body {
+        white-space: normal;
+    }
+  }
+}
   .course-3d-card {
     transform: rotateY(40.7deg) rotateX(-12.7deg) rotateZ(-3deg);
   }
