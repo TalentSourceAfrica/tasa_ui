@@ -508,22 +508,21 @@ export class HomeComponent implements OnInit {
   }
 
   courseSlider() {
-    /*---------------------------
-          COURSE SLIDER
-      -----------------------------*/
     var $courseCarousel = $('.course-list');
     $courseCarousel.owlCarousel({
       merge: true,
-      smartSpeed: 1000,
+      smartSpeed: 3000,
       loop: true,
       nav: false,
       center: true,
       autoplayHoverPause: true,
       navText: ['<i class="fa fa-long-arrow-left"></i> Prev', 'Next <i class="fa fa-long-arrow-right"></i>'],
-      autoplay: false,
+      autoplay: true,
       autoplayTimeout: 3000,
-      margin: 9,
+      margin: 0,
       responsiveClass: true,
+      onTranslated: animateSlide,
+      onTranslate: removeAnimation,
       responsive: {
         0: {
           items: 1,
@@ -543,6 +542,17 @@ export class HomeComponent implements OnInit {
         },
       },
     });
+
+    // Other Slides
+    function removeAnimation() {
+      var item = $('.course-list .owl-item');
+      item.removeClass('animated tada');
+    }
+
+    function animateSlide() {
+      var item = $('.course-list .owl-item.active');
+      item.addClass('animated tada');
+    }
   }
 
   getPassedData(data: SlidesOutputData) {

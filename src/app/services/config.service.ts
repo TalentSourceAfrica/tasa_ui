@@ -231,7 +231,7 @@ export class ConfigService {
         let errPopupMessage: string = '';
         switch (error.status) {
           case 202: // Review Request Status
-            errPopupMessage = error.error.text;
+            errPopupMessage = error.error.message;
             break;
           case 301: // Moved Permanently
           case 400: // Bad Request
@@ -239,9 +239,10 @@ export class ConfigService {
           case 403: // Forbidden
           case 404: // Not Found
           case 405: // Method Not Allowed
+          case 409: // already exsist
             if (!_.isUndefined(error) && !_.isUndefined(error.error)) {
               if (_.isObject(error.error) && _.keys(error.error).length) {
-                errPopupMessage = error.error;
+                errPopupMessage = error.error.message;
                 switch (error.error.errorType) {
                   case 'SessionExpired':
                   case 'InvalidCredentials':
@@ -249,7 +250,7 @@ export class ConfigService {
                     break;
                 }
               } else {
-                errPopupMessage = error.error;
+                errPopupMessage = error.error.message;
               }
             }
             break;
@@ -258,7 +259,7 @@ export class ConfigService {
           case 502: // Bad Gateway
           case 503: // Service Unavailable
           case 504: // Gateway Timeout
-            errPopupMessage = 'Something Went Wrong. \n Due to below technical error \n' + error.error;
+            errPopupMessage = 'Something Went Wrong. \n Due to below technical error \n' + error.error.message;
             Swal.fire({
               title: 'Something Went Wrong. \n Due to below technical error \n',
               text: error.error.message, // description of the modal
@@ -281,7 +282,7 @@ export class ConfigService {
             $t.router.navigate(['/login'], { queryParams: {}, replaceUrl: true });
           }, 700);
         }
-        error.error = errPopupMessage;
+        error.error.message = errPopupMessage;
       }
       return error;
     }

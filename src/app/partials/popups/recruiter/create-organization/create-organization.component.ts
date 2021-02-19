@@ -55,7 +55,7 @@ export class CreateOrganizationComponent implements OnInit {
       orgName: ['', [Validators.required]],
       orgDesc: ['', [Validators.required]],
       orgImage: [{ value: '', disabled: true }, [Validators.required]],
-      registrationId: ['', [Validators.required]],
+      registrationId: [''],
       contactPersonEmail: ['', [Validators.required, Validators.email]],
       contactPersonNo: ['', [Validators.required]],
       contactPersonName: ['', [Validators.required]],

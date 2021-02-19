@@ -437,8 +437,8 @@
         </div>
         <div class="col-9 p-2">
           <div class="course-list">
-            <div *ngFor="let course of courses">
-              <div class="single-course mb20 w80 curPoint">
+            <div data-animate="flipInX animated" *ngFor="let course of courses">
+              <div class="single-course mb20 w80 curPoint"> 
                 <img [src]="course.image_url" alt="Course Image" />
                 <div class="course-details p-3">
                   <h3 class="font18">{{ course.title }}</h3>
