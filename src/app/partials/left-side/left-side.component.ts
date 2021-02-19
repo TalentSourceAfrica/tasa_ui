@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CredentialsService } from '@app/auth';
+import { AuthenticationService, CredentialsService } from '@app/auth';
 import { SharedService } from '@app/services/shared.service';
 
 @Component({
@@ -34,14 +34,68 @@ export class LeftSideComponent implements OnInit {
     data: [],
   };
   jobApplications: any = [];
-
-  constructor(public sharedService: SharedService, private credentialsService: CredentialsService) {
+  isAllowedConfig: any = { allowed: true, message: '' }; // when user exceed the subscription plan
+  constructor(
+    public sharedService: SharedService,
+    private credentialsService: CredentialsService,
+    private authenticationService: AuthenticationService
+  ) {
     this.uds = this.sharedService.plugins.undSco;
     if (this.user) {
       this.user.type.toLowerCase() === 'admin' ? (this.isAdmin = true) : (this.isAdmin = false);
       this.allFavCourse = this.user.favoriteCourses;
       this.recentlyViewedCourse = this.user.recentlyViewed;
       this.savedJobs = this.user.savedJobs;
+    }
+  }
+
+  addToFavorite(_type: boolean, _course: any, event: any) {
+    event.stopPropagation();
+    event.preventDefault();
+    let $t = this;
+    if (_type) {
+      $t.sharedService.uiService.showApiStartPopMsg('Adding To Favorite...');
+      let apiUrl = $t.sharedService.urlService.apiCallWithParams('favCourse', {
+        '{userId}': $t.user.email,
+        '{courseKey}': _course.key,
+      });
+      $t.sharedService.configService.get(apiUrl).subscribe(
+        (response: any) => {
+          _course['isFav'] = true;
+          $t.user['favoriteCourses'].push({
+            image_url: _course.image_url,
+            key: _course.key,
+            subject: _course.subjects,
+            title: _course.title,
+            program: '',
+          });
+          $t.user['favoriteCourses'] = $t.uds.uniq($t.user['favoriteCourses'], (d: any) => {
+            return d.key;
+          });
+          $t.authenticationService.login(this.user);
+          $t.sharedService.uiService.showApiSuccessPopMsg('Added To Favorite...');
+        },
+        (error) => {
+          $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
+        }
+      );
+    } else {
+      $t.sharedService.uiService.showApiStartPopMsg('Removing From Favorite...');
+      let apiUrl = $t.sharedService.urlService.apiCallWithParams('unfavCourse', {
+        '{userId}': $t.user.email,
+        '{courseKey}': _course.key,
+      });
+      $t.sharedService.configService.get(apiUrl).subscribe(
+        (response: any) => {
+          _course['isFav'] = false;
+          $t.user['favoriteCourses'] = $t.user['favoriteCourses'].filter((d: any) => d.key != _course.key);
+          $t.authenticationService.login(this.user);
+          $t.sharedService.uiService.showApiSuccessPopMsg('Removed From Favorite...');
+        },
+        (error) => {
+          $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
+        }
+      );
     }
   }
 
@@ -78,6 +132,7 @@ export class LeftSideComponent implements OnInit {
   getRecommendedCourses() {
     let $t = this;
     let apiUrl = '';
+    $t.isAllowedConfig.allowed = true;
     $t.recommendedCourses.isFetching = true;
     apiUrl = $t.sharedService.urlService.apiCallWithParams('getRecommendedCourses', { '{userId}': $t.user.email });
     $t.sharedService.configService.get(apiUrl).subscribe(
@@ -87,6 +142,10 @@ export class LeftSideComponent implements OnInit {
         $t.setLogicForRecommendedCard();
       },
       (error) => {
+        if(error.status === '403'){
+          $t.isAllowedConfig.allowed = false;
+          $t.isAllowedConfig.message = error.error.message;
+        }
         $t.recommendedCourses.isFetching = false;
       }
     );

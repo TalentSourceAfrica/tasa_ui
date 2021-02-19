@@ -9,7 +9,6 @@ import { MaterialModule } from '@app/modules/material.module';
 import { RouterModule } from '@angular/router';
 import { SocialnetworkService } from '../socialnetwork.service';
 
-
 // Module
 import { LeftSideModule } from '@app/partials/left-side/left-side.module';
 import { RightSideModule } from '@app/partials/right-side/right-side.module';
@@ -17,6 +16,7 @@ import { CreateGroupPopupModule } from '@app/partials/popups/group/create-group-
 import { ProfileRoutingModule } from './profile-routing.module';
 import { SocialConnectionsModule } from '@app/partials/social-network/social-connections/social-connections.module';
 import { NgxDocViewerModule } from 'ngx-doc-viewer';
+import { SharedModule } from '@app/@shared';
 
 // Component
 import { EditUserPopupComponent } from '@app/partials/popups/authentication/edit-user-popup/edit-user-popup.component';
@@ -39,8 +39,9 @@ import { ProfileComponent } from './profile.component';
     LeftSideModule,
     RightSideModule,
     CreateGroupPopupModule,
+    SharedModule
   ],
-  declarations: [ProfileComponent,EditUserPopupComponent],
+  declarations: [ProfileComponent, EditUserPopupComponent],
   providers: [SocialnetworkService],
   schemas: [NO_ERRORS_SCHEMA],
 })

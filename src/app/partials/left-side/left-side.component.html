@@ -12,7 +12,7 @@
           </div>
         </div>
         <div class="card-body p-2 min-vertical-h-30 max-vertical-h-30 stylishSlimScroll flow-y-auto flow-x-hidden">
-          <div *ngIf="recommendedCourses.data.length && !recommendedCourses.isFetching" class="row pr-1 no-gutters">
+          <div *ngIf="recommendedCourses.data.length && !recommendedCourses.isFetching  && isAllowedConfig.allowed" class="row pr-1 no-gutters">
             <div
               class="col-12 border mb-1 curPoint courseList"
               *ngFor="let course of recommendedCourses.data"
@@ -23,8 +23,34 @@
                 <!-- <span class="flag-discount" *ngIf="course.discountPercentage > 0"
                           >{{ course.discountPercentage }}% Off</span
                         > -->
+
                 <div class="col-4">
                   <img [src]="course.image_url" alt="Course picture" />
+
+                  <button
+                    mat-mini-fab
+                    color="primary"
+                    style="z-index: 9; right: 70px; height: 30px; width: 30px; color: orangered !important"
+                    class="position-absolute mt-2"
+                    *ngIf="course.isFav"
+                    matTooltipPosition="below"
+                    matTooltip="Remove From Favorite"
+                    (click)="addToFavorite(false, course, $event)"
+                  >
+                    <mat-icon style="font-size: 20px;">favorite</mat-icon>
+                  </button>
+                  <button
+                    mat-mini-fab
+                    color="primary"
+                    style="z-index: 9; right: 70px; height: 30px; width: 30px;"
+                    class="position-absolute mt-2"
+                    *ngIf="!course.isFav"
+                    matTooltipPosition="below"
+                    matTooltip="Add To Favorite"
+                    (click)="addToFavorite(true, course, $event)"
+                  >
+                    <mat-icon style="font-size: 20px;">favorite_border</mat-icon>
+                  </button>
                 </div>
                 <div class="col-8 p-2">
                   <h6 class="card-title text-truncate" [title]="course.title">
@@ -37,7 +63,7 @@
               </div>
             </div>
           </div>
-          <div *ngIf="recommendedCourses.data.length == 0 && !recommendedCourses.isFetching">
+          <div *ngIf="recommendedCourses.data.length == 0 && !recommendedCourses.isFetching && isAllowedConfig.allowed">
             <div class="text-center m-auto animated fadeIn">
               <div class="col-12 text-center">
                 <img src="../../../assets/images/no-record.gif" style="height: 200px;" class="d-block m-auto" />
@@ -45,7 +71,8 @@
               </div>
             </div>
           </div>
-          <ng-template *ngIf="recommendedCourses.isFetching" [ngTemplateOutlet]="loader"></ng-template>
+          <ng-template *ngIf="recommendedCourses.isFetching && isAllowedConfig.allowed" [ngTemplateOutlet]="loader"></ng-template>
+            <ng-template *ngIf="!recommendedCourses.isFetching && !isAllowedConfig.allowed"  [ngTemplateOutlet]="noSubscription"></ng-template>
         </div>
       </div>
       <div class="card animated bounceInUp bg-primary-more-light" *ngIf="recommendedSwitch.jobs">
@@ -359,6 +386,23 @@
   <div class="col-12 animated fadeIn" *ngFor="let item of [1, 2, 3]">
     <div class="card ml-0 mr-0" style="height: 50px !important;">
       <div class="card-img skeleton"></div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #noSubscription>
+  <div class="text-center m-auto animated fadeInUp">
+    <div>
+      <h1>😕</h1>
+      <h6 class="text-muted">{{isAllowedConfig.message}}</h6>
+      <button
+      mat-flat-button
+      color="primary"
+      [routerLink]="['/subscription-plans']"
+      class="rounded-pill ml-2"
+    >
+      Subscribe Now
+    </button>
     </div>
   </div>
 </ng-template>

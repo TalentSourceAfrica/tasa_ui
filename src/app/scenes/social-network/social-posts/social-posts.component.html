@@ -120,12 +120,12 @@
                               [src]="user.image"
                               [routerLink]="['/social-network/profile/', user.tasaId]"
                               routerLinkActive="router-link-active"
-                              class="status-img curPoint"
+                              class="status-img curPoint mt-2"
                               [class.mr-1]="socialConfig.newPost.videoUrl != ''"
                             />
                             <textarea
                               id="postBox"
-                              class="row no-gutters status-textarea mb-1"
+                              class="row w80 no-gutters status-textarea mb-1"
                               [class.col-12]="
                                 socialConfig.newPost.imageUrl != '' || socialConfig.newPost.videoUrl != ''
                               "
@@ -235,6 +235,19 @@
                                 >
                                   <i class="fas fa-video-slash"></i>
                                 </button>
+                                <button
+                                  mat-mini-fab
+                                  class="attachment"
+                                  (click)="toggled = !toggled"
+                                  matTooltipPosition="below"
+                                  matTooltip="Add Emoji"
+                                  [matMenuTriggerFor]="emojiMenu"
+                                >
+                                  <mat-icon style="height: 27px; margin-right: 2px;">😄</mat-icon>
+                                </button>
+                                <mat-menu #emojiMenu="matMenu" class="emoji-menu">
+                                  <emoji-mart enableSearch="false" (emojiClick)="addEmoji($event)"> </emoji-mart>
+                                </mat-menu>
                               </div>
                               <div class="col-4 text-right">
                                 <button
@@ -284,25 +297,6 @@
                               </mat-select>
                             </div>
                           </div>
-                          <button
-                            mat-mini-fab
-                            class="attachment"
-                            [ngClass]="{
-                              'attachment-two':
-                                socialConfig.newPost.imageUrl != '' || socialConfig.newPost.videoUrl != ''
-                            }"
-                            (click)="toggled = !toggled"
-                            matTooltipPosition="below"
-                            matTooltip="Add Emoji"
-                            [matMenuTriggerFor]="emojiMenu"
-                          >
-                            <mat-icon style="height: 27px; margin-right: 2px;">😄</mat-icon>
-                          </button>
-                          <mat-menu #emojiMenu="matMenu" class="emoji-menu">
-                            <emoji-mart enableSearch="false" (emojiClick)="addEmoji($event)">
-                            </emoji-mart>
-                          </mat-menu>
-
                           <ng-container *ngIf="socialConfig.isLoading">
                             <ng-template [ngTemplateOutlet]="loader"></ng-template>
                           </ng-container>
@@ -312,7 +306,7 @@
                               *ngFor="let post of socialConfig.allSocialPost; let postIndex = index"
                             >
                               <div *ngIf="post.post && !socialConfig.isLoading">
-                                <div class="status-main pt-3">
+                                <div class="status-main pt-2 pb-1">
                                   <img
                                     matTooltipPosition="below"
                                     [matTooltip]="post.userName"

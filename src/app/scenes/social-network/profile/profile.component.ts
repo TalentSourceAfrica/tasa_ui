@@ -31,6 +31,7 @@ export class ProfileComponent implements OnInit {
   };
   isCurrentUser: boolean = true;
   mom: any;
+  isAllowedConfig: any = { allowed: true, message: '' }; // when user exceed the subscription plan
 
   constructor(
     public credentialsService: CredentialsService,
@@ -56,6 +57,7 @@ export class ProfileComponent implements OnInit {
 
   fetchUser() {
     let $t = this;
+    $t.isAllowedConfig.allowed = true;
     $t.userConfig.tasaId = $t.route.snapshot.params.tasaId;
     $t.userConfig.fetchingUser = true;
     let apiUrl = $t.sharedService.urlService.apiCallWithParams('getUserById', {
@@ -72,6 +74,11 @@ export class ProfileComponent implements OnInit {
       },
       (error) => {
         $t.userConfig.fetchingUser = false;
+        if(error.status === '403'){
+          $t.isAllowedConfig.allowed = false;
+          $t.isAllowedConfig.message = error.error.message;
+        }
+        $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
       }
     );
   }

@@ -547,12 +547,12 @@ export class HomeComponent implements OnInit {
     // Other Slides
     function removeAnimation() {
       var item = $('.course-list .owl-item');
-      item.removeClass('animated tada');
+      item.removeClass('animated bounceInRight');
     }
 
     function animateSlide() {
       var item = $('.course-list .owl-item.active');
-      item.addClass('animated tada');
+      item.addClass('animated bounceInRight');
     }
   }
 

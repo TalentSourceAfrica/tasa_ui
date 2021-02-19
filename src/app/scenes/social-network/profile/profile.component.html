@@ -34,7 +34,7 @@
               <div class="title" *ngIf="!isCurrentUser">Profile</div>
             </div>
             <div class="profile-wrapper mb-4">
-              <div class="main-content" *ngIf="!userConfig.fetchingUser">
+              <div class="main-content" *ngIf="!userConfig.fetchingUser && isAllowedConfig.allowed">
                 <div
                   class="header pb-5 pt-4 d-flex align-items-center shadow"
                   style="
@@ -207,7 +207,7 @@
                               >
                                 <mat-icon>groups</mat-icon>
                               </button>
-                              <p class="text-primary pl-5 mt-1">{{userConfig.totalConnectedUser}} Connections</p>
+                              <p class="text-primary pl-5 mt-1">{{ userConfig.totalConnectedUser }} Connections</p>
                             </div>
                           </div>
                         </div>
@@ -344,7 +344,7 @@
                             <hr class="my-4" />
                             <div class="d-flex">
                               <h3 class="heading-small text-muted mb-4 w50">Education</h3>
-                              <div class="d-flex w100 justify-content-end"  *ngIf="isCurrentUser">
+                              <div class="d-flex w100 justify-content-end" *ngIf="isCurrentUser">
                                 <mat-icon
                                   class="text-primary curPoint"
                                   matTooltipPosition="below"
@@ -480,7 +480,7 @@
                                     <!-- <input id="input-address" class="form-control form-control-alternative" placeholder="Home Address" value="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09" type="text"> -->
                                   </div>
                                 </div>
-                              </div> 
+                              </div>
                               <hr />
                               <div class="row" *ngFor="let item of userConfig.user.pastGigs; let last = last">
                                 <div class="col-lg-4">
@@ -521,7 +521,7 @@
                 </div>
               </div>
 
-              <ng-container *ngIf="userConfig.fetchingUser">
+              <ng-container *ngIf="userConfig.fetchingUser && isAllowedConfig.allowed">
                 <div class="col-12 animated fadeIn" *ngFor="let item of [1]">
                   <div class="card ml-0 mr-0" style="height: 300px !important;">
                     <div class="card-img skeleton"></div>
@@ -532,6 +532,13 @@
                     <div class="card-img skeleton"></div>
                   </div>
                 </div>
+              </ng-container>
+              <ng-container *ngIf="!userConfig.fetchingUser && !isAllowedConfig.allowed">
+                <app-no-subscription
+                  [isComingFrom]="'course'"
+                  [message]="isAllowedConfig.message"
+                  [isComingFrom]="'subscription'"
+                ></app-no-subscription>
               </ng-container>
             </div>
           </div>

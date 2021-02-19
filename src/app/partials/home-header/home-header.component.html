@@ -257,7 +257,7 @@
                         <span [matMenuTriggerFor]="userMenu" class="text-truncate"    matTooltipPosition="below"
                         matTooltip="{{user.firstName}} {{user.lastName}}">{{ user.firstName }}</span
                         ><i class="fas fa-caret-down pl-1"></i>
-                        <mat-menu #userMenu="matMenu">
+                        <mat-menu #userMenu="matMenu" class="mr-2 mt-2">
                           <button mat-menu-item [routerLink]="['/home']" class="h6">
                             <i class="fas fa-home pr-3 text-primary"></i> Home
                           </button>

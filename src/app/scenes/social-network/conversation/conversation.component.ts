@@ -134,7 +134,9 @@ export class ConversationComponent implements OnInit {
       (response: any) => {
         $t.groups = response.responseObj ? response.responseObj : [];
       },
-      (error) => {}
+      (error) => {
+        $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
+      }
     );
   }
 
@@ -149,7 +151,9 @@ export class ConversationComponent implements OnInit {
         (response: any) => {
           this.connectionConfig.selectedGroupMembers = response.responseObj.members;
         },
-        (error) => {}
+        (error) => {
+          this.sharedService.uiService.showApiErrorPopMsg(error.error.message);
+        }
       );
     } else {
       this.connectionConfig.isGroupSelected = false;
@@ -209,7 +213,9 @@ export class ConversationComponent implements OnInit {
         $t.attachmentConfig.file = '';
         $t.getAllChatByChatId();
       },
-      (error) => {}
+      (error) => {
+        $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
+      }
     );
   }
 
@@ -226,7 +232,9 @@ export class ConversationComponent implements OnInit {
         $t.connectionConfig.selectedUser.chatId = response.id;
         $t.getAllChatByChatId();
       },
-      (error) => {}
+      (error) => {
+        $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
+      }
     );
   }
 
@@ -292,7 +300,9 @@ export class ConversationComponent implements OnInit {
             $t.getAllChatByChatId();
           }
         },
-        (error) => {}
+        (error) => {
+          $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
+        }
       );
     }
   }
@@ -313,7 +323,9 @@ export class ConversationComponent implements OnInit {
       }
       $t.sharedService.configService.post(apiUrl).subscribe(
         (response: any) => {},
-        (error) => {}
+        (error) => {
+          $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
+        }
       );
     }
   }
