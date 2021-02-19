@@ -5,6 +5,10 @@
   --right-color: #96dbe2;
 }
 
+.mat-dialog-container {
+  overflow: hidden !important;
+}
+
 .signup-wrapper {
   .new-container {
     width: var(--form-width);
@@ -388,10 +392,6 @@
 
   .form-class {
     width: 50vw !important;
-  }
-
-  .mat-dialog-container {
-    overflow: hidden;
   }
 
   .h3-class {
