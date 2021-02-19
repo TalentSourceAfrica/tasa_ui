@@ -348,4 +348,13 @@ $light-blue: #523f6d80;
   border: 2px solid #ddd;
 }
 
+.sidebar-submenu {
+  button {
+    &:hover {
+      border-left: 15px solid #86789a;
+      transition: 0.6s;
+    }
+  }
+}
+
 //----------------------------header section ----------------------------------//

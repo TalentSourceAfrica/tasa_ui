@@ -512,7 +512,7 @@ export class HomeComponent implements OnInit {
     var $courseCarousel = $('.course-list');
     $courseCarousel.owlCarousel({
       merge: true,
-      smartSpeed: 3000,
+      smartSpeed: 1000,
       loop: true,
       nav: false,
       center: true,
