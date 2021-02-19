@@ -54,14 +54,15 @@ export class LeftSideComponent implements OnInit {
     event.preventDefault();
     let $t = this;
     if (_type) {
-      $t.sharedService.uiService.showApiStartPopMsg('Adding To Favorite...');
+      // $t.sharedService.uiService.showApiStartPopMsg('Adding To Favorite...');
       let apiUrl = $t.sharedService.urlService.apiCallWithParams('favCourse', {
         '{userId}': $t.user.email,
         '{courseKey}': _course.key,
       });
+      _course['favorite'] = true;
       $t.sharedService.configService.get(apiUrl).subscribe(
         (response: any) => {
-          _course['isFav'] = true;
+          _course['favorite'] = true;
           $t.user['favoriteCourses'].push({
             image_url: _course.image_url,
             key: _course.key,
@@ -73,24 +74,25 @@ export class LeftSideComponent implements OnInit {
             return d.key;
           });
           $t.authenticationService.login(this.user);
-          $t.sharedService.uiService.showApiSuccessPopMsg('Added To Favorite...');
+          // $t.sharedService.uiService.showApiSuccessPopMsg('Added To Favorite...');
         },
         (error) => {
           $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
         }
       );
     } else {
-      $t.sharedService.uiService.showApiStartPopMsg('Removing From Favorite...');
+     
       let apiUrl = $t.sharedService.urlService.apiCallWithParams('unfavCourse', {
         '{userId}': $t.user.email,
         '{courseKey}': _course.key,
       });
+      _course['favorite'] = false;
       $t.sharedService.configService.get(apiUrl).subscribe(
         (response: any) => {
-          _course['isFav'] = false;
+          _course['favorite'] = false;
           $t.user['favoriteCourses'] = $t.user['favoriteCourses'].filter((d: any) => d.key != _course.key);
           $t.authenticationService.login(this.user);
-          $t.sharedService.uiService.showApiSuccessPopMsg('Removed From Favorite...');
+          // $t.sharedService.uiService.showApiSuccessPopMsg('Removed From Favorite...');
         },
         (error) => {
           $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);

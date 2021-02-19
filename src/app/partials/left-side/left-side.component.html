@@ -32,7 +32,7 @@
                     color="primary"
                     style="z-index: 9; right: 70px; height: 30px; width: 30px; color: orangered !important"
                     class="position-absolute mt-2"
-                    *ngIf="course.isFav"
+                    *ngIf="course.favorite"
                     matTooltipPosition="below"
                     matTooltip="Remove From Favorite"
                     (click)="addToFavorite(false, course, $event)"
@@ -44,7 +44,7 @@
                     color="primary"
                     style="z-index: 9; right: 70px; height: 30px; width: 30px;"
                     class="position-absolute mt-2"
-                    *ngIf="!course.isFav"
+                    *ngIf="!course.favorite"
                     matTooltipPosition="below"
                     matTooltip="Add To Favorite"
                     (click)="addToFavorite(true, course, $event)"
@@ -87,7 +87,7 @@
             </div>
           </div>
         </div>
-        <div class="card-body p-2 jobs min-vertical-h-30 max-vertical-h-30 stylishSlimScroll flow-y-auto flow-x-hidden">
+        <div class="card-body p-2 jobs min-vertical-h-35 max-vertical-h-35 stylishSlimScroll flow-y-auto flow-x-hidden">
           <div *ngIf="recommendedJobs.data.length && !recommendedJobs.isFetching" class="row pr-1 no-gutters">
             <div
               class="recommended-jobs col-12 border mb-1 curPoint job-list p-2"
@@ -148,7 +148,7 @@
             <!-- <p class="card-subtitle">4 days streak this week</p> -->
           </div>
         </div>
-        <div class="card-body p-2 jobs min-vertical-h-30 max-vertical-h-30 stylishSlimScroll flow-y-auto flow-x-hidden">
+        <div class="card-body p-2 jobs min-vertical-h-35 max-vertical-h-35 stylishSlimScroll flow-y-auto flow-x-hidden">
           <div *ngIf="jobApplications.length" class="row pr-1 no-gutters">
             <div
               class="col-12 border mb-1 curPoint job-list p-2"
