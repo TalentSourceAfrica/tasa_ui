@@ -1,0 +1,9 @@
+<ng-container *ngIf="!isShowReadMore">
+  {{ nonEditedContent }}
+</ng-container>
+
+<ng-container *ngIf="isShowReadMore">
+  {{ content }}
+  <a *ngIf="!isContentToggled" class="underline curPoint text-info" style="font-family: auto;"  (click)="toggleContent()" i18n>Read More</a>
+  <a *ngIf="isContentToggled" class="underline curPoint text-info"  style="font-family: auto;"  (click)="toggleContent()" i18n>Read Less</a>
+</ng-container>

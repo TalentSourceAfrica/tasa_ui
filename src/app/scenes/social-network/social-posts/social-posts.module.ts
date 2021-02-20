@@ -16,6 +16,8 @@ import { SocialConnectionsModule } from '@app/partials/social-network/social-con
 import { LeftSideModule } from '@app/partials/left-side/left-side.module';
 import { RightSideModule } from '@app/partials/right-side/right-side.module';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
+import { SharedModule } from '@app/@shared';
+
 
 @NgModule({
   imports: [
@@ -33,6 +35,7 @@ import { PickerModule } from '@ctrl/ngx-emoji-mart';
     PickerModule,
     LeftSideModule,
     RightSideModule,
+    SharedModule
   ],
   declarations: [SocialPostsComponent, UserInteractionSocialpostPopoverComponent, ShareUserPostPopoverComponent],
   entryComponents: [UserInteractionSocialpostPopoverComponent, ShareUserPostPopoverComponent],

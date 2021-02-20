@@ -269,7 +269,7 @@
                   </a>
                 </mat-menu>
               </span>
-              <span class="position-absolute text-dark mt-3 ml-0 w20">{{ item.sentOn | date: 'mediumDate' }}</span>
+              <span class="position-absolute text-dark mt-3 ml-0 w20" [ngClass]="{'left-40-px': item.to === user.email}">{{ item.sentOn | date: 'mediumDate' }}</span>
             </p>
             <button mat-icon-button (click)="replyOnReply(item)" *ngIf="item.to === user.email" class="material-icons">
               <mat-icon>reply</mat-icon>

@@ -123,6 +123,7 @@
                               class="status-img curPoint mt-2"
                               [class.mr-1]="socialConfig.newPost.videoUrl != ''"
                             />
+
                             <textarea
                               id="postBox"
                               class="row w80 no-gutters status-textarea mb-1"
@@ -344,7 +345,12 @@
                                     class="mb-2 mt-1 col-12 contentData"
                                     [class.pl-3]="post.imageUrl == '' && post.videoUrl == ''"
                                   >
-                                    {{ showContent(post) }}
+                                    <app-read-more
+                                      content="{{ showContent(post) }}"
+                                      [limit]="'300'"
+                                      [completeWords]="true"
+                                    >
+                                    </app-read-more>
                                   </div>
                                   <div class="pl-2 text-center" *ngIf="post.imageUrl != ''">
                                     <a [href]="post.imageUrl" target="_blank">
