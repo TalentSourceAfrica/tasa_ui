@@ -46,12 +46,7 @@ export class SocialPostsComponent implements OnInit {
     public sharedService: SharedService,
     public cdr: ChangeDetectorRef
   ) {}
-
-  showContent(_post: any) {
-    let length = _post.content.length;
-    return _post.content;
-  }
-
+  
   openSharePostPopup(_post: any) {
     let $t = this;
     $t.sharedService.dialogService.open(ShareUserPostPopoverComponent, {

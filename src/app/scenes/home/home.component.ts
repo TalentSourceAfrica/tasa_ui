@@ -103,15 +103,15 @@ export class HomeComponent implements OnInit {
       reference: '(Economic Policy Institute, 2020)',
     },
     {
-      title: '> 30%',
-      text: 'of tribal enterprises laid off 80-100 % of their workforce by April 2020.',
-      reference: '(Federal Reserve Bank of Minneapolis, 2020)'
-    },
-    {
       title: '< 5%',
       text:
         'of Executive positions in the U.S. and U.K. are occupied by Black or Latinx people.',
         reference: '(Fast Company & The Guardian, 2020)'
+    },
+    {
+      title: '> 30%',
+      text: 'of tribal enterprises laid off 80-100 % of their workforce by April 2020.',
+      reference: '(Federal Reserve Bank of Minneapolis, 2020)'
     },
     {
       title: '154,000',

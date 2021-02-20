@@ -342,15 +342,17 @@
                                 </div>
                                 <div class="row album-content no-gutters">
                                   <div
-                                    class="mb-2 mt-1 col-12 contentData"
+                                    class="mb-2 mt-1 col-12 text-primary"
                                     [class.pl-3]="post.imageUrl == '' && post.videoUrl == ''"
                                   >
-                                    <app-read-more
-                                      content="{{ showContent(post) }}"
-                                      [limit]="'300'"
-                                      [completeWords]="true"
-                                    >
-                                    </app-read-more>
+                                    <p style="font-size: 17px;">
+                                      <app-read-more
+                                        content="{{ post.content }}"
+                                        [limit]="'300'"
+                                        [completeWords]="true"
+                                      >
+                                      </app-read-more>
+                                    </p>
                                   </div>
                                   <div class="pl-2 text-center" *ngIf="post.imageUrl != ''">
                                     <a [href]="post.imageUrl" target="_blank">
@@ -398,10 +400,15 @@
                                   </div>
                                   <div class="row album-content p-2 no-gutters">
                                     <div
-                                      class="mb-2 mt-1 col-12"
+                                      class="mb-2 mt-1 col-12 text-primary"
                                       [class.pl-3]="post.sharePostImage == '' && post.sharePostVideo == ''"
                                     >
-                                      {{ post.sharePostContent }}
+                                      <app-read-more
+                                        content="{{ post.sharePostContent }}"
+                                        [limit]="'300'"
+                                        [completeWords]="true"
+                                      >
+                                      </app-read-more>
                                     </div>
                                     <div class="pl-2 text-center" *ngIf="post.sharePostImage != ''">
                                       <a [href]="post.sharePostImage" target="_blank">
