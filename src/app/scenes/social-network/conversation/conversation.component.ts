@@ -229,7 +229,7 @@ export class ConversationComponent implements OnInit {
     });
     $t.sharedService.configService.post(apiUrl).subscribe(
       (response: any) => {
-        $t.connectionConfig.selectedUser.chatId = response.id;
+        $t.connectionConfig.selectedUser.chatId = response.responseObj.id;
         $t.getAllChatByChatId();
       },
       (error) => {

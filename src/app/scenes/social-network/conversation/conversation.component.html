@@ -212,8 +212,6 @@
               'last-msg': last
             }"
             *ngFor="let item of connectionConfig.currentMsgList; let last = last"
-            (mouseover)="item.mouseOvered = true"
-            (mouseout)="item.mouseOvered = false"
           >
             <ng-container *ngIf="item.groupId === ''">
               <img
@@ -271,6 +269,7 @@
                   </a>
                 </mat-menu>
               </span>
+              <span class="position-absolute text-dark mt-3 ml-0 w20">{{ item.sentOn | date: 'mediumDate' }}</span>
             </p>
             <button mat-icon-button (click)="replyOnReply(item)" *ngIf="item.to === user.email" class="material-icons">
               <mat-icon>reply</mat-icon>
@@ -333,8 +332,7 @@
             </button>
           </mat-menu>
           <mat-menu #emoji="matMenu" class="emoji-menu">
-            <emoji-mart enableSearch="false" (emojiClick)="addEmoji($event)">
-            </emoji-mart>
+            <emoji-mart enableSearch="false" (emojiClick)="addEmoji($event)"> </emoji-mart>
           </mat-menu>
           <button class="submit" matTooltipPosition="below" matTooltip="Send" (click)="newMessage()">
             <i class="fa fa-paper-plane" aria-hidden="true"></i>
