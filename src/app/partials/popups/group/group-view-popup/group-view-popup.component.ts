@@ -35,7 +35,6 @@ export class GroupViewPopupComponent implements OnInit {
     this.sharedService.configService.get(apiUrl).subscribe(
       (response: any) => {
         this.groupDetailsConfig.data = response.responseObj;
-        console.log(this.groupDetailsConfig);
         this.groupDetailsConfig.isLoading = false;
       },
       (error) => {

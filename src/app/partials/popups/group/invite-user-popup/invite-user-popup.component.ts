@@ -3,6 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { SocialnetworkService } from '@app/scenes/social-network/socialnetwork.service';
 import { SharedService } from '@app/services/shared.service';
 import Swal from 'sweetalert2';
+import { Observable, forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-invite-user-popup',
@@ -26,10 +27,25 @@ export class InviteUserPopupComponent implements OnInit {
   }
 
   getAllusers() {
+    let api1: any;
+    let api2: any;
+
+    // fetch Group User to remove from all user.
+    let apiUrl2 = this.sharedService.urlService.apiCallWithParams('getGroupInfo', {
+      '{groupId}': this.popupData.group.groupId,
+    });
+
+    api1 = this.socialnetworkService.getAllusers();
+    api2 = this.sharedService.configService.get(apiUrl2);
+
     this.allUsers.isLoading = true;
-    this.socialnetworkService.getAllusers().subscribe(
-      (response) => {
-        this.allUsers.data = response;
+
+    forkJoin([api1, api2]).subscribe(
+      (response: any) => {
+        let result1 = response[0].filter((d: any) => d.emailVerified === 'Y');
+        let result2 = response[1].responseObj.members;
+        const grpMembersEmailList = result2.map((d: any) => d.email);
+        this.allUsers.data = result1.filter((d: any) => !grpMembersEmailList.includes(d.email));
         this.allUsers.isLoading = false;
       },
       (error) => {}
@@ -42,7 +58,7 @@ export class InviteUserPopupComponent implements OnInit {
       input: 'text',
       inputAttributes: {
         autocapitalize: 'off',
-        placeholder:'Type Your Message'
+        placeholder: 'Type Your Message',
       },
       showCancelButton: true,
       confirmButtonText: 'Send',
