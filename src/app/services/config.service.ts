@@ -259,17 +259,17 @@ export class ConfigService {
           case 502: // Bad Gateway
           case 503: // Service Unavailable
           case 504: // Gateway Timeout
-            errPopupMessage = 'Something Went Wrong. \n Due to below technical error \n' + error.error.message;
-            Swal.fire({
-              title: 'Something Went Wrong. \n Due to below technical error \n',
-              text: error.error.message, // description of the modal
-              type: 'error', // warning, error, success, info, and question,
-              backdrop: true,
-              allowOutsideClick: true,
-              allowEscapeKey: true,
-              allowEnterKey: true,
-              timer: 5000,
-            });
+            errPopupMessage = error.error.message;
+            // Swal.fire({
+            //   title: 'Something Went Wrong. \n Due to below technical error \n',
+            //   text: error.error.message, // description of the modal
+            //   type: 'error', // warning, error, success, info, and question,
+            //   backdrop: true,
+            //   allowOutsideClick: true,
+            //   allowEscapeKey: true,
+            //   allowEnterKey: true,
+            //   timer: 5000,
+            // });
             break;
         }
         if (redirectToLogin) {
