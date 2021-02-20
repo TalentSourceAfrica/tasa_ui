@@ -17,7 +17,6 @@ export class ReadMoreComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    console.log(this.content);
     this.nonEditedContent = this.content;
     if (this.nonEditedContent.length > this.limit) {
       this.isShowReadMore = true;
