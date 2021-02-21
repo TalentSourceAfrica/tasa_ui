@@ -35,6 +35,7 @@ export class LeftSideComponent implements OnInit {
   };
   jobApplications: any = [];
   isAllowedConfig: any = { allowed: true, message: '' }; // when user exceed the subscription plan
+  isAllowedJobConfig: any = { allowed: true, message: '' }; // when user exceed the subscription plan
   constructor(
     public sharedService: SharedService,
     private credentialsService: CredentialsService,
@@ -144,7 +145,7 @@ export class LeftSideComponent implements OnInit {
         $t.setLogicForRecommendedCard();
       },
       (error) => {
-        if(error.status === '403'){
+        if(error.status == 403){
           $t.isAllowedConfig.allowed = false;
           $t.isAllowedConfig.message = error.error.message;
         }
@@ -157,6 +158,7 @@ export class LeftSideComponent implements OnInit {
     let $t = this;
     let apiUrl = '';
     $t.recommendedJobs.isFetching = true;
+    $t.isAllowedJobConfig.allowed = true;
     apiUrl = $t.sharedService.urlService.apiCallWithParams('getRecommendedJobs', { '{userId}': $t.user.email });
     $t.sharedService.configService.get(apiUrl).subscribe(
       (response: any) => {
@@ -164,6 +166,10 @@ export class LeftSideComponent implements OnInit {
         $t.recommendedJobs.isFetching = false;
       },
       (error) => {
+        if(error.status == 403){
+          $t.isAllowedJobConfig.allowed = false;
+          $t.isAllowedJobConfig.message = error.error.message;
+        }
         $t.recommendedJobs.isFetching = false;
       }
     );

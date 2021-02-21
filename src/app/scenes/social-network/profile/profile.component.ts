@@ -74,7 +74,7 @@ export class ProfileComponent implements OnInit {
       },
       (error) => {
         $t.userConfig.fetchingUser = false;
-        if(error.status === '403'){
+        if(error.status == 403){
           $t.isAllowedConfig.allowed = false;
           $t.isAllowedConfig.message = error.error.message;
         }

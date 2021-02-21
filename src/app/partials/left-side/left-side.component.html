@@ -12,7 +12,10 @@
           </div>
         </div>
         <div class="card-body p-2 min-vertical-h-30 max-vertical-h-30 stylishSlimScroll flow-y-auto flow-x-hidden">
-          <div *ngIf="recommendedCourses.data.length && !recommendedCourses.isFetching  && isAllowedConfig.allowed" class="row pr-1 no-gutters">
+          <div
+            *ngIf="recommendedCourses.data.length && !recommendedCourses.isFetching && isAllowedConfig.allowed"
+            class="row pr-1 no-gutters"
+          >
             <div
               class="col-12 border mb-1 curPoint courseList"
               *ngFor="let course of recommendedCourses.data"
@@ -30,7 +33,7 @@
                   <button
                     mat-mini-fab
                     color="primary"
-                    style="z-index: 9; right: 70px; height: 30px; width: 30px; color: orangered !important"
+                    style="z-index: 9; right: 70px; height: 30px; width: 30px; color: orangered !important;"
                     class="position-absolute mt-2"
                     *ngIf="course.favorite"
                     matTooltipPosition="below"
@@ -71,8 +74,14 @@
               </div>
             </div>
           </div>
-          <ng-template *ngIf="recommendedCourses.isFetching && isAllowedConfig.allowed" [ngTemplateOutlet]="loader"></ng-template>
-            <ng-template *ngIf="!recommendedCourses.isFetching && !isAllowedConfig.allowed"  [ngTemplateOutlet]="noSubscription"></ng-template>
+          <ng-template
+            *ngIf="recommendedCourses.isFetching && isAllowedConfig.allowed"
+            [ngTemplateOutlet]="loader"
+          ></ng-template>
+          <ng-template
+            *ngIf="!recommendedCourses.isFetching && !isAllowedConfig.allowed"
+            [ngTemplateOutlet]="noSubscription"
+          ></ng-template>
         </div>
       </div>
       <div class="card animated bounceInUp bg-primary-more-light" *ngIf="recommendedSwitch.jobs">
@@ -88,7 +97,10 @@
           </div>
         </div>
         <div class="card-body p-2 jobs min-vertical-h-35 max-vertical-h-35 stylishSlimScroll flow-y-auto flow-x-hidden">
-          <div *ngIf="recommendedJobs.data.length && !recommendedJobs.isFetching" class="row pr-1 no-gutters">
+          <div
+            *ngIf="recommendedJobs.data.length && !recommendedJobs.isFetching && isAllowedJobConfig.allowed"
+            class="row pr-1 no-gutters"
+          >
             <div
               class="recommended-jobs col-12 border mb-1 curPoint job-list p-2"
               [routerLink]="['/job/', job.id]"
@@ -127,7 +139,7 @@
               </div>
             </div>
           </div>
-          <div *ngIf="recommendedJobs.data.length == 0 && !recommendedJobs.isFetching">
+          <div *ngIf="recommendedJobs.data.length == 0 && !recommendedJobs.isFetching && isAllowedJobConfig.allowed">
             <div class="text-center m-auto animated fadeIn">
               <div class="col-12 text-center">
                 <img src="../../../assets/images/no-record.gif" style="height: 190px;" class="d-block m-auto" />
@@ -135,7 +147,14 @@
               </div>
             </div>
           </div>
-          <ng-template *ngIf="recommendedJobs.isFetching" [ngTemplateOutlet]="loader"></ng-template>
+          <ng-template
+            *ngIf="recommendedJobs.isFetching && isAllowedJobConfig.allowed"
+            [ngTemplateOutlet]="loader"
+          ></ng-template>
+          <ng-template
+            *ngIf="!recommendedJobs.isFetching && !isAllowedJobConfig.allowed"
+            [ngTemplateOutlet]="noSubscription"
+          ></ng-template>
         </div>
       </div>
     </div>
@@ -394,15 +413,10 @@
   <div class="text-center m-auto animated fadeInUp">
     <div>
       <h1>😕</h1>
-      <h6 class="text-muted">{{isAllowedConfig.message}}</h6>
-      <button
-      mat-flat-button
-      color="primary"
-      [routerLink]="['/subscription-plans']"
-      class="rounded-pill ml-2"
-    >
-      Subscribe Now
-    </button>
+      <h6 class="text-muted">{{ isAllowedConfig.message }}</h6>
+      <button mat-flat-button color="primary" [routerLink]="['/subscription-plans']" class="rounded-pill ml-2">
+        Subscribe Now
+      </button>
     </div>
   </div>
 </ng-template>
