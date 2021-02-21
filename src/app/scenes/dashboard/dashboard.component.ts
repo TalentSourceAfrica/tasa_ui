@@ -103,7 +103,6 @@ export class DashboardComponent implements OnInit {
   showApplicants(job: any, event: any, applicantStatus: string) {
     event.stopPropagation();
     event.preventDefault();
-    job['id'] = job.jobId;
     this.sharedService.dialogService.open(ShowApplicantsComponent, {
       width: '80%',
       data: {
