@@ -14,13 +14,19 @@
     <div class="row" *ngIf="!newsConfig.fetchingNews">
       <div class="col-12">
         <div class="card mt-2 m-0">
-          <div class="text-center" style="background: black; padding: 10px;">
+          <div class="text-center" style="background: #ebe9ee; padding: 10px;">
             <img [src]="newsConfig.data.image" class="img-thumbnail" alt="course" />
+            <p class="badge badge-warning p-2 position-absolute" style="font-size: 17px; right:5px;">
+              <a>{{ newsConfig.data.createdOn | date: 'mediumDate' }} </a>
+            </p>
           </div>
           <div class="card-body">
-            <h5>{{ newsConfig.data.description }}</h5>
-            <hr/>
-            <div class="p-2 mt-2 list-group list-group-fit" style="font-size: 16px;">{{ newsConfig.data.fullArticle }}</div>
+            <h2 class="underline">{{newsConfig.data.publishedBy}}</h2>
+            <h5 class="font400">{{ newsConfig.data.description }}</h5>
+            <hr />
+            <div class="p-2 mt-2 list-group list-group-fit font300" style="font-size: 16px;">
+              {{ newsConfig.data.fullArticle }}
+            </div>
           </div>
         </div>
       </div>

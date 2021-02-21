@@ -68,9 +68,6 @@
         </div>
 
         <div class="col-2 d-flex align-items-center right">
-          <!-- <div class="quantity">
-              <input type="number" class="quantity" step="1" :value="product.quantity" @input="updateQuantity(index, $event)" @blur="checkQuantity(index, $event)" />
-            </div> -->
           <div class="remove">
             <div class="remove">
               <div class="price badge badge-info p-2">{{ cartDetails.courseData.offerPrice | currency }}</div>
@@ -96,11 +93,6 @@
                 class="form-control form-control-prepended"
                 placeholder="Type email"
               />
-              <div class="input-group-prepend">
-                <div class="input-group-text">
-                  <span class="far fa-envelope"></span>
-                </div>
-              </div>
             </div>
             <small
               [hidden]="customerForm.controls.email.valid || customerForm.controls.email.untouched"
@@ -122,11 +114,6 @@
                 class="form-control form-control-prepended"
                 placeholder="Your Full Name"
               />
-              <div class="input-group-prepend">
-                <div class="input-group-text">
-                  <span class="fas fa-key"></span>
-                </div>
-              </div>
             </div>
             <small
               [hidden]="customerForm.controls.name.valid || customerForm.controls.name.untouched"
@@ -148,11 +135,6 @@
                 class="form-control form-control-prepended"
                 placeholder="Your Phone Number"
               />
-              <div class="input-group-prepend">
-                <div class="input-group-text">
-                  <span class="fas fa-key"></span>
-                </div>
-              </div>
             </div>
             <small
               [hidden]="customerForm.controls.phoneNumber.valid || customerForm.controls.phoneNumber.untouched"

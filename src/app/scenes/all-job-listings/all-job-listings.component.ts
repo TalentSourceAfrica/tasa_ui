@@ -80,7 +80,7 @@ export class AllJobListingsComponent implements OnInit {
         $t.isLoading = false;
       },
       (error) => {
-        console.log(error);
+        $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
       }
     );
   }
@@ -105,7 +105,6 @@ export class AllJobListingsComponent implements OnInit {
         $t.sharedService.uiService.showApiSuccessPopMsg('Job Saved...');
       },
       (error) => {
-        console.log(error);
         $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
       }
     );

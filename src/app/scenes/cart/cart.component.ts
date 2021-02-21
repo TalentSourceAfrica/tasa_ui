@@ -13,30 +13,6 @@ declare var FlutterwaveCheckout: any;
   styleUrls: ['./cart.component.scss'],
 })
 export class CartComponent implements OnInit {
-  public products = [
-    {
-      image: 'https://via.placeholder.com/200x150',
-      name: 'PRODUCT ITEM NUMBER 1',
-      description: 'Description for product item number 1',
-      price: 5.99,
-      quantity: 2,
-    },
-    {
-      image: 'https://via.placeholder.com/200x150',
-      name: 'PRODUCT ITEM NUMBER 2',
-      description: 'Description for product item number 1',
-      price: 9.99,
-      quantity: 1,
-    },
-    {
-      image: 'https://via.placeholder.com/200x150',
-      name: 'PRODUCT ITEM NUMBER 2',
-      description: 'Description for product item number 1',
-      price: 9.99,
-      quantity: 1,
-    },
-  ];
-
   cartDetails: any;
   amount: number = 0;
   customerForm: FormGroup;
@@ -50,8 +26,8 @@ export class CartComponent implements OnInit {
 
   private createForm() {
     this.customerForm = this.formBuilder.group({
-      email: [this.user.email, [Validators.required, Validators.email]],
-      name: [this.user.firstName + ' ' + this.user.lastName, Validators.required],
+      email: [{ value: this.user.email, disabled: true }, [Validators.required, Validators.email]],
+      name: [{ value: this.user.firstName + ' ' + this.user.lastName, disabled: true}, Validators.required],
       phoneNumber: [this.user.contactNo ? this.user.contactNo : '', Validators.required],
     });
   }
@@ -65,7 +41,8 @@ export class CartComponent implements OnInit {
       amount: $t.amount,
       currency: 'USD',
       country: 'US',
-      payment_options: 'account, banktransfer, payattitude, mpesa, mobilemoneyfranco, paga, card, mobilemoneyghana, ussd',
+      payment_options:
+        'account, banktransfer, payattitude, mpesa, mobilemoneyfranco, paga, card, mobilemoneyghana, ussd',
       // specified redirect URL
       // redirect_url: location.origin.concat('/#/transaction'),
       meta: {

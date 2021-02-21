@@ -20,10 +20,10 @@
       </ol>
       <h1 class="h2 mb-1">{{ jobConfig?.job?.title }}</h1>
       <h6 class="alert alert-warning w90" *ngIf="!isCurrentDateIsExpDate">
-        Job posting will expire on {{ getFormatDate(jobConfig?.job?.expireOn) }}
+        Job posting will expire on {{ jobConfig?.job?.expireOn | date: 'medium' }}
       </h6>
       <h6 class="alert alert-danger w90" *ngIf="isCurrentDateIsExpDate">
-        Job posting expired on {{ getFormatDate(jobConfig?.job?.expireOn) }}
+        Job posting expired on {{ jobConfig?.job?.expireOn | date: 'medium' }}
       </h6>
       <div class="row">
         <div class="col-md-8">
@@ -40,8 +40,8 @@
               >
             </ng-container>
 
-            <div class="embed-responsive embed-responsive-16by9 position-relative">
-              <img src="../../../assets/images/TSA_logo_new.small.png" class="embed-responsive-item" alt="course" />
+            <div class="text-center" style="background: #ebe9ed; padding: 10px;">
+              <img [src]="jobConfig.job.organisation?.orgImage" class="img-thumbnail course-img" alt="course" />
             </div>
             <div class="card-body">
               <h5>{{ jobConfig.job.title }}</h5>

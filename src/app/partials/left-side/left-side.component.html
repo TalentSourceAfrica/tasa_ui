@@ -178,7 +178,7 @@
                 <span>
                   <img
                     class="circle-img img-responsive img-circle curPoint"
-                    src="../../../assets/images/TSA_logo_new.small.png"
+                    [src]="job.organisation?.orgImage"
                     alt="Job"
                   />
                 </span>
@@ -342,8 +342,8 @@
               <div class="d-flex">
                 <span>
                   <img
-                    class="user-pic img-responsive img-circle curPoint"
-                    src="../../../assets/images/TSA_logo_new.small.png"
+                    class="circle-img img-responsive img-circle curPoint"
+                    [src]="job.organisation?.orgImage"
                     alt="Job"
                   />
                 </span>

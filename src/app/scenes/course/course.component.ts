@@ -137,13 +137,13 @@ export class CourseComponent implements OnInit {
     let _callback = () => {
       $t.cartService.setCartForCourse($t.courseConfig.course);
       Swal.fire({
-        title: 'Added To Cart', // title of the modal
+        title: 'Added..!', // title of the modal
         text: '', // description of the modal
         type: 'success', // warning, error, success, info, and question,
         backdrop: true,
         confirmButtonClass: 'rounded-pill shadow-sm',
         cancelButtonClass: 'rounded-pill shadow-sm',
-        confirmButtonText: 'Go To Cart!',
+        confirmButtonText: 'Go To Checkout!',
         showCancelButton: true,
       }).then((isConfirm) => {
         if (isConfirm.value) {
@@ -154,7 +154,7 @@ export class CourseComponent implements OnInit {
         }
       });
     };
-    $t.sharedService.uiService.showPreConfirmPopMsg('Do You Want To Add This To Cart', _callback);
+    $t.sharedService.uiService.showPreConfirmPopMsg('Do You Want To Buy This Course', _callback);
   }
 
   getCourseVideo(_url: any) {
