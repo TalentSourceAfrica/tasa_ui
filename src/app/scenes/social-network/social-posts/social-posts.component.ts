@@ -258,6 +258,7 @@ export class SocialPostsComponent implements OnInit {
       (response: any) => {
         post.comments == null ? (post.comments = []) : '';
         response.responseObj.comments.forEach((d: any) => {
+          d['isCommentShow'] = true;
           post.comments.push(d);
         });
         jQuery('#commentBox').val('');

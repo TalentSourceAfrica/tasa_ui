@@ -461,7 +461,13 @@
                                     >
                                   </a>
                                   <a
-                                    *ngIf="post.comments != null"
+                                    *ngIf="post.comments != null && post.comments.length == 0"
+                                    class="album-action small"
+                                  >
+                                    0 Comments
+                                  </a>
+                                  <a
+                                    *ngIf="post.comments != null && post.comments.length != 0"
                                     (click)="post.isCommentShow = !post.isCommentShow"
                                     class="album-action small underlineClass"
                                   >
@@ -720,7 +726,7 @@
         matTooltip="Add Comment"
         (click)="postComment(commentBox.value, post)"
       >
-        <mat-icon>add_circle_outline</mat-icon>
+        <mat-icon>send</mat-icon>
       </button>
     </div>
   </div>

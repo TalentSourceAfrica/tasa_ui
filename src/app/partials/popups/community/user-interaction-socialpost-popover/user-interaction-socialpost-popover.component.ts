@@ -51,9 +51,6 @@ export class UserInteractionSocialpostPopoverComponent implements OnInit {
     findAndPush(this.popupData.post.reactions, 'like');
     findAndPush(this.popupData.post.reactions, 'congrats');
     findAndPush(this.popupData.post.reactions, 'curious');
-    // checkAndPush(this.popupData.post.countOfClaps);
-    // checkAndPush(this.popupData.post.countOfCongrats);
-    // checkAndPush(this.popupData.post.countofCurious);
   }
 
   ngOnInit(): void {
