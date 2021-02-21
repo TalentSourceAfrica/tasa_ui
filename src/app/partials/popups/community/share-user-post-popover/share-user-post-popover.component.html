@@ -1,7 +1,7 @@
 <div class="profile-wrapper">
   <div class="main-container">
     <div class="timeline pl-2">
-      <div class="timeline-right mb-4 max-vertical-h-65 overflow-x-hidden stylishSlimScroll">
+      <div class="timeline-right mb-4 max-vertical-h-65 flow-x-hidden stylishSlimScroll flow-auto">
         <div class="status box share-status-box">
           <div class="row status-main no-gutters">
             <img
@@ -58,10 +58,14 @@
               </div>
               <div class="row album-content no-gutters">
                 <div
-                  class="mb-2 mt-1 col-12"
+                  class="mb-2 mt-1 col-12 text-primary"
                   [class.pl-3]="popupData.post.imageUrl == '' && popupData.post.videoUrl == ''"
                 >
-                  {{ popupData.post.content }}
+                  <app-read-more
+                    content="{{ popupData.post.content }}"
+                    [limit]="'300'"
+                    [completeWords]="true">
+                  </app-read-more>
                 </div>
                 <div class="pl-2 text-center" *ngIf="popupData.post.imageUrl != ''">
                   <a [href]="popupData.post.imageUrl" target="_blank">
@@ -100,10 +104,14 @@
                   </div>
                   <div class="row album-content no-gutters">
                     <div
-                      class="mb-2 mt-1 col-12"
+                      class="mb-2 mt-1 col-12 text-primary"
                       [class.pl-3]="popupData.post.sharePostImage == '' && popupData.post.sharePostVideo == ''"
                     >
-                      {{ popupData.post.sharePostContent }}
+                       <app-read-more
+                        content="{{ popupData.post.sharePostContent }}"
+                        [limit]="'300'"
+                        [completeWords]="true">
+                      </app-read-more>
                     </div>
                     <div class="pl-2 text-center" *ngIf="popupData.post.sharePostImage != ''">
                       <a [href]="popupData.post.sharePostImage" target="_blank">
