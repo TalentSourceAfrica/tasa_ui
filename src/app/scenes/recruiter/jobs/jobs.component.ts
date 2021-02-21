@@ -264,6 +264,7 @@ export class JobsComponent implements OnInit {
         job: job,
         user: this.user,
         applicantStatus: applicantStatus,
+        fromWhere: 'all-jobs'
       },
       disableClose: false,
     });

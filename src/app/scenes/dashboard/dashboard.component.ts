@@ -109,6 +109,7 @@ export class DashboardComponent implements OnInit {
         job: job,
         user: this.user,
         applicantStatus: applicantStatus,
+        fromWhere: 'rec-dashboard'
       },
       disableClose: false,
     });
