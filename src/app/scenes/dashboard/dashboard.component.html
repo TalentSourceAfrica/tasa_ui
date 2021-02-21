@@ -22,12 +22,12 @@
                   Your subscription ends on <strong>25 February 2015</strong>
                 </div> -->
                 <div class="media-body pl-3 h6" style="min-width: 180px;">
-                <ng-container *ngIf="!user.currentSubscription">
-                  YOU HAVEN'T SUBSCRIBED TO ANY PLAN <strong>Trust Us ! We offer best plans</strong>
-                </ng-container>
-                <ng-container *ngIf="user.currentSubscription">
-                  YOU SUBSCRIBED TO <strong>{{user.currentSubscription.name}}</strong> PLAN
-                </ng-container>
+                  <ng-container *ngIf="!user.currentSubscription">
+                    YOU HAVEN'T SUBSCRIBED TO ANY PLAN <strong>Trust Us ! We offer best plans</strong>
+                  </ng-container>
+                  <ng-container *ngIf="user.currentSubscription">
+                    YOU SUBSCRIBED TO <strong>{{ user.currentSubscription.name }}</strong> PLAN
+                  </ng-container>
                 </div>
                 <div class="media-right mt-2 mt-xs-plus-0">
                   <button
@@ -70,7 +70,9 @@
                   class="card-body p-2 min-vertical-h-30 max-vertical-h-30 stylishSlimScroll flow-y-auto flow-x-hidden"
                 >
                   <div
-                    *ngIf="recommendedCourses.data.length && !recommendedCourses.isFetching"
+                    *ngIf="
+                      recommendedCourses.data.length && !recommendedCourses.isFetching && isAllowedCourseConfig.allowed
+                    "
                     class="row pr-1 no-gutters"
                   >
                     <div
@@ -96,7 +98,13 @@
                       </div>
                     </div>
                   </div>
-                  <div *ngIf="recommendedCourses.data.length == 0 && !recommendedCourses.isFetching">
+                  <div
+                    *ngIf="
+                      recommendedCourses.data.length == 0 &&
+                      !recommendedCourses.isFetching &&
+                      isAllowedCourseConfig.allowed
+                    "
+                  >
                     <div class="text-center m-auto animated fadeIn">
                       <div class="col-12 text-center">
                         <img src="../../../assets/images/no-record.gif" style="height: 200px;" class="d-block m-auto" />
@@ -104,7 +112,15 @@
                       </div>
                     </div>
                   </div>
-                  <ng-template *ngIf="recommendedCourses.isFetching" [ngTemplateOutlet]="loader"></ng-template>
+                  <ng-template
+                    *ngIf="recommendedCourses.isFetching && isAllowedCourseConfig.allowed"
+                    [ngTemplateOutlet]="loader"
+                  ></ng-template>
+                  <ng-template
+                    *ngIf="!recommendedCourses.isFetching && !isAllowedCourseConfig.allowed"
+                    [ngTemplateOutlet]="noSubscription"
+                    [ngTemplateOutletContext]="{ data: isAllowedCourseConfig.message }"
+                  ></ng-template>
                 </div>
               </div>
               <div class="card m-0 mt-2">
@@ -440,7 +456,7 @@
                 <div
                   class="card-body p-2 jobs min-vertical-h-30 max-vertical-h-30 stylishSlimScroll flow-y-auto flow-x-hidden"
                 >
-                  <div *ngIf="recommendedJobs.data.length && !recommendedJobs.isFetching" class="row pr-1 no-gutters">
+                  <div *ngIf="recommendedJobs.data.length && !recommendedJobs.isFetching && isAllowedJobConfig.allowed" class="row pr-1 no-gutters">
                     <div
                       class="recommended-jobs col-12 border mb-1 curPoint job-list p-2"
                       [routerLink]="['/job/', job.id]"
@@ -479,7 +495,7 @@
                       </div>
                     </div>
                   </div>
-                  <div *ngIf="recommendedJobs.data.length == 0 && !recommendedJobs.isFetching">
+                  <div *ngIf="recommendedJobs.data.length == 0 && !recommendedJobs.isFetching && isAllowedJobConfig.allowed">
                     <div class="text-center m-auto animated fadeIn">
                       <div class="col-12 text-center">
                         <img src="../../../assets/images/no-record.gif" style="height: 190px;" class="d-block m-auto" />
@@ -487,7 +503,12 @@
                       </div>
                     </div>
                   </div>
-                  <ng-template *ngIf="recommendedJobs.isFetching" [ngTemplateOutlet]="loader"></ng-template>
+                  <ng-template *ngIf="recommendedJobs.isFetching && isAllowedJobConfig.allowed" [ngTemplateOutlet]="loader"></ng-template>
+                  <ng-template
+                  *ngIf="!recommendedJobs.isFetching && !isAllowedJobConfig.allowed"
+                  [ngTemplateOutlet]="noSubscription"
+                  [ngTemplateOutletContext]="{ data: isAllowedJobConfig.message }"
+                ></ng-template>
                 </div>
               </div>
               <!-- <div class="card mt-2" *ngIf="user.recentlyViewedJobs?.length">
@@ -792,6 +813,18 @@
   <div class="col-12 animated fadeIn" *ngFor="let item of [1, 2, 3]">
     <div class="card ml-0 mr-0" style="height: 50px !important;">
       <div class="card-img skeleton"></div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #noSubscription let-data="data">
+  <div class="text-center m-auto animated fadeInUp">
+    <div>
+      <h1>😕</h1>
+      <h6 class="text-muted">{{ data }}</h6>
+      <button mat-flat-button color="primary" [routerLink]="['/subscription-plans']" class="rounded-pill ml-2">
+        Subscribe Now
+      </button>
     </div>
   </div>
 </ng-template>

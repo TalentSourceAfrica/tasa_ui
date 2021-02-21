@@ -88,6 +88,9 @@ export class DashboardComponent implements OnInit {
   };
   matTabData: any = [];
 
+  isAllowedCourseConfig: any = { allowed: true, message: '' }; // when user exceed the subscription plan
+  isAllowedJobConfig: any = { allowed: true, message: '' }; // when user exceed the subscription plan
+
   constructor(
     public sharedService: SharedService,
     private router: Router,
@@ -187,6 +190,7 @@ export class DashboardComponent implements OnInit {
     let $t = this;
     let apiUrl = '';
     $t.recommendedCourses.isFetching = true;
+    $t.isAllowedCourseConfig.allowed = true;
     apiUrl = $t.sharedService.urlService.apiCallWithParams('getRecommendedCourses', { '{userId}': $t.user.email });
     $t.sharedService.configService.get(apiUrl).subscribe(
       (response: any) => {
@@ -194,6 +198,10 @@ export class DashboardComponent implements OnInit {
         $t.recommendedCourses.isFetching = false;
       },
       (error) => {
+        if(error.status == 403){
+          $t.isAllowedCourseConfig.allowed = false;
+          $t.isAllowedCourseConfig.message = error.error.message;
+        }
         $t.recommendedCourses.isFetching = false;
       }
     );
@@ -203,6 +211,7 @@ export class DashboardComponent implements OnInit {
     let $t = this;
     let apiUrl = '';
     $t.recommendedJobs.isFetching = true;
+    $t.isAllowedJobConfig.allowed = true;
     apiUrl = $t.sharedService.urlService.apiCallWithParams('getRecommendedJobs', { '{userId}': $t.user.email });
     $t.sharedService.configService.get(apiUrl).subscribe(
       (response: any) => {
@@ -210,6 +219,10 @@ export class DashboardComponent implements OnInit {
         $t.recommendedJobs.isFetching = false;
       },
       (error) => {
+        if(error.status == 403){
+          $t.isAllowedJobConfig.allowed = false;
+          $t.isAllowedJobConfig.message = error.error.message;
+        }
         $t.recommendedJobs.isFetching = false;
       }
     );

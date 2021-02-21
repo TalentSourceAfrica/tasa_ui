@@ -250,7 +250,7 @@
                                 <div class="col-lg-6 col-sm-12">
                                   <label class="form-control-label" for="input-username">Date of Birth</label>
                                   <h4 class="text-primary">
-                                    <span *ngIf="userConfig.user.city">{{ getDate(userConfig.user.dob) }}</span>
+                                    <span *ngIf="userConfig.user.dob">{{ userConfig.user.dob | date: 'mediumDate' }}</span>
                                   </h4>
                                 </div>
                                 <div class="col-lg-6" *ngIf="user.email === userConfig.user.email">
@@ -314,7 +314,7 @@
                                   <div class="form-group">
                                     <label class="form-control-label" for="input-email">Job Start Date</label>
                                     <h4 class="text-primary">
-                                      {{ getDate(exp.experienceFrom) }}
+                                      {{ exp.experienceFrom | date: 'mediumDate' }}
                                     </h4>
                                   </div>
                                 </div>
@@ -322,7 +322,7 @@
                                   <div class="form-group">
                                     <label class="form-control-label" for="input-email">Job End Date</label>
                                     <h4 class="text-primary">
-                                      {{ getDate(exp.experienceTo) }}
+                                      {{ exp.experienceTo | date: 'mediumDate' }}
                                     </h4>
                                   </div>
                                 </div>
@@ -375,7 +375,7 @@
                                   <div class="form-group">
                                     <label class="form-control-label" for="input-email">Degree Start Date</label>
                                     <h4 class="text-primary">
-                                      {{ getDate(edu.degreeFromDate) }}
+                                      {{ edu.degreeFromDate | date: 'mediumDate' }}
                                     </h4>
                                   </div>
                                 </div>
@@ -383,7 +383,7 @@
                                   <div class="form-group">
                                     <label class="form-control-label" for="input-email">Degree End Date</label>
                                     <h4 class="text-primary">
-                                      {{ getDate(edu.degreeToDate) }}
+                                      {{ edu.degreeToDate | date: 'mediumDate' }}
                                     </h4>
                                   </div>
                                 </div>
