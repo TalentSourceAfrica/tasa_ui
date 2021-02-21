@@ -1,9 +1,10 @@
-import { Component, HostListener, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectorRef, Component, HostListener, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { AuthenticationService, CredentialsService } from '@app/auth';
 import { SharedService } from '@app/services/shared.service';
 import { Router } from '@angular/router';
 import { courseSearchData, jobsSearchData } from '@app/models/constants';
 import { CartService } from '@app/scenes/cart/cart.service';
+import { untilDestroyed } from '@app/@core';
 
 //extra
 declare var jQuery: any;
@@ -59,7 +60,8 @@ export class HomeHeaderComponent implements OnInit {
     public sharedService: SharedService,
     private authenticationService: AuthenticationService,
     private credentialsService: CredentialsService,
-    private cartService: CartService
+    private cartService: CartService,
+    public cdr: ChangeDetectorRef
   ) {
     this.jobConfig.searchConfig = JSON.parse(JSON.stringify(jobsSearchData));
     this.courseConfig.searchConfig = JSON.parse(JSON.stringify(courseSearchData));
@@ -371,6 +373,8 @@ export class HomeHeaderComponent implements OnInit {
       this.router.navigate(['/course/' + _noti.courseId], { replaceUrl: true });
     } else if (_noti.connRequestId !== '') {
       this.router.navigate(['/social-network/network/'], { replaceUrl: true });
+    } else if (_noti.postId !== '') {
+      this.router.navigate(['/social-network/posts/'], { replaceUrl: true });
     } else if (_noti.messageId !== '') {
       this.router.navigate(['/social-network/conversation/'], {
         replaceUrl: true,
@@ -412,6 +416,7 @@ export class HomeHeaderComponent implements OnInit {
           $t.notificationConfig.messageCount = $t.notificationConfig.messageNotifications.length;
           $t.notificationConfig.otherNotifications = response.responseObj.filter((d: any) => d.messageId === '');
           $t.notificationConfig.otherCount = $t.notificationConfig.otherNotifications.length;
+          $t.cdr.detectChanges();
           if ($t.notificationsData.length) {
             // $t.audioPlayerRef.nativeElement.play();
             $('#notiRing').addClass('bell-ring');
@@ -432,6 +437,12 @@ export class HomeHeaderComponent implements OnInit {
     setInterval(() => {
       this.getNotifications();
     }, 300000);
+
+    this.sharedService.utilityService.currentMessage.pipe(untilDestroyed(this)).subscribe((message) => {
+      if (message === 'TRIGGER-HEADER-NOTIFICATIONS-UPDATE') {
+        this.getNotifications();
+      }
+    });
     setTimeout(() => {
       jQuery('.notification-popup').click((event: any) => {
         jQuery(this).toggleClass('open');
@@ -444,12 +455,15 @@ export class HomeHeaderComponent implements OnInit {
           }
         }
       });
-    }, 5000);
+    }, 10000);
   }
 
   ngAfterViewInit(): void {
+    this.getNotifications();
     jQuery('#mainmenu-area').sticky({
       topSpacing: 0,
     });
   }
+
+  ngOnDestroy(): void {}
 }

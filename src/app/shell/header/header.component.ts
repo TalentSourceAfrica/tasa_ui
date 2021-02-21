@@ -422,8 +422,6 @@ export class HeaderComponent implements OnInit {
     });
   }
 
-  ngOnDestroy(): void {}
-
   ngAfterViewInit(): void {
     let $t = this;
     $t.getNotifications();
@@ -465,4 +463,6 @@ export class HeaderComponent implements OnInit {
       }
     });
   }
+
+  ngOnDestroy(): void {}
 }

@@ -32,6 +32,8 @@ export class AllNotificationsComponent implements OnInit {
       this.router.navigate(['/course/' + _noti.courseId], { replaceUrl: true });
     } else if (_noti.connRequestId !== '') {
       this.router.navigate(['/social-network/network/'], { replaceUrl: true });
+    } else if (_noti.postId !== '') {
+      this.router.navigate(['/social-network/posts/'], { replaceUrl: true });
     } else if (_noti.messageId !== '') {
       this.router.navigate(['/social-network/conversation/'], {
         replaceUrl: true,
