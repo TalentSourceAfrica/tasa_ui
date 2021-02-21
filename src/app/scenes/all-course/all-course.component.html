@@ -116,7 +116,6 @@
                 [pageSize]="pageSize"
                 [pageSizeOptions]="pageSizeOptions"
                 (page)="pageEvent = pagination($event)"
-                *ngIf="!isLoading"
               >
               </mat-paginator>
               <ng-container *ngIf="!isLoading && allCourse.length">

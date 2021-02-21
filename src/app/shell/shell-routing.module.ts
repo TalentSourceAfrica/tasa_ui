@@ -96,6 +96,10 @@ const routes: Routes = [
         loadChildren: () => import('@app/scenes/verification/verification.module').then((m) => m.VerificationModule),
       },
       {
+        path: 'news/:newsId',
+        loadChildren: () => import('@app/scenes/news-view/news-view.module').then((m) => m.NewsViewModule),
+      },
+      {
         path: 'user/profile',
         canActivate: [AuthenticationGuard],
         loadChildren: () => import('@app/scenes/user-profile/user-profile.module').then((m) => m.UserProfileModule),

@@ -261,10 +261,16 @@
                           matTooltip="{{ user.firstName }} {{ user.lastName }}"
                           >{{ user.firstName }}</span
                         ><i class="fas fa-caret-down pl-1"></i>
-                        <mat-menu #userMenu="matMenu" class="mr-2 mt-2 animated bounceInUp">
+                        <mat-menu #userMenu="matMenu" class="mr-2 mt-2 animated bounceInDown">
                           <div class="sidebar-submenu">
                             <button mat-menu-item [routerLink]="['/home']" class="h6">
                               <i class="fas fa-home pr-3 text-primary"></i> Home
+                            </button>
+                            <button mat-menu-item [routerLink]="['/about-us']" class="h6">
+                              <i class="fas fa-address-card pr-3 text-primary"></i> About Us
+                            </button>
+                            <button mat-menu-item [routerLink]="['/contact-us']" class="h6">
+                              <i class="fas fa-id-card pr-3 text-primary"></i> Contact Us
                             </button>
                             <button mat-menu-item [routerLink]="['/dashboard']" class="h6">
                               <i class="fas fa-chart-line pr-3 text-primary"></i> Dashboard
@@ -370,7 +376,7 @@
   <li>
     <a [matMenuTriggerFor]="recruiter" class="curPoint px-2 py-4">
       <i class="fas fa-tools pr-2"></i>Operation<i class="fas fa-caret-down pl-1"></i>
-      <mat-menu #recruiter="matMenu" class="animated bounceInUp">
+      <mat-menu #recruiter="matMenu" class="animated bounceInDown">
         <div class="sidebar-submenu">
           <button mat-menu-item [routerLink]="['/recruiter/jobs']" class="h6">
             Jobs
@@ -385,7 +391,7 @@
   <li>
     <a [matMenuTriggerFor]="admin" class="curPoint px-2 py-4"
       ><i class="fas fa-wrench pr-2"></i>Operations<i class="fas fa-caret-down pl-1"></i>
-      <mat-menu #admin="matMenu" class="animated bounceInUp">
+      <mat-menu #admin="matMenu" class="animated bounceInDown">
         <div class="sidebar-submenu">
           <button mat-menu-item [routerLink]="['/admin/deactive-user']" class="h6">
             Active / Deactive User
@@ -496,8 +502,8 @@
 <ng-template #studentMenu>
   <li>
     <a [matMenuTriggerFor]="community" class="curPoint px-2 py-4">
-      <i class="far fa-comment-alt pr-2"></i> Community<i class="fas fa-caret-down pl-1"></i>
-      <mat-menu #community="matMenu" class="animated bounceInUp">
+      <i class="fas fa-user-friends pr-2"></i>Community<i class="fas fa-caret-down pl-1"></i>
+      <mat-menu #community="matMenu" class="animated bounceInDown">
         <div class="sidebar-submenu">
           <button mat-menu-item [routerLink]="['/social-network/posts']" class="h6">
             <i class="fas fa-list pr-3 text-primary"></i> All Post
@@ -542,7 +548,7 @@
   <li *ngIf="user.type !== 'Recruiter'">
     <a [matMenuTriggerFor]="jobs" class="curPoint px-2 py-4"
       ><i class="fas fa-briefcase pr-2"></i> Jobs<i class="fas fa-caret-down pl-1"></i>
-      <mat-menu #jobs="matMenu" class="animated bounceInUp">
+      <mat-menu #jobs="matMenu" class="animated bounceInDown">
         <div class="sidebar-submenu">
           <button mat-menu-item [routerLink]="['/jobs/listings']" class="h6">
             <i class="fas fa-list pr-3 text-primary"></i> All Job Listings
@@ -560,7 +566,7 @@
   <li>
     <a [matMenuTriggerFor]="courses" class="curPoint px-2 py-4">
       <i class="fas fa-graduation-cap pr-2"></i>Courses<i class="fas fa-caret-down pl-1"></i>
-      <mat-menu #courses="matMenu" class="animated bounceInUp">
+      <mat-menu #courses="matMenu" class="animated bounceInDown">
         <div class="sidebar-submenu">
           <button mat-menu-item [routerLink]="['/user/course']" class="h6">
             <i class="fas fa-book-reader pr-3 text-primary"></i> My Courses
@@ -581,7 +587,7 @@
   <li *ngIf="!isAdmin">
     <a [matMenuTriggerFor]="profile" class="curPoint px-2 py-4">
       <i class="fas fa-unlock-alt pr-2"></i>Settings<i class="fas fa-caret-down pl-1"></i>
-      <mat-menu #profile="matMenu" class="animated bounceInUp">
+      <mat-menu #profile="matMenu" class="animated bounceInDown">
         <div class="sidebar-submenu">
           <button mat-menu-item [routerLink]="['/my-plan']" class="h6">
             <i class="fa fa-tags pr-3 text-primary"></i> My Subscriptions

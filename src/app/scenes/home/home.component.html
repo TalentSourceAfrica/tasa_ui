@@ -5,8 +5,10 @@
     <div class="col-sm-6 col-12 d-flex">
       <div class="m-auto m-auto p-5 align-items-center">
         <div class="welcome-text">
-          <h1 class="text-shadow-theme animated fadeInUp transition-1" [style.color]="colorConfig.selectedColor">Where talent meets opportunity.</h1>
-          <p class="text-primary font-size-16-px pb-3 animated fadeInUp">
+          <h1 class="text-shadow-theme animated fadeInUp transition-1" [style.color]="colorConfig.selectedColor">
+            Where talent meets opportunity.
+          </h1>
+          <p class="text-primary font-size-18-px pb-3 animated fadeInUp">
             A place for Black/African, Latinx, Southeast Asian, and Indigenous people to connect with employers that
             align with their values, and build community with people that understand their perspective.
           </p>
@@ -193,6 +195,7 @@
             <p>
               Find freelance work or hire freelance professionals that want to work with you.
             </p>
+            <!-- <img src="http://placehold.it/1000x500" alt="Graphic" /> -->
           </div>
         </div>
         <div class="col-md-3 col-lg-3 col-sm-6 col-xs-12">
@@ -232,87 +235,52 @@
   <!--FIGURES END-->
 
   <!--FEATURES START-->
-  <section class="section-padding">
+
+  <section id="team" class="team section-padding">
     <div class="text-center pb-4">
       <h2 class="xs-font20 caps pb-2">Features</h2>
     </div>
-    <div class="row no-gutters">
-      <div class="col-md-7 col-sm-12">
-        <div class="">
-          <section id="timeline">
-            <div class="demo-card-wrapper">
-              <div class="demo-card demo-card--step1" data-aos="fade-right" data-aos-anchor-placement="center-bottom">
-                <div class="head">
-                  <div class="number-box">
-                    <h5 class="pt-1">Network</h5>
-                  </div>
-                </div>
-                <div class="body">
-                  <p>
-                    Make important professional connections or share professional insights on TaSA.
-                  </p>
-                  <!-- <img src="http://placehold.it/1000x500" alt="Graphic" /> -->
-                </div>
-              </div>
-
-              <div class="demo-card demo-card--step2" data-aos="fade-left" data-aos-anchor-placement="center-bottom">
-                <div class="head">
-                  <div class="number-box">
-                    <h5 class="pt-1">Find Jobs</h5>
-                  </div>
-                </div>
-                <div class="body">
-                  <p>
-                    Companies come to TaSA because they’re looking for you. We’ve made it easy for them to find you.
-                  </p>
-                  <!-- <img src="http://placehold.it/1000x500" alt="Graphic" /> -->
-                </div>
-              </div>
-
-              <div class="demo-card demo-card--step3" data-aos="fade-right" data-aos-anchor-placement="center-bottom">
-                <div class="head">
-                  <div class="number-box">
-                    <h5 class="pt-1">Freelance</h5>
-                  </div>
-                </div>
-                <div class="body">
-                  <p>
-                    Find freelance gigs or Black and Brown freelance pros with ease on TaSA.
-                  </p>
-                  <!-- <img src="http://placehold.it/1000x500" alt="Graphic" /> -->
-                </div>
-              </div>
-
-              <div class="demo-card demo-card--step3" data-aos="fade-right" data-aos-anchor-placement="center-bottom">
-                <div class="head">
-                  <div class="number-box">
-                    <h5 class="pt-1">Learn</h5>
-                  </div>
-                </div>
-                <div class="body">
-                  <p>
-                    Gain marketable skills with professional certificate courses from top universities.
-                  </p>
-                  <!-- <img src="http://placehold.it/1000x500" alt="Graphic" /> -->
-                </div>
-              </div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-up">
+          <div class="member">
+            <div class="pic shadow-lg"><img src="../assets/images/about/network.png" class="img-fluid" alt="" /></div>
+            <div class="member-info">
+              <h4 class="text-shadow-white">Network</h4>
             </div>
-          </section>
+          </div>
         </div>
-      </div>
-      <div class="col-md-5 col-sm-12">
-        <div class="video-promo-details animated fadeInUp">
-          <div class="d-flex container align-items-center m-auto">
-            <div class="w100 shadow-lg">
-              <video class="video-fluid z-depth-1" loop controls>
-                <source [src]="documents.introductionVideo" type="video/mp4" />
-              </video>
+
+        <div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+          <div class="member">
+            <div class="pic shadow-lg"><img src="../assets/images/about/job.png" class="img-fluid" alt="" /></div>
+            <div class="member-info">
+              <h4 class="text-shadow-white">Job</h4>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+          <div class="member">
+            <div class="pic shadow-lg"><img src="../assets/images/about/freelance.png" class="img-fluid" alt="" /></div>
+            <div class="member-info">
+              <h4 class="text-shadow-white">Freelance</h4>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+          <div class="member">
+            <div class="pic shadow-lg"><img src="../assets/images/about/learn.png" class="img-fluid" alt="" /></div>
+            <div class="member-info">
+              <h4 class="text-shadow-white">Learn</h4>
             </div>
           </div>
         </div>
       </div>
     </div>
   </section>
+
   <!--FEATURES END-->
 
   <!--SIGN UP AREA START-->
@@ -425,20 +393,20 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-3 d-flex align-items-center">
+        <div class="col-4 d-flex align-items-center">
           <div class="text-center">
-            <h3 class="text-shadow-theme text-primary animated fadeInUp">Upskill and stand out</h3>
-            <p>
-              <span class="text-primary font-weight-light" style="font-size: 13px;"
+            <h2 class="text-shadow-theme text-primary animated fadeInUp">Upskill and stand out</h2>
+            <p class="p-3">
+              <span class="text-primary font-weight-light" style="font-size: 18px;"
                 >Gain marketable skills with professional certificate courses from top universities
               </span>
             </p>
           </div>
         </div>
-        <div class="col-9 p-2">
+        <div class="col-8 p-2">
           <div class="course-list">
             <div data-animate="flipInX animated" *ngFor="let course of courses">
-              <div class="single-course mb20 w80 curPoint"> 
+              <div class="single-course mb20 w80 curPoint">
                 <img [src]="course.image_url" alt="Course Image" />
                 <div class="course-details p-3">
                   <h3 class="font18">{{ course.title }}</h3>
@@ -510,21 +478,23 @@
       </div>
 
       <div class="news-slider pb-2">
-        <div class="single-blog-item sm-mb30 xs-mb30 wow fadeInUp mb-2" data-wow-delay="0.2s" *ngFor="let item of news">
+        <div class="single-blog-item sm-mb30 xs-mb30 wow fadeInUp mb-2"  *ngFor="let item of news">
           <div class="blog-thumb" style="height: 150px;">
+            <p class="news-date font14 mt-1 badge badge-warning p-2 position-absolute">
+              <a>{{ item.createdOn | date: 'mediumDate' }} </a>
+            </p>
             <a *ngIf="item.image != '' && item.image != 'string'"><img [src]="item.image" alt="News" /></a>
             <a *ngIf="item.image == '' || item.image == 'string'"
-              ><img src="../../../assets/images/blog/blog-3.jpg" alt="News"
+              ><img src="../assets/images/blog/blog-3.jpg" alt="News"
             /></a>
           </div>
           <div class="blog-details p-3">
             <h6 class="blog-title">
               <!-- <h3 class="font18">JavaScript Fundamentals: A Course for Absolute Beginners</h3> -->
-              <a [href]="item.externalLink" target="_blank">{{ item.description }}</a>
+              <a>{{ item.description }}</a>
             </h6>
-            <p class="blog-meta font14 mt-1">
-              <a>{{ item.createdOn | date: 'MM/dd/yyyy' }} </a>
-            </p>
+            <div class="text-right">- {{ item.publishedBy }}</div>
+            <div class="text-center pt-2 underline text-primary curPoint" [routerLink]="['/news/', item.id]">Read More</div>
           </div>
         </div>
       </div>

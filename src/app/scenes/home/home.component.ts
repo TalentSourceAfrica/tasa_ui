@@ -424,7 +424,7 @@ export class HomeComponent implements OnInit {
   getCourses() {
     let apiUrl = this.sharedService.urlService.apiCallWithParams('getCourse', {
       '{page}': 1,
-      '{size}': 10,
+      '{size}': 21,
     });
     this.sharedService.configService.get(apiUrl).subscribe(
       (response: any) => {
@@ -521,6 +521,8 @@ export class HomeComponent implements OnInit {
       autoplay: true,
       autoplayTimeout: 3000,
       margin: 0,
+      items: 3,
+      slideBy: 1,
       responsiveClass: true,
       onTranslated: animateSlide,
       onTranslate: removeAnimation,
@@ -529,30 +531,24 @@ export class HomeComponent implements OnInit {
           items: 1,
           margin: 0,
         },
-        600: {
+        500: {
           items: 2,
         },
         1000: {
           items: 3,
-        },
-        1500: {
-          items: 4,
-        },
-        2000: {
-          items: 5,
-        },
+        }
       },
     });
 
     // Other Slides
     function removeAnimation() {
       var item = $('.course-list .owl-item');
-      item.removeClass('animated bounceInRight');
+      item.removeClass('animated zoomInDown');
     }
 
     function animateSlide() {
       var item = $('.course-list .owl-item.active');
-      item.addClass('animated bounceInRight');
+      item.addClass('animated zoomInDown');
     }
   }
 
@@ -822,6 +818,8 @@ export class HomeComponent implements OnInit {
       $('.preeloader').fadeOut(1000);
     });
 
-    AOS.init();
+    AOS.init({
+      once: true
+    });
   }
 }

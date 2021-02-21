@@ -268,6 +268,7 @@ export class HomeHeaderComponent implements OnInit {
           $t.sharedService.uiService.showApiSuccessPopMsg('User Avatar Updated...');
           $t.user.image = response.url;
           $t.authenticationService.login($t.user);
+          $t.sharedService.utilityService.changeMessage('FETCH-USER-PROFILE');
         },
         (error) => {
           $t.sharedService.uiService.showApiErrorPopMsg('Something Went Wrong, Please Try Again After Sometime...');

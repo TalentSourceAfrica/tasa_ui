@@ -77,7 +77,6 @@ export class EditUserPopupComponent implements OnInit {
           element.highestDegree === '' ||
           element.major === '' ||
           element.degreeFromDate === '' ||
-          element.minor[0] === '' ||
           element.university[0] === '' ||
           element.degreeToDate === ''
         ) {

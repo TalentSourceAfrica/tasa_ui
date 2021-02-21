@@ -69,6 +69,7 @@ export const urls: any = {
 
   // News
   getNews: '/news', // G
+  getNewsById: '/news/{newsId}', // G
   addNews: '/news', // PO
   updateNews: '/news', // PU
   deleteNews: '/news/{newsId}', // DE

@@ -74,7 +74,7 @@ export class CourseComponent implements OnInit {
     let $t = this;
     let apiUrl: any;
     if ($t.user == null) {
-      $t.authenticationService.openLoginPopup();
+      $t.authenticationService.openSignupPopup('sign-in');
     } else {
       if (_type === 'buy') {
         apiUrl = $t.sharedService.urlService.apiCallWithParams('canByCourse', {

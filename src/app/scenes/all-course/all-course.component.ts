@@ -142,7 +142,9 @@ export class AllCourseComponent implements OnInit {
     let apiUrl = $t.sharedService.urlService.apiCallWithParams('getLovsByGroup', { '{group}': 'categories' });
     $t.sharedService.configService.get(apiUrl).subscribe(
       (response: any) => {
-        $t.filterData.categories = response[0].value;
+        if (response && response[0]) {
+          $t.filterData.categories = response[0].value;
+        }
       },
       (error) => {
         console.log(error);
