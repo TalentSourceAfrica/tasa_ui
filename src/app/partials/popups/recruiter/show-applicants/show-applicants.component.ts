@@ -126,8 +126,8 @@ export class ShowApplicantsComponent implements OnInit {
   fetchJobDetails(_callback: any) {
     let $t = this;
     let api = $t.sharedService.urlService.apiCallWithParams('getJob', {
-      '{jobId}': $t.popupData.job.jobId
-    });
+      '{jobId}': $t.popupData.job[$t.popupData.fromWhere == 'rec-dashboard' ? 'jobId' : 'id']
+     });
     $t.sharedService.configService.get(api).subscribe(
       (response: any) => {
         $t.popupData.job = JSON.parse(JSON.stringify(response.responseObj));
