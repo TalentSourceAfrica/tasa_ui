@@ -146,18 +146,6 @@ $grey: #7d7d7d;
     width: 70px;
   }
 
-  /*----------------------------------
-    3. FUN FACT AREA
-----------------------------------*/
-
-  .fun-fact-area .area-bg {
-    background: rgba(0, 0, 0, 0) url("../../../assets/images/fact-bg.jpg") no-repeat scroll center center / cover;
-  }
-
-  .fun-fact-area .area-bg::after {
-    background: #000000 none repeat scroll 0 0;
-    opacity: 0.6;
-  }
 
   /*---------------------------------
     4. COURSE AERA
@@ -958,6 +946,13 @@ $grey: #7d7d7d;
     position: relative;
     left: 50px;
     transition: 0.4s ease-out;
+  }
+  #recruiter-home {
+    .recruiter-img{
+      background: url("../../../assets/images/recruiter-home.png") no-repeat scroll center center / cover;
+      background-size: cover;
+    }
+    
   }
 }
 

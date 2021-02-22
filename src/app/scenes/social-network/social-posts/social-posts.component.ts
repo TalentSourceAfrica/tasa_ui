@@ -4,6 +4,7 @@ import { SharedService } from '@app/services/shared.service';
 
 import { UserInteractionSocialpostPopoverComponent } from '@app/partials/popups/community/user-interaction-socialpost-popover/user-interaction-socialpost-popover.component';
 import { ShareUserPostPopoverComponent } from '@app/partials/popups/community/share-user-post-popover/share-user-post-popover.component';
+import { Gallery } from 'angular-gallery';
 
 declare var jQuery: any;
 
@@ -44,9 +45,10 @@ export class SocialPostsComponent implements OnInit {
   constructor(
     public credentialsService: CredentialsService,
     public sharedService: SharedService,
-    public cdr: ChangeDetectorRef
+    public cdr: ChangeDetectorRef,
+    private gallery: Gallery
   ) {}
-  
+
   openSharePostPopup(_post: any) {
     let $t = this;
     $t.sharedService.dialogService.open(ShareUserPostPopoverComponent, {
@@ -627,6 +629,17 @@ export class SocialPostsComponent implements OnInit {
       }
     );
     // }
+  }
+
+  showProfilePic(doc: any, index: number) {
+    let prop: any = {
+      images: [{ path: doc.image }],
+      index,
+      transitionDuration: 500,
+      transitionTimingFunction: 'ease-in',
+      arrows: false,
+    };
+    this.gallery.load(prop);
   }
 
   ngOnInit(): void {

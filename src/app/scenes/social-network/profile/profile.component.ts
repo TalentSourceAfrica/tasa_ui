@@ -13,6 +13,7 @@ import Swal from 'sweetalert2';
 // component
 import { CreateGroupPopupComponent } from '@app/partials/popups/group/create-group-popup/create-group-popup.component';
 import { EditUserPopupComponent } from '@app/partials/popups/authentication/edit-user-popup/edit-user-popup.component';
+import { Gallery } from 'angular-gallery';
 
 @Component({
   selector: 'app-profile',
@@ -40,7 +41,8 @@ export class ProfileComponent implements OnInit {
     private cdr: ChangeDetectorRef,
     public sanitizer: DomSanitizer,
     private socialnetworkService: SocialnetworkService,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private gallery: Gallery
   ) {
     this.sharedService.utilityService.changeMessage('FETCH-USER-PROFILE');
     this.mom = this.sharedService.plugins.mom;
@@ -74,7 +76,7 @@ export class ProfileComponent implements OnInit {
       },
       (error) => {
         $t.userConfig.fetchingUser = false;
-        if(error.status == 403){
+        if (error.status == 403) {
           $t.isAllowedConfig.allowed = false;
           $t.isAllowedConfig.message = error.error.message;
         }
@@ -220,6 +222,17 @@ export class ProfileComponent implements OnInit {
         }
       }
     });
+  }
+
+  showProfilePic(doc: any, index: number) {
+    let prop: any = {
+      images: [{ path: doc.image }],
+      index,
+      transitionDuration: 500,
+      transitionTimingFunction: 'ease-in',
+      arrows:false
+    };
+    this.gallery.load(prop);
   }
 
   ngAfterViewInit(): void {

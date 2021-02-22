@@ -118,10 +118,9 @@
                           <div class="row status-main no-gutters">
                             <img
                               [src]="user.image"
-                              [routerLink]="['/social-network/profile/', user.tasaId]"
-                              routerLinkActive="router-link-active"
                               class="status-img curPoint mt-2"
                               [class.mr-1]="socialConfig.newPost.videoUrl != ''"
+                              (click)="showProfilePic(user,0)"
                             />
 
                             <textarea

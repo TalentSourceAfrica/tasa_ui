@@ -234,55 +234,6 @@
   </section>
   <!--FIGURES END-->
 
-  <!--FEATURES START-->
-
-  <section id="team" class="team section-padding">
-    <div class="text-center pb-4">
-      <h2 class="xs-font20 caps pb-2">Features</h2>
-    </div>
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-up">
-          <div class="member">
-            <div class="pic shadow-lg"><img src="../assets/images/about/network.png" class="img-fluid" alt="" /></div>
-            <div class="member-info">
-              <h4 class="text-shadow-white">Network</h4>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
-          <div class="member">
-            <div class="pic shadow-lg"><img src="../assets/images/about/job.png" class="img-fluid" alt="" /></div>
-            <div class="member-info">
-              <h4 class="text-shadow-white">Job</h4>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
-          <div class="member">
-            <div class="pic shadow-lg"><img src="../assets/images/about/freelance.png" class="img-fluid" alt="" /></div>
-            <div class="member-info">
-              <h4 class="text-shadow-white">Freelance</h4>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
-          <div class="member">
-            <div class="pic shadow-lg"><img src="../assets/images/about/learn.png" class="img-fluid" alt="" /></div>
-            <div class="member-info">
-              <h4 class="text-shadow-white">Learn</h4>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!--FEATURES END-->
-
   <!--SIGN UP AREA START-->
   <!-- <section class="section-padding">
     <div class="text-center pb-4">
@@ -383,6 +334,43 @@
   <!--ABOUT AREA END-->
 
   <!--COURSE AREA-->
+  <section class="section-padding" id="recruiter-home">
+    <div class="text-center pb-4">
+      <h2 class="xs-font20 caps pb-2">Employers Looking for your next great hire?</h2>
+    </div>
+    <div class="container-fluid">
+      <div class="row no-gutters">
+        <div class="col-6 recruiter-img min-vertical-h-50 shadow-lg" data-aos="flip-left"></div>
+        <div class="col-6 text-center d-flex align-items-center p-4" data-aos="flip-right">
+          <div class="">
+            <h5 class="text-primary font-weight-light" style="font-size: 18px;">
+              Look no further! TaSA is a one-stop-shop for all your minority recruitment needs. Post A Job For FREE and
+              instantly reach the largest online community of Black/African, Latinx, Indigenous, and Southeast Asian job
+              seekers and freelancers.
+            </h5>
+            <div class="d-flex">
+              <input
+                class="form-control form-control-sm p-4 inputClass transition-1"
+                type="email"
+                placeholder="Enter your email address"
+                [style.border-color]="colorConfig.selectedColor"
+                [(ngModel)]="sliderSignUpMailRecruiter"
+              />
+              <button
+                mat-flat-button
+                (click)="openRecruiterSignup()"
+                class="rounded-pill ml-4 w30 text-white"
+                [style.background-color]="colorConfig.selectedColor"
+              >
+                TRY FOR FREE
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="course-area padding-top" id="courses">
     <div>
       <div class="row">
@@ -401,14 +389,14 @@
                 >Gain marketable skills with professional certificate courses from top universities
               </span>
             </p>
-            <button mat-flat-button color="primary"  [routerLink]="['/all-course']" class="rounded-pill ml-2">
+            <button mat-flat-button color="primary" [routerLink]="['/all-course']" class="rounded-pill ml-2">
               EXPLORE
             </button>
           </div>
         </div>
         <div class="col-7 p-2 pr-3">
           <div class="course-list">
-            <div  *ngFor="let course of courses" data-aos="fade-left" data-aos-delay="500">
+            <div *ngFor="let course of courses" data-aos="fade-left" data-aos-delay="500">
               <div class="card curPoint" (click)="enroll(course)">
                 <img [src]="course.image_url" alt="Course Image" />
                 <div class="course-details p-3">
@@ -470,7 +458,7 @@
   <!--TESTMONIAL AREA AREA END-->
 
   <!--BLOG AREA-->
-  <section class="blog-feed-area padding-top bg-theme" id="blog" *ngIf="news.length">
+  <section class="blog-feed-area padding-top bg-theme d-none" id="blog" *ngIf="news.length">
     <div class="container">
       <div class="row">
         <div class="col-md-8 col-lg-12 col-md-offset-2 col-lg-offset-2 col-sm-12 col-xs-12">
@@ -481,7 +469,7 @@
       </div>
 
       <div class="news-slider pb-2">
-        <div class="single-blog-item sm-mb30 xs-mb30 wow fadeInUp mb-2"  *ngFor="let item of news">
+        <div class="single-blog-item sm-mb30 xs-mb30 wow fadeInUp mb-2" *ngFor="let item of news">
           <div class="blog-thumb" style="height: 150px;">
             <p class="news-date font14 mt-1 badge badge-warning p-2 position-absolute">
               <a>{{ item.createdOn | date: 'mediumDate' }} </a>
@@ -497,7 +485,9 @@
               <a>{{ item.description }}</a>
             </h6>
             <div class="text-right">- {{ item.publishedBy }}</div>
-            <div class="text-center pt-2 underline text-primary curPoint" [routerLink]="['/news/', item.id]">Read More</div>
+            <div class="text-center pt-2 underline text-primary curPoint" [routerLink]="['/news/', item.id]">
+              Read More
+            </div>
           </div>
         </div>
       </div>
@@ -769,6 +759,55 @@
     </div>
   </section>
   <!--FAQS AREA END-->
+
+  <!--FEATURES START-->
+
+  <section id="team" class="team section-padding">
+    <div class="text-center pb-4">
+      <h2 class="xs-font20 caps pb-2">Features</h2>
+    </div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-up">
+          <div class="member">
+            <div class="pic shadow-lg"><img src="../assets/images/about/network.png" class="img-fluid" alt="" /></div>
+            <div class="member-info">
+              <h4 class="text-shadow-white">Network</h4>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+          <div class="member">
+            <div class="pic shadow-lg"><img src="../assets/images/about/job.png" class="img-fluid" alt="" /></div>
+            <div class="member-info">
+              <h4 class="text-shadow-white">Job</h4>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+          <div class="member">
+            <div class="pic shadow-lg"><img src="../assets/images/about/freelance.png" class="img-fluid" alt="" /></div>
+            <div class="member-info">
+              <h4 class="text-shadow-white">Freelance</h4>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+          <div class="member">
+            <div class="pic shadow-lg"><img src="../assets/images/about/learn.png" class="img-fluid" alt="" /></div>
+            <div class="member-info">
+              <h4 class="text-shadow-white">Learn</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!--FEATURES END-->
 
   <!--CLIENT AREA-->
   <!-- <div class="client-area padding-bottom mt100 sm-mt10 xs-mt0">

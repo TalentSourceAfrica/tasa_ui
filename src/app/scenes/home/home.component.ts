@@ -36,6 +36,7 @@ export class HomeComponent implements OnInit {
   panelOpenState = false;
   menuHidden = true;
   sliderSignUpMail: string = '';
+  sliderSignUpMailRecruiter: string = '';
   /**
    * signup variable
    */
@@ -391,6 +392,10 @@ export class HomeComponent implements OnInit {
 
   signup() {
     this.authenticationService.openSignupPopup('student', this.sliderSignUpMail);
+  }
+
+  openRecruiterSignup(){
+    this.authenticationService.openSignupPopup('recruiter', this.sliderSignUpMailRecruiter);
   }
 
   getNews() {

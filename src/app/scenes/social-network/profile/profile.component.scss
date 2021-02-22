@@ -37,10 +37,6 @@
       --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
     }
 
-    @-ms-viewport {
-      width: device-width;
-    }
-
     hr {
       overflow: visible;
       box-sizing: content-box;
@@ -1920,4 +1916,8 @@
     height: 200px;
     max-width: 250px;
   }
+}
+
+carousel{
+  height:1000px !important;
 }

@@ -429,14 +429,13 @@
   <div class="f-color d-flex">
     <mat-slide-toggle
       class="example-margin text-primary"
-      [checked]="user.isFreelancer"
-      (change)="(user.isFreelancer != user.isFreelancer)"
-      [(ngModel)]="user.isFreelancer"
+      [checked]="user.isFreelancer === 'Y'"
+      (change)="(user.isFreelancer === 'Y' ? user.isFreelancer = 'N' : user.isFreelancer = 'Y' )"
     >
       Do you to be listed as a Freelancer on TaSA
     </mat-slide-toggle>
   </div>
-  <ng-container *ngIf="user.isFreelancer">
+  <ng-container *ngIf="user.isFreelancer == 'Y'">
     <div class="row no-gutters w100 mt-2">
       <div class="form-group col-12">
         <label class="form-label" for="projectName"
@@ -465,7 +464,7 @@
     </div>
   </ng-container>
 
-  <ng-container *ngIf="user.isFreelancer">
+  <ng-container *ngIf="user.isFreelancer == 'Y'">
     <ng-container *ngTemplateOutlet="gig"></ng-container>
   </ng-container>
 </ng-template>

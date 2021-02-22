@@ -16,7 +16,6 @@ export class DigitalAssetsComponent implements OnInit {
   suppFiles: any;
   doc = '';
   @ViewChild('dafile', { static: false }) public dafile: any;
-  galleryImages: any;
   constructor(
     public sharedService: SharedService,
     public authenticationService: AuthenticationService,

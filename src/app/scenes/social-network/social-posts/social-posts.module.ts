@@ -17,6 +17,7 @@ import { LeftSideModule } from '@app/partials/left-side/left-side.module';
 import { RightSideModule } from '@app/partials/right-side/right-side.module';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
 import { SharedModule } from '@app/@shared';
+import { IvyGalleryModule } from 'angular-gallery';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { SharedModule } from '@app/@shared';
     PickerModule,
     LeftSideModule,
     RightSideModule,
-    SharedModule
+    SharedModule,
+    IvyGalleryModule
   ],
   declarations: [SocialPostsComponent, UserInteractionSocialpostPopoverComponent, ShareUserPostPopoverComponent],
   entryComponents: [UserInteractionSocialpostPopoverComponent, ShareUserPostPopoverComponent],

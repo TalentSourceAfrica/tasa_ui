@@ -141,7 +141,10 @@ export class NewSignupPopupComponent implements OnInit {
         {
           firstName: ['', [Validators.required]],
           lastName: ['', [Validators.required]],
-          email: ['', [Validators.required, Validators.email]],
+          email: [
+            this.popupData.email != undefined ? this.popupData.email : '',
+            [Validators.required, Validators.email],
+          ],
           password: ['', [Validators.required]],
           confirmPassword: ['', [Validators.required]],
           termsCond: [true, [Validators.required]],
@@ -398,7 +401,6 @@ export class NewSignupPopupComponent implements OnInit {
   createOrganization() {
     this.popupData.authenticationService.opneCreateOrganization();
   }
-
 
   openDoc(_type: string) {
     if (_type === 'privacy') {

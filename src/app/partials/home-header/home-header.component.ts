@@ -109,7 +109,7 @@ export class HomeHeaderComponent implements OnInit {
         (response: any) => {
           $t.userSearchConfig.isFetching = false;
           $t.userSearchConfig.data = response.responseObj;
-          $('#globalSearchInput').focus();
+          jQuery('#globalSearchInput').focus();
         },
         (error) => {
           $t.userSearchConfig.isFetching = false;
@@ -133,7 +133,7 @@ export class HomeHeaderComponent implements OnInit {
         (response: any) => {
           $t.freelanceConfig.isFetching = false;
           $t.freelanceConfig.data = response.responseObj;
-          $('#globalSearchInput').focus();
+          jQuery('#globalSearchInput').focus();
         },
         (error) => {
           $t.freelanceConfig.isFetching = false;
@@ -198,7 +198,7 @@ export class HomeHeaderComponent implements OnInit {
         (response: any) => {
           $t.orgConfig.isFetching = false;
           $t.orgConfig.data = response.responseObj;
-          $('#globalSearchInput').focus();
+          jQuery('#globalSearchInput').focus();
         },
         (error) => {
           $t.orgConfig.isFetching = false;
@@ -222,7 +222,7 @@ export class HomeHeaderComponent implements OnInit {
         (response: any) => {
           $t.jobConfig.isFetching = false;
           $t.jobConfig.data = response.responseObj.jobs;
-          $('#globalSearchInput').focus();
+          jQuery('#globalSearchInput').focus();
         },
         (error) => {
           $t.jobConfig.isFetching = false;

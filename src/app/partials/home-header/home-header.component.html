@@ -242,7 +242,7 @@
                           *ngIf="!user.image || user.image == 'string'"
                           matTooltipPosition="below"
                           matTooltip="Upload Avatar"
-                          class="user-pic img-responsive img-circle curPoint"
+                          class="user-img img-responsive img-circle curPoint"
                           src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
                           (click)="callUpload($event)"
                         />
@@ -250,7 +250,7 @@
                           *ngIf="user.image && user.image != 'string'"
                           matTooltipPosition="below"
                           matTooltip="Upload Avatar"
-                          class="user-pic img-responsive img-circle curPoint"
+                          class="user-img img-responsive img-circle curPoint"
                           [src]="user.image"
                           (click)="callUpload($event)"
                         />

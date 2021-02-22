@@ -17,6 +17,7 @@ import { ProfileRoutingModule } from './profile-routing.module';
 import { SocialConnectionsModule } from '@app/partials/social-network/social-connections/social-connections.module';
 import { NgxDocViewerModule } from 'ngx-doc-viewer';
 import { SharedModule } from '@app/@shared';
+import { IvyGalleryModule } from 'angular-gallery';
 
 // Component
 import { EditUserPopupComponent } from '@app/partials/popups/authentication/edit-user-popup/edit-user-popup.component';
@@ -39,7 +40,8 @@ import { ProfileComponent } from './profile.component';
     LeftSideModule,
     RightSideModule,
     CreateGroupPopupModule,
-    SharedModule
+    SharedModule,
+    IvyGalleryModule
   ],
   declarations: [ProfileComponent, EditUserPopupComponent],
   providers: [SocialnetworkService],
