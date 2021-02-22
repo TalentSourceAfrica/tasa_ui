@@ -367,6 +367,11 @@ export class HomeHeaderComponent implements OnInit {
       }
     );
     $t.notificationsData.splice(_notiIndex, 1);
+    $t.notificationConfig.messageNotifications =  $t.notificationsData.filter((d: any) => d.messageId !== '');
+    $t.notificationConfig.messageCount = $t.notificationConfig.messageNotifications.length;
+    $t.notificationConfig.otherNotifications =  $t.notificationsData.filter((d: any) => d.messageId === '');
+    $t.notificationConfig.otherCount = $t.notificationConfig.otherNotifications.length;
+
     if (_noti.jobId !== '') {
       this.router.navigate(['/job/' + _noti.jobId], { replaceUrl: true });
     } else if (_noti.courseId !== '') {
@@ -381,11 +386,10 @@ export class HomeHeaderComponent implements OnInit {
         queryParams: { userId: _noti.from },
       });
     }
-
     this.onClickOfSellAllNoti();
   }
 
-  setNotificationData(event: any, _type: string) {
+  setNotificationData(_type: string) {
     if (_type === 'other') {
       this.notificationsData = this.notificationConfig.otherNotifications;
       this.notificationConfig.currentView = 0;

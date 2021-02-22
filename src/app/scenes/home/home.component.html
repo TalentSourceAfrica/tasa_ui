@@ -393,20 +393,23 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-4 d-flex align-items-center">
-          <div class="text-center">
+        <div class="col-5 d-flex align-items-center">
+          <div class="text-center" data-aos="fade-up" data-aos-delay="100">
             <h2 class="text-shadow-theme text-primary animated fadeInUp">Upskill and stand out</h2>
             <p class="p-3">
               <span class="text-primary font-weight-light" style="font-size: 18px;"
                 >Gain marketable skills with professional certificate courses from top universities
               </span>
             </p>
+            <button mat-flat-button color="primary"  [routerLink]="['/all-course']" class="rounded-pill ml-2">
+              EXPLORE
+            </button>
           </div>
         </div>
-        <div class="col-8 p-2">
+        <div class="col-7 p-2 pr-3">
           <div class="course-list">
-            <div data-animate="flipInX animated" *ngFor="let course of courses">
-              <div class="single-course mb20 w80 curPoint">
+            <div  *ngFor="let course of courses" data-aos="fade-left" data-aos-delay="500">
+              <div class="card curPoint" (click)="enroll(course)">
                 <img [src]="course.image_url" alt="Course Image" />
                 <div class="course-details p-3">
                   <h3 class="font18">{{ course.title }}</h3>
@@ -415,11 +418,11 @@
                   </p>
                   <!-- <div [innerHTML]="course.short_description"></div> -->
                 </div>
-                <div class="text-center enroll-div position-absolute mb-3">
-                  <button mat-flat-button color="primary" (click)="enroll(course)" class="rounded-pill ml-2">
+                <!-- <div class="text-center enroll-div position-absolute mb-3">
+                  <button mat-flat-button color="primary"  class="rounded-pill ml-2 d-block">
                     ENROLL
                   </button>
-                </div>
+                </div> -->
               </div>
             </div>
           </div>

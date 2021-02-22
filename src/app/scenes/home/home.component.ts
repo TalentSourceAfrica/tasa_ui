@@ -516,26 +516,32 @@ export class HomeComponent implements OnInit {
       loop: true,
       nav: false,
       center: true,
+      dots: false,
       autoplayHoverPause: true,
       navText: ['<i class="fa fa-long-arrow-left"></i> Prev', 'Next <i class="fa fa-long-arrow-right"></i>'],
       autoplay: true,
       autoplayTimeout: 3000,
       margin: 0,
-      items: 3,
+      items: 4,
       slideBy: 1,
       responsiveClass: true,
-      onTranslated: animateSlide,
-      onTranslate: removeAnimation,
+      animateOut: 'fadeOut',
+      animateIn: 'fadeIn',
+      // onTranslated: animateSlide,
+      // onTranslate: removeAnimation,
       responsive: {
         0: {
           items: 1,
           margin: 0,
         },
-        500: {
+        100: {
           items: 2,
         },
-        1000: {
+        200: {
           items: 3,
+        },
+        300: {
+          items: 4,
         }
       },
     });
@@ -543,12 +549,12 @@ export class HomeComponent implements OnInit {
     // Other Slides
     function removeAnimation() {
       var item = $('.course-list .owl-item');
-      item.removeClass('animated zoomInDown');
+      item.removeClass('animated fadeIn');
     }
 
     function animateSlide() {
       var item = $('.course-list .owl-item.active');
-      item.addClass('animated zoomInDown');
+      item.addClass('animated fadeIn');
     }
   }
 

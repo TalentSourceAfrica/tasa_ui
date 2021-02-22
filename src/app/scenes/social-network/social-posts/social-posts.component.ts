@@ -641,12 +641,12 @@ export class SocialPostsComponent implements OnInit {
     setTimeout(() => {
       jQuery('.notification-popup').click((event: any) => {
         jQuery(this).toggleClass('open');
-        jQuery('#notificationMenu').removeClass('d-none').toggleClass('open');
+        jQuery('#notificationMenu').removeClass('d-none').addClass('open');
       });
       jQuery(document).on('click', (event: any) => {
         if (!jQuery(event.target).closest('.notification-popup').length) {
           if (jQuery('#notificationMenu').hasClass('open')) {
-            jQuery('#notificationMenu').addClass('d-none').toggleClass('open');
+            jQuery('#notificationMenu').addClass('d-none').removeClass('open');
           }
         }
       });
