@@ -8,6 +8,7 @@ export const urls: any = {
   // Authentication
   getUsers: '/users', // G
   getUserById: '/users/view/{tasaId}', // G
+  viewProfile: '/users/viewprofile/{tasaId}', // G
   login: '/login', // PO
   signup: '/signup', // PO
   checkUsername: '/checkUserName/{userName}', // PO

@@ -388,7 +388,7 @@ export class HeaderComponent implements OnInit {
 
   showProfile(tasaId: string) {
     this.router.navigate(['/social-network/profile/', tasaId], { replaceUrl: true });
-    this.sharedService.utilityService.changeMessage('FETCH-USER-PROFILE');
+    this.sharedService.utilityService.changeMessage('VIEW-USER-PROFILE');
   }
 
   setNotificationData(_type: string) {

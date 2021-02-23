@@ -57,14 +57,22 @@ export class ProfileComponent implements OnInit {
     return this.mom(_dateToFormat).format('YYYY-MM-DD');
   }
 
-  fetchUser() {
+  fetchUser(_viewUser?: boolean) {
     let $t = this;
+    let apiUrl: any;
     $t.isAllowedConfig.allowed = true;
     $t.userConfig.tasaId = $t.route.snapshot.params.tasaId;
     $t.userConfig.fetchingUser = true;
-    let apiUrl = $t.sharedService.urlService.apiCallWithParams('getUserById', {
-      '{tasaId}': $t.userConfig.tasaId,
-    });
+    if (_viewUser) {
+      apiUrl = $t.sharedService.urlService.apiCallWithParams('viewProfile', {
+        '{tasaId}': $t.userConfig.tasaId,
+      });
+    } else {
+      apiUrl = $t.sharedService.urlService.apiCallWithParams('getUserById', {
+        '{tasaId}': $t.userConfig.tasaId,
+      });
+    }
+
     $t.sharedService.configService.get(apiUrl).subscribe(
       (response: any) => {
         $t.userConfig.user = response.responseObj;
@@ -177,6 +185,9 @@ export class ProfileComponent implements OnInit {
       if (message === 'FETCH-USER-PROFILE') {
         this.fetchUser();
       }
+      if (message === 'VIEW-USER-PROFILE') {
+        this.fetchUser(true);
+      }
     });
   }
 
@@ -230,7 +241,7 @@ export class ProfileComponent implements OnInit {
       index,
       transitionDuration: 500,
       transitionTimingFunction: 'ease-in',
-      arrows:false
+      arrows: false,
     };
     this.gallery.load(prop);
   }

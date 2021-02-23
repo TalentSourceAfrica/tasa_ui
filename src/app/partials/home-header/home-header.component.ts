@@ -182,7 +182,7 @@ export class HomeHeaderComponent implements OnInit {
 
   showProfile(tasaId: string) {
     this.router.navigate(['/social-network/profile/', tasaId], { replaceUrl: true });
-    this.sharedService.utilityService.changeMessage('FETCH-USER-PROFILE');
+    this.sharedService.utilityService.changeMessage('VIEW-USER-PROFILE');
   }
 
   orgSearch() {
@@ -449,19 +449,19 @@ export class HomeHeaderComponent implements OnInit {
         this.getNotifications();
       }
     });
-    setTimeout(() => {
-      jQuery('.notification-popup').click((event: any) => {
-        jQuery(this).toggleClass('open');
-        jQuery('#notificationMenu').removeClass('d-none').addClass('open');
-      });
-      jQuery(document).on('click', (event: any) => {
-        if (!jQuery(event.target).closest('.notification-popup').length) {
-          if (jQuery('#notificationMenu').hasClass('open')) {
-            jQuery('#notificationMenu').addClass('d-none').removeClass('open');
-          }
-        }
-      });
-    }, 10000);
+    // setTimeout(() => {
+    //   jQuery('.notification-popup').click((event: any) => {
+    //     jQuery(this).toggleClass('open');
+    //     jQuery('#notificationMenu').removeClass('d-none').addClass('open');
+    //   });
+    //   jQuery(document).on('click', (event: any) => {
+    //     if (!jQuery(event.target).closest('.notification-popup').length) {
+    //       if (jQuery('#notificationMenu').hasClass('open')) {
+    //         jQuery('#notificationMenu').addClass('d-none').removeClass('open');
+    //       }
+    //     }
+    //   });
+    // }, 10000);
   }
 
   ngAfterViewInit(): void {
