@@ -181,10 +181,14 @@ $light-blue: #523f6d80;
   /*--------------------------------------------------------------
 # About
 --------------------------------------------------------------*/
-  .about .content {
-    background-color: #f6f9ff;
-    padding: 40px;
+  .about, .story
+  {
+    .content {
+      background-color: #f6f9ff;
+      padding: 40px;
+    }
   }
+ 
 
   .about h3 {
     font-size: 14px;
@@ -332,7 +336,7 @@ $light-blue: #523f6d80;
     color: #fff;
   }
 
-  .features .feture-tabs {
+  .features {
     margin-top: 120px;
   }
 
@@ -780,9 +784,18 @@ $light-blue: #523f6d80;
   .contact .php-email-form textarea {
     padding: 12px 15px;
   }
-  bottom: {
-    width: 100%;
-    text-align: left;
+
+  .contact .php-email-form button[type="submit"] {
+    background: #4154f1;
+    border: 0;
+    padding: 10px 30px;
+    color: #fff;
+    transition: 0.4s;
+    border-radius: 4px;
+  }
+
+  .contact .php-email-form button[type="submit"]:hover {
+    background: #5969f3;
   }
 
   @-webkit-keyframes animate-loading {

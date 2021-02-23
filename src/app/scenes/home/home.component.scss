@@ -146,7 +146,6 @@ $grey: #7d7d7d;
     width: 70px;
   }
 
-
   /*---------------------------------
     4. COURSE AERA
 -----------------------------------*/
@@ -948,17 +947,20 @@ $grey: #7d7d7d;
     transition: 0.4s ease-out;
   }
   #recruiter-home {
-    .recruiter-img{
+    .recruiter-img {
       background: url("../../../assets/images/recruiter-home.jpg") no-repeat scroll center center / cover;
       background-size: cover;
     }
-    .try-it-now{
+    .try-it-now {
       height: 200px;
-    left: 100px;
-    position: relative;
+      left: 100px;
+      position: relative;
     }
   }
-
+  .no-credit-card {
+    top: 290px;
+    right: 280px;
+  }
 }
 
 .terms-privacy-modal {

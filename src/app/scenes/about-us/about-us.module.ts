@@ -10,7 +10,7 @@ import { RouterModule } from '@angular/router';
 import { AboutUsComponent } from './about-us.component';
 import { AboutUsRoutingModule } from './about-us-routing.module';
 import { OurTeamComponent } from '@app/partials/popups/about-us/our-team/our-team.component';
-import { MatMenuModule } from '@angular/material/menu';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   imports: [
@@ -20,10 +20,10 @@ import { MatMenuModule } from '@angular/material/menu';
     AuthModule,
     FormsModule,
     I18nModule,
-    MatMenuModule,
     RouterModule,
     AboutUsRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatButtonModule
   ],
   declarations: [AboutUsComponent, OurTeamComponent],
   schemas: [NO_ERRORS_SCHEMA],
