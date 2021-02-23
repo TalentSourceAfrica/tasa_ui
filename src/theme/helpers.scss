@@ -1159,21 +1159,26 @@ button:hover,
   flex-direction: inherit !important;
 }
 
-.welcome-slider-area .owl-nav > div {
-  background: #d3ffea none repeat scroll 0 0 !important;
-  border-radius: 50% !important;
-  bottom: 0 !important;
-  color: $blue !important;
-  font-size: 40px !important;
-  height: 50px !important;
-  margin: 10px 0 !important;
-  padding-top: 5px !important;
-  right: 0 !important;
-  text-align: center;
-  -webkit-transition: all 0.3s ease 0s;
-  transition: all 0.3s ease 0s;
-  width: 50px;
+.welcome-slider-area, .trending-course-slider {
+  .owl-nav{
+    div {
+      background: $blue none repeat scroll 0 0 !important;
+      border-radius: 50% !important;
+      bottom: 0 !important;
+      color: white !important;
+      font-size: 40px !important;
+      height: 50px !important;
+      margin: 10px 5px !important;
+      padding-top: 5px !important;
+      right: 0 !important;
+      text-align: center;
+      -webkit-transition: all 0.3s ease 0s;
+      transition: all 0.3s ease 0s;
+      width: 50px;
+    }
+  } 
 }
+
 
 .welcome-slider-area .owl-nav > div:hover {
   background: $blue none repeat scroll 0 0 !important;
