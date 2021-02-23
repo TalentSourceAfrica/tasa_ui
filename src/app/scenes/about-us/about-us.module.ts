@@ -6,11 +6,11 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { I18nModule } from '@app/i18n';
 import { AuthModule } from '@app/auth';
-import { MaterialModule } from '@app/modules/material.module';
 import { RouterModule } from '@angular/router';
 import { AboutUsComponent } from './about-us.component';
 import { AboutUsRoutingModule } from './about-us-routing.module';
 import { OurTeamComponent } from '@app/partials/popups/about-us/our-team/our-team.component';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   imports: [
@@ -20,7 +20,7 @@ import { OurTeamComponent } from '@app/partials/popups/about-us/our-team/our-tea
     AuthModule,
     FormsModule,
     I18nModule,
-    MaterialModule,
+    MatMenuModule,
     RouterModule,
     AboutUsRoutingModule,
     ReactiveFormsModule

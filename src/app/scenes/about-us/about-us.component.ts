@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from '@app/auth';
 import { documents } from '@app/models/constants';
@@ -14,6 +14,7 @@ import * as AOS from 'aos';
   selector: 'app-about-us',
   templateUrl: './about-us.component.html',
   styleUrls: ['./about-us.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class AboutUsComponent implements OnInit {
   contactUsForm!: FormGroup;

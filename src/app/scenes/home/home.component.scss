@@ -949,11 +949,16 @@ $grey: #7d7d7d;
   }
   #recruiter-home {
     .recruiter-img{
-      background: url("../../../assets/images/recruiter-home.png") no-repeat scroll center center / cover;
+      background: url("../../../assets/images/recruiter-home.jpg") no-repeat scroll center center / cover;
       background-size: cover;
     }
-    
+    .try-it-now{
+      height: 200px;
+    left: 100px;
+    position: relative;
+    }
   }
+
 }
 
 .terms-privacy-modal {

@@ -19,6 +19,7 @@ export class HomeHeaderComponent implements OnInit {
     this.processData();
   }
   @ViewChild('file', { static: false }) public file: any;
+
   notificationConfig: any = {
     messageCount: 0,
     messageNotifications: [],
@@ -259,6 +260,7 @@ export class HomeHeaderComponent implements OnInit {
   handleFileInput(event: any) {
     let $t = this;
     let apiUrl = $t.sharedService.urlService.apiCallWithParams('uploadUserImage', { '{email}': $t.user.email });
+    apiUrl = $t.sharedService.urlService.addQueryStringParm(apiUrl, 'profile', true);
     let files = event.target.files;
     var form = new FormData();
     form.append('file', files[0], files[0].name);
@@ -367,9 +369,9 @@ export class HomeHeaderComponent implements OnInit {
       }
     );
     $t.notificationsData.splice(_notiIndex, 1);
-    $t.notificationConfig.messageNotifications =  $t.notificationsData.filter((d: any) => d.messageId !== '');
+    $t.notificationConfig.messageNotifications = $t.notificationsData.filter((d: any) => d.messageId !== '');
     $t.notificationConfig.messageCount = $t.notificationConfig.messageNotifications.length;
-    $t.notificationConfig.otherNotifications =  $t.notificationsData.filter((d: any) => d.messageId === '');
+    $t.notificationConfig.otherNotifications = $t.notificationsData.filter((d: any) => d.messageId === '');
     $t.notificationConfig.otherCount = $t.notificationConfig.otherNotifications.length;
 
     if (_noti.jobId !== '') {
@@ -466,6 +468,10 @@ export class HomeHeaderComponent implements OnInit {
     this.getNotifications();
     jQuery('#mainmenu-area').sticky({
       topSpacing: 0,
+    });
+    jQuery('#main-nav').stellarNav({
+      theme: 'dark',
+      breakpoint: 900,
     });
   }
 
