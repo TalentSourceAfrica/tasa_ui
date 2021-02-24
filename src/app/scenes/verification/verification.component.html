@@ -1,17 +1,16 @@
 <div class="transaction-wrapper">
-    <div class="container mt-4">
-      <div class="message success" *ngIf="!isLoading && isUserVerified">
-        <i class="message-icon fas fa-check-circle"></i>
-        <p class="message-text">Verification Successful!</p>
-        <h6 class="message-text">Please Login In.</h6>
-        <button class="message-button" [routerLink]="['/home']">Go To Home</button>
-      </div>
-  
-      <div class="message error" *ngIf="!isLoading && !isUserVerified">
-        <i class="message-icon fas fa-times-circle"></i>
-        <p class="message-text">Verification Unsuccessful!</p>
-        <button class="message-button" [routerLink]="['/home']">Go To Home</button>
-      </div>
+  <div class="container mt-4">
+    <div class="message success" *ngIf="!isLoading && isUserVerified">
+      <img class="message-icon animated fadeInUp" src="../assets/images/success.svg" alt="" />
+      <p class="message-text font700">Verification Successful!</p>
+      <h6 class="message-text font400">{{apiMessage}}. Please Login In.</h6>
+      <!-- <button mat-flat-button color="primary" class="rounded-pill ml-2 w30" [routerLink]="['/home']">Go To Home</button> -->
+    </div>
+    <div class="message error" *ngIf="!isLoading && !isUserVerified">
+      <img class="message-icon animated fadeInUp" src="../assets/images/fail.svg" alt="" />
+      <p class="message-text font700">Verification Unsuccessful!</p>
+      <h6 class="message-text font400">{{apiMessage}}.</h6>
+      <!-- <button mat-flat-button color="primary" class="rounded-pill ml-2 w30" [routerLink]="['/home']">Go To Home</button> -->
     </div>
   </div>
-  
+</div>

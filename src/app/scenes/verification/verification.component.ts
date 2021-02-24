@@ -11,9 +11,9 @@ export class VerificationComponent implements OnInit {
   qParams: any;
   isLoading:boolean = false;
   isUserVerified:any;
+  apiMessage:string = '';
   constructor(private route: ActivatedRoute, public sharedService: SharedService) {
     this.qParams = this.route.snapshot.queryParams;
-    console.log(this.qParams);
   }
 
   verifyEmail() {
@@ -28,11 +28,13 @@ export class VerificationComponent implements OnInit {
         (response: any) => {
           $t.isLoading = false;
           $t.isUserVerified = true;
+          $t.apiMessage = response.message;
           $t.sharedService.uiService.showApiSuccessPopMsg(response.message);
         },
         (error) => {
           $t.isLoading = false;
           $t.isUserVerified = false;
+          $t.apiMessage = error.error.message;
           $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
         }
       );

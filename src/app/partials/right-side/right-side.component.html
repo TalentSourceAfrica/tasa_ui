@@ -31,7 +31,7 @@
                     <a [routerLink]="['/news/', news.id]" >{{ news.description }}</a>
                   </h6>
                   <p class="card-intro text-muted">
-                    {{ news.createdOn | date: 'MM/dd/yyyy' }}
+                    {{ news.createdOn | date: 'mediumDate' }}
                   </p>
                 </div>
               </div>
