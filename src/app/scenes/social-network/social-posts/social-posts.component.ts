@@ -42,6 +42,8 @@ export class SocialPostsComponent implements OnInit {
   selectedPostFilter: number = 0;
   toggled: boolean = false;
   isUploadingFile: boolean = false;
+  hoverTimer: any;
+  isUsPopSeen: boolean = false;
   constructor(
     public credentialsService: CredentialsService,
     public sharedService: SharedService,
@@ -315,6 +317,29 @@ export class SocialPostsComponent implements OnInit {
     return credentials ? credentials : null;
   }
 
+  userInterationMouseEnter(_event: any) {
+    let $t = this;
+    $t.hoverTimer = setTimeout(() => {
+      $t.userInteractionPopover(_event);
+    }, 1000);
+  }
+
+  userIntearctionMouseLeave(_event: any) {
+    let $t = this;
+    clearTimeout($t.hoverTimer);
+    let destroyPop = () => {
+      jQuery('#' + _event.srcElement.id).webuiPopover('destroy');
+    };
+
+    if ($t.isUsPopSeen) {
+      setTimeout(() => {
+         destroyPop();
+      }, 3000)
+    } else {
+      destroyPop();
+    }
+  }
+
   userInteractionPopover(_event?: any, _comment?: any) {
     let $t = this;
     let postInfo =
@@ -339,6 +364,7 @@ export class SocialPostsComponent implements OnInit {
         offsetLeft: 60,
         onShow: function ($element: any) {
           jQuery('#' + $element[0].id).css('border-radius', '50rem');
+          $t.isUsPopSeen = true;
           jQuery('[id="btn-like"]')
             .off()
             .on('click', () => {
@@ -370,6 +396,7 @@ export class SocialPostsComponent implements OnInit {
         },
         onHide: function ($element: any) {
           jQuery($element).remove();
+          $t.isUsPopSeen = false;
         },
       });
       jQuery('#' + _event.srcElement.id).webuiPopover('show');

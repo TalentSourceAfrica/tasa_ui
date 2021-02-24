@@ -476,7 +476,8 @@
                                 <div class="px-0 ml-2 mr-3 mt-1 pb-2 album-actions">
                                   <a
                                     class="album-action p-2 m-0 btm-bar-action-1"
-                                    (mouseenter)="userInteractionPopover($event)"
+                                    (mouseenter)="userInterationMouseEnter($event)"
+                                    (mouseleave)="userIntearctionMouseLeave($event)"
                                     data-id="{{ post.id }}"
                                   >
                                     <span *ngIf="noOtherReactionPresent(post)">
