@@ -40,6 +40,7 @@ export class LoginPopupComponent implements OnInit {
     this.isLoading = true;
     this.sharedService.uiService.showApiStartPopMsg('Logging you in...');
     let apiUrl = this.sharedService.urlService.simpleApiCall('login');
+    this.sharedService.utilityService.changeMessage('BEFORE-LOGIN');
     this.sharedService.configService
       .post(apiUrl, this.loginForm.value)
       .pipe(
@@ -55,13 +56,12 @@ export class LoginPopupComponent implements OnInit {
           this.popupData.authenticationService.setToken(JSON.parse(response.data).access_token);
           this.sharedService.uiService.closePopMsg();
           this.dialogRef.close();
-          // if (response.responseObj.city == null || response.responseObj.country == null || response.responseObj.dob == null) {
-          //   this.popupData.authenticationService.openUserDetailsPopup();
-          // }
+
           this.router.navigate(['/social-network/posts'], { replaceUrl: true });
           setTimeout(() => {
             jQuery('.header-top-area').removeClass('position-absolute');
-          }, 500);
+            this.sharedService.utilityService.changeMessage('AFTER-LOGIN');
+          }, 1000);
         },
         (error) => {
           this.sharedService.uiService.showApiErrorPopMsg(error.error.message);

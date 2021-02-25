@@ -27,7 +27,7 @@ export class CartComponent implements OnInit {
   private createForm() {
     this.customerForm = this.formBuilder.group({
       email: [{ value: this.user.email, disabled: true }, [Validators.required, Validators.email]],
-      name: [{ value: this.user.firstName + ' ' + this.user.lastName, disabled: true}, Validators.required],
+      name: [{ value: this.user.firstName + ' ' + this.user.lastName, disabled: true }, Validators.required],
       phoneNumber: [this.user.contactNo ? this.user.contactNo : '', Validators.required],
     });
   }
@@ -41,8 +41,10 @@ export class CartComponent implements OnInit {
       amount: $t.amount,
       currency: 'USD',
       country: 'US',
+      interval: 'monthly',
+      duration: 12,
       payment_options:
-        'account, banktransfer, payattitude, mpesa, mobilemoneyfranco, paga, card, mobilemoneyghana, ussd',
+        'account, banktransfer, payattitude, mpesa, mobilemoneyfranco, paga, card, mobilemoneyghana, ussd, credit',
       // specified redirect URL
       // redirect_url: location.origin.concat('/#/transaction'),
       meta: {
@@ -63,7 +65,7 @@ export class CartComponent implements OnInit {
       customizations: {
         title: 'TaSA',
         description: 'Payment for items in cart',
-        logo: 'https://tasainc.com/images/TSA_logo_Final.jpg',
+        logo: 'https://assets.tasainc.com/images/TaSALogo.jpg',
       },
     });
   }
@@ -106,8 +108,14 @@ export class CartComponent implements OnInit {
         $t.sharedService.uiService.showApiSuccessPopMsg(response.message);
         setTimeout(() => {
           $t.sharedService.uiService.closePopMsg();
-          $t.router.navigate(['/transaction'], { replaceUrl: true });
-        }, 1000);
+          $t.router.navigate(['/transaction'], {
+            queryParams: {
+              status: _data.status,
+              transaction_id: _data.transaction_id,
+              tx_ref: _data.tx_ref,
+            },
+          });
+        }, 200);
       },
       (error) => {
         $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);

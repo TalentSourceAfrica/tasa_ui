@@ -19,7 +19,6 @@ export class HomeHeaderComponent implements OnInit {
     this.processData();
   }
   @ViewChild('file', { static: false }) public file: any;
-
   notificationConfig: any = {
     messageCount: 0,
     messageNotifications: [],
@@ -66,9 +65,6 @@ export class HomeHeaderComponent implements OnInit {
   ) {
     this.jobConfig.searchConfig = JSON.parse(JSON.stringify(jobsSearchData));
     this.courseConfig.searchConfig = JSON.parse(JSON.stringify(courseSearchData));
-    if (this.user) {
-      this.user.type.toLowerCase() === 'admin' ? (this.isAdmin = true) : (this.isAdmin = false);
-    }
   }
 
   processData() {
@@ -336,11 +332,6 @@ export class HomeHeaderComponent implements OnInit {
     }
   }
 
-  get user(): any | null {
-    const credentials = this.credentialsService.credentials;
-    return credentials ? credentials : null;
-  }
-
   fetchCourseFilter() {
     let $t = this;
     let apiUrl = $t.sharedService.urlService.simpleApiCall('getFiltersData');
@@ -465,6 +456,9 @@ export class HomeHeaderComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
+    if (this.user) {
+      this.user.type.toLowerCase() === 'admin' ? (this.isAdmin = true) : (this.isAdmin = false);
+    }
     this.getNotifications();
     jQuery('#mainmenu-area').sticky({
       topSpacing: 0,
@@ -476,4 +470,9 @@ export class HomeHeaderComponent implements OnInit {
   }
 
   ngOnDestroy(): void {}
+
+  get user(): any | null {
+    const credentials = this.credentialsService.credentials;
+    return credentials ? credentials : null;
+  }
 }

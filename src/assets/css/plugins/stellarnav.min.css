@@ -46,6 +46,7 @@
   text-align: left;
   display: none;
   background: #ddd;
+  right: -15px;
 }
 .stellarnav li li {
   display: block;

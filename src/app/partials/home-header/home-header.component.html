@@ -3,7 +3,7 @@
     <div class="mainmenu-area" id="mainmenu-area">
       <div class="mainmenu-area-bg"></div>
       <nav class="navbar py-0 pb-1">
-        <div class="d-flex container-fluid align-items-center">
+        <div class="d-flex container-fluid pr-0 pl-0 align-items-center">
           <div class="row w100 no-gutters">
             <div class="col-1">
               <div class="navbar-header pt-1 border-none">
@@ -227,7 +227,7 @@
             <div class="col text-right">
               <div
                 id="main-nav"
-                class="stellarnav menu-navbar pr-4 d-flex"
+                class="stellarnav menu-navbar  d-flex"
                 style="height: 80px; justify-content: flex-end;"
               >
                 <ul>
@@ -252,12 +252,12 @@
                   </ng-container>
                   <ng-container *ngIf="user">
                     <li>
-                      <a class="curPoint">
+                      <a class="d-flex curPoint">
                         <img
                           *ngIf="!user.image || user.image == 'string'"
                           matTooltipPosition="below"
                           matTooltip="Upload Avatar"
-                          class="user-img curPoint"
+                          class="user-img curPoint mr-1"
                           src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
                           (click)="callUpload($event)"
                         />
@@ -265,16 +265,28 @@
                           *ngIf="user.image && user.image != 'string'"
                           matTooltipPosition="below"
                           matTooltip="Upload Avatar"
-                          class="user-img curPoint"
+                          class="user-img curPoint mr-1"
                           [src]="user.image"
                           (click)="callUpload($event)"
                         />
                         <span
+                          class="d-flex align-items-center"
+                          matTooltipPosition="left"
+                          [matTooltip]="user.firstName"
+                        >
+                          <h6 class="text-truncate font400 w80 pt-3" style="max-width: 80px;">
+                            <span *ngIf="user?.type != 'Admin'">{{ user.firstName }}</span>
+                            <span *ngIf="user?.type == 'Admin'">Admin</span>
+                          </h6>
+                          <i class="fas fa-caret-down pl-1"></i
+                        ></span>
+
+                        <!-- <span
                           class="text-truncate"
                           >{{ user.firstName }}</span
-                        ><i class="fas fa-caret-down pl-1"></i>
+                        ><i class="fas fa-caret-down pl-1"></i> -->
                       </a>
-                      <ul class="animated bounceInDown bg-white sidebar-submenu mr-3">
+                      <ul class="animated bounceInDown bg-white sidebar-submenu">
                         <!-- <mat-menu #userMenu="matMenu" class="mr-2 mt-2 animated bounceInDown"> -->
                         <li>
                           <button mat-menu-item [routerLink]="['/home']" class="h6">
@@ -416,7 +428,7 @@
 <ng-template #adminMenu>
   <li>
     <a class="curPoint px-2 py-4"><i class="fas fa-wrench pr-2"></i>Operations<i class="fas fa-caret-down pl-1"></i></a>
-    <ul class="animated bounceInDown sidebar-submenu">
+    <ul class="animated bounceInDown sidebar-submenu bg-white">
       <li>
         <button mat-menu-item [routerLink]="['/admin/deactive-user']" class="h6">
           Active / Deactive User
@@ -455,26 +467,6 @@
       <li>
         <button mat-menu-item [routerLink]="['/admin/partners']" class="h6">
           Partners
-        </button>
-      </li>
-    </ul>
-  </li>
-  <li>
-    <a class="curPoint px-2 py-4"><i class="fas fa-wrench pr-2"></i>Settings <i class="fas fa-caret-down pl-1"></i></a>
-    <ul class="animated bounceInDown sidebar-submenu">
-      <li>
-        <button mat-menu-item [routerLink]="['/my-plan']" class="h6">
-          My Subscriptions
-        </button>
-      </li>
-      <li>
-        <button mat-menu-item [routerLink]="['/reset-password']" class="h6">
-          Update Password
-        </button>
-      </li>
-      <li>
-        <button mat-menu-item [routerLink]="['/user/profile']" class="h6">
-          Edit Profile
         </button>
       </li>
     </ul>
@@ -644,7 +636,7 @@
   <ng-container *ngIf="user.type == 'Admin'">
     <ng-template *ngTemplateOutlet="adminMenu"></ng-template>
   </ng-container>
-  <li *ngIf="!isAdmin">
+  <li>
     <a class="curPoint px-2 py-4">
       <i class="fas fa-unlock-alt pr-2"></i>Settings<i class="fas fa-caret-down pl-1"></i
     ></a>

@@ -19,5 +19,7 @@ export class TransactionComponent implements OnInit {
     this.transactionConfig.tx_ref = qParams.tx_ref;
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // location.reload();
+  }
 }
