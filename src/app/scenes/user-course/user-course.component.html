@@ -20,11 +20,11 @@
         <ng-container *ngIf="myCourses.length">
           <div class="row w100 max-vertical-h-80 stylishSlimScroll flow-y-auto flow-x-hidden">
             <div
-              class="col-md-4 col-lg-4 col-sm-6 animated fadeIn"
+              class="col-md-4 col-lg-4 col-sm-6 animated fadeIn "
               (click)="courseView(item.course)"
               *ngFor="let item of myCourses"
             >
-              <div class="card m-0 curPoint">
+              <div class="card m-0 mb-4 curPoint">
                 <div class="card-img">
                   <img [src]="item.course.image_url" />
                 </div>

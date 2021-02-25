@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { SharedService } from '@app/services/shared.service';
 import { CartService } from './cart.service';
-import { flutterWaveKeys } from '@app/models/constants';
+import { flutterWaveKeys,fultterWavePaymentPlansForLocal } from '@app/models/constants';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CredentialsService } from '@app/auth';
-import { Route } from '@angular/compiler/src/core';
 import { Router } from '@angular/router';
+import { BaseConfig } from '@app/@core/backend/baseconfig';
+import { environment } from '@env/environment';
+
+
 declare var FlutterwaveCheckout: any;
 @Component({
   selector: 'app-cart',
@@ -15,6 +18,7 @@ declare var FlutterwaveCheckout: any;
 export class CartComponent implements OnInit {
   cartDetails: any;
   amount: number = 0;
+  baseConfig:any = BaseConfig;
   customerForm: FormGroup;
   constructor(
     public sharedService: SharedService,
@@ -35,18 +39,14 @@ export class CartComponent implements OnInit {
   makePayment() {
     let $t = this;
     const customer = this.customerForm.getRawValue();
-    FlutterwaveCheckout({
+    let flutterWaveProperties = {
       public_key: flutterWaveKeys['Public Key'],
       tx_ref: $t.uuidv4Generator(),
       amount: $t.amount,
       currency: 'USD',
       country: 'US',
-      interval: 'monthly',
-      duration: 12,
       payment_options:
-        'account, banktransfer, payattitude, mpesa, mobilemoneyfranco, paga, card, mobilemoneyghana, ussd, credit',
-      // specified redirect URL
-      // redirect_url: location.origin.concat('/#/transaction'),
+        'account,banktransfer,payattitude,mpesa,mobilemoneyfranco,paga,card,mobilemoneyghana,ussd,credit',
       meta: {
         consumer_id: 23,
         consumer_mac: '92a3-912ba-1192a',
@@ -67,7 +67,12 @@ export class CartComponent implements OnInit {
         description: 'Payment for items in cart',
         logo: 'https://assets.tasainc.com/images/TaSALogo.jpg',
       },
-    });
+    };
+    if ($t.cartDetails.isSubscription) {
+      flutterWaveProperties = { ...flutterWaveProperties, amount: $t.amount / 12 };
+      flutterWaveProperties['payment_plan'] = 10028;
+    }
+    FlutterwaveCheckout(flutterWaveProperties);
   }
 
   uuidv4Generator() {
@@ -134,6 +139,7 @@ export class CartComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log('PROD: '+ environment.production);
     this.createForm();
     this.loadScript('https://checkout.flutterwave.com/v3.js');
     this.cartDetails = this.cartService.fetchData();

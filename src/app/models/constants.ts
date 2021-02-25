@@ -28,13 +28,17 @@ export const flutterWaveKeys = {
   'Encryption Key': 'FLWSECK_TEST24647b096e99',
 };
 
+export const fultterWavePaymentPlansForLocal = {
+  monthly: 10028,
+};
+
 export const documents = {
   privacyPolicy: 'https://assets.tasainc.com/docs/PrivacyPolicy.pdf',
   terms: 'https://assets.tasainc.com/docs/TermOfUse.pdf',
   introductionVideo: 'https://assets.tasainc.com/docs/IntroductionVideo.mp4',
-  messageRingtone: 'https://assets.tasainc.com/docs/ElevatorDing.mp3'
+  messageRingtone: 'https://assets.tasainc.com/docs/ElevatorDing.mp3',
 };
 
 export const suportedFile = {
-  certificate: ['pdf', 'jpg', 'jpeg', 'png']
+  certificate: ['pdf', 'jpg', 'jpeg', 'png'],
 };

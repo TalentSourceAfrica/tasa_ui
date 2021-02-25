@@ -1,4 +1,4 @@
-<div class="cart-wrapper container">
+<div class="cart-wrapper container pb-3">
   <ol class="breadcrumb mt-3">
     <li class="breadcrumb-item curPoint"><a [routerLink]="['/home']">Home</a></li>
     <li class="breadcrumb-item active">Checkout</li>
@@ -154,12 +154,16 @@
             <!-- <li>Subtotal <span>$ 350</span></li>
             <li>Discount <span> 30%</span></li>
             <li>Tax <span> 10%</span></li> -->
+
             <li class="total" *ngIf="cartDetails.isSubscription">
               Total <span>{{ cartDetails.subscriptionData.price | currency }}</span>
             </li>
             <li class="total" *ngIf="cartDetails.isCourse">
               Total <span>{{ cartDetails.courseData.offerPrice | currency }}</span>
             </li>
+            <li class="total" *ngIf="cartDetails.isSubscription">
+              Monthly Charge <span>{{ cartDetails.subscriptionData.price / 12 | currency }}</span>
+           </li>            
           </ul>
         </div>
       </div>
@@ -172,14 +176,15 @@
         [disabled]="customerForm.invalid"
         class="rounded-pill ml-2"
       >
-        Checkout
+        <span *ngIf="cartDetails.isSubscription">Checkout & Pay Monthly</span>
+        <span *ngIf="cartDetails.isCourse">Checkout</span>
       </button>
     </div>
   </section>
 </ng-template>
 
 <ng-template #noData>
-  <div class="text-center m-auto animated fadeIn">
+  <div class="text-center m-auto animated fadeIn pb-4">
     <div class="col-12 text-center">
       <img src="./assets/images/no-record.gif" style="height: 300px;" class="d-block m-auto" />
       <h6 class="text-primary">Nothing Added To Cart ...!</h6>
