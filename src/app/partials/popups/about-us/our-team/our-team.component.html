@@ -16,7 +16,7 @@
         </ng-container>
       </div>
       <div class="card-footer text-center text-black-50 h6 text-muted">
-        <button mat-flat-button color="primary" mat-dialog-close class="rounded-pill ml-2">
+        <button mat-flat-button color="primary" (click)="close()" mat-dialog-close class="rounded-pill ml-2">
           I've heard enough about {{ popupData.name }}
         </button>
       </div>
@@ -79,7 +79,7 @@
           <div class="">
             <div class="desk">
               <h4 class="caps text-primary">{{ popupData.name }}</h4>
-              <h5 class="text-muted"><span>VP Product & Technology</span></h5>
+              <h5 class="text-muted"><span>Co-Founder & VP Product & Technology</span></h5>
             </div>
             <div class="s-link text-center">
               <a class="curPoint"><i class="fab fa-facebook fa-lg"></i></a>
@@ -92,7 +92,7 @@
           <div class="team-title">
             <p class="text-muted">
               Alhassan has deep experience in the African Startup ecosystem, most recently helping to launch 2
-              successful tech startup on the continent. He's a FinTech expert with extensive experience advising firms
+              successful tech startup on the continent. He's a Financial Services technology professional with extensive experience advising firms
               in banking, healthcare, and auto industries across the continental US, Europe & Africa.
             </p>
             <p class="text-muted">
