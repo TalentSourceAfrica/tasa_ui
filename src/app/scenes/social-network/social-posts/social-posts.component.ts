@@ -670,13 +670,13 @@ export class SocialPostsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    window.scrollTo(0, 0);
     this.getAllSocialPost();
     if (!this.user.image || this.user.image == 'string') {
       this.user.image = 'https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg';
     }
   }
   ngAfterViewInit(): void {
+    window.scrollTo(0, 0);
     // this.conectionDrawer.open();
     // setTimeout(() => {
     //   jQuery('.notification-popup').click((event: any) => {

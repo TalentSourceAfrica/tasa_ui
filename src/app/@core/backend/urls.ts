@@ -41,6 +41,9 @@ export const urls: any = {
   favCourse: '/users/favorite/{userId}/{courseKey}', // G
   unfavCourse: '/users/unfavorite/{userId}/{courseKey}', // G
 
+  // Subscription
+  getSubscriptions: '/subs', // G
+
   // tiers
   getTiers: '/tier', // G
   addTier: '/tier', // PO

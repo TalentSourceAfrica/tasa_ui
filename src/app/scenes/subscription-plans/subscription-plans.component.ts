@@ -14,10 +14,10 @@ export class SubscriptionPlansComponent implements OnInit {
   constructor(public sharedService: SharedService, private cartService: CartService, private router: Router) {}
 
   getTiers() {
-    let apiUrl = this.sharedService.urlService.simpleApiCall('getTiers');
+    let apiUrl = this.sharedService.urlService.simpleApiCall('getSubscriptions');
     this.sharedService.configService.get(apiUrl).subscribe(
       (response: any) => {
-        this.tiers = response;
+        this.tiers = response.responseObj;
       },
       (error) => {
         console.log(error);
@@ -29,13 +29,13 @@ export class SubscriptionPlansComponent implements OnInit {
     let _callback = () => {
       this.cartService.setCartForSubscription(item);
       Swal.fire({
-        title: 'Added To Cart', // title of the modal
+        title: 'Added', // title of the modal
         text: '', // description of the modal
         type: 'success', // warning, error, success, info, and question,
         backdrop: true,
         confirmButtonClass: 'rounded-pill shadow-sm',
         cancelButtonClass: 'rounded-pill shadow-sm',
-        confirmButtonText: 'Go To Cart!',
+        confirmButtonText: 'Go To Checkout!',
         showCancelButton: true,
       }).then((isConfirm) => {
         if (isConfirm.value) {
@@ -46,7 +46,7 @@ export class SubscriptionPlansComponent implements OnInit {
         }
       });
     };
-    this.sharedService.uiService.showPreConfirmPopMsg('Do You Want To Add This To Cart', _callback);
+    this.sharedService.uiService.showPreConfirmPopMsg('Do You Want To Buy This Subscription', _callback);
   }
 
   ngOnInit(): void {

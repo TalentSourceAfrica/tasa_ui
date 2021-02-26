@@ -1,5 +1,5 @@
 <!-- Price Section -->
-<div class="subscription-wrapper container" id="generic_price_table">
+<div class="subscription-wrapper container-fluid" id="generic_price_table">
   <ol class="breadcrumb mt-3">
     <li class="breadcrumb-item curPoint"><a [routerLink]="['/home']">Home</a></li>
     <li class="breadcrumb-item active">Subscription Plans</li>
@@ -7,101 +7,134 @@
   <section>
     <div class="sec-title">
       <div class="title">Subscription Plans</div>
-      <h2>Our Awesome Pricing Plans For You.</h2>
     </div>
-
-    <div class="row">
-      <div class="col-md-4" *ngFor="let item of tiers">
-        <div class="generic_content border clearfix animated fadeIn">
-          <div class="generic_head_price clearfix">
-            <div class="generic_head_content clearfix">
-              <div class="head_bg"></div>
-              <div class="head">
-                <span>{{ item.name }}</span>
+    <div class="main-section">
+      <div class="center">
+        <main class="main">
+          <!-- <div class="heading">
+            <h1>
+              <span class="text-purple">flexible</span>
+              plans
+            </h1>
+            <p>Choose a plant that works best for you and your team.</p>
+          </div> -->
+          <section>
+            <div class="holder" style="zoom: 75%;">
+              <div class="plan__options plan-left m-2 animated fadeInUp" [ngClass]="{'plan-middle': item.id == 'Silver' }" *ngFor="let item of tiers">
+                <div class="head">
+                  <div class="shape shape-green"></div>
+                  <div class="content">
+                    <h2>
+                      <span class="text-black">{{ item.id }}</span>
+                    </h2>
+                    <h5>
+                      <span class="text-black">{{ item.price * 12 | currency }}</span
+                      ><small> / Year</small>
+                    </h5>
+                  </div>
+                </div>
+                <div class="line-divider"></div>
+                <ul>
+                  <li><i class="fas fa-check text-success"></i>Search TaSA Members</li>
+                  <li>
+                    <i class="fas fa-check text-success"></i>Message Connected Members
+                  </li>
+                  <li>
+                    <i class="fas fa-check text-success"></i>Price Per Course <span class="text-black">{{
+                      item.maxCoursesPrice
+                    }}</span>
+                  </li>
+                  <li>
+                    <i class="fas fa-check text-success"></i>Enroll into EdX Courses <span class="text-black">{{
+                      item.maxCoursesPerMonth
+                    }}</span>
+                  </li>
+                  <li>
+                    <i class="fas fa-check text-success"></i>Total Yearly Course Price Allowance <span class="text-black">{{
+                      item.maxCoursesValuePerYear
+                    }}</span>
+                  </li>
+                  <li>
+                    <i
+                      class="fas fa-check"
+                      [ngClass]="{
+                        'fa-check text-success': item.recommendCourses === 'Y',
+                        'fa-times text-danger': item.recommendCourses === 'N'
+                      }"
+                    ></i
+                    ><span [ngClass]="{'strike': item.recommendCourses === 'N'}">Receive Recommended Courses</span>
+                  </li>
+                  <li>
+                    <i
+                      class="fas fa-check"
+                      [ngClass]="{
+                        'fa-check text-success': item.recommendJobs === 'Y',
+                        'fa-times text-danger': item.recommendJobs === 'N'
+                      }"
+                    ></i
+                    ><span [ngClass]="{'strike': item.recommendJobs === 'N'}">Receive Recommended Jobs</span>
+                  </li>
+                  <li>
+                    <i
+                      class="fas fa-check"
+                      [ngClass]="{
+                        'fa-check text-success': item.notifyApplicationStatus === 'Y',
+                        'fa-times text-danger': item.notifyApplicationStatus === 'N'
+                      }"
+                    ></i
+                    ><span [ngClass]="{'strike': item.notifyApplicationStatus === 'N'}">Job Application Status Notification</span>
+                  </li>
+                  <li>
+                    <i
+                      class="fas fa-check"
+                      [ngClass]="{
+                        'fa-check text-success': item.notifyProfileViews === 'Y',
+                        'fa-times text-danger del': item.notifyProfileViews === 'N'
+                      }"
+                    ></i
+                    ><span [ngClass]="{'strike': item.notifyProfileViews === 'N'}">Profile View Notification</span>
+                  </li>
+                </ul>
+                <button class="button button-primary" (click)="subscribeNow(item)" >choose plan <i class="fas fa-arrow-right"></i></button>
               </div>
+
+              <!-- <div class="plan__options plan-middle">
+                <div class="head">
+                  <div class="shape shape-orange"></div>
+                  <div class="content">
+                    <h2><span class="text-black">Startup</span></h2>
+                    <h5><i class="fas fa-euro-sign"></i><span class="text-black">24 </span><small> / user</small></h5>
+                  </div>
+                </div>
+                <div class="line-divider"></div>
+                <ul>
+                  <li><i class="fas fa-check"></i>All features in <span class="text-black">Basic</span></li>
+                  <li><i class="fas fa-check"></i>Flexible <span class="text-black">call scheduling</span></li>
+                  <li><i class="fas fa-check"></i><span class="text-black">15 TB</span> clound storange</li>
+                </ul>
+                <button class="button button-primary">choose plan <i class="fas fa-arrow-right"></i></button>
+              </div>
+
+              <div class="plan__options plan-right">
+                <div class="head">
+                  <div class="shape shape-blue"></div>
+                  <div class="content">
+                    <h2><span class="text-black">Enterprise</span></h2>
+                    <h5><i class="fas fa-euro-sign"></i><span class="text-black">32 </span><small> / user</small></h5>
+                  </div>
+                </div>
+                <div class="line-divider"></div>
+                <ul>
+                  <li><i class="fas fa-check"></i>All features in <span class="text-black">Startup</span></li>
+                  <li><i class="fas fa-check"></i>Growth <span class="text-black">oriented</span></li>
+                  <li><i class="fas fa-check"></i><span class="text-black">Unlimited</span> clound storange</li>
+                </ul>
+                <button class="button button-primary">choose plan <i class="fas fa-arrow-right"></i></button>
+              </div> -->
             </div>
-            <div class="generic_price_tag clearfix">
-              <span class="price">
-                <span class="sign">$</span>
-                <span class="currency">{{ item.price }}</span>
-                <span class="month">/{{ item.duration }}</span>
-              </span>
-            </div>
-          </div>
-          <div class="generic_feature_list min-vertical-h-30 max-vertical-h-30 stylishScroll flow-y-auto flow-x-hidden">
-            <ul>
-              <li *ngFor="let feature of item.feature">{{ feature.description }}</li>
-            </ul>
-          </div>
-          <div class="generic_price_btn clearfix">
-            <a class="curPoint" (click)="subscribeNow(item)">Subscribe Now</a>
-          </div>
-        </div>
+          </section>
+        </main>
       </div>
-
-      <!-- <div class="col-md-4">
-        <div class="generic_content border active clearfix animated fadeIn">
-          <div class="generic_head_price clearfix">
-            <div class="generic_head_content clearfix">
-              <div class="head_bg"></div>
-              <div class="head">
-                <span>Silver</span>
-              </div>
-            </div>
-            <div class="generic_price_tag clearfix">
-              <span class="price">
-                <span class="sign">$</span>
-                <span class="currency">79</span>
-                <span class="month">/MON</span>
-              </span>
-            </div>
-          </div>
-          <div class="generic_feature_list">
-            <ul>
-              <li>Access to 50 courses</li>
-              <li>Example code available</li>
-              <li>Medium quality video</li>
-              <li>Certificate after completion</li>
-              <li>Private Sessions</li>
-            </ul>
-          </div>
-          <div class="generic_price_btn clearfix">
-            <a class="" href="">Subscribe Now</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="generic_content border clearfix animated fadeIn">
-          <div class="generic_head_price clearfix">
-            <div class="generic_head_content clearfix">
-              <div class="head_bg"></div>
-              <div class="head">
-                <span>Gold</span>
-              </div>
-            </div>
-            <div class="generic_price_tag clearfix">
-              <span class="price">
-                <span class="sign">$</span>
-                <span class="currency">99</span>
-                <span class="month">/MON</span>
-              </span>
-            </div>
-          </div>
-          <div class="generic_feature_list">
-            <ul>
-              <li>Access to all courses</li>
-              <li>Example code available</li>
-              <li>High resolution video</li>
-              <li>Certificate after completion</li>
-              <li>Private Sessions</li>
-            </ul>
-          </div>
-
-          <div class="generic_price_btn clearfix">
-            <a class="" href="">Subscribe Now</a>
-          </div>
-        </div>
-      </div> -->
     </div>
   </section>
 </div>
