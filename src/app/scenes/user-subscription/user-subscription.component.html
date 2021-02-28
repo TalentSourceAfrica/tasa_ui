@@ -7,22 +7,118 @@
     <div class="title">My Subscription</div>
   </div>
   <ng-container *ngIf="!mySubscription">
-    <app-no-subscription [isComingFrom]="'subscription'" [message]="'Trust Us ! We offer best plans'"></app-no-subscription>
+    <app-no-subscription
+      [isComingFrom]="'subscription'"
+      [message]="'Trust Us ! We offer best plans'"
+    ></app-no-subscription>
   </ng-container>
-  <ng-container *ngIf="mySubscription">
+  <ng-container *ngIf="mySubscription && !isLoading">
     <div class="row no-gutters w60 m-auto">
       <div class="col-12 animated fadeIn">
         <div class="card m-0 curPoint">
-          <div class="card-img text-center">
-            <h2 class="caps shadow-sm">{{ mySubscription.subscriptionId }}</h2>
+          <div class="p-2 text-center">
+            <h2 class="caps"><span class="text-muted">PLAN : </span>{{ mySubscription.subscriptionId }}</h2>
           </div>
-          <div class="card-body pl-3 pr-3">
-            <h5 class="card-title">Total Amount : {{ mySubscription.loadedAmount | currency }}</h5>
-
-            <h5 class="card-title">Remaning Amount : {{ mySubscription.balanceAmount | currency }}</h5>
-            <h5 class="card-title">
-              Status : <h5 class="badge badge-success">{{ mySubscription.transactionStatus }}</h5>
-            </h5>
+          <div class="card-header bg-lavender text-center">
+            <div class="holder bg-lavender pb-4">
+              <div class="plan__options plan-left m-2 animated fadeInUp m-auto">
+                <div class="head d-flex">
+                  <div class="shape shape-green"></div>
+                  <div class="content text-center m-auto">
+                    <h2 class="card-title mb-0">
+                      <h2 class="badge badge-success caps">
+                        {{ mySubscription.transactionStatus == 'successful' ? 'ACTIVE' : '' }}
+                      </h2>
+                    </h2>
+                    <!-- <h2>
+                    <span class="text-black"><span class="text-muted">Plan: </span>{{ cartDetails.subscriptionData.id }}</span>
+                  </h2>
+                  <h5>
+                    <span class="text-black">{{ cartDetails.subscriptionData.price * 12 | currency }}</span
+                    ><small> / Year</small>
+                    <span class="badge badge-warning">Pay {{ cartDetails.subscriptionData.price | currency }} <small> / Month</small></span
+                      >
+                  </h5> -->
+                  </div>
+                </div>
+                <div class="line-divider"></div>
+                <ul class="max-vertical-h-40 stylishSlimScroll flow-y-auto flow-x-hidden">
+                  <li><i class="fas fa-check text-success"></i>Search TaSA Members</li>
+                  <li><i class="fas fa-check text-success"></i>Message Connected Members</li>
+                  <li>
+                    <i class="fas fa-check text-success"></i>Price Per Course
+                    <span class="text-black">{{ mySubscription.subscriptionData.maxCoursesPrice }}</span>
+                  </li>
+                  <li>
+                    <i class="fas fa-check text-success"></i>Enroll into EdX Courses
+                    <span class="text-black">{{ mySubscription.subscriptionData.maxCoursesPerMonth }}</span>
+                  </li>
+                  <li>
+                    <i class="fas fa-check text-success"></i>Total Yearly Course Price Allowance
+                    <span class="text-black">{{ mySubscription.subscriptionData.maxCoursesValuePerYear }}</span>
+                  </li>
+                  <li>
+                    <i
+                      class="fas fa-check"
+                      [ngClass]="{
+                        'fa-check text-success': mySubscription.subscriptionData.recommendCourses === 'Y',
+                        'fa-times text-danger': mySubscription.subscriptionData.recommendCourses === 'N'
+                      }"
+                    ></i
+                    >Receive Recommended Courses
+                  </li>
+                  <li>
+                    <i
+                      class="fas fa-check"
+                      [ngClass]="{
+                        'fa-check text-success': mySubscription.subscriptionData.recommendJobs === 'Y',
+                        'fa-times text-danger': mySubscription.subscriptionData.recommendJobs === 'N'
+                      }"
+                    ></i
+                    >Receive Recommended Jobs
+                  </li>
+                  <li>
+                    <i
+                      class="fas fa-check"
+                      [ngClass]="{
+                        'fa-check text-success': mySubscription.subscriptionData.notifyApplicationStatus === 'Y',
+                        'fa-times text-danger': mySubscription.subscriptionData.notifyApplicationStatus === 'N'
+                      }"
+                    ></i
+                    >Job Application Status Notification
+                  </li>
+                  <li>
+                    <i
+                      class="fas fa-check"
+                      [ngClass]="{
+                        'fa-check text-success': mySubscription.subscriptionData.notifyProfileViews === 'Y',
+                        'fa-times text-danger del': mySubscription.subscriptionData.notifyProfileViews === 'N'
+                      }"
+                    ></i
+                    >Profile View Notification
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="row no-gutters">
+              <div class="col-6">
+                <h5 class="card-title">
+                  Total Amount :
+                  <h2 class="badge badge-success caps">{{ mySubscription.loadedAmount | currency }}</h2>
+                </h5>
+              </div>
+              <div class="col-6">
+                <h5 class="card-title">
+                  Remaning Amount :
+                  <h2 class="badge badge-warning caps">{{ mySubscription.balanceAmount | currency }}</h2>
+                </h5>
+              </div>
+            </div>
+          </div>
+          <div class="alert alert-info text-center mb-0" role="alert">
+            <h6> This Plan Will Expire On {{mySubscription.expiresOn | date:'mediumDate'}}</h6> 
           </div>
         </div>
       </div>

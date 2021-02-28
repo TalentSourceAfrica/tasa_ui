@@ -19,7 +19,7 @@ export class CourseComponent implements OnInit {
     course: undefined,
     fetchingCourse: true,
   };
-
+  isCourseAlreadyPurchased: boolean = false;
   constructor(
     private sharedService: SharedService,
     public route: ActivatedRoute,
@@ -46,6 +46,7 @@ export class CourseComponent implements OnInit {
       (response: any) => {
         $t.courseConfig.course = response.responseObj;
         if ($t.user) {
+          $t.checkCoursePurchased();
           $t.user['recentlyViewed'].push({
             image_url: response.responseObj.image_url,
             key: response.responseObj.key,
@@ -68,6 +69,15 @@ export class CourseComponent implements OnInit {
         }, 1000);
       }
     );
+  }
+
+  checkCoursePurchased() {
+    const enrolledCourseIds = this.user.enrolledCourses.map((d: any) => d.course.key);
+    if (enrolledCourseIds.includes(this.courseConfig.course.key)) {
+      this.isCourseAlreadyPurchased = true;
+    } else {
+      this.isCourseAlreadyPurchased = false;
+    }
   }
 
   addToCart(_type: string) {

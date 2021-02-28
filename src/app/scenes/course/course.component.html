@@ -41,14 +41,14 @@
         <div class="col-md-4">
           <div class="card mt-2">
             <div class="card-body text-center">
-              <div>
+              <div *ngIf="!isCourseAlreadyPurchased">
                 <button mat-flat-button color="primary" (click)="addToCart('buy')" class="rounded-pill ml-2">
                   Buy Course
                   <strong
                     ><span>{{ courseConfig.course?.offerPrice | currency: 'USD' }}</span></strong
                   >
                 </button>
-                <hr/>
+                <hr />
                 <button mat-flat-button color="primary" (click)="addToCart('enroll')" class="rounded-pill ml-2">
                   Enroll Course
                   <strong
@@ -56,6 +56,8 @@
                   >
                 </button>
               </div>
+              <ng-template *ngIf="isCourseAlreadyPurchased" [ngTemplateOutlet]="enrolledCourse"></ng-template>
+
               <!-- <div class="page-separator">
                 <div class="page-separator__text">or</div>
               </div> -->
@@ -155,3 +157,12 @@
     </div>
   </div>
 </div>
+
+<ng-template #enrolledCourse>
+  <div class="text-center m-auto animated fadeInUp">
+    <div>
+      <h1>😊</h1>
+      <h6 class="text-muted">You Have Enrolled For This Course.</h6>
+    </div>
+  </div>
+</ng-template>

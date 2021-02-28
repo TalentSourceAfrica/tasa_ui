@@ -43,6 +43,7 @@ export const urls: any = {
 
   // Subscription
   getSubscriptions: '/subs', // G
+  getSubscriptionById: '/subs/{subsId}', // G
 
   // tiers
   getTiers: '/tier', // G

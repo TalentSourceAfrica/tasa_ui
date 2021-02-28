@@ -69,7 +69,7 @@ export class CartComponent implements OnInit {
       },
     };
     if ($t.cartDetails.isSubscription) {
-      flutterWaveProperties = { ...flutterWaveProperties, amount: $t.amount / 12 };
+      flutterWaveProperties = { ...flutterWaveProperties, amount: $t.amount};
       flutterWaveProperties['payment_plan'] = 10028;
     }
     FlutterwaveCheckout(flutterWaveProperties);
