@@ -4,8 +4,11 @@
       <img class="message-icon animated fadeInUp" src="../assets/images/success.svg" alt="" />
       <p class="message-text animated fadeInUp font700">Transaction successful!</p>
       <h6 class="message-text animated fadeInUp font400">All The Transaction Details Is Sent To Your Mail.</h6>
-      <button mat-flat-button color="primary" [routerLink]="['/dashboard']" class="rounded-pill ml-2  mt-4 w25">
-        Go To Dashboard
+      <button mat-flat-button color="primary" *ngIf="transactionConfig.typeOfPurchase === 'course'" [routerLink]="['/user/course']" class="rounded-pill ml-2  mt-4 w25">
+        Go To My Course
+      </button>
+      <button mat-flat-button color="primary" *ngIf="transactionConfig.typeOfPurchase === 'subscription'" [routerLink]="['/my-plan']" class="rounded-pill ml-2  mt-4 w25">
+        Go To My Subscription
       </button>
     </div>
 

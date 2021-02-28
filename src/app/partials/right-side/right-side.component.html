@@ -1,5 +1,8 @@
 <div class="right-side-wrapper">
   <div class="row no-gutters">
+    <div class="col-12" style="margin-top:-85px">
+      <img [routerLink]="['/subscription-plans']" src="./assets/images/subscribe.gif"  alt="Google Adsense" />
+    </div>
     <div class="col-12">
       <div class="card">
         <img src="./assets/images/google-adsense.jpeg" alt="Google Adsense" />
@@ -21,14 +24,16 @@
             <div class="col-12 border mb-1 curPoint courseList" *ngFor="let news of newsConfig.data">
               <div class="row no-gutters">
                 <div class="col-4">
-                  <a *ngIf="news.image != '' && news.image != 'string'"><img [src]="news.image" class="news-image" alt="News" /></a>
+                  <a *ngIf="news.image != '' && news.image != 'string'"
+                    ><img [src]="news.image" class="news-image" alt="News"
+                  /></a>
                   <a *ngIf="news.image == '' || news.image == 'string'"
                     ><img class="news-image" src="./assets/images/blog/blog-3.jpg" alt="News"
                   /></a>
                 </div>
                 <div class="col-8 p-2">
                   <h6 class="card-title text-truncate mb-0" [title]="news.description">
-                    <a [routerLink]="['/news/', news.id]" >{{ news.description }}</a>
+                    <a [routerLink]="['/news/', news.id]">{{ news.description }}</a>
                   </h6>
                   <p class="card-intro text-muted">
                     {{ news.createdOn | date: 'mediumDate' }}

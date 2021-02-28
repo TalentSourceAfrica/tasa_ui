@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { SharedService } from '@app/services/shared.service';
 import { CartService } from './cart.service';
-import { flutterWaveKeys,fultterWavePaymentPlansForLocal } from '@app/models/constants';
+import { flutterWaveKeys, fultterWavePaymentPlansForLocal } from '@app/models/constants';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CredentialsService } from '@app/auth';
 import { Router } from '@angular/router';
 import { BaseConfig } from '@app/@core/backend/baseconfig';
 import { environment } from '@env/environment';
-
 
 declare var FlutterwaveCheckout: any;
 @Component({
@@ -18,7 +17,7 @@ declare var FlutterwaveCheckout: any;
 export class CartComponent implements OnInit {
   cartDetails: any;
   amount: number = 0;
-  baseConfig:any = BaseConfig;
+  baseConfig: any = BaseConfig;
   customerForm: FormGroup;
   constructor(
     public sharedService: SharedService,
@@ -69,7 +68,7 @@ export class CartComponent implements OnInit {
       },
     };
     if ($t.cartDetails.isSubscription) {
-      flutterWaveProperties = { ...flutterWaveProperties, amount: $t.amount};
+      flutterWaveProperties = { ...flutterWaveProperties, amount: $t.amount };
       flutterWaveProperties['payment_plan'] = 10028;
     }
     FlutterwaveCheckout(flutterWaveProperties);
@@ -118,6 +117,7 @@ export class CartComponent implements OnInit {
               status: _data.status,
               transaction_id: _data.transaction_id,
               tx_ref: _data.tx_ref,
+              typeOfPurchase: $t.cartDetails.isSubscription ? 'subscription' : 'course',
             },
           });
         }, 200);
@@ -140,7 +140,7 @@ export class CartComponent implements OnInit {
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
-    console.log('PROD: '+ environment.production);
+    console.log('PROD: ' + environment.production);
     this.createForm();
     this.loadScript('https://checkout.flutterwave.com/v3.js');
     this.cartDetails = this.cartService.fetchData();

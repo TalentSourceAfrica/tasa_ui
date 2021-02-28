@@ -11,12 +11,14 @@ export class TransactionComponent implements OnInit {
     status: '',
     transaction_id: '',
     tx_ref: '',
+    typeOfPurchase: '',
   };
   constructor(private route: ActivatedRoute) {
     const qParams = this.route.snapshot.queryParams;
     this.transactionConfig.status = qParams.status;
     this.transactionConfig.transaction_id = qParams.transaction_id;
     this.transactionConfig.tx_ref = qParams.tx_ref;
+    this.transactionConfig.typeOfPurchase = qParams.typeOfPurchase;
   }
 
   ngOnInit(): void {
