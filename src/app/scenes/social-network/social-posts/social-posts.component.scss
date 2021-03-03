@@ -88,6 +88,30 @@ $button: #8f98a9;
     background-color: #ebe9ee;
   }
 
+  .link-preview {
+    a {
+      text-decoration: none;
+      position: relative;
+      font-family: monospace;
+      &:before {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 2px;
+        bottom: 0;
+        margin: -5px 0;
+        background-color: $button;
+        visibility: hidden;
+        transform: scaleX(0);
+        transition: all 0.4s ease-in-out 0s;
+      }
+      &:hover:before {
+        visibility: visible;
+        transform: scaleX(1);
+      }
+    }
+  }
+
   .logo {
     font-family: $title-font;
     font-size: 15px;
@@ -510,7 +534,7 @@ $button: #8f98a9;
   }
   .album-content {
     font-size: 16px !important;
-    font-family: 'Poppins', sans-serif !important;
+    font-family: "Poppins", sans-serif !important;
   }
 
   .status-img {
@@ -534,6 +558,9 @@ $button: #8f98a9;
     border-bottom: 1px solid $border-color;
     padding-bottom: 20px;
     background: #eae8ee59;
+    .pl-5 {
+      padding-left: 4.5rem !important;
+    }
   }
 
   .status-textarea {
@@ -969,7 +996,7 @@ $button: #8f98a9;
   color: #deb8dc;
 }
 
-.emoji-menu{
+.emoji-menu {
   width: 350px !important;
   max-width: 350px !important;
 }
@@ -992,6 +1019,6 @@ $button: #8f98a9;
   border-radius: 15px;
 }
 
-carousel{
-  height:1000px !important;
+carousel {
+  height: 1000px !important;
 }

@@ -5,7 +5,7 @@ import { SharedService } from '@app/services/shared.service';
 import { UserInteractionSocialpostPopoverComponent } from '@app/partials/popups/community/user-interaction-socialpost-popover/user-interaction-socialpost-popover.component';
 import { ShareUserPostPopoverComponent } from '@app/partials/popups/community/share-user-post-popover/share-user-post-popover.component';
 import { Gallery } from 'angular-gallery';
-
+import Swal from 'sweetalert2';
 declare var jQuery: any;
 
 @Component({
@@ -31,6 +31,7 @@ export class SocialPostsComponent implements OnInit {
       tasaId: this.user.tasaId,
       type: this.user.type,
       imageUrl: '',
+      field1:'',
     },
     sharedPosts: [],
   };
@@ -202,7 +203,6 @@ export class SocialPostsComponent implements OnInit {
   }
 
   addEmoji(event: any) {
-    console.log(event);
     this.socialConfig.newPost.content += ' ' + event.emoji.native + ' ';
     this.toggled = false;
   }
@@ -333,8 +333,8 @@ export class SocialPostsComponent implements OnInit {
 
     if ($t.isUsPopSeen) {
       setTimeout(() => {
-         destroyPop();
-      }, 3000)
+        destroyPop();
+      }, 3000);
     } else {
       destroyPop();
     }
@@ -591,6 +591,38 @@ export class SocialPostsComponent implements OnInit {
 
   triggerVideoUpload() {
     this.videoFileUpload.nativeElement.click();
+  }
+
+  triggerAddLink() {
+    let $t = this;
+    Swal.fire({
+      title: 'Add Link',
+      input: 'text',
+      inputAttributes: {
+        autocapitalize: 'off',
+        placeholder: 'Link',
+      },
+      showCancelButton: true,
+      confirmButtonText: 'Send',
+      confirmButtonClass: 'rounded-pill shadow-sm',
+      cancelButtonClass: 'rounded-pill shadow-sm',
+      showLoaderOnConfirm: true,
+      preConfirm: (data) => {
+        if (data === '') {
+          Swal.showValidationMessage('Please Enter Link');
+        }
+      },
+      allowOutsideClick: () => !Swal.isLoading(),
+    }).then((result) => {
+      if (result) {
+        if (result.dismiss) {
+          Swal.close();
+        }
+        if (result.value) {
+          $t.socialConfig.newPost.field1 = result.value;
+        }
+      }
+    });
   }
 
   uploadFile(_event: any, _case: string) {

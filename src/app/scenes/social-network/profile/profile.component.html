@@ -211,7 +211,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="card-body max-vertical-h-90 stylishSlimScroll flow-y-auto flow-x-hidden">
+                        <div class="card-body stylishSlimScroll flow-y-auto flow-x-hidden">
                           <form>
                             <!-- Description -->
                             <div class="d-flex">
@@ -285,7 +285,7 @@
                                 <mat-icon
                                   class="text-primary curPoint"
                                   matTooltipPosition="below"
-                                  matTooltip="Edit User Information"
+                                  matTooltip="Edit Experience"
                                   (click)="editUser('Experience')"
                                   >edit</mat-icon
                                 >
@@ -465,13 +465,13 @@
                               </div>
                             </div>
                             <div class="pl-lg-4">
-                              <div class="row">
+                              <div class="row" *ngIf="userConfig.user.isFreelancer === 'Y'">
                                 <div class="col-12">
                                   <div class="form-group focused">
                                     <label class="form-control-label" for="input-address">Areas of Expertise</label>
                                     <div class="card-intro pr-1 p-1 pl-2 mt-1">
                                       <span
-                                        class="badge badge-dark ml-2"
+                                        class="badge badge-dark ml-2 mt-2"
                                         style="font-size: 15px;"
                                         *ngFor="let item of userConfig.user.fieldsOfExpertise"
                                         >{{ item.areaOfExpertise }}</span
