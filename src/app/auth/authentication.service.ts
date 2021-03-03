@@ -55,6 +55,19 @@ export class AuthenticationService {
     return of(true);
   }
 
+  updateUserData(_user: any) {
+    let $t = this;
+    let apiUrl = this.sharedService.urlService.apiCallWithParams('getUserById', {
+      '{tasaId}': _user.tasaId,
+    });
+    $t.sharedService.configService.get(apiUrl).subscribe(
+      (response: any) => {
+        $t.login(response.responseObj);
+      },
+      (error) => {}
+    );
+  }
+
   openLoginPopup() {
     this.sharedService.dialogService.open(LoginPopupComponent, {
       width: '600px',
@@ -67,7 +80,7 @@ export class AuthenticationService {
     this.sharedService.dialogService.open(NewSignupPopupComponent, {
       width: '900px',
       position: {
-        top: '150px'
+        top: '150px',
       },
       data: { authenticationService: this, case: _case, email: _email },
       disableClose: false,

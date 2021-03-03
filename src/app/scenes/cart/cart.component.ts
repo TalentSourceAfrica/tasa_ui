@@ -144,7 +144,6 @@ export class CartComponent implements OnInit {
     this.createForm();
     this.loadScript('https://checkout.flutterwave.com/v3.js');
     this.cartDetails = this.cartService.fetchData();
-    console.log(this.cartDetails);
     if (this.cartDetails.isSubscription) {
       this.amount = this.cartDetails.subscriptionData.price;
     } else if (this.cartDetails.isCourse) {

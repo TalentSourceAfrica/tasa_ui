@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { AuthenticationService, CredentialsService } from '@app/auth';
 
 @Component({
   selector: 'app-transaction',
@@ -13,7 +14,11 @@ export class TransactionComponent implements OnInit {
     tx_ref: '',
     typeOfPurchase: '',
   };
-  constructor(private route: ActivatedRoute) {
+  constructor(
+    private route: ActivatedRoute,
+    private credentialsService: CredentialsService,
+    private authenticationService: AuthenticationService
+  ) {
     const qParams = this.route.snapshot.queryParams;
     this.transactionConfig.status = qParams.status;
     this.transactionConfig.transaction_id = qParams.transaction_id;
@@ -22,6 +27,11 @@ export class TransactionComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // location.reload();
+    this.authenticationService.updateUserData(this.user);
+  }
+
+  get user(): any | null {
+    const credentials = this.credentialsService.credentials;
+    return credentials ? credentials : null;
   }
 }

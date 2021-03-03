@@ -20,7 +20,7 @@
           </div> -->
           <section>
             <div class="holder" style="zoom: 75%;">
-              <div class="plan__options plan-left m-2 animated fadeInUp" [ngClass]="{'plan-middle': item.id == 'Silver' }" *ngFor="let item of tiers">
+              <div class="plan__options plan-left m-2 animated fadeInUp" [ngClass]="{'plan-middle': item.id == 'Silver' }" *ngFor="let item of subscriptions">
                 <div class="head">
                   <div class="shape shape-green"></div>
                   <div class="content">
@@ -95,7 +95,8 @@
                     ><span [ngClass]="{'strike': item.notifyProfileViews === 'N'}">Profile View Notification</span>
                   </li>
                 </ul>
-                <button class="button button-primary" (click)="subscribeNow(item)" >choose plan <i class="fas fa-arrow-right"></i></button>
+                <button class="button button-primary" *ngIf="!item.isActive" (click)="subscribeNow(item)" >choose plan <i class="fas fa-arrow-right"></i></button>
+                <button class="button button-success" *ngIf="item.isActive"><h1>😎</h1>Current Active Plan!</button>
               </div>
 
               <!-- <div class="plan__options plan-middle">

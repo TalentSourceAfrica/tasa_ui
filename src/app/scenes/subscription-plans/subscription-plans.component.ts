@@ -3,6 +3,7 @@ import { SharedService } from '@app/services/shared.service';
 import { CartService } from '../cart/cart.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { CredentialsService } from '@app/auth';
 
 @Component({
   selector: 'app-subscription-plans',
@@ -10,14 +11,26 @@ import { Router } from '@angular/router';
   styleUrls: ['./subscription-plans.component.scss'],
 })
 export class SubscriptionPlansComponent implements OnInit {
-  tiers: any;
-  constructor(public sharedService: SharedService, private cartService: CartService, private router: Router) {}
+  subscriptions: any;
+  constructor(
+    public sharedService: SharedService,
+    private cartService: CartService,
+    private router: Router,
+    private credentialsService: CredentialsService
+  ) {}
 
   getTiers() {
     let apiUrl = this.sharedService.urlService.simpleApiCall('getSubscriptions');
     this.sharedService.configService.get(apiUrl).subscribe(
       (response: any) => {
-        this.tiers = response.responseObj;
+        this.subscriptions = response.responseObj;
+        this.subscriptions.forEach((element: any) => {
+          if (element.id === this.user.currentSubscription.subscriptionId) {
+              element['isActive'] = true;
+          } else {
+            element['isActive'] = false;
+          }
+        });
       },
       (error) => {
         console.log(error);
@@ -51,5 +64,10 @@ export class SubscriptionPlansComponent implements OnInit {
 
   ngOnInit(): void {
     this.getTiers();
+  }
+
+  get user(): any | null {
+    const credentials = this.credentialsService.credentials;
+    return credentials ? credentials : null;
   }
 }

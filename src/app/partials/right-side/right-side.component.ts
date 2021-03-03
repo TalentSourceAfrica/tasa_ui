@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CredentialsService } from '@app/auth';
 import { SharedService } from '@app/services/shared.service';
 
 @Component({
@@ -11,7 +12,7 @@ export class RightSideComponent implements OnInit {
     isFetching: false,
     data: [],
   };
-  constructor(public sharedService: SharedService) {}
+  constructor(public sharedService: SharedService, private credentialsService: CredentialsService) {}
 
   getNews() {
     this.newsConfig.isFetching = true;
@@ -29,5 +30,10 @@ export class RightSideComponent implements OnInit {
 
   ngOnInit(): void {
     this.getNews();
+  }
+
+  get user(): any | null {
+    const credentials = this.credentialsService.credentials;
+    return credentials ? credentials : null;
   }
 }

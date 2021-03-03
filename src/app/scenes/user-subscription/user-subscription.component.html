@@ -19,8 +19,8 @@
           <div class="p-2 text-center">
             <h2 class="caps"><span class="text-muted">PLAN : </span>{{ mySubscription.subscriptionId }}</h2>
           </div>
-          <div class="card-header bg-lavender text-center">
-            <div class="holder bg-lavender pb-4">
+          <div class="card-header bg-theme text-center">
+            <div class="holder pb-4">
               <div class="plan__options plan-left m-2 animated fadeInUp m-auto">
                 <div class="head d-flex">
                   <div class="shape shape-green"></div>
@@ -30,15 +30,6 @@
                         {{ mySubscription.transactionStatus == 'successful' ? 'ACTIVE' : '' }}
                       </h2>
                     </h2>
-                    <!-- <h2>
-                    <span class="text-black"><span class="text-muted">Plan: </span>{{ cartDetails.subscriptionData.id }}</span>
-                  </h2>
-                  <h5>
-                    <span class="text-black">{{ cartDetails.subscriptionData.price * 12 | currency }}</span
-                    ><small> / Year</small>
-                    <span class="badge badge-warning">Pay {{ cartDetails.subscriptionData.price | currency }} <small> / Month</small></span
-                      >
-                  </h5> -->
                   </div>
                 </div>
                 <div class="line-divider"></div>
