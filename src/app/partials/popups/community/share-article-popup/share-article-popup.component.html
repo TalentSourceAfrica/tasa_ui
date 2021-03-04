@@ -1,0 +1,21 @@
+<div class="d-flex align-items-center no-gutters signup-wrapper">
+  <div class="col-sm-8 col-md-12 col-lg-12 mx-auto">
+    <div class="navbar-shadow">
+      <div class="card-header text-center">
+        <h4 class="card-title">Create Article</h4>
+      </div>
+      <div class="card-body">
+        <ng-container *ngTemplateOutlet="shareArticalTemplate"></ng-container>
+      </div>
+      <div class="form-group text-center">
+        <button mat-flat-button color="primary" disabled="true" type="submit" class="rounded-pill ml-2">
+          Post Article (Coming soon)
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #shareArticalTemplate>
+  <angular-editor [placeholder]="'Enter text here...'" [config]="config" [(ngModel)]="htmlContent"></angular-editor>
+</ng-template>

@@ -302,8 +302,6 @@ $light-blue: #523f6d80;
             border-bottom: none;
           }
           .imageblock {
-            width: 70px;
-            position: absolute;
             left: 5px;
             .notifimage {
               height: 60px;
@@ -312,8 +310,7 @@ $light-blue: #523f6d80;
           .messageblock {
             // width: 200px;
             position: relative;
-            left: 50px;
-            font-size: 12px;
+            font-size: 13px;
             .message {
               a {
                 color: $blue;

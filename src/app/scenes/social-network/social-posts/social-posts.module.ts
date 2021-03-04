@@ -8,17 +8,21 @@ import { AuthModule } from '@app/auth';
 import { MaterialModule } from '@app/modules/material.module';
 import { RouterModule } from '@angular/router';
 
-import { SocialPostsRoutingModule } from './social-posts-routing.module';
-import { SocialPostsComponent } from './social-posts.component';
-import { UserInteractionSocialpostPopoverComponent } from '@app/partials/popups/community/user-interaction-socialpost-popover/user-interaction-socialpost-popover.component';
-import { ShareUserPostPopoverComponent } from '@app/partials/popups/community/share-user-post-popover/share-user-post-popover.component';
+// module
+import { AngularEditorModule } from '@kolkov/angular-editor';
 import { SocialConnectionsModule } from '@app/partials/social-network/social-connections/social-connections.module';
 import { LeftSideModule } from '@app/partials/left-side/left-side.module';
 import { RightSideModule } from '@app/partials/right-side/right-side.module';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
 import { SharedModule } from '@app/@shared';
 import { IvyGalleryModule } from 'angular-gallery';
+import { SocialPostsRoutingModule } from './social-posts-routing.module';
 
+// component
+import { SocialPostsComponent } from './social-posts.component';
+import { UserInteractionSocialpostPopoverComponent } from '@app/partials/popups/community/user-interaction-socialpost-popover/user-interaction-socialpost-popover.component';
+import { ShareUserPostPopoverComponent } from '@app/partials/popups/community/share-user-post-popover/share-user-post-popover.component';
+import { ShareArticlePopupComponent } from '@app/partials/popups/community/share-article-popup/share-article-popup.component';
 
 @NgModule({
   imports: [
@@ -37,9 +41,19 @@ import { IvyGalleryModule } from 'angular-gallery';
     LeftSideModule,
     RightSideModule,
     SharedModule,
-    IvyGalleryModule
+    IvyGalleryModule,
+    AngularEditorModule,
   ],
-  declarations: [SocialPostsComponent, UserInteractionSocialpostPopoverComponent, ShareUserPostPopoverComponent],
-  entryComponents: [UserInteractionSocialpostPopoverComponent, ShareUserPostPopoverComponent],
+  declarations: [
+    SocialPostsComponent,
+    UserInteractionSocialpostPopoverComponent,
+    ShareUserPostPopoverComponent,
+    ShareArticlePopupComponent,
+  ],
+  entryComponents: [
+    UserInteractionSocialpostPopoverComponent,
+    ShareUserPostPopoverComponent,
+    ShareArticlePopupComponent,
+  ],
 })
 export class SocialPostsModule {}

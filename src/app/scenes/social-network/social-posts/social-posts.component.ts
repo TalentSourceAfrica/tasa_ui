@@ -4,8 +4,10 @@ import { SharedService } from '@app/services/shared.service';
 
 import { UserInteractionSocialpostPopoverComponent } from '@app/partials/popups/community/user-interaction-socialpost-popover/user-interaction-socialpost-popover.component';
 import { ShareUserPostPopoverComponent } from '@app/partials/popups/community/share-user-post-popover/share-user-post-popover.component';
+import { ShareArticlePopupComponent } from '@app/partials/popups/community/share-article-popup/share-article-popup.component';
 import { Gallery } from 'angular-gallery';
 import Swal from 'sweetalert2';
+
 declare var jQuery: any;
 
 @Component({
@@ -64,6 +66,24 @@ export class SocialPostsComponent implements OnInit {
         user: $t.user,
         onSubmit: (fromDialog: any) => {
           $t.sharePost(fromDialog);
+        },
+      },
+    });
+  }
+
+  openShareArticlePopup(_post: any) {
+    let $t = this;
+    $t.sharedService.dialogService.open(ShareArticlePopupComponent, {
+      width: '60%',
+      position: {
+        top: '75px',
+      },
+      data: {
+        post: _post,
+        user: $t.user,
+        onSubmit: (fromDialog: any) => {
+          console.log(fromDialog);
+          // $t.sharePost(fromDialog);
         },
       },
     });

@@ -28,9 +28,10 @@
                       <span class="text-black">{{ item.id }}</span>
                     </h2>
                     <h5>
-                      <span class="text-black">{{ item.price * 12 | currency }}</span
-                      ><small> / Year</small>
+                      <span class="text-black">{{ item.price | currency }}</span
+                      ><small> / Month</small>
                     </h5>
+                    <h6 class="mb-0">It will be {{ item.price * 12 | currency }} / year</h6>
                   </div>
                 </div>
                 <div class="line-divider"></div>

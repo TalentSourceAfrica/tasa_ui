@@ -45,7 +45,7 @@
                         class="profile-cover"
                       />
                     </div> -->
-                    <div class="timeline pl-2 min-vertical-h-80">
+                    <div class="timeline pl-2">
                       <!-- <div class="timeline-left d-none">
                         <div class="intro box p-0">
                           <div class="user-profile text-center">
@@ -111,16 +111,14 @@
                           </div>
                         </div>
                       </div> -->
-                      <div
-                        class="timeline-right mb-4"
-                      >
+                      <div class="timeline-right mb-4">
                         <div class="status box animated fadeIn shadow-sm">
                           <div class="row status-main no-gutters">
                             <img
                               [src]="user.image"
                               class="status-img curPoint mt-2"
                               [class.mr-1]="socialConfig.newPost.videoUrl != ''"
-                              (click)="showProfilePic(user,0)"
+                              (click)="showProfilePic(user, 0)"
                             />
                             <!-- [class.col-12]="
                             socialConfig.newPost.imageUrl != '' || socialConfig.newPost.videoUrl != '' || socialConfig.newPost.field1 != ''
@@ -148,8 +146,15 @@
                               </video>
                             </div>
                             <div *ngIf="socialConfig.newPost.field1 != ''" class="pl-5 link-preview">
-                                <a [href]="socialConfig.newPost.field1" target="_blank">{{socialConfig.newPost.field1}}</a>
-                                <mat-icon class="pl-2 text-primary position-relative" style="top:5px;" (click)="socialConfig.newPost.field1 = ''">clear</mat-icon>
+                              <a [href]="socialConfig.newPost.field1" target="_blank">{{
+                                socialConfig.newPost.field1
+                              }}</a>
+                              <mat-icon
+                                class="pl-2 text-primary position-relative"
+                                style="top: 5px;"
+                                (click)="socialConfig.newPost.field1 = ''"
+                                >clear</mat-icon
+                              >
                             </div>
                           </div>
                           <mat-progress-bar
@@ -183,17 +188,6 @@
                                   <mat-icon>video_library</mat-icon>
                                 </button>
                                 <button
-                                mat-mini-fab
-                                color="primary"
-                                style="z-index: 9;"
-                                class="mr-2"
-                                (click)="triggerAddLink()"
-                                matTooltipPosition="below"
-                                matTooltip="Add Link"
-                              >
-                                <mat-icon>share</mat-icon>
-                              </button>
-                                <button
                                   *ngIf="socialConfig.newPost.imageUrl != ''"
                                   mat-mini-fab
                                   color="primary"
@@ -222,6 +216,17 @@
                                 </button>
                                 <button
                                   mat-mini-fab
+                                  color="primary"
+                                  style="z-index: 9;"
+                                  class="mr-2"
+                                  (click)="triggerAddLink()"
+                                  matTooltipPosition="below"
+                                  matTooltip="Add Link"
+                                >
+                                  <mat-icon>share</mat-icon>
+                                </button>
+                                <button
+                                  mat-mini-fab
                                   class="attachment"
                                   (click)="toggled = !toggled"
                                   matTooltipPosition="below"
@@ -235,6 +240,14 @@
                                 </mat-menu>
                               </div>
                               <div class="col-4 text-right">
+                                <button
+                                  mat-flat-button
+                                  color="primary"
+                                  (click)="openShareArticlePopup(socialConfig.newPost)"
+                                  class="rounded-pill ml-2 curPoint"
+                                >
+                                  Share Article
+                                </button>
                                 <button
                                   mat-flat-button
                                   color="primary"
@@ -263,7 +276,7 @@
                           />
                         </div>
                         <div
-                          class="min-vertical-h-90 max-vertical-h-90 mt-2 stylishSlimScroll flow-y-auto flow-x-hidden pt-2 pl-4 pr-4"
+                          class="mt-2 pt-2 pl-4 pr-4"
                           id="postsListing"
                         >
                           <div class="row no-gutters text-center">
@@ -351,8 +364,8 @@
                                     </video>
                                   </div>
                                   <div *ngIf="post.field1 != ''" class="pl-2 link-preview">
-                                    <a [href]="post.field1" target="_blank">{{post.field1}}</a>
-                                </div>
+                                    <a [href]="post.field1" target="_blank">{{ post.field1 }}</a>
+                                  </div>
                                 </div>
                                 <div
                                   *ngIf="post.sharePostId != ''"

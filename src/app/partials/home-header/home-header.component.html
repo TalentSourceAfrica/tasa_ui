@@ -490,24 +490,25 @@
         (click)="notiRedirect(item, i)"
         *ngFor="let item of notificationsData; let i = index"
       >
-        <a>
+        <a class="d-flex">
           <div class="imageblock ml-1">
-            <button mat-mini-fab *ngIf="item.jobId != '' && item.jobId != 'string'">
+            <button class="animated fadeIn" mat-mini-fab *ngIf="item.jobId != '' && item.jobId != 'string'">
               <mat-icon>work</mat-icon>
             </button>
-            <button mat-mini-fab *ngIf="item.courseId != '' && item.courseId != 'string'">
+            <button class="animated fadeIn"  mat-mini-fab *ngIf="item.courseId != '' && item.courseId != 'string'">
               <mat-icon>school</mat-icon>
             </button>
-            <button mat-mini-fab color="warn" *ngIf="item.connRequestId != '' && item.connRequestId != 'string'">
+            <button class="animated fadeIn"  mat-mini-fab color="warn" *ngIf="item.connRequestId != '' && item.connRequestId != 'string'">
               <mat-icon>person</mat-icon>
             </button>
-            <button mat-mini-fab color="warn" *ngIf="item.messageId != '' && item.messageId != 'string'">
+            <button class="animated fadeIn"  mat-mini-fab color="warn" *ngIf="item.messageId != '' && item.messageId != 'string'">
               <mat-icon>message</mat-icon>
             </button>
-            <button mat-mini-fab color="warn" *ngIf="item.postId != '' && item.postId != 'string'">
+            <button class="animated fadeIn"  mat-mini-fab color="warn" *ngIf="item.postId != '' && item.postId != 'string'">
               <mat-icon>notes</mat-icon>
             </button>
             <button
+              class="animated fadeIn" 
               mat-mini-fab
               color="primary"
               *ngIf="
@@ -521,9 +522,9 @@
               <mat-icon>notifications_active</mat-icon>
             </button>
           </div>
-          <div class="messageblock">
+          <div class="messageblock pl-3">
             <div class="message">{{ item.message }}</div>
-            <div class="messageinfo text-left"><i class="icon-trophy"></i>{{ getNotiDay(item) }}</div>
+            <div class="messageinfo text-left font10 pt-1"><i class="icon-trophy"></i>{{ getNotiDay(item) }}</div>
           </div>
         </a>
       </li>
