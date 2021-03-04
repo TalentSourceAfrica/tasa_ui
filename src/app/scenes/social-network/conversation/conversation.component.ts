@@ -5,7 +5,6 @@ import { documents } from '@app/models/constants';
 import { SharedService } from '@app/services/shared.service';
 import { Observable, forkJoin } from 'rxjs';
 
-
 //extra
 declare var jQuery: any;
 
@@ -211,7 +210,7 @@ export class ConversationComponent implements OnInit {
         $t.message = '';
         $t.attachmentConfig.fileType = '';
         $t.attachmentConfig.file = '';
-        $t.getAllChatByChatId();
+        $t.getAllChatByChatId(true);
       },
       (error) => {
         $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
@@ -238,10 +237,10 @@ export class ConversationComponent implements OnInit {
     );
   }
 
-  getAllChatByChatId() {
+  getAllChatByChatId(_fromNewMsg?: boolean) {
     let $t = this;
     let apiUrl: any;
-    $t.connectionConfig.isFetchingMsgList = true;
+    _fromNewMsg ? null : ($t.connectionConfig.isFetchingMsgList = true);
 
     if ($t.connectionConfig.isGroupSelected) {
       apiUrl = $t.sharedService.urlService.apiCallWithParams('getAllMessagesByGroup', {
@@ -258,7 +257,7 @@ export class ConversationComponent implements OnInit {
         $t.connectionConfig.currentMsgList = response.responseObj.reverse();
         $t.connectionConfig.isFetchingMsgList = false;
         setTimeout(() => {
-          if($t.connectionConfig.currentMsgList.length > 8){
+          if ($t.connectionConfig.currentMsgList.length > 8) {
             if (document.querySelector('.last-msg')) {
               document.querySelector('.last-msg').scrollIntoView({
                 behavior: 'smooth',
@@ -266,7 +265,9 @@ export class ConversationComponent implements OnInit {
             }
           }
         }, 500);
-        $t.readMessages();
+        if (!_fromNewMsg) {
+          $t.readMessages();
+        }
         setTimeout(() => {
           $t.pollingForChat();
         }, 1000);

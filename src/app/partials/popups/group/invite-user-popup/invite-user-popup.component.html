@@ -14,9 +14,29 @@
 </div>
 
 <ng-template #groupFormTemplate>
-  <div class="max-vertical-h-50 stylishSlimScroll flow-y-auto flow-x-hidden p-2">
+  <div class="max-vertical-h-60 stylishSlimScroll flow-y-auto flow-x-hidden p-2">
     <ng-container *ngIf="!allUsers.isLoading">
-      <mat-radio-group
+      <mat-selection-list [(ngModel)]="selectedUserIds">
+        <mat-list-option *ngFor="let item of allUsers.data" [value]="item.email">
+          <div class="d-flex align-items-center">
+            <img
+              *ngIf="!item.image || item.image == 'string'"
+              src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
+              class="user-img ml-2"
+            />
+            <img
+              *ngIf="item.image && item.image != 'string'"
+              [src]="item.image"
+              class="user-img ml-2"
+            />
+            <span class="ml-1" [title]="item.firstName + ' ' + item.lastName">
+              {{ item.firstName }} {{ item.lastName }}</span
+            >
+          </div>
+        </mat-list-option>
+      </mat-selection-list>
+      
+      <!-- <mat-radio-group
         aria-labelledby="example-radio-group-label"
         class="example-radio-group"
         [(ngModel)]="selectedUser"
@@ -38,7 +58,7 @@
             >
           </div>
         </mat-radio-button>
-      </mat-radio-group>
+      </mat-radio-group> -->
     </ng-container>
     <div *ngIf="allUsers.isLoading">
       <ng-container *ngTemplateOutlet="loader"></ng-container>
@@ -49,7 +69,7 @@
       mat-flat-button
       color="primary"
       class="mt-4"
-      [disabled]="!selectedUser"
+      [disabled]="!selectedUserIds.length"
       (click)="submit()"
       class="rounded-pill ml-2"
     >

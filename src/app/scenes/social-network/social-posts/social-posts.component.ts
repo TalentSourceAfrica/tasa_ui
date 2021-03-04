@@ -623,7 +623,7 @@ export class SocialPostsComponent implements OnInit {
         placeholder: 'Link',
       },
       showCancelButton: true,
-      confirmButtonText: 'Send',
+      confirmButtonText: 'Add',
       confirmButtonClass: 'rounded-pill shadow-sm',
       cancelButtonClass: 'rounded-pill shadow-sm',
       showLoaderOnConfirm: true,

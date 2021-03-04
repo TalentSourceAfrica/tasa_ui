@@ -165,6 +165,7 @@ export const urls: any = {
   getAllActiveGroupByUser: '/groups/mygroups/{userId}', // G
   sendRequestToGroup: '/groupRequest/{userId}/{groupId}', // PO
   sendRequestToPeople: '/groupInvite/{adminId}/{userId}/{groupId}', // PO
+  sendRequestToMultiplePeople: '/groupInvites/{adminId}/{groupId}', // PO
 
   // Subscription
   subscribeForTier: '/subs/subscribe/{tasaId}/{subscriptionId}', // PO

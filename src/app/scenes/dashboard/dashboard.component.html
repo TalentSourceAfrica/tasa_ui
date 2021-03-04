@@ -456,7 +456,10 @@
                 <div
                   class="card-body p-2 jobs min-vertical-h-30 max-vertical-h-30 stylishSlimScroll flow-y-auto flow-x-hidden"
                 >
-                  <div *ngIf="recommendedJobs.data.length && !recommendedJobs.isFetching && isAllowedJobConfig.allowed" class="row pr-1 no-gutters">
+                  <div
+                    *ngIf="recommendedJobs.data.length && !recommendedJobs.isFetching && isAllowedJobConfig.allowed"
+                    class="row pr-1 no-gutters"
+                  >
                     <div
                       class="recommended-jobs col-12 border mb-1 curPoint job-list p-2"
                       [routerLink]="['/job/', job.id]"
@@ -495,7 +498,11 @@
                       </div>
                     </div>
                   </div>
-                  <div *ngIf="recommendedJobs.data.length == 0 && !recommendedJobs.isFetching && isAllowedJobConfig.allowed">
+                  <div
+                    *ngIf="
+                      recommendedJobs.data.length == 0 && !recommendedJobs.isFetching && isAllowedJobConfig.allowed
+                    "
+                  >
                     <div class="text-center m-auto animated fadeIn">
                       <div class="col-12 text-center">
                         <img src="../../../assets/images/no-record.gif" style="height: 190px;" class="d-block m-auto" />
@@ -503,12 +510,15 @@
                       </div>
                     </div>
                   </div>
-                  <ng-template *ngIf="recommendedJobs.isFetching && isAllowedJobConfig.allowed" [ngTemplateOutlet]="loader"></ng-template>
                   <ng-template
-                  *ngIf="!recommendedJobs.isFetching && !isAllowedJobConfig.allowed"
-                  [ngTemplateOutlet]="noSubscription"
-                  [ngTemplateOutletContext]="{ data: isAllowedJobConfig.message }"
-                ></ng-template>
+                    *ngIf="recommendedJobs.isFetching && isAllowedJobConfig.allowed"
+                    [ngTemplateOutlet]="loader"
+                  ></ng-template>
+                  <ng-template
+                    *ngIf="!recommendedJobs.isFetching && !isAllowedJobConfig.allowed"
+                    [ngTemplateOutlet]="noSubscription"
+                    [ngTemplateOutletContext]="{ data: isAllowedJobConfig.message }"
+                  ></ng-template>
                 </div>
               </div>
               <!-- <div class="card mt-2" *ngIf="user.recentlyViewedJobs?.length">
@@ -550,6 +560,15 @@
           </div>
           <div class="pt-4" *ngIf="user.type == 'Recruiter'">
             <div class="card m-0">
+              <ng-container *ngIf="!matTableConfig.isFetching">
+                <highcharts-chart
+                  [Highcharts]="Highcharts"
+                  [options]="chartOptions"
+                  style="width: 100%; height: 400px; display: block;"
+                ></highcharts-chart>
+              </ng-container>
+            </div>
+            <div class="card m-0 mt-4">
               <div class="card-body p-0">
                 <div class="table-container">
                   <div class="mat-table-container stylishSlimScroll min-vertical-h-40 max-vertical-h-40">

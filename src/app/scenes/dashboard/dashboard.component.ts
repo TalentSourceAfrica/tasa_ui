@@ -6,6 +6,9 @@ import { OwlOptions } from 'ngx-owl-carousel-o';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { ShowApplicantsComponent } from '@app/partials/popups/recruiter/show-applicants/show-applicants.component';
+import * as Highcharts from 'highcharts';
+const Drilldown = require('highcharts/modules/drilldown');
+Drilldown(Highcharts);
 
 @Component({
   selector: 'app-dashboard',
@@ -84,13 +87,63 @@ export class DashboardComponent implements OnInit {
       'applicationRejectedCount',
       'applicationAcceptedCount',
     ],
+    isFetching:false,
     resultsLength: 0,
   };
   matTabData: any = [];
 
   isAllowedCourseConfig: any = { allowed: true, message: '' }; // when user exceed the subscription plan
   isAllowedJobConfig: any = { allowed: true, message: '' }; // when user exceed the subscription plan
+  Highcharts: typeof Highcharts = Highcharts;
+  chartOptions: any = {
+    chart: {
+      type: 'column',
+    },
+    title: {
+      text: 'All Job Posting',
+    },
+    subtitle: {
+      text:
+        '',
+    },
+    accessibility: {
+      announceNewData: {
+        enabled: true,
+      },
+    },
+    xAxis: {
+      type: 'category',
+    },
+    yAxis: {
+      title: {
+        text: 'Total percent student applied',
+      },
+    },
+    legend: {
+      enabled: false,
+    },
+    plotOptions: {
+      series: {
+        borderWidth: 0,
+        dataLabels: {
+          enabled: true,
+          format: '{point.y:.1f}%',
+        },
+      },
+    },
 
+    tooltip: {
+      headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+      pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>',
+    },
+    series: [
+      {
+        name: 'All Job POsting',
+        colorByPoint: true,
+        data: [],
+      },
+    ],
+  };
   constructor(
     public sharedService: SharedService,
     private router: Router,
@@ -109,7 +162,7 @@ export class DashboardComponent implements OnInit {
         job: job,
         user: this.user,
         applicantStatus: applicantStatus,
-        fromWhere: 'rec-dashboard'
+        fromWhere: 'rec-dashboard',
       },
       disableClose: false,
     });
@@ -120,13 +173,27 @@ export class DashboardComponent implements OnInit {
     let api = $t.sharedService.urlService.apiCallWithParams('getJobsByOrg', {
       '{orgId}': $t.user.orgId,
     });
+    let totalApplicantOfAllJobs = 0;
+    $t.matTableConfig.isFetching = true;
     $t.sharedService.configService.get(api).subscribe(
       (response: any) => {
         $t.matTableConfig.data = response.responseObj;
+        $t.matTableConfig.data.forEach((element: any) => {
+          totalApplicantOfAllJobs += element.applicants.length;
+        });
+        $t.matTableConfig.data.forEach((element: any) => {
+          $t.chartOptions.series[0].data.push({
+            name: element.title,
+            y: (element.applicants.length / totalApplicantOfAllJobs) * 100,
+          });
+        });
+        console.log($t.chartOptions);
         $t.matTableConfig.resultsLength = $t.matTableConfig.data.length;
+        $t.matTableConfig.isFetching = false;
       },
       (error) => {
         $t.sharedService.uiService.showApiErrorPopMsg(error);
+        $t.matTableConfig.isFetching = false;
       }
     );
   }
@@ -199,7 +266,7 @@ export class DashboardComponent implements OnInit {
         $t.recommendedCourses.isFetching = false;
       },
       (error) => {
-        if(error.status == 403){
+        if (error.status == 403) {
           $t.isAllowedCourseConfig.allowed = false;
           $t.isAllowedCourseConfig.message = error.error.message;
         }
@@ -220,7 +287,7 @@ export class DashboardComponent implements OnInit {
         $t.recommendedJobs.isFetching = false;
       },
       (error) => {
-        if(error.status == 403){
+        if (error.status == 403) {
           $t.isAllowedJobConfig.allowed = false;
           $t.isAllowedJobConfig.message = error.error.message;
         }

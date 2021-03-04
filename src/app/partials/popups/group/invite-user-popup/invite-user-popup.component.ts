@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { SocialnetworkService } from '@app/scenes/social-network/socialnetwork.service';
 import { SharedService } from '@app/services/shared.service';
@@ -15,8 +15,9 @@ export class InviteUserPopupComponent implements OnInit {
     isLoading: false,
     data: [],
   };
-  selectedUser: any;
   popupData: any;
+  selectedUser: any = [];
+  selectedUserIds: any = [];
   constructor(
     private socialnetworkService: SocialnetworkService,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -52,6 +53,17 @@ export class InviteUserPopupComponent implements OnInit {
     );
   }
 
+  onUserSelection(event: any, id: number) {
+    if (this.selectedUser.includes(id)) {
+      const index = this.selectedUser.indexOf(id);
+      if (index > -1) {
+        this.selectedUser.splice(index, 1);
+      }
+    } else {
+      this.selectedUser.push(id);
+    }
+  }
+
   submit() {
     Swal.fire({
       title: 'Message',
@@ -77,13 +89,18 @@ export class InviteUserPopupComponent implements OnInit {
           Swal.close();
         }
         if (result.value) {
-          this.sharedService.uiService.showApiStartPopMsg('Inviting User...');
-          let apiUrl = this.sharedService.urlService.apiCallWithParams('sendRequestToPeople', {
+          let payload = {
+            users: this.selectedUserIds,
+            message: result.value,
+          };
+          this.sharedService.uiService.showApiStartPopMsg('Inviting User(s)...');
+          // sendRequestToMultiplePeople
+          console.log(this.selectedUserIds);
+          let apiUrl = this.sharedService.urlService.apiCallWithParams('sendRequestToMultiplePeople', {
             '{adminId}': this.popupData.user.email,
-            '{userId}': this.selectedUser.email,
             '{groupId}': this.popupData.group.groupId,
           });
-          this.sharedService.configService.post(apiUrl, result.value).subscribe(
+          this.sharedService.configService.post(apiUrl, payload).subscribe(
             (response: any) => {
               this.sharedService.uiService.showApiSuccessPopMsg(response.message);
               this.dialogRef.close();
