@@ -258,11 +258,13 @@ export class ConversationComponent implements OnInit {
         $t.connectionConfig.isFetchingMsgList = false;
         setTimeout(() => {
           if ($t.connectionConfig.currentMsgList.length > 8) {
-            if (document.querySelector('.last-msg')) {
-              document.querySelector('.last-msg').scrollIntoView({
-                behavior: 'smooth',
-              });
-            }
+            var element = document.getElementById('message');
+            element.scrollTop = element.scrollHeight - element.clientHeight;
+            // if (document.querySelector('.last-msg')) {
+            //   document.querySelector('.last-msg').scrollIntoView({
+            //     behavior: 'smooth',
+            //   });
+            // }
           }
         }, 500);
         if (!_fromNewMsg) {
