@@ -22,6 +22,7 @@ export class DashboardComponent implements OnInit {
   uds: any;
   postData: any = [];
   courses: any = [];
+  selectedJobId:any;
   recommendedCourses: any = {
     isFetching: false,
     data: [],
@@ -87,7 +88,7 @@ export class DashboardComponent implements OnInit {
       'applicationRejectedCount',
       'applicationAcceptedCount',
     ],
-    isFetching:false,
+    isFetching: false,
     resultsLength: 0,
   };
   matTabData: any = [];
@@ -99,12 +100,23 @@ export class DashboardComponent implements OnInit {
     chart: {
       type: 'column',
     },
+    colors: [
+      '#2f7ed8',
+      '#0d233a',
+      '#8bbc21',
+      '#910000',
+      '#1aadce',
+      '#492970',
+      '#f28f43',
+      '#77a1e5',
+      '#c42525',
+      '#a6c96a',
+    ],
     title: {
       text: 'All Job Posting',
     },
     subtitle: {
-      text:
-        '',
+      text: '',
     },
     accessibility: {
       announceNewData: {
@@ -129,20 +141,32 @@ export class DashboardComponent implements OnInit {
           enabled: true,
           format: '{point.y:.1f}%',
         },
+        events: {
+          click: (data: any) => {
+            data.point.drilldown ? this.selectedJobId = data.point.jobId : null;
+            if (data && data.point && !data.point.drilldown) {
+              // const jobId = data.point.jobId;
+              const job = this.matTableConfig.data.find((d: any) => d.jobId === this.selectedJobId);
+              this.showApplicants(job, data, data.point.name);
+            }
+          },
+        },
       },
     },
-
     tooltip: {
       headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
       pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>',
     },
     series: [
       {
-        name: 'All Job POsting',
+        name: 'All Job Posting',
         colorByPoint: true,
         data: [],
       },
     ],
+    drilldown: {
+      series: [],
+    },
   };
   constructor(
     public sharedService: SharedService,
@@ -154,8 +178,8 @@ export class DashboardComponent implements OnInit {
   }
 
   showApplicants(job: any, event: any, applicantStatus: string) {
-    event.stopPropagation();
-    event.preventDefault();
+    // event.stopPropagation();
+    // event.preventDefault();
     this.sharedService.dialogService.open(ShowApplicantsComponent, {
       width: '80%',
       data: {
@@ -173,22 +197,12 @@ export class DashboardComponent implements OnInit {
     let api = $t.sharedService.urlService.apiCallWithParams('getJobsByOrg', {
       '{orgId}': $t.user.orgId,
     });
-    let totalApplicantOfAllJobs = 0;
     $t.matTableConfig.isFetching = true;
     $t.sharedService.configService.get(api).subscribe(
       (response: any) => {
         $t.matTableConfig.data = response.responseObj;
-        $t.matTableConfig.data.forEach((element: any) => {
-          totalApplicantOfAllJobs += element.applicants.length;
-        });
-        $t.matTableConfig.data.forEach((element: any) => {
-          $t.chartOptions.series[0].data.push({
-            name: element.title,
-            y: (element.applicants.length / totalApplicantOfAllJobs) * 100,
-          });
-        });
-        console.log($t.chartOptions);
         $t.matTableConfig.resultsLength = $t.matTableConfig.data.length;
+        $t.createChartData();
         $t.matTableConfig.isFetching = false;
       },
       (error) => {
@@ -196,6 +210,46 @@ export class DashboardComponent implements OnInit {
         $t.matTableConfig.isFetching = false;
       }
     );
+  }
+
+  createChartData() {
+    let $t = this;
+    let totalApplicantOfAllJobs = 0;
+
+    $t.matTableConfig.data.forEach((element: any) => {
+      totalApplicantOfAllJobs += element.applicants.length;
+    });
+    $t.matTableConfig.data.forEach((element: any, index: any) => {
+      $t.chartOptions.series[0].data.push({
+        name: element.title,
+        y: (element.applicants.length / totalApplicantOfAllJobs) * 100,
+        jobId: element.jobId,
+        drilldown: element.jobId,
+      });
+
+      $t.chartOptions.drilldown.series.push({
+        name: element.title,
+        id: element.jobId,
+        data: [],
+      });
+      $t.chartOptions.drilldown.series[index].data.push(
+        {
+          name: 'Applied',
+          y: element.applicationReceivedCount,
+        },
+        {
+          name: 'Accepted',
+          y: element.applicationAcceptedCount,
+        },
+        {
+          name: 'Rejected',
+          y: element.applicationRejectedCount,
+        }
+      );
+      // {name:'abc',y:80},
+      // {name:'kjhjkjh',y:20}
+    });
+    console.log($t.chartOptions);
   }
 
   goToHome() {
