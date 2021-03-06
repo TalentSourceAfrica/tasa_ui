@@ -16,6 +16,9 @@ $userActionColor: #004e98;
   .course-recommendation {
     .card-header {
       background-color: $recommendationColor !important;
+      .fas{
+        animation: swing ease-in-out 3s 1 alternate;
+      }
     }
     .card-body {
       background-color: #fb850036 !important;
@@ -39,6 +42,9 @@ $userActionColor: #004e98;
   .user-action-card {
     .card-header {
       background-color: $userActionColor !important;
+      .fas{
+        animation: swing ease-in-out 3s 1 alternate;
+      }
     }
     .card-body {
       background-color: #accbe1 !important;
