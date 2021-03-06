@@ -1,4 +1,9 @@
+$recommendationColor: #fb8500;
+$userActionColor: #004e98;
+
 .left-side-wrapper {
+  // position: fixed;
+  // width: 25%;
   .circle-img {
     border-radius: 50%;
     width: 45px;
@@ -7,5 +12,48 @@
     object-fit: cover;
     object-position: center;
     border: 2px solid #ddd;
+  }
+  .course-recommendation {
+    .card-header {
+      background-color: $recommendationColor !important;
+    }
+    .card-body {
+      background-color: #fb850036 !important;
+    }
+    .course-detail {
+      border: 2px solid $recommendationColor;
+    }
+    .no-data-label {
+      color: $recommendationColor !important;
+    }
+    button {
+      background-color: $recommendationColor !important;
+    }
+    .badge-info {
+      background-color: $recommendationColor !important;
+    }
+    .material-icons {
+      color: $recommendationColor !important;
+    }
+  }
+  .user-action-card {
+    .card-header {
+      background-color: $userActionColor !important;
+    }
+    .card-body {
+      background-color: #accbe1 !important;
+    }
+    .detail {
+      border: 2px solid $userActionColor;
+    }
+    .no-data-label {
+      color: $userActionColor !important;
+    }
+    button {
+      background-color: $userActionColor !important;
+    }
+    .material-icons {
+      color: $recommendationColor !important;
+    }
   }
 }

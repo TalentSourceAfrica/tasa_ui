@@ -1,6 +1,10 @@
-.news-image {
-  height: 55px;
-  max-height: 55px;
-  max-width: 55px;
-  width: 55px;
+.right-side-wrapper {
+  position: fixed;
+  width: 15%;
+  .news-image {
+    height: 55px;
+    max-height: 55px;
+    max-width: 55px;
+    width: 55px;
+  }
 }

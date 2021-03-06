@@ -6,6 +6,10 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { SharedService } from '@app/services/shared.service';
 import { Router } from '@angular/router';
 
+//extra
+
+declare var jQuery: any;
+
 @Component({
   selector: 'app-user-details-popup',
   templateUrl: './user-details-popup.component.html',
@@ -142,9 +146,9 @@ export class UserDetailsPopupComponent implements OnInit {
     $t.userDetails.website = user.website;
 
     $t.sharedService.configService.put(apiUrl, $t.userDetails).subscribe(
-      (response:any) => {
+      (response: any) => {
         $t.popupData.authenticationService.login(response.responseObj);
-          $t.sharedService.uiService.showApiSuccessPopMsg(response.message);
+        $t.sharedService.uiService.showApiSuccessPopMsg(response.message);
         $t.dialogRef.close();
         $t.router.navigate(['/dashboard'], { replaceUrl: true });
       },
@@ -171,5 +175,45 @@ export class UserDetailsPopupComponent implements OnInit {
   ngOnInit(): void {
     this.getCountry();
     this.initForm(this.user.type);
+  }
+  ngAfterViewInit(): void {
+    jQuery('#wizard').steps({
+      headerTag: 'h4',
+      bodyTag: 'section',
+      transitionEffect: 'fade',
+      enableAllSteps: true,
+      transitionEffectSpeed: 500,
+      onStepChanging: function (event: any, currentIndex: any, newIndex: any) {
+        if (newIndex >= 1) {
+          $('.actions ul').addClass('actions-next');
+        } else {
+          $('.actions ul').removeClass('actions-next');
+        }
+        return true;
+      },
+      labels: {
+        finish: 'Finish',
+        next: 'Continue',
+        previous: 'Back',
+      },
+    });
+    // Custom Steps
+    jQuery('.wizard > .steps li a').click(function () {
+      jQuery(this).parent().addClass('checked');
+      jQuery(this).parent().prevAll().addClass('checked');
+      jQuery(this).parent().nextAll().removeClass('checked');
+    });
+    // Custom Button Jquery Step
+    jQuery('.forward').click(function () {
+      jQuery('#wizard').steps('next');
+    });
+    jQuery('.backward').click(function () {
+      jQuery('#wizard').steps('previous');
+    });
+    // Input Focus
+    jQuery('.form-holder').delegate('input', 'focus', function () {
+      jQuery('.form-holder').removeClass('active');
+      jQuery(this).parent().addClass('active');
+    });
   }
 }

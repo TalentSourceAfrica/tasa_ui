@@ -49,6 +49,7 @@
               "src/assets/js/stellarnav.min.js",
               "src/assets/js/vendor/dom-factory.js",
               "src/assets/js/vendor/material-design-kit.js",
+              "src/assets/js/vendor/jquery.steps.js",
               "node_modules/webui-popover/dist/jquery.webui-popover.min.js"
             ]
           },

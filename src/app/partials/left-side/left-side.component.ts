@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { untilDestroyed } from '@app/@core';
 import { AuthenticationService, CredentialsService } from '@app/auth';
 import { SharedService } from '@app/services/shared.service';
+import { delay } from 'rxjs/operators';
+
+//extra
+declare var jQuery: any;
 
 @Component({
   selector: 'app-left-side',
@@ -36,6 +41,53 @@ export class LeftSideComponent implements OnInit {
   jobApplications: any = [];
   isAllowedConfig: any = { allowed: true, message: '' }; // when user exceed the subscription plan
   isAllowedJobConfig: any = { allowed: true, message: '' }; // when user exceed the subscription plan
+  userProgressConfig: any = {
+    percent: 0,
+    radius: 60,
+    outerColor: '#523f6d',
+    innerColor: '#a39ab238',
+    title: 'Complete',
+    totalCommonFields: [
+      {
+        filedName: 'bio',
+        isValuePresent: false,
+      },
+      {
+        filedName: 'areaOfPreference',
+        isValuePresent: false,
+      },
+      {
+        filedName: 'careerGoals',
+        isValuePresent: false,
+      },
+      {
+        filedName: 'experience',
+        isValuePresent: false,
+        totalInsideFields: 3,
+      },
+      {
+        filedName: 'education',
+        isValuePresent: false,
+        totalInsideFields: 4,
+      },
+      {
+        filedName: 'certificate',
+        isValuePresent: false,
+      },
+      {
+        filedName: 'city',
+        isValuePresent: false,
+      },
+      {
+        filedName: 'state',
+        isValuePresent: false,
+      },
+      {
+        filedName: 'country',
+        isValuePresent: false,
+      },
+    ],
+  };
   constructor(
     public sharedService: SharedService,
     private credentialsService: CredentialsService,
@@ -82,7 +134,6 @@ export class LeftSideComponent implements OnInit {
         }
       );
     } else {
-     
       let apiUrl = $t.sharedService.urlService.apiCallWithParams('unfavCourse', {
         '{userId}': $t.user.email,
         '{courseKey}': _course.key,
@@ -145,7 +196,7 @@ export class LeftSideComponent implements OnInit {
         $t.setLogicForRecommendedCard();
       },
       (error) => {
-        if(error.status == 403){
+        if (error.status == 403) {
           $t.isAllowedConfig.allowed = false;
           $t.isAllowedConfig.message = error.error.message;
         }
@@ -166,7 +217,7 @@ export class LeftSideComponent implements OnInit {
         $t.recommendedJobs.isFetching = false;
       },
       (error) => {
-        if(error.status == 403){
+        if (error.status == 403) {
           $t.isAllowedJobConfig.allowed = false;
           $t.isAllowedJobConfig.message = error.error.message;
         }
@@ -195,6 +246,64 @@ export class LeftSideComponent implements OnInit {
     );
   }
 
+  checkOffset() {
+    if (jQuery('#left-side-wrappert').offset()) {
+      if (
+        jQuery('#left-side-wrapper').offset().top + jQuery('#left-side-wrapper').height() >=
+        jQuery('.footer-wrapper').offset().top - 10
+      )
+        jQuery('#left-side-wrapper').css('position', 'absolute');
+      if (jQuery(document).scrollTop() + window.innerHeight < jQuery('.footer-wrapper').offset().top)
+        jQuery('#left-side-wrapper').css('position', 'fixed');
+    }
+  }
+
+  calculateProfileProgress() {
+    let $t = this;
+    if ($t.user.type === 'Mentee') {
+      let totalFieldCount = $t.userProgressConfig.totalCommonFields.length;
+      if ($t.user.isFreelancer === 'Y') {
+        const freelanceFields = [
+          {
+            filedName: 'pastGigs',
+            isValuePresent: false,
+            totalInsideFields: 4,
+          },
+        ];
+        $t.userProgressConfig.totalCommonFields = [...$t.userProgressConfig.totalCommonFields, ...freelanceFields];
+      }
+
+      $t.userProgressConfig.totalCommonFields.forEach((element: any) => {
+        if (
+          element.filedName === 'experience' ||
+          element.filedName === 'pastGigs' ||
+          element.filedName === 'areaOfPreference' ||
+          element.filedName === 'education' ||
+          element.filedName === 'certificate'
+        ) {
+          $t.user[element.filedName].length ? (element.isValuePresent = true) : (element.isValuePresent = false);
+        } else {
+          $t.user[element.filedName] !== '' ? (element.isValuePresent = true) : (element.isValuePresent = false);
+        }
+      });
+      $t.userProgressConfig.percent =
+        $t.userProgressConfig.totalCommonFields.filter((d: any) => d.isValuePresent).length / totalFieldCount;
+
+      $t.userProgressConfig.percent = $t.userProgressConfig.percent * 100;
+
+      if ($t.userProgressConfig.percent <= 50) {
+        $t.userProgressConfig.outerColor = '#aa2b1d';
+        $t.userProgressConfig.innerColor = '#fa1e0e';
+      } else if ($t.userProgressConfig.percent > 50 && $t.userProgressConfig.percent <= 80) {
+        $t.userProgressConfig.outerColor = '#025955';
+        $t.userProgressConfig.innerColor = '#99bbad';
+      } else if ($t.userProgressConfig.percent > 80) {
+        $t.userProgressConfig.outerColor = '#523f6d';
+        $t.userProgressConfig.innerColor = '#a39ab238';
+      }
+    }
+  }
+
   get user(): any | null {
     const credentials = this.credentialsService.credentials;
     return credentials ? credentials : null;
@@ -204,5 +313,22 @@ export class LeftSideComponent implements OnInit {
     this.getRecommendedCourses();
     this.getRecommendedJobs();
     this.getJobsApplications();
+
+    this.calculateProfileProgress();
+    this.sharedService.utilityService.currentMessage.pipe(delay(10), untilDestroyed(this)).subscribe((message) => {
+      if (message === 'FETCH-USER-PROFILE') {
+        this.calculateProfileProgress();
+      }
+    });
+
+    jQuery(document).scroll(() => {
+      if (jQuery('.footer-wrapper').length) {
+        this.checkOffset();
+      } else {
+        jQuery('#left-side-wrappert').css('position', 'fixed');
+      }
+    });
   }
+
+  ngOnDestroy(): void {}
 }

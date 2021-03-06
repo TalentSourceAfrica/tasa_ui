@@ -1,28 +1,8 @@
 <div class="right-side-wrapper">
   <div class="row no-gutters">
-    <div class="col-12 text-center">
-      <ng-container *ngIf="user.type === 'Recruiter'">
+    <div class="col-12 text-center" *ngIf="user.type === 'Recruiter'">
+      <ng-container>
         <img [routerLink]="['/subscription-plans']" style="margin-top: -80px;" src="./assets/images/subscribe.gif" alt="Google Adsense" />
-      </ng-container>
-      <ng-container *ngIf="user.type === 'Mentee'">
-        <circle-progress
-          [percent]="userProgressConfig.percent"
-          [radius]="userProgressConfig.radius"
-          [outerStrokeWidth]="8"
-          [innerStrokeWidth]="5"
-          [outerStrokeColor]="userProgressConfig.outerColor"
-          [innerStrokeColor]="userProgressConfig.innerColor"
-          [subtitle]="userProgressConfig.title"
-          [animation]="true"
-          [animationDuration]="1000"
-        ></circle-progress>
-        <h6
-        class="text-muted curPoint underline"
-        [routerLink]="['/social-network/profile/', user.tasaId]"
-        routerLinkActive="router-link-active"
-      >
-        Complete Profile To Get Recommendations
-      </h6>
       </ng-container>
     </div>
     <div class="col-12">

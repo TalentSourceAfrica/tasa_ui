@@ -1,13 +1,38 @@
-<div class="left-side-wrapper">
+<div class="left-side-wrapper" id="left-side-wrapper">
   <div class="row no-gutters">
+    <div class="col-12 text-center">
+      <ng-container *ngIf="user.type === 'Mentee'">
+        <circle-progress
+          [percent]="userProgressConfig.percent"
+          [radius]="userProgressConfig.radius"
+          [outerStrokeWidth]="8"
+          [innerStrokeWidth]="5"
+          [outerStrokeColor]="userProgressConfig.outerColor"
+          [innerStrokeColor]="userProgressConfig.innerColor"
+          [subtitle]="userProgressConfig.title"
+          [animation]="true"
+          [animationDuration]="1000"
+        ></circle-progress>
+        <h6
+          class="text-muted curPoint underline"
+          [routerLink]="['/social-network/profile/', user.tasaId]"
+          routerLinkActive="router-link-active"
+        >
+          Complete Profile To Get Recommendations
+        </h6>
+      </ng-container>
+    </div>
     <div class="col-12" (mouseover)="clearIntervalForCard('recommended')" (mouseout)="setLogicForRecommendedCard()">
-      <div class="card animated bounceInUp bg-primary-more-light" *ngIf="recommendedSwitch.course">
+      <div class="card bg-primary-more-light course-recommendation" *ngIf="recommendedSwitch.course">
         <div class="card-header d-flex align-items-center">
-          <div class="h2 mb-0 mr-3 text-primary" *ngIf="recommendedCourses.data.length">
-            {{ recommendedCourses.data.length }}
+          <div class="h2 mb-0 mr-3 text-white w35" *ngIf="recommendedCourses.data.length">
+            <i class="fas fa-book-open"></i>
           </div>
-          <div class="flex">
-            <h4 class="card-title mt-3">Recommended Courses</h4>
+          <div class="flex text-white">
+            <div class="text-right">
+              <h6>{{ recommendedCourses.data.length }}</h6>
+            </div>
+            <p class="card-title mt-3 font400">Recommended Courses</p>
             <!-- <p class="card-subtitle">Best score</p> -->
           </div>
         </div>
@@ -17,7 +42,7 @@
             class="row pr-1 no-gutters"
           >
             <div
-              class="col-12 border mb-1 curPoint courseList"
+              class="col-12 course-detail mb-1 curPoint courseList animated fadeInUp"
               *ngFor="let course of recommendedCourses.data"
               [routerLink]="['/course/', course.key]"
               routerLinkActive="router-link-active"
@@ -56,7 +81,7 @@
                   </button>
                 </div>
                 <div class="col-8 p-2">
-                  <h6 class="card-title text-truncate" [title]="course.title">
+                  <h6 class="card-title font400 text-truncate" [title]="course.title">
                     {{ course.title }}
                   </h6>
                   <p class="card-intro">
@@ -69,8 +94,8 @@
           <div *ngIf="recommendedCourses.data.length == 0 && !recommendedCourses.isFetching && isAllowedConfig.allowed">
             <div class="text-center m-auto animated fadeIn">
               <div class="col-12 text-center">
-                <img src="../../../assets/images/no-record.gif" style="height: 200px;" class="d-block m-auto" />
-                <h6 class="text-primary">No Recommended Course Yet...!</h6>
+                <h1>😕</h1>
+                <h6 >No Recommended Course Yet...!</h6>
               </div>
             </div>
           </div>
@@ -84,25 +109,26 @@
           ></ng-template>
         </div>
       </div>
-      <div class="card animated bounceInUp bg-primary-more-light" *ngIf="recommendedSwitch.jobs">
-        <div class="card-header">
-          <div class="media align-items-center">
-            <div class="h2 mb-0 mr-3 text-primary" *ngIf="recommendedJobs.data.length">
-              {{ recommendedJobs.data.length }}
+      <div class="card bg-primary-more-light course-recommendation" *ngIf="recommendedSwitch.jobs">
+        <div class="card-header d-flex">
+          <div class="h2 mb-0 mr-3 text-white w40" *ngIf="recommendedJobs.data.length">
+            <i class="fas fa-book-open"></i>
+          </div>
+          <div class="flex text-white">
+            <div class="text-right">
+              <h6>{{ recommendedJobs.data.length }}</h6>
             </div>
-            <div class="flex">
-              <h4 class="card-title mt-3">Recommended Jobs</h4>
-              <!-- <p class="card-subtitle">4 days streak this week</p> -->
-            </div>
+            <p class="card-title mt-3 font400">Recommended Jobs</p>
+            <!-- <p class="card-subtitle">Best score</p> -->
           </div>
         </div>
         <div class="card-body p-2 jobs min-vertical-h-35 max-vertical-h-35 stylishSlimScroll flow-y-auto flow-x-hidden">
           <div
             *ngIf="recommendedJobs.data.length && !recommendedJobs.isFetching && isAllowedJobConfig.allowed"
-            class="row pr-1 no-gutters"
+            class="row pr-1 no-gutters animated fadeInUp"
           >
             <div
-              class="recommended-jobs col-12 border mb-1 curPoint job-list p-2"
+              class="recommended-jobs course-detail col-12 mb-1 curPoint job-list p-2"
               [routerLink]="['/job/', job.id]"
               *ngFor="let job of recommendedJobs.data"
             >
@@ -115,7 +141,7 @@
                   />
                 </span>
                 <span class="d-flex">
-                  <h6 class="card-title text-truncate mt-2" [title]="job.title">
+                  <h6 class="card-title font400 text-truncate mt-2" [title]="job.title">
                     {{ job.title }}
                   </h6>
                 </span>
@@ -142,8 +168,8 @@
           <div *ngIf="recommendedJobs.data.length == 0 && !recommendedJobs.isFetching && isAllowedJobConfig.allowed">
             <div class="text-center m-auto animated fadeIn">
               <div class="col-12 text-center">
-                <img src="../../../assets/images/no-record.gif" style="height: 190px;" class="d-block m-auto" />
-                <h6 class="text-primary">No Recommended Jobs...!</h6>
+                <h1>😕</h1>
+                <h6 class="no-data-label">No Recommended Jobs...!</h6>
               </div>
             </div>
           </div>
@@ -159,18 +185,23 @@
       </div>
     </div>
     <div class="col-12" (mouseover)="clearIntervalForCard('userAction')" (mouseout)="setLogicForUserActionsCard()">
-      <div class="card animated bounceInUp bg-primary-more-light" *ngIf="userActionSwitch.appliedJobs">
+      <div class="card user-action-card bg-primary-more-light" *ngIf="userActionSwitch.appliedJobs">
         <div class="card-header d-flex align-items-center">
-          <div class="h2 mb-0 mr-3 text-primary" *ngIf="jobApplications.length">{{ jobApplications.length }}</div>
-          <div class="flex">
-            <h4 class="card-title mt-3">Jobs Applied</h4>
-            <!-- <p class="card-subtitle">4 days streak this week</p> -->
+          <div class="h2 mb-0 mr-3 text-white w60">
+            <i class="fas fa-briefcase"></i>
+          </div>
+          <div class="flex text-white">
+            <div class="text-right">
+              <h6>{{ jobApplications.length }}</h6>
+            </div>
+            <p class="card-title mt-3 font400">Jobs Applied</p>
+            <!-- <p class="card-subtitle">Best score</p> -->
           </div>
         </div>
         <div class="card-body p-2 jobs min-vertical-h-35 max-vertical-h-35 stylishSlimScroll flow-y-auto flow-x-hidden">
           <div *ngIf="jobApplications.length" class="row pr-1 no-gutters">
             <div
-              class="col-12 border mb-1 curPoint job-list p-2"
+              class="col-12 detail mb-1 curPoint job-list p-2 animated fadeInUp"
               [routerLink]="['/job/', job.id]"
               *ngFor="let job of jobApplications"
             >
@@ -216,8 +247,8 @@
           <div *ngIf="jobApplications.length == 0">
             <div class="text-center m-auto animated fadeIn">
               <div class="col-12 text-center">
-                <img src="../../../assets/images/no-record.gif" style="height: 170px;" class="d-block m-auto" />
-                <h6 class="text-primary">No Applied Jobs Yet...!</h6>
+                <h1>😕</h1>
+                <h6 class="no-data-label">No Applied Jobs Yet...!</h6>
                 <button
                   mat-flat-button
                   color="primary"
@@ -232,20 +263,23 @@
           </div>
         </div>
       </div>
-      <div class="card animated bounceInUp bg-primary-more-light" *ngIf="userActionSwitch.favoriteCourse">
+      <div class="card user-action-card bg-primary-more-light" *ngIf="userActionSwitch.favoriteCourse">
         <div class="card-header d-flex align-items-center">
-          <div class="h2 mb-0 mr-3 text-primary" *ngIf="allFavCourse.length">
-            {{ allFavCourse.length }}
+          <div class="h2 mb-0 mr-3 text-white w50">
+            <i class="fas fa-book-open"></i>
           </div>
-          <div class="flex">
-            <h4 class="card-title mt-3">Favorite Courses</h4>
+          <div class="flex text-white">
+            <div class="text-right">
+              <h6>{{ allFavCourse.length }}</h6>
+            </div>
+            <p class="card-title mt-3 font400">Favorite Courses</p>
             <!-- <p class="card-subtitle">Best score</p> -->
           </div>
         </div>
         <div class="card-body p-2 min-vertical-h-30 max-vertical-h-30 stylishSlimScroll flow-y-auto flow-x-hidden">
           <div class="row pr-1 no-gutters">
             <div
-              class="col-12 border mb-1 curPoint courseList"
+              class="col-12 detail mb-1 curPoint courseList animated fadeInUp"
               *ngFor="let course of allFavCourse"
               [routerLink]="['/course/', course.key]"
               routerLinkActive="router-link-active"
@@ -271,27 +305,30 @@
           <div *ngIf="allFavCourse.length == 0">
             <div class="text-center m-auto animated fadeIn">
               <div class="col-12 text-center">
-                <img src="../../../assets/images/no-record.gif" style="height: 200px;" class="d-block m-auto" />
-                <h6 class="text-primary">No Favorite Course Yet...!</h6>
+                <h1>😕</h1>
+                <h6 class="no-data-label">No Favorite Course Yet...!</h6>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="card animated bounceInUp bg-primary-more-light" *ngIf="userActionSwitch.recentlyViewedCourse">
+      <div class="card user-action-card bg-primary-more-light" *ngIf="userActionSwitch.recentlyViewedCourse">
         <div class="card-header d-flex align-items-center">
-          <div class="h2 mb-0 mr-3 text-primary" *ngIf="recentlyViewedCourse.length">
-            {{ recentlyViewedCourse.length }}
+          <div class="h2 mb-0 mr-3 text-white w25">
+            <i class="fas fa-book-open"></i>
           </div>
-          <div class="flex">
-            <h4 class="card-title mt-3">Recently Viewed Courses</h4>
+          <div class="flex text-white">
+            <div class="text-right">
+              <h6>{{ recentlyViewedCourse.length }}</h6>
+            </div>
+            <p class="card-title mt-3 font400">Recently Viewed Courses</p>
             <!-- <p class="card-subtitle">Best score</p> -->
           </div>
         </div>
         <div class="card-body p-2 min-vertical-h-30 max-vertical-h-30 stylishSlimScroll flow-y-auto flow-x-hidden">
           <div class="row pr-1 no-gutters">
             <div
-              class="col-12 border mb-1 curPoint courseList"
+              class="col-12 detail mb-1 animated fadeInUp curPoint courseList"
               *ngFor="let course of recentlyViewedCourse"
               [routerLink]="['/course/', course.key]"
               routerLinkActive="router-link-active"
@@ -317,25 +354,30 @@
           <div *ngIf="recentlyViewedCourse.length == 0">
             <div class="text-center m-auto animated fadeIn">
               <div class="col-12 text-center">
-                <img src="../../../assets/images/no-record.gif" style="height: 200px;" class="d-block m-auto" />
-                <h6 class="text-primary">No Recently Viewed Courses Yet...!</h6>
+                <h1>😕</h1>
+                <h6 class="no-data-label">No Recently Viewed Courses Yet...!</h6>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="card animated bounceInUp bg-primary-more-light" *ngIf="userActionSwitch.savedJobs">
+      <div class="card user-action-card bg-primary-more-light" *ngIf="userActionSwitch.savedJobs">
         <div class="card-header d-flex align-items-center">
-          <div class="h2 mb-0 mr-3 text-primary" *ngIf="savedJobs.length">{{ savedJobs.length }}</div>
-          <div class="flex">
-            <h4 class="card-title mt-3">Saved Jobs</h4>
-            <!-- <p class="card-subtitle">4 days streak this week</p> -->
+          <div class="h2 mb-0 mr-3 text-white w60">
+            <i class="fas fa-briefcase"></i>
+          </div>
+          <div class="flex text-white">
+            <div class="text-right">
+              <h6>{{ savedJobs.length }}</h6>
+            </div>
+            <p class="card-title mt-3 font400">Saved Jobs</p>
+            <!-- <p class="card-subtitle">Best score</p> -->
           </div>
         </div>
-        <div class="card-body p-2 jobs min-vertical-h-30 max-vertical-h-30 stylishSlimScroll flow-y-auto flow-x-hidden">
+        <div class="card-body detail p-2 jobs min-vertical-h-30 max-vertical-h-30 stylishSlimScroll flow-y-auto flow-x-hidden">
           <div *ngIf="savedJobs.length" class="row pr-1 no-gutters">
             <div
-              class="col-12 border mb-1 curPoint job-list p-2"
+              class="col-12 detail mb-1 curPoint job-list p-2 animated fadeInUp"
               [routerLink]="['/job/', job.id]"
               *ngFor="let job of savedJobs"
             >
@@ -381,8 +423,8 @@
           <div *ngIf="jobApplications.length == 0">
             <div class="text-center m-auto animated fadeIn">
               <div class="col-12 text-center">
-                <img src="../../../assets/images/no-record.gif" style="height: 170px;" class="d-block m-auto" />
-                <h6 class="text-primary">No Applied Jobs Yet...!</h6>
+                <h1>😕</h1>
+                <h6 class="no-data-label">No Applied Jobs Yet...!</h6>
                 <button
                   mat-flat-button
                   color="primary"

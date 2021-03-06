@@ -6,11 +6,20 @@ import { LeftSideComponent } from './left-side.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { NgCircleProgressModule } from 'ng-circle-progress';
 
 @NgModule({
   declarations: [LeftSideComponent],
   exports: [LeftSideComponent],
-  imports: [CommonModule, RouterModule, FormsModule, MatButtonModule, MatIconModule, MatTooltipModule],
+  imports: [
+    CommonModule,
+    RouterModule,
+    FormsModule,
+    MatButtonModule,
+    MatIconModule,
+    MatTooltipModule,
+    NgCircleProgressModule,
+  ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class LeftSideModule {}
