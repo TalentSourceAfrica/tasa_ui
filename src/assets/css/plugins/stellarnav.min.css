@@ -18,7 +18,7 @@
   margin: 0;
   padding: 0;
   vertical-align: middle;
-  font-size: 17px;;
+  font-size: 17px;
 }
 .stellarnav li a {
   padding: 15px;
@@ -82,7 +82,7 @@
 }
 .stellarnav.dark,
 .stellarnav.dark ul ul {
-  background:#86789a;
+  background: #523f6d;
 }
 .stellarnav.dark li a {
   color: #fff;

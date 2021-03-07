@@ -2,8 +2,8 @@ $recommendationColor: #fb8500;
 $userActionColor: #004e98;
 
 .left-side-wrapper {
-  // position: fixed;
-  // width: 25%;
+  position: fixed;
+  width: 25%;
   .circle-img {
     border-radius: 50%;
     width: 45px;
@@ -16,7 +16,7 @@ $userActionColor: #004e98;
   .course-recommendation {
     .card-header {
       background-color: $recommendationColor !important;
-      .fas{
+      .fas {
         animation: swing ease-in-out 3s 1 alternate;
       }
     }
@@ -35,14 +35,14 @@ $userActionColor: #004e98;
     .badge-info {
       background-color: $recommendationColor !important;
     }
-    .material-icons {
+    .job-material-icons {
       color: $recommendationColor !important;
     }
   }
   .user-action-card {
     .card-header {
       background-color: $userActionColor !important;
-      .fas{
+      .fas {
         animation: swing ease-in-out 3s 1 alternate;
       }
     }
@@ -62,4 +62,10 @@ $userActionColor: #004e98;
       color: $recommendationColor !important;
     }
   }
+  .profile-complete-wrapper {
+    .fas {
+      animation: swing ease-in-out 3s 1 alternate;
+    }
+  }
 }
+

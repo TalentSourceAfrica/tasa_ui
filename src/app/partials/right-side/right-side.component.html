@@ -2,7 +2,12 @@
   <div class="row no-gutters">
     <div class="col-12 text-center" *ngIf="user.type === 'Recruiter'">
       <ng-container>
-        <img [routerLink]="['/subscription-plans']" style="margin-top: -80px;" src="./assets/images/subscribe.gif" alt="Google Adsense" />
+        <img
+          [routerLink]="['/subscription-plans']"
+          style="margin-top: -80px;"
+          src="./assets/images/subscribe.gif"
+          alt="Google Adsense"
+        />
       </ng-container>
     </div>
     <div class="col-12">
@@ -11,48 +16,87 @@
       </div>
     </div>
     <div class="col-12">
-      <div class="card animated bounceInUp">
-        <div class="card-header d-flex align-items-center">
-          <div class="h2 mb-0 mr-3 text-primary">
-            {{ newsConfig.data.length }}
-          </div>
-          <div class="flex">
-            <h4 class="card-title mt-3">News</h4>
-            <!-- <p class="card-subtitle">Best score</p> -->
-          </div>
+      <div class="card animated connected-users fadeInUp">
+        <div class="card-header text-center d-flex align-items-center">
+          <p class="card-title font400">Connected Users</p>
+          <!-- <p class="card-subtitle">Best score</p> -->
         </div>
-        <div class="card-body p-2 min-vertical-h-30 max-vertical-h-30 stylishSlimScroll flow-y-auto flow-x-hidden">
-          <div *ngIf="newsConfig.data.length && !newsConfig.isFetching" class="row pr-1 no-gutters">
-            <div class="col-12 border mb-1 curPoint courseList" *ngFor="let news of newsConfig.data">
-              <div class="row no-gutters">
-                <div class="col-4">
-                  <a *ngIf="news.image != '' && news.image != 'string'"
-                    ><img [src]="news.image" class="news-image" alt="News"
-                  /></a>
-                  <a *ngIf="news.image == '' || news.image == 'string'"
-                    ><img class="news-image" src="./assets/images/blog/blog-3.jpg" alt="News"
-                  /></a>
-                </div>
-                <div class="col-8 p-2">
-                  <h6 class="card-title text-truncate mb-0" [title]="news.description">
-                    <a [routerLink]="['/news/', news.id]">{{ news.description }}</a>
-                  </h6>
-                  <p class="card-intro text-muted">
-                    {{ news.createdOn | date: 'mediumDate' }}
-                  </p>
-                </div>
+        <div class="card-body p-2">
+          <div *ngIf="connectedUserConfig.data.length && !connectedUserConfig.isFetching" class="row pr-1 no-gutters">
+            <div class="col-3 mb-1 curPoint" *ngFor="let item of connectedUserConfig.data; let i = index">
+              <div class="h2 mb-0 text-white">
+                <img
+                  *ngIf="i < 4"
+                  [routerLink]="['/social-network/profile/', item.tasaId]"
+                  routerLinkActive="router-link-active"
+                  title="{{ item.firstName }} {{ item.lastName }}"
+                  class="user-img"
+                  src="{{
+                    item.imageUrl !== ''
+                      ? item.imageUrl
+                      : 'https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg'
+                  }}"
+                />
+                <!-- <i class="fas fa-user-tie" ></i> -->
               </div>
             </div>
           </div>
-          <div *ngIf="newsConfig.data.length == 0 && !newsConfig.isFetching">
+          <div class="text-right" *ngIf="connectedUserConfig.data.length">
+            <p class="text-muted curPoint">{{ connectedUserConfig.data.length }} Members</p>
+          </div>
+          <div *ngIf="connectedUserConfig.data.length == 0 && !connectedUserConfig.isFetching">
             <div class="text-center m-auto animated fadeIn">
               <div class="col-12 text-center">
-                <img src="../../../assets/images/no-record.gif" style="height: 100px;" class="d-block m-auto" />
-                <h6 class="text-primary">No News Yet...!</h6>
+                <h1>😕</h1>
+                <h6 class="text-primary">No Connected Users...!</h6>
               </div>
             </div>
           </div>
-          <ng-template *ngIf="newsConfig.isFetching" [ngTemplateOutlet]="loader"></ng-template>
+          <ng-template *ngIf="connectedUserConfig.isFetching" [ngTemplateOutlet]="loader"></ng-template>
+        </div>
+      </div>
+    </div>
+    <div class="col-12">
+      <div class="card animated bounceInUp">
+        <div class="card-header text-center d-flex align-items-center">
+          <p class="card-title font400">Connected Groups</p>
+          <!-- <p class="card-subtitle">Best score</p> -->
+        </div>
+        <div class="card-body p-2">
+          <div *ngIf="myGroups.data.length && !myGroups.isFetching" class="row pr-1 no-gutters">
+            <div class="col-3 mb-1 curPoint courseList" *ngFor="let item of myGroups.data; let i = index">
+              <div class="h2 mb-0 text-white">
+                <img
+                  *ngIf="i < 4"
+                  title="{{ item.groupTitle }}"
+                  class="user-img"
+                  src="{{
+                    item.groupImageUrl !== ''
+                      ? item.groupImageUrl
+                      : 'https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg'
+                  }}"
+                />
+                <!-- <i class="fas fa-user-tie" ></i> -->
+              </div>
+            </div>
+          </div>
+          <div
+            [routerLink]="['/social-network/group/']"
+            routerLinkActive="router-link-active"
+            class="text-right"
+            *ngIf="myGroups.data.length"
+          >
+            <p class="text-muted curPoint">{{ myGroups.data.length }} Groups</p>
+          </div>
+          <div *ngIf="myGroups.data.length == 0 && !myGroups.isFetching">
+            <div class="text-center m-auto animated fadeIn">
+              <div class="col-12 text-center">
+                <h1>😕</h1>
+                <h6 class="text-primary">No Connected Groups...!</h6>
+              </div>
+            </div>
+          </div>
+          <ng-template *ngIf="myGroups.isFetching" [ngTemplateOutlet]="loader"></ng-template>
         </div>
       </div>
     </div>
@@ -65,7 +109,7 @@
 </div>
 
 <ng-template #loader>
-  <div class="col-12 animated fadeIn" *ngFor="let item of [1, 2, 3]">
+  <div class="col-12 animated fadeIn" *ngFor="let item of [1]">
     <div class="card ml-0 mr-0" style="height: 50px !important;">
       <div class="card-img skeleton"></div>
     </div>

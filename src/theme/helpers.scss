@@ -12,7 +12,7 @@ body {
   width: 100%;
 }
 
-.transition-1{
+.transition-1 {
   transition: all ease-out 0.3s;
 }
 
@@ -520,6 +520,10 @@ body {
   min-height: 10vh;
 }
 
+.min-vertical-h-15 {
+  min-height: 15vh;
+}
+
 .min-vertical-h-20 {
   min-height: 20vh;
 }
@@ -562,7 +566,7 @@ body {
 }
 
 .min-vertical-h-70 {
-  min-height: 70vh;
+  min-height: 70vh !important;
 }
 .min-vertical-h-72 {
   min-height: 72vh;
@@ -583,6 +587,10 @@ body {
 
 .min-vertical-h-100 {
   min-height: 100vh;
+}
+
+.min-vertical-h-150 {
+  min-height: 150vh !important;
 }
 
 .max-vertical-h-5 {
@@ -1163,8 +1171,9 @@ button:hover,
   flex-direction: inherit !important;
 }
 
-.welcome-slider-area, .trending-course-slider {
-  .owl-nav{
+.welcome-slider-area,
+.trending-course-slider {
+  .owl-nav {
     div {
       background: $blue none repeat scroll 0 0 !important;
       border-radius: 50% !important;
@@ -1180,9 +1189,8 @@ button:hover,
       transition: all 0.3s ease 0s;
       width: 50px;
     }
-  } 
+  }
 }
-
 
 .welcome-slider-area .owl-nav > div:hover {
   background: $blue none repeat scroll 0 0 !important;
@@ -1672,6 +1680,30 @@ button:hover,
   font-size: 20px;
 }
 
-.strike{
-  text-decoration:line-through
+.strike {
+  text-decoration: line-through;
+}
+
+.progress-green {
+  .mat-progress-bar-fill {
+    &::after {
+      background-color: #025955 !important;
+    }
+  }
+}
+
+.progress-red {
+  .mat-progress-bar-fill {
+    &::after {
+      background-color: #aa2b1d !important;
+    }
+  }
+}
+
+.progress-theme {
+  .mat-progress-bar-fill {
+    &::after {
+      background-color: #523f6d !important;
+    }
+  }
 }

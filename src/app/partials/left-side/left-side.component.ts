@@ -3,6 +3,8 @@ import { untilDestroyed } from '@app/@core';
 import { AuthenticationService, CredentialsService } from '@app/auth';
 import { SharedService } from '@app/services/shared.service';
 import { delay } from 'rxjs/operators';
+import { ProgressBarMode } from '@angular/material/progress-bar';
+import { object } from 'underscore';
 
 //extra
 declare var jQuery: any;
@@ -44,6 +46,9 @@ export class LeftSideComponent implements OnInit {
   userProgressConfig: any = {
     percent: 0,
     radius: 60,
+    color: 'primary',
+    bufferValue: 75,
+    mode: 'buffer',
     outerColor: '#523f6d',
     innerColor: '#a39ab238',
     title: 'Complete',
@@ -88,6 +93,7 @@ export class LeftSideComponent implements OnInit {
       },
     ],
   };
+
   constructor(
     public sharedService: SharedService,
     private credentialsService: CredentialsService,
@@ -163,9 +169,14 @@ export class LeftSideComponent implements OnInit {
 
   setLogicForUserActionsCard() {
     this.userActionSwitchInterval = setInterval(() => {
-      for (const property in this.userActionSwitch) {
-        this.userActionSwitch[property] = !this.userActionSwitch[property];
-        if (this.userActionSwitch[property]) {
+      const data = Object.keys(this.userActionSwitch);
+      for (let index = 0; index < data.length; index++) {
+        const element = data[index];
+        if (this.userActionSwitch[element]) {
+          let nextElement: any;
+          index == data.length - 1 ? (nextElement = data[0]) : (nextElement = data[index + 1]);
+          this.userActionSwitch[element] = !this.userActionSwitch[element];
+          this.userActionSwitch[nextElement] = !this.userActionSwitch[nextElement];
           break;
         }
       }
@@ -289,7 +300,7 @@ export class LeftSideComponent implements OnInit {
       $t.userProgressConfig.percent =
         $t.userProgressConfig.totalCommonFields.filter((d: any) => d.isValuePresent).length / totalFieldCount;
 
-      $t.userProgressConfig.percent = $t.userProgressConfig.percent * 100;
+      $t.userProgressConfig.percent = ($t.userProgressConfig.percent * 100).toFixed(2);
 
       if ($t.userProgressConfig.percent <= 50) {
         $t.userProgressConfig.outerColor = '#aa2b1d';
