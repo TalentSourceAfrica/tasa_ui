@@ -1,6 +1,6 @@
 <div class="right-side-wrapper">
   <div class="row no-gutters">
-    <div class="col-12 text-center" *ngIf="user.type === 'Recruiter'">
+    <div class="col-12 text-center" *ngIf="user?.type === 'Recruiter'">
       <ng-container>
         <img
           [routerLink]="['/subscription-plans']"
@@ -15,7 +15,7 @@
         <img src="./assets/images/google-adsense.jpeg" alt="Google Adsense" />
       </div>
     </div>
-    <div class="col-12">
+    <div class="col-12" *ngIf="user"> 
       <div class="card animated connected-users fadeInUp">
         <div class="card-header text-center d-flex align-items-center">
           <p class="card-title font400">Connected Users</p>
@@ -56,7 +56,7 @@
         </div>
       </div>
     </div>
-    <div class="col-12">
+    <div class="col-12" *ngIf="user">
       <div class="card animated bounceInUp">
         <div class="card-header text-center d-flex align-items-center">
           <p class="card-title font400">Connected Groups</p>

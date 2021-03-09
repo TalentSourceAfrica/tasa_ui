@@ -77,8 +77,10 @@ export class RightSideComponent implements OnInit {
 
   ngOnInit(): void {
     // this.getNews();
-    this.getAllConnections();
-    this.fetchMygroup();
+    if (this.user) {
+      this.getAllConnections();
+      this.fetchMygroup();
+    }
   }
 
   ngOnDestroy(): void {}
