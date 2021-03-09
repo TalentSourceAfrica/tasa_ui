@@ -460,14 +460,23 @@ export class HomeHeaderComponent implements OnInit {
       this.user.type.toLowerCase() === 'admin' ? (this.isAdmin = true) : (this.isAdmin = false);
     }
     this.getNotifications();
-    jQuery('#mainmenu-area').sticky({
-      topSpacing: 0,
-    });
-    jQuery('#main-nav').stellarNav({
-      theme: 'dark',
-      scrollbarFix: true,
-      breakpoint: 900,
-    });
+    // jQuery('#mainmenu-area').sticky({
+    //   topSpacing: 0,
+    // });
+
+    jQuery('body').on('mouseenter mouseleave','.nav-item',function(e:any){
+			if (jQuery(window).width() > 750) {
+				var _d=jQuery(e.target).closest('.nav-item');_d.addClass('show');
+				setTimeout(function(){
+				_d[_d.is(':hover')?'addClass':'removeClass']('show');
+				},1);
+			}
+	});	
+    // jQuery('#main-nav').stellarNav({
+    //   theme: 'dark',
+    //   scrollbarFix: true,
+    //   breakpoint: 900,
+    // });
   }
 
   ngOnDestroy(): void {}
