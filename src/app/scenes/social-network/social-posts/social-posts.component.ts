@@ -743,10 +743,6 @@ export class SocialPostsComponent implements OnInit {
     //     }
     //   });
     // }, 3000);
-    jQuery('#main-nav').stellarNav({
-      theme: 'dark',
-      breakpoint: 900,
-    });
     this.cdr.detectChanges();
   }
 }

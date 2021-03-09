@@ -465,6 +465,7 @@ export class HomeHeaderComponent implements OnInit {
     });
     jQuery('#main-nav').stellarNav({
       theme: 'dark',
+      scrollbarFix: true,
       breakpoint: 900,
     });
   }

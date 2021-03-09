@@ -227,20 +227,10 @@
             <div class="col text-right">
               <div
                 id="main-nav"
-                class="stellarnav menu-navbar  d-flex"
+                class="stellarnav menu-navbar d-flex"
                 style="height: 80px; justify-content: flex-end;"
               >
                 <ul>
-                  <!-- <li>
-                    <a href="">Dropdown</a>
-                    <ul>
-                      <li><a href="#">How deep?</a></li>
-                      <li><a href="#">Item</a></li>
-                      <li><a href="#">Item</a></li>
-                      <li><a href="#">Here's a very long item. It can be as long as you want</a></li>
-                      <li><a href="#">Item</a></li>
-                    </ul>
-                  </li> -->
                   <ng-container *ngIf="!user">
                     <ng-template *ngTemplateOutlet="noUserMenu"></ng-template>
                   </ng-container>

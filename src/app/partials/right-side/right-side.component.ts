@@ -50,16 +50,6 @@ export class RightSideComponent implements OnInit {
     this.socialnetworkService.getAllConnections().subscribe(
       (response: any) => {
         this.connectedUserConfig.data = response.connections ? response.connections : [];
-        this.connectedUserConfig.data = [
-          ...this.connectedUserConfig.data,
-          ...this.connectedUserConfig.data,
-          ...this.connectedUserConfig.data,
-          ...this.connectedUserConfig.data,
-          ...this.connectedUserConfig.data,
-          ...this.connectedUserConfig.data,
-          ...this.connectedUserConfig.data,
-          ...this.connectedUserConfig.data,
-        ];
         this.connectedUserConfig.isFetching = false;
       },
       (error) => {

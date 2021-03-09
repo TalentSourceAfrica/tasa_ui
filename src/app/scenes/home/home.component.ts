@@ -696,10 +696,10 @@ export class HomeComponent implements OnInit {
         /*----------------------------
           MOBILE & DROPDOWN MENU
       ------------------------------*/
-        $('.stellarnav').stellarNav({
-          theme: 'dark',
-          breakpoint: 900,
-        });
+        // $('.stellarnav').stellarNav({
+        //   theme: 'dark',
+        //   breakpoint: 900,
+        // });
 
         /*----------------------------
           SCROLL TO TOP

@@ -11,7 +11,12 @@
                 [routerLink]="['/social-network/profile/', user.tasaId]"
                 routerLinkActive="router-link-active"
               >
-                {{ userProgressConfig.percent }} %
+                {{ userProgressConfig.percent }} % &nbsp;&nbsp;<i
+                  class="fas fa-info-circle"
+                  style="color:gray"
+                  matTooltipPosition="right"
+                  matTooltip="Complete Profile To Get Recommendations"
+                ></i>
               </h6>
               <p [ngStyle]="{ color: userProgressConfig.outerColor }">Profile Complete</p>
             </div>
@@ -21,9 +26,13 @@
                   *ngIf="!user.image || user.image == 'string'"
                   class="user-img"
                   src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
-                  
                 />
-                <img *ngIf="user.image && user.image != 'string'" class="user-img" [ngStyle]="{ color: userProgressConfig.outerColor }" [src]="user.image" />
+                <img
+                  *ngIf="user.image && user.image != 'string'"
+                  class="user-img"
+                  [ngStyle]="{ color: userProgressConfig.outerColor }"
+                  [src]="user.image"
+                />
                 <!-- <i class="fas fa-user-tie" ></i> -->
               </div>
             </div>
@@ -131,7 +140,7 @@
         </div>
       </div>
       <div class="card mb-0 course-recommendation" *ngIf="recommendedSwitch.jobs">
-        <div class="card-header d-flex">
+        <div class="card-header d-flex align-items-center">
           <div class="h2 mb-0 mr-3 text-white w40" *ngIf="recommendedJobs.data.length">
             <i class="fas fa-briefcase"></i>
           </div>
@@ -335,7 +344,7 @@
       </div>
       <div class="card user-action-card bg-primary-more-light" *ngIf="userActionSwitch.recentlyViewedCourse">
         <div class="card-header d-flex align-items-center">
-          <div class="h2 mb-0 mr-3 text-white w25">
+          <div class="h2 mb-0 mr-3 text-white w30">
             <i class="fas fa-book-open"></i>
           </div>
           <div class="flex text-white">

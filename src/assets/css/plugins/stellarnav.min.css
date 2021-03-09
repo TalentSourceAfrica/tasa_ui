@@ -250,6 +250,7 @@ body.stellarnav-noscroll-x {
   -webkit-transition: none;
   -o-transition: color 0 ease-in;
   transition: none;
+  width: 100%;
 }
 .stellarnav.mobile ul ul ul {
   left: auto;
