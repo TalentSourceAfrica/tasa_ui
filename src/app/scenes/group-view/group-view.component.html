@@ -1,0 +1,86 @@
+<div class="job-view-wrapper container mt-4 mb-4">
+  <div class="page">
+    <div class="text-center m-auto min-vertical-h-50" *ngIf="groupDetailsConfig.isLoading">
+      <img src="../../../assets/loaders/swal-loader.gif" height="150" width="150" />
+      <h5 class="text-primary">Fetching Group...</h5>
+    </div>
+    <div class="container page__container animated fadeIn" *ngIf="!groupDetailsConfig.isLoading">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a [routerLink]="['/home']">Home</a></li>
+        <li class="breadcrumb-item">
+          <a [routerLink]="['/social-network/group']">All Groups</a>
+        </li>
+        <li class="breadcrumb-item active text-truncate">{{ groupDetailsConfig.data?.title }}</li>
+      </ol>
+      <div class="row">
+        <div class="col-md-8">
+          <div class="card my-4 m-0">
+            <div class="text-center" style="background: #ebe9ed; padding: 10px;">
+              <img [src]="groupDetailsConfig.data?.imageUrl" class="img-thumbnail course-img" alt="course" />
+            </div>
+            <div class="card-body">
+              <h5>{{ groupDetailsConfig.data?.title }}</h5>
+              <div class="row">
+                <!-- <div class="col-12 col-md-6">
+                    <div class="d-flex align-items-center">
+                      <span class="material-icons pr-2 text-primary">
+                        work
+                      </span>
+                      Experience : {{ jobConfig.job.experienceFrom }} - {{ jobConfig.job.experienceTo }} Years
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <div class="d-flex align-items-center">
+                      <span class="material-icons pr-2 text-primary">
+                        location_city
+                      </span>
+                      No. Of Openings : {{ jobConfig.job.countOfOpenings }}
+                    </div>
+                  </div> -->
+              </div>
+              <!-- <div class="mt-3 mb-3">
+                  <span class="pr-1" *ngFor="let item of jobConfig.job.tags">
+                    <badge class="badge badge-info h6">
+                      {{ item }}
+                    </badge>
+                  </span>
+                </div> -->
+              <div class="mt-2">{{ groupDetailsConfig.data.description }}</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="mt-4 mb-4 animated fadeIn">
+            <div class="card w90 m-auto">
+              <div class="card-header">
+                <h5 class="card-title m-0">
+                  Connected Members
+                </h5>
+              </div>
+              <div class="text-center p-4 curPoint" *ngFor="let item of groupDetailsConfig.data?.members">
+                <div
+                  class="w90 d-flex align-items-center"
+                  [routerLink]="['/social-network/profile/', item.tasaId]"
+                >
+                  <img
+                    src="{{
+                      item.imageUrl
+                        ? item.imageUrl
+                        : 'https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg'
+                    }}"
+                    class="user-img"
+                    alt="{{ item.name }}"
+                  />
+
+                  <div class="username text-truncate" title="{{ item.name }}">
+                    {{ item.name }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

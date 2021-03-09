@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { untilDestroyed } from '@app/@core';
 import { CredentialsService } from '@app/auth';
 import { CreateGroupPopupComponent } from '@app/partials/popups/group/create-group-popup/create-group-popup.component';
@@ -28,7 +29,11 @@ export class GroupComponent implements OnInit {
     isLoading: false,
   };
 
-  constructor(public sharedService: SharedService, private credentialsService: CredentialsService) {}
+  constructor(
+    public sharedService: SharedService,
+    private credentialsService: CredentialsService,
+    private router: Router
+  ) {}
 
   fetchAllGroups() {
     this.allGroups.isLoading = true;
@@ -112,16 +117,17 @@ export class GroupComponent implements OnInit {
   }
 
   viewGroup(_group: any) {
-    this.sharedService.dialogService.open(GroupViewPopupComponent, {
-      width: '450px',
-      data: {
-        authenticationService: this,
-        credentialsService: this.credentialsService,
-        group: _group,
-        user: this.user,
-      },
-      disableClose: false,
-    });
+    this.router.navigate(['/group/', _group.groupId], { replaceUrl: true });
+    // this.sharedService.dialogService.open(GroupViewPopupComponent, {
+    //   width: '450px',
+    //   data: {
+    //     authenticationService: this,
+    //     credentialsService: this.credentialsService,
+    //     group: _group,
+    //     user: this.user,
+    //   },
+    //   disableClose: false,
+    // });
   }
 
   createGroup() {

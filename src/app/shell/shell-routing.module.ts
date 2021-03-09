@@ -178,6 +178,11 @@ const routes: Routes = [
         loadChildren: () => import('@app/scenes/job-view/job-view.module').then((m) => m.JobViewModule),
       },
       {
+        path: 'group/:groupId',
+        canActivate: [AuthenticationGuard],
+        loadChildren: () => import('@app/scenes/group-view/group-view.module').then((m) => m.GroupViewModule),
+      },
+      {
         path: 'jobs/my-applications',
         canActivate: [AuthenticationGuard],
         loadChildren: () =>

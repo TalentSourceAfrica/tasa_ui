@@ -6,4 +6,14 @@
     max-width: 55px;
     width: 55px;
   }
+  .connected-groups,
+  .connected-users {
+    background: rgb(82, 67, 105);
+    background: linear-gradient(
+      90deg,
+      rgba(82, 67, 105, 1) 0%,
+      rgba(144, 122, 179, 1) 48%,
+      rgba(214, 204, 230, 1) 100%
+    );
+  }
 }

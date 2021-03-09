@@ -72,6 +72,7 @@
                 <mat-select
                   [(value)]="globalSearchType"
                   (selectionChange)="searchGlobalText = ''"
+                  panelClass="global-search-options"
                   class="form-control global-search-options bg-lavender"
                 >
                   <mat-option value="course"> <i class="fas fa-graduation-cap pr-2 text-primary"></i>Course</mat-option>
@@ -81,6 +82,7 @@
                   >
                   <mat-option value="job"><i class="fas fa-briefcase pr-2 text-primary"></i>Job</mat-option>
                   <mat-option value="freelance"><i class="fas fa-user pr-2 text-primary"></i>Freelancer</mat-option>
+                  <mat-option value="group"><i class="fas fa-user-friends pr-2 text-primary"></i>Group</mat-option>
                 </mat-select>
                 <input
                   type="text"
@@ -211,6 +213,25 @@
                       {{ item.title }}
                     </mat-option>
                   </ng-container>
+                  <ng-container *ngIf="globalSearchType == 'group'">
+                    <mat-option *ngIf="userSearchConfig.isFetching">
+                      <i class="fas fa-circle-notch pr-2 text-primary"></i> Fetching...
+                    </mat-option>
+                    <mat-option
+                      [routerLink]="['/group/', item.id]"
+                      *ngFor="let item of userSearchConfig.data"
+                      [value]="item"
+                      class="mb-2 mt-2"
+                    >
+                      <img
+                        *ngIf="!item.imageUrl || item.imageUrl == 'string'"
+                        src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
+                        class="user-img"
+                      />
+                      <img *ngIf="item.imageUrl && item.imageUrl != 'string'" [src]="item.imageUrl" class="user-img" />
+                      <span [title]="item.title"> {{ item.title }}</span>
+                    </mat-option>
+                  </ng-container>
                 </mat-autocomplete>
 
                 <div class="input-group-prepend">
@@ -225,11 +246,7 @@
               </div>
             </div>
             <div class="col text-right">
-              <div
-                id="main-nav"
-                class="stellarnav menu-navbar d-flex"
-                style="height: 80px; justify-content: flex-end;"
-              >
+              <div id="main-nav" class="stellarnav menu-navbar d-flex" style="height: 80px; justify-content: flex-end;">
                 <ul>
                   <ng-container *ngIf="!user">
                     <ng-template *ngTemplateOutlet="noUserMenu"></ng-template>
@@ -259,11 +276,7 @@
                           [src]="user.image"
                           (click)="callUpload($event)"
                         />
-                        <span
-                          class="d-flex align-items-center"
-                          matTooltipPosition="left"
-                          [matTooltip]="user.firstName"
-                        >
+                        <span class="d-flex align-items-center" matTooltipPosition="left" [matTooltip]="user.firstName">
                           <h6 class="text-truncate font400 w80 pt-3" style="max-width: 80px;">
                             <span *ngIf="user?.type != 'Admin'">{{ user.firstName }}</span>
                             <span *ngIf="user?.type == 'Admin'">Admin</span>
@@ -485,20 +498,35 @@
             <button class="animated fadeIn" mat-mini-fab *ngIf="item.jobId != '' && item.jobId != 'string'">
               <mat-icon>work</mat-icon>
             </button>
-            <button class="animated fadeIn"  mat-mini-fab *ngIf="item.courseId != '' && item.courseId != 'string'">
+            <button class="animated fadeIn" mat-mini-fab *ngIf="item.courseId != '' && item.courseId != 'string'">
               <mat-icon>school</mat-icon>
             </button>
-            <button class="animated fadeIn"  mat-mini-fab color="warn" *ngIf="item.connRequestId != '' && item.connRequestId != 'string'">
+            <button
+              class="animated fadeIn"
+              mat-mini-fab
+              color="warn"
+              *ngIf="item.connRequestId != '' && item.connRequestId != 'string'"
+            >
               <mat-icon>person</mat-icon>
             </button>
-            <button class="animated fadeIn"  mat-mini-fab color="warn" *ngIf="item.messageId != '' && item.messageId != 'string'">
+            <button
+              class="animated fadeIn"
+              mat-mini-fab
+              color="warn"
+              *ngIf="item.messageId != '' && item.messageId != 'string'"
+            >
               <mat-icon>message</mat-icon>
             </button>
-            <button class="animated fadeIn"  mat-mini-fab color="warn" *ngIf="item.postId != '' && item.postId != 'string'">
+            <button
+              class="animated fadeIn"
+              mat-mini-fab
+              color="warn"
+              *ngIf="item.postId != '' && item.postId != 'string'"
+            >
               <mat-icon>notes</mat-icon>
             </button>
             <button
-              class="animated fadeIn" 
+              class="animated fadeIn"
               mat-mini-fab
               color="primary"
               *ngIf="

@@ -89,6 +89,9 @@ export class HomeHeaderComponent implements OnInit {
       case 'freelance':
         $t.freeLanceSearch();
         break;
+      case 'group':
+        $t.groupSearch();
+        break;
     }
   }
 
@@ -140,6 +143,28 @@ export class HomeHeaderComponent implements OnInit {
     }
   }
 
+  groupSearch(){
+    let $t  = this;
+    $t.userSearchConfig.isFetching = true;
+    $t.userSearchConfig.data = [];
+    if ($t.searchGlobalText != '') {
+      let apiUrl = $t.sharedService.urlService.apiCallWithParams('searchGroup', {
+        '{searchText}': $t.searchGlobalText,
+      });
+      $t.sharedService.configService.post(apiUrl).subscribe(
+        (response: any) => {
+          $t.userSearchConfig.isFetching = false;
+          $t.userSearchConfig.data = response.responseObj;
+          jQuery('#globalSearchInput').focus();
+        },
+        (error) => {
+          $t.userSearchConfig.isFetching = false;
+          $t.userSearchConfig.data = [];
+        }
+      );
+    }
+  }
+
   redirect(_type: string, _id?: string) {
     switch (_type) {
       case 'job':
@@ -170,6 +195,9 @@ export class HomeHeaderComponent implements OnInit {
           this.searchGlobalText = this.searchGlobalText.orgName;
           break;
         case 'course':
+          this.searchGlobalText = this.searchGlobalText.title;
+          break;
+        case 'group':
           this.searchGlobalText = this.searchGlobalText.title;
           break;
       }
