@@ -36,7 +36,7 @@ export class ProfileComponent implements OnInit {
 
   constructor(
     public credentialsService: CredentialsService,
-    private sharedService: SharedService,
+    public sharedService: SharedService,
     private route: ActivatedRoute,
     private cdr: ChangeDetectorRef,
     public sanitizer: DomSanitizer,

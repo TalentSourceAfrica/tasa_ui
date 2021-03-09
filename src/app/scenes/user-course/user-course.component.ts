@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CredentialsService } from '@app/auth';
+import { SharedService } from '@app/services/shared.service';
 
 @Component({
   selector: 'app-user-course',
@@ -9,8 +10,12 @@ import { CredentialsService } from '@app/auth';
 })
 export class UserCourseComponent implements OnInit {
   myCourses: any = [];
-  constructor(private credentialsService: CredentialsService, private router: Router) {}
-  
+  constructor(
+    private credentialsService: CredentialsService,
+    private router: Router,
+    public sharedService: SharedService
+  ) {}
+
   courseView(_course: any) {
     this.router.navigate(['/course/' + _course.key], { replaceUrl: true });
   }

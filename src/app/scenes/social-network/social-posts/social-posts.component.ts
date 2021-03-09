@@ -729,20 +729,6 @@ export class SocialPostsComponent implements OnInit {
   }
   ngAfterViewInit(): void {
     window.scrollTo(0, 0);
-    // this.conectionDrawer.open();
-    // setTimeout(() => {
-    //   jQuery('.notification-popup').click((event: any) => {
-    //     jQuery(this).toggleClass('open');
-    //     jQuery('#notificationMenu').removeClass('d-none').addClass('open');
-    //   });
-    //   jQuery(document).on('click', (event: any) => {
-    //     if (!jQuery(event.target).closest('.notification-popup').length) {
-    //       if (jQuery('#notificationMenu').hasClass('open')) {
-    //         jQuery('#notificationMenu').addClass('d-none').removeClass('open');
-    //       }
-    //     }
-    //   });
-    // }, 3000);
     this.cdr.detectChanges();
   }
 }

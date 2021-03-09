@@ -2,7 +2,7 @@
   <div>
     <section class="All-course-page-section min-vertical-h-100">
       <div class="row no-gutters">
-        <div class="col-md-3 col-sm-12 bg-white">
+        <div class="col-md-3 col-sm-12 bg-white" *ngIf="!sharedService.deviceDetectorService.isMobile()">
           <app-left-side></app-left-side>
         </div>
         <div class="col-md-7 col-sm-12">
@@ -60,7 +60,7 @@
             </ng-container>
           </div>
         </div>
-        <div class="col-md-2 col-sm-12">
+        <div class="col-md-2 col-sm-12" *ngIf="!sharedService.deviceDetectorService.isMobile()">
           <app-right-side></app-right-side>
         </div>
       </div>

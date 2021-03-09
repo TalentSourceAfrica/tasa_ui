@@ -1,6 +1,6 @@
 <div class="my-network-wrapper">
   <div class="row no-gutters">
-    <div class="col-md-3 col-sm-12 bg-white">
+    <div class="col-md-3 col-sm-12 bg-white" *ngIf="!sharedService.deviceDetectorService.isMobile()">
       <app-left-side></app-left-side>
     </div>
     <div class="col-md-7 col-sm-12 min-vertical-h-150">
@@ -22,7 +22,7 @@
         <ng-template *ngTemplateOutlet="network"></ng-template>
       </ng-container>
     </div>
-    <div class="col-md-2 col-sm-12">
+    <div class="col-md-2 col-sm-12" *ngIf="!sharedService.deviceDetectorService.isMobile()">
       <app-right-side></app-right-side>
     </div>
   </div>
