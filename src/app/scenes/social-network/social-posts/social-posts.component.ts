@@ -280,7 +280,7 @@ export class SocialPostsComponent implements OnInit {
     });
     $t.sharedService.configService.post(apiUrl, comment).subscribe(
       (response: any) => {
-        post.comments == null ? (post.comments = []) : '';
+        (post.comments == null || post.comments.length) ? (post.comments = []) : '';
         response.responseObj.comments.forEach((d: any) => {
           d['isCommentShow'] = true;
           post.comments.push(d);
