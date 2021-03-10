@@ -29,6 +29,7 @@ export class ProfileComponent implements OnInit {
     tasaId: '',
     isConnected: false,
     totalConnectedUser: 0,
+    isRequestPending: false,
   };
   isCurrentUser: boolean = true;
   mom: any;
@@ -80,6 +81,8 @@ export class ProfileComponent implements OnInit {
         $t.fetchConnections();
         if ($t.isCurrentUser) {
           $t.userConfig.fetchingUser = false;
+        } else {
+          $t.checkIfRequestIsAlreadySend();
         }
       },
       (error) => {
@@ -90,6 +93,23 @@ export class ProfileComponent implements OnInit {
         }
         $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
       }
+    );
+  }
+
+  checkIfRequestIsAlreadySend() {
+    let $t = this;
+    let apiUrl = $t.sharedService.urlService.apiCallWithParams('getAllNetworkPendingConnections', {
+      '{userId}': $t.userConfig.user.email,
+    });
+    $t.sharedService.configService.get(apiUrl).subscribe(
+      (response: any) => {
+        if (response.responseObj.find((d: any) => d.from === $t.user.email)) {
+          $t.userConfig.isRequestPending = true;
+        } else {
+          $t.userConfig.isRequestPending = false;
+        }
+      },
+      (error) => {}
     );
   }
 
@@ -225,6 +245,7 @@ export class ProfileComponent implements OnInit {
           $t.sharedService.configService.post(apiUrl, result.value).subscribe(
             (response: any) => {
               $t.sharedService.uiService.showApiSuccessPopMsg('Request Send...!');
+              $t.userConfig.isRequestPending = true;
             },
             (error) => {
               $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);

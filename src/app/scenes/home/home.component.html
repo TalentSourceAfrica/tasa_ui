@@ -1726,19 +1726,27 @@
 
 <ng-template #sliderSignup>
   <div class="input-group input-group-sm d-flex mt-2 animated fadeInUp" *ngIf="!user">
-    <input
-      class="form-control form-control-sm p-4 inputClass transition-1"
-      type="email"
-      placeholder="Enter your email address"
-      [style.border-color]="colorConfig.selectedColor"
-      [(ngModel)]="sliderSignUpMail"
-    />
-    <span
-      class="rounded-pill btn-behaviour curPoint mx-2 pt-3 font-weight-bold w20 text-center transition-1"
-      [style.background-color]="colorConfig.selectedColor"
-      (click)="signup()"
-    >
-      Sign Up
-    </span>
+    <div class="row no-gutters w100">
+      <div class="col-md-8 col-sm-12 mb-2">
+        <input
+          class="form-control form-control-sm p-4 inputClass transition-1"
+          type="email"
+          placeholder="Enter your email address"
+          [style.border-color]="colorConfig.selectedColor"
+          [(ngModel)]="sliderSignUpMail"
+        />
+      </div>
+      <div class="col-md-4 col-sm-12 d-flex align-item-center">
+        <button
+          mat-flat-button
+          (click)="signup()"
+          class="rounded-pill ml-4 text-white w60"
+          [style.background-color]="colorConfig.selectedColor"
+          style="height: 50px;"
+        >
+          SIGN UP
+        </button>
+      </div>
+    </div>
   </div>
 </ng-template>

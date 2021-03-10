@@ -19,8 +19,12 @@
             <p>Choose a plant that works best for you and your team.</p>
           </div> -->
           <section>
-            <div class="holder" style="zoom: 75%;">
-              <div class="plan__options plan-left m-2 animated fadeInUp" [ngClass]="{'plan-middle': item.id == 'Silver' }" *ngFor="let item of subscriptions">
+            <div class="holder row no-gutters" style="zoom: 75%;">
+              <div
+                class="plan__options plan-left  animated fadeInUp col-lg-2 col-md-6 col-sm-12"
+                [ngClass]="{ 'plan-middle': item.id == 'Silver' }"
+                *ngFor="let item of subscriptions"
+              >
                 <div class="head">
                   <div class="shape shape-green"></div>
                   <div class="content">
@@ -37,23 +41,18 @@
                 <div class="line-divider"></div>
                 <ul>
                   <li><i class="fas fa-check text-success"></i>Search TaSA Members</li>
+                  <li><i class="fas fa-check text-success"></i>Message Connected Members</li>
                   <li>
-                    <i class="fas fa-check text-success"></i>Message Connected Members
+                    <i class="fas fa-check text-success"></i>Price Per Course
+                    <span class="text-black">{{ item.maxCoursesPrice }}</span>
                   </li>
                   <li>
-                    <i class="fas fa-check text-success"></i>Price Per Course <span class="text-black">{{
-                      item.maxCoursesPrice
-                    }}</span>
+                    <i class="fas fa-check text-success"></i>Enroll into EdX Courses
+                    <span class="text-black">{{ item.maxCoursesPerMonth }}</span>
                   </li>
                   <li>
-                    <i class="fas fa-check text-success"></i>Enroll into EdX Courses <span class="text-black">{{
-                      item.maxCoursesPerMonth
-                    }}</span>
-                  </li>
-                  <li>
-                    <i class="fas fa-check text-success"></i>Total Yearly Course Price Allowance <span class="text-black">{{
-                      item.maxCoursesValuePerYear
-                    }}</span>
+                    <i class="fas fa-check text-success"></i>Total Yearly Course Price Allowance
+                    <span class="text-black">{{ item.maxCoursesValuePerYear }}</span>
                   </li>
                   <li>
                     <i
@@ -63,7 +62,7 @@
                         'fa-times text-danger': item.recommendCourses === 'N'
                       }"
                     ></i
-                    ><span [ngClass]="{'strike': item.recommendCourses === 'N'}">Receive Recommended Courses</span>
+                    ><span [ngClass]="{ strike: item.recommendCourses === 'N' }">Receive Recommended Courses</span>
                   </li>
                   <li>
                     <i
@@ -73,7 +72,7 @@
                         'fa-times text-danger': item.recommendJobs === 'N'
                       }"
                     ></i
-                    ><span [ngClass]="{'strike': item.recommendJobs === 'N'}">Receive Recommended Jobs</span>
+                    ><span [ngClass]="{ strike: item.recommendJobs === 'N' }">Receive Recommended Jobs</span>
                   </li>
                   <li>
                     <i
@@ -83,7 +82,9 @@
                         'fa-times text-danger': item.notifyApplicationStatus === 'N'
                       }"
                     ></i
-                    ><span [ngClass]="{'strike': item.notifyApplicationStatus === 'N'}">Job Application Status Notification</span>
+                    ><span [ngClass]="{ strike: item.notifyApplicationStatus === 'N' }"
+                      >Job Application Status Notification</span
+                    >
                   </li>
                   <li>
                     <i
@@ -93,11 +94,16 @@
                         'fa-times text-danger del': item.notifyProfileViews === 'N'
                       }"
                     ></i
-                    ><span [ngClass]="{'strike': item.notifyProfileViews === 'N'}">Profile View Notification</span>
+                    ><span [ngClass]="{ strike: item.notifyProfileViews === 'N' }">Profile View Notification</span>
                   </li>
                 </ul>
-                <button class="button button-primary" *ngIf="!item.isActive" (click)="subscribeNow(item)" >choose plan <i class="fas fa-arrow-right"></i></button>
-                <button class="button button-success" *ngIf="item.isActive"><h1>😎</h1>Current Active Plan!</button>
+                <button class="button button-primary" *ngIf="!item.isActive" (click)="subscribeNow(item)">
+                  choose plan <i class="fas fa-arrow-right"></i>
+                </button>
+                <button class="button button-success" *ngIf="item.isActive">
+                  <h1>😎</h1>
+                  Current Active Plan!
+                </button>
               </div>
 
               <!-- <div class="plan__options plan-middle">

@@ -78,6 +78,8 @@ export class AboutUsComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
-    AOS.init();
+    AOS.init({
+      once: true
+    });
   }
 }

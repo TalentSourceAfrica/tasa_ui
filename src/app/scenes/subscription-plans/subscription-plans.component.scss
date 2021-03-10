@@ -33,7 +33,7 @@ $radius: 15px;
     // width: 100vw;
     // height: 100vh;
     // background-color: $bg-gray;
-    overflow: hidden;
+    // overflow: hidden;
     color: $text-gray;
     font-size: 1.3rem;
     font-weight: 400;
@@ -50,7 +50,7 @@ $radius: 15px;
 
     .main {
       // width: 1000px;
-      height: 800px;
+      // height: 800px;
       border-radius: 5rem;
       background-image: linear-gradient(90deg, $bg-light, $bg-gray);
     }
@@ -228,7 +228,6 @@ $radius: 15px;
     padding-top: 55px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
 
     .plan__options {
       min-width: 30rem;
@@ -237,6 +236,7 @@ $radius: 15px;
       border-radius: $radius;
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
       text-align: left;
+      margin-right: 30px;
 
       .head {
         display: flex;

@@ -267,6 +267,10 @@ export class HeaderComponent implements OnInit {
     this.authenticationService.openLoginPopup();
   }
 
+  signup(_case: string) {
+    this.authenticationService.openSignupPopup(_case);
+  }
+
   userDetails() {
     this.authenticationService.openUserDetailsPopup();
   }
