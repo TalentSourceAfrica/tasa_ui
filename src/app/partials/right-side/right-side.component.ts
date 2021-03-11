@@ -75,6 +75,10 @@ export class RightSideComponent implements OnInit {
     );
   }
 
+  userFetch(){
+    this.sharedService.utilityService.changeMessage('FETCH-USER-PROFILE');
+  }
+
   ngOnInit(): void {
     // this.getNews();
     if (this.user) {

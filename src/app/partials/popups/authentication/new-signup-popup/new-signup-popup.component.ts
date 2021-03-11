@@ -337,6 +337,7 @@ export class NewSignupPopupComponent implements OnInit {
     this.isLoading = true;
     this.sharedService.uiService.showApiStartPopMsg('Logging you in...');
     let apiUrl = this.sharedService.urlService.simpleApiCall('login');
+    this.sharedService.utilityService.changeMessage('BEFORE-LOGIN');
     this.sharedService.configService
       .post(apiUrl, this.loginForm.value)
       .pipe(
@@ -360,6 +361,7 @@ export class NewSignupPopupComponent implements OnInit {
           this.router.navigate(['/social-network/posts'], { replaceUrl: true });
           setTimeout(() => {
             jQuery('.header-top-area').removeClass('position-absolute');
+            this.sharedService.utilityService.changeMessage('AFTER-LOGIN');
           }, 500);
         },
         (error) => {

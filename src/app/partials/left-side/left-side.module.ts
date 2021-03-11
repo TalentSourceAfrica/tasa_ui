@@ -6,7 +6,6 @@ import { LeftSideComponent } from './left-side.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { NgCircleProgressModule } from 'ng-circle-progress';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
@@ -19,7 +18,6 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     MatButtonModule,
     MatIconModule,
     MatTooltipModule,
-    NgCircleProgressModule,
     MatProgressBarModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

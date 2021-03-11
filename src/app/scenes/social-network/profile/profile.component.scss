@@ -1916,8 +1916,13 @@
     height: 200px;
     max-width: 250px;
   }
+  .alert {
+    background: transparent !important;
+    border: none !important;
+    font-size: 15px !important;
+  }
 }
 
-carousel{
-  height:1000px !important;
+carousel {
+  height: 1000px !important;
 }

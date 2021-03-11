@@ -31,78 +31,6 @@
 
 <ng-template #groups>
   <mat-tab-group>
-    <mat-tab label="All Groups">
-      <div class="d-flex align-items-center mt-4">
-        <mat-form-field class="example-form-field w40 m-auto" *ngIf="allGroups.data.length" style="font-size: 16px;">
-          <mat-label>Search Group</mat-label>
-          <input matInput type="text" [(ngModel)]="groupSearchText" />
-          <button
-            mat-button
-            *ngIf="groupSearchText"
-            matSuffix
-            mat-icon-button
-            aria-label="Clear"
-            (click)="groupSearchText = ''"
-          >
-            <mat-icon>close</mat-icon>
-          </button>
-        </mat-form-field>
-      </div>
-
-      <div class="row no-gutters mt-3 max-vertical-h-90 stylishSlimScroll flow-y-auto flow-x-hidden">
-        <div class="col-md-4 col-sm-12" *ngFor="let item of allGroups.data | groupFilter: groupSearchText">
-          <div class="row no-gutters border d-flex align-items-center">
-            <div class="col-8">
-              <div class="blog-details p-3">
-                <h6 class="blog-title mb-1">
-                  {{ item.groupTitle }}
-                </h6>
-                <h6 class="font300 text-muted text-truncate">{{ item.groupDescription }}</h6>
-              </div>
-            </div>
-            <div class="col-4 text-right">
-              <img
-                class="img-responsive user-img curPoint"
-                style="height: 60px; width: 60px;"
-                src="{{ item.groupImageUrl }}"
-                alt="Group picture"
-              />
-            </div>
-            <div class="col-12 group-footer w100 text-center mt-1 p-2">
-              <button
-                mat-flat-button
-                color="primary"
-                class="ml-2 mr-1 rounded-pill"
-                matTooltipPosition="below"
-                matTooltip="View Group"
-                (click)="viewGroup(item)"
-              >
-                View
-              </button>
-              <button
-                mat-flat-button
-                color="primary"
-                *ngIf="user.email !== item.createdBy"
-                matTooltipPosition="below"
-                matTooltip="Send Request To Join The Group"
-                (click)="sendRequest(item.groupId)"
-                class="rounded-pill"
-              >
-                Request
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <ng-container *ngIf="!allGroups.isLoading && allGroups.data.length == 0">
-        <div class="text-center m-auto animated fadeIn">
-          <div class="col-12 text-center">
-            <img src="./assets/images/no-record.gif" style="height: 300px;" class="d-block m-auto" />
-            <h6 class="text-primary">No Active Groups...!</h6>
-          </div>
-        </div>
-      </ng-container>
-    </mat-tab>
     <mat-tab label="My Groups">
       <div class="d-flex align-items-center mt-4">
         <mat-form-field class="example-form-field w40 m-auto" *ngIf="myGroups.data.length" style="font-size: 16px;">
@@ -191,5 +119,78 @@
         </div>
       </ng-container>
     </mat-tab>
+    <mat-tab label="All Groups">
+      <div class="d-flex align-items-center mt-4">
+        <mat-form-field class="example-form-field w40 m-auto" *ngIf="allGroups.data.length" style="font-size: 16px;">
+          <mat-label>Search Group</mat-label>
+          <input matInput type="text" [(ngModel)]="groupSearchText" />
+          <button
+            mat-button
+            *ngIf="groupSearchText"
+            matSuffix
+            mat-icon-button
+            aria-label="Clear"
+            (click)="groupSearchText = ''"
+          >
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+
+      <div class="row no-gutters mt-3 max-vertical-h-90 stylishSlimScroll flow-y-auto flow-x-hidden">
+        <div class="col-md-4 col-sm-12" *ngFor="let item of allGroups.data | groupFilter: groupSearchText">
+          <div class="row no-gutters border d-flex align-items-center">
+            <div class="col-8">
+              <div class="blog-details p-3">
+                <h6 class="blog-title mb-1">
+                  {{ item.groupTitle }}
+                </h6>
+                <h6 class="font300 text-muted text-truncate">{{ item.groupDescription }}</h6>
+              </div>
+            </div>
+            <div class="col-4 text-right">
+              <img
+                class="img-responsive user-img curPoint"
+                style="height: 60px; width: 60px;"
+                src="{{ item.groupImageUrl }}"
+                alt="Group picture"
+              />
+            </div>
+            <div class="col-12 group-footer w100 text-center mt-1 p-2">
+              <button
+                mat-flat-button
+                color="primary"
+                class="ml-2 mr-1 rounded-pill"
+                matTooltipPosition="below"
+                matTooltip="View Group"
+                (click)="viewGroup(item)"
+              >
+                View
+              </button>
+              <button
+                mat-flat-button
+                color="primary"
+                *ngIf="user.email !== item.createdBy"
+                matTooltipPosition="below"
+                matTooltip="Send Request To Join The Group"
+                (click)="sendRequest(item.groupId)"
+                class="rounded-pill"
+              >
+                Request
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <ng-container *ngIf="!allGroups.isLoading && allGroups.data.length == 0">
+        <div class="text-center m-auto animated fadeIn">
+          <div class="col-12 text-center">
+            <img src="./assets/images/no-record.gif" style="height: 300px;" class="d-block m-auto" />
+            <h6 class="text-primary">No Active Groups...!</h6>
+          </div>
+        </div>
+      </ng-container>
+    </mat-tab>
+  
   </mat-tab-group>
 </ng-template>

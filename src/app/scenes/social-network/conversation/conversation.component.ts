@@ -115,6 +115,7 @@ export class ConversationComponent implements OnInit {
             });
           });
         }
+        console.log($t.connectedUserConfig.data);
         $t.connectedUserConfig.isLoading = false;
       },
       (error) => {

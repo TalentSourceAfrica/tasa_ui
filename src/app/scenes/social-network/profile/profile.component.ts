@@ -64,6 +64,8 @@ export class ProfileComponent implements OnInit {
     $t.isAllowedConfig.allowed = true;
     $t.userConfig.tasaId = $t.route.snapshot.params.tasaId;
     $t.userConfig.fetchingUser = true;
+    $t.userConfig.isConnected = false;
+    $t.userConfig.isRequestPending = false;
     if (_viewUser) {
       apiUrl = $t.sharedService.urlService.apiCallWithParams('viewProfile', {
         '{tasaId}': $t.userConfig.tasaId,

@@ -116,10 +116,10 @@
                 <span class="contact-status"></span>
                 <img src="{{ item.groupImageUrl }}" alt="Group Image" class="shadow-lg" />
                 <div class="meta">
-                  <p class="name text-truncate" title="{{ item.groupTitle }}">
+                  <p class="name text-truncate mb-0" title="{{ item.groupTitle }}">
                     {{ item.groupTitle }}
                   </p>
-                  <!-- <p class="preview">You just got LITT up, Mike.</p> -->
+                  <p class="preview text-truncate" [title]="item.groupDescription">{{ item.groupDescription }}</p>
                 </div>
               </div>
             </ng-container>
@@ -203,7 +203,11 @@
         *ngIf="connectionConfig.isFetchingMsgList"
         color="primary"
       ></mat-progress-bar>
-      <div class="messages" id="message" [ngClass]="{ 'd-flex align-items-center': connectionConfig.currentMsgList.length === 0 }">
+      <div
+        class="messages"
+        id="message"
+        [ngClass]="{ 'd-flex align-items-center': connectionConfig.currentMsgList.length === 0 }"
+      >
         <ul *ngIf="connectionConfig.currentMsgList.length && !connectionConfig.isFetchingMsgList">
           <li
             [ngClass]="{

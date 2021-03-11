@@ -80,7 +80,7 @@
                                     <span class="material-icons pr-2"> check_circle </span>Connected
                                   </span>
                                   <span
-                                    *ngIf="userConfig.isRequestPending"
+                                    *ngIf="!userConfig.isConnected && userConfig.isRequestPending"
                                     class="alert alert-info d-flex align-items-center mt-2"
                                     role="alert"
                                   >

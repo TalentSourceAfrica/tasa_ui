@@ -35,7 +35,7 @@
         *ngIf="connectedUserConfig.data.length"
         class="row no-gutters mt-3 max-vertical-h-70 stylishSlimScroll flow-y-auto flow-x-hidden"
       >
-        <div class="col-4" *ngFor="let item of connectedUserConfig.data">
+        <div class="col-md-4 col-sm-12" *ngFor="let item of connectedUserConfig.data">
           <div class="card shadow-sm">
             <div class="card-body text-center">
               <p>
@@ -82,7 +82,7 @@
         *ngIf="networkConfig.data.length"
         class="row no-gutters mt-3 max-vertical-h-70 stylishSlimScroll flow-y-auto flow-x-hidden"
       >
-        <div class="col-6" *ngFor="let item of networkConfig.data; let i = index">
+        <div class="col-md-6 col-sm-12" *ngFor="let item of networkConfig.data; let i = index">
           <div class="card shadow-sm">
             <div class="card-body text-center">
               <p>

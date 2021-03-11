@@ -1,5 +1,5 @@
 $white: #f5f5f5;
-$dark: #523f6db3;
+$dark: #523f6d;
 $lighter: #523f6d7a;
 $lightest: #a39ab238;
 $light: #523f6d;
@@ -458,12 +458,12 @@ $break-big: 900px;
                 }
 
                 .preview {
-                  margin: 5px 0 0 0;
                   padding: 0 0 1px;
                   font-weight: 400;
                   white-space: nowrap;
                   overflow: hidden;
                   text-overflow: ellipsis;
+                  color: #ffffff82;
                   @include transition(1s all ease);
 
                   span {

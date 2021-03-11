@@ -21,7 +21,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { ContactUsModule } from './scenes/contact-us/contact-us.module';
 import { CourseModule } from './scenes/course/course.module';
 import { ResetPasswordModule } from './scenes/reset-password/reset-password.module';
-import { NgCircleProgressModule } from 'ng-circle-progress';
 
 //component
 import { LoginPopupComponent } from './partials/popups/authentication/login-popup/login-popup.component';
@@ -47,14 +46,6 @@ import { UserDetailsPopupComponent } from './partials/popups/authentication/user
     ContactUsModule,
     CourseModule,
     ResetPasswordModule,
-    NgCircleProgressModule.forRoot({
-      radius: 100,
-      outerStrokeWidth: 16,
-      innerStrokeWidth: 8,
-      outerStrokeColor: "#78C000",
-      innerStrokeColor: "#C7E596",
-      animationDuration: 300,
-    })
   ],
   declarations: [AppComponent, LoginPopupComponent, UserDetailsPopupComponent],
   providers: [],

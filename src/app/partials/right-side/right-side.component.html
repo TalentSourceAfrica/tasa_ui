@@ -31,6 +31,7 @@
                   routerLinkActive="router-link-active"
                   title="{{ item.firstName }} {{ item.lastName }}"
                   class="user-img"
+                  (click)="userFetch()"
                   src="{{
                     item.imageUrl !== ''
                       ? item.imageUrl
@@ -41,7 +42,13 @@
               </div>
             </div>
           </div>
-          <div class="text-right" *ngIf="connectedUserConfig.data.length">
+
+          <div
+            class="text-right"
+            [routerLink]="['/social-network/network/']"
+            routerLinkActive="router-link-active"
+            *ngIf="connectedUserConfig.data.length"
+          >
             <p class="curPoint text-white">{{ connectedUserConfig.data.length }} Members</p>
           </div>
           <div *ngIf="connectedUserConfig.data.length == 0 && !connectedUserConfig.isFetching">

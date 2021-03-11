@@ -283,15 +283,9 @@
                           </h6>
                           <i class="fas fa-caret-down pl-1"></i
                         ></span>
-
-                        <!-- <span
-                          class="text-truncate"
-                          >{{ user.firstName }}</span
-                        ><i class="fas fa-caret-down pl-1"></i> -->
                       </a>
                       <ul class="animated fadeIn bg-white pt-2 pb-2 sidebar-submenu">
-                        <!-- <mat-menu #userMenu="matMenu" class="mr-2 mt-2 animated bounceInDown"> -->
-                        <li>
+                        <!-- <li>
                           <button mat-menu-item [routerLink]="['/home']" class="h6">
                             <i class="fas fa-home pr-3 text-primary"></i> Home
                           </button>
@@ -305,15 +299,30 @@
                           <button mat-menu-item [routerLink]="['/contact-us']" class="h6">
                             <i class="fas fa-id-card pr-3 text-primary"></i> Contact Us
                           </button>
-                        </li>
+                        </li> -->
                         <li>
                           <button mat-menu-item [routerLink]="['/dashboard']" class="h6">
                             <i class="fas fa-chart-line pr-3 text-primary"></i> Dashboard
                           </button>
                         </li>
                         <li>
+                          <button mat-menu-item [routerLink]="['/my-plan']" class="h6">
+                            <i class="fa fa-tags pr-3 text-primary"></i> My Subscriptions
+                          </button>
+                        </li>
+                        <li>
                           <button mat-menu-item [routerLink]="['/subscription-plans']" class="h6">
                             <i class="fa fa-tags pr-3 text-primary"></i> Subscription Plans
+                          </button>
+                        </li>
+                        <li>
+                          <button mat-menu-item [routerLink]="['/reset-password']" class="h6">
+                            <i class="fas fa-key pr-3 text-primary"></i> Update Password
+                          </button>
+                        </li>
+                        <li>
+                          <button mat-menu-item [routerLink]="['/user/profile']" class="h6">
+                            <i class="fas fa-user-edit pr-3 text-primary"></i> Edit Profile
                           </button>
                         </li>
                         <li>
@@ -657,22 +666,22 @@
   </ng-container>
   <li>
     <a class="curPoint px-2 py-4">
-      <i class="fas fa-unlock-alt pr-2"></i>Settings<i class="fas fa-caret-down pl-1"></i
+      <i class="fas fa-unlock-alt pr-2"></i>Freelance<i class="fas fa-caret-down pl-1"></i
     ></a>
     <ul class="animated fadeIn pt-2 pb-2 bg-white sidebar-submenu">
       <li>
-        <button mat-menu-item [routerLink]="['/my-plan']" class="h6">
-          <i class="fa fa-tags pr-3 text-primary"></i> My Subscriptions
+        <button mat-menu-item  class="h6">
+          <i class="fa fa-tags pr-3 text-primary"></i> All Freelancer
         </button>
       </li>
       <li>
-        <button mat-menu-item [routerLink]="['/reset-password']" class="h6">
-          <i class="fas fa-key pr-3 text-primary"></i> Update Password
+        <button mat-menu-item class="h6">
+          <i class="fas fa-key pr-3 text-primary"></i> Seller
         </button>
       </li>
       <li>
-        <button mat-menu-item [routerLink]="['/user/profile']" class="h6">
-          <i class="fas fa-user-edit pr-3 text-primary"></i> Edit Profile
+        <button mat-menu-item class="h6">
+          <i class="fas fa-user-edit pr-3 text-primary"></i> My Order
         </button>
       </li>
     </ul>
