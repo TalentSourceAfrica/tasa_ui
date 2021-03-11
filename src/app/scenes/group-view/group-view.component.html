@@ -57,23 +57,22 @@
                   Connected Members
                 </h5>
               </div>
-              <div class="text-center p-4 curPoint" *ngFor="let item of groupDetailsConfig.data?.members">
-                <div
-                  class="w90 d-flex align-items-center"
-                  [routerLink]="['/social-network/profile/', item.tasaId]"
-                >
-                  <img
-                    src="{{
-                      item.imageUrl
-                        ? item.imageUrl
-                        : 'https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg'
-                    }}"
-                    class="user-img"
-                    alt="{{ item.name }}"
-                  />
+              <div class="max-vertical-h-40 mb-3 stylishSlimScroll flow-y-auto flow-x-hidden">
+                <div class="text-center p-2 curPoint" *ngFor="let item of groupDetailsConfig.data?.members">
+                  <div class="w90 d-flex align-items-center" [routerLink]="['/social-network/profile/', item.tasaId]">
+                    <img
+                      src="{{
+                        item.imageUrl
+                          ? item.imageUrl
+                          : 'https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg'
+                      }}"
+                      class="user-img"
+                      alt="{{ item.name }}"
+                    />
 
-                  <div class="username text-truncate" title="{{ item.name }}">
-                    {{ item.name }}
+                    <div class="username text-truncate" title="{{ item.name }}">
+                      {{ item.name }}
+                    </div>
                   </div>
                 </div>
               </div>
