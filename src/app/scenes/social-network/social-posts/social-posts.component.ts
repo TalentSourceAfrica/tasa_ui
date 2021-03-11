@@ -7,7 +7,7 @@ import { ShareUserPostPopoverComponent } from '@app/partials/popups/community/sh
 import { ShareArticlePopupComponent } from '@app/partials/popups/community/share-article-popup/share-article-popup.component';
 import { Gallery } from 'angular-gallery';
 import Swal from 'sweetalert2';
-
+import { DomSanitizer } from '@angular/platform-browser'
 declare var jQuery: any;
 
 @Component({
@@ -52,8 +52,13 @@ export class SocialPostsComponent implements OnInit {
     public credentialsService: CredentialsService,
     public sharedService: SharedService,
     public cdr: ChangeDetectorRef,
-    private gallery: Gallery
+    private gallery: Gallery,
+    public sanitized: DomSanitizer
   ) {}
+
+  getArticle(input:any){
+    return this.sanitized.bypassSecurityTrustHtml(input);
+  }
 
   openSharePostPopup(_post: any) {
     let $t = this;
@@ -83,7 +88,6 @@ export class SocialPostsComponent implements OnInit {
         post: _post,
         user: $t.user,
         onSubmit: (fromDialog: any) => {
-          console.log(fromDialog);
           $t.createSocialPost();
         },
       },

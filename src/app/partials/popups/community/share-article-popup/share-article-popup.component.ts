@@ -1,43 +1,18 @@
 import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { SharedService } from '@app/services/shared.service';
+import { Editor } from 'ngx-editor';
 
 @Component({
   selector: 'app-share-article-popup',
   templateUrl: './share-article-popup.component.html',
   styleUrls: ['./share-article-popup.component.scss'],
 })
+
 export class ShareArticlePopupComponent implements OnInit {
-  public htmlContent: any;
+  public editor: Editor;
+  public htmlContent = '';
   public popupData: any;
-  config: any = {
-    editable: true,
-    spellcheck: true,
-    height: '25rem',
-    minHeight: '5rem',
-    placeholder: 'Enter text here...',
-    translate: 'no',
-    defaultParagraphSeparator: 'p',
-    defaultFontName: 'Arial',
-    toolbarHiddenButtons: [
-      ['bold']
-      ],
-    customClasses: [
-      {
-        name: "quote",
-        class: "quote",
-      },
-      {
-        name: 'redText',
-        class: 'redText'
-      },
-      {
-        name: "titleText",
-        class: "titleText",
-        tag: "h1",
-      },
-    ]
-  };
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<ShareArticlePopupComponent>,
@@ -54,5 +29,11 @@ export class ShareArticlePopupComponent implements OnInit {
     $t.dialogRef.close();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.editor = new Editor();
+  }
+
+  ngOnDestroy(): void {
+    this.editor.destroy();
+  }
 }

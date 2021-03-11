@@ -370,7 +370,7 @@
                                   <ng-container *ngIf="post.shareArticle != ''">
                                     <div
                                       class="max-vertical-h-30 stylishSlimScroll flow-y-auto flow-x-hidden"
-                                      [innerHTML]="post.shareArticle"
+                                      [innerHTML]="getArticle(post.shareArticle)"
                                     ></div>
                                   </ng-container>
                                 </div>

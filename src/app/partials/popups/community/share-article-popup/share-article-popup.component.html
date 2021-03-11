@@ -28,7 +28,7 @@
         <button
           mat-flat-button
           color="primary"
-          [disabled]="!htmlContent"
+          [disabled]="htmlContent === ''"
           type="submit"
           (click)="submit()"
           class="rounded-pill ml-2"
@@ -41,5 +41,8 @@
 </div>
 
 <ng-template #shareArticalTemplate>
-  <angular-editor [placeholder]="'Enter text here...'" [config]="config" [(ngModel)]="htmlContent"></angular-editor>
+  <div class="article-editor">
+    <ngx-editor-menu [editor]="editor"> </ngx-editor-menu>
+    <ngx-editor [editor]="editor" [(ngModel)]="htmlContent" [placeholder]="'Type here...'"></ngx-editor>
+  </div>
 </ng-template>
