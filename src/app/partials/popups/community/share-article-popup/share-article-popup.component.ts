@@ -14,7 +14,7 @@ export class ShareArticlePopupComponent implements OnInit {
   config: AngularEditorConfig = {
     editable: true,
     spellcheck: true,
-    height: '15rem',
+    height: '25rem',
     minHeight: '5rem',
     placeholder: 'Enter text here...',
     translate: 'no',
@@ -46,6 +46,13 @@ export class ShareArticlePopupComponent implements OnInit {
     public cdr: ChangeDetectorRef
   ) {
     this.popupData = data;
+  }
+
+  submit(){
+    let $t = this;
+    $t.popupData.post.shareArticle = $t.htmlContent;
+    $t.popupData.onSubmit($t.popupData.post);
+    $t.dialogRef.close();
   }
 
   ngOnInit(): void {}

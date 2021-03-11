@@ -145,14 +145,14 @@
                                 Your browser does not support the video tag.
                               </video>
                             </div>
-                            <div *ngIf="socialConfig.newPost.field1 != ''" class="pl-5 link-preview">
-                              <a [href]="socialConfig.newPost.field1" target="_blank">{{
-                                socialConfig.newPost.field1
+                            <div *ngIf="socialConfig.newPost.shareLink != ''" class="pl-5 link-preview">
+                              <a [href]="socialConfig.newPost.shareLink" target="_blank">{{
+                                socialConfig.newPost.shareLink
                               }}</a>
                               <mat-icon
-                                class="pl-2 text-primary position-relative"
+                                class="pl-2 text-primary position-relative curPoint"
                                 style="top: 5px;"
-                                (click)="socialConfig.newPost.field1 = ''"
+                                (click)="socialConfig.newPost.shareLink = ''"
                                 >clear</mat-icon
                               >
                             </div>
@@ -225,6 +225,18 @@
                                 >
                                   <mat-icon>share</mat-icon>
                                 </button>
+
+                                <button
+                                  mat-mini-fab
+                                  color="primary"
+                                  style="z-index: 9;"
+                                  class="mr-2"
+                                  (click)="openShareArticlePopup(socialConfig.newPost)"
+                                  matTooltipPosition="below"
+                                  matTooltip="Share Article"
+                                >
+                                  <i class="fas fa-newspaper"></i>
+                                </button>
                                 <button
                                   mat-mini-fab
                                   class="attachment"
@@ -240,14 +252,6 @@
                                 </mat-menu>
                               </div>
                               <div class="col-4 text-right">
-                                <button
-                                  mat-flat-button
-                                  color="primary"
-                                  (click)="openShareArticlePopup(socialConfig.newPost)"
-                                  class="rounded-pill ml-2 curPoint"
-                                >
-                                  Share Article
-                                </button>
                                 <button
                                   mat-flat-button
                                   color="primary"
@@ -275,10 +279,7 @@
                             (change)="uploadFile($event, 'video')"
                           />
                         </div>
-                        <div
-                          class="mt-2 pt-2 pl-4 pr-4"
-                          id="postsListing"
-                        >
+                        <div class="mt-2 pt-2 pl-4 pr-4" id="postsListing">
                           <div class="row no-gutters text-center">
                             <div class="col-9"><hr /></div>
                             <div class="col-3 d-flex w100 align-items-center">
@@ -363,9 +364,15 @@
                                       Your browser does not support the video tag.
                                     </video>
                                   </div>
-                                  <div *ngIf="post.field1 != ''" class="pl-2 link-preview">
-                                    <a [href]="post.field1" target="_blank">{{ post.field1 }}</a>
+                                  <div *ngIf="post.shareLink != ''" class="pl-2 link-preview">
+                                    <a [href]="post.shareLink" target="_blank">{{ post.shareLink }}</a>
                                   </div>
+                                  <ng-container *ngIf="post.shareArticle != ''">
+                                    <div
+                                      class="max-vertical-h-30 stylishSlimScroll flow-y-auto flow-x-hidden"
+                                      [innerHTML]="post.shareArticle"
+                                    ></div>
+                                  </ng-container>
                                 </div>
                                 <div
                                   *ngIf="post.sharePostId != ''"
@@ -585,7 +592,7 @@
               </div>
             </div>
           </div>
-          <div class="col-md-2 col-sm-12"  *ngIf="!sharedService.deviceDetectorService.isMobile()">
+          <div class="col-md-2 col-sm-12" *ngIf="!sharedService.deviceDetectorService.isMobile()">
             <app-right-side></app-right-side>
           </div>
         </div>

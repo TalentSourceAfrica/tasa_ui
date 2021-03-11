@@ -2,14 +2,38 @@
   <div class="col-sm-8 col-md-12 col-lg-12 mx-auto">
     <div class="navbar-shadow">
       <div class="card-header text-center">
-        <h4 class="card-title">Create Article</h4>
+        <div class="row no-gutters">
+          <div class="col-11">
+            <h4 class="card-title pt-2">Create Article</h4>
+          </div>
+          <div class="col-1">
+            <button
+              mat-mini-fab
+              color="primary"
+              style="z-index: 9;"
+              class="mr-2"
+              matTooltipPosition="below"
+              matTooltip="Close"
+              mat-dialog-close
+            >
+              <mat-icon>clear</mat-icon>
+            </button>
+          </div>
+        </div>
       </div>
       <div class="card-body">
         <ng-container *ngTemplateOutlet="shareArticalTemplate"></ng-container>
       </div>
       <div class="form-group text-center">
-        <button mat-flat-button color="primary" disabled="true" type="submit" class="rounded-pill ml-2">
-          Post Article (Coming soon)
+        <button
+          mat-flat-button
+          color="primary"
+          [disabled]="!htmlContent"
+          type="submit"
+          (click)="submit()"
+          class="rounded-pill ml-2"
+        >
+          Post Article
         </button>
       </div>
     </div>

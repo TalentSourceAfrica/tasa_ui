@@ -42,7 +42,7 @@
             </div>
           </div>
           <div class="text-right" *ngIf="connectedUserConfig.data.length">
-            <p class="text-muted curPoint">{{ connectedUserConfig.data.length }} Members</p>
+            <p class="curPoint text-white">{{ connectedUserConfig.data.length }} Members</p>
           </div>
           <div *ngIf="connectedUserConfig.data.length == 0 && !connectedUserConfig.isFetching">
             <div class="text-center m-auto animated fadeIn">
@@ -86,7 +86,7 @@
             class="text-right"
             *ngIf="myGroups.data.length"
           >
-            <p class="text-muted curPoint">{{ myGroups.data.length }} Groups</p>
+            <p class="curPoint text-white">{{ myGroups.data.length }} Groups</p>
           </div>
           <div *ngIf="myGroups.data.length == 0 && !myGroups.isFetching">
             <div class="text-center m-auto animated fadeIn">

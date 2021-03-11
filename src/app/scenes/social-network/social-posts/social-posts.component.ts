@@ -33,7 +33,8 @@ export class SocialPostsComponent implements OnInit {
       tasaId: this.user.tasaId,
       type: this.user.type,
       imageUrl: '',
-      field1:'',
+      shareLink: '',
+      shareArticle: '',
     },
     sharedPosts: [],
   };
@@ -83,7 +84,7 @@ export class SocialPostsComponent implements OnInit {
         user: $t.user,
         onSubmit: (fromDialog: any) => {
           console.log(fromDialog);
-          // $t.sharePost(fromDialog);
+          $t.createSocialPost();
         },
       },
     });
@@ -280,7 +281,7 @@ export class SocialPostsComponent implements OnInit {
     });
     $t.sharedService.configService.post(apiUrl, comment).subscribe(
       (response: any) => {
-        (post.comments == null || post.comments.length) ? (post.comments = []) : '';
+        post.comments == null || post.comments.length ? (post.comments = []) : '';
         response.responseObj.comments.forEach((d: any) => {
           d['isCommentShow'] = true;
           post.comments.push(d);
@@ -639,7 +640,7 @@ export class SocialPostsComponent implements OnInit {
           Swal.close();
         }
         if (result.value) {
-          $t.socialConfig.newPost.field1 = result.value;
+          $t.socialConfig.newPost.shareLink = result.value;
         }
       }
     });
