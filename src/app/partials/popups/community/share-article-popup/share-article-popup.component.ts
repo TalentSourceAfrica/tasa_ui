@@ -1,7 +1,6 @@
 import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { SharedService } from '@app/services/shared.service';
-import { AngularEditorConfig } from '@kolkov/angular-editor';
 
 @Component({
   selector: 'app-share-article-popup',
@@ -11,7 +10,7 @@ import { AngularEditorConfig } from '@kolkov/angular-editor';
 export class ShareArticlePopupComponent implements OnInit {
   public htmlContent: any;
   public popupData: any;
-  config: AngularEditorConfig = {
+  config: any = {
     editable: true,
     spellcheck: true,
     height: '25rem',
