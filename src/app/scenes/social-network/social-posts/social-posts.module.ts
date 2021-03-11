@@ -23,6 +23,7 @@ import { SocialPostsComponent } from './social-posts.component';
 import { UserInteractionSocialpostPopoverComponent } from '@app/partials/popups/community/user-interaction-socialpost-popover/user-interaction-socialpost-popover.component';
 import { ShareUserPostPopoverComponent } from '@app/partials/popups/community/share-user-post-popover/share-user-post-popover.component';
 import { ShareArticlePopupComponent } from '@app/partials/popups/community/share-article-popup/share-article-popup.component';
+import { SafeHtmlPipe } from '@app/pipes/safe-html.pipe';
 
 @NgModule({
   imports: [
@@ -49,6 +50,7 @@ import { ShareArticlePopupComponent } from '@app/partials/popups/community/share
     UserInteractionSocialpostPopoverComponent,
     ShareUserPostPopoverComponent,
     ShareArticlePopupComponent,
+    SafeHtmlPipe
   ],
   entryComponents: [
     UserInteractionSocialpostPopoverComponent,
