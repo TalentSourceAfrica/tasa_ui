@@ -1,4 +1,4 @@
-$recommendationColor: #fb8500;
+$recommendationColor: #adb5bd;
 $userActionColor: #004e98;
 
 .left-side-wrapper {
@@ -21,14 +21,14 @@ $userActionColor: #004e98;
       }
     }
     .card-body {
-      background-color: #fb850036 !important;
+      background-color: #f8f9fa !important;
     }
     .course-detail {
       border: 2px solid $recommendationColor;
     }
-    .no-data-label {
-      color: $recommendationColor !important;
-    }
+    // .no-data-label {
+    //   color: $recommendationColor !important;
+    // }
     button {
       background-color: $recommendationColor !important;
     }
