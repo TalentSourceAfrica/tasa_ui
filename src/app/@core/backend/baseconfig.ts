@@ -8,7 +8,7 @@ export class BaseConfig {
   @Inject(WINDOW) public window: Window;
 
   domain: string = this.getDomain();
-  localRestHost: string = 'https://' + this.domain;
+  localRestHost: string = this.domain;
   windowLocation: any = window.location;
   restHost: string = window.location.origin;
   pathname: string = window.location.pathname;
@@ -27,12 +27,12 @@ export class BaseConfig {
 
   getDomain() {
     if (location.hostname.indexOf('tasainc') === 0) {
-      return 'tasainc.com'; // 35.247.90.252:8080
-    } else if (location.hostname.indexOf('34.86.93.22') !== -1) {
-      return 'tasainc.com';
+      return 'https://api.tasainc.com'; // 35.247.90.252:8080
+    } else if (location.hostname.indexOf('54.159.150.229') === 0) {
+      return 'http://54.159.150.229';
       // return '34.86.93.22:8080'; // Pre Prod Env
     } else {
-      return 'tasainc.com';
+      return 'http://54.159.150.229';
       // return '34.86.93.22:8080'; // Pre Prod Env
     }
   }

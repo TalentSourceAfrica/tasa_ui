@@ -366,6 +366,7 @@ export class NewSignupPopupComponent implements OnInit {
         },
         (error) => {
           this.sharedService.uiService.showApiErrorPopMsg(error.error.message);
+          this.sharedService.utilityService.changeMessage('AFTER-LOGIN');
         }
       );
   }
