@@ -23,6 +23,7 @@ export const urls: any = {
   searchUser: '/users/search/{page}/{size}/{searchText}', // G
   searchFreelancer: '/users/freelancer/search/{page}/{size}/{searchText}', // G
   verifyEmail: '/verifyemail/{hash}', // G
+  getTribe: '/tribe', // G
 
   // location
   getCountry: '/locations', // G

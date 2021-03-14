@@ -1,5 +1,5 @@
 :root {
-  --form-height: 550px;
+  --form-height: 600px;
   --form-width: 900px;
   --left-color: #523f6d;
   --right-color: #96dbe2;
@@ -151,18 +151,19 @@
     position: absolute;
     /*  Width is 100% - 385px - padding  */
     width: calc(var(--form-width) - 385px - var(--padding) * 2);
-    height: 100%;
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    padding: 0px var(--padding);
+    padding: 20px var(--padding);
     text-align: center;
+    height: 100%;
   }
 
   /* Sign in is initially not displayed */
   .form .sign-in {
     display: none;
+    height: 100%;
   }
 
   .form .sign-in {
@@ -403,8 +404,8 @@
   }
 
   .flip-card {
-    width: 300px;
-    height: 300px;
+    width: 400px;
+    // height: 300px;
     perspective: 1000px;
     transition: 2s;
   }

@@ -23,6 +23,27 @@ export class NewSignupPopupComponent implements OnInit {
   newUserObj: any;
   isLoading = false;
   show: boolean = false;
+  raceData: any = [];
+  tribeData: any = [];
+  countries: any = [];
+  signupSteps: any = [
+    {
+      id: 0,
+      isActive: true,
+    },
+    {
+      id: 1,
+      isActive: false,
+    },
+    {
+      id: 2,
+      isActive: false,
+    },
+    {
+      id: 3,
+      isActive: false,
+    },
+  ];
   signupType: any = [
     { value: 0, dbValue: 'Mentee', viewValue: 'Student / Professional' },
     { value: 1, dbValue: 'Mentor', viewValue: 'Mentor' },
@@ -40,6 +61,16 @@ export class NewSignupPopupComponent implements OnInit {
   ) {
     this.popupData = data;
     this.userType = this.signupType[this.popupData.case == 'student' ? 0 : 2];
+  }
+
+  signupStepsClick(_id: number, _isForward: boolean) {
+    if (_isForward) {
+      this.signupSteps.find((d: any) => d.id === _id).isActive = false;
+      this.signupSteps.find((d: any) => d.id === _id + 1).isActive = true;
+    } else {
+      this.signupSteps.find((d: any) => d.id === _id).isActive = false;
+      this.signupSteps.find((d: any) => d.id === _id - 1).isActive = true;
+    }
   }
 
   init() {
@@ -120,8 +151,11 @@ export class NewSignupPopupComponent implements OnInit {
             [Validators.required, Validators.email],
           ],
           password: ['', [Validators.required]],
-          confirmPassword: ['', [Validators.required]],
+          // confirmPassword: ['', [Validators.required]],
           termsCond: [true, [Validators.required]],
+          raceEthnicity: ['', [Validators.required]],
+          tribe: ['', [Validators.required]],
+          tribeEnrolled: ['N', [Validators.required]],
           country: ['', [Validators.required]],
           state: ['', [Validators.required]],
           city: ['', [Validators.required]],
@@ -131,10 +165,10 @@ export class NewSignupPopupComponent implements OnInit {
           careerGoals: ['', [Validators.required]],
           linkedin: [''],
           twitter: [''],
-        },
-        {
-          validator: MustMatch('password', 'confirmPassword'),
         }
+        // {
+        //   validator: MustMatch('password', 'confirmPassword'),
+        // }
       );
     } else {
       this.userDetailsForm = this.formBuilder.group(
@@ -215,6 +249,9 @@ export class NewSignupPopupComponent implements OnInit {
       lastName: _payload.lastName,
       profileSummary: '',
       orgId: _payload.orgId,
+      raceEthnicity: [_payload.raceEthnicity],
+      tribe: _payload.raceEthnicity === 'Native American' ? [_payload.tribe] : [],
+      tribeEnrolled: _payload.tribeEnrolled,
       enrolledCourses: [],
       favoriteCourses: [],
       recentlyViewed: [],
@@ -291,8 +328,7 @@ export class NewSignupPopupComponent implements OnInit {
     let apiUrl = $t.sharedService.urlService.simpleApiCall('signup');
     $t.sharedService.uiService.showApiStartPopMsg('Creating Account...');
     let payload = { ...JSON.parse(JSON.stringify($t.userDetailsForm.value)), type: $t.userType.dbValue };
-    let areaOfPreference: any = [],
-      preferredRole: any = [];
+
     payload['username'] = payload.email;
     if ($t.popupData.case == 'student') {
       payload['experience'] = [];
@@ -353,12 +389,11 @@ export class NewSignupPopupComponent implements OnInit {
           this.popupData.authenticationService.setToken(JSON.parse(response.data).access_token);
           this.sharedService.uiService.closePopMsg();
           this.dialogRef.close();
-          // if (response.responseObj.city !== '') {
-          //   this.popupData.authenticationService.openUserDetailsPopup();
-          // } else {
-          //   this.router.navigate(['/social-network/posts'], { replaceUrl: true });
-          // }
-          this.router.navigate(['/social-network/posts'], { replaceUrl: true });
+          if (response.responseObj.image === '' && response.responseObj.education.length === 0) {
+            this.popupData.authenticationService.openUserDetailsPopup();
+          } else {
+            this.router.navigate(['/social-network/posts'], { replaceUrl: true });
+          }
           setTimeout(() => {
             jQuery('.header-top-area').removeClass('position-absolute');
             this.sharedService.utilityService.changeMessage('AFTER-LOGIN');
@@ -402,6 +437,30 @@ export class NewSignupPopupComponent implements OnInit {
     );
   }
 
+  getTribe() {
+    let $t = this;
+    let apiUrl = $t.sharedService.urlService.simpleApiCall('getTribe');
+    $t.sharedService.configService.get(apiUrl).subscribe((response: any) => {
+      $t.tribeData = response.responseObj;
+    });
+  }
+
+  getCountry() {
+    let $t = this;
+    let apiUrl = $t.sharedService.urlService.simpleApiCall('getCountry');
+    $t.sharedService.configService.get(apiUrl).subscribe((response) => {
+      $t.countries = response;
+    });
+  }
+
+  getRace() {
+    let $t = this;
+    let apiUrl = $t.sharedService.urlService.apiCallWithParams('getLovsByGroup', { '{group}': 'Race' });
+    $t.sharedService.configService.get(apiUrl).subscribe((response) => {
+      $t.raceData = response[0].value;
+    });
+  }
+
   setOrgId(_item: any) {
     this.userDetailsForm.controls.orgId.patchValue(_item.id);
   }
@@ -420,6 +479,9 @@ export class NewSignupPopupComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getTribe();
+    this.getCountry();
+    this.getRace();
     this.init();
     this.initForm();
     this.createForm();

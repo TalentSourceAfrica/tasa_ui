@@ -2,9 +2,26 @@
   <div class="col-sm-8 col-md-12 col-lg-12 mx-auto">
     <div class="navbar-shadow">
       <div class="card-header text-center">
-        <h5 class="card-title">
-          Edit <strong class="text-primary">{{ popupData.userConfigToUpdate.type }}</strong>
-        </h5>
+        <div class="row no-gutters">
+          <div class="col-11">
+            <h5 class="card-title">
+              Edit <strong class="text-primary">{{ popupData.userConfigToUpdate.type }}</strong>
+            </h5>
+          </div>
+          <div class="col-1">
+            <button
+              mat-mini-fab
+              color="primary"
+              style="z-index: 9;"
+              class="mr-2"
+              matTooltipPosition="below"
+              matTooltip="Close"
+              mat-dialog-close
+            >
+              <mat-icon>clear</mat-icon>
+            </button>
+          </div>
+        </div>
       </div>
       <div class="alert alert-warning text-center" role="alert">
         <i class="far fa-hand-point-right pr-2 text-primary"></i>All the
@@ -19,9 +36,6 @@
         <div class="col-12 text-center mt-3">
           <button mat-flat-button color="primary" (click)="submit()" class="rounded-pill ml-2">
             Update
-          </button>
-          <button mat-flat-button color="primary" mat-dialog-close="true" class="rounded-pill ml-2">
-            Close
           </button>
         </div>
       </div>
@@ -430,7 +444,7 @@
     <mat-slide-toggle
       class="example-margin text-primary"
       [checked]="user.isFreelancer === 'Y'"
-      (change)="(user.isFreelancer === 'Y' ? user.isFreelancer = 'N' : user.isFreelancer = 'Y' )"
+      (change)="user.isFreelancer === 'Y' ? (user.isFreelancer = 'N') : (user.isFreelancer = 'Y')"
     >
       Do you want to be listed as a Freelancer on TaSA
     </mat-slide-toggle>

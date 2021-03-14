@@ -3,7 +3,7 @@
     <div class="message success" *ngIf="!isLoading && isUserVerified">
       <img class="message-icon animated fadeInUp" src="../assets/images/success.svg" alt="" />
       <p class="message-text font700">Verification Successful!</p>
-      <h6 class="message-text font400">{{apiMessage}}. Please Login In.</h6>
+      <h6 class="message-text font400">{{apiMessage}}. Please <strong class="underline curPoint" (click)="login()">Login</strong>.</h6>
       <!-- <button mat-flat-button color="primary" class="rounded-pill ml-2 w30" [routerLink]="['/home']">Go To Home</button> -->
     </div>
     <div class="message error" *ngIf="!isLoading && !isUserVerified">

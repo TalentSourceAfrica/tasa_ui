@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { AuthenticationService } from '@app/auth';
 import { SharedService } from '@app/services/shared.service';
 
 @Component({
@@ -9,10 +10,14 @@ import { SharedService } from '@app/services/shared.service';
 })
 export class VerificationComponent implements OnInit {
   qParams: any;
-  isLoading:boolean = false;
-  isUserVerified:any;
-  apiMessage:string = '';
-  constructor(private route: ActivatedRoute, public sharedService: SharedService) {
+  isLoading: boolean = false;
+  isUserVerified: any;
+  apiMessage: string = '';
+  constructor(
+    private route: ActivatedRoute,
+    public sharedService: SharedService,
+    private authenticationService: AuthenticationService
+  ) {
     this.qParams = this.route.snapshot.queryParams;
   }
 
@@ -39,6 +44,10 @@ export class VerificationComponent implements OnInit {
         }
       );
     }
+  }
+
+  login() {
+    this.authenticationService.openSignupPopup('sign-in');
   }
 
   ngOnInit(): void {

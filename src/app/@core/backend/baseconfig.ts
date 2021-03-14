@@ -26,12 +26,12 @@ export class BaseConfig {
   }
 
   getDomain() {
-    if (location.hostname.indexOf('tasainc') === 0) {
+    if (location.hostname.indexOf('tasainc') !== -1) {
       return 'https://api.tasainc.com'; // 35.247.90.252:8080
-    } else if (location.hostname.indexOf('54.159.150.229') === 0) {
+    } else if (location.hostname.indexOf('52.20.117.251') !== -1) {
       return 'http://54.159.150.229';
       // return '34.86.93.22:8080'; // Pre Prod Env
-    } else {
+    } else if (location.hostname.indexOf('localhost') !== -1) {
       return 'http://54.159.150.229';
       // return '34.86.93.22:8080'; // Pre Prod Env
     }
