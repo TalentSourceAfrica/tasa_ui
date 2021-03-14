@@ -54,7 +54,7 @@
           <input
             [id]="item.label"
             type="text"
-            *ngIf="!item?.textarea && !item?.isDropdown && !item?.isDateTime && !item?.isArray"
+            *ngIf="!item?.textarea && !item?.isDropdown && !item?.isDateTime && !item?.isArray && !item?.isChips"
             [(ngModel)]="user[item.key]"
             class="form-control form-control-prepended"
             placeholder="Your {{ item.label }}"
@@ -62,7 +62,7 @@
           <textarea
             [id]="item.label"
             cols="30"
-            *ngIf="item?.textarea && !item?.isDropdown && !item?.isDateTime && !item?.isArray"
+            *ngIf="item?.textarea && !item?.isDropdown && !item?.isDateTime && !item?.isArray && !item?.isChips"
             rows="10"
             [(ngModel)]="user[item.key]"
             class="form-control form-control-prepended"
@@ -90,7 +90,27 @@
             <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
             <mat-datepicker #picker1 color="primary"></mat-datepicker>
           </ng-container>
-
+          <ng-container *ngIf="item?.isChips">
+            <mat-chip-list #chipList aria-label="Fruit selection" class="w100">
+              <mat-chip
+                *ngFor="let item of user[item.key]"
+                [selectable]="selectable"
+                [removable]="removable"
+                (removed)="remove(item,'pi')"
+              >
+                {{ item }}
+                <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+              </mat-chip>
+              <input
+                placeholder="Your professional interests"
+                [matChipInputFor]="chipList"
+                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                [matChipInputAddOnBlur]="addOnBlur"
+                (matChipInputTokenEnd)="add($event,'pi')"
+                class="form-control form-control-prepended"
+              />
+            </mat-chip-list>
+          </ng-container>
           <ng-container *ngIf="item?.isDropdown">
             <ng-template [ngTemplateOutlet]="country" [ngTemplateOutletContext]="{ data: item }"> </ng-template>
           </ng-container>

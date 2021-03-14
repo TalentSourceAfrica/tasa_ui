@@ -160,29 +160,34 @@ export class EditUserPopupComponent implements OnInit {
     this.cdr.detectChanges();
   }
 
-  add(event: MatChipInputEvent): void {
+  add(event: MatChipInputEvent,_type?:string): void {
     const input = event.input;
     const value = event.value;
-
-    // Add our fruit
     if ((value || '').trim()) {
-      this.user.fieldsOfExpertise.push({
-        areaOfExpertise: value.trim(),
-      });
+      if(_type == 'pi'){
+        this.user.preferredRole.push(value.trim());
+      }else {
+        this.user.fieldsOfExpertise.push({
+          areaOfExpertise: value.trim(),
+        });
+      }
+    
     }
-
     // Reset the input value
     if (input) {
       input.value = '';
     }
   }
 
-  remove(skill: any): void {
-    const index = this.user.fieldsOfExpertise.indexOf(skill);
-
-    if (index >= 0) {
-      this.user.fieldsOfExpertise.splice(index, 1);
-    }
+  remove(skill: any,_type?:string): void {
+    let index:any;
+      if(_type == 'pi'){
+        index = this.user.preferredRole.indexOf(skill);
+        this.user.preferredRole.splice(index, 1);
+      }else {
+        index = this.user.fieldsOfExpertise.indexOf(skill);
+        this.user.fieldsOfExpertise.splice(index, 1);
+      }
   }
 
   removeExp(index: number) {

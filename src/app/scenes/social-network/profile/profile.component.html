@@ -265,11 +265,18 @@
                                 <div class="col-lg-6" *ngIf="user.email === userConfig.user.email">
                                   <div class="form-group">
                                     <label class="form-control-label" for="input-email">Professional Interest</label>
-                                    <h4 class="text-primary">{{ userConfig.user.preferredRole }}</h4>
-                                    <!-- <input type="email" id="input-email" class="form-control form-control-alternative" placeholder="jesse@example.com"> -->
+                                    <div>
+                                      <span
+                                        class="badge badge-dark"
+                                        [ngClass]="{'ml-1': !first}"
+                                        style="font-size: 15px;"
+                                        *ngFor="let item of userConfig.user.preferredRole; let first = first"
+                                        >{{ item }}</span
+                                      >
+                                    </div>
                                   </div>
                                 </div>
-                                <div class="col-lg-6" *ngIf="user.email === userConfig.user.email">
+                                <div class="col-lg-6" *ngIf="user.email === userConfig.user.email && userConfig.user.areaOfPreference != '' ">
                                   <div class="form-group">
                                     <label class="form-control-label" for="input-email"
                                       >Subjects/Topics of Preference</label
@@ -278,7 +285,7 @@
                                     <!-- <input type="email" id="input-email" class="form-control form-control-alternative" placeholder="jesse@example.com"> -->
                                   </div>
                                 </div>
-                                <div class="col-lg-6" *ngIf="user.email === userConfig.user.email">
+                                <div class="col-lg-6" *ngIf="user.email === userConfig.user.email && userConfig.user.careerGoals != ''">
                                   <div class="form-group">
                                     <label class="form-control-label" for="input-email">Preferred Role</label>
                                     <h4 class="text-primary">{{ userConfig.user.careerGoals }}</h4>
@@ -380,7 +387,7 @@
                                     <h4 class="text-primary">{{ edu.college[0] }}</h4>
                                   </div>
                                 </div>
-                                <div class="col-lg-4" *ngIf="edu.degreeFromDate != ''">
+                                <div class="col-lg-4" *ngIf="edu.degreeFromDate">
                                   <div class="form-group">
                                     <label class="form-control-label" for="input-email">Degree Start Date</label>
                                     <h4 class="text-primary">
@@ -388,7 +395,7 @@
                                     </h4>
                                   </div>
                                 </div>
-                                <div class="col-lg-4" *ngIf="edu.degreeToDate != ''">
+                                <div class="col-lg-4" *ngIf="edu.degreeToDate">
                                   <div class="form-group">
                                     <label class="form-control-label" for="input-email">Degree End Date</label>
                                     <h4 class="text-primary">

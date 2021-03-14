@@ -389,7 +389,11 @@ export class NewSignupPopupComponent implements OnInit {
           this.popupData.authenticationService.setToken(JSON.parse(response.data).access_token);
           this.sharedService.uiService.closePopMsg();
           this.dialogRef.close();
-          if (response.responseObj.image === '' && response.responseObj.education.length === 0) {
+          if (
+            response.responseObj.image === '' ||
+            response.responseObj.experience.length === 0 ||
+            (response.responseObj.education.length === 0 && response.responseObj.type === 'Mentee')
+          ) {
             this.popupData.authenticationService.openUserDetailsPopup();
           } else {
             this.router.navigate(['/social-network/posts'], { replaceUrl: true });

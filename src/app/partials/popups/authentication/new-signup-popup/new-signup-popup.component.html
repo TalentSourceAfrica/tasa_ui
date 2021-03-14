@@ -84,7 +84,7 @@
         <ng-container *ngIf="popupData.case == 'student' || popupData.case == 'sign-in'">
           <form [formGroup]="userDetailsForm" novalidate class="form-class">
             <div class="flip-card animated fadeInUp min-vertical-h-35 mt-3 w20 mx-auto">
-              <div class="flip-card-inner" *ngIf="signupSteps[0].isActive">
+              <div class="flip-card-inner animated fadeInUp" *ngIf="signupSteps[0].isActive">
                 <div id="flip-card-front" class="col-12 px-0 text-left">
                   <div class="form-group d-block">
                     <label class="form-label" for="email"
@@ -343,7 +343,7 @@
                         placeholder="Select"
                         class="form-control form-control-prepended"
                       >
-                        <mat-option *ngFor="let country of countries" [value]="country.code">
+                        <mat-option *ngFor="let country of countries" [value]="country.title">
                           {{ country.title }}
                         </mat-option>
                       </mat-select>

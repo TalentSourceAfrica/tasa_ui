@@ -1,12 +1,12 @@
 import { Component, OnInit, Inject, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatChipInputEvent } from '@angular/material/chips';
 
 //service
 import { SharedService } from '@app/services/shared.service';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '@app/auth';
-
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
 //extra
 
 declare var jQuery: any;
@@ -22,6 +22,7 @@ export class UserDetailsPopupComponent implements OnInit {
   popupData: any;
   userDetails: any;
   countries: any = [];
+  industryData: any = [];
   steps: any = [
     {
       id: 0,
@@ -36,13 +37,18 @@ export class UserDetailsPopupComponent implements OnInit {
       isActive: false,
     },
   ];
+  //chips
+  visible = true;
+  selectable = true;
+  removable = true;
+  addOnBlur = true;
+  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private formBuilder: FormBuilder,
     private dialogRef: MatDialogRef<UserDetailsPopupComponent>,
     private sharedService: SharedService,
     private router: Router,
-    private authenticationService: AuthenticationService,
     public cdr: ChangeDetectorRef
   ) {
     this.popupData = data;
@@ -50,6 +56,15 @@ export class UserDetailsPopupComponent implements OnInit {
   }
 
   stepsClick(_id: number, _isForward: boolean) {
+    // setting Data for next screen
+    if (_id === 0) {
+      this.addExp();
+    }
+    if (_id === 1) {
+      this.addEdu();
+    }
+
+    // steps logic
     if (_isForward) {
       this.steps.find((d: any) => d.id === _id).isActive = false;
       this.steps.find((d: any) => d.id === _id + 1).isActive = true;
@@ -59,23 +74,68 @@ export class UserDetailsPopupComponent implements OnInit {
     }
   }
 
+  add(event: MatChipInputEvent): void {
+    const input = event.input;
+    const value = event.value;
+
+    // Add our fruit
+    if ((value || '').trim()) {
+      this.user.preferredRole.push(value.trim());
+    }
+
+    // Reset the input value
+    if (input) {
+      input.value = '';
+    }
+  }
+
+  remove(skill: any): void {
+    const index = this.user.preferredRole.indexOf(skill);
+
+    if (index >= 0) {
+      this.user.preferredRole.splice(index, 1);
+    }
+  }
+
   addExp() {
-    this.user.experience.push({
-      currentRole: [''],
-      description: [''],
-      experience: 'false',
-      experienceFrom: '',
-      experienceTo: '',
-      organization: '',
-      recentEmployer: '',
-      industry: [],
-      professionalInterest: [],
-    });
+    if (this.user.experience.length === 0) {
+      this.user.experience.push({
+        currentRole: [''],
+        description: [''],
+        experience: 'false',
+        experienceFrom: '',
+        experienceTo: '',
+        organization: '',
+        recentEmployer: '',
+        industry: [],
+        professionalInterest: [],
+      });
+    }
+    this.cdr.detectChanges();
+  }
+
+  addEdu() {
+    if (this.user.education.length === 0) {
+      this.user.education.push({
+        college: [''],
+        degreeFromDate: '',
+        degreeToDate: '',
+        highestDegree: '',
+        major: '',
+        minor: [''],
+        university: [''],
+      });
+    }
+
     this.cdr.detectChanges();
   }
 
   removeExp(index: number) {
     this.user.experience.splice(index, 1);
+  }
+
+  removeEdu(index: number) {
+    this.user.education.splice(index, 1);
   }
 
   handleFileInput(event: any) {
@@ -90,10 +150,11 @@ export class UserDetailsPopupComponent implements OnInit {
 
       $t.sharedService.configService.post(apiUrl, form).subscribe(
         (response: any) => {
-          $t.sharedService.uiService.showApiSuccessPopMsg('User Avatar Updated...');
+          $t.sharedService.uiService.showApiSuccessPopMsg('Awesome!, User Avatar Updated.');
           $t.user.image = response.url;
-          $t.authenticationService.login($t.user);
+          $t.popupData.authenticationService.login($t.user);
           $t.sharedService.utilityService.changeMessage('FETCH-USER-PROFILE');
+          $t.stepsClick(0, true);
         },
         (error) => {
           $t.sharedService.uiService.showApiErrorPopMsg('Something Went Wrong, Please Try Again After Sometime...');
@@ -252,17 +313,26 @@ export class UserDetailsPopupComponent implements OnInit {
     );
   }
 
-  submit() {
+  submit(_type: string) {
     let $t = this;
+    const _user = JSON.parse(JSON.stringify($t.user));
     $t.sharedService.uiService.showApiStartPopMsg('Updating Details...');
     let apiUrl = $t.sharedService.urlService.simpleApiCall('getUsers');
+    if (_type === 'education') {
+      _user.experience = [];
+    } else if (_type === 'experience') {
+      _user.education = [];
+    }
     $t.sharedService.configService.put(apiUrl, $t.user).subscribe(
       (response: any) => {
         $t.popupData.authenticationService.login(response.responseObj);
         $t.sharedService.uiService.showApiSuccessPopMsg(response.message);
         $t.sharedService.utilityService.changeMessage('FETCH-USER-PROFILE');
-        $t.dialogRef.close();
-        $t.router.navigate(['/social-network/posts'], { replaceUrl: true });
+        if ($t.steps[2].isActive) {
+          $t.navigateInside()
+        } else {
+          $t.stepsClick(1, true);
+        }
       },
       (error) => {
         $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
@@ -270,11 +340,32 @@ export class UserDetailsPopupComponent implements OnInit {
     );
   }
 
+  getIndustry() {
+    let $t = this;
+    let apiUrl = $t.sharedService.urlService.apiCallWithParams('getLovsByGroup', { '{group}': 'Industry' });
+    $t.sharedService.configService.get(apiUrl).subscribe((response) => {
+      $t.industryData = response[0].value;
+    });
+  }
+  
+  navigateInside(){
+    let $t = this;
+    $t.dialogRef.close();
+    $t.router.navigate(['/social-network/posts'], { replaceUrl: true });
+  }
+
   ngOnInit(): void {
     this.initForm(this.user.type);
+    if (this.user.image !== '' && this.user.experience.length === 0 ) {
+      this.stepsClick(0, true);
+    } else if (this.user.experience.length !== 0) {
+      this.stepsClick(0, true);
+      this.stepsClick(1, true);
+    }
   }
+
   ngAfterViewInit(): void {
-    this.addExp();
+    this.getIndustry();
   }
 
   get user(): any | null {
