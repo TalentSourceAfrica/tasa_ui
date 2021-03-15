@@ -74,27 +74,33 @@ export class UserDetailsPopupComponent implements OnInit {
     }
   }
 
-  add(event: MatChipInputEvent): void {
+  add(event: MatChipInputEvent, _type?:string): void {
     const input = event.input;
     const value = event.value;
 
     // Add our fruit
     if ((value || '').trim()) {
-      this.user.preferredRole.push(value.trim());
+      if(_type === 'minor'){
+        this.user.education[0].minor.push(value.trim());
+      } else {
+        this.user.preferredRole.push(value.trim());
+      }  
     }
-
     // Reset the input value
     if (input) {
       input.value = '';
     }
   }
 
-  remove(skill: any): void {
-    const index = this.user.preferredRole.indexOf(skill);
-
-    if (index >= 0) {
-      this.user.preferredRole.splice(index, 1);
-    }
+  remove(skill: any, _type?:string): void {
+    let index;
+      if(_type === 'minor'){
+        index = this.user.education[0].minor.indexOf(skill);
+        this.user.education[0].minor.splice(index, 1);
+      } else {
+        index = this.user.preferredRole.indexOf(skill);
+        this.user.preferredRole.splice(index, 1);
+      }
   }
 
   addExp() {

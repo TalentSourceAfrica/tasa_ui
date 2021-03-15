@@ -160,13 +160,16 @@ export class EditUserPopupComponent implements OnInit {
     this.cdr.detectChanges();
   }
 
-  add(event: MatChipInputEvent,_type?:string): void {
+  add(event: MatChipInputEvent,_type?:string, _keyRef?:any): void {
     const input = event.input;
     const value = event.value;
     if ((value || '').trim()) {
       if(_type == 'pi'){
         this.user.preferredRole.push(value.trim());
-      }else {
+      }else if(_type == 'minor'){
+        _keyRef.minor.push(value.trim());
+      }
+      else {
         this.user.fieldsOfExpertise.push({
           areaOfExpertise: value.trim(),
         });
@@ -179,12 +182,16 @@ export class EditUserPopupComponent implements OnInit {
     }
   }
 
-  remove(skill: any,_type?:string): void {
+  remove(skill: any,_type?:string, _keyRef?:any): void {
     let index:any;
       if(_type == 'pi'){
         index = this.user.preferredRole.indexOf(skill);
         this.user.preferredRole.splice(index, 1);
-      }else {
+      }else if(_type == 'minor'){
+        index = _keyRef.minor.indexOf(skill);
+        _keyRef.minor.splice(index, 1);
+      }
+      else {
         index = this.user.fieldsOfExpertise.indexOf(skill);
         this.user.fieldsOfExpertise.splice(index, 1);
       }

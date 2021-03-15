@@ -13,7 +13,7 @@
               </h2>
             </div>
             <div class="col-1">
-              <button mat-flat-button color="warn" (click)="skip()" class="rounded-pill ml-2 w30">
+              <button mat-flat-button color="warn" (click)="skip()" class="rounded-pill ml-2 w30 caps">
                 SKIP
               </button>
             </div>
@@ -123,7 +123,7 @@
         >
           <mat-icon>arrow_back_ios</mat-icon>
         </button>
-        <button mat-flat-button color="primary" (click)="navigateInside()" class="rounded-pill">
+        <button mat-flat-button color="primary" (click)="navigateInside()" class="rounded-pill caps">
           FINISH
         </button>
       </div>
@@ -337,13 +337,25 @@
       <div class="form-group text-left">
         <label class="form-label" for="description">Minor</label>
         <div class="input-group input-group-merge">
-          <input
-            type="text"
-            id="minor{{ i }}"
-            [(ngModel)]="item.minor[0]"
-            class="form-control form-control-prepended"
-            placeholder="Your minor"
-          />
+          <mat-chip-list #chipList aria-label="Fruit selection" class="w100">
+            <mat-chip
+              *ngFor="let item of item.minor"
+              [selectable]="selectable"
+              [removable]="removable"
+              (removed)="remove(item,'minor')"
+            >
+              {{ item }}
+              <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+            </mat-chip>
+            <input
+              placeholder="Your minor"
+              [matChipInputFor]="chipList"
+              [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+              [matChipInputAddOnBlur]="addOnBlur"
+              (matChipInputTokenEnd)="add($event,'minor')"
+              class="form-control form-control-prepended"
+            />
+          </mat-chip-list>
         </div>
       </div>
       <!-- <div class="d-flex">

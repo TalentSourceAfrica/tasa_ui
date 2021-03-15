@@ -403,10 +403,10 @@
                                     </h4>
                                   </div>
                                 </div>
-                                <div class="col-lg-4" *ngIf="edu.minor[0] != ''">
+                                <div class="col-lg-4">
                                   <div class="form-group focused">
-                                    <label class="form-control-label" for="input-username">Minor</label>
-                                    <h4 class="text-primary">{{ edu.minor[0] }}</h4>
+                                    <label class="form-control-label" for="input-username">University</label>
+                                    <h4 class="text-primary">{{ edu.university[0] }}</h4>
                                   </div>
                                 </div>
                                 <div class="col-lg-4" *ngIf="edu.major != ''">
@@ -416,10 +416,18 @@
                                   </div>
                                 </div>
 
-                                <div class="col-lg-4">
+                                <div class="col" *ngIf="edu.minor[0] != ''">
                                   <div class="form-group focused">
-                                    <label class="form-control-label" for="input-username">University</label>
-                                    <h4 class="text-primary">{{ edu.university[0] }}</h4>
+                                    <label class="form-control-label" for="input-username">Minor</label>
+                                    <div>
+                                      <span
+                                        class="badge badge-dark"
+                                        [ngClass]="{'ml-1': !first}"
+                                        style="font-size: 15px;"
+                                        *ngFor="let item of edu.minor; let first = first"
+                                        >{{ item }}</span
+                                      >
+                                    </div>
                                   </div>
                                 </div>
                               </div>

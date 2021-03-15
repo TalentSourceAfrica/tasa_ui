@@ -349,12 +349,25 @@
           <div class="form-group">
             <label class="form-label" for="description">Minor</label>
             <div class="input-group input-group-merge">
-              <input
-                type="text"
-                id="minor{{ i }}"
-                [(ngModel)]="item.minor[0]"
-                class="form-control form-control-prepended"
-              />
+              <mat-chip-list #chipList aria-label="Fruit selection" class="w100">
+                <mat-chip
+                  *ngFor="let item of item.minor"
+                  [selectable]="selectable"
+                  [removable]="removable"
+                  (removed)="remove(item,'minor',item)"
+                >
+                  {{ item }}
+                  <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                </mat-chip>
+                <input
+                  placeholder="Your minor"
+                  [matChipInputFor]="chipList"
+                  [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                  [matChipInputAddOnBlur]="addOnBlur"
+                  (matChipInputTokenEnd)="add($event,'minor',item)"
+                  class="form-control form-control-prepended"
+                />
+              </mat-chip-list>
             </div>
           </div>
           <div class="d-flex">
