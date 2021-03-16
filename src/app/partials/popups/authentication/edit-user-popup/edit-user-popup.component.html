@@ -224,7 +224,7 @@
                 <mat-datepicker #picker1 color="primary"></mat-datepicker>
               </div>
             </div>
-            <div class="form-group pl-2 w45" *ngIf="item.experience === 'false'">
+            <div class="form-group pl-2 w45" *ngIf="item.recentEmployer === 'false'">
               <label class="form-label" for="experienceTo"
                 >Job End Date<span class="text-danger pl-1 asterisk">*</span></label
               >
@@ -245,8 +245,8 @@
                 <div class="f-color d-flex">
                   <mat-slide-toggle
                     class="example-margin text-primary"
-                    checked="{{ item.experience === 'true' ? true : false }}"
-                    (change)="item.experience === 'true' ? (item.experience = 'false') : (item.experience = 'true')"
+                    checked="{{ item.recentEmployer === 'true' ? true : false }}"
+                    (change)="item.recentEmployer === 'true' ? (item.recentEmployer = 'false') : (item.recentEmployer = 'true')"
                   >
                     Current Job
                   </mat-slide-toggle>

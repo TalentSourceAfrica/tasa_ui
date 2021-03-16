@@ -5,9 +5,10 @@ import { MaterialModule } from '@app/modules/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { SocialnetworkService } from '@app/scenes/social-network/socialnetwork.service';
+import { NameFilterModule } from '@app/pipes/name-filter.pipe';
 
 @NgModule({
-  imports: [CommonModule, MaterialModule, FormsModule, ReactiveFormsModule, RouterModule],
+  imports: [CommonModule, MaterialModule, FormsModule, ReactiveFormsModule, RouterModule, NameFilterModule],
   declarations: [SocialConnectionsComponent],
   exports: [SocialConnectionsComponent],
   providers: [SocialnetworkService],

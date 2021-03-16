@@ -30,6 +30,7 @@ export class ProfileComponent implements OnInit {
     isConnected: false,
     totalConnectedUser: 0,
     isRequestPending: false,
+    currentJob:{},
   };
   isCurrentUser: boolean = true;
   mom: any;
@@ -58,7 +59,7 @@ export class ProfileComponent implements OnInit {
     return this.mom(_dateToFormat).format('YYYY-MM-DD');
   }
 
-  fetchUser(_viewUser?: boolean) {
+  fetchUser(_viewUser?: boolean){
     let $t = this;
     let apiUrl: any;
     $t.isAllowedConfig.allowed = true;
@@ -79,6 +80,11 @@ export class ProfileComponent implements OnInit {
     $t.sharedService.configService.get(apiUrl).subscribe(
       (response: any) => {
         $t.userConfig.user = response.responseObj;
+
+        if($t.userConfig.user.experience.length){
+           $t.userConfig.currentJob =  $t.userConfig.user.experience.find((d:any) => d.recentEmployer === 'true') || {};
+        };
+
         $t.userConfig.user.tasaId != $t.user.tasaId ? ($t.isCurrentUser = false) : ($t.isCurrentUser = true);
         $t.fetchConnections();
         if ($t.isCurrentUser) {

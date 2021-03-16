@@ -9,10 +9,11 @@ import { MaterialModule } from '@app/modules/material.module';
 import { RouterModule } from '@angular/router';
 import { ConversationRoutingModule } from './conversation-routing.module';
 import { ConversationComponent } from './conversation.component';
-import { NameFilterPipe } from '@app/pipes/name-filter.pipe';
+import { NameFilterModule } from '@app/pipes/name-filter.pipe';
 import { LeftSideModule } from '@app/partials/left-side/left-side.module';
 import { RightSideModule } from '@app/partials/right-side/right-side.module';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
+
 
 @NgModule({
   imports: [
@@ -28,9 +29,10 @@ import { PickerModule } from '@ctrl/ngx-emoji-mart';
     ConversationRoutingModule,
     LeftSideModule,
     RightSideModule,
-    PickerModule
+    PickerModule,
+    NameFilterModule
   ],
-  declarations: [ConversationComponent, NameFilterPipe],
+  declarations: [ConversationComponent],
   entryComponents: [],
 })
 export class ConversationModule {}

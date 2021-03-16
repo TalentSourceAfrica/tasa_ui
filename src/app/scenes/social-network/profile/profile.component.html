@@ -87,17 +87,19 @@
                                     <span class="material-icons pr-2"> check_circle </span>Request Pending
                                   </span>
                                 </div>
-                                <!-- 
-                                <h3 class="text-white mt-0">
+                                <h3 class="text-white mt-0 mb-1" *ngIf="(userConfig.currentJob | json) !== '{}'">
                                   <span class="text-primary">
-                                    {{ userConfig.user.currentRole }} At {{ userConfig.user.organization }}
+                                    {{ userConfig.currentJob.currentRole[0] }} |
+                                    {{ userConfig.currentJob.organization }}
                                   </span>
-                                </h3> -->
+                                </h3>
                                 <h3 class="text-white mt-0 mb-1">
-                                  <span
-                                    >Lives In
+                                  <span>
                                     <strong class="text-primary"
-                                      >{{ userConfig.user.city }}, {{ userConfig.user.country }}</strong
+                                      >{{ userConfig.user.city }}, {{ userConfig.user.country }},</strong
+                                    >
+                                    <span class="text-white"
+                                      >{{ userConfig.totalConnectedUser }} connections</span
                                     ></span
                                   >
                                 </h3>
