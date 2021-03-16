@@ -1,4 +1,4 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import { NgModule, Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
   name: 'nameFilter',
@@ -13,3 +13,9 @@ export class NameFilterPipe implements PipeTransform {
     });
   }
 }
+
+@NgModule({
+  declarations: [ NameFilterPipe ],
+  exports: [ NameFilterPipe ]
+})
+export class NameFilterModule {}

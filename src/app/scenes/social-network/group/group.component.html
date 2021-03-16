@@ -99,6 +99,7 @@
                 class="ml-2"
                 matTooltipPosition="below"
                 matTooltip="Remove"
+                *ngIf="item.createdBy === user.email"
                 (click)="deleteGroup(item.groupId, i)"
               >
                 <mat-icon>delete</mat-icon>

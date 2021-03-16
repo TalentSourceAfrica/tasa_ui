@@ -12,6 +12,7 @@ import { SharedService } from '@app/services/shared.service';
 export class SocialConnectionsComponent implements OnInit {
   allUsers: any = [];
   isLoading: boolean = true;
+  searchedName:string = '';
   connectedUserConfig: any = {
     isLoading: false,
     data: [],

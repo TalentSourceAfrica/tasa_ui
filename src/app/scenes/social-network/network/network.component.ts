@@ -17,7 +17,7 @@ export class NetworkComponent implements OnInit {
     isLoading: false,
     data: [],
   };
-
+  public searchedName: string = '';
   constructor(
     public sharedService: SharedService,
     public credentialsService: CredentialsService,
@@ -78,7 +78,7 @@ export class NetworkComponent implements OnInit {
         }
       );
     };
-    $t.sharedService.uiService.showPreConfirmPopMsg('Do You Want To Approve', _callBack);
+    $t.sharedService.uiService.showPreConfirmPopMsg('Are you sure you want to Join?', _callBack);
   }
 
   reject(_id: string, index: number) {

@@ -31,11 +31,31 @@
 <ng-template #network>
   <mat-tab-group>
     <mat-tab label="Connected Users">
+      <div class="d-flex align-items-center mt-4">
+        <mat-form-field
+          class="example-form-field w40 m-auto"
+          *ngIf="connectedUserConfig.data.length"
+          style="font-size: 16px;"
+        >
+          <mat-label>Search Users</mat-label>
+          <input matInput type="text" [(ngModel)]="searchedName" />
+          <button
+            mat-button
+            *ngIf="searchedName"
+            matSuffix
+            mat-icon-button
+            aria-label="Clear"
+            (click)="searchedName = ''"
+          >
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
       <div
         *ngIf="connectedUserConfig.data.length"
         class="row no-gutters mt-3 max-vertical-h-70 stylishSlimScroll flow-y-auto flow-x-hidden"
       >
-        <div class="col-md-4 col-sm-12" *ngFor="let item of connectedUserConfig.data">
+        <div class="col-md-4 col-sm-12" *ngFor="let item of connectedUserConfig.data | nameFilter: searchedName">
           <div class="card shadow-sm">
             <div class="card-body text-center">
               <p>
@@ -51,7 +71,7 @@
                   alt="User picture"
                 />
               </p>
-  
+
               <h4
                 class="card-title"
                 [routerLink]="['/social-network/profile/', item.tasaId]"
@@ -60,12 +80,17 @@
                 {{ item.firstName }} {{ item.lastName }}
               </h4>
               <p class="card-text">{{ item.message }}</p>
-              <button mat-mini-fab color="warn" matTooltipPosition="below" matTooltip="Send Message" (click)="message(item.id)">
+              <button
+                mat-mini-fab
+                color="warn"
+                matTooltipPosition="below"
+                matTooltip="Send Message"
+                (click)="message(item.id)"
+              >
                 <mat-icon>message</mat-icon>
               </button>
             </div>
           </div>
-          
         </div>
       </div>
       <ng-container *ngIf="!connectedUserConfig.isLoading && connectedUserConfig.data.length == 0">
@@ -78,11 +103,34 @@
       </ng-container>
     </mat-tab>
     <mat-tab label="Pending Request">
+      <div class="d-flex align-items-center mt-4">
+        <mat-form-field
+          class="example-form-field w40 m-auto"
+          *ngIf="networkConfig.data.length"
+          style="font-size: 16px;"
+        >
+          <mat-label>Search Users</mat-label>
+          <input matInput type="text" [(ngModel)]="searchedName" />
+          <button
+            mat-button
+            *ngIf="searchedName"
+            matSuffix
+            mat-icon-button
+            aria-label="Clear"
+            (click)="searchedName = ''"
+          >
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
       <div
         *ngIf="networkConfig.data.length"
         class="row no-gutters mt-3 max-vertical-h-70 stylishSlimScroll flow-y-auto flow-x-hidden"
       >
-        <div class="col-md-6 col-sm-12" *ngFor="let item of networkConfig.data; let i = index">
+        <div
+          class="col-md-6 col-sm-12"
+          *ngFor="let item of networkConfig.data | nameFilter: searchedName; let i = index"
+        >
           <div class="card shadow-sm">
             <div class="card-body text-center">
               <p>
@@ -119,7 +167,7 @@
               <h4 class="card-title" *ngIf="item?.groupId">Group - {{ item.groupTitle }}</h4>
               <p class="card-text">{{ item.message }}</p>
               <button mat-flat-button color="primary" (click)="approve(item.id, i)" class="rounded-pill mt-2">
-                Approve
+                Join
               </button>
               <button mat-flat-button color="accent" (click)="reject(item.id, i)" class="rounded-pill ml-3 mt-2">
                 Ignore
