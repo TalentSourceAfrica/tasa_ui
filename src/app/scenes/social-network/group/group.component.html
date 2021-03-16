@@ -56,10 +56,10 @@
           class="col-md-4 col-sm-12"
           *ngFor="let item of myGroups.data | groupFilter: myGroupSearchText; let i = index"
         >
-          <div class="row no-gutters border d-flex align-items-center">
+          <div class="row no-gutters m-2 border d-flex align-items-center">
             <div class="col-8">
               <div class="blog-details p-3">
-                <h6 class="blog-title mb-1">
+                <h6 class="blog-title mb-1 text-truncate" [title]=" item.groupTitle">
                   {{ item.groupTitle }}
                 </h6>
                 <h6 class="font300 text-muted text-truncate">{{ item.groupDescription }}</h6>
@@ -139,10 +139,10 @@
 
       <div class="row no-gutters mt-3 max-vertical-h-90 stylishSlimScroll flow-y-auto flow-x-hidden">
         <div class="col-md-4 col-sm-12" *ngFor="let item of allGroups.data | groupFilter: groupSearchText">
-          <div class="row no-gutters border d-flex align-items-center">
+          <div class="row no-gutters m-2 border d-flex align-items-center">
             <div class="col-8">
               <div class="blog-details p-3">
-                <h6 class="blog-title mb-1">
+                <h6 class="blog-title mb-1 text-truncate" [title]="item.groupTitle">
                   {{ item.groupTitle }}
                 </h6>
                 <h6 class="font300 text-muted text-truncate">{{ item.groupDescription }}</h6>

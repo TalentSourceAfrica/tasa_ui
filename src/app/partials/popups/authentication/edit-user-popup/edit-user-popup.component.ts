@@ -78,9 +78,7 @@ export class EditUserPopupComponent implements OnInit {
           element.college[0] === '' ||
           element.highestDegree === '' ||
           element.major === '' ||
-          element.degreeFromDate === '' ||
-          element.university[0] === '' ||
-          element.degreeToDate === ''
+          element.university[0] === ''
         ) {
           isValid = false;
         } else {

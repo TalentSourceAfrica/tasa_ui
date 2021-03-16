@@ -254,7 +254,7 @@
                                     <span *ngIf="userConfig.user.city">{{ userConfig.user.country }}</span>
                                   </h4>
                                 </div>
-                                <div class="col-lg-6 col-sm-12">
+                                <div class="col-lg-6 col-sm-12" *ngIf="user.email === userConfig.user.email">
                                   <label class="form-control-label" for="input-username">Date of Birth</label>
                                   <h4 class="text-primary">
                                     <span *ngIf="userConfig.user.dob">{{
@@ -262,13 +262,13 @@
                                     }}</span>
                                   </h4>
                                 </div>
-                                <div class="col-lg-6" *ngIf="user.email === userConfig.user.email">
+                                <div class="col-lg-6">
                                   <div class="form-group">
                                     <label class="form-control-label" for="input-email">Professional Interest</label>
                                     <div>
                                       <span
                                         class="badge badge-dark"
-                                        [ngClass]="{'ml-1': !first}"
+                                        [ngClass]="{ 'ml-1': !first }"
                                         style="font-size: 15px;"
                                         *ngFor="let item of userConfig.user.preferredRole; let first = first"
                                         >{{ item }}</span
@@ -276,7 +276,10 @@
                                     </div>
                                   </div>
                                 </div>
-                                <div class="col-lg-6" *ngIf="user.email === userConfig.user.email && userConfig.user.areaOfPreference != '' ">
+                                <div
+                                  class="col-lg-6"
+                                  *ngIf="user.email === userConfig.user.email && userConfig.user.areaOfPreference != ''"
+                                >
                                   <div class="form-group">
                                     <label class="form-control-label" for="input-email"
                                       >Subjects/Topics of Preference</label
@@ -285,7 +288,10 @@
                                     <!-- <input type="email" id="input-email" class="form-control form-control-alternative" placeholder="jesse@example.com"> -->
                                   </div>
                                 </div>
-                                <div class="col-lg-6" *ngIf="user.email === userConfig.user.email && userConfig.user.careerGoals != ''">
+                                <div
+                                  class="col-lg-6"
+                                  *ngIf="user.email === userConfig.user.email && userConfig.user.careerGoals != ''"
+                                >
                                   <div class="form-group">
                                     <label class="form-control-label" for="input-email">Preferred Role</label>
                                     <h4 class="text-primary">{{ userConfig.user.careerGoals }}</h4>
@@ -422,7 +428,7 @@
                                     <div>
                                       <span
                                         class="badge badge-dark"
-                                        [ngClass]="{'ml-1': !first}"
+                                        [ngClass]="{ 'ml-1': !first }"
                                         style="font-size: 15px;"
                                         *ngFor="let item of edu.minor; let first = first"
                                         >{{ item }}</span
