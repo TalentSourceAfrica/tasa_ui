@@ -269,8 +269,7 @@
                                     <label class="form-control-label" for="input-email">Professional Interest</label>
                                     <div>
                                       <span
-                                        class="badge badge-dark"
-                                        [ngClass]="{ 'ml-1': !first }"
+                                        class="badge badge-dark ml-1 mt-1"
                                         style="font-size: 15px;"
                                         *ngFor="let item of userConfig.user.preferredRole; let first = first"
                                         >{{ item }}</span
@@ -429,8 +428,7 @@
                                     <label class="form-control-label" for="input-username">Minor</label>
                                     <div>
                                       <span
-                                        class="badge badge-dark"
-                                        [ngClass]="{ 'ml-1': !first }"
+                                        class="badge badge-dark ml-1 mt-1"
                                         style="font-size: 15px;"
                                         *ngFor="let item of edu.minor; let first = first"
                                         >{{ item }}</span
