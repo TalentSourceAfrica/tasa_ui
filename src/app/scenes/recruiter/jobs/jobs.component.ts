@@ -92,28 +92,29 @@ export class JobsComponent implements OnInit {
   }
 
   addJob() {
-    this.allJobs.unshift({
-      expanded: true,
-      id: '',
-      description: '',
-      title: '',
-      status: 'Inactive',
-      publishOn: '',
-      expireOn: '',
-      tags: [],
-      applicants: [],
-      location: '',
-      minimumReq: '',
-      countOfOpenings: 0,
-      experienceFrom: 0,
-      experienceTo: 0,
-      createdOn: '',
-      updatedOn: '',
-      createdBy: this.user.firstName + ' ' + this.user.lastName,
-      updatedBy: '',
-      orgId: this.user.orgId,
-      recruiterEmailId: this.user.email,
-    });
+    this.router.navigate(['/recruiter/create-job']);
+    // this.allJobs.unshift({
+    //   expanded: true,
+    //   id: '',
+    //   description: '',
+    //   title: '',
+    //   status: 'Inactive',
+    //   publishOn: '',
+    //   expireOn: '',
+    //   tags: [],
+    //   applicants: [],
+    //   location: '',
+    //   minimumReq: '',
+    //   countOfOpenings: 0,
+    //   experienceFrom: 0,
+    //   experienceTo: 0,
+    //   createdOn: '',
+    //   updatedOn: '',
+    //   createdBy: this.user.firstName + ' ' + this.user.lastName,
+    //   updatedBy: '',
+    //   orgId: this.user.orgId,
+    //   recruiterEmailId: this.user.email,
+    // });
   }
 
   createJob(job: any) {

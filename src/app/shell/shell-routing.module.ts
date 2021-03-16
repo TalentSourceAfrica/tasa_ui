@@ -151,10 +151,22 @@ const routes: Routes = [
           import('@app/scenes/admin/organization/organization.module').then((m) => m.OrganizationModule),
       },
       {
-        path: 'recruiter/jobs',
-        canActivate: [AuthenticationGuard, RecruiterGuard],
-        loadChildren: () => import('@app/scenes/recruiter/jobs/jobs.module').then((m) => m.JobsModule),
+        path: 'recruiter',
+        children: [
+          {
+            path: 'jobs',
+            canActivate: [AuthenticationGuard, RecruiterGuard],
+            loadChildren: () => import('@app/scenes/recruiter/jobs/jobs.module').then((m) => m.JobsModule),
+          },
+          {
+            path: 'create-job',
+            canActivate: [AuthenticationGuard, RecruiterGuard],
+            loadChildren: () =>
+              import('@app/scenes/recruiter/create-edit-job/create-edit-job.module').then((m) => m.CreateEditJobModule),
+          },
+        ],
       },
+
       {
         path: 'admin/jobs',
         canActivate: [AuthenticationGuard, AdminGuard],

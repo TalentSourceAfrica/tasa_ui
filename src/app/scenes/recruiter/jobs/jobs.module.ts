@@ -12,7 +12,6 @@ import { NgxDocViewerModule } from 'ngx-doc-viewer';
 
 import { JobsRoutingModule } from './jobs-routing.module';
 import { JobsComponent } from './jobs.component';
-// import { ShowApplicantsComponent } from '@app/partials/popups/recruiter/show-applicants/show-applicants.component';
 import { ShowApplicantsModule } from '@app/partials/popups/recruiter/show-applicants/show-applicants.module';
 
 @NgModule({
