@@ -254,7 +254,7 @@ export class UserDetailsPopupComponent implements OnInit {
       }, 1000);
     };
     this.sharedService.uiService.showPreConfirmPopMsg(
-      'This Information will help us make job, network and course recommendations.',
+      'This information will help us make job, network and course recommendations.',
       _callback
     );
   }

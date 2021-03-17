@@ -390,9 +390,10 @@ export class NewSignupPopupComponent implements OnInit {
           this.sharedService.uiService.closePopMsg();
           this.dialogRef.close();
           if (
-            response.responseObj.image === '' ||
-            response.responseObj.experience.length === 0 ||
-            (response.responseObj.education.length === 0 && response.responseObj.type === 'Mentee')
+            (response.responseObj.image === '' ||
+              response.responseObj.experience.length === 0 ||
+              response.responseObj.education.length === 0) &&
+            response.responseObj.type === 'Mentee'
           ) {
             this.popupData.authenticationService.openUserDetailsPopup();
           } else {

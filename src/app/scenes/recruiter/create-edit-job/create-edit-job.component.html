@@ -1,9 +1,67 @@
-<div class="recruiter-jobs-wrapper">
-    <div class="container">
-      <ol class="breadcrumb mt-3">
-        <li class="breadcrumb-item curPoint"><a [routerLink]="['/home']">Home</a></li>
-        <li class="breadcrumb-item curPoint"><a [routerLink]="['recruiter/jobs']">Jobs</a></li>
-        <li class="breadcrumb-item active"><a>Create/Edit Job</a></li>
-      </ol>
+<div class="recruiter-create-job-wrapper">
+  <div class="container">
+    <ol class="breadcrumb mt-3">
+      <li class="breadcrumb-item curPoint"><a [routerLink]="['/home']">Home</a></li>
+      <li class="breadcrumb-item curPoint"><a [routerLink]="['/recruiter/jobs']">Jobs</a></li>
+      <li class="breadcrumb-item active"><a>Create or Edit Job</a></li>
+    </ol>
+    <section>
+      <div class="card m-0">
+        <div class="row w100">
+          <div class="col-md-6 col-12 m-auto text-center">
+            <h3 class="text-shadow-theme text-primary">TaSA for employers</h3>
+          </div>
+          <div class="col-md-6 col-12 animated fadeIn">
+            <img src="./assets/images/employers-job-posting.jpg" alt="" />
+          </div>
+        </div>
+      </div>
+      <div class="card m-0 mt-4" style="padding:50px" *ngIf="steps[0].isActive">
+        <ng-container *ngTemplateOutlet="firstStep"></ng-container>
+      </div>
+    </section>
+  </div>
+</div>
+
+<ng-template #firstStep>
+  <div class="row no-gutters">
+    <div class="col-12">
+      <div class="form-group text-left">
+        <label class="form-label" for="industry">Industry<span class="text-danger pl-1 asterisk">*</span></label>
+        <mat-select
+          id="industry"
+          placeholder="Select Industry"
+          multiple
+          [(ngModel)]="jobConfig.job.industry"
+          [(value)]="jobConfig.job.industry"
+          class="form-control form-control-prepended"
+          placeholder="Your industry"
+        >
+          <mat-option *ngFor="let item of industryData" [value]="item.code">
+            {{ item.code }}
+          </mat-option>
+        </mat-select>
+      </div>
+    </div>
+    <div class="col-12">
+      <div class="form-group">
+        <label class="form-label" for="industry">Country<span class="text-danger pl-1 asterisk">*</span></label>
+        <mat-select
+          placeholder="Select Country"
+          class="form-control form-control-prepended"
+          [(ngModel)]="jobConfig.job.country"
+          [(value)]="jobConfig.job.country"
+        >
+          <mat-option *ngFor="let country of countries" [value]="country.title">
+            {{ country.title }}
+          </mat-option>
+        </mat-select>
+      </div>
     </div>
   </div>
+  <div class="m-auto text-center mt-2">
+    <button mat-flat-button color="primary" (click)="stepsClick(0, true)" class="rounded-pill caps">
+      SAVE & CONTINUE
+    </button>
+  </div>
+</ng-template>
