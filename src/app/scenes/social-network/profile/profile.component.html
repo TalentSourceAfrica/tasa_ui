@@ -34,137 +34,151 @@
               <div class="title" *ngIf="!isCurrentUser">Profile</div>
             </div>
             <div class="profile-wrapper mb-4">
-              <div class="main-content" *ngIf="!userConfig.fetchingUser && isAllowedConfig.allowed">
-                <div
-                  class="header pb-5 pt-4 d-flex align-items-center shadow"
-                  style="
-                    background-image: url(https://images.unsplash.com/photo-1508615039623-a25605d2b022?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1050&q=80);
-                    background-size: cover;
-                    background-position: center top;
-                  "
-                >
+              <div class="main-content animated fadeInUp" *ngIf="!userConfig.fetchingUser && isAllowedConfig.allowed">
+                <div class="header pb-5">
                   <span class="mask bg-gradient-default opacity-8"></span>
                   <!-- Header container -->
-                  <div class="container-fluid d-flex align-items-center">
-                    <div class="row w100">
+                  <div class="">
+                    <div class="row w100 no-gutters">
                       <div class="col-12">
-                        <div class="row no-gutters">
-                          <div class="col-12 col-md-10">
-                            <div class="row no-gutters">
-                              <div class="col-2">
-                                <div class="card-profile-image">
-                                  <a class="curPoint" (click)="showProfilePic(userConfig.user, 0)">
-                                    <img
-                                      src="{{
-                                        userConfig.user.image !== ''
-                                          ? userConfig.user.image
-                                          : 'https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg'
-                                      }}"
-                                      class="rounded-circle"
-                                    />
-                                  </a>
-                                </div>
-                              </div>
-                              <div class="col-10">
-                                <div class="d-flex">
-                                  <h1 class="display-2 text-white mb-0 pr-2">
-                                    <strong class="text-primary"
-                                      >{{ userConfig.user.firstName }} {{ userConfig.user.lastName }}</strong
-                                    >
-                                  </h1>
-                                  <span
-                                    *ngIf="userConfig.isConnected"
-                                    class="alert alert-success d-flex align-items-center mt-2"
-                                    role="alert"
-                                  >
-                                    <span class="material-icons pr-2"> check_circle </span>Connected
-                                  </span>
-                                  <span
-                                    *ngIf="!userConfig.isConnected && userConfig.isRequestPending"
-                                    class="alert alert-info d-flex align-items-center mt-2"
-                                    role="alert"
-                                  >
-                                    <span class="material-icons pr-2"> check_circle </span>Request Pending
-                                  </span>
-                                </div>
-                                <h3 class="text-white mt-0 mb-1" *ngIf="(userConfig.currentJob | json) !== '{}'">
-                                  <span class="text-primary">
-                                    {{ userConfig.currentJob.currentRole[0] }} |
-                                    {{ userConfig.currentJob.organization }}
-                                  </span>
-                                </h3>
-                                <h3 class="text-white mt-0 mb-1">
-                                  <span>
-                                    <strong class="text-primary"
-                                      >{{ userConfig.user.city }}, {{ userConfig.user.country }},</strong
-                                    >
-                                    <span class="text-white"
-                                      >{{ userConfig.totalConnectedUser }} connections</span
-                                    ></span
-                                  >
-                                </h3>
-
-                                <!-- <h3
-                                  class="text-white mt-0 mb-5"
-                                  *ngIf="userConfig.user.experience && userConfig.user.experience != ''"
-                                >
-                                  <span
-                                    >Total Experience
-                                    <strong class="text-primary">{{ userConfig.user.experience }} Years</strong></span
-                                  >
-                                </h3> -->
-                              </div>
-                            </div>
+                        <div class="card m-0">
+                          <div>
+                            <img
+                              src="https://images.unsplash.com/photo-1508615039623-a25605d2b022?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1050&q=80"
+                              alt=""
+                              class="profile-background"
+                            />
+                            <button
+                              mat-mini-fab
+                              color="primary"
+                              matTooltipPosition="below"
+                              matTooltip="Change background - coming soon"
+                              class="ml-2 mr-3 position-absolute rounded-pill"
+                              style="right: 20px; top: 10px;"
+                            >
+                              <mat-icon>camera</mat-icon>
+                            </button>
                           </div>
-                          <div class="col-12 col-md-2" *ngIf="isCurrentUser">
-                            <div class="text-right">
-                              <div class="d-flex justify-content-end pt-3">
-                                <button
-                                  mat-flat-button
-                                  color="primary"
-                                  (click)="openCreateGroupPopup()"
-                                  class="rounded-pill ml-2 p-1 pl-2 pr-2 curPoint w100"
-                                >
-                                  Create Group
-                                </button>
+                          <div class="row no-gutters">
+                            <div class="col-12">
+                              <div class="card-profile-image">
+                                <a class="curPoint" (click)="showProfilePic(userConfig.user, 0)">
+                                  <img
+                                    src="{{
+                                      userConfig.user.image !== ''
+                                        ? userConfig.user.image
+                                        : 'https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg'
+                                    }}"
+                                    class="rounded-circle"
+                                  />
+                                </a>
                               </div>
-                            </div>
-                          </div>
-                          <div class="col-12 col-md-2" *ngIf="!isCurrentUser">
-                            <div class="text-right">
-                              <div class="d-flex justify-content-end pt-3">
-                                <button
-                                  *ngIf="!userConfig.isConnected && !userConfig.isRequestPending"
-                                  mat-flat-button
-                                  color="primary"
-                                  (click)="connect()"
-                                  class="rounded-pill ml-2 p-1 pl-2 pr-2"
-                                >
-                                  Connect
-                                </button>
-                                <button
-                                  *ngIf="userConfig.isConnected"
-                                  mat-flat-button
-                                  [routerLink]="['/social-network/conversation/']"
-                                  [queryParams]="{ userId: userConfig.user.email }"
-                                  color="primary"
-                                  class="rounded-pill ml-2 p-1 pl-2 pr-2"
-                                >
-                                  Message
-                                </button>
+                              <div class="profile-details p-3 pl-4" style="margin-top: 50px;">
+                                <div class="row no-gutters">
+                                  <div class="col-md-9 col-12">
+                                    <div class="d-flex">
+                                      <h5 class="display-2 text-white mb-0 pr-2">
+                                        <strong class="text-primary"
+                                          >{{ userConfig.user.firstName }} {{ userConfig.user.lastName }}</strong
+                                        >
+                                      </h5>
+                                      <span
+                                        *ngIf="userConfig.isConnected"
+                                        class="alert alert-success d-flex align-items-center mt-2"
+                                        role="alert"
+                                      >
+                                        <span class="material-icons pr-2"> check_circle </span>Connected
+                                      </span>
+                                      <span
+                                        *ngIf="!userConfig.isConnected && userConfig.isRequestPending"
+                                        class="alert alert-info d-flex align-items-center mt-2"
+                                        role="alert"
+                                      >
+                                        <span class="material-icons pr-2"> check_circle </span>Request Pending
+                                      </span>
+                                    </div>
+                                    <h6 class="mt-0 mb-1" *ngIf="(userConfig.currentJob | json) !== '{}'">
+                                      <span class="text-primary">
+                                        {{ userConfig.currentJob.currentRole[0] }} @
+                                        {{ userConfig.currentJob.organization }}
+                                      </span>
+                                    </h6>
+                                    <h6 class="mt-0 mb-1">
+                                      <span>
+                                        <strong class="text-primary"
+                                          >{{ userConfig.user.city }}, {{ userConfig.user.country }}</strong
+                                        >
+                                        <span class="text-info pl-3"
+                                          >{{ userConfig.totalConnectedUser }} Connections</span
+                                        ><button
+                                          mat-mini-fab
+                                          color="primary"
+                                          matTooltipPosition="below"
+                                          matTooltip="Connections"
+                                          *ngIf="isCurrentUser"
+                                          (click)="conectionDrawer.toggle()"
+                                          class="ml-2 mr-3 rounded-pill"
+                                        >
+                                          <mat-icon>groups</mat-icon>
+                                        </button>
+                                      </span>
+                                    </h6>
+                                  </div>
+                                  <div class="col-md-3 col-12 text-right">
+                                    <div class="col-12" *ngIf="isCurrentUser">
+                                      <div class="text-right">
+                                        <div class="d-flex justify-content-end pt-3">
+                                          <button
+                                            mat-flat-button
+                                            color="primary"
+                                            (click)="openCreateGroupPopup()"
+                                            class="rounded-pill ml-2 p-1 pl-2 pr-2 curPoint w100"
+                                          >
+                                            Create Group
+                                          </button>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="col-12" *ngIf="!isCurrentUser">
+                                      <div class="text-right">
+                                        <div class="d-flex justify-content-end pt-3">
+                                          <button
+                                            *ngIf="!userConfig.isConnected && !userConfig.isRequestPending"
+                                            mat-flat-button
+                                            color="primary"
+                                            (click)="connect()"
+                                            class="rounded-pill ml-2 p-1 pl-2 pr-2"
+                                          >
+                                            Connect
+                                          </button>
+                                          <button
+                                            *ngIf="userConfig.isConnected"
+                                            mat-flat-button
+                                            [routerLink]="['/social-network/conversation/']"
+                                            [queryParams]="{ userId: userConfig.user.email }"
+                                            color="primary"
+                                            class="rounded-pill ml-2 p-1 pl-2 pr-2"
+                                          >
+                                            Message
+                                          </button>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
                               </div>
                             </div>
                           </div>
                         </div>
-                        <!-- <a class="btn btn-info">Edit profile</a> -->
                       </div>
                     </div>
+                    <!-- <a class="btn btn-info">Edit profile</a> -->
                   </div>
                 </div>
                 <!-- Page content -->
-                <div class="mt-3">
+                <div class="">
                   <div class="row no-gutters">
-                    <div class="col-xl-4 order-xl-2 mb-5 mb-xl-0 d-none">
+                    <div class="col-xl-4 order-xl-2 mb-2 mb-xl-0 d-none">
                       <div class="card m-0 card-profile shadow">
                         <div class="card-header text-center border-0 pt-4 pt-md-4 pb-0"></div>
                         <div class="card-body mt-3">
@@ -188,364 +202,268 @@
                       </div>
                     </div>
                     <div class="col-xl-12 order-xl-1">
-                      <div class="card m-0 bg-secondary shadow-lg">
-                        <div class="card-header bg-white border-0">
-                          <div class="row align-items-center">
-                            <div class="col-md-9 col-sm-6">
-                              <h3 class="mb-0">Profile Details</h3>
-                            </div>
-                            <div class="col-md-3 col-sm-6 text-right" *ngIf="userConfig.user.tasaId == user.tasaId">
-                              <!-- <button
-                                mat-mini-fab
-                                color="primary"
-                                matTooltipPosition="below"
-                                matTooltip="Setting"
-                                [routerLink]="['/user/profile']"
-                                routerLinkActive="router-link-active"
-                                class="ml-2 rounded-pill"
-                              >
-                                <mat-icon>settings</mat-icon>
-                              </button> -->
-                              <button
-                                mat-mini-fab
-                                color="primary"
-                                matTooltipPosition="below"
-                                matTooltip="Connections"
-                                (click)="conectionDrawer.toggle()"
-                                class="ml-2 mr-3 rounded-pill"
-                              >
-                                <mat-icon>groups</mat-icon>
-                              </button>
-                              <p class="text-primary pl-5 mt-1">{{ userConfig.totalConnectedUser }} Connections</p>
-                            </div>
+                      <div class="card m-0 p-4">
+                        <!-- Description -->
+                        <div class="d-flex">
+                          <h3 class="heading-small text-muted mb-4 w50 caps">About</h3>
+                          <div class="d-flex w100 justify-content-end" *ngIf="isCurrentUser">
+                            <mat-icon
+                              class="text-primary curPoint"
+                              matTooltipPosition="below"
+                              matTooltip="Edit User Information"
+                              (click)="editUser('About')"
+                              >edit</mat-icon
+                            >
                           </div>
                         </div>
-                        <div class="card-body stylishSlimScroll flow-y-auto flow-x-hidden">
-                          <form>
-                            <!-- Description -->
-                            <div class="d-flex">
-                              <h3 class="heading-small text-muted mb-4 w50">About</h3>
-                              <div class="d-flex w100 justify-content-end" *ngIf="isCurrentUser">
-                                <mat-icon
-                                  class="text-primary curPoint"
-                                  matTooltipPosition="below"
-                                  matTooltip="Edit User Information"
-                                  (click)="editUser('About')"
-                                  >edit</mat-icon
-                                >
-                              </div>
-                            </div>
 
-                            <div class="pl-lg-4">
-                              <div class="row">
-                                <div class="col-lg-12 col-sm-12">
-                                  <div class="form-group focused">
-                                    <label class="form-control-label" for="input-username">Bio</label>
-                                    <h4 class="text-primary">{{ userConfig.user.bio }}</h4>
-                                  </div>
-                                </div>
-                                <div class="col-lg-6 col-sm-12" *ngIf="user.email === userConfig.user.email">
-                                  <label class="form-control-label" for="input-username">Email Address</label>
-                                  <h4 class="text-primary">{{ userConfig.user.email }}</h4>
-                                </div>
-                                <div class="col-lg-6 col-sm-12">
-                                  <label class="form-control-label" for="input-username">Lives in</label>
-                                  <h4 class="text-primary">
-                                    <span *ngIf="userConfig.user.city">{{ userConfig.user.city }}, </span>
-                                    <span *ngIf="userConfig.user.city">{{ userConfig.user.state }}, </span>
-                                    <span *ngIf="userConfig.user.city">{{ userConfig.user.country }}</span>
-                                  </h4>
-                                </div>
-                                <div class="col-lg-6 col-sm-12" *ngIf="user.email === userConfig.user.email">
-                                  <label class="form-control-label" for="input-username">Date of Birth</label>
-                                  <h4 class="text-primary">
-                                    <span *ngIf="userConfig.user.dob">{{
-                                      userConfig.user.dob | date: 'mediumDate'
-                                    }}</span>
-                                  </h4>
-                                </div>
-                                <div class="col-lg-6">
-                                  <div class="form-group">
-                                    <label class="form-control-label" for="input-email">Professional Interest</label>
-                                    <div>
-                                      <span
-                                        class="badge badge-dark ml-1 mt-1"
-                                        style="font-size: 15px;"
-                                        *ngFor="let item of userConfig.user.preferredRole; let first = first"
-                                        >{{ item }}</span
-                                      >
-                                    </div>
-                                  </div>
-                                </div>
-                                <div
-                                  class="col-lg-6"
-                                  *ngIf="user.email === userConfig.user.email && userConfig.user.areaOfPreference != ''"
-                                >
-                                  <div class="form-group">
-                                    <label class="form-control-label" for="input-email"
-                                      >Subjects/Topics of Preference</label
-                                    >
-                                    <h4 class="text-primary">{{ userConfig.user.areaOfPreference }}</h4>
-                                    <!-- <input type="email" id="input-email" class="form-control form-control-alternative" placeholder="jesse@example.com"> -->
-                                  </div>
-                                </div>
-                                <div
-                                  class="col-lg-6"
-                                  *ngIf="user.email === userConfig.user.email && userConfig.user.careerGoals != ''"
-                                >
-                                  <div class="form-group">
-                                    <label class="form-control-label" for="input-email">Preferred Role</label>
-                                    <h4 class="text-primary">{{ userConfig.user.careerGoals }}</h4>
-                                    <!-- <input type="email" id="input-email" class="form-control form-control-alternative" placeholder="jesse@example.com"> -->
-                                  </div>
-                                </div>
+                        <div class="pl-lg-4">
+                          <div class="row">
+                            <div class="col-lg-12 col-sm-12">
+                              <div class="form-group focused">
+                                <label class="form-control-label" for="input-username">Bio</label>
+                                <h4 class="text-primary font400">{{ userConfig.user.bio }}</h4>
                               </div>
                             </div>
-                            <hr class="my-4" />
-                            <div class="d-flex">
-                              <h3 class="heading-small text-muted mb-4 w50">Experience</h3>
-                              <div class="d-flex w100 justify-content-end" *ngIf="isCurrentUser">
-                                <mat-icon
-                                  class="text-primary curPoint"
-                                  matTooltipPosition="below"
-                                  matTooltip="Edit Experience"
-                                  (click)="editUser('Experience')"
-                                  >edit</mat-icon
-                                >
-                              </div>
+                            <div class="col-lg-6 col-sm-12" *ngIf="user.email === userConfig.user.email">
+                              <label class="form-control-label" for="input-username">Email Address</label>
+                              <h4 class="text-primary font400">{{ userConfig.user.email }}</h4>
                             </div>
-                            <div
-                              class="pl-lg-4"
-                              *ngFor="let exp of userConfig.user.experience; let i = index; let last = last"
-                            >
-                              <div class="row">
-                                <div class="col-lg-4" *ngIf="exp.currentRole[0] != ''">
-                                  <div class="form-group focused">
-                                    <label class="form-control-label" for="input-username">Designation</label>
-                                    <h4 class="text-primary">{{ exp.currentRole[0] }}</h4>
-                                  </div>
-                                </div>
-                                <div class="col-lg-4" *ngIf="exp.organization != ''">
-                                  <div class="form-group">
-                                    <label class="form-control-label" for="input-email">Organization</label>
-                                    <h4 class="text-primary">
-                                      {{ exp.organization }}
-                                    </h4>
-                                  </div>
-                                </div>
-                                <div class="col-lg-4" *ngIf="exp.degreeToDate != ''">
-                                  <div class="form-group">
-                                    <label class="form-control-label" for="input-email">Job Start Date</label>
-                                    <h4 class="text-primary">
-                                      {{ exp.experienceFrom | date: 'mediumDate' }}
-                                    </h4>
-                                  </div>
-                                </div>
-                                <div class="col-lg-4" *ngIf="!exp.experienceTo && exp.experience !== 'true'">
-                                  <div class="form-group">
-                                    <label class="form-control-label" for="input-email">Job End Date</label>
-                                    <h4 class="text-primary">
-                                      {{ exp.experienceTo | date: 'mediumDate' }}
-                                    </h4>
-                                  </div>
-                                </div>
-                                <!-- <div class="col-lg-4" *ngIf="exp.experience != null">
-                                  <div class="form-group">
-                                    <label class="form-control-label" for="input-email">Experience</label>
-                                    <h4 class="text-primary">{{ exp.experience }}</h4>
-                                  </div>
-                                </div> -->
-                                <div class="col-lg-8" *ngIf="exp.description[0] != ''">
-                                  <div class="form-group">
-                                    <label class="form-control-label" for="input-email">Job Description</label>
-                                    <h4 class="text-primary">{{ exp.description[0] }}</h4>
-                                  </div>
-                                </div>
-                              </div>
-                              <hr *ngIf="userConfig.user.experience.length > 1 && !last" />
+                            <div class="col-lg-6 col-sm-12">
+                              <label class="form-control-label" for="input-username">Lives in</label>
+                              <h4 class="text-primary font400">
+                                <span *ngIf="userConfig.user.city">{{ userConfig.user.city }}, </span>
+                                <span *ngIf="userConfig.user.city">{{ userConfig.user.state }}, </span>
+                                <span *ngIf="userConfig.user.city">{{ userConfig.user.country }}</span>
+                              </h4>
                             </div>
-                            <hr class="my-4" />
-                            <div class="d-flex">
-                              <h3 class="heading-small text-muted mb-4 w50">Education</h3>
-                              <div class="d-flex w100 justify-content-end" *ngIf="isCurrentUser">
-                                <mat-icon
-                                  class="text-primary curPoint"
-                                  matTooltipPosition="below"
-                                  matTooltip="Edit User Information"
-                                  (click)="editUser('Education')"
-                                  >edit</mat-icon
-                                >
-                              </div>
+                            <div class="col-lg-6 col-sm-12" *ngIf="user.email === userConfig.user.email">
+                              <label class="form-control-label" for="input-username">Date of Birth</label>
+                              <h4 class="text-primary font400">
+                                <span *ngIf="userConfig.user.dob">{{ userConfig.user.dob | date: 'mediumDate' }}</span>
+                              </h4>
                             </div>
-                            <div
-                              class="pl-lg-4"
-                              *ngFor="let edu of userConfig.user.education; let i = index; let last = last"
-                            >
-                              <div class="row">
-                                <div class="col-lg-4" *ngIf="edu.highestDegree != ''">
-                                  <div class="form-group focused">
-                                    <label class="form-control-label" for="input-username">Degree</label>
-                                    <h4 class="text-primary">{{ edu.highestDegree }}</h4>
-                                  </div>
-                                </div>
-                                <div class="col-lg-4" *ngIf="edu.college[0] != ''">
-                                  <div class="form-group">
-                                    <label class="form-control-label" for="input-email">School/College</label>
-                                    <h4 class="text-primary">{{ edu.college[0] }}</h4>
-                                  </div>
-                                </div>
-                                <div class="col-lg-4" *ngIf="edu.degreeFromDate">
-                                  <div class="form-group">
-                                    <label class="form-control-label" for="input-email">Degree Start Date</label>
-                                    <h4 class="text-primary">
-                                      {{ edu.degreeFromDate | date: 'mediumDate' }}
-                                    </h4>
-                                  </div>
-                                </div>
-                                <div class="col-lg-4" *ngIf="edu.degreeToDate">
-                                  <div class="form-group">
-                                    <label class="form-control-label" for="input-email">Degree End Date</label>
-                                    <h4 class="text-primary">
-                                      {{ edu.degreeToDate | date: 'mediumDate' }}
-                                    </h4>
-                                  </div>
-                                </div>
-                                <div class="col-lg-4">
-                                  <div class="form-group focused">
-                                    <label class="form-control-label" for="input-username">University</label>
-                                    <h4 class="text-primary">{{ edu.university[0] }}</h4>
-                                  </div>
-                                </div>
-                                <div class="col-lg-4" *ngIf="edu.major != ''">
-                                  <div class="form-group focused">
-                                    <label class="form-control-label" for="input-username">Major</label>
-                                    <h4 class="text-primary">{{ edu.major }}</h4>
-                                  </div>
-                                </div>
-
-                                <div class="col" *ngIf="edu.minor[0] != ''">
-                                  <div class="form-group focused">
-                                    <label class="form-control-label" for="input-username">Minor</label>
-                                    <div>
-                                      <span
-                                        class="badge badge-dark ml-1 mt-1"
-                                        style="font-size: 15px;"
-                                        *ngFor="let item of edu.minor; let first = first"
-                                        >{{ item }}</span
-                                      >
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                              <hr *ngIf="userConfig.user.education.length > 1 && !last" />
-                            </div>
-                            <hr class="my-4" />
-                            <ng-container>
-                              <!-- Description -->
-                              <div class="d-flex">
-                                <h3 class="heading-small text-muted mb-4 w50">Certification</h3>
-                                <div class="d-flex w100 justify-content-end" *ngIf="isCurrentUser">
-                                  <mat-icon
-                                    class="text-primary curPoint"
-                                    matTooltipPosition="below"
-                                    matTooltip="Edit User Information"
-                                    (click)="editUser('Certificate')"
-                                    >edit</mat-icon
+                            <div class="col-lg-6">
+                              <div class="form-group">
+                                <label class="form-control-label" for="input-email">Professional Interest</label>
+                                <div>
+                                  <span
+                                    class="badge badge-dark ml-1 mt-1"
+                                    style="font-size: 15px;"
+                                    *ngFor="let item of userConfig.user.preferredRole; let first = first"
+                                    >{{ item }}</span
                                   >
                                 </div>
                               </div>
-                              <div class="pl-lg-4">
-                                <div
-                                  class="form-group focused max-vertical-h-50 stylishSlimScroll flow-y-auto flow-x-hidden"
+                            </div>
+                            <div
+                              class="col-lg-6"
+                              *ngIf="user.email === userConfig.user.email && userConfig.user.areaOfPreference != ''"
+                            >
+                              <div class="form-group">
+                                <label class="form-control-label" for="input-email"
+                                  >Subjects/Topics of Preference</label
                                 >
-                                  <div class="row no-gutters">
-                                    <div class="col-sm-12 col-md-6" *ngFor="let item of userConfig.user.certificate">
-                                      <div class="p-2">
-                                        <ngx-doc-viewer
-                                          *ngIf="item.certificateType === 'pdf'"
-                                          [url]="item.certificates[0]"
-                                          viewer="google"
-                                          class="certificate-css"
-                                        ></ngx-doc-viewer>
-                                        <img
-                                          *ngIf="item.certificateType === 'image'"
-                                          [src]="item.certificates[0]"
-                                          class="certificate-css"
-                                          alt="Certificate"
-                                        />
-                                        <p class="text-muted mt-1">{{ item.certificateName }}</p>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </ng-container>
-                            <hr class="my-4" />
-                            <!-- Address -->
-                            <div class="d-flex">
-                              <h3 class="heading-small text-muted mb-4 w50">Freelance Experience</h3>
-                              <div class="d-flex w100 justify-content-end" *ngIf="isCurrentUser">
-                                <mat-icon
-                                  class="text-primary curPoint"
-                                  matTooltipPosition="below"
-                                  matTooltip="Edit Freelance Experience"
-                                  (click)="editUser('Freelancer')"
-                                  >edit</mat-icon
-                                >
+                                <h4 class="text-primary font400">{{ userConfig.user.areaOfPreference }}</h4>
+                                <!-- <input type="email" id="input-email" class="form-control form-control-alternative" placeholder="jesse@example.com"> -->
                               </div>
                             </div>
-                            <div class="pl-lg-4">
-                              <div class="row" *ngIf="userConfig.user.isFreelancer === 'Y'">
-                                <div class="col-12">
-                                  <div class="form-group focused">
-                                    <label class="form-control-label" for="input-address">Areas of Expertise</label>
-                                    <div class="card-intro pr-1 p-1 pl-2 mt-1">
-                                      <span
-                                        class="badge badge-dark ml-2 mt-2"
-                                        style="font-size: 15px;"
-                                        *ngFor="let item of userConfig.user.fieldsOfExpertise"
-                                        >{{ item.areaOfExpertise }}</span
-                                      >
-                                    </div>
-                                    <!-- <input id="input-address" class="form-control form-control-alternative" placeholder="Home Address" value="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09" type="text"> -->
-                                  </div>
-                                </div>
-                              </div>
-                              <hr />
-                              <div class="row" *ngFor="let item of userConfig.user.pastGigs; let last = last">
-                                <div class="col-lg-4">
-                                  <div class="form-group focused">
-                                    <label class="form-control-label" for="input-city">Gig Title</label>
-                                    <h4 class="text-primary">{{ item.projectName }}</h4>
-                                  </div>
-                                </div>
-                                <div class="col-lg-4">
-                                  <div class="form-group focused">
-                                    <label class="form-control-label" for="input-country">Gig Details</label>
-                                    <h4 class="text-primary">{{ item.projectDesc }}</h4>
-                                    <!-- <input type="text" id="input-country" class="form-control form-control-alternative" placeholder="Country" value="United States"> -->
-                                  </div>
-                                </div>
-                                <div class="col-lg-4">
-                                  <div class="form-group">
-                                    <label class="form-control-label" for="input-country">Client Name</label>
-                                    <h4 class="text-primary">{{ item.clientName }}</h4>
-                                    <!-- <input type="number" id="input-postal-code" class="form-control form-control-alternative" placeholder="Postal code"> -->
-                                  </div>
-                                </div>
-                                <div class="col-lg-4">
-                                  <div class="form-group">
-                                    <label class="form-control-label" for="input-country">Gig Duration</label>
-                                    <h4 class="text-primary">{{ item.projectDuration }}</h4>
-                                    <!-- <input type="number" id="input-postal-code" class="form-control form-control-alternative" placeholder="Postal code"> -->
-                                  </div>
-                                </div>
-                                <hr *ngIf="userConfig.user.pastGigs.length > 1 && !last" />
+                            <div
+                              class="col-lg-6"
+                              *ngIf="user.email === userConfig.user.email && userConfig.user.careerGoals != ''"
+                            >
+                              <div class="form-group">
+                                <label class="form-control-label" for="input-email">Preferred Role</label>
+                                <h4 class="text-primary font400">{{ userConfig.user.careerGoals }}</h4>
+                                <!-- <input type="email" id="input-email" class="form-control form-control-alternative" placeholder="jesse@example.com"> -->
                               </div>
                             </div>
-                          </form>
+                          </div>
                         </div>
                       </div>
+                      <hr />
+                      <div class="card m-0 p-4">
+                        <div class="d-flex">
+                          <h3 class="heading-small text-muted mb-4 w50 caps">Experience</h3>
+                          <div class="d-flex w100 justify-content-end" *ngIf="isCurrentUser">
+                            <mat-icon
+                              class="text-primary curPoint"
+                              matTooltipPosition="below"
+                              matTooltip="Edit Experience"
+                              (click)="editUser('Experience')"
+                              >edit</mat-icon
+                            >
+                          </div>
+                        </div>
+                        <div
+                          class="pl-lg-4"
+                          *ngFor="let exp of userConfig.user.experience; let i = index; let last = last"
+                        >
+                          <div>
+                            <h1 class="text-info">{{ exp.currentRole[0] }}</h1>
+                            <h6 class="mb-1 font500" *ngIf="exp.organization != ''">{{ exp.organization }}</h6>
+                            <h6 class="font400">
+                              {{ exp.experienceFrom | date: 'mediumDate' }} -
+                              <span *ngIf="exp.recentEmployer === 'true'">Present</span>
+                              <span *ngIf="exp.recentEmployer === 'false' || exp.recentEmployer === ''"
+                                >{{ exp.experienceTo | date: 'mediumDate' }}
+                              </span>
+                            </h6>
+                            <h4 class="text-primary font400">{{ exp.description[0] }}</h4>
+                          </div>
+                          <hr *ngIf="userConfig.user.experience.length > 1 && !last" />
+                        </div>
+                      </div>
+                      <hr />
+                      <div class="card m-0 p-4">
+                        <ng-container>
+                          <div class="d-flex">
+                            <h3 class="heading-small text-muted mb-4 w50 caps">Certification</h3>
+                            <div class="d-flex w100 justify-content-end" *ngIf="isCurrentUser">
+                              <mat-icon
+                                class="text-primary curPoint"
+                                matTooltipPosition="below"
+                                matTooltip="Edit User Information"
+                                (click)="editUser('Certificate')"
+                                >edit</mat-icon
+                              >
+                            </div>
+                          </div>
+                          <div class="pl-lg-4">
+                            <div
+                              class="form-group focused max-vertical-h-50 stylishSlimScroll flow-y-auto flow-x-hidden"
+                            >
+                              <div class="row no-gutters">
+                                <div class="col-sm-12 col-md-6" *ngFor="let item of userConfig.user.certificate">
+                                  <div class="p-2">
+                                    <ngx-doc-viewer
+                                      *ngIf="item.certificateType === 'pdf'"
+                                      [url]="item.certificates[0]"
+                                      viewer="google"
+                                      class="certificate-css"
+                                    ></ngx-doc-viewer>
+                                    <img
+                                      *ngIf="item.certificateType === 'image'"
+                                      [src]="item.certificates[0]"
+                                      class="certificate-css"
+                                      alt="Certificate"
+                                    />
+                                    <p class="text-muted mt-1">{{ item.certificateName }}</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </ng-container>
+                      </div>
+                      <hr />
+                      <div class="card m-0 p-4">
+                        <div class="d-flex">
+                          <h3 class="heading-small text-muted mb-4 w50 caps">Education</h3>
+                          <div class="d-flex w100 justify-content-end" *ngIf="isCurrentUser">
+                            <mat-icon
+                              class="text-primary curPoint"
+                              matTooltipPosition="below"
+                              matTooltip="Edit Education"
+                              (click)="editUser('Education')"
+                              >edit</mat-icon
+                            >
+                          </div>
+                        </div>
+                        <div
+                          class="pl-lg-4"
+                          *ngFor="let edu of userConfig.user.education; let i = index; let last = last"
+                        >
+                          <div>
+                            <h1 class="text-info">{{ edu.highestDegree }}</h1>
+                            <h6 class="mb-1 font500" *ngIf="edu.college[0] != ''">
+                              {{ edu.college[0] }}
+                              <span class="font500" *ngIf="edu.university[0] != ''">, {{ edu.university[0] }}</span>
+                            </h6>
+                            <h6 class="font400">
+                              {{ edu.degreeFromDate | date: 'mediumDate' }} -
+                              <span *ngIf="edu.degreeToDate === ''">Present</span>
+                              <span *ngIf="edu.degreeToDate != ''">{{ edu.degreeToDate | date: 'mediumDate' }} </span>
+                            </h6>
+                            <h6>{{ edu.major }}</h6>
+                            <div>
+                              <span
+                                class="badge badge-dark ml-1 mt-1"
+                                style="font-size: 15px;"
+                                *ngFor="let item of edu.minor; let first = first"
+                                >{{ item }}</span
+                              >
+                            </div>
+                            <h4 class="text-primary font400">{{ edu.description }}</h4>
+                          </div>
+                          <hr *ngIf="userConfig.user.education.length > 1 && !last" />
+                        </div>
+                      </div>
+                      <hr />
+                      <div class="card m-0 p-4">
+                        <div class="d-flex">
+                          <h3 class="heading-small text-muted mb-4 w50 caps">Freelance Experience</h3>
+                          <div class="d-flex w100 justify-content-end" *ngIf="isCurrentUser">
+                            <mat-icon
+                              class="text-primary curPoint"
+                              matTooltipPosition="below"
+                              matTooltip="Edit Freelance Experience"
+                              (click)="editUser('Freelancer')"
+                              >edit</mat-icon
+                            >
+                          </div>
+                        </div>
+                        <div class="pl-lg-4">
+                          <div class="row" *ngIf="userConfig.user.isFreelancer === 'Y'">
+                            <div class="col-12">
+                              <div class="form-group focused">
+                                <label class="form-control-label" for="input-address">Areas of Expertise</label>
+                                <div class="card-intro pr-1 p-1 pl-2 mt-1">
+                                  <span
+                                    class="badge badge-dark ml-2 mt-2"
+                                    style="font-size: 15px;"
+                                    *ngFor="let item of userConfig.user.fieldsOfExpertise"
+                                    >{{ item.areaOfExpertise }}</span
+                                  >
+                                </div>
+                                <!-- <input id="input-address" class="form-control form-control-alternative" placeholder="Home Address" value="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09" type="text"> -->
+                              </div>
+                            </div>
+                          </div>
+                          <hr />
+                          <div class="row" *ngFor="let item of userConfig.user.pastGigs; let last = last">
+                            <div class="col-lg-4">
+                              <div class="form-group focused">
+                                <label class="form-control-label" for="input-city">Gig Title</label>
+                                <h4 class="text-primary font400">{{ item.projectName }}</h4>
+                              </div>
+                            </div>
+                            <div class="col-lg-4">
+                              <div class="form-group focused">
+                                <label class="form-control-label" for="input-country">Gig Details</label>
+                                <h4 class="text-primary font400">{{ item.projectDesc }}</h4>
+                                <!-- <input type="text" id="input-country" class="form-control form-control-alternative" placeholder="Country" value="United States"> -->
+                              </div>
+                            </div>
+                            <div class="col-lg-4">
+                              <div class="form-group">
+                                <label class="form-control-label" for="input-country">Client Name</label>
+                                <h4 class="text-primary font400">{{ item.clientName }}</h4>
+                                <!-- <input type="number" id="input-postal-code" class="form-control form-control-alternative" placeholder="Postal code"> -->
+                              </div>
+                            </div>
+                            <div class="col-lg-4">
+                              <div class="form-group">
+                                <label class="form-control-label" for="input-country">Gig Duration</label>
+                                <h4 class="text-primary font400">{{ item.projectDuration }}</h4>
+                                <!-- <input type="number" id="input-postal-code" class="form-control form-control-alternative" placeholder="Postal code"> -->
+                              </div>
+                            </div>
+                            <hr *ngIf="userConfig.user.pastGigs.length > 1 && !last" />
+                          </div>
+                        </div>
+                      </div>
+                      <hr />
                     </div>
                   </div>
                 </div>
