@@ -141,7 +141,7 @@ export const urls: any = {
   deleteNotifications: '/notifications', // D
 
   // Connections
-  getAllNetworkConnections: '/sn/{userId}', // G
+  getAllNetworkConnections: '/sn/connections/{userId}', // G
   getAllNetworkPendingConnections: '/connectionRequests/pending/{userId}', //G
   sendNetworkConnectionRequest: '/connectionRequests/{fromUserId}/{toUserId}', // PO
   approveNetworkConnection: '/connectionRequests/approve/{requestId}', // PO
