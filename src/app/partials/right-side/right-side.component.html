@@ -18,7 +18,7 @@
     <div class="col-12" *ngIf="user">
       <div class="card animated connected-users fadeInUp">
         <div class="pl-2 pt-2 text-center d-flex align-items-center">
-          <p class="card-title font400 text-white">Connected Users</p>
+          <p class="card-title font400 text-primary">Connected Users</p>
           <!-- <p class="card-subtitle">Best score</p> -->
         </div>
         <div class="card-body p-2">
@@ -49,7 +49,7 @@
             routerLinkActive="router-link-active"
             *ngIf="connectedUserConfig.data.length"
           >
-            <p class="curPoint text-white">{{ connectedUserConfig.data.length }} Members</p>
+            <p class="curPoint text-primary">{{ connectedUserConfig.data.length }} Members</p>
           </div>
           <div *ngIf="connectedUserConfig.data.length == 0 && !connectedUserConfig.isFetching">
             <div class="text-center m-auto animated fadeIn">
@@ -66,13 +66,13 @@
     <div class="col-12" *ngIf="user">
       <div class="card animated fadeInUp connected-groups">
         <div class="pl-2 pt-2 text-center d-flex align-items-center">
-          <p class="card-title font400 text-white">Connected Groups</p>
+          <p class="card-title font400 text-primary">Connected Groups</p>
           <!-- <p class="card-subtitle">Best score</p> -->
         </div>
         <div class="card-body p-2">
           <div *ngIf="myGroups.data.length && !myGroups.isFetching" class="row pr-1 no-gutters">
             <div class="col-3 mb-1 curPoint courseList" *ngFor="let item of myGroups.data; let i = index">
-              <div class="h2 mb-0 text-white">
+              <div class="h2 mb-0 text-primary">
                 <img
                   *ngIf="i < 4"
                   title="{{ item.groupTitle }}"
@@ -93,7 +93,7 @@
             class="text-right"
             *ngIf="myGroups.data.length"
           >
-            <p class="curPoint text-white">{{ myGroups.data.length }} Groups</p>
+            <p class="curPoint text-primary">{{ myGroups.data.length }} Groups</p>
           </div>
           <div *ngIf="myGroups.data.length == 0 && !myGroups.isFetching">
             <div class="text-center m-auto animated fadeIn">
