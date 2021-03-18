@@ -125,9 +125,9 @@ export class ProfileComponent implements OnInit {
     this.userConfig.isConnected = false;
     this.socialnetworkService.getAllConnections().subscribe(
       (response: any) => {
-        if (response && response.connections) {
-          this.userConfig.totalConnectedUser = response.connections.length;
-          if (response.connections.filter((d: any) => d.tasaId === this.userConfig.tasaId).length) {
+        if (response) {
+          this.userConfig.totalConnectedUser = response.length;
+          if (response.filter((d: any) => d.tasaId === this.userConfig.tasaId).length) {
             this.userConfig.isConnected = true;
           } else {
             this.userConfig.isConnected = false;
