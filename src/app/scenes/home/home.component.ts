@@ -183,7 +183,7 @@ export class HomeComponent implements OnInit {
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
-    private sharedService: SharedService,
+    public sharedService: SharedService,
     private authenticationService: AuthenticationService,
     private credentialsService: CredentialsService
   ) {
