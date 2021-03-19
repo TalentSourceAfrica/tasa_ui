@@ -30,7 +30,7 @@ export class ProfileComponent implements OnInit {
     isConnected: false,
     totalConnectedUser: 0,
     isRequestPending: false,
-    currentJob:{},
+    currentJob: {},
   };
   isCurrentUser: boolean = true;
   mom: any;
@@ -59,7 +59,7 @@ export class ProfileComponent implements OnInit {
     return this.mom(_dateToFormat).format('YYYY-MM-DD');
   }
 
-  fetchUser(_viewUser?: boolean){
+  fetchUser(_viewUser?: boolean) {
     let $t = this;
     let apiUrl: any;
     $t.isAllowedConfig.allowed = true;
@@ -81,9 +81,9 @@ export class ProfileComponent implements OnInit {
       (response: any) => {
         $t.userConfig.user = response.responseObj;
 
-        if($t.userConfig.user.experience.length){
-           $t.userConfig.currentJob =  $t.userConfig.user.experience.find((d:any) => d.recentEmployer === 'true') || {};
-        };
+        if ($t.userConfig.user.experience.length) {
+          $t.userConfig.currentJob = $t.userConfig.user.experience.find((d: any) => d.recentEmployer === 'true') || {};
+        }
 
         $t.userConfig.user.tasaId != $t.user.tasaId ? ($t.isCurrentUser = false) : ($t.isCurrentUser = true);
         $t.fetchConnections();
@@ -149,6 +149,13 @@ export class ProfileComponent implements OnInit {
       data: { authenticationService: this, credentialsService: this.credentialsService, user: this.user },
       disableClose: false,
     });
+  }
+
+  onFreelanceToggleChange() {
+    this.user.isFreelancer === 'Y' ? (this.user.isFreelancer = 'N') : (this.user.isFreelancer = 'Y');
+    if (this.user.isFreelancer === 'Y') {
+      this.editUser('Freelancer');
+    }
   }
 
   editUser(_type: string) {

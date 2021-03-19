@@ -73,7 +73,16 @@
                                   />
                                 </a>
                               </div>
-                              <div class="profile-details p-3 pl-4" style="margin-top: 50px;">
+                              <div class="text-right">
+                                <mat-slide-toggle
+                                  class="example-margin text-primary p-2 pr-4"
+                                  [checked]="user.isFreelancer === 'Y'"
+                                  (change)="onFreelanceToggleChange()"
+                                >
+                                  Do you want to be listed as a Freelancer on TaSA
+                                </mat-slide-toggle>
+                              </div>
+                              <div class="profile-details p-3 pl-4" style="margin-top: 30px;">
                                 <div class="row no-gutters">
                                   <div class="col-md-9 col-12">
                                     <div class="d-flex">
@@ -106,7 +115,8 @@
                                     <h6 class="mt-0 mb-1">
                                       <span>
                                         <strong class="text-primary"
-                                          >{{ userConfig.user.city }}, {{ userConfig.user.country }}</strong
+                                          ><span *ngIf="userConfig.user.city !== ''">{{ userConfig.user.city }},</span>
+                                          {{ userConfig.user.country }}</strong
                                         >
                                         <span class="text-info pl-3"
                                           >{{ userConfig.totalConnectedUser }} Connections</span
@@ -132,7 +142,7 @@
                                             mat-flat-button
                                             color="primary"
                                             (click)="openCreateGroupPopup()"
-                                            class="rounded-pill ml-2 p-1 pl-2 pr-2 curPoint w100"
+                                            class="rounded-pill ml-2 p-1 pl-2 pr-2 curPoint w80"
                                           >
                                             Create Group
                                           </button>
