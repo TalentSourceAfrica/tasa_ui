@@ -16,15 +16,31 @@
           </div>
         </div>
       </div>
-      <div class="card m-0 mt-4" style="padding:50px" *ngIf="steps[0].isActive">
+      <div class="card m-0 mt-4" style="padding: 50px;" *ngIf="steps[0].isActive">
         <ng-container *ngTemplateOutlet="firstStep"></ng-container>
       </div>
+      <div class="card m-0 mt-4" style="padding: 50px;" *ngIf="steps[1].isActive">
+        <ng-container *ngTemplateOutlet="secondStep"></ng-container>
+      </div>
+      <div class="card m-0 mt-4" style="padding: 50px;" *ngIf="steps[2].isActive">
+        <ng-container *ngTemplateOutlet="thirdStep"></ng-container>
+      </div>
+      <div class="card m-0 mt-4" style="padding: 50px;" *ngIf="steps[3].isActive">
+        <ng-container *ngTemplateOutlet="forthStep"></ng-container>
+      </div>
+      <div class="card m-0 mt-4" style="padding: 50px;" *ngIf="steps[4].isActive">
+        <ng-container *ngTemplateOutlet="fifthStep"></ng-container>
+      </div>
+      <div class="card m-0 mt-4" style="padding: 50px;" *ngIf="steps[5].isActive">
+        <ng-container *ngTemplateOutlet="sixthStep"></ng-container>
+      </div>
+      
     </section>
   </div>
 </div>
 
 <ng-template #firstStep>
-  <div class="row no-gutters">
+  <div class="row no-gutters animated fadeInUp">
     <div class="col-12">
       <div class="form-group text-left">
         <label class="form-label" for="industry">Industry<span class="text-danger pl-1 asterisk">*</span></label>
@@ -59,9 +75,385 @@
       </div>
     </div>
   </div>
-  <div class="m-auto text-center mt-2">
+  <div class="m-auto text-center pt-4">
     <button mat-flat-button color="primary" (click)="stepsClick(0, true)" class="rounded-pill caps">
       SAVE & CONTINUE
     </button>
   </div>
 </ng-template>
+
+<ng-template #secondStep>
+  <div class="row no-gutters animated fadeInUp">
+    <div class="col-12">
+      <div class="form-group text-left">
+        <label class="form-label" for="jobTitle">Job Title<span class="text-danger pl-1 asterisk">*</span></label>
+        <div class="input-group input-group-merge">
+          <input
+            id="jobTitle"
+            type="text"
+            [(ngModel)]="jobConfig.job.title"
+            class="form-control form-control-prepended"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="col-12">
+      <div class="form-group text-left">
+        <label class="form-label" for="jobDesc">Job Description<span class="text-danger pl-1 asterisk">*</span></label>
+        <div class="input-group input-group-merge">
+          <textarea
+            name=""
+            id="jobDesc"
+            [(ngModel)]="jobConfig.job.description"
+            class="form-control form-control-prepended"
+            cols="30"
+            rows="10"
+          ></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="m-auto text-center pt-4">
+    <button mat-flat-button color="primary" (click)="stepsClick(1, false)" class="rounded-pill caps">
+      PREVIOUS
+    </button>
+    <button mat-flat-button color="primary" (click)="stepsClick(1, true)" class="rounded-pill caps ml-3">
+      SAVE & CONTINUE
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #thirdStep>
+  <div class="row no-gutters animated fadeInUp location-type">
+    <label class="form-label">Select Opening Type<span class="text-danger pl-1 asterisk">*</span></label>
+    <div class="grid-wrapper grid-col-3 mt-2">
+      <div class="selection-wrapper">
+        <label for="selected-item-1" class="selected-label">
+          <input
+            type="radio"
+            [checked]="jobConfig.job.openingType === 'Remote'"
+            (click)="jobConfig.job.openingType = 'Remote'"
+            name="selected-item"
+            id="selected-item-1"
+          />
+          <span class="icon"></span>
+          <div class="selected-content">
+            <img src="./assets/images/remote-working.jpeg" alt="" />
+            <h4>Remote</h4>
+            <!-- <h5>Lorem ipsum dolor sit amet, consectetur.</h5> -->
+          </div>
+        </label>
+      </div>
+      <div class="selection-wrapper">
+        <label for="selected-item-2" class="selected-label">
+          <input
+            type="radio"
+            [checked]="jobConfig.job.openingType === 'Multiple Location'"
+            (click)="jobConfig.job.openingType = 'Multiple Location'"
+            name="selected-item"
+            id="selected-item-2"
+          />
+          <span class="icon"></span>
+          <div class="selected-content">
+            <img src="./assets/images/multiple-location.jpeg" alt="" />
+            <h4>Multiple Location</h4>
+            <!-- <h5>Lorem ipsum dolor sit amet, consectetur.</h5> -->
+          </div>
+        </label>
+      </div>
+      <div class="selection-wrapper">
+        <label for="selected-item-3" class="selected-label">
+          <input
+            type="radio"
+            [checked]="jobConfig.job.openingType === 'Single Location'"
+            (click)="jobConfig.job.openingType = 'Single Location'"
+            name="selected-item"
+            id="selected-item-3"
+          />
+          <span class="icon"></span>
+          <div class="selected-content">
+            <img src="./assets/images/single-location.jpeg" alt="" />
+            <h4>Single Location</h4>
+            <!-- <h5>Lorem ipsum dolor sit amet, consectetur.</h5> -->
+          </div>
+        </label>
+      </div>
+    </div>
+  </div>
+  <div class="m-auto text-center pt-4">
+    <button mat-flat-button color="primary" (click)="stepsClick(2, false)" class="rounded-pill caps">
+      PREVIOUS
+    </button>
+    <button mat-flat-button color="primary" (click)="stepsClick(2, true)" class="rounded-pill caps ml-3">
+      SAVE & CONTINUE
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #forthStep>
+  <ng-container *ngIf="jobConfig.job.openingType === 'Multiple Location'">
+    <div class="row no-gutters animated fadeInUp">
+      <div class="col-12">
+        <div class="form-group text-left">
+          <label class="form-label" for="city">City<span class="text-danger pl-1 asterisk">*</span></label>
+          <div class="input-group input-group-merge">
+            <input id="city" type="text" [(ngModel)]="jobConfig.job.city" class="form-control form-control-prepended" />
+          </div>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="form-group text-left">
+          <label class="form-label" for="state">State<span class="text-danger pl-1 asterisk">*</span></label>
+          <div class="input-group input-group-merge">
+            <input
+              id="state"
+              type="text"
+              [(ngModel)]="jobConfig.job.State"
+              class="form-control form-control-prepended"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="jobConfig.job.openingType === 'Single Location'">
+    <div class="row no-gutters animated fadeInUp">
+      <div class="col-12">
+        <div class="form-group text-left">
+          <label class="form-label" for="city">City<span class="text-danger pl-1 asterisk">*</span></label>
+          <div class="input-group input-group-merge">
+            <input id="city" type="text" [(ngModel)]="jobConfig.job.city" class="form-control form-control-prepended" />
+          </div>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="form-group text-left">
+          <label class="form-label" for="state">State<span class="text-danger pl-1 asterisk">*</span></label>
+          <div class="input-group input-group-merge">
+            <input
+              id="state"
+              type="text"
+              [(ngModel)]="jobConfig.job.State"
+              class="form-control form-control-prepended"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="jobConfig.job.openingType === 'Remote'">
+    <ng-container *ngTemplateOutlet="fifthStep"></ng-container>
+  </ng-container>
+  <div class="m-auto text-center pt-4">
+    <button mat-flat-button color="primary" (click)="stepsClick(3, false)" class="rounded-pill caps">
+      PREVIOUS
+    </button>
+    <button mat-flat-button color="primary" (click)="stepsClick(3, true)" class="rounded-pill caps ml-3">
+      SAVE & CONTINUE
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #fifthStep>
+  <div class="row no-gutters animated fadeInUp location-type">
+    <div class="col-md-6 col-12">
+      <div class="form-group text-left m-2">
+        <label class="form-label" for="openings">No Of Openings<span class="text-danger pl-1 asterisk">*</span></label>
+        <div class="input-group input-group-merge">
+          <input
+            id="openings"
+            type="text"
+            [(ngModel)]="jobConfig.job.countOfOpenings"
+            class="form-control form-control-prepended"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-12">
+      <div class="form-group text-left m-2">
+        <label class="form-label" for="expiryDate">Expiry Date<span class="text-danger pl-1 asterisk">*</span></label>
+        <div class="input-group input-group-merge">
+          <input
+            id="expiryDate"
+            [(ngModel)]="jobConfig.job.expireOn"
+            class="form-control form-control-prepended"
+            [matDatepicker]="picker1"
+            readonly
+          />
+          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+          <mat-datepicker #picker1 color="primary"></mat-datepicker>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-12">
+      <div class="form-group text-left m-2">
+        <label class="form-label" for="experinceFrom"
+          >Experience From<span class="text-danger pl-1 asterisk">*</span></label
+        >
+        <div class="input-group input-group-merge">
+          <input
+            id="expiryFrom"
+            [(ngModel)]="jobConfig.job.experienceFrom"
+            class="form-control form-control-prepended"
+            type="number"
+            min="0"
+            step="1"
+            oninput="validity.valid||(value='');"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-12">
+      <div class="form-group text-left m-2">
+        <label class="form-label" for="experinceTo"
+          >Experience To<span class="text-danger pl-1 asterisk">*</span></label
+        >
+        <div class="input-group input-group-merge">
+          <input
+            id="expiryTo"
+            [(ngModel)]="jobConfig.job.experienceTo"
+            class="form-control form-control-prepended"
+            type="number"
+            min="0"
+            step="1"
+            oninput="validity.valid||(value='');"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="col-12">
+      <div class="form-group text-left m-2">
+        <label class="form-label" for="desiredSkill"
+          >Desired Skills<span class="text-danger pl-1 asterisk">*</span></label
+        >
+        <div class="input-group input-group-merge">
+          <mat-chip-list #chipList aria-label="Fruit selection" class="w100">
+            <mat-chip
+              *ngFor="let item of jobConfig.job.desiredSkill"
+              [selectable]="selectable"
+              [removable]="removable"
+              (removed)="remove(item, 'skills')"
+            >
+              {{ item }}
+              <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+            </mat-chip>
+            <input
+              [matChipInputFor]="chipList"
+              [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+              [matChipInputAddOnBlur]="addOnBlur"
+              (matChipInputTokenEnd)="add($event, 'skills')"
+              class="form-control form-control-prepended"
+            />
+          </mat-chip-list>
+        </div>
+      </div>
+    </div>
+    <div class="col-12">
+      <div class="form-group text-left m-2">
+        <label class="form-label" for="senioritylevel"
+          >Seniority Level<span class="text-danger pl-1 asterisk">*</span></label
+        >
+        <div class="input-group input-group-merge">
+          <mat-select
+            id="senioritylevel"
+            placeholder="Select Level"
+            multiple
+            [(ngModel)]="jobConfig.job.seniorityLevel"
+            [(value)]="jobConfig.job.seniorityLevel"
+            class="form-control form-control-prepended"
+          >
+            <mat-option *ngFor="let item of jobsSeniorityLevel" [value]="item">
+              {{ item }}
+            </mat-option>
+          </mat-select>
+        </div>
+      </div>
+    </div>
+    <div class="col-12">
+      <div class="form-group text-left">
+        <label class="form-label" for="ree"
+          >Required Education & Experince<span class="text-danger pl-1 asterisk">*</span></label
+        >
+        <div class="input-group input-group-merge">
+          <div class="job-editor">
+            <ngx-editor-menu [editor]="editor"> </ngx-editor-menu>
+            <ngx-editor
+              [editor]="editor"
+              [(ngModel)]="jobConfig.job.reqEducationExperience"
+              [placeholder]="'Type here...'"
+            ></ngx-editor>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12">
+      <div class="form-group text-left">
+        <label class="form-label" for="jobType">Job Type<span class="text-danger pl-1 asterisk">*</span></label>
+        <mat-select
+          id="jobType"
+          [(ngModel)]="jobConfig.job.jobType"
+          [(value)]="jobConfig.job.jobType"
+          class="form-control form-control-prepended"
+          placeholder="Select Job Type"
+        >
+          <mat-option *ngFor="let item of jobsType" [value]="item">
+            {{ item }}
+          </mat-option>
+        </mat-select>
+      </div>
+    </div>
+    <div class="col-12">
+      <div class="form-group text-left">
+        <label class="form-label" for="covidPrecaution"
+          >Covid Precaution<span class="text-danger pl-1 asterisk">*</span></label
+        >
+        <div class="input-group input-group-merge">
+          <input
+            id="covidPrecaution"
+            type="text"
+            [(ngModel)]="jobConfig.job.covidPrecautions"
+            class="form-control form-control-prepended"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="m-auto text-center pt-4" *ngIf="jobConfig.job.openingType !== 'Remote'">
+    <button mat-flat-button color="primary" (click)="stepsClick(4, false)" class="rounded-pill caps">
+      PREVIOUS
+    </button>
+    <button mat-flat-button color="primary" (click)="stepsClick(4, true)" class="rounded-pill caps ml-3">
+      SAVE & CONTINUE
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #sixthStep>
+  <div class="row no-gutters animated fadeInUp">
+    <div class="col-12">
+      <div class="form-group text-left">
+        <label class="form-label" for="jobPublish">Publish On<span class="text-danger pl-1 asterisk">*</span></label>
+        <div class="input-group input-group-merge">
+          <input
+          id="jobPublish"
+          [(ngModel)]="jobConfig.job.publishOn"
+          class="form-control form-control-prepended"
+          [matDatepicker]="picker3"
+          readonly
+        />
+        <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+        <mat-datepicker #picker3 color="primary"></mat-datepicker>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="m-auto text-center pt-4">
+    <button mat-flat-button color="primary" (click)="stepsClick(5, false)" class="rounded-pill caps">
+      PREVIOUS
+    </button>
+    <button mat-flat-button color="primary" (click)="saveJob()" class="rounded-pill caps ml-3">
+      Publish
+    </button>
+  </div>
+</ng-template>
+

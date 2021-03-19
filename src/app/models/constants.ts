@@ -20,6 +20,41 @@ export const jobsSearchData = {
   experienceto: 0,
 };
 
+export const jobsSeniorityLevel = [
+  'Internship',
+  'Entry level',
+  'Mid Senior Level',
+  'Associate',
+  'Director',
+  'Executive',
+];
+
+export const jobsType = [
+  'Full Time',
+  'Part Time',
+  'Contract',
+  'Internship'
+];
+
+export const jobsSchedule = [
+  '8 hour shift',
+  '10 hour shift',
+  '12 hour shift',
+  'Weekends',
+  'Monday to Friday',
+  'Night Shift',
+  'Day Shift',
+];
+
+export const jobsMinEducationLevels = [
+  'High Scholl or equivalent',
+  'Associate',
+  'Bachelors',
+  'Masters',
+  'Doctorate'
+];
+
+
 export const applicantJobStatus = ['Applied', 'Under Review', 'Accepted', 'Rejected', 'Withdrawn'];
 
 export const flutterWaveKeys = {

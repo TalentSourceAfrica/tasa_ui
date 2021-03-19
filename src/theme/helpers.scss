@@ -1712,7 +1712,8 @@ button:hover,
   max-height: 300px !important;
 }
 
-.article-editor {
+.article-editor,
+.job-editor {
   border: 2px solid rgba(0, 0, 0, 0.2);
   border-radius: 4px;
 
@@ -1739,5 +1740,3 @@ button:hover,
     }
   }
 }
-
-

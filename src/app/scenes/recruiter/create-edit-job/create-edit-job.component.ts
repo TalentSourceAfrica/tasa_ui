@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CredentialsService } from '@app/auth';
+import { jobsSeniorityLevel, jobsType, jobsSchedule, jobsMinEducationLevels } from '@app/models/constants';
 import { SharedService } from '@app/services/shared.service';
+import { MatChipInputEvent } from '@angular/material/chips';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { Editor } from 'ngx-editor';
 
 @Component({
   selector: 'app-create-edit-job',
@@ -10,6 +14,12 @@ import { SharedService } from '@app/services/shared.service';
 export class CreateEditJobComponent implements OnInit {
   public countries: any = [];
   public industryData: any = [];
+  public editor: Editor;
+  public jobsSeniorityLevel = JSON.parse(JSON.stringify(jobsSeniorityLevel));
+  public jobsType = JSON.parse(JSON.stringify(jobsType));
+  public jobsSchedule = JSON.parse(JSON.stringify(jobsSchedule));
+  public jobsMinEducationLevels = JSON.parse(JSON.stringify(jobsMinEducationLevels));
+
   public steps: any = [
     {
       id: 0,
@@ -21,6 +31,18 @@ export class CreateEditJobComponent implements OnInit {
     },
     {
       id: 2,
+      isActive: false,
+    },
+    {
+      id: 3,
+      isActive: false,
+    },
+    {
+      id: 4,
+      isActive: false,
+    },
+    {
+      id: 5,
       isActive: false,
     },
   ];
@@ -51,7 +73,7 @@ export class CreateEditJobComponent implements OnInit {
       reqEducationExperience: '',
       desiredSkill: [],
       benefits: '',
-      openingType: '',
+      openingType: 'Single Location',
       schedule: [],
       covidPrecautions: '',
       createdOn: '',
@@ -61,7 +83,36 @@ export class CreateEditJobComponent implements OnInit {
       updatedBy: 'string',
     },
   };
+  //chips
+  visible = true;
+  selectable = true;
+  removable = true;
+  addOnBlur = true;
+  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
+
   constructor(public sharedService: SharedService, private credentialsService: CredentialsService) {}
+
+  add(event: MatChipInputEvent, _type?: string, _keyRef?: any): void {
+    const input = event.input;
+    const value = event.value;
+    if ((value || '').trim()) {
+      if (_type == 'skills') {
+        this.jobConfig.job.desiredSkill.push(value.trim());
+      }
+    }
+    // Reset the input value
+    if (input) {
+      input.value = '';
+    }
+  }
+
+  remove(skill: any, _type?: string, _keyRef?: any): void {
+    let index: any;
+    if (_type == 'skills') {
+      index = this.jobConfig.job.desiredSkill.indexOf(skill);
+      this.jobConfig.job.desiredSkill.splice(index, 1);
+    }
+  }
 
   stepsClick(_id: number, _isForward: boolean) {
     // steps logic
@@ -91,9 +142,18 @@ export class CreateEditJobComponent implements OnInit {
     });
   }
 
+  saveJob(){
+    console.log(this.jobConfig.job)
+  }
+
   ngOnInit(): void {
     this.getCountry();
     this.getIndustry();
+    this.editor = new Editor();
+  }
+
+  ngOnDestroy(): void {
+    this.editor.destroy();
   }
 
   get user(): any | null {

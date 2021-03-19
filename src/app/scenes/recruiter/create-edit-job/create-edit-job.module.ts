@@ -7,6 +7,7 @@ import { I18nModule } from '@app/i18n';
 import { MaterialModule } from '@app/modules/material.module';
 import { RouterModule } from '@angular/router';
 import { CreateEditJobRoutingModule } from './create-edit-job-routing.module';
+import { NgxEditorModule } from 'ngx-editor';
 import { CreateEditJobComponent } from './create-edit-job.component';
 
 @NgModule({
@@ -19,6 +20,7 @@ import { CreateEditJobComponent } from './create-edit-job.component';
     RouterModule,
     MaterialModule,
     CreateEditJobRoutingModule,
+    NgxEditorModule
   ],
   schemas: [NO_ERRORS_SCHEMA],
 })
