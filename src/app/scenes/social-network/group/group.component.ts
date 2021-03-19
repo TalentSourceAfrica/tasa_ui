@@ -67,7 +67,7 @@ export class GroupComponent implements OnInit {
 
   sendRequest(grpId: any) {
     Swal.fire({
-      title: 'Message',
+      title: 'Add A Note',
       input: 'text',
       inputAttributes: {
         autocapitalize: 'off',

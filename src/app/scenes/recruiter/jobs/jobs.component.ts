@@ -92,7 +92,9 @@ export class JobsComponent implements OnInit {
   }
 
   addJob() {
-    this.router.navigate(['/recruiter/create-job']);
+    this.router.navigate(['/recruiter/create-job'], {
+      replaceUrl: true,
+    });
     // this.allJobs.unshift({
     //   expanded: true,
     //   id: '',
@@ -136,19 +138,29 @@ export class JobsComponent implements OnInit {
 
   updateJob(job: any, _extraParams?: any) {
     let $t = this;
-    $t.sharedService.uiService.showApiStartPopMsg('Updating Job...');
     if (_extraParams == 'status') {
-      job.status = 'Inactive';
-    }
-    let apiUrl = $t.sharedService.urlService.apiCallWithParams('updateJob', { '{jobId}': job.id });
-    $t.sharedService.configService.put(apiUrl, job).subscribe(
-      (response: any) => {
-        $t.sharedService.uiService.showApiSuccessPopMsg('Jobs updated...');
-      },
-      (error) => {
-        $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
+      $t.sharedService.uiService.showApiStartPopMsg('Updating Job...');
+      if (_extraParams == 'status') {
+        job.status = 'Inactive';
       }
-    );
+      let apiUrl = $t.sharedService.urlService.apiCallWithParams('updateJob', { '{jobId}': job.id });
+      $t.sharedService.configService.put(apiUrl, job).subscribe(
+        (response: any) => {
+          $t.sharedService.uiService.showApiSuccessPopMsg('Jobs updated...');
+        },
+        (error) => {
+          $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
+        }
+      );
+    } else {
+      $t.router.navigate([
+        '/recruiter/create-job',
+        {
+          queryParams: { jobId: job.id },
+          replaceUrl: true,
+        },
+      ]);
+    }
   }
 
   deleteJob(job: any, jobIndex: number) {
@@ -265,7 +277,7 @@ export class JobsComponent implements OnInit {
         job: job,
         user: this.user,
         applicantStatus: applicantStatus,
-        fromWhere: 'all-jobs'
+        fromWhere: 'all-jobs',
       },
       disableClose: false,
     });

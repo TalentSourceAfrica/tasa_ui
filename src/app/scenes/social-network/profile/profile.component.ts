@@ -229,7 +229,7 @@ export class ProfileComponent implements OnInit {
   connect() {
     let $t = this;
     Swal.fire({
-      title: 'Message',
+      title: 'Add A Note',
       input: 'text',
       inputAttributes: {
         autocapitalize: 'off',
@@ -242,7 +242,7 @@ export class ProfileComponent implements OnInit {
       showLoaderOnConfirm: true,
       preConfirm: (data) => {
         if (data === '') {
-          Swal.showValidationMessage('Please enter message');
+          Swal.showValidationMessage('Please enter a note..!');
         }
       },
       allowOutsideClick: () => !Swal.isLoading(),

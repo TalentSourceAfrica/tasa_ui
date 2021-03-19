@@ -33,8 +33,7 @@
       </div>
       <div class="card m-0 mt-4" style="padding: 50px;" *ngIf="steps[5].isActive">
         <ng-container *ngTemplateOutlet="sixthStep"></ng-container>
-      </div>
-      
+      </div>    
     </section>
   </div>
 </div>
@@ -127,7 +126,7 @@
   <div class="row no-gutters animated fadeInUp location-type">
     <label class="form-label">Select Opening Type<span class="text-danger pl-1 asterisk">*</span></label>
     <div class="grid-wrapper grid-col-3 mt-2">
-      <div class="selection-wrapper">
+      <div class="selection-wrapper curPoint">
         <label for="selected-item-1" class="selected-label">
           <input
             type="radio"
@@ -144,7 +143,7 @@
           </div>
         </label>
       </div>
-      <div class="selection-wrapper">
+      <div class="selection-wrapper curPoint">
         <label for="selected-item-2" class="selected-label">
           <input
             type="radio"
@@ -161,7 +160,7 @@
           </div>
         </label>
       </div>
-      <div class="selection-wrapper">
+      <div class="selection-wrapper curPoint">
         <label for="selected-item-3" class="selected-label">
           <input
             type="radio"
@@ -370,7 +369,7 @@
       </div>
     </div>
     <div class="col-12">
-      <div class="form-group text-left">
+      <div class="form-group text-left m-2">
         <label class="form-label" for="ree"
           >Required Education & Experince<span class="text-danger pl-1 asterisk">*</span></label
         >
@@ -387,7 +386,7 @@
       </div>
     </div>
     <div class="col-12">
-      <div class="form-group text-left">
+      <div class="form-group text-left m-2">
         <label class="form-label" for="jobType">Job Type<span class="text-danger pl-1 asterisk">*</span></label>
         <mat-select
           id="jobType"
@@ -403,7 +402,7 @@
       </div>
     </div>
     <div class="col-12">
-      <div class="form-group text-left">
+      <div class="form-group text-left m-2">
         <label class="form-label" for="covidPrecaution"
           >Covid Precaution<span class="text-danger pl-1 asterisk">*</span></label
         >

@@ -5,6 +5,7 @@ import { SharedService } from '@app/services/shared.service';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Editor } from 'ngx-editor';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-edit-job',
@@ -82,6 +83,8 @@ export class CreateEditJobComponent implements OnInit {
       createdBy: this.user.firstName + ' ' + this.user.lastName,
       updatedBy: 'string',
     },
+    j0bId: '',
+    fetchingJob: false,
   };
   //chips
   visible = true;
@@ -90,7 +93,14 @@ export class CreateEditJobComponent implements OnInit {
   addOnBlur = true;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
-  constructor(public sharedService: SharedService, private credentialsService: CredentialsService) {}
+  constructor(
+    public sharedService: SharedService,
+    private credentialsService: CredentialsService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute
+  ) {
+    this.jobConfig.jobId = this.activatedRoute.snapshot.queryParamMap.get('jobId');
+  }
 
   add(event: MatChipInputEvent, _type?: string, _keyRef?: any): void {
     const input = event.input;
@@ -142,13 +152,70 @@ export class CreateEditJobComponent implements OnInit {
     });
   }
 
-  saveJob(){
-    console.log(this.jobConfig.job)
+  getJobDetail() {
+    let $t = this;
+    $t.jobConfig.fetchingJob = true;
+    let apiUrl = $t.sharedService.urlService.apiCallWithParams('getJob', {
+      '{jobId}': $t.jobConfig.jobId,
+    });
+    if ($t.user) {
+      apiUrl = $t.sharedService.urlService.addQueryStringParm(apiUrl, 'user', $t.user.email);
+    }
+    $t.sharedService.configService.get(apiUrl).subscribe(
+      (response: any) => {
+        $t.jobConfig.job = response.responseObj;
+      },
+      (error) => {
+        $t.jobConfig.fetchingJob = false;
+        $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
+        setTimeout(() => {
+          $t.sharedService.uiService.closePopMsg();
+          if ($t.user.type === 'Recruiter') {
+            $t.router.navigate(['/recruiter/jobs'], { replaceUrl: true });
+          } else {
+            $t.router.navigate(['/jobs/listings'], { replaceUrl: true });
+          }
+        }, 2000);
+      }
+    );
+  }
+
+  saveJob() {
+    let $t = this;
+    if (!$t.jobConfig.jobId) {
+      $t.sharedService.uiService.showApiStartPopMsg('Adding Job...');
+      let apiUrl = $t.sharedService.urlService.simpleApiCall('createJob');
+      $t.sharedService.configService.post(apiUrl, $t.jobConfig.job).subscribe(
+        (response: any) => {
+          $t.sharedService.uiService.showApiSuccessPopMsg('Job Added...');
+          $t.sharedService.utilityService.changeMessage('TRIGGER-HEADER-NOTIFICATIONS-UPDATE');
+          $t.router.navigate(['/recruiter/jobs']);
+        },
+        (error) => {
+          $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
+        }
+      );
+    } else {
+      let $t = this;
+      $t.sharedService.uiService.showApiStartPopMsg('Updating Job...');
+      let apiUrl = $t.sharedService.urlService.apiCallWithParams('updateJob', { '{jobId}': $t.jobConfig.jobId });
+      $t.sharedService.configService.put(apiUrl, $t.jobConfig.job).subscribe(
+        (response: any) => {
+          $t.sharedService.uiService.showApiSuccessPopMsg('Jobs updated...');
+        },
+        (error) => {
+          $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
+        }
+      );
+    }
   }
 
   ngOnInit(): void {
     this.getCountry();
     this.getIndustry();
+    if (this.jobConfig.jobId) {
+      this.getJobDetail();
+    }
     this.editor = new Editor();
   }
 
