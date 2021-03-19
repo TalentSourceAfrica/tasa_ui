@@ -49,7 +49,7 @@ export class RightSideComponent implements OnInit {
     this.connectedUserConfig.isFetching = true;
     this.socialnetworkService.getAllConnections().subscribe(
       (response: any) => {
-        this.connectedUserConfig.data = response.connections ? response.connections : [];
+        this.connectedUserConfig.data = response ;
         this.connectedUserConfig.isFetching = false;
       },
       (error) => {

@@ -1,4 +1,4 @@
-$recommendationColor: #adb5bd;
+$recommendationColor: #adb5bd59;
 $userActionColor: #004e98;
 
 .left-side-wrapper {
@@ -29,15 +29,15 @@ $userActionColor: #004e98;
     // .no-data-label {
     //   color: $recommendationColor !important;
     // }
-    button {
-      background-color: $recommendationColor !important;
-    }
-    .badge-info {
-      background-color: $recommendationColor !important;
-    }
-    .job-material-icons {
-      color: $recommendationColor !important;
-    }
+    // button {
+    //   background-color: $recommendationColor !important;
+    // }
+    // .badge-info {
+    //   background-color: $recommendationColor !important;
+    // }
+    // .job-material-icons {
+    //   color: $recommendationColor !important;
+    // }
   }
   .user-action-card {
     .card-header {

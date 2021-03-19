@@ -55,10 +55,10 @@
     <div class="col-12" (mouseover)="clearIntervalForCard('recommended')" (mouseout)="setLogicForRecommendedCard()">
       <div class="card mb-0 course-recommendation" *ngIf="recommendedSwitch.course">
         <div class="card-header d-flex align-items-center">
-          <div class="h2 mb-0 mr-3 text-white w35">
+          <div class="h2 mb-0 mr-3 text-primary w35">
             <i class="fas fa-book-open"></i>
           </div>
-          <div class="flex text-white">
+          <div class="flex text-primary">
             <div class="text-right">
               <h5 class="pb-1">{{ recommendedCourses.data.length }}</h5>
             </div>
@@ -141,10 +141,10 @@
       </div>
       <div class="card mb-0 course-recommendation" *ngIf="recommendedSwitch.jobs">
         <div class="card-header d-flex align-items-center">
-          <div class="h2 mb-0 mr-3 text-white w40">
+          <div class="h2 mb-0 mr-3 text-primary w40">
             <i class="fas fa-briefcase"></i>
           </div>
-          <div class="flex text-white">
+          <div class="flex text-primary">
             <div class="text-right">
               <h5>{{ recommendedJobs.data.length }}</h5>
             </div>

@@ -43,7 +43,7 @@ export class SocialConnectionsComponent implements OnInit {
     this.connectedUserConfig.isLoading = true;
     this.socialnetworkService.getAllConnections().subscribe(
       (response: any) => {
-        this.connectedUserConfig.data = response.connections ? response.connections : [];
+        this.connectedUserConfig.data = response ;
         this.connectedUserConfig.isLoading = false;
       },
       (error) => {}

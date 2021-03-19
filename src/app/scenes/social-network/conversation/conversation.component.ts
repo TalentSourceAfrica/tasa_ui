@@ -81,10 +81,10 @@ export class ConversationComponent implements OnInit {
             return null;
           }
         };
-        if (result1.connections === null && result2.length === 0) {
+        if (result1.length === 0 && result2.length === 0) {
           $t.connectedUserConfig.data = [];
         } else {
-          $t.uds.each(result1.connections, (d: any) => {
+          $t.uds.each(result1, (d: any) => {
             $t.connectedUserConfig.data.push({
               firstName: d.firstName,
               id: d.id,

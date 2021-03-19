@@ -348,25 +348,36 @@
               instantly reach the largest online community of Black/African, Latinx, Indigenous, and Southeast Asian job
               seekers and freelancers.
             </h5>
-            <div class="d-flex">
-              <input
-                class="form-control form-control-sm p-4 inputClass transition-1"
-                type="email"
-                placeholder="Enter your email address"
-                [style.border-color]="colorConfig.selectedColor"
-                [(ngModel)]="sliderSignUpMailRecruiter"
-              />
-              <button
-                mat-flat-button
-                (click)="openRecruiterSignup()"
-                class="rounded-pill ml-4 w40 text-white"
-                [style.background-color]="colorConfig.selectedColor"
-              >
-                POST A JOB FOR FREE
-              </button>
+            <div class="row no-gutters">
+              <div class="col-12 col-md-8 d-flex align-items-center">
+                <input
+                  class="form-control form-control-sm p-4 inputClass transition-1"
+                  type="email"
+                  placeholder="Enter your email address"
+                  [style.border-color]="colorConfig.selectedColor"
+                  [(ngModel)]="sliderSignUpMailRecruiter"
+                />
+              </div>
+              <div class="col-12 col-md-4 text-center">
+                <button
+                  mat-flat-button
+                  (click)="openRecruiterSignup()"
+                  class="rounded-pill ml-4 mt-4 text-white"
+                  [style.background-color]="colorConfig.selectedColor"
+                  style="height: 50px;"
+                >
+                  POST A JOB FOR FREE
+                </button>
+                <div class="pt-2"><i class="text-danger">No Credit Card Required!</i></div>
+              </div>
             </div>
-            <div class="text-right mr-4"><i class="text-danger no-credit-card">No Credit Card Required!</i></div>
-            <img src="../assets/images/try-it-now.png" class="try-it-now" alt="" />
+         
+            <img
+              src="../assets/images/try-it-now.png"
+              *ngIf="!sharedService.deviceDetectorService.isMobile()"
+              class="try-it-now"
+              alt=""
+            />
           </div>
         </div>
       </div>
