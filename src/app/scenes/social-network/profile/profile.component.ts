@@ -23,6 +23,7 @@ import { Gallery } from 'angular-gallery';
 })
 export class ProfileComponent implements OnInit {
   @ViewChild('conectionDrawer', { static: false }) conectionDrawer: any;
+  @ViewChild('file', { static: false }) public file: any;
   public userConfig: any = {
     fetchingUser: false,
     user: {},
@@ -280,6 +281,47 @@ export class ProfileComponent implements OnInit {
       arrows: false,
     };
     this.gallery.load(prop);
+  }
+
+  getBackgroundImageUrl() {
+    if (this.user.backgroundImage) {
+      return `url(${this.user.backgroundImage})`;
+    } else {
+      return `url('https://images.unsplash.com/photo-1508615039623-a25605d2b022?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1050&q=80')`;
+    }
+  }
+  callUpload(event: any) {
+    event.stopPropagation();
+    event.preventDefault();
+    this.file.nativeElement.click();
+  }
+
+  handleFileInput(event: any) {
+    let $t = this;
+    let apiUrl = $t.sharedService.urlService.apiCallWithParams('uploadSingle', { '{email}': $t.user.email });
+    apiUrl = $t.sharedService.urlService.addQueryStringParm(apiUrl, 'profile', true);
+    let files = event.target.files;
+    var form = new FormData();
+    form.append('file', files[0], files[0].name);
+    if ($t.sharedService.utilityService.ValidateImageUpload(files[0].name)) {
+      $t.sharedService.uiService.showApiStartPopMsg('Changing Background...');
+
+      $t.sharedService.configService.post(apiUrl, form).subscribe(
+        (response: any) => {
+          $t.sharedService.uiService.showApiSuccessPopMsg('Awesome!, Background Updated.');
+          $t.user.backgroundImage = response.url;
+          $t.authenticationService.login($t.user);
+          $t.sharedService.utilityService.changeMessage('FETCH-USER-PROFILE');
+        },
+        (error) => {
+          $t.sharedService.uiService.showApiErrorPopMsg('Something Went Wrong, Please Try Again After Sometime...');
+        }
+      );
+    } else {
+      $t.sharedService.uiService.showApiErrorPopMsg(
+        'Uploaded File is not a Valid Image. Only JPG, PNG and JPEG files are allowed.'
+      );
+    }
   }
 
   ngAfterViewInit(): void {

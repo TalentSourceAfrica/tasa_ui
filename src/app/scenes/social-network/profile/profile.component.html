@@ -42,19 +42,25 @@
                     <div class="row w100 no-gutters">
                       <div class="col-12">
                         <div class="card m-0">
-                          <div>
-                            <img
+                          <div
+                            class="profile-background"
+                            [ngStyle]="{
+                              background: getBackgroundImageUrl()
+                            }"
+                          >
+                            <!-- <img
                               src="https://images.unsplash.com/photo-1508615039623-a25605d2b022?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1050&q=80"
                               alt=""
                               class="profile-background"
-                            />
+                            /> -->
                             <button
                               mat-mini-fab
                               color="primary"
                               matTooltipPosition="below"
-                              matTooltip="Change background - coming soon"
+                              matTooltip="Change background"
                               class="ml-2 mr-3 position-absolute rounded-pill"
                               style="right: 20px; top: 10px;"
+                              (click)="callUpload($event)"
                             >
                               <mat-icon>camera</mat-icon>
                             </button>
@@ -512,3 +518,5 @@
 <ng-template #connections>
   <app-social-connections [loggedInUser]="user"></app-social-connections>
 </ng-template>
+
+<input type="file" #file class="d-none" id="imageUpload" (change)="handleFileInput($event)" />
