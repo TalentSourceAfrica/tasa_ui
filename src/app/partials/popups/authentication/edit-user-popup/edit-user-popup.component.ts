@@ -17,6 +17,7 @@ export class EditUserPopupComponent implements OnInit {
   countries: any;
   certificateSuportedFile = suportedFile.certificate;
   user: any;
+  highestDegreeData: any = [];
   //chips
   visible = true;
   selectable = true;
@@ -158,21 +159,19 @@ export class EditUserPopupComponent implements OnInit {
     this.cdr.detectChanges();
   }
 
-  add(event: MatChipInputEvent,_type?:string, _keyRef?:any): void {
+  add(event: MatChipInputEvent, _type?: string, _keyRef?: any): void {
     const input = event.input;
     const value = event.value;
     if ((value || '').trim()) {
-      if(_type == 'pi'){
+      if (_type == 'pi') {
         this.user.preferredRole.push(value.trim());
-      }else if(_type == 'minor'){
+      } else if (_type == 'minor') {
         _keyRef.minor.push(value.trim());
-      }
-      else {
+      } else {
         this.user.fieldsOfExpertise.push({
           areaOfExpertise: value.trim(),
         });
       }
-    
     }
     // Reset the input value
     if (input) {
@@ -180,19 +179,18 @@ export class EditUserPopupComponent implements OnInit {
     }
   }
 
-  remove(skill: any,_type?:string, _keyRef?:any): void {
-    let index:any;
-      if(_type == 'pi'){
-        index = this.user.preferredRole.indexOf(skill);
-        this.user.preferredRole.splice(index, 1);
-      }else if(_type == 'minor'){
-        index = _keyRef.minor.indexOf(skill);
-        _keyRef.minor.splice(index, 1);
-      }
-      else {
-        index = this.user.fieldsOfExpertise.indexOf(skill);
-        this.user.fieldsOfExpertise.splice(index, 1);
-      }
+  remove(skill: any, _type?: string, _keyRef?: any): void {
+    let index: any;
+    if (_type == 'pi') {
+      index = this.user.preferredRole.indexOf(skill);
+      this.user.preferredRole.splice(index, 1);
+    } else if (_type == 'minor') {
+      index = _keyRef.minor.indexOf(skill);
+      _keyRef.minor.splice(index, 1);
+    } else {
+      index = this.user.fieldsOfExpertise.indexOf(skill);
+      this.user.fieldsOfExpertise.splice(index, 1);
+    }
   }
 
   removeExp(index: number) {
@@ -250,9 +248,18 @@ export class EditUserPopupComponent implements OnInit {
     });
   }
 
+  highestDegree() {
+    let $t = this;
+    let apiUrl = $t.sharedService.urlService.apiCallWithParams('getLovsByGroup', { '{group}': 'HighestDegree' });
+    $t.sharedService.configService.get(apiUrl).subscribe((response) => {
+      $t.highestDegreeData = response[0].value;
+    });
+  }
+
   ngOnInit(): void {
     this.user = JSON.parse(JSON.stringify(this.popupData.user));
     this.getCountry();
+    this.highestDegree();
   }
   ngAfterViewInit(): void {
     this.cdr.detectChanges();

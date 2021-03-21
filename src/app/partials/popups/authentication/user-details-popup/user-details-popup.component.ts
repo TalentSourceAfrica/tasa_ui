@@ -23,6 +23,7 @@ export class UserDetailsPopupComponent implements OnInit {
   userDetails: any;
   countries: any = [];
   industryData: any = [];
+  highestDegreeData: any = [];
   steps: any = [
     {
       id: 0,
@@ -74,17 +75,17 @@ export class UserDetailsPopupComponent implements OnInit {
     }
   }
 
-  add(event: MatChipInputEvent, _type?:string): void {
+  add(event: MatChipInputEvent, _type?: string): void {
     const input = event.input;
     const value = event.value;
 
     // Add our fruit
     if ((value || '').trim()) {
-      if(_type === 'minor'){
+      if (_type === 'minor') {
         this.user.education[0].minor.push(value.trim());
       } else {
         this.user.preferredRole.push(value.trim());
-      }  
+      }
     }
     // Reset the input value
     if (input) {
@@ -92,15 +93,15 @@ export class UserDetailsPopupComponent implements OnInit {
     }
   }
 
-  remove(skill: any, _type?:string): void {
+  remove(skill: any, _type?: string): void {
     let index;
-      if(_type === 'minor'){
-        index = this.user.education[0].minor.indexOf(skill);
-        this.user.education[0].minor.splice(index, 1);
-      } else {
-        index = this.user.preferredRole.indexOf(skill);
-        this.user.preferredRole.splice(index, 1);
-      }
+    if (_type === 'minor') {
+      index = this.user.education[0].minor.indexOf(skill);
+      this.user.education[0].minor.splice(index, 1);
+    } else {
+      index = this.user.preferredRole.indexOf(skill);
+      this.user.preferredRole.splice(index, 1);
+    }
   }
 
   addExp() {
@@ -335,7 +336,7 @@ export class UserDetailsPopupComponent implements OnInit {
         $t.sharedService.uiService.showApiSuccessPopMsg(response.message);
         $t.sharedService.utilityService.changeMessage('FETCH-USER-PROFILE');
         if ($t.steps[2].isActive) {
-          $t.navigateInside()
+          $t.navigateInside();
         } else {
           $t.stepsClick(1, true);
         }
@@ -353,8 +354,16 @@ export class UserDetailsPopupComponent implements OnInit {
       $t.industryData = response[0].value;
     });
   }
-  
-  navigateInside(){
+
+  highestDegree() {
+    let $t = this;
+    let apiUrl = $t.sharedService.urlService.apiCallWithParams('getLovsByGroup', { '{group}': 'HighestDegree' });
+    $t.sharedService.configService.get(apiUrl).subscribe((response) => {
+      $t.highestDegreeData = response[0].value;
+    });
+  }
+
+  navigateInside() {
     let $t = this;
     $t.dialogRef.close();
     $t.router.navigate(['/social-network/posts'], { replaceUrl: true });
@@ -362,7 +371,7 @@ export class UserDetailsPopupComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm(this.user.type);
-    if (this.user.image !== '' && this.user.experience.length === 0 ) {
+    if (this.user.image !== '' && this.user.experience.length === 0) {
       this.stepsClick(0, true);
     } else if (this.user.experience.length !== 0) {
       this.stepsClick(0, true);
@@ -372,6 +381,7 @@ export class UserDetailsPopupComponent implements OnInit {
 
   ngAfterViewInit(): void {
     this.getIndustry();
+    this.highestDegree();
   }
 
   get user(): any | null {

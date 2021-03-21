@@ -31,10 +31,10 @@ export class LovComponent implements OnInit {
 
   saveLovs(lov: any, lovIndex: number) {
     let $t = this;
-    if ($t.lovsData.map((d: any) => d.group.toLowerCase()).includes(lov.group.toLowerCase())) {
-      $t.sharedService.uiService.showApiErrorPopMsg('Group Name Must be Unique');
-      return;
-    }
+    // if ($t.lovsData.map((d: any) => d.group.toLowerCase()).includes(lov.group.toLowerCase())) {
+    //   $t.sharedService.uiService.showApiErrorPopMsg('Group Name Must be Unique');
+    //   return;
+    // }
     $t.sharedService.uiService.showApiStartPopMsg('Adding LOV...!');
     let apiUrl = $t.sharedService.urlService.simpleApiCall('addLov');
     $t.sharedService.configService.post(apiUrl, lov).subscribe(

@@ -279,13 +279,17 @@
               >Highest degree attained <span class="text-danger pl-1 asterisk">*</span></label
             >
             <div class="input-group input-group-merge">
-              <input
+              <mat-select
                 id="highestDegree{{ i }}"
-                type="text"
                 [(ngModel)]="item.highestDegree"
+                [(value)]="item.highestDegree"
                 class="form-control form-control-prepended"
                 placeholder="Your degree"
-              />
+              >
+                <mat-option *ngFor="let item of highestDegreeData" [value]="item.code">
+                  {{ item.code }}
+                </mat-option>
+              </mat-select>
             </div>
           </div>
         </div>
@@ -342,7 +346,7 @@
               *ngFor="let item of item.minor"
               [selectable]="selectable"
               [removable]="removable"
-              (removed)="remove(item,'minor')"
+              (removed)="remove(item, 'minor')"
             >
               {{ item }}
               <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
@@ -352,7 +356,7 @@
               [matChipInputFor]="chipList"
               [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
               [matChipInputAddOnBlur]="addOnBlur"
-              (matChipInputTokenEnd)="add($event,'minor')"
+              (matChipInputTokenEnd)="add($event, 'minor')"
               class="form-control form-control-prepended"
             />
           </mat-chip-list>

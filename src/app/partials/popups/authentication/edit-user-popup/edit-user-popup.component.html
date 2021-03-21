@@ -96,7 +96,7 @@
                 *ngFor="let item of user[item.key]"
                 [selectable]="selectable"
                 [removable]="removable"
-                (removed)="remove(item,'pi')"
+                (removed)="remove(item, 'pi')"
               >
                 {{ item }}
                 <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
@@ -106,7 +106,7 @@
                 [matChipInputFor]="chipList"
                 [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                 [matChipInputAddOnBlur]="addOnBlur"
-                (matChipInputTokenEnd)="add($event,'pi')"
+                (matChipInputTokenEnd)="add($event, 'pi')"
                 class="form-control form-control-prepended"
               />
             </mat-chip-list>
@@ -246,7 +246,9 @@
                   <mat-slide-toggle
                     class="example-margin text-primary"
                     checked="{{ item.recentEmployer === 'true' ? true : false }}"
-                    (change)="item.recentEmployer === 'true' ? (item.recentEmployer = 'false') : (item.recentEmployer = 'true')"
+                    (change)="
+                      item.recentEmployer === 'true' ? (item.recentEmployer = 'false') : (item.recentEmployer = 'true')
+                    "
                   >
                     Current Job
                   </mat-slide-toggle>
@@ -296,12 +298,17 @@
                   >Degree<span class="text-danger pl-1 asterisk">*</span></label
                 >
                 <div class="input-group input-group-merge">
-                  <input
+                  <mat-select
                     id="highestDegree{{ i }}"
-                    type="text"
                     [(ngModel)]="item.highestDegree"
+                    [(value)]="item.highestDegree"
                     class="form-control form-control-prepended"
-                  />
+                    placeholder="Your degree"
+                  >
+                    <mat-option *ngFor="let item of highestDegreeData" [value]="item.code">
+                      {{ item.code }}
+                    </mat-option>
+                  </mat-select>
                 </div>
               </div>
             </div>
@@ -354,7 +361,7 @@
                   *ngFor="let item of item.minor"
                   [selectable]="selectable"
                   [removable]="removable"
-                  (removed)="remove(item,'minor',item)"
+                  (removed)="remove(item, 'minor', item)"
                 >
                   {{ item }}
                   <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
@@ -364,7 +371,7 @@
                   [matChipInputFor]="chipList"
                   [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                   [matChipInputAddOnBlur]="addOnBlur"
-                  (matChipInputTokenEnd)="add($event,'minor',item)"
+                  (matChipInputTokenEnd)="add($event, 'minor', item)"
                   class="form-control form-control-prepended"
                 />
               </mat-chip-list>
@@ -372,9 +379,7 @@
           </div>
           <div class="d-flex">
             <div class="form-group w45">
-              <label class="form-label" for="degreeFromDate"
-                >Degree Start Date</label
-              >
+              <label class="form-label" for="degreeFromDate">Degree Start Date</label>
               <div class="input-group input-group-merge">
                 <input
                   matInput
@@ -388,9 +393,7 @@
               </div>
             </div>
             <div class="form-group pl-2 w45">
-              <label class="form-label" for="degreeToDate"
-                >Degree End Date</label
-              >
+              <label class="form-label" for="degreeToDate">Degree End Date</label>
               <div class="input-group input-group-merge">
                 <input
                   matInput
