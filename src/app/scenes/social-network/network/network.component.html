@@ -62,7 +62,7 @@
                 <img
                   [routerLink]="['/social-network/profile/', item.fromTasaId]"
                   routerLinkActive="router-link-active"
-                  class="img-fluid"
+                  class="img-fluid shadow-lg"
                   src="{{
                     item.imageUrl
                       ? item.imageUrl
@@ -128,7 +128,7 @@
         class="row no-gutters mt-3 max-vertical-h-70 stylishSlimScroll flow-y-auto flow-x-hidden"
       >
         <div
-          class="col-md-6 col-sm-12"
+          class="col-md-4 col-sm-12"
           *ngFor="let item of networkConfig.data | nameFilter: searchedName; let i = index"
         >
           <div class="card shadow-sm">
@@ -138,7 +138,7 @@
                   *ngIf="!item?.groupId"
                   [routerLink]="['/social-network/profile/', item.fromTasaId]"
                   routerLinkActive="router-link-active"
-                  class="img-fluid"
+                  class="img-fluid shadow-lg"
                   src="{{
                     item.fromImage
                       ? item.fromImage
@@ -157,17 +157,18 @@
               </p>
 
               <h4
-                class="card-title"
+                class="card-title mb-1"
                 *ngIf="!item?.groupId"
                 [routerLink]="['/social-network/profile/', item.fromTasaId]"
                 routerLinkActive="router-link-active"
               >
                 {{ item.fromName }}
               </h4>
-              <h4 class="card-title" *ngIf="item?.groupId">Group - {{ item.groupTitle }}</h4>
+              <h4 class="card-title mb-1" *ngIf="item?.groupId">Group - {{ item.groupTitle }}</h4>
               <p class="card-text">{{ item.message }}</p>
               <button mat-flat-button color="primary" (click)="approve(item.id, i)" class="rounded-pill mt-2">
-                Join
+                <span *ngIf="item?.groupId">Join</span>
+                <span *ngIf="!item?.groupId">Add</span>
               </button>
               <button mat-flat-button color="accent" (click)="reject(item.id, i)" class="rounded-pill ml-3 mt-2">
                 Ignore

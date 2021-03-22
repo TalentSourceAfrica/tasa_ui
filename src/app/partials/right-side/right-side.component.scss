@@ -6,9 +6,9 @@
     max-width: 55px;
     width: 55px;
   }
-  .connected-groups,
-  .connected-users {
-    background: white;
-    
+  .connections {
+    .card {
+      background-color: #f8f9fa !important;
+    }
   }
 }

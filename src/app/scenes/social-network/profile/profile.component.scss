@@ -36,7 +36,6 @@
       --font-family-sans-serif: Open Sans, sans-serif;
       --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
     }
-
     hr {
       overflow: visible;
       box-sizing: content-box;
@@ -1294,15 +1293,6 @@
 
       .navbar {
         display: none;
-      }
-
-      figcaption,
-      main {
-        display: block;
-      }
-
-      main {
-        overflow: hidden;
       }
 
       .bg-white {

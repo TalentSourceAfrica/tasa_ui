@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CredentialsService } from '@app/auth';
 import { jobsSeniorityLevel, jobsType, jobsSchedule, jobsMinEducationLevels } from '@app/models/constants';
 import { SharedService } from '@app/services/shared.service';
@@ -20,7 +20,7 @@ export class CreateEditJobComponent implements OnInit {
   public jobsType = JSON.parse(JSON.stringify(jobsType));
   public jobsSchedule = JSON.parse(JSON.stringify(jobsSchedule));
   public jobsMinEducationLevels = JSON.parse(JSON.stringify(jobsMinEducationLevels));
-
+  public jobLocations = [''];
   public steps: any = [
     {
       id: 0,
@@ -49,6 +49,7 @@ export class CreateEditJobComponent implements OnInit {
   ];
   jobConfig: any = {
     job: {
+      id: '',
       description: '',
       title: '',
       status: 'Inactive',
@@ -66,12 +67,14 @@ export class CreateEditJobComponent implements OnInit {
       rejectReason: '',
       tasaId: '',
       industry: [],
+      locations: [''],
       city: '',
       state: '',
       country: '',
       jobType: '',
       seniorityLevel: [],
       reqEducationExperience: '',
+      minimumEducationLevel: '',
       desiredSkill: [],
       benefits: '',
       openingType: 'Single Location',
@@ -83,7 +86,7 @@ export class CreateEditJobComponent implements OnInit {
       createdBy: this.user.firstName + ' ' + this.user.lastName,
       updatedBy: 'string',
     },
-    j0bId: '',
+    jobId: '',
     fetchingJob: false,
   };
   //chips
@@ -97,9 +100,18 @@ export class CreateEditJobComponent implements OnInit {
     public sharedService: SharedService,
     private credentialsService: CredentialsService,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private cdr: ChangeDetectorRef
   ) {
     this.jobConfig.jobId = this.activatedRoute.snapshot.queryParamMap.get('jobId');
+  }
+
+  addLocation() {
+    this.jobLocations.push('');
+  }
+
+  removeLocation(index: number) {
+    this.jobLocations.splice(index, 1);
   }
 
   add(event: MatChipInputEvent, _type?: string, _keyRef?: any): void {
@@ -124,15 +136,22 @@ export class CreateEditJobComponent implements OnInit {
     }
   }
 
-  stepsClick(_id: number, _isForward: boolean) {
+  stepsClick(_id: number, _isForward: boolean, _apiCall?: boolean) {
     // steps logic
+
     if (_isForward) {
       this.steps.find((d: any) => d.id === _id).isActive = false;
       this.steps.find((d: any) => d.id === _id + 1).isActive = true;
+      _apiCall ? this.saveJob() : null;
     } else {
+      if (this.jobConfig.job.openingType === 'Remote' && _id === 4) {
+        _id -= 1;
+      }
       this.steps.find((d: any) => d.id === _id).isActive = false;
       this.steps.find((d: any) => d.id === _id - 1).isActive = true;
     }
+    window.scrollTo(0, 100);
+    this.cdr.detectChanges();
   }
 
   getCountry() {
@@ -164,6 +183,8 @@ export class CreateEditJobComponent implements OnInit {
     $t.sharedService.configService.get(apiUrl).subscribe(
       (response: any) => {
         $t.jobConfig.job = response.responseObj;
+        $t.jobLocations = response.responseObj.locations;
+        $t.jobConfig.fetchingJob = false;
       },
       (error) => {
         $t.jobConfig.fetchingJob = false;
@@ -180,16 +201,19 @@ export class CreateEditJobComponent implements OnInit {
     );
   }
 
-  saveJob() {
+  saveJob(_isFinal?: boolean) {
     let $t = this;
-    if (!$t.jobConfig.jobId) {
-      $t.sharedService.uiService.showApiStartPopMsg('Adding Job...');
+    if (!$t.jobConfig.jobId && $t.jobConfig.job.id === '') {
+      _isFinal ? $t.sharedService.uiService.showApiStartPopMsg('Adding Job...') : null;
       let apiUrl = $t.sharedService.urlService.simpleApiCall('createJob');
       $t.sharedService.configService.post(apiUrl, $t.jobConfig.job).subscribe(
         (response: any) => {
-          $t.sharedService.uiService.showApiSuccessPopMsg('Job Added...');
-          $t.sharedService.utilityService.changeMessage('TRIGGER-HEADER-NOTIFICATIONS-UPDATE');
-          $t.router.navigate(['/recruiter/jobs']);
+          $t.jobConfig.job.id = response.responseObj.id;
+          if (_isFinal) {
+            $t.sharedService.uiService.showApiSuccessPopMsg('Job Added...');
+            $t.sharedService.utilityService.changeMessage('TRIGGER-HEADER-NOTIFICATIONS-UPDATE');
+            $t.router.navigate(['/recruiter/jobs']);
+          }
         },
         (error) => {
           $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
@@ -197,11 +221,15 @@ export class CreateEditJobComponent implements OnInit {
       );
     } else {
       let $t = this;
-      $t.sharedService.uiService.showApiStartPopMsg('Updating Job...');
+      _isFinal ? $t.sharedService.uiService.showApiStartPopMsg('Updating Job...') : null;
       let apiUrl = $t.sharedService.urlService.apiCallWithParams('updateJob', { '{jobId}': $t.jobConfig.jobId });
       $t.sharedService.configService.put(apiUrl, $t.jobConfig.job).subscribe(
         (response: any) => {
-          $t.sharedService.uiService.showApiSuccessPopMsg('Jobs updated...');
+          if (_isFinal) {
+            $t.sharedService.uiService.showApiSuccessPopMsg(response.message);
+            $t.sharedService.utilityService.changeMessage('TRIGGER-HEADER-NOTIFICATIONS-UPDATE');
+            $t.router.navigate(['/recruiter/jobs']);
+          }
         },
         (error) => {
           $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);

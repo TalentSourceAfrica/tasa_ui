@@ -3,6 +3,7 @@ import { untilDestroyed } from '@app/@core';
 import { CredentialsService } from '@app/auth';
 import { SocialnetworkService } from '@app/scenes/social-network/socialnetwork.service';
 import { SharedService } from '@app/services/shared.service';
+import { OwlOptions } from 'ngx-owl-carousel-o';
 import { delay } from 'rxjs/operators';
 
 @Component({
@@ -11,6 +12,49 @@ import { delay } from 'rxjs/operators';
   styleUrls: ['./right-side.component.scss'],
 })
 export class RightSideComponent implements OnInit {
+  // customOptions: OwlOptions = {
+  //   loop: true,
+  //   mouseDrag: false,
+  //   touchDrag: false,
+  //   pullDrag: false,
+  //   dots: true,
+  //   navSpeed: 700,
+  //   items: 3,
+  //   margin: 1,
+  //   autoWidth: true,
+  //   navText: ['', ''],
+  //   nav: true,
+  // };
+
+  groupsOptions: OwlOptions = {
+    loop: true,
+    autoplay: true,
+    center: true,
+    smartSpeed: 1000,
+    dots: false,
+    autoHeight: false,
+    autoWidth: true,
+    autoplayHoverPause: true,
+    items: 4,
+    nav: true,
+    margin: 4,
+    navText: ["<i class='fas fa-chevron-circle-left'></i>", "<i class='fas fa-chevron-circle-right'></i>"],
+    autoplayTimeout: 3000,
+    responsive: {
+      0: {
+        items: 1,
+      },
+      300: {
+        items: 2,
+      },
+      600: {
+        items: 3,
+      },
+      900: {
+        items: 4,
+      },
+    },
+  };
   newsConfig: any = {
     isFetching: false,
     data: [],
@@ -23,6 +67,10 @@ export class RightSideComponent implements OnInit {
   myGroups: any = {
     data: [],
     isFetching: false,
+  };
+  recommendedGroupsConfig: any = {
+    isFetching: false,
+    data: [],
   };
 
   constructor(
@@ -49,7 +97,7 @@ export class RightSideComponent implements OnInit {
     this.connectedUserConfig.isFetching = true;
     this.socialnetworkService.getAllConnections().subscribe(
       (response: any) => {
-        this.connectedUserConfig.data = response ;
+        this.connectedUserConfig.data = response;
         this.connectedUserConfig.isFetching = false;
       },
       (error) => {
@@ -75,7 +123,33 @@ export class RightSideComponent implements OnInit {
     );
   }
 
-  userFetch(){
+  getRecommendedGroups() {
+    this.recommendedGroupsConfig.isFetching = true;
+    let apiUrl = this.sharedService.urlService.apiCallWithParams('getRecommendedGroups', {
+      '{userId}': this.user.email,
+    });
+    this.sharedService.configService.get(apiUrl).subscribe(
+      (response: any) => {
+        this.recommendedGroupsConfig.data = response.responseObj ? response.responseObj : [];
+        this.recommendedGroupsConfig.data = [
+          ...this.recommendedGroupsConfig.data,
+          ...this.recommendedGroupsConfig.data,
+          ...this.recommendedGroupsConfig.data,
+          ...this.recommendedGroupsConfig.data,
+          ...this.recommendedGroupsConfig.data,
+          ...this.recommendedGroupsConfig.data,
+          ...this.recommendedGroupsConfig.data,
+          ...this.recommendedGroupsConfig.data,
+        ];
+        this.recommendedGroupsConfig.isFetching = false;
+      },
+      (error) => {
+        this.recommendedGroupsConfig.isFetching = false;
+      }
+    );
+  }
+
+  userFetch() {
     this.sharedService.utilityService.changeMessage('FETCH-USER-PROFILE');
   }
 
@@ -84,6 +158,7 @@ export class RightSideComponent implements OnInit {
     if (this.user) {
       this.getAllConnections();
       this.fetchMygroup();
+      this.getRecommendedGroups();
     }
   }
 

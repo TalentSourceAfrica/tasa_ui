@@ -290,7 +290,7 @@
                       <mat-form-field class="example-chip-list pb-3 w100">
                         <mat-chip-list #chipList aria-label="Fruit selection">
                           <mat-chip
-                            *ngFor="let item of job.tags; let tagIndex = index"
+                            *ngFor="let item of job.desiredSkill; let tagIndex = index"
                             [selectable]="selectable"
                             [removable]="removable"
                             (removed)="remove(job, tagIndex)"
@@ -299,7 +299,7 @@
                             <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
                           </mat-chip>
                           <input
-                            placeholder="Tags"
+                            placeholder="Desired Skills"
                             [matChipInputFor]="chipList"
                             [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                             [matChipInputAddOnBlur]="addOnBlur"

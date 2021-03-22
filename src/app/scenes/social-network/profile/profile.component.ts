@@ -153,10 +153,7 @@ export class ProfileComponent implements OnInit {
   }
 
   onFreelanceToggleChange() {
-    this.user.isFreelancer === 'Y' ? (this.user.isFreelancer = 'N') : (this.user.isFreelancer = 'Y');
-    if (this.user.isFreelancer === 'Y') {
-      this.editUser('Freelancer');
-    }
+    this.editUser('Freelancer');
   }
 
   editUser(_type: string) {
@@ -173,6 +170,7 @@ export class ProfileComponent implements OnInit {
         break;
       case 'About':
         userConfigToUpdate.data = [
+          { label: 'Headline', key: 'profileSummary', textarea: true, isRequired: false },
           { label: 'City', key: 'city', isRequired: true },
           { label: 'Country', key: 'country', isDropdown: true, isRequired: true },
           { label: 'State', key: 'state', isRequired: true },

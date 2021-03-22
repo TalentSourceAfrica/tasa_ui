@@ -68,16 +68,21 @@
       </div>
     </div>
     <div class="animated fadeInUp" *ngIf="steps[1].isActive">
-      <div class="user-experience p-2 text-center">
-        <h4 class="text-shadow-theme animated fadeInUp transition-1 text-info mb-2">
-          Connect with new people and exciting opportunities.
-        </h4>
-        <h5 class="text-shadow-theme animated fadeInUp transition-1 text-info">
-          Help us recommend the right jobs, people, and courses.
-        </h5>
-        <ng-container *ngTemplateOutlet="experience"></ng-container>
+      <div class="user-upload-avatar p-5 text-center">
+        <textarea
+          name=""
+          [(ngModel)]="user.profileSummary"
+          class="form-control form-control-prepended"
+          cols="30"
+          rows="3"
+        ></textarea>
+        <div>
+          <button mat-flat-button color="primary" class="rounded-pill mt-4 w25" (click)="submit()">
+            Save Headline
+          </button>
+        </div>
       </div>
-      <div class="m-auto text-center mt-2">
+      <div class="m-auto text-center">
         <button
           mat-mini-fab
           color="primary"
@@ -94,7 +99,7 @@
           color="primary"
           style="z-index: 9;"
           class="mr-2"
-          (click)="stepsClick(1, true)"
+          cc
           matTooltipPosition="below"
           matTooltip="Next"
         >
@@ -103,6 +108,41 @@
       </div>
     </div>
     <div class="animated fadeInUp" *ngIf="steps[2].isActive">
+      <div class="user-experience p-2 text-center">
+        <h4 class="text-shadow-theme animated fadeInUp transition-1 text-info mb-2">
+          Connect with new people and exciting opportunities.
+        </h4>
+        <h5 class="text-shadow-theme animated fadeInUp transition-1 text-info">
+          Help us recommend the right jobs, people, and courses.
+        </h5>
+        <ng-container *ngTemplateOutlet="experience"></ng-container>
+      </div>
+      <div class="m-auto text-center mt-2">
+        <button
+          mat-mini-fab
+          color="primary"
+          style="z-index: 9;"
+          class="mr-2"
+          (click)="stepsClick(2, false)"
+          matTooltipPosition="below"
+          matTooltip="Previous"
+        >
+          <mat-icon>arrow_back_ios</mat-icon>
+        </button>
+        <button
+          mat-mini-fab
+          color="primary"
+          style="z-index: 9;"
+          class="mr-2"
+          (click)="stepsClick(2, true)"
+          matTooltipPosition="below"
+          matTooltip="Next"
+        >
+          <mat-icon>arrow_forward_ios</mat-icon>
+        </button>
+      </div>
+    </div>
+    <div class="animated fadeInUp" *ngIf="steps[3].isActive">
       <div class="user-education p-2 text-center">
         <h4 class="text-shadow-theme animated fadeInUp transition-1 text-warning mb-2">
           Connect with new people and exciting opportunities.
@@ -117,7 +157,7 @@
           mat-mini-fab
           color="primary"
           class="mr-2"
-          (click)="stepsClick(2, false)"
+          (click)="stepsClick(3, false)"
           matTooltipPosition="below"
           matTooltip="Previous"
         >

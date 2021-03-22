@@ -153,13 +153,9 @@ export class JobsComponent implements OnInit {
         }
       );
     } else {
-      $t.router.navigate([
-        '/recruiter/create-job',
-        {
-          queryParams: { jobId: job.id },
-          replaceUrl: true,
-        },
-      ]);
+      $t.router.navigate(['/recruiter/create-job'], {
+        queryParams: { jobId: job.id },
+      });
     }
   }
 

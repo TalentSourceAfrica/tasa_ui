@@ -66,7 +66,7 @@ export class InviteUserPopupComponent implements OnInit {
 
   submit() {
     Swal.fire({
-      title: 'Message',
+      title: 'Add A Note',
       input: 'text',
       inputAttributes: {
         autocapitalize: 'off',

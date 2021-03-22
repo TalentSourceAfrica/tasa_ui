@@ -108,6 +108,7 @@ export const urls: any = {
   // Dashboard
   getRecommendedCourses: '/recs/courses/{userId}', // G
   getRecommendedJobs: '/recs/jobs/{userId}', // G
+  getRecommendedGroups: '/recs/groups/{userId}', // G
 
   // Social Network
   getAllPosts: '/socialPost', // G

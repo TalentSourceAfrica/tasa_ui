@@ -63,7 +63,7 @@
             [id]="item.label"
             cols="30"
             *ngIf="item?.textarea && !item?.isDropdown && !item?.isDateTime && !item?.isArray && !item?.isChips"
-            rows="10"
+            rows="3"
             [(ngModel)]="user[item.key]"
             class="form-control form-control-prepended"
             placeholder="Your {{ item.label }}"

@@ -37,6 +37,10 @@ export class UserDetailsPopupComponent implements OnInit {
       id: 2,
       isActive: false,
     },
+    {
+      id: 3,
+      isActive: false,
+    },
   ];
   //chips
   visible = true;
@@ -335,7 +339,7 @@ export class UserDetailsPopupComponent implements OnInit {
         $t.popupData.authenticationService.login(response.responseObj);
         $t.sharedService.uiService.showApiSuccessPopMsg(response.message);
         $t.sharedService.utilityService.changeMessage('FETCH-USER-PROFILE');
-        if ($t.steps[2].isActive) {
+        if ($t.steps[3].isActive) {
           $t.navigateInside();
         } else {
           $t.stepsClick(1, true);
@@ -373,9 +377,13 @@ export class UserDetailsPopupComponent implements OnInit {
     this.initForm(this.user.type);
     if (this.user.image !== '' && this.user.experience.length === 0) {
       this.stepsClick(0, true);
-    } else if (this.user.experience.length !== 0) {
+    } else if (this.user.profileSummary !== '') {
       this.stepsClick(0, true);
       this.stepsClick(1, true);
+    }else if (this.user.experience.length !== 0) {
+      this.stepsClick(0, true);
+      this.stepsClick(1, true);
+      this.stepsClick(2, true);
     }
   }
 

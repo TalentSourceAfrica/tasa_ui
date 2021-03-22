@@ -16,24 +16,29 @@
           </div>
         </div>
       </div>
-      <div class="card m-0 mt-4" style="padding: 50px;" *ngIf="steps[0].isActive">
-        <ng-container *ngTemplateOutlet="firstStep"></ng-container>
-      </div>
-      <div class="card m-0 mt-4" style="padding: 50px;" *ngIf="steps[1].isActive">
-        <ng-container *ngTemplateOutlet="secondStep"></ng-container>
-      </div>
-      <div class="card m-0 mt-4" style="padding: 50px;" *ngIf="steps[2].isActive">
-        <ng-container *ngTemplateOutlet="thirdStep"></ng-container>
-      </div>
-      <div class="card m-0 mt-4" style="padding: 50px;" *ngIf="steps[3].isActive">
-        <ng-container *ngTemplateOutlet="forthStep"></ng-container>
-      </div>
-      <div class="card m-0 mt-4" style="padding: 50px;" *ngIf="steps[4].isActive">
-        <ng-container *ngTemplateOutlet="fifthStep"></ng-container>
-      </div>
-      <div class="card m-0 mt-4" style="padding: 50px;" *ngIf="steps[5].isActive">
-        <ng-container *ngTemplateOutlet="sixthStep"></ng-container>
-      </div>    
+      <ng-container *ngIf="jobConfig.fetchingJob">
+        <ng-container *ngTemplateOutlet="loader"></ng-container>
+      </ng-container>
+      <ng-container *ngIf="!jobConfig.fetchingJob">
+        <div class="card m-0 mt-4" style="padding: 50px;" *ngIf="steps[0].isActive">
+          <ng-container *ngTemplateOutlet="firstStep"></ng-container>
+        </div>
+        <div class="card m-0 mt-4" style="padding: 50px;" *ngIf="steps[1].isActive">
+          <ng-container *ngTemplateOutlet="secondStep"></ng-container>
+        </div>
+        <div class="card m-0 mt-4" style="padding: 50px;" *ngIf="steps[2].isActive">
+          <ng-container *ngTemplateOutlet="thirdStep"></ng-container>
+        </div>
+        <div class="card m-0 mt-4" style="padding: 50px;" *ngIf="steps[3].isActive">
+          <ng-container *ngTemplateOutlet="forthStep"></ng-container>
+        </div>
+        <div class="card m-0 mt-4" style="padding: 50px;" *ngIf="steps[4].isActive">
+          <ng-container *ngTemplateOutlet="fifthStep"></ng-container>
+        </div>
+        <div class="card m-0 mt-4" style="padding: 50px;" *ngIf="steps[5].isActive">
+          <ng-container *ngTemplateOutlet="sixthStep"></ng-container>
+        </div>
+      </ng-container>
     </section>
   </div>
 </div>
@@ -75,8 +80,14 @@
     </div>
   </div>
   <div class="m-auto text-center pt-4">
-    <button mat-flat-button color="primary" (click)="stepsClick(0, true)" class="rounded-pill caps">
-      SAVE & CONTINUE
+    <button
+      mat-flat-button
+      color="primary"
+      [disabled]="jobConfig.job.country === '' || jobConfig.job.industry.length === 0"
+      (click)="stepsClick(0, true)"
+      class="rounded-pill caps"
+    >
+      NEXT
     </button>
   </div>
 </ng-template>
@@ -101,12 +112,12 @@
         <label class="form-label" for="jobDesc">Job Description<span class="text-danger pl-1 asterisk">*</span></label>
         <div class="input-group input-group-merge">
           <textarea
-            name=""
-            id="jobDesc"
+            name="jobDesc"
             [(ngModel)]="jobConfig.job.description"
             class="form-control form-control-prepended"
             cols="30"
             rows="10"
+            style="min-height: 200px;"
           ></textarea>
         </div>
       </div>
@@ -116,7 +127,13 @@
     <button mat-flat-button color="primary" (click)="stepsClick(1, false)" class="rounded-pill caps">
       PREVIOUS
     </button>
-    <button mat-flat-button color="primary" (click)="stepsClick(1, true)" class="rounded-pill caps ml-3">
+    <button
+      mat-flat-button
+      color="primary"
+      [disabled]="jobConfig.job.title === '' || jobConfig.job.description === ''"
+      (click)="stepsClick(1, true, true)"
+      class="rounded-pill caps ml-3"
+    >
       SAVE & CONTINUE
     </button>
   </div>
@@ -184,7 +201,7 @@
       PREVIOUS
     </button>
     <button mat-flat-button color="primary" (click)="stepsClick(2, true)" class="rounded-pill caps ml-3">
-      SAVE & CONTINUE
+      NEXT
     </button>
   </div>
 </ng-template>
@@ -192,62 +209,103 @@
 <ng-template #forthStep>
   <ng-container *ngIf="jobConfig.job.openingType === 'Multiple Location'">
     <div class="row no-gutters animated fadeInUp">
-      <div class="col-12">
+      <div class="col-12 text-right">
+        <button
+          mat-mini-fab
+          color="primary"
+          matTooltipPosition="below"
+          matTooltip="Add More Location"
+          (click)="addLocation()"
+          class="ml-2 rounded-pill mb-2"
+        >
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+      <div class="col-12" *ngFor="let item of jobLocations; let locationIndex = index">
         <div class="form-group text-left">
-          <label class="form-label" for="city">City<span class="text-danger pl-1 asterisk">*</span></label>
+          <label class="form-label" for="locations">Locations<span class="text-danger pl-1 asterisk">*</span></label>
           <div class="input-group input-group-merge">
-            <input id="city" type="text" [(ngModel)]="jobConfig.job.city" class="form-control form-control-prepended" />
+            <input
+              id="locations"
+              type="text"
+              placeholder="Please enter data in city, state"
+              [(ngModel)]="jobConfig.job.locations[locationIndex]"
+              class="form-control form-control-prepended"
+            />
+            <button
+              mat-mini-fab
+              color="primary"
+              matTooltipPosition="below"
+              matTooltip="Remove Location"
+              *ngIf="jobConfig.job.locations.length"
+              (click)="removeLocation(locationIndex)"
+              class="ml-2 rounded-pill mb-2"
+            >
+              <mat-icon>remove</mat-icon>
+            </button>
           </div>
         </div>
       </div>
-      <div class="col-12">
+      <!-- <div class="col-12">
         <div class="form-group text-left">
           <label class="form-label" for="state">State<span class="text-danger pl-1 asterisk">*</span></label>
           <div class="input-group input-group-merge">
             <input
               id="state"
               type="text"
-              [(ngModel)]="jobConfig.job.State"
+              [(ngModel)]="jobConfig.job.state"
               class="form-control form-control-prepended"
             />
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
   </ng-container>
   <ng-container *ngIf="jobConfig.job.openingType === 'Single Location'">
     <div class="row no-gutters animated fadeInUp">
       <div class="col-12">
         <div class="form-group text-left">
-          <label class="form-label" for="city">City<span class="text-danger pl-1 asterisk">*</span></label>
+          <label class="form-label" for="locations">Locations<span class="text-danger pl-1 asterisk">*</span></label>
           <div class="input-group input-group-merge">
-            <input id="city" type="text" [(ngModel)]="jobConfig.job.city" class="form-control form-control-prepended" />
+            <input
+              id="locations"
+              type="text"
+              placeholder="Please enter data in city, state"
+              [(ngModel)]="jobConfig.job.locations"
+              class="form-control form-control-prepended"
+            />
           </div>
         </div>
       </div>
-      <div class="col-12">
+      <!-- <div class="col-12">
         <div class="form-group text-left">
           <label class="form-label" for="state">State<span class="text-danger pl-1 asterisk">*</span></label>
           <div class="input-group input-group-merge">
             <input
               id="state"
               type="text"
-              [(ngModel)]="jobConfig.job.State"
+              [(ngModel)]="jobConfig.job.state"
               class="form-control form-control-prepended"
             />
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
   </ng-container>
   <ng-container *ngIf="jobConfig.job.openingType === 'Remote'">
     <ng-container *ngTemplateOutlet="fifthStep"></ng-container>
   </ng-container>
-  <div class="m-auto text-center pt-4">
+  <div class="m-auto text-center pt-4" *ngIf="jobConfig.job.openingType !== 'Remote'">
     <button mat-flat-button color="primary" (click)="stepsClick(3, false)" class="rounded-pill caps">
       PREVIOUS
     </button>
-    <button mat-flat-button color="primary" (click)="stepsClick(3, true)" class="rounded-pill caps ml-3">
+    <button
+      mat-flat-button
+      color="primary"
+      [disabled]="jobConfig.job.city === '' || jobConfig.job.state === ''"
+      (click)="stepsClick(3, true, true)"
+      class="rounded-pill caps ml-3"
+    >
       SAVE & CONTINUE
     </button>
   </div>
@@ -403,6 +461,24 @@
     </div>
     <div class="col-12">
       <div class="form-group text-left m-2">
+        <label class="form-label" for="minEduLevel"
+          >Min Education Level<span class="text-danger pl-1 asterisk">*</span></label
+        >
+        <mat-select
+          id="jobType"
+          [(ngModel)]="jobConfig.job.minimumEducationLevel"
+          [(value)]="jobConfig.job.minimumEducationLevel"
+          class="form-control form-control-prepended"
+          placeholder="Select Min Education Level"
+        >
+          <mat-option *ngFor="let item of jobsMinEducationLevels" [value]="item">
+            {{ item }}
+          </mat-option>
+        </mat-select>
+      </div>
+    </div>
+    <div class="col-12">
+      <div class="form-group text-left m-2">
         <label class="form-label" for="covidPrecaution"
           >Covid Precaution<span class="text-danger pl-1 asterisk">*</span></label
         >
@@ -417,11 +493,11 @@
       </div>
     </div>
   </div>
-  <div class="m-auto text-center pt-4" *ngIf="jobConfig.job.openingType !== 'Remote'">
+  <div class="m-auto text-center pt-4">
     <button mat-flat-button color="primary" (click)="stepsClick(4, false)" class="rounded-pill caps">
       PREVIOUS
     </button>
-    <button mat-flat-button color="primary" (click)="stepsClick(4, true)" class="rounded-pill caps ml-3">
+    <button mat-flat-button color="primary" (click)="stepsClick(4, true, true)" class="rounded-pill caps ml-3">
       SAVE & CONTINUE
     </button>
   </div>
@@ -434,14 +510,14 @@
         <label class="form-label" for="jobPublish">Publish On<span class="text-danger pl-1 asterisk">*</span></label>
         <div class="input-group input-group-merge">
           <input
-          id="jobPublish"
-          [(ngModel)]="jobConfig.job.publishOn"
-          class="form-control form-control-prepended"
-          [matDatepicker]="picker3"
-          readonly
-        />
-        <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
-        <mat-datepicker #picker3 color="primary"></mat-datepicker>
+            id="jobPublish"
+            [(ngModel)]="jobConfig.job.publishOn"
+            class="form-control form-control-prepended"
+            [matDatepicker]="picker3"
+            readonly
+          />
+          <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+          <mat-datepicker #picker3 color="primary"></mat-datepicker>
         </div>
       </div>
     </div>
@@ -450,9 +526,16 @@
     <button mat-flat-button color="primary" (click)="stepsClick(5, false)" class="rounded-pill caps">
       PREVIOUS
     </button>
-    <button mat-flat-button color="primary" (click)="saveJob()" class="rounded-pill caps ml-3">
+    <button mat-flat-button color="primary" (click)="saveJob(true)" class="rounded-pill caps ml-3">
       Publish
     </button>
   </div>
 </ng-template>
 
+<ng-template #loader>
+  <div class="col-12 animated fadeIn" *ngFor="let item of [1, 2, 3]">
+    <div class="card ml-0 mr-0" style="height: 100px !important;">
+      <div class="card-img skeleton"></div>
+    </div>
+  </div>
+</ng-template>

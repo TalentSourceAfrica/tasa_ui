@@ -127,7 +127,7 @@ export class EditUserPopupComponent implements OnInit {
       experienceFrom: '',
       experienceTo: '',
       organization: '',
-      recentEmployer: '',
+      recentEmployer: 'false',
       industry: [],
       professionalInterest: [],
     });

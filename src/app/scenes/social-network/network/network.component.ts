@@ -63,14 +63,14 @@ export class NetworkComponent implements OnInit {
   approve(_id: string, index: number) {
     let $t = this;
     let _callBack = () => {
-      $t.sharedService.uiService.showApiStartPopMsg('Approving...!');
+      $t.sharedService.uiService.showApiStartPopMsg('Please wait while you are added...!');
       let apiUrl = $t.sharedService.urlService.apiCallWithParams('approveNetworkConnection', {
         '{requestId}': _id,
       });
       $t.sharedService.configService.post(apiUrl).subscribe(
         (response: any) => {
           $t.networkConfig.data.splice(index, 1);
-          $t.sharedService.uiService.showApiSuccessPopMsg('Approved...!');
+          $t.sharedService.uiService.showApiSuccessPopMsg('Added...!');
           $t.getConnectionRequest();
         },
         (error) => {
@@ -84,7 +84,7 @@ export class NetworkComponent implements OnInit {
   reject(_id: string, index: number) {
     let $t = this;
     let _callBack = () => {
-      $t.sharedService.uiService.showApiStartPopMsg('Rejecting...!');
+      $t.sharedService.uiService.showApiStartPopMsg('Please wait while we reject your request...!');
       let apiUrl = $t.sharedService.urlService.apiCallWithParams('rejectNetworkConnection', {
         '{requestId}': _id,
       });
