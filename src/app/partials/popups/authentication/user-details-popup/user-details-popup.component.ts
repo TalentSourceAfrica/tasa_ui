@@ -62,10 +62,10 @@ export class UserDetailsPopupComponent implements OnInit {
 
   stepsClick(_id: number, _isForward: boolean) {
     // setting Data for next screen
-    if (_id === 0) {
+    if (_id === 1) {
       this.addExp();
     }
-    if (_id === 1) {
+    if (_id === 2) {
       this.addEdu();
     }
 
@@ -128,13 +128,13 @@ export class UserDetailsPopupComponent implements OnInit {
   addEdu() {
     if (this.user.education.length === 0) {
       this.user.education.push({
-        college: [''],
+        college: [],
         degreeFromDate: '',
         degreeToDate: '',
         highestDegree: '',
         major: '',
-        minor: [''],
-        university: [''],
+        minor: [],
+        university: [],
       });
     }
 
@@ -333,8 +333,11 @@ export class UserDetailsPopupComponent implements OnInit {
       _user.experience = [];
     } else if (_type === 'experience') {
       _user.education = [];
+    } else if (_type === 'headline') {
+      _user.experience = [];
+      _user.education = [];
     }
-    $t.sharedService.configService.put(apiUrl, $t.user).subscribe(
+    $t.sharedService.configService.put(apiUrl, _user).subscribe(
       (response: any) => {
         $t.popupData.authenticationService.login(response.responseObj);
         $t.sharedService.uiService.showApiSuccessPopMsg(response.message);
@@ -375,12 +378,12 @@ export class UserDetailsPopupComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm(this.user.type);
-    if (this.user.image !== '' && this.user.experience.length === 0) {
+    if (this.user.image !== '' && this.user.experience.length === 0 && this.user.profileSummary === '') {
       this.stepsClick(0, true);
     } else if (this.user.profileSummary !== '') {
       this.stepsClick(0, true);
       this.stepsClick(1, true);
-    }else if (this.user.experience.length !== 0) {
+    } else if (this.user.experience.length !== 0) {
       this.stepsClick(0, true);
       this.stepsClick(1, true);
       this.stepsClick(2, true);

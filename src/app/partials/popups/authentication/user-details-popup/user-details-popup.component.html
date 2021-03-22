@@ -77,7 +77,7 @@
           rows="3"
         ></textarea>
         <div>
-          <button mat-flat-button color="primary" class="rounded-pill mt-4 w25" (click)="submit()">
+          <button mat-flat-button color="primary" class="rounded-pill mt-4 w25" (click)="submit('headline')">
             Save Headline
           </button>
         </div>
@@ -99,7 +99,7 @@
           color="primary"
           style="z-index: 9;"
           class="mr-2"
-          cc
+          (click)="stepsClick(1, true)"
           matTooltipPosition="below"
           matTooltip="Next"
         >
