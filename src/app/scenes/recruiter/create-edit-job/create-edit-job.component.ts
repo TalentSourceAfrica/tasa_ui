@@ -20,7 +20,7 @@ export class CreateEditJobComponent implements OnInit {
   public jobsType = JSON.parse(JSON.stringify(jobsType));
   public jobsSchedule = JSON.parse(JSON.stringify(jobsSchedule));
   public jobsMinEducationLevels = JSON.parse(JSON.stringify(jobsMinEducationLevels));
-  public jobLocations = [''];
+  public jobLocations = [{ value: '' }];
   public steps: any = [
     {
       id: 0,
@@ -67,9 +67,7 @@ export class CreateEditJobComponent implements OnInit {
       rejectReason: '',
       tasaId: '',
       industry: [],
-      locations: [''],
-      city: '',
-      state: '',
+      locations: [],
       country: '',
       jobType: '',
       seniorityLevel: [],
@@ -107,7 +105,7 @@ export class CreateEditJobComponent implements OnInit {
   }
 
   addLocation() {
-    this.jobLocations.push('');
+    this.jobLocations.push({ value: '' });
   }
 
   removeLocation(index: number) {
@@ -174,6 +172,20 @@ export class CreateEditJobComponent implements OnInit {
     }
   }
 
+  locationDisabled() {
+    if (this.jobConfig.job.openingType === 'Single Location') {
+      return this.jobLocations[0].value === '';
+    } else if (this.jobConfig.job.openingType === 'Multiple Location') {
+      for (let index = 0; index < this.jobLocations.length; index++) {
+        if (this.jobLocations[index].value === '') {
+          return true;
+        }
+      }
+    } else {
+      return false;
+    }
+  }
+
   getCountry() {
     let $t = this;
     let apiUrl = $t.sharedService.urlService.simpleApiCall('getCountry');
@@ -203,7 +215,10 @@ export class CreateEditJobComponent implements OnInit {
     $t.sharedService.configService.get(apiUrl).subscribe(
       (response: any) => {
         $t.jobConfig.job = response.responseObj;
-        $t.jobLocations = response.responseObj.locations;
+        $t.jobLocations = response.responseObj.locations.map((d: any) => {
+          return { value: d };
+        });
+        console.log($t.jobConfig.job);
         $t.jobConfig.fetchingJob = false;
       },
       (error) => {
@@ -223,6 +238,7 @@ export class CreateEditJobComponent implements OnInit {
 
   saveJob(_isFinal?: boolean) {
     let $t = this;
+    $t.jobConfig.job.locations = $t.jobLocations.map((d: any) => d.value || '');
     if (!$t.jobConfig.jobId && $t.jobConfig.job.id === '') {
       _isFinal ? $t.sharedService.uiService.showApiStartPopMsg('Adding Job...') : null;
       let apiUrl = $t.sharedService.urlService.simpleApiCall('createJob');

@@ -221,15 +221,16 @@
           <mat-icon>add</mat-icon>
         </button>
       </div>
-      <div class="col-12" *ngFor="let item of jobLocations; let locationIndex = index">
+      <div class="col-12" *ngFor="let item of jobLocations; let locationIndex = index;">
         <div class="form-group text-left">
-          <label class="form-label" for="locations">Locations<span class="text-danger pl-1 asterisk">*</span></label>
+          <label class="form-label" for="locations-{{locationIndex}}">Locations<span class="text-danger pl-1 asterisk">*</span></label>
           <div class="input-group input-group-merge">
             <input
-              id="locations"
+              id="locations-{{locationIndex}}"
               type="text"
+              name="location{{locationIndex}}"
               placeholder="Please enter data in city, state"
-              [(ngModel)]="jobConfig.job.locations[locationIndex]"
+              [(ngModel)]="jobLocations[locationIndex].value"
               class="form-control form-control-prepended"
             />
             <button
@@ -237,7 +238,7 @@
               color="primary"
               matTooltipPosition="below"
               matTooltip="Remove Location"
-              *ngIf="jobConfig.job.locations.length"
+              *ngIf="jobLocations.length > 1"
               (click)="removeLocation(locationIndex)"
               class="ml-2 rounded-pill mb-2"
             >
@@ -271,7 +272,7 @@
               id="locations"
               type="text"
               placeholder="Please enter data in city, state"
-              [(ngModel)]="jobConfig.job.locations"
+              [(ngModel)]="jobLocations[0].value"
               class="form-control form-control-prepended"
             />
           </div>
@@ -302,11 +303,11 @@
     <button
       mat-flat-button
       color="primary"
-      [disabled]="jobConfig.job.location.length === 0"
-      (click)="stepsClick(3, true, true)"
+      [disabled]="locationDisabled()"
+      (click)="stepsClick(3, true)"
       class="rounded-pill caps ml-3"
     >
-      SAVE & CONTINUE
+      NEXT
     </button>
   </div>
 </ng-template>
