@@ -136,22 +136,42 @@ export class CreateEditJobComponent implements OnInit {
     }
   }
 
+  // steps logic
   stepsClick(_id: number, _isForward: boolean, _apiCall?: boolean) {
-    // steps logic
-
     if (_isForward) {
       this.steps.find((d: any) => d.id === _id).isActive = false;
+
+      // remote handling
+      if (this.jobConfig.job.openingType === 'Remote' && _id === 4) {
+        this.steps.find((d: any) => d.id === _id - 1).isActive = false;
+      }
+      // remote handling
+
       this.steps.find((d: any) => d.id === _id + 1).isActive = true;
       _apiCall ? this.saveJob() : null;
     } else {
-      if (this.jobConfig.job.openingType === 'Remote' && _id === 4) {
-        _id -= 1;
-      }
       this.steps.find((d: any) => d.id === _id).isActive = false;
       this.steps.find((d: any) => d.id === _id - 1).isActive = true;
     }
     window.scrollTo(0, 100);
     this.cdr.detectChanges();
+  }
+
+  fifthStepDisabled() {
+    if (
+      this.jobConfig.job.countOfOpenings == 0 ||
+      !this.jobConfig.job.expireOn ||
+      this.jobConfig.job.experienceTo == 0 ||
+      this.jobConfig.job.desiredSkill.length == 0 ||
+      this.jobConfig.job.seniorityLevel.length == 0 ||
+      this.jobConfig.job.reqEducationExperience == '' ||
+      this.jobConfig.job.jobType == '' ||
+      this.jobConfig.job.minimumEducationLevel == ''
+    ) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   getCountry() {

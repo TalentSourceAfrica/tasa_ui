@@ -47,7 +47,7 @@ export const jobsSchedule = [
 ];
 
 export const jobsMinEducationLevels = [
-  'High Scholl or equivalent',
+  'High School or equivalent',
   'Associate',
   'Bachelors',
   'Masters',

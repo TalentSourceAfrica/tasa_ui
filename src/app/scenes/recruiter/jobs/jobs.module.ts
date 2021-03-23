@@ -13,6 +13,7 @@ import { NgxDocViewerModule } from 'ngx-doc-viewer';
 import { JobsRoutingModule } from './jobs-routing.module';
 import { JobsComponent } from './jobs.component';
 import { ShowApplicantsModule } from '@app/partials/popups/recruiter/show-applicants/show-applicants.module';
+import { SafeHtmlModule } from '@app/pipes/safe-html.pipe';
 
 @NgModule({
   imports: [
@@ -27,6 +28,7 @@ import { ShowApplicantsModule } from '@app/partials/popups/recruiter/show-applic
     JobsRoutingModule,
     NgxDocViewerModule,
     ShowApplicantsModule,
+    SafeHtmlModule,
   ],
   declarations: [JobsComponent],
   entryComponents: [],

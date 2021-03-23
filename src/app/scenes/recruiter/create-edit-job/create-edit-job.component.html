@@ -302,7 +302,7 @@
     <button
       mat-flat-button
       color="primary"
-      [disabled]="jobConfig.job.city === '' || jobConfig.job.state === ''"
+      [disabled]="jobConfig.job.location.length === 0"
       (click)="stepsClick(3, true, true)"
       class="rounded-pill caps ml-3"
     >
@@ -480,7 +480,7 @@
     <div class="col-12">
       <div class="form-group text-left m-2">
         <label class="form-label" for="covidPrecaution"
-          >Covid Precaution<span class="text-danger pl-1 asterisk">*</span></label
+          >Covid Precaution</label
         >
         <div class="input-group input-group-merge">
           <input
@@ -497,7 +497,7 @@
     <button mat-flat-button color="primary" (click)="stepsClick(4, false)" class="rounded-pill caps">
       PREVIOUS
     </button>
-    <button mat-flat-button color="primary" (click)="stepsClick(4, true, true)" class="rounded-pill caps ml-3">
+    <button mat-flat-button color="primary" [disabled]="fifthStepDisabled()" (click)="stepsClick(4, true, true)" class="rounded-pill caps ml-3">
       SAVE & CONTINUE
     </button>
   </div>
@@ -526,7 +526,7 @@
     <button mat-flat-button color="primary" (click)="stepsClick(5, false)" class="rounded-pill caps">
       PREVIOUS
     </button>
-    <button mat-flat-button color="primary" (click)="saveJob(true)" class="rounded-pill caps ml-3">
+    <button mat-flat-button color="primary" [disbaled]="jobConfig.job.publishOn === ''" (click)="saveJob(true)" class="rounded-pill caps ml-3">
       Publish
     </button>
   </div>

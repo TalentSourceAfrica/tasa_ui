@@ -11,4 +11,12 @@
       background-color: #f8f9fa !important;
     }
   }
+  .recommend-grp-carousel {
+    img {
+      max-height: 100px;
+      max-width: 100%;
+      object-fit: contain;
+      background: linear-gradient(45deg, #e2e5e8, #accbe1);
+    }
+  }
 }
