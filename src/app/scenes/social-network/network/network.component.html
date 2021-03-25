@@ -104,11 +104,7 @@
     </mat-tab>
     <mat-tab label="Pending Request">
       <div class="d-flex align-items-center mt-4">
-        <mat-form-field
-          class="example-form-field w40 m-auto"
-          *ngIf="networkConfig.data.length"
-          style="font-size: 16px;"
-        >
+        <mat-form-field class="example-form-field w40 m-auto" *ngIf="!networkConfig.isLoading" style="font-size: 16px;">
           <mat-label>Search Users / Groups</mat-label>
           <input matInput type="text" (keyup)="onSearchPendReq()" [(ngModel)]="pendindReqSearchedName" />
           <button
@@ -117,7 +113,7 @@
             matSuffix
             mat-icon-button
             aria-label="Clear"
-            (click)="pendindReqSearchedName = ''"
+            (click)="pendindReqSearchedName = ''; onSearchPendReq()"
           >
             <mat-icon>close</mat-icon>
           </button>
@@ -125,13 +121,16 @@
       </div>
       <div
         *ngIf="networkConfig.data.length"
-        class="row no-gutters mt-3 max-vertical-h-70 stylishSlimScroll flow-y-auto flow-x-hidden"
+        class="row no-gutters mt-3 max-vertical-h-70 stylishSlimScroll flow-y-auto flow-x-hidden network-section"
       >
-        <div
-          class="col-md-4 col-sm-12"
-          *ngFor="let item of networkConfig.data; let i = index"
-        >
+        <div class="col-md-4 col-sm-12" *ngFor="let item of networkConfig.data; let i = index">
           <div class="card shadow-sm">
+            <div class="p-1 w100 text-center d-flex align-items-center m-auto bg-primary-light" style="min-height: 50px;" >
+              <ng-container *ngIf="item?.groupId">
+                <img class="user-img shadow-sm" src="{{ item.fromImage }}" alt="User picture" />
+                {{ item.fromName }}</ng-container
+              >
+            </div>
             <div class="card-body text-center">
               <p>
                 <img
