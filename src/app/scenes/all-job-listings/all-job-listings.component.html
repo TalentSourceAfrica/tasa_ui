@@ -114,7 +114,7 @@
                     </div>
                   </div>
 
-                  <div class="row w100 max-vertical-h-70 stylishSlimScroll flow-y-auto flow-x-hidden" id="jobsArea">
+                  <div class="row w100 max-vertical-h-90 stylishSlimScroll flow-y-auto flow-x-hidden" id="jobsArea">
                     <ng-container *ngIf="currentView == 1">
                       <ng-template [ngTemplateOutlet]="jobsGridView"></ng-template>
                     </ng-container>
@@ -155,7 +155,7 @@
 
 <ng-template #jobsGridView>
   <div class="col-md-4 col-lg-4 col-sm-6 animated fadeIn" *ngFor="let job of allJobs">
-    <div class="card curPoint">
+    <div class="card curPoint mb-2">
       <div class="card-img">
         <img
           src="{{ job.organisation.orgImage ? job.organisation.orgImage : './assets/images/TSA_logo_new.small.png' }}"
@@ -202,13 +202,16 @@
           </span>
         </h5>
         <p class="text-muted m-0 pt-1"><strong>Company</strong> : {{ job.organisation.orgName }}</p>
-        <p class="text-muted m-0"><strong>Location</strong> : {{ job.location }}</p>
+        <p class="text-muted m-0">
+          <strong>Location</strong> : <span *ngFor="let location of job.locations; let first = first">{{ location }} <span *ngIf="!first">&nbsp;&&nbsp;</span></span>
+       
+        </p>
         <p class="text-muted"><strong>Experience</strong> : {{ job.experienceFrom }} - {{ job.experienceTo }} Year</p>
-        <marquee class="card-intro mt-2" style="display: flex;">
+        <!-- <marquee class="card-intro mt-2" style="display: flex;">
           <span class="pr-1 p-1" *ngFor="let item of job.tags"
             ><badge class="badge badge-info">{{ item }}</badge></span
           >
-        </marquee>
+        </marquee> -->
       </div>
       <div class="card-footer">
         <div class="w100">
@@ -249,7 +252,7 @@
         <mat-expansion-panel-header class="d-flex align-items-center">
           <mat-panel-title class="pt-3">
             <h6 class="text-primary mt-2 pb-2">
-              {{ job.title }} <span class="text-muted ml-1">({{ job.location }})</span>
+              {{ job.title }} <span class="text-muted ml-1">({{ job.country }})</span>
               <span *ngIf="job.isApplied" class="badge badge-success p-2 ml-1 mt-2" style="z-index: 9; right: 10px;"
                 >Applied</span
               >
@@ -257,7 +260,7 @@
           </mat-panel-title>
           <mat-panel-description>
             <div class="text-right mr-2 pt-4">
-              <span class="pr-1 p-1" *ngFor="let item of job.tags"
+              <span class="pr-1 p-1" *ngFor="let item of job.desiredSkill"
                 ><badge class="badge badge-info">{{ item }}</badge></span
               >
             </div>
@@ -270,7 +273,7 @@
                 <div class="col-3 text-primary text-bold caps">
                   Title :
                 </div>
-                <div class="col-9 h6">
+                <div class="col-9 h6 font400">
                   {{ job.title }}
                 </div>
               </div>
@@ -280,7 +283,7 @@
                 <div class="col-3 text-primary text-bold caps">
                   Company :
                 </div>
-                <div class="col-9 h6">
+                <div class="col-9 h6 font400">
                   {{ job.organisation.orgName }}
                 </div>
               </div>
@@ -290,7 +293,7 @@
                 <div class="col-3 text-primary text-bold caps">
                   Experience :
                 </div>
-                <div class="col-9 h6">{{ job.experienceFrom }} - {{ job.experienceTo }} Year</div>
+                <div class="col-9 h6 font400">{{ job.experienceFrom }} - {{ job.experienceTo }} Year</div>
               </div>
             </div>
             <div class="col-12 p-2">
@@ -298,7 +301,7 @@
                 <div class="col-3 text-primary text-bold caps">
                   No Of Openings :
                 </div>
-                <div class="col-9 h6">{{ job.countOfOpenings }}</div>
+                <div class="col-9 h6 font400">{{ job.countOfOpenings }}</div>
               </div>
             </div>
             <div class="col-12 p-2">
@@ -306,7 +309,7 @@
                 <div class="col-3 text-primary text-bold caps">
                   Description :
                 </div>
-                <div class="col-9 h6">
+                <div class="col-9 h6 font400">
                   {{ job.description }}
                 </div>
               </div>
@@ -316,7 +319,7 @@
                 <div class="col-3 text-primary text-bold caps">
                   Created By :
                 </div>
-                <div class="col-9 h6">
+                <div class="col-9 h6 font400">
                   {{ job.createdBy }}
                 </div>
               </div>
@@ -326,12 +329,17 @@
                 <div class="col-3 text-primary text-bold caps">
                   Job Location :
                 </div>
-                <div class="col-9 h6">
-                  {{ job.location }}
+                <div class="col-9 h6 font400">
+                  <ng-container *ngIf="job.openingType === 'Single Location' || job.openingType === 'Multiple Location'">
+                    <span *ngFor="let location of job.locations; let first = first">{{ location }} <span *ngIf="!first">&nbsp;&&nbsp;</span></span>
+                  </ng-container>
+                  <ng-container *ngIf="job.openingType === 'Remote'">
+                        Remote
+                  </ng-container>           
                 </div>
               </div>
             </div>
-            <div class="col-12 p-2">
+            <!-- <div class="col-12 p-2">
               <div class="row">
                 <div class="col-3 text-primary text-bold caps">
                   Job Status :
@@ -340,14 +348,14 @@
                   {{ job.status }}
                 </div>
               </div>
-            </div>
+            </div> -->
             <div class="col-12 p-2">
               <div class="row">
                 <div class="col-3 text-primary text-bold caps">
-                  Tags :
+                  Skills :
                 </div>
                 <div class="col-9 h6">
-                  <span class="card-intro pr-1 p-1" *ngFor="let item of job.tags"
+                  <span class="card-intro pr-1 p-1" *ngFor="let item of job.desiredSkill"
                     ><badge class="badge badge-info">{{ item }}</badge></span
                   >
                 </div>
@@ -355,6 +363,16 @@
             </div>
           </div>
           <div class="text-center mt-4">
+            <button
+            mat-mini-fab
+            color="primary"
+            matTooltipPosition="below"
+            class="mr-2"
+            matTooltip="View Job"
+            (click)="viewJob(job)"
+          >
+            <mat-icon class="mb-1">remove_red_eye</mat-icon>
+          </button>
             <button
               mat-flat-button
               color="primary"

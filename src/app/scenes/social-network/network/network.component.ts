@@ -17,7 +17,8 @@ export class NetworkComponent implements OnInit {
     isLoading: false,
     data: [],
   };
-  public searchedName: string = '';
+  public searchedName:string = '';
+  public pendindReqSearchedName: string = '';
   constructor(
     public sharedService: SharedService,
     public credentialsService: CredentialsService,
@@ -99,6 +100,15 @@ export class NetworkComponent implements OnInit {
       );
     };
     $t.sharedService.uiService.showPreConfirmPopMsg('Do You Want To Reject', _callBack);
+  }
+
+  onSearchPendReq(){
+    if(this.pendindReqSearchedName !== '' && this.networkConfig.data.length){
+      const args = this.pendindReqSearchedName.toLowerCase();
+      this.networkConfig.data = this.networkConfig.data.filter((item: any) => {
+        return (JSON.stringify(item.fromName).toLowerCase().includes(args) || JSON.stringify(item.groupTitle).toLowerCase().includes(args))
+      });
+    }
   }
 
   get user(): any | null {

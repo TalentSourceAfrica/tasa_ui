@@ -16,7 +16,7 @@
       </div>
     </div>
     <div class="col-12" *ngIf="user">
-      <div class="card animated connected-users fadeInUp" style="max-width: 210px; min-height: 100px;">
+      <div class="card animated connected-users fadeInUp" style="max-width: 210px !important; min-height: 100px;">
         <div class="pl-2 pt-2 text-center d-flex align-items-center">
           <p class="card-title font400 text-primary">Recommended Groups</p>
           <!-- <p class="card-subtitle">Best score</p> -->
@@ -64,7 +64,7 @@
         <div class="card-body p-2">
           <div class="row pr-1 no-gutters" *ngIf="!myGroups.isFetching && !connectedUserConfig.isFetching">
             <div
-              class="col-12 card shadow-sm m-0 pl-4 pr-4 pt-2"
+              class="col-12 card shadow-sm m-0 pl-4 pr-4 pt-2 curPoint"
               [routerLink]="['/social-network/network/']"
               routerLinkActive="router-link-active"
             >

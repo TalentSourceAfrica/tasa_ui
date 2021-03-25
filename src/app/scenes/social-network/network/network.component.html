@@ -109,15 +109,15 @@
           *ngIf="networkConfig.data.length"
           style="font-size: 16px;"
         >
-          <mat-label>Search Users</mat-label>
-          <input matInput type="text" [(ngModel)]="searchedName" />
+          <mat-label>Search Users / Groups</mat-label>
+          <input matInput type="text" (keyup)="onSearchPendReq()" [(ngModel)]="pendindReqSearchedName" />
           <button
             mat-button
-            *ngIf="searchedName"
+            *ngIf="pendindReqSearchedName"
             matSuffix
             mat-icon-button
             aria-label="Clear"
-            (click)="searchedName = ''"
+            (click)="pendindReqSearchedName = ''"
           >
             <mat-icon>close</mat-icon>
           </button>
@@ -129,7 +129,7 @@
       >
         <div
           class="col-md-4 col-sm-12"
-          *ngFor="let item of networkConfig.data | nameFilter: searchedName; let i = index"
+          *ngFor="let item of networkConfig.data; let i = index"
         >
           <div class="card shadow-sm">
             <div class="card-body text-center">
@@ -166,7 +166,7 @@
               </h4>
               <h4 class="card-title mb-1" *ngIf="item?.groupId">Group - {{ item.groupTitle }}</h4>
               <p class="card-text">{{ item.message }}</p>
-              <button mat-flat-button color="primary" (click)="approve(item.id, i)" class="rounded-pill mt-2">
+              <button mat-flat-button color="primary" (click)="approve(item.id, i)" class="rounded-pill mt-3">
                 <span *ngIf="item?.groupId">Join</span>
                 <span *ngIf="!item?.groupId">Add</span>
               </button>

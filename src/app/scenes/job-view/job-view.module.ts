@@ -9,6 +9,8 @@ import { MaterialModule } from '@app/modules/material.module';
 import { RouterModule } from '@angular/router';
 import { JobViewRoutingModule } from './job-view-routing.module';
 import { JobViewComponent } from './job-view.component';
+import { SafeHtmlModule } from '@app/pipes/safe-html.pipe';
+
 
 @NgModule({
   imports: [
@@ -20,6 +22,7 @@ import { JobViewComponent } from './job-view.component';
     MaterialModule,
     RouterModule,
     JobViewRoutingModule,
+    SafeHtmlModule
   ],
   declarations: [JobViewComponent],
   schemas: [NO_ERRORS_SCHEMA],
