@@ -31,7 +31,7 @@ export class HomeHeaderComponent implements OnInit {
   menuHidden = true;
   searchCourseText: any = '';
   searchGlobalText: any = '';
-  globalSearchType = 'course';
+  globalSearchType = 'profile';
   orgConfig: any = {
     isFetching: false,
     data: [],
