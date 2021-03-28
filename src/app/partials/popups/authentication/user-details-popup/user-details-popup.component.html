@@ -69,8 +69,10 @@
     </div>
     <div class="animated fadeInUp" *ngIf="steps[1].isActive">
       <div class="user-upload-avatar p-5 text-center">
+        <label class="form-label" for="headline">Headline</label>
         <textarea
           name=""
+          id="headline"
           [(ngModel)]="user.profileSummary"
           class="form-control form-control-prepended"
           cols="30"
@@ -109,7 +111,7 @@
     </div>
     <div class="animated fadeInUp" *ngIf="steps[2].isActive">
       <div class="user-experience p-2 text-center">
-        <h4 class="text-shadow-theme animated fadeInUp transition-1 text-info mb-2">
+        <h4 class="text-shadow-theme animated fadeInUp transition-1 text-info mb-1">
           Connect with new people and exciting opportunities.
         </h4>
         <h5 class="text-shadow-theme animated fadeInUp transition-1 text-info">
@@ -144,7 +146,7 @@
     </div>
     <div class="animated fadeInUp" *ngIf="steps[3].isActive">
       <div class="user-education p-2 text-center">
-        <h4 class="text-shadow-theme animated fadeInUp transition-1 text-warning mb-2">
+        <h4 class="text-shadow-theme animated fadeInUp transition-1 text-warning mb-1">
           Connect with new people and exciting opportunities.
         </h4>
         <h5 class="text-shadow-theme animated fadeInUp transition-1 text-warning">
@@ -173,7 +175,7 @@
 
 <ng-template #experience>
   <div class="form-group col-12" style="display: grid;" *ngFor="let item of user.experience; let i = index">
-    <div class="pt-2 m-auto w70">
+    <div class="pt-2 m-auto w80">
       <div class="row no-gutters w100">
         <div class="col-12">
           <div class="form-group text-left">
@@ -311,7 +313,7 @@
 
 <ng-template #education>
   <div class="form-group col-12" style="display: grid;" *ngFor="let item of user.education; let i = index">
-    <div class="pt-2 m-auto">
+    <div class="pt-2 m-auto w80">
       <div class="row no-gutters">
         <div class="col-12">
           <div class="form-group text-left">

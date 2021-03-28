@@ -13,7 +13,7 @@
       <h1 class="h2">{{ courseConfig.course.title }}</h1>
       <div class="row">
         <div class="col-md-8">
-          <div class="card mt-2">
+          <div class="card m-0 mt-3">
             <div class="embed-responsive embed-responsive-16by9">
               <img [src]="courseConfig.course.image_url" class="embed-responsive-item" alt="course" />
             </div>
@@ -23,8 +23,8 @@
             </div>
           </div>
           <!-- Lessons -->
-          <div class="card p-2 mt-2 list-group list-group-fit" [innerHTML]="courseConfig.course.full_description"></div>
-          <div class="card mt-2" *ngIf="courseConfig.course?.prerequisites_raw != ''">
+          <div class="card m-0 p-2 mt-3 list-group list-group-fit" [innerHTML]="courseConfig.course.full_description"></div>
+          <div class="card m-0 mt-3" *ngIf="courseConfig.course?.prerequisites_raw != ''">
             <div class="card-header">
               <h4 class="card-title">Prerequisites</h4>
             </div>
@@ -33,13 +33,13 @@
             </div>
           </div>
           <div
-            class="card p-2 mt-2 list-group list-group-fit"
+            class="card m-0 p-2 mt-3 list-group list-group-fit"
             *ngIf="courseConfig.course.syllabus_raw != ''"
             [innerHTML]="courseConfig.course.syllabus_raw"
           ></div>
         </div>
         <div class="col-md-4">
-          <div class="card mt-2">
+          <div class="card m-0 mt-3">
             <div class="card-body text-center">
               <div *ngIf="!isCourseAlreadyPurchased">
                 <button mat-flat-button color="primary" (click)="addToCart('buy')" class="rounded-pill ml-2">
@@ -67,7 +67,7 @@
               </a> -->
             </div>
           </div>
-          <div class="card mt-2">
+          <div class="card m-0 mt-3">
             <div class="card-header">
               <div class="media align-items-center">
                 <div class="media-left">
@@ -97,7 +97,7 @@
               </div>
             </div>
           </div>
-          <div class="card mt-2">
+          <div class="card m-0 mt-3">
             <ul class="list-group list-group-fit">
               <li class="list-group-item">
                 <div class="media align-items-center">
@@ -137,7 +137,7 @@
               </li>
             </ul>
           </div>
-          <div class="card mt-2">
+          <div class="card m-0 mt-3">
             <div class="card-header">
               <h4 class="card-title">Ratings</h4>
             </div>

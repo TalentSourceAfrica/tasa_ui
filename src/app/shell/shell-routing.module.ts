@@ -166,7 +166,6 @@ const routes: Routes = [
           },
         ],
       },
-
       {
         path: 'admin/jobs',
         canActivate: [AuthenticationGuard, AdminGuard],
@@ -236,6 +235,17 @@ const routes: Routes = [
             path: 'group',
             canActivate: [AuthenticationGuard],
             loadChildren: () => import('@app/scenes/social-network/group/group.module').then((m) => m.GroupModule),
+          },
+        ],
+      },
+      {
+        path: 'freelance',
+        children: [
+          {
+            path: 'create-gig',
+            canActivate: [AuthenticationGuard],
+            loadChildren: () =>
+              import('@app/scenes/freelance/create-gig/create-gig.module').then((m) => m.CreateGigModule),
           },
         ],
       },

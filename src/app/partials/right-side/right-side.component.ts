@@ -28,7 +28,7 @@ export class RightSideComponent implements OnInit {
 
   groupsOptions: OwlOptions = {
     loop: true,
-    autoplay: false,
+    autoplay: true,
     center: true,
     smartSpeed: 1000,
     dots: false,

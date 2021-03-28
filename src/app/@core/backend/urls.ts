@@ -177,4 +177,11 @@ export const urls: any = {
   getSubscription: '/subs/{id}', // G
   canByCourse: '/subs/canBuy/{tasaId}/{courseId}', // G
   canEnrollCourse: '/subs/canEnroll/{tasaId}/{courseId}', // G
+
+  // seller & gig
+  postSeller: '/gigcard', // PO
+  getAllActiveGigs: '/gigcard/allActive', // G
+  getUserGigs: '/gigcard/allActive/{userId}', // G
+  activateGig: '/gigcard/activate/{cardId}', // PO
+  deactivateGig: '/gigcard/deactivate/{cardId}', // PO
 };

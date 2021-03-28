@@ -1,0 +1,444 @@
+<div class="freelance-create-gig-wrapper">
+  <div class="container">
+    <ol class="breadcrumb mt-3">
+      <li class="breadcrumb-item curPoint"><a [routerLink]="['/home']">Home</a></li>
+      <li class="breadcrumb-item active"><a>Create or Edit Gig</a></li>
+    </ol>
+    <section>
+      <ng-container *ngIf="gigConfig.isNew && !gigConfig.startGig">
+        <ng-container *ngTemplateOutlet="sartSelling"></ng-container>
+      </ng-container>
+      <ng-container *ngIf="gigConfig.startGig">
+        <ng-container *ngTemplateOutlet="createGig"></ng-container>
+      </ng-container>
+    </section>
+  </div>
+</div>
+
+<ng-template #sartSelling>
+  <div class="animated fadeInUp m-0 p-4">
+    <div class="row w100">
+      <div class="col-md-12 col-12 m-auto text-center">
+        <h3 class="text-shadow-theme text-primary mb-0">Ready to start selling on TaSA?</h3>
+        <h3 class="text-shadow-theme text-primary">Here’s the breakdown:</h3>
+      </div>
+      <hr />
+      <div class="p-4">
+        <div class="col-12 mt-4">
+          <div class="row no-gutters w100">
+            <div class="col-2">
+              <img
+                src="https://t4.ftcdn.net/jpg/02/29/32/83/240_F_229328304_Hbt8XJvg5DMQsq8862iNXOi9gEC3pFcx.jpg"
+                class="img-thumbnail animated fliInX transition-1"
+                alt=""
+              />
+            </div>
+            <div class="col-10 pl-4 m-auto">
+              <h5 class="mb-0">Learn what makes a successful profile</h5>
+              <h5 class="font400 text-muted">
+                Discover the do’s and don’ts to ensure you’re always on the right track.
+              </h5>
+            </div>
+          </div>
+        </div>
+        <hr />
+        <div class="col-12 mt-4">
+          <div class="row no-gutters w100">
+            <div class="col-2">
+              <img
+                src="https://image.freepik.com/free-vector/hr-department-responsibilities-candidate-employment-applicants-recruitment-vacancy-filling-recruiter-choosing-suitable-worker-personnel_335657-2683.jpg"
+                class="img-thumbnail animated fliInX transition-1"
+                alt=""
+              />
+            </div>
+            <div class="col-10 pl-4 m-auto">
+              <h5 class="mb-0">Create your seller profile</h5>
+              <h5 class="font400 text-muted">
+                Add your profile picture, description, and professional information.
+              </h5>
+            </div>
+          </div>
+        </div>
+        <hr />
+        <div class="col-12 mt-4">
+          <div class="row no-gutters w100">
+            <div class="col-2">
+              <img
+                src="https://image.freepik.com/free-vector/men-success-laptop-relieve-work-from-home-computer-great_10045-646.jpg"
+                class="img-thumbnail animated fliInX transition-1"
+                alt=""
+              />
+            </div>
+            <div class="col-10 pl-4 m-auto">
+              <h5 class="mb-0">Publish your Gig</h5>
+              <h5 class="font400 text-muted">
+                Create a Gig of the service you’re offering and start selling instantly.
+              </h5>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="text-center mt-2">
+      <button mat-flat-button color="primary" (click)="startGigCreation()" class="rounded-pill caps ml-3 w40">
+        Create Your Seller Card
+      </button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #createGig>
+  <mat-horizontal-stepper labelPosition="bottom" #stepper>
+    <mat-step>
+      <ng-template matStepLabel>Overview</ng-template>
+      <div class="row no-gutters animated fadeInUp card m-0 p-4 mt-2">
+        <div class="col-12">
+          <div class="form-group text-left">
+            <label class="form-label" for="category"
+              >Select Category<span class="text-danger pl-1 asterisk">*</span></label
+            >
+            <mat-select
+              id="category"
+              placeholder="Select Category"
+              [(ngModel)]="gigConfig.gig.category"
+              [(value)]="gigConfig.gig.category"
+              class="form-control form-control-prepended"
+            >
+              <mat-option *ngFor="let item of freelanceCategory" [value]="item.code">
+                {{ item.code }}
+              </mat-option>
+            </mat-select>
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="form-group">
+            <label class="form-label" for="title">Title Of Card<span class="text-danger pl-1 asterisk">*</span></label>
+            <input
+              id="title"
+              type="text"
+              [(ngModel)]="gigConfig.gig.title"
+              class="form-control form-control-prepended"
+            />
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="form-group">
+            <label class="form-label" for="description"
+              >Description<span class="text-danger pl-1 asterisk">*</span></label
+            >
+            <textarea
+              name="description"
+              [(ngModel)]="gigConfig.gig.description"
+              class="form-control form-control-prepended"
+              cols="30"
+              rows="10"
+              style="min-height: 200px;"
+            ></textarea>
+          </div>
+        </div>
+        <div class="text-center m-auto">
+          <button
+            mat-flat-button
+            color="primary"
+            [disabled]="gigConfig.gig.description === '' || gigConfig.gig.title === '' || gigConfig.gig.category === ''"
+            matStepperNext
+            class="rounded-pill caps"
+          >
+            NEXT
+          </button>
+        </div>
+      </div>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Professional</ng-template>
+      <div class="row no-gutters animated fadeInUp mt-2 card m-0 p-4">
+        <div class="col-12">
+          <div class="form-group">
+            <label class="form-label" for="reasonToHire"
+              >Please mention the top reasons to hire you<span class="text-danger pl-1 asterisk">*</span></label
+            >
+            <input
+              id="reasonToHire"
+              type="text"
+              [(ngModel)]="gigConfig.gig.reasonToHire"
+              class="form-control form-control-prepended"
+            />
+          </div>
+        </div>
+        <div class="col-12 bg-primary-more-light mb-3">
+          <div class="row no-gutters">
+            <div class="col-6 p-3 text-center">
+              <label class="form-label" for="image"
+                >Upload Image For Card<span class="text-danger pl-1 asterisk">*</span></label
+              >
+              <div class="upload-image d-flex align-items-center justify-content-center">
+                <span class="material-icons text-muted" style="font-size: 60px;" *ngIf="gigConfig.gig.image === ''">
+                  image
+                </span>
+                <img *ngIf="gigConfig.gig.image !== ''" [src]="gigConfig.gig.image" alt="" />
+              </div>
+              <button
+                mat-mini-fab
+                color="primary"
+                matTooltipPosition="below"
+                matTooltip="Upload Image"
+                class="mt-3"
+                (click)="callUpload($event, 'image')"
+              >
+                <mat-icon>cloud_upload</mat-icon>
+              </button>
+            </div>
+            <div class="col-6 p-3 text-center">
+              <label class="form-label" for="video">Upload Video For Card</label>
+              <div class="upload-video d-flex align-items-center justify-content-center">
+                <span class="material-icons text-muted" style="font-size: 60px;" *ngIf="gigConfig.gig.video === ''">
+                  play_circle_outline
+                </span>
+                <video height="150" controls *ngIf="gigConfig.gig.video !== ''">
+                  <source [src]="gigConfig.gig.video" type="video/mp4" />
+                  <source [src]="gigConfig.gig.video" type="video/ogg" />
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+              <button
+                mat-mini-fab
+                color="primary"
+                matTooltipPosition="below"
+                matTooltip="Upload Video"
+                class="mt-3"
+                (click)="callUpload($event, 'video')"
+              >
+                <mat-icon>cloud_upload</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="text-center m-auto">
+          <button mat-flat-button color="primary" matStepperPrevious class="rounded-pill caps">
+            BACK
+          </button>
+          <button
+            mat-flat-button
+            color="primary"
+            [disabled]="gigConfig.gig.image === '' || gigConfig.gig.reasonToHire === ''"
+            matStepperNext
+            class="rounded-pill caps ml-3"
+          >
+            NEXT
+          </button>
+        </div>
+      </div>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Pricing Plans</ng-template>
+      <div class="text-center">
+        <button
+          mat-mini-fab
+          color="primary"
+          matTooltipPosition="below"
+          matTooltip="Add Pricing"
+          class="mt-3"
+          (click)="addPricing()"
+        >
+          <mat-icon>add_circle_outline</mat-icon>
+        </button>
+      </div>
+      <div class="card m-0 mb-3 mt-2 p-3" *ngFor="let item of gigConfig.gig.plans; let i = index">
+        <div class="row no-gutters animated fadeInUp mt-2">
+          <div class="col-12 text-right">
+            <button
+              mat-mini-fab
+              color="primary"
+              matTooltipPosition="below"
+              matTooltip="Remove Pricing"
+              *ngIf="gigConfig.gig.plans.length > 1"
+              (click)="removePricing(i)"
+            >
+              <mat-icon>remove_circle_outline</mat-icon>
+            </button>
+          </div>
+          <div class="col-6 w100">
+            <div class="form-group m-2">
+              <label class="form-label" for="name">Name<span class="text-danger pl-1 asterisk">*</span></label>
+              <input
+                id="name-{{ i }}"
+                type="text"
+                [(ngModel)]="item.name"
+                class="form-control form-control-prepended"
+              />
+            </div>
+          </div>
+          <div class="col-6 w100">
+            <div class="form-group m-2">
+              <label class="form-label" for="deliveryDays"
+                >Delivery Days<span class="text-danger pl-1 asterisk">*</span></label
+              >
+              <input
+                id="deliveryDays-{{ i }}"
+                type="text"
+                [(ngModel)]="item.deliveryDays"
+                class="form-control form-control-prepended"
+              />
+            </div>
+          </div>
+          <div class="col-6 w100">
+            <div class="form-group m-2">
+              <label class="form-label" for="price">Price<span class="text-danger pl-1 asterisk">*</span></label>
+              <input
+                id="price-{{ i }}"
+                type="number"
+                min="0"
+                step="1"
+                oninput="validity.valid||(value='');"
+                [(ngModel)]="item.price"
+                class="form-control form-control-prepended"
+              />
+            </div>
+          </div>
+          <div class="col-6 w100">
+            <div class="form-group m-2">
+              <label class="form-label" for="revisions"
+                >Revisions<span class="text-danger pl-1 asterisk">*</span></label
+              >
+              <input
+                id="revisions-{{ i }}"
+                type="number"
+                min="0"
+                step="1"
+                oninput="validity.valid||(value='');"
+                [(ngModel)]="item.revisions"
+                class="form-control form-control-prepended"
+              />
+            </div>
+          </div>
+          <div class="col-6 w100">
+            <div class="form-group m-2">
+              <label class="form-label" for="commission"
+                >Commission Percent<span class="text-danger pl-1 asterisk">*</span></label
+              >
+              <input
+                id="commission-{{ i }}"
+                type="number"
+                min="0"
+                step="1"
+                disabled="true"
+                oninput="validity.valid||(value='');"
+                [(ngModel)]="item.commission"
+                class="form-control form-control-prepended"
+              />
+            </div>
+          </div>
+          <div class="col-6 w100">
+            <div class="form-group m-2">
+              <label class="form-label" for="deliveryPrice"
+                >Delivery Price<span class="text-danger pl-1 asterisk">*</span></label
+              >
+              <input
+                id="deliveryPrice-{{ i }}"
+                type="number"
+                min="0"
+                step="1"
+                readonly
+                oninput="validity.valid||(value='');"
+                [value]="getDeliveryPrice(item)"
+                class="form-control form-control-prepended"
+              />
+            </div>
+          </div>
+          <div class="col-12 w100">
+            <div class="form-group m-2">
+              <label class="form-label" for="deliveryDetails"
+                >Delivery Details<span class="text-danger pl-1 asterisk">*</span>
+                <button
+                  mat-mini-fab
+                  color="primary"
+                  matTooltipPosition="below"
+                  matTooltip="Add Details"
+                  class="ml-3"
+                  (click)="addDeliveryDetails(item)"
+                >
+                  <mat-icon>add</mat-icon>
+                </button></label
+              >
+              <div class="row no-gutters w100">
+                <div class="col-6" *ngFor="let details of item.deliveryDetails; let di = index">
+                  <div class="d-flex align-items-center p-2">
+                    <span class="material-icons text-success">
+                      check
+                    </span>
+                    <input
+                      id="deliveryDetails-{{ di }}"
+                      type="text"
+                      [(ngModel)]="details.value"
+                      class="form-control form-control-prepended ml-3"
+                    />
+                    <button
+                      mat-mini-fab
+                      color="primary"
+                      matTooltipPosition="below"
+                      matTooltip="Remove Details"
+                      class="ml-3"
+                      (click)="removeDeliveryDetails(item, di)"
+                    >
+                      <mat-icon>remove</mat-icon>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="text-center m-auto">
+        <button mat-flat-button color="primary" matStepperPrevious class="rounded-pill caps">
+          BACK
+        </button>
+        <button mat-flat-button color="primary" [disbaled]="checkPlanDisable()" matStepperNext class="rounded-pill caps ml-3">
+          NEXT
+        </button>
+      </div>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Done</ng-template>
+      <div class="d-flex justify-content-center">
+        <div class="card w50 curPoint">
+          <div class="card-img">
+            <img [src]="gigConfig.gig.image" />
+          </div>
+          <div class="card-body mt-4 pl-3 pr-3">
+            <h5 class="card-title mb-1">
+              {{ gigConfig.gig.title }}
+            </h5>
+            <p class="card-intro">
+              {{ gigConfig.gig.category }}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center m-auto mt-4">
+        <button mat-flat-button color="primary" matStepperPrevious class="rounded-pill caps">
+          BACK
+        </button>
+        <button mat-flat-button color="primary" (click)="publish()" matStepperNext class="rounded-pill caps">
+          PUBLISH YOUR CARD
+        </button>
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>
+
+  <!-- <div class="m-auto text-center pt-4">
+    <button
+      mat-flat-button
+      color="primary"
+      [disabled]="jobConfig.job.country === '' || jobConfig.job.industry.length === 0"
+      (click)="stepsClick(0, true)"
+      class="rounded-pill caps"
+    >
+      NEXT
+    </button>
+  </div> -->
+</ng-template>
+
+<input type="file" #file class="d-none" id="imageUpload" (change)="handleFileInput($event, 'image')" />
+<input type="file" #videoFile class="d-none" id="imageUpload" (change)="handleFileInput($event, 'video')" />
