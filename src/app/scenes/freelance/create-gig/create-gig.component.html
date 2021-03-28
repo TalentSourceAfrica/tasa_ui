@@ -5,11 +5,17 @@
       <li class="breadcrumb-item active"><a>Create or Edit Gig</a></li>
     </ol>
     <section>
-      <ng-container *ngIf="gigConfig.isNew && !gigConfig.startGig">
+      <ng-container *ngIf="gigConfig.isNew && !gigConfig.startGig && !gigConfig.isLoading">
         <ng-container *ngTemplateOutlet="sartSelling"></ng-container>
       </ng-container>
-      <ng-container *ngIf="gigConfig.startGig">
+      <ng-container *ngIf="!gigConfig.isNew && !gigConfig.startGig && !gigConfig.isLoading">
+        <ng-container *ngTemplateOutlet="allGigs"></ng-container>
+      </ng-container>
+      <ng-container *ngIf="gigConfig.startGig && !gigConfig.isLoading">
         <ng-container *ngTemplateOutlet="createGig"></ng-container>
+      </ng-container>
+      <ng-container *ngIf="gigConfig.isLoading">
+        <ng-container *ngTemplateOutlet="loader"></ng-container>
       </ng-container>
     </section>
   </div>
@@ -80,16 +86,82 @@
       </div>
     </div>
     <div class="text-center mt-2">
-      <button mat-flat-button color="primary" (click)="startGigCreation()" class="rounded-pill caps ml-3 w40">
+      <button mat-flat-button color="primary" (click)="startGigCreation()" class="rounded-pill caps ml-3 w35">
         Create Your Seller Card
       </button>
     </div>
   </div>
 </ng-template>
 
+<ng-template #allGigs>
+  <div class="text-center p-4">
+    <button mat-flat-button color="primary" (click)="startGigCreation()" class="rounded-pill caps ml-3 w35">
+      Create Your Seller Card
+    </button>
+  </div>
+
+  <mat-tab-group animationDuration="0ms">
+    <mat-tab label="Active Gigs">
+      <div class="row w100 no-gutters animated fadeIn">
+        <div class="col-4" *ngFor="let item of gigConfig.activeGigs">
+          <div class="card m-0 mt-4 mr-4 curPoint">
+            <div class="card-img">
+              <img [src]="item.image" />
+            </div>
+            <div class="card-body mt-4 pl-3 pr-3">
+              <h5 class="card-title mb-1">
+                {{ item.title }}
+              </h5>
+              <p class="card-intro">
+                {{ item.category }}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <ng-container *ngIf="!gigConfig.isLoading && gigConfig.activeGigs.length == 0">
+          <div class="text-center m-auto animated fadeIn">
+            <div class="col-12 text-center">
+              <img src="../assets/images/no-record.gif" style="height: 300px;" class="d-block m-auto" />
+              <h6 class="text-primary">No Active Gigs...!</h6>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </mat-tab>
+    <mat-tab label="Inactive Gigs">
+      <div class="row w100 no-gutters animated fadeIn">
+        <div class="col-4" *ngFor="let item of gigConfig.inactiveGigs">
+          <div class="card m-0 mt-4 mr-4 curPoint">
+            <div class="card-img">
+              <img [src]="item.image" />
+            </div>
+            <div class="card-body mt-4 pl-3 pr-3">
+              <h5 class="card-title mb-1">
+                {{ item.title }}
+              </h5>
+              <p class="card-intro">
+                {{ item.category }}
+              </p>
+            </div>
+          </div>
+        </div>
+        <ng-container *ngIf="!gigConfig.isLoading && gigConfig.inactiveGigs.length == 0">
+          <div class="text-center m-auto animated fadeIn">
+            <div class="col-12 text-center">
+              <img src="../assets/images/no-record.gif" style="height: 300px;" class="d-block m-auto" />
+              <h6 class="text-primary">No InActive Gigs...!</h6>
+            </div>
+          </div>
+        </ng-container>
+      </div></mat-tab
+    >
+  </mat-tab-group>
+</ng-template>
+
 <ng-template #createGig>
-  <mat-horizontal-stepper labelPosition="bottom" #stepper>
-    <mat-step>
+  <mat-horizontal-stepper class="create-gig-stepper" labelPosition="bottom" #stepper>
+    <mat-step [completed]="false">
       <ng-template matStepLabel>Overview</ng-template>
       <div class="row no-gutters animated fadeInUp card m-0 p-4 mt-2">
         <div class="col-12">
@@ -149,7 +221,7 @@
         </div>
       </div>
     </mat-step>
-    <mat-step>
+    <mat-step [completed]="false">
       <ng-template matStepLabel>Professional</ng-template>
       <div class="row no-gutters animated fadeInUp mt-2 card m-0 p-4">
         <div class="col-12">
@@ -229,7 +301,7 @@
         </div>
       </div>
     </mat-step>
-    <mat-step>
+    <mat-step [completed]="false">
       <ng-template matStepLabel>Pricing Plans</ng-template>
       <div class="text-center">
         <button
@@ -393,12 +465,18 @@
         <button mat-flat-button color="primary" matStepperPrevious class="rounded-pill caps">
           BACK
         </button>
-        <button mat-flat-button color="primary" [disbaled]="checkPlanDisable()" matStepperNext class="rounded-pill caps ml-3">
+        <button
+          mat-flat-button
+          color="primary"
+          [disbaled]="checkPlanDisable()"
+          matStepperNext
+          class="rounded-pill caps ml-3"
+        >
           NEXT
         </button>
       </div>
     </mat-step>
-    <mat-step>
+    <mat-step [completed]="false">
       <ng-template matStepLabel>Done</ng-template>
       <div class="d-flex justify-content-center">
         <div class="card w50 curPoint">
@@ -415,7 +493,6 @@
           </div>
         </div>
       </div>
-
       <div class="text-center m-auto mt-4">
         <button mat-flat-button color="primary" matStepperPrevious class="rounded-pill caps">
           BACK
@@ -426,18 +503,23 @@
       </div>
     </mat-step>
   </mat-horizontal-stepper>
-
-  <!-- <div class="m-auto text-center pt-4">
-    <button
-      mat-flat-button
-      color="primary"
-      [disabled]="jobConfig.job.country === '' || jobConfig.job.industry.length === 0"
-      (click)="stepsClick(0, true)"
-      class="rounded-pill caps"
-    >
-      NEXT
+  <div class="text-center">
+    <button mat-flat-button color="primary" (click)="gigConfig.startGig = false" class="rounded-pill ml-3 w25">
+      <span class="material-icons pr-2">
+        arrow_back
+        </span> Back To Main Page
     </button>
-  </div> -->
+  </div>
+</ng-template>
+
+<ng-template #loader>
+  <ng-container>
+    <div class="col-12 animated fadeIn" *ngFor="let item of [1, 2, 3, 4, 5, 6]">
+      <div class="card ml-0 mr-0 my-4" style="height: 25px !important;">
+        <div class="card-img skeleton"></div>
+      </div>
+    </div>
+  </ng-container>
 </ng-template>
 
 <input type="file" #file class="d-none" id="imageUpload" (change)="handleFileInput($event, 'image')" />

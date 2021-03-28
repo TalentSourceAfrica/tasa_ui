@@ -181,7 +181,8 @@ export const urls: any = {
   // seller & gig
   postSeller: '/gigcard', // PO
   getAllActiveGigs: '/gigcard/allActive', // G
-  getUserGigs: '/gigcard/allActive/{userId}', // G
+  getUserActiveGigs: '/gigcard/allActive/{userId}', // G
+  getUserInactiveGigs: '/gigcard/allInActive/{userId}', // G
   activateGig: '/gigcard/activate/{cardId}', // PO
   deactivateGig: '/gigcard/deactivate/{cardId}', // PO
 };

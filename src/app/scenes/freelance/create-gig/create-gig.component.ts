@@ -1,6 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { CredentialsService } from '@app/auth';
 import { SharedService } from '@app/services/shared.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-create-gig',
@@ -15,6 +16,9 @@ export class CreateGigComponent implements OnInit {
   gigConfig: any = {
     isNew: true,
     startGig: false,
+    activeGigs: [],
+    inactiveGigs: [],
+    isLoading :false,
     gig: {
       id: '',
       userId: this.user.email,
@@ -36,14 +40,18 @@ export class CreateGigComponent implements OnInit {
           deliveryDetails: [],
         },
       ],
-      active: '',
-      createdOn: this.user.firstName + ' ' + this.user.lastName,
-      createdBy: '',
+      active: 'Y',
+      createdOn: '',
+      createdBy: this.user.firstName + ' ' + this.user.lastName,
       updatedOn: '',
       updatedBy: '',
     },
   };
-  constructor(private credentialsService: CredentialsService, private sharedService: SharedService) {}
+  constructor(
+    private credentialsService: CredentialsService,
+    private sharedService: SharedService,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   addLink() {
     this.links.push(`Link ${this.links.length + 1}`);
@@ -57,6 +65,7 @@ export class CreateGigComponent implements OnInit {
     if (plan.price > 0) {
       const dp = plan.price * (plan.commission / 100) + plan.price;
       plan.deliveryPrice = dp;
+      return dp;
     }
   }
 
@@ -161,12 +170,57 @@ export class CreateGigComponent implements OnInit {
     }
   }
 
+  fetchUserGig() {
+    let $t = this;
+    $t.gigConfig.isLoading = true;
+    let apiUrl1 = $t.sharedService.urlService.apiCallWithParams('getUserActiveGigs', { '{userId}': $t.user.email });
+    let apiUrl2 = $t.sharedService.urlService.apiCallWithParams('getUserInactiveGigs', { '{userId}': $t.user.email });
+
+    let api1 = $t.sharedService.configService.get(apiUrl1);
+    let api2 = $t.sharedService.configService.get(apiUrl2);
+
+    forkJoin([api1, api2]).subscribe(
+      (response: any) => {
+        $t.gigConfig.activeGigs = response[0].responseObj;
+        $t.gigConfig.inactiveGigs = response[1].responseObj;
+        if ($t.gigConfig.activeGigs.length || $t.gigConfig.inactiveGigs.length) {
+          $t.gigConfig.isNew = false;
+          $t.gigConfig.isLoading = false;
+          $t.cdr.detectChanges();
+        }
+        console.log($t.gigConfig);
+      },
+      (error) => {
+        $t.gigConfig.isLoading = false;
+        $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
+      }
+    );
+  }
+
   publish() {
     let $t = this;
     console.log($t.gigConfig.gig);
+
+    $t.gigConfig.gig.plans.forEach((d: any) => {
+      d.deliveryDetails = d.deliveryDetails.map((dd: any) => dd.value);
+    });
+
+    let apiUrl = $t.sharedService.urlService.simpleApiCall('postSeller');
+    $t.sharedService.uiService.showApiStartPopMsg('Publishing your card.');
+    $t.sharedService.configService.post(apiUrl, $t.gigConfig.gig).subscribe(
+      (response: any) => {
+        $t.sharedService.uiService.showApiSuccessPopMsg('Your card is now visible to everyone on TaSA');
+        $t.fetchUserGig();
+        $t.gigConfig.startGig = false;
+      },
+      (error) => {
+        $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
+      }
+    );
   }
 
   ngOnInit(): void {
+    this.fetchUserGig();
     this.getFreelanceCategory();
   }
 

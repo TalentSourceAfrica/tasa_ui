@@ -1763,3 +1763,9 @@ button:hover,
   max-height: 500px !important;
   overflow: scroll !important;
 }
+
+.create-gig-stepper {
+  .mat-horizontal-stepper-header {
+    pointer-events: none !important;
+  }
+}
