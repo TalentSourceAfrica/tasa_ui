@@ -247,6 +247,11 @@ const routes: Routes = [
             loadChildren: () =>
               import('@app/scenes/freelance/create-gig/create-gig.module').then((m) => m.CreateGigModule),
           },
+          {
+            path: 'gig/:gigId',
+            canActivate: [AuthenticationGuard],
+            loadChildren: () => import('@app/scenes/freelance/gig-view/gig-view.module').then((m) => m.GigViewModule),
+          },
         ],
       },
       { path: '', redirectTo: '/home', pathMatch: 'full' },

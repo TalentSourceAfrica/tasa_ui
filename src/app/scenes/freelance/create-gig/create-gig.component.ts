@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { CredentialsService } from '@app/auth';
 import { SharedService } from '@app/services/shared.service';
+import { Editor } from 'ngx-editor';
 import { forkJoin } from 'rxjs';
 
 @Component({
@@ -12,6 +13,7 @@ export class CreateGigComponent implements OnInit {
   @ViewChild('file', { static: false }) public file: any;
   @ViewChild('videoFile', { static: false }) public videoFile: any;
   links = ['First', 'Second', 'Third'];
+  public editor: Editor;
   freelanceCategory: any = [];
   gigConfig: any = {
     isNew: true,
@@ -185,10 +187,9 @@ export class CreateGigComponent implements OnInit {
         $t.gigConfig.inactiveGigs = response[1].responseObj;
         if ($t.gigConfig.activeGigs.length || $t.gigConfig.inactiveGigs.length) {
           $t.gigConfig.isNew = false;
-          $t.gigConfig.isLoading = false;
           $t.cdr.detectChanges();
         }
-        console.log($t.gigConfig);
+        $t.gigConfig.isLoading = false;
       },
       (error) => {
         $t.gigConfig.isLoading = false;
@@ -197,7 +198,32 @@ export class CreateGigComponent implements OnInit {
     );
   }
 
-  activeInactiveGig(gig: any, type: string) {}
+  activeInactiveGig(gig: any, type: string) {
+    let $t = this;
+    let apiUrl: any;
+    let succMsg = '';
+    $t.sharedService.uiService.showApiStartPopMsg('Updating...');
+    if (type === 'active') {
+      succMsg = 'Your gig card is inactive now.';
+      apiUrl = $t.sharedService.urlService.apiCallWithParams('activateGig', {
+        '{cardId}': gig.id,
+      });
+    } else {
+      succMsg = 'Your gig card is active now.';
+      apiUrl = $t.sharedService.urlService.apiCallWithParams('deactivateGig', {
+        '{cardId}': gig.id,
+      });
+    }
+    $t.sharedService.configService.post(apiUrl).subscribe(
+      (response: any) => {
+        $t.fetchUserGig();
+        $t.sharedService.uiService.showApiSuccessPopMsg(succMsg);
+      },
+      (error) => {
+        $t.sharedService.uiService.showApiErrorPopMsg('Something Went Wrong, Please Try Again After Sometime...');
+      }
+    );
+  }
 
   editGig(gig: any) {
     gig.plans.forEach((d: any) => {
@@ -211,8 +237,6 @@ export class CreateGigComponent implements OnInit {
 
   publish() {
     let $t = this;
-    console.log($t.gigConfig.gig);
-
     $t.gigConfig.gig.plans.forEach((d: any) => {
       d.deliveryDetails = d.deliveryDetails.map((dd: any) => dd.value);
     });
@@ -247,8 +271,13 @@ export class CreateGigComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.editor = new Editor();
     this.fetchUserGig();
     this.getFreelanceCategory();
+  }
+
+  ngOnDestroy(): void {
+    this.editor.destroy();
   }
 
   get user(): any | null {

@@ -1,0 +1,54 @@
+<div class="gig-view-wrapper w70 m-auto pt-4 mb-4">
+  <div class="page">
+    <div class="text-center m-auto min-vertical-h-50" *ngIf="gigDetailsConfig.isLoading">
+      <img src="../assets/loaders/swal-loader.gif" height="150" width="150" />
+      <h5 class="text-primary">Fetching Gig...</h5>
+    </div>
+    <div class="animated fadeInUp" *ngIf="!gigDetailsConfig.isLoading">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a [routerLink]="['/home']">Home</a></li>
+        <li class="breadcrumb-item">
+          <a [routerLink]="['/freelance/create-gig']">Gig Cards</a>
+        </li>
+        <li class="breadcrumb-item active text-truncate">{{ gigDetailsConfig.data?.title }}</li>
+      </ol>
+      <div class="row">
+        <div class="col-md-8 col-12">
+          <div class="card my-4 m-0">
+            <div class="text-center" style="background: #ebe9ed; padding: 10px;">
+              <img [src]="gigDetailsConfig.data?.image" class="img-thumbnail gig-img" alt="course" />
+            </div>
+            <div class="card-body">
+              <h5 class="mb-0">{{ gigDetailsConfig.data?.title }}</h5>
+              <h6 class="text-muted">{{gigDetailsConfig.data?.category}}</h6>
+              <h4>About This Gig</h4>
+              <div class="mt-2" [innerHTML]="gigDetailsConfig.data.description | safeHtml"></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 col-12">
+          <div class="card my-4 m-0">
+            <mat-tab-group animationDuration="0ms">
+              <mat-tab [label]="item.name" *ngFor="let item of gigDetailsConfig.data.plans">
+                <div class="p-4">
+                  <div class="d-flex">
+                    <h6>Price : <span class="text-muted">{{item.deliveryPrice | currency}} </span></h6>
+                    <h6 class="pl-3">Revisions : <span class="text-muted">{{item.revisions}}</span></h6>
+                  </div>
+                  <div class="mb-1" *ngFor="let dd of item.deliveryDetails; let i = index">
+                    <div class="d-flex align-items-center p-2">
+                      <span class="material-icons text-success pr-2">
+                        check
+                      </span>
+                      {{ dd }}
+                    </div>
+                  </div>
+                </div>
+              </mat-tab>
+            </mat-tab-group>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
