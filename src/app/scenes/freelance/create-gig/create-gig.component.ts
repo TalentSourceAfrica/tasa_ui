@@ -18,7 +18,7 @@ export class CreateGigComponent implements OnInit {
     startGig: false,
     activeGigs: [],
     inactiveGigs: [],
-    isLoading :false,
+    isLoading: false,
     gig: {
       id: '',
       userId: this.user.email,
@@ -42,7 +42,7 @@ export class CreateGigComponent implements OnInit {
       ],
       active: 'Y',
       createdOn: '',
-      createdBy: this.user.firstName + ' ' + this.user.lastName,
+      createdBy: '',
       updatedOn: '',
       updatedBy: '',
     },
@@ -197,6 +197,18 @@ export class CreateGigComponent implements OnInit {
     );
   }
 
+  activeInactiveGig(gig: any, type: string) {}
+
+  editGig(gig: any) {
+    gig.plans.forEach((d: any) => {
+      d.deliveryDetails = d.deliveryDetails.map((dd: any) => {
+        return { value: dd };
+      });
+    });
+    this.gigConfig.gig = gig;
+    this.gigConfig.startGig = true;
+  }
+
   publish() {
     let $t = this;
     console.log($t.gigConfig.gig);
@@ -205,18 +217,33 @@ export class CreateGigComponent implements OnInit {
       d.deliveryDetails = d.deliveryDetails.map((dd: any) => dd.value);
     });
 
-    let apiUrl = $t.sharedService.urlService.simpleApiCall('postSeller');
-    $t.sharedService.uiService.showApiStartPopMsg('Publishing your card.');
-    $t.sharedService.configService.post(apiUrl, $t.gigConfig.gig).subscribe(
-      (response: any) => {
-        $t.sharedService.uiService.showApiSuccessPopMsg('Your card is now visible to everyone on TaSA');
-        $t.fetchUserGig();
-        $t.gigConfig.startGig = false;
-      },
-      (error) => {
-        $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
-      }
-    );
+    if ($t.gigConfig.gig.id === '') {
+      let apiUrl = $t.sharedService.urlService.simpleApiCall('postSeller');
+      $t.sharedService.uiService.showApiStartPopMsg('Publishing your card.');
+      $t.sharedService.configService.post(apiUrl, $t.gigConfig.gig).subscribe(
+        (response: any) => {
+          $t.sharedService.uiService.showApiSuccessPopMsg('Your card is now visible to everyone on TaSA');
+          $t.fetchUserGig();
+          $t.gigConfig.startGig = false;
+        },
+        (error) => {
+          $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
+        }
+      );
+    } else {
+      let apiUrl = $t.sharedService.urlService.simpleApiCall('postSeller');
+      $t.sharedService.uiService.showApiStartPopMsg('Editing your card.');
+      $t.sharedService.configService.put(apiUrl, $t.gigConfig.gig).subscribe(
+        (response: any) => {
+          $t.sharedService.uiService.showApiSuccessPopMsg('Your card is now edited.');
+          $t.fetchUserGig();
+          $t.gigConfig.startGig = false;
+        },
+        (error) => {
+          $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
+        }
+      );
+    }
   }
 
   ngOnInit(): void {

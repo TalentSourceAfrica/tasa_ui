@@ -196,8 +196,8 @@ export class AllJobListingsComponent implements OnInit {
           this.uds.each(d.applicants, (app: any) => {
             d['isApplied'] = app.userId === this.user.email && app.status !== 'Withdrawn';
             app.userId === this.user.email ? (d['applicantStatus'] = app.status) : null;
-            d['isSaved'] = savedJobIdArr.includes(d.id) ? true : false;
           });
+          d['isSaved'] = savedJobIdArr.includes(d.id) ? true : false;
         });
         this.length = response.responseObj.length;
         this.isLoading = false;

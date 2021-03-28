@@ -87,7 +87,7 @@
                 </mat-paginator>
 
                 <ng-container *ngIf="!isLoading && allJobs.length">
-                  <div class="row no-gutters w100 mt-2">
+                  <div class="row no-gutters w100 mt-2 mb-2">
                     <div class="col text-right">
                       <div id="toggleBar" class="btn-group btn-group-sm border border-secondary" role="group">
                         <button
@@ -155,7 +155,7 @@
 
 <ng-template #jobsGridView>
   <div class="col-md-4 col-lg-4 col-sm-6 animated fadeIn" *ngFor="let job of allJobs">
-    <div class="card curPoint mb-2">
+    <div class="card m-0 curPoint mb-4">
       <div class="card-img">
         <img
           src="{{ job.organisation.orgImage ? job.organisation.orgImage : './assets/images/TSA_logo_new.small.png' }}"

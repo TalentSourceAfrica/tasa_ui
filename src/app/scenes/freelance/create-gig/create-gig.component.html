@@ -116,6 +116,35 @@
                 {{ item.category }}
               </p>
             </div>
+            <div class="card-footer">
+              <div class="w100">
+                <div class="text-center">
+                  <button mat-mini-fab color="primary" matTooltipPosition="below" class="mr-2" matTooltip="View Gig">
+                    <mat-icon class="mb-1">remove_red_eye</mat-icon>
+                  </button>
+                  <button
+                    mat-flat-button
+                    color="primary"
+                    matTooltipPosition="below"
+                    matTooltip="Apply For This Job"
+                    class="rounded-pill ml-2"
+                    (click)="activeInactiveGig(item, 'inactive')"
+                  >
+                    <span>Inactive</span>
+                  </button>
+                  <button
+                    mat-mini-fab
+                    color="primary"
+                    matTooltipPosition="below"
+                    class="ml-2"
+                    matTooltip="Edit Gig"
+                    (click)="editGig(item)"
+                  >
+                    <mat-icon class="mb-1">create</mat-icon>
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -143,6 +172,35 @@
               <p class="card-intro">
                 {{ item.category }}
               </p>
+            </div>
+            <div class="card-footer">
+              <div class="w100">
+                <div class="text-center">
+                  <button mat-mini-fab color="primary" matTooltipPosition="below" class="mr-2" matTooltip="View Gig">
+                    <mat-icon class="mb-1">remove_red_eye</mat-icon>
+                  </button>
+                  <button
+                    mat-flat-button
+                    color="primary"
+                    matTooltipPosition="below"
+                    matTooltip="Apply For This Job"
+                    class="rounded-pill ml-2"
+                    (click)="activeInactiveGig(item, 'active')"
+                  >
+                    <span>Inactive</span>
+                  </button>
+                  <button
+                    mat-mini-fab
+                    color="primary"
+                    matTooltipPosition="below"
+                    class="mr-2"
+                    matTooltip="Edit Gig"
+                    (click)="editGig(item)"
+                  >
+                    <mat-icon class="mb-1">pencil</mat-icon>
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -507,7 +565,8 @@
     <button mat-flat-button color="primary" (click)="gigConfig.startGig = false" class="rounded-pill ml-3 w25">
       <span class="material-icons pr-2">
         arrow_back
-        </span> Back To Main Page
+      </span>
+      Back To Main Page
     </button>
   </div>
 </ng-template>
