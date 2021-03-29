@@ -240,9 +240,8 @@ export class CreateGigComponent implements OnInit {
     $t.gigConfig.gig.plans.forEach((d: any) => {
       d.deliveryDetails = d.deliveryDetails.map((dd: any) => dd.value);
     });
-
+    let apiUrl = $t.sharedService.urlService.apiCallWithParams('postSeller', { '{userId}': $t.user.email });
     if ($t.gigConfig.gig.id === '') {
-      let apiUrl = $t.sharedService.urlService.simpleApiCall('postSeller');
       $t.sharedService.uiService.showApiStartPopMsg('Publishing your card.');
       $t.sharedService.configService.post(apiUrl, $t.gigConfig.gig).subscribe(
         (response: any) => {
@@ -255,7 +254,6 @@ export class CreateGigComponent implements OnInit {
         }
       );
     } else {
-      let apiUrl = $t.sharedService.urlService.simpleApiCall('postSeller');
       $t.sharedService.uiService.showApiStartPopMsg('Editing your card.');
       $t.sharedService.configService.put(apiUrl, $t.gigConfig.gig).subscribe(
         (response: any) => {

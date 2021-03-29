@@ -1,0 +1,12 @@
+.organization-view-wrapper {
+  .card {
+    img {
+      width: 100%;
+      object-fit: fill;
+      max-height: 350px;
+      object-fit: cover;
+      -o-object-position: center;
+      object-position: center;
+    }
+  }
+}

@@ -132,7 +132,7 @@ export const urls: any = {
   addOrganization: '/organization/{type}', // PO
   updateOrganization: '/organization/bulk/{userId}', // PO
   updateSingleOrganization: '/organization', // PU
-  searchOrganization: '/organisation/search/{page}/{size}/{searchText}', // G
+  searchOrganization: '/organization/search/{page}/{size}/{searchText}', // G
 
   // Notification
   getAllNotifications: '/notifications/all/{userId}', // G
@@ -179,12 +179,20 @@ export const urls: any = {
   canEnrollCourse: '/subs/canEnroll/{tasaId}/{courseId}', // G
 
   // seller & gig
-  postSeller: '/gigcard', // PO
-  getAllActiveGigs: '/gigcard/allActive', // G
+  postSeller: '/gigcard/{userId}', // PO
+  getAllActiveGigs: '/gigcard/allActive/page/{page}/{size}', // G
   getUserActiveGigs: '/gigcard/allActive/{userId}', // G
   getUserInactiveGigs: '/gigcard/allInActive/{userId}', // G
   activateGig: '/gigcard/activate/{cardId}', // PO
   deactivateGig: '/gigcard/deactivate/{cardId}', // PO
   getGigCard: '/gigcard/{gigCardId}', // G
   gigSearch: '/gigcard/search/{searchText}', // G
+
+  // requirement
+  postRequirement: '/requirement/{userId}', // PO
+  activateRequirement: '/gigcard/activate/{requirementId}', // PO
+  deactivateRequirement: '/gigcard/deactivate/{requirementId}', // PO
+  openRequirement: '/gigcard/open/{requirementId}', // PO
+  closeRequirement: '/gigcard/close/{requirementId}', // PO
+  getAllOpenRequirement: '/requirement/allOpen', // G
 };

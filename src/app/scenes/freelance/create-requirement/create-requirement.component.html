@@ -1,4 +1,4 @@
-<div class="recruiter-create-job-wrapper">
+<div class="freelance-create-requirement-wrapper">
   <div class="container">
     <ol class="breadcrumb mt-3">
       <li class="breadcrumb-item curPoint"><a [routerLink]="['/home']">Home</a></li>
@@ -22,30 +22,184 @@
         <h3 class="text-shadow-theme text-primary">What Service Are You Looking For?</h3>
       </div>
       <div class="col-md-4 col-12 animated fadeIn">
-        <img src="https://image.freepik.com/free-vector/task-management-abstract-concept-illustration_335657-2127.jpg" alt="" />
+        <img
+          src="https://image.freepik.com/free-vector/task-management-abstract-concept-illustration_335657-2127.jpg"
+          alt=""
+        />
       </div>
+    </div>
+  </div>
+
+  <div class="card m-0 p-4">
+    <div class="row no-gutters animated fadeInUp">
+      <div class="col-12">
+        <div class="form-group text-left">
+          <label class="form-label" for="description"
+            >Describe the service you're looking to purchase -
+            <span class="text-muted">please be as detailed as possible</span
+            ><span class="text-danger pl-1 asterisk">*</span></label
+          >
+          <div class="input-group input-group-merge">
+            <div class="job-editor">
+              <ngx-editor-menu [editor]="editor"> </ngx-editor-menu>
+              <ngx-editor
+                [editor]="editor"
+                [(ngModel)]="requirementConfig.requirement.description"
+                [placeholder]="'Type here...'"
+              ></ngx-editor>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="form-group text-left">
+          <label class="form-label" for="Attachment">Attachment<span class="text-danger pl-1 asterisk">*</span></label>
+          <div class="input-group input-group-merge">
+            <div class="p-3 d-flex align-items-center curPoint bg-primary-more-light">
+              <span class="material-icons pr-3">
+                attach_file
+              </span>
+              Attachment
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="form-group mr-2">
+          <label class="form-label" for="skills">Skills<span class="text-danger pl-1 asterisk">*</span></label>
+          <input
+            id="skills"
+            type="text"
+            [(ngModel)]="requirementConfig.requirement.skills"
+            class="form-control form-control-prepended"
+          />
+        </div>
+      </div>
+      <hr />
+      <div class="col-12">
+        <div class="form-group text-left">
+          <label class="form-label" for="category"
+            >Select Category<span class="text-danger pl-1 asterisk">*</span></label
+          >
+          <mat-select
+            id="category"
+            placeholder="Select Category"
+            [(ngModel)]="requirementConfig.requirement.category"
+            [(value)]="requirementConfig.requirement.category"
+            class="form-control form-control-prepended"
+          >
+            <mat-option *ngFor="let item of freelanceCategory" [value]="item.code">
+              {{ item.code }}
+            </mat-option>
+          </mat-select>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="form-group mr-2">
+          <label class="form-label" for="experienceFrom"
+            >Experience From<span class="text-danger pl-1 asterisk">*</span></label
+          >
+          <input
+            id="experienceFrom"
+            type="number"
+            min="0"
+            step="1"
+            oninput="validity.valid||(value='');"
+            [(ngModel)]="requirementConfig.requirement.experienceFrom"
+            class="form-control form-control-prepended"
+          />
+        </div>
+      </div>
+
+      <div class="col-6">
+        <div class="form-group mr-2">
+          <label class="form-label" for="experienceTo"
+            >Experience To<span class="text-danger pl-1 asterisk">*</span></label
+          >
+          <input
+            id="experienceTo"
+            type="number"
+            min="0"
+            step="1"
+            oninput="validity.valid||(value='');"
+            [(ngModel)]="requirementConfig.requirement.experienceTo"
+            class="form-control form-control-prepended"
+          />
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="form-group mr-2">
+          <label class="form-label" for="budgetFrom">Budget From<span class="text-danger pl-1 asterisk">*</span></label>
+          <input
+            id="budgetFrom"
+            type="number"
+            min="0"
+            step="1"
+            oninput="validity.valid||(value='');"
+            [(ngModel)]="requirementConfig.requirement.budgetFrom"
+            class="form-control form-control-prepended"
+          />
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="form-group mr-2">
+          <label class="form-label" for="budgetTo">Budget To<span class="text-danger pl-1 asterisk">*</span></label>
+          <input
+            id="budgetTo"
+            type="number"
+            min="0"
+            step="1"
+            oninput="validity.valid||(value='');"
+            [(ngModel)]="requirementConfig.requirement.budgetTo"
+            class="form-control form-control-prepended"
+          />
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="form-group text-left">
+          <label class="form-label" for="openTill">Open Till<span class="text-danger pl-1 asterisk">*</span></label>
+          <div class="input-group input-group-merge">
+            <input
+              id="openTill"
+              [(ngModel)]="requirementConfig.requirement.openTill"
+              class="form-control form-control-prepended"
+              [matDatepicker]="picker1"
+              readonly
+            />
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1 color="primary"></mat-datepicker>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="text-center mt-4">
+      <button mat-flat-button color="primary" (click)="submit()" class="rounded-pill caps">
+        Create Requirement
+      </button>
     </div>
   </div>
 </ng-template>
 
 <ng-template #loader>
-    <ng-container>
-      <div class="row">
-        <div class="col-md-4 col-lg-4 col-sm-6 animated fadeIn" *ngFor="let item of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]">
-          <div class="card m-0 mb-4">
-            <div class="card-img skeleton">
-              <!-- waiting for img to load from javascript -->
-            </div>
-            <div class="card-body">
-              <h2 class="card-title skeleton">
-                <!-- wating for title to load from javascript -->
-              </h2>
-              <p class="card-intro skeleton">
-                <!-- waiting for intro to load from Javascript -->
-              </p>
-            </div>
+  <ng-container>
+    <div class="row">
+      <div class="col-md-4 col-lg-4 col-sm-6 animated fadeIn" *ngFor="let item of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]">
+        <div class="card m-0 mb-4">
+          <div class="card-img skeleton">
+            <!-- waiting for img to load from javascript -->
+          </div>
+          <div class="card-body">
+            <h2 class="card-title skeleton">
+              <!-- wating for title to load from javascript -->
+            </h2>
+            <p class="card-intro skeleton">
+              <!-- waiting for intro to load from Javascript -->
+            </p>
           </div>
         </div>
       </div>
-    </ng-container>
-  </ng-template>
+    </div>
+  </ng-container>
+</ng-template>
+
+<input id="resumeUpload" class="d-none" #uploadAttachment type="file" (change)="uploadFile($event)" />

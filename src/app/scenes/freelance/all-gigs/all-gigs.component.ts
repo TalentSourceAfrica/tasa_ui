@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PageEvent } from '@angular/material/paginator';
 import { SharedService } from '@app/services/shared.service';
 
 @Component({
@@ -13,12 +14,29 @@ export class AllGigsComponent implements OnInit {
     gigSearchText: '',
     isSearching: false,
   };
+
+  length = 100;
+  pageSize = 20;
+  pageSizeOptions: number[] = [5, 10, 25, 100];
+  pageEvent: PageEvent;
   constructor(public sharedService: SharedService) {}
 
-  fetchUserGig() {
+  pagination(event: any): any {
+    this.pageSize = event.pageSize;
+    if (this.gigConfig.gigSearchText !== '') {
+      this.onSearchGig(event.pageIndex + 1);
+    } else {
+      this.fetchUserGig(event.pageIndex + 1);
+    }
+  }
+
+  fetchUserGig(_pageIndex: number) {
     let $t = this;
     $t.gigConfig.isLoading = true;
-    let apiUrl = $t.sharedService.urlService.simpleApiCall('getAllActiveGigs');
+    let apiUrl = $t.sharedService.urlService.apiCallWithParams('getAllActiveGigs', {
+      '{page}': _pageIndex,
+      '{size}': $t.pageSize,
+    });
     $t.sharedService.configService.get(apiUrl).subscribe(
       (response: any) => {
         $t.gigConfig.data = response.responseObj;
@@ -49,6 +67,6 @@ export class AllGigsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.fetchUserGig();
+    this.fetchUserGig(1);
   }
 }

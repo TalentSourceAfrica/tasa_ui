@@ -16,6 +16,14 @@
 </div>
 
 <ng-template #allGigs>
+  <mat-paginator
+    class="col-12"
+    [length]="length"
+    [pageSize]="pageSize"
+    [pageSizeOptions]="pageSizeOptions"
+    (page)="pageEvent = pagination($event)"
+  >
+  </mat-paginator>
   <div class="row w100 no-gutters animated fadeIn">
     <div class="col-12 mt-4">
       <div class="text-center">
@@ -29,7 +37,7 @@
             mat-icon-button
             aria-label="Clear"
             placehoder="Min 3 Char..."
-            (click)="gigConfig.gigSearchText = '';fetchUserGig();"
+            (click)="gigConfig.gigSearchText = ''; fetchUserGig(1)"
           >
             <mat-icon>close</mat-icon>
           </button>
