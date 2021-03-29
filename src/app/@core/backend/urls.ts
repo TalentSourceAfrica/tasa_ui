@@ -186,4 +186,5 @@ export const urls: any = {
   activateGig: '/gigcard/activate/{cardId}', // PO
   deactivateGig: '/gigcard/deactivate/{cardId}', // PO
   getGigCard: '/gigcard/{gigCardId}', // G
+  gigSearch: '/gigcard/search/{searchText}', // G
 };

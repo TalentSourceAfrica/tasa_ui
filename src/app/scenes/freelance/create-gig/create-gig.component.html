@@ -106,7 +106,12 @@
         <div class="col-4" *ngFor="let item of gigConfig.activeGigs">
           <div class="card m-0 mt-4 mr-4 curPoint">
             <div class="card-img">
-              <img [src]="item.image" />
+              <img [src]="item.image" *ngIf="item.video === ''" />
+              <video height="150" controls *ngIf="item.video !== ''">
+                <source [src]="gigConfig.gig.video" type="video/mp4" />
+                <source [src]="gigConfig.gig.video" type="video/ogg" />
+                Your browser does not support the video tag.
+              </video>
             </div>
             <div class="card-body mt-4 pl-3 pr-3">
               <h5 class="card-title mb-1">
@@ -171,7 +176,12 @@
         <div class="col-4" *ngFor="let item of gigConfig.inactiveGigs">
           <div class="card m-0 mt-4 mr-4 curPoint">
             <div class="card-img">
-              <img [src]="item.image" />
+              <img [src]="item.image" *ngIf="item.video === ''" />
+              <video height="150" controls *ngIf="item.video !== ''">
+                <source [src]="gigConfig.gig.video" type="video/mp4" />
+                <source [src]="gigConfig.gig.video" type="video/ogg" />
+                Your browser does not support the video tag.
+              </video>
             </div>
             <div class="card-body mt-4 pl-3 pr-3">
               <h5 class="card-title mb-1">
@@ -591,9 +601,21 @@
 
 <ng-template #loader>
   <ng-container>
-    <div class="col-12 animated fadeIn" *ngFor="let item of [1, 2, 3, 4, 5, 6]">
-      <div class="card ml-0 mr-0 my-4" style="height: 25px !important;">
-        <div class="card-img skeleton"></div>
+    <div class="row">
+      <div class="col-md-4 col-lg-4 col-sm-6 animated fadeIn" *ngFor="let item of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]">
+        <div class="card m-0 mb-4">
+          <div class="card-img skeleton">
+            <!-- waiting for img to load from javascript -->
+          </div>
+          <div class="card-body">
+            <h2 class="card-title skeleton">
+              <!-- wating for title to load from javascript -->
+            </h2>
+            <p class="card-intro skeleton">
+              <!-- waiting for intro to load from Javascript -->
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   </ng-container>

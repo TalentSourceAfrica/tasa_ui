@@ -5,12 +5,12 @@ import { FormsModule } from '@angular/forms';
 import { I18nModule } from '@app/i18n';
 import { MaterialModule } from '@app/modules/material.module';
 import { RouterModule } from '@angular/router';
-import { NgxEditorModule } from 'ngx-editor';
-import { CreateRequirementComponent } from './create-requirement.component';
-import { CreateRequirementRoutingModule } from './create-requirement-routing.module';
+import { CreateGigComponent } from '../create-gig/create-gig.component';
+import { AllGigsComponent } from './all-gigs.component';
+import { AllGigsRoutingModule } from './all-gigs-routing.module';
 
 @NgModule({
-  declarations: [CreateRequirementComponent],
+  declarations: [AllGigsComponent],
   imports: [
     CommonModule,
     TranslateModule,
@@ -18,9 +18,8 @@ import { CreateRequirementRoutingModule } from './create-requirement-routing.mod
     I18nModule,
     RouterModule,
     MaterialModule,
-    CreateRequirementRoutingModule,
-    NgxEditorModule,
+    AllGigsRoutingModule,
   ],
   schemas: [NO_ERRORS_SCHEMA],
 })
-export class CreateRequirementModule {}
+export class AllGigsModule { }

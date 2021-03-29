@@ -252,6 +252,16 @@ const routes: Routes = [
             canActivate: [AuthenticationGuard],
             loadChildren: () => import('@app/scenes/freelance/gig-view/gig-view.module').then((m) => m.GigViewModule),
           },
+          {
+            path: 'create-requirement',
+            canActivate: [AuthenticationGuard],
+            loadChildren: () => import('@app/scenes/freelance/create-requirement/create-requirement.module').then((m) => m.CreateRequirementModule),
+          },
+          {
+            path: 'all-gigs',
+            canActivate: [AuthenticationGuard],
+            loadChildren: () => import('@app/scenes/freelance/all-gigs/all-gigs.module').then((m) => m.AllGigsModule),
+          },
         ],
       },
       { path: '', redirectTo: '/home', pathMatch: 'full' },
