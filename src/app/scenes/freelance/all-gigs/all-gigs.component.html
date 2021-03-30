@@ -67,8 +67,18 @@
             </owl-carousel-o>
           </ng-container>
         </div>
-        <div class="card-body pl-3 pr-3" [ngClass]="{'margin-top-15px': item.image !== '' && item.video !== ''}">
-          <h5 class="card-title mt-1 mb-1">
+        <div class="card-body pl-3 pr-3" [ngClass]="{ 'margin-top-15px': item.image !== '' && item.video !== '' }">
+          <div class="d-flex align-items-center">
+            <img
+              [src]="item.userImage"
+              [routerLink]="['/social-network/profile/', item.tasaId]"
+              routerLinkActive="router-link-active"
+              class="user-img"
+              alt=""
+            />
+            <div class="font400 pl-0 text-truncate" [title]="">{{ item.userName }}</div>
+          </div>
+          <h5 class="card-title mt-3 mb-1">
             {{ item.title }}
           </h5>
           <p class="card-intro">

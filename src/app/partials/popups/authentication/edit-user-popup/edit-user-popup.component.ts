@@ -141,7 +141,7 @@ export class EditUserPopupComponent implements OnInit {
       degreeToDate: '',
       highestDegree: '',
       major: '',
-      minor: [''],
+      minor: [],
       university: [''],
     });
     this.cdr.detectChanges();
