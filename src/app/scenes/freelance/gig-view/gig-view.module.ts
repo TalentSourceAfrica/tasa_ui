@@ -9,6 +9,7 @@ import { RouterModule } from '@angular/router';
 import { GigViewRoutingModule } from './gig-view-routing.module';
 import { GigViewComponent } from './gig-view.component';
 import { SafeHtmlModule } from '@app/pipes/safe-html.pipe';
+import { CarouselModule } from 'ngx-owl-carousel-o';
 
 @NgModule({
   declarations: [GigViewComponent],
@@ -21,6 +22,7 @@ import { SafeHtmlModule } from '@app/pipes/safe-html.pipe';
     TranslateModule,
     GigViewRoutingModule,
     SafeHtmlModule,
+    CarouselModule,
   ],
   schemas: [NO_ERRORS_SCHEMA],
 })

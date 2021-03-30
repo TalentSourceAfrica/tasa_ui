@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { SharedService } from '@app/services/shared.service';
+import { OwlOptions } from 'ngx-owl-carousel-o';
 
 @Component({
   selector: 'app-all-gigs',
@@ -13,6 +14,26 @@ export class AllGigsComponent implements OnInit {
     isLoading: false,
     gigSearchText: '',
     isSearching: false,
+  };
+  gigAssetsOptions: OwlOptions = {
+    loop: true,
+    autoplay: false,
+    center: true,
+    smartSpeed: 1000,
+    dots: false,
+    autoHeight: false,
+    autoWidth: false,
+    autoplayHoverPause: true,
+    items: 1,
+    nav: true,
+    margin: 4,
+    navText: ["<i class='fas fa-chevron-circle-left'></i>", "<i class='fas fa-chevron-circle-right'></i>"],
+    autoplayTimeout: 3000,
+    responsive: {
+      0: {
+        items: 1,
+      },
+    },
   };
 
   length = 100;

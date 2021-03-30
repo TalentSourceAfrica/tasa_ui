@@ -1,6 +1,6 @@
 .freelance-create-gig-wrapper {
-  .job-editor{
-    width:100%;
+  .job-editor {
+    width: 100%;
     min-height: 500px;
   }
   .form-label {
@@ -26,16 +26,23 @@
     min-height: 300px;
   }
   .card-img {
-    padding-bottom: 56.25%;
-    position: relative;
+    padding-bottom: 0;
     img {
-      position: absolute;
+      position: relative;
       width: 100%;
-      object-fit: fill;
       max-height: 200px;
+      min-height: 200px;
+      object-fit: fill;
       object-fit: cover;
       -o-object-position: center;
       object-position: center;
     }
+    video {
+      max-height: 200px;
+      min-height: 200px;
+    }
+  }
+  .margin-top-15px {
+    margin-top: -15px;
   }
 }

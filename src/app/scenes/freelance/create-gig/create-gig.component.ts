@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { CredentialsService } from '@app/auth';
 import { SharedService } from '@app/services/shared.service';
 import { Editor } from 'ngx-editor';
+import { OwlOptions } from 'ngx-owl-carousel-o';
 import { forkJoin } from 'rxjs';
 
 @Component({
@@ -47,6 +48,27 @@ export class CreateGigComponent implements OnInit {
       createdBy: '',
       updatedOn: '',
       updatedBy: '',
+    },
+  };
+
+  gigAssetsOptions: OwlOptions = {
+    loop: true,
+    autoplay: false,
+    center: true,
+    smartSpeed: 1000,
+    dots: false,
+    autoHeight: false,
+    autoWidth: false,
+    autoplayHoverPause: true,
+    items: 1,
+    nav: true,
+    margin: 4,
+    navText: ["<i class='fas fa-chevron-circle-left'></i>", "<i class='fas fa-chevron-circle-right'></i>"],
+    autoplayTimeout: 3000,
+    responsive: {
+      0: {
+        items: 1,
+      },
     },
   };
   constructor(

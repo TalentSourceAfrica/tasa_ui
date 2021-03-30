@@ -9,6 +9,7 @@ import { RouterModule } from '@angular/router';
 import { CreateGigRoutingModule } from './create-gig-routing.module';
 import { NgxEditorModule } from 'ngx-editor';
 import { CreateGigComponent } from './create-gig.component';
+import { CarouselModule } from 'ngx-owl-carousel-o';
 
 @NgModule({
   declarations: [CreateGigComponent],
@@ -21,6 +22,7 @@ import { CreateGigComponent } from './create-gig.component';
     MaterialModule,
     CreateGigRoutingModule,
     NgxEditorModule,
+    CarouselModule
   ],
   schemas: [NO_ERRORS_SCHEMA],
 })

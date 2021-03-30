@@ -1759,7 +1759,27 @@ button:hover,
   }
 }
 
-.article-editor .NgxEditor, .job-editor .NgxEditor {
+.gig-view-carousel {
+  .owl-prev {
+    position: absolute;
+    color: #523f6d !important;
+    left: -10px;
+    top: 40%;
+    font-size: 45px !important;
+    background: none !important;
+  }
+  .owl-next {
+    position: absolute;
+    color: #523f6d !important;
+    right: -10px;
+    top: 40%;
+    font-size: 45px !important;
+    background: none !important;
+  }
+}
+
+.article-editor .NgxEditor,
+.job-editor .NgxEditor {
   max-height: 500px !important;
   overflow: scroll !important;
 }

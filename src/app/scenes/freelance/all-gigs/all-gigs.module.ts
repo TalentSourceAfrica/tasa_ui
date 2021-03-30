@@ -8,6 +8,7 @@ import { RouterModule } from '@angular/router';
 import { CreateGigComponent } from '../create-gig/create-gig.component';
 import { AllGigsComponent } from './all-gigs.component';
 import { AllGigsRoutingModule } from './all-gigs-routing.module';
+import { CarouselModule } from 'ngx-owl-carousel-o';
 
 @NgModule({
   declarations: [AllGigsComponent],
@@ -19,7 +20,8 @@ import { AllGigsRoutingModule } from './all-gigs-routing.module';
     RouterModule,
     MaterialModule,
     AllGigsRoutingModule,
+    CarouselModule,
   ],
   schemas: [NO_ERRORS_SCHEMA],
 })
-export class AllGigsModule { }
+export class AllGigsModule {}

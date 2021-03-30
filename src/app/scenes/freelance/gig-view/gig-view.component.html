@@ -15,12 +15,34 @@
       <div class="row">
         <div class="col-md-8 col-12">
           <div class="card my-4 m-0">
-            <div class="text-center" style="background: #ebe9ed; padding: 10px;">
-              <img [src]="gigDetailsConfig.data?.image" class="img-thumbnail gig-img" alt="course" />
+            <ng-container *ngIf="gigDetailsConfig.data?.video === ''">
+              <div class="text-center" style="background: #ebe9ed; padding: 10px;">
+                <img [src]="gigDetailsConfig.data?.image" class="img-thumbnail gig-img" alt="course" />
+              </div>
+            </ng-container>
+
+            <div *ngIf="gigDetailsConfig.data?.image !== '' && gigDetailsConfig.data?.video !== ''">
+              <owl-carousel-o [options]="gigAssetsOptions" class="gig-view-carousel">
+                <ng-template carouselSlide>
+                  <div  style="background: #ebe9ed;">
+                    <video controls>
+                      <source [src]="gigDetailsConfig.data?.video" type="video/mp4" />
+                      <source [src]="gigDetailsConfig.data?.video" type="video/ogg" />
+                      Your browser does not support the video tag.
+                    </video>
+                  </div>
+                </ng-template>
+                <ng-template carouselSlide>
+                  <div style="background: #ebe9ed;">
+                    <img [src]="gigDetailsConfig.data?.image" class="img-thumbnail gig-img" alt="course" />
+                  </div>
+                </ng-template>
+              </owl-carousel-o>
             </div>
+
             <div class="card-body">
               <h5 class="mb-0">{{ gigDetailsConfig.data?.title }}</h5>
-              <h6 class="text-muted">{{ gigDetailsConfig.data?.category }}</h6>
+              <h6 class="text-muted font400">{{ gigDetailsConfig.data?.category }}</h6>
               <h4>About This Gig</h4>
               <div class="mt-2" [innerHTML]="gigDetailsConfig.data.description | safeHtml"></div>
             </div>

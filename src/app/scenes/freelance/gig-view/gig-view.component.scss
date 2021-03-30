@@ -1,9 +1,14 @@
 .gig-view-wrapper {
   .gig-img {
     max-height: 500px;
+    min-height: 500px;
     object-fit: fill;
     object-fit: cover;
     -o-object-position: center;
     object-position: center;
+  }
+  video {
+    max-height: 450px;
+    min-height: 450px;
   }
 }
