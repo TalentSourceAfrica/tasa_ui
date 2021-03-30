@@ -12,4 +12,20 @@
     height: calc(2em + 0.75rem + 2px);
     line-height: 2rem !important;
   }
+
+  .card-img {
+    min-height: 150px;
+    background-color: white;
+  }
+  .text-css {
+    color: mix(#fff, #17a2b8, 40%);
+    font-size: 15px;
+    font-size: 30px;
+    padding-top: 30px;
+    font-weight: 900;
+    text-shadow: -0.0075em 0.0075em 0 mix(#fff, #17a2b8, 94%), 0.005em 0.005em 0 mix(#fff, #17a2b8, 60%),
+      0.01em 0.01em 0 mix(#fff, #17a2b8, 62%), 0.015em 0.015em mix(#fff, #17a2b8, 64%),
+      0.02em 0.02em 0 mix(#fff, #17a2b8, 66%), 0.025em 0.025em 0 mix(#fff, #17a2b8, 68%),
+      0.03em 0.03em 0 mix(#fff, #17a2b8, 70%), 0.035em 0.035em 0 mix(#fff, #17a2b8, 72%);
+  }
 }

@@ -190,9 +190,11 @@ export const urls: any = {
 
   // requirement
   postRequirement: '/requirement/{userId}', // PO
-  activateRequirement: '/gigcard/activate/{requirementId}', // PO
-  deactivateRequirement: '/gigcard/deactivate/{requirementId}', // PO
-  openRequirement: '/gigcard/open/{requirementId}', // PO
-  closeRequirement: '/gigcard/close/{requirementId}', // PO
+  activateRequirement: '/requirement/activate/{requirementId}/{userId}', // PO
+  deactivateRequirement: '/requirement/deactivate/{requirementId}/{userId}', // PO
+  openRequirement: '/requirement/open/{requirementId}', // PO
+  closeRequirement: '/requirement/close/{requirementId}', // PO
   getAllOpenRequirement: '/requirement/allOpen', // G
+  getUserActiveRequirements: '/requirement/allActive/{userId}', // G
+  getUserInactiveRequirements: '/requirement/allInActive/{userId}', // G
 };

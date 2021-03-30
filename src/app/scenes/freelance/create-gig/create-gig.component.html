@@ -257,6 +257,14 @@
 </ng-template>
 
 <ng-template #createGig>
+  <div class="text-center">
+    <button mat-flat-button color="primary" (click)="gigConfig.startGig = false" class="rounded-pill ml-3 w25">
+      <span class="material-icons pr-2">
+        arrow_back
+      </span>
+      Back To Main Page
+    </button>
+  </div>
   <mat-horizontal-stepper class="create-gig-stepper" labelPosition="bottom" #stepper>
     <mat-step [completed]="false">
       <ng-template matStepLabel>Overview</ng-template>
@@ -603,14 +611,6 @@
       </div>
     </mat-step>
   </mat-horizontal-stepper>
-  <div class="text-center">
-    <button mat-flat-button color="primary" (click)="gigConfig.startGig = false" class="rounded-pill ml-3 w25">
-      <span class="material-icons pr-2">
-        arrow_back
-      </span>
-      Back To Main Page
-    </button>
-  </div>
 </ng-template>
 
 <ng-template #loader>

@@ -5,8 +5,11 @@
       <li class="breadcrumb-item active"><a>Create or Edit Requirement</a></li>
     </ol>
     <section>
-      <ng-container *ngIf="!requirementConfig.isLoading && requirementConfig.isStart && requirementConfig.isFirst">
+      <ng-container *ngIf="!requirementConfig.isLoading && requirementConfig.isStart">
         <ng-container *ngTemplateOutlet="createRequirement"></ng-container>
+      </ng-container>
+      <ng-container *ngIf="!requirementConfig.isNew && !requirementConfig.isStart && !requirementConfig.isLoading">
+        <ng-container *ngTemplateOutlet="allRecruirements"></ng-container>
       </ng-container>
       <ng-container *ngIf="requirementConfig.isLoading">
         <ng-container *ngTemplateOutlet="loader"></ng-container>
@@ -55,11 +58,27 @@
         <div class="form-group text-left">
           <label class="form-label" for="Attachment">Attachment<span class="text-danger pl-1 asterisk">*</span></label>
           <div class="input-group input-group-merge">
-            <div class="p-3 d-flex align-items-center curPoint bg-primary-more-light">
+            <div
+              *ngIf="requirementConfig.requirement.attachment === ''"
+              class="p-3 d-flex align-items-center curPoint bg-primary-more-light"
+              (click)="triggerUpload()"
+            >
+              <span class="material-icons pr-3">
+                attach_file
+              </span>
+              Add Attachment
+            </div>
+            <div
+              *ngIf="requirementConfig.requirement.attachment !== ''"
+              class="p-3 d-flex align-items-center curPoint bg-primary-light"
+            >
               <span class="material-icons pr-3">
                 attach_file
               </span>
               Attachment
+              <span class="material-icons pl-3" (click)="(requirementConfig.requirement.attachment === '')">
+                close
+              </span>
             </div>
           </div>
         </div>
@@ -173,11 +192,167 @@
       </div>
     </div>
     <div class="text-center mt-4">
-      <button mat-flat-button color="primary" (click)="submit()" class="rounded-pill caps">
-        Create Requirement
+      <button
+        mat-flat-button
+        color="primary"
+        [disabled]="checkValidation()"
+        (click)="submit()"
+        class="rounded-pill caps"
+      >
+        Save Requirement
       </button>
     </div>
   </div>
+</ng-template>
+
+<ng-template #allRecruirements>
+  <div class="text-center p-4">
+    <button mat-flat-button color="primary" (click)="requirementConfig.isStart = true" class="rounded-pill caps w30">
+      Create Requirement
+    </button>
+  </div>
+
+  <mat-tab-group animationDuration="0ms">
+    <mat-tab label="Active Requirements">
+      <div class="row w100 no-gutters animated fadeIn">
+        <div class="col-4" *ngFor="let item of requirementConfig.activeRequirements">
+          <div class="card m-0 mt-4 mr-4 curPoint">
+            <div class="card-img pb-1 d-flex align-items-center justify-content-center">
+              <h5 class="text-css m-auto">{{ item.category }}</h5>
+            </div>
+            <div class="card-body pl-3 pr-3">
+              <div class="row no-gutters">
+                <div class="col-12 col-md-6">
+                  <h6 class="mb-1">Experience :</h6>
+                  <div>{{ item.experienceFrom }} - {{ item.experienceTo }} Years</div>
+                </div>
+                <div class="col-12 col-md-6">
+                  <h6 class="mb-1">Budget :</h6>
+                  <div>{{ item.budgetFrom | currency }} - {{ item.budgetTo | currency }}</div>
+                </div>
+                <div class="col-12 col-md-4"></div>
+                <div class="col-12 col-md-4"></div>
+              </div>
+            </div>
+            <div class="card-footer">
+              <div class="w100">
+                <div class="text-center">
+                  <button
+                    mat-mini-fab
+                    color="primary"
+                    [routerLink]="['/freelance/requirement/', item.id]"
+                    routerLinkActive="router-link-active"
+                    matTooltipPosition="below"
+                    matTooltip="View Requirement"
+                  >
+                    <mat-icon class="mb-1">remove_red_eye</mat-icon>
+                  </button>
+                  <button
+                    mat-flat-button
+                    color="primary"
+                    matTooltipPosition="below"
+                    matTooltip="Inactive Requirement"
+                    class="rounded-pill ml-2"
+                    (click)="activeInactiveReq(item, 'inactive')"
+                  >
+                    <span>Inactive</span>
+                  </button>
+                  <button
+                    mat-mini-fab
+                    color="primary"
+                    matTooltipPosition="below"
+                    class="ml-2"
+                    matTooltip="Edit Requirement"
+                    (click)="editReq(item)"
+                  >
+                    <mat-icon class="mb-1">create</mat-icon>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <ng-container *ngIf="!requirementConfig.isLoading && requirementConfig.activeRequirements.length == 0">
+          <div class="text-center m-auto animated fadeIn">
+            <div class="col-12 text-center">
+              <img src="../assets/images/no-record.gif" style="height: 300px;" class="d-block m-auto" />
+              <h6 class="text-primary">No Active Requirements...!</h6>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </mat-tab>
+    <mat-tab label="Inactive Requirements">
+      <div class="row w100 no-gutters animated fadeIn">
+        <div class="col-4" *ngFor="let item of requirementConfig.inactiveRequirements">
+          <div class="card m-0 mt-4 mr-4 curPoint">
+            <div class="card-img pb-1 d-flex align-items-center justify-content-center">
+              <h5 class="text-css m-auto">{{ item.category }}</h5>
+            </div>
+            <div class="card-body pl-3 pr-3">
+              <div class="row no-gutters">
+                <div class="col-12 col-md-6">
+                  <h6 class="mb-1">Experience :</h6>
+                  <div>{{ item.experienceFrom }} - {{ item.experienceTo }} Years</div>
+                </div>
+                <div class="col-12 col-md-6">
+                  <h6 class="mb-1">Budget :</h6>
+                  <div>{{ item.budgetFrom | currency }} - {{ item.budgetTo | currency }}</div>
+                </div>
+                <div class="col-12 col-md-4"></div>
+                <div class="col-12 col-md-4"></div>
+              </div>
+            </div>
+            <div class="card-footer">
+              <div class="w100">
+                <div class="text-center">
+                  <button
+                    mat-mini-fab
+                    color="primary"
+                    [routerLink]="['/freelance/requirement/', item.id]"
+                    routerLinkActive="router-link-active"
+                    matTooltipPosition="below"
+                    matTooltip="View Gig"
+                  >
+                    <mat-icon class="mb-1">remove_red_eye</mat-icon>
+                  </button>
+                  <button
+                    mat-flat-button
+                    color="primary"
+                    matTooltipPosition="below"
+                    matTooltip="Inactive Requirement"
+                    class="rounded-pill ml-2"
+                    (click)="activeInactiveReq(item, 'active')"
+                  >
+                    <span>Active</span>
+                  </button>
+                  <button
+                    mat-mini-fab
+                    color="primary"
+                    matTooltipPosition="below"
+                    class="ml-2"
+                    matTooltip="Edit Requirement"
+                    (click)="editReq(item)"
+                  >
+                    <mat-icon class="mb-1">create</mat-icon>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <ng-container *ngIf="!requirementConfig.isLoading && requirementConfig.inactiveRequirements.length == 0">
+          <div class="text-center m-auto animated fadeIn">
+            <div class="col-12 text-center">
+              <img src="../assets/images/no-record.gif" style="height: 300px;" class="d-block m-auto" />
+              <h6 class="text-primary">No InActive Requirements...!</h6>
+            </div>
+          </div>
+        </ng-container>
+      </div></mat-tab
+    >
+  </mat-tab-group>
 </ng-template>
 
 <ng-template #loader>
