@@ -671,7 +671,7 @@
     <ul class="animated fadeIn pt-2 pb-2 bg-white sidebar-submenu">
       <li>
         <button mat-menu-item class="h6" [routerLink]="['/freelance/all-gigs']" routerLinkActive="router-link-active">
-          <i class="fa fa-tags pr-3 text-primary"></i> All Services
+          <i class="fas fa-grip-horizontal pr-3 text-primary"></i> All Services
         </button>
       </li>
       <li>
@@ -681,12 +681,12 @@
           [routerLink]="['/freelance/create-requirement']"
           routerLinkActive="router-link-active"
         >
-          <i class="far fa-id-card pr-3 text-primary"></i> Create Requirement
+          <i class="fas fa-pen-square pr-3 text-primary"></i> Create Requirement
         </button>
       </li>
       <li *ngIf="user && user.isFreelancer === 'Y'">
         <button mat-menu-item class="h6" [routerLink]="['/freelance/create-gig']" routerLinkActive="router-link-active">
-          <i class="far fa-id-card pr-3 text-primary"></i> Seller
+          <i class="fas fa-id-badge pr-3 text-primary"></i> Seller
         </button>
       </li>
       <li>

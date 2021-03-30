@@ -95,6 +95,8 @@ export class AllJobListingsComponent implements OnInit {
     this.sharedService.configService.get(apiUrl).subscribe(
       (response: any) => {
         if ($t.user) {
+          job['orgName']= job.organisation.orgName;
+          job['orgImage']= job.organisation.orgImage;
           $t.user['savedJobs'].push(job);
           $t.user['savedJobs'] = $t.uds.uniq($t.user['savedJobs'], (d: any) => {
             return d.id;
