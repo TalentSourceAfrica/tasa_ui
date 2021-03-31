@@ -15,29 +15,40 @@ export class RequirementViewComponent implements OnInit {
     data: {},
     requirementId: 0,
   };
-  bid: any = {
-    id: '',
-    userId: this.user.email,
-    tasaId: this.user.tasaId,
-    userImage: this.user.image,
-    requirementId: this.reqDetailsConfig.requirementId,
-    requirementBy: this.reqDetailsConfig.data.createdBy,
-    comments: '',
-    attachment: '',
-    tat: 0,
-    cost: 0,
-    negotiable: '',
-    status: 'Auctioned',
-    createdOn: '',
-    createdBy: '',
-    updatedOn: '',
-    updatedBy: '',
+  bidConfig: any = {
+    isAlreadyBid: false,
+    allBids: [],
+    bid: {
+      id: '',
+      userId: this.user.email,
+      tasaId: this.user.tasaId,
+      userName: this.user.firstName + ' ' + this.user.lastName,
+      userImage: this.user.image,
+      requirementId: '',
+      requirementBy: '',
+      requirementByTasaId: '',
+      requirementByName: '',
+      requirementByImage: '',
+      comments: '',
+      attachment: '',
+      tat: 0,
+      cost: 0,
+      negotiable: 'Y',
+      status: 'Auctioned',
+      createdOn: '',
+      createdBy: '',
+      updatedOn: '',
+      updatedBy: '',
+    },
   };
+
   constructor(
     public sharedService: SharedService,
     private route: ActivatedRoute,
     private credentialsService: CredentialsService
-  ) {}
+  ) {
+    this.reqDetailsConfig.requirementId = this.route.snapshot.params.requirementId;
+  }
 
   triggerUpload() {
     this.upAttachment.nativeElement.click();
@@ -52,7 +63,7 @@ export class RequirementViewComponent implements OnInit {
     $t.sharedService.uiService.showApiStartPopMsg('Uploading Attachment...');
     $t.sharedService.configService.post(apiUrl, form).subscribe(
       (response: any) => {
-        $t.bid.attachment = response.url;
+        $t.bidConfig.bid.attachment = response.url;
         $t.sharedService.uiService.showApiSuccessPopMsg('Uploaded...');
       },
       (error) => {
@@ -62,7 +73,6 @@ export class RequirementViewComponent implements OnInit {
   }
   getReqDetail() {
     let $t = this;
-    $t.reqDetailsConfig.requirementId = $t.route.snapshot.params.requirementId;
     $t.reqDetailsConfig.isLoading = true;
     let apiUrl = this.sharedService.urlService.apiCallWithParams('getRequirement', {
       '{requirementId}': this.reqDetailsConfig.requirementId,
@@ -79,8 +89,57 @@ export class RequirementViewComponent implements OnInit {
     );
   }
 
+  checkBidValidation() {
+    if (this.bidConfig.bid.comments === '' || this.bidConfig.bid.tat === 0 || this.bidConfig.bid.cost === 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  postBid() {
+    let $t = this;
+
+    $t.bidConfig.bid.requirementId = $t.reqDetailsConfig.requirementId;
+    $t.bidConfig.bid.requirementBy = $t.reqDetailsConfig.data.createdBy;
+    $t.bidConfig.bid.requirementByTasaId = $t.reqDetailsConfig.data.postedByTasaId;
+    $t.bidConfig.bid.requirementByName = $t.reqDetailsConfig.data.postedByName;
+    $t.bidConfig.bid.requirementByImage = $t.reqDetailsConfig.data.postedByImage;
+
+    let apiUrl = $t.sharedService.urlService.apiCallWithParams('postBid', {
+      '{requirementId}': $t.reqDetailsConfig.requirementId,
+      '{userId}': $t.user.email,
+    });
+    $t.sharedService.uiService.showApiStartPopMsg('Posting Bid.');
+    $t.sharedService.configService.post(apiUrl, $t.bidConfig.bid).subscribe(
+      (response: any) => {
+        $t.sharedService.uiService.showApiSuccessPopMsg(response.message);
+      },
+      (error) => {
+        $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
+      }
+    );
+  }
+
+  getAllBid() {
+    let $t = this;
+    let apiUrl = $t.sharedService.urlService.apiCallWithParams('fetchAllBid', {
+      '{requirementId}': $t.reqDetailsConfig.requirementId,
+      '{status}': 'All',
+    });
+    $t.sharedService.configService.get(apiUrl).subscribe(
+      (response: any) => {
+        $t.bidConfig.allBids = response.responseObj;
+      },
+      (error) => {
+        $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
+      }
+    );
+  }
+
   ngOnInit(): void {
     this.getReqDetail();
+    this.getAllBid();
   }
 
   get user(): any | null {

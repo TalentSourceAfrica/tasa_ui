@@ -24,7 +24,11 @@
             <div class="card-body">
               <div class="d-flex align-items-center justify-content-center mb-4">
                 <img
-                  src="{{reqDetailsConfig.data?.postedByImage !== '' ? reqDetailsConfig.data?.postedByImage : 'https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg'}} "
+                  src="{{
+                    reqDetailsConfig.data?.postedByImage !== ''
+                      ? reqDetailsConfig.data?.postedByImage
+                      : 'https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg'
+                  }} "
                   [routerLink]="['/social-network/profile/', reqDetailsConfig.data?.postedByTasaId]"
                   routerLinkActive="router-link-active"
                   class="user-img"
@@ -67,7 +71,7 @@
                       matTooltipPosition="below"
                       matTooltip="View Attachment"
                     >
-                      Attachment
+                      View Attachment
                     </a>
                   </div>
                 </div>
@@ -80,91 +84,12 @@
           </div>
         </div>
         <div class="col-md-4 col-12">
-          <div class="card my-4 m-0">
-            <div class="card-header">
-              <h4 class="card-title">Post BID</h4>
-            </div>
-            <div class="card-body">
-              <div class="row no-gutters animated fadeInUp">
-                <div class="col-6">
-                  <div class="form-group text-left mr-2">
-                    <label class="form-label" for="cost">Cost</label>
-                    <div class="input-group input-group-merge">
-                      <input
-                        id="cost"
-                        type="number"
-                        min="0"
-                        step="1"
-                        oninput="validity.valid||(value='');"
-                        [(ngModel)]="bid.cost"
-                        class="form-control form-control-prepended"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div class="col-6">
-                  <div class="form-group text-left">
-                    <label class="form-label" for="tat">TAT</label>
-                    <div class="input-group input-group-merge">
-                      <input
-                        id="tat"
-                        type="number"
-                        min="0"
-                        step="1"
-                        oninput="validity.valid||(value='');"
-                        [(ngModel)]="bid.tat"
-                        class="form-control form-control-prepended"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div class="col-6">
-                  <div class="form-group text-left">
-                    <label class="form-label" for="Attachment"
-                      >Attachment<span class="text-danger pl-1 asterisk">*</span></label
-                    >
-                    <div class="input-group input-group-merge">
-                      <div
-                        *ngIf="bid.attachment === ''"
-                        class="p-3 d-flex align-items-center curPoint bg-primary-more-light"
-                        (click)="triggerUpload()"
-                      >
-                        <span class="material-icons pr-3">
-                          attach_file
-                        </span>
-                        Add Attachment
-                      </div>
-                      <div
-                        *ngIf="bid.attachment !== ''"
-                        class="p-3 d-flex align-items-center curPoint bg-primary-light"
-                      >
-                        <span class="material-icons pr-3">
-                          attach_file
-                        </span>
-                        Attachment
-                        <span class="material-icons pl-3" (click)="(bid.attachment === '')">
-                          close
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-12">
-                  <div class="form-group text-left">
-                    <label class="form-label" for="comment">Comment</label>
-                    <textarea
-                      name="comment"
-                      [(ngModel)]="bid.comments"
-                      class="form-control form-control-prepended"
-                      cols="30"
-                      rows="10"
-                      style="min-height: 100px; max-height: 100px;"
-                    ></textarea>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <ng-container *ngIf="user.email !== reqDetailsConfig.data.createdBy">
+            <ng-container *ngTemplateOutlet="bidPosting"></ng-container>
+          </ng-container>
+          <ng-container *ngIf="user.email === reqDetailsConfig.data.createdBy">
+            <ng-container *ngTemplateOutlet="allBids"></ng-container>
+          </ng-container>
         </div>
       </div>
     </div>
@@ -172,3 +97,129 @@
 </div>
 
 <input id="resumeUpload" class="d-none" #uploadAttachment type="file" (change)="uploadFile($event)" />
+
+<ng-template #bidPosting>
+  <div class="card my-4 m-0">
+    <div class="card-header text-center">
+      <h4 class="card-title">Post BID</h4>
+    </div>
+    <div class="card-body">
+      <div class="row no-gutters animated fadeInUp">
+        <div class="col-12 col-md-6">
+          <div class="form-group text-left mr-2">
+            <label class="form-label" for="cost">Cost</label>
+            <div class="input-group input-group-merge">
+              <input
+                id="cost"
+                type="number"
+                min="0"
+                step="1"
+                oninput="validity.valid||(value='');"
+                [(ngModel)]="bidConfig.bid.cost"
+                class="form-control form-control-prepended"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-6">
+          <div class="form-group text-left">
+            <label class="form-label" for="tat">TAT</label>
+            <div class="input-group input-group-merge">
+              <input
+                id="tat"
+                type="number"
+                min="0"
+                step="1"
+                oninput="validity.valid||(value='');"
+                [(ngModel)]="bidConfig.bid.tat"
+                class="form-control form-control-prepended"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-6">
+          <div class="form-group text-left">
+            <label class="form-label" for="Attachment">Attachment</label>
+            <div class="input-group input-group-merge">
+              <div
+                *ngIf="bidConfig.bid.attachment === ''"
+                class="p-2 d-flex align-items-center curPoint bg-primary-more-light"
+                (click)="triggerUpload()"
+              >
+                <span class="material-icons pr-3">
+                  attach_file
+                </span>
+                Add Attachment
+              </div>
+              <div *ngIf="bidConfig.bid.attachment !== ''" class="p-3 d-flex align-items-center curPoint bg-primary-light">
+                <span class="material-icons pr-3">
+                  attach_file
+                </span>
+                Attachment
+                <span class="material-icons pl-3" (click)="(bidConfig.bid.attachment === '')">
+                  close
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-6">
+          <div class="form-group text-left">
+            <label class="form-label" for="negotiable"
+              >Negotiable<span class="text-danger pl-1 asterisk">*</span></label
+            >
+            <mat-select
+              id="negotiable"
+              [(ngModel)]="bidConfig.bid.negotiable"
+              [(value)]="bidConfig.bid.negotiable"
+              class="form-control form-control-prepended"
+            >
+              <mat-option [value]="'Y'">
+                Yes
+              </mat-option>
+              <mat-option [value]="'N'">
+                No
+              </mat-option>
+            </mat-select>
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="form-group text-left">
+            <label class="form-label" for="comment">Comment</label>
+            <textarea
+              name="comment"
+              [(ngModel)]="bidConfig.bid.comments"
+              class="form-control form-control-prepended"
+              cols="30"
+              rows="10"
+              style="min-height: 100px; max-height: 100px;"
+            ></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="text-center">
+        <button
+          mat-flat-button
+          color="primary"
+          [disabled]="checkBidValidation()"
+          (click)="postBid()"
+          class="rounded-pill ml-3"
+        >
+          <span class="material-icons pr-2">
+            publish
+          </span>
+          Submit Bid
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #allBids>
+  <div class="card my-4 m-0">
+    <div class="card-header text-center">
+      <h4 class="card-title">All BID</h4>
+    </div>
+    <div class="card-body"></div>
+  </div>
+</ng-template>
