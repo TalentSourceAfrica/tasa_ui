@@ -21,7 +21,10 @@ export class CreateRequirementComponent implements OnInit {
     inactiveRequirements: [],
     requirement: {
       id: '',
-      postedBy: this.user.firstName + ' ' + this.user.lastName,
+      postedBy: this.user.email,
+      postedByTasaId: this.user.tasaId,
+      postedByName: this.user.firstName + ' ' + this.user.lastName,
+      postedByImage:  this.user.image,
       description: '',
       attachment: '',
       category: '',
@@ -74,13 +77,13 @@ export class CreateRequirementComponent implements OnInit {
       succMsg = 'Your requirement is active now.';
       apiUrl = $t.sharedService.urlService.apiCallWithParams('activateRequirement', {
         '{requirementId}': req.id,
-        '{userId}': $t.user.email 
+        '{userId}': $t.user.email,
       });
     } else {
       succMsg = 'Your requirement is inactive now.';
       apiUrl = $t.sharedService.urlService.apiCallWithParams('deactivateRequirement', {
         '{requirementId}': req.id,
-        '{userId}': $t.user.email
+        '{userId}': $t.user.email,
       });
     }
     $t.sharedService.configService.post(apiUrl).subscribe(
@@ -117,7 +120,7 @@ export class CreateRequirementComponent implements OnInit {
           $t.fetchUserRequirement();
         },
         (error) => {
-          $t.sharedService.uiService.showApiSuccessPopMsg(error.error.message);
+          $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
         }
       );
     }

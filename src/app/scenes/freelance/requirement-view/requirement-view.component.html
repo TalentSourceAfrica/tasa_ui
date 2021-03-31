@@ -22,23 +22,54 @@
             </ng-container>
 
             <div class="card-body">
-              <div class="row no-gutters border-bottom pb-2">
-                <div class="col-12 col-md-4">
+              <div class="d-flex align-items-center justify-content-center mb-4">
+                <img
+                  src="{{reqDetailsConfig.data?.postedByImage !== '' ? reqDetailsConfig.data?.postedByImage : 'https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg'}} "
+                  [routerLink]="['/social-network/profile/', reqDetailsConfig.data?.postedByTasaId]"
+                  routerLinkActive="router-link-active"
+                  class="user-img"
+                  alt=""
+                />
+                <div class="font400 pl-0 text-truncate" [title]="">{{ reqDetailsConfig.data?.postedByName }}</div>
+              </div>
+              <div class="row no-gutters border-bottom pb-4">
+                <div class="col-12 col-md-3">
                   <h6 class="mb-1"><i class="fas fa-briefcase pr-2 text-muted"></i>Experience</h6>
                   <div>
                     {{ reqDetailsConfig.data?.experienceFrom }} - {{ reqDetailsConfig.data?.experienceTo }} Years
                   </div>
                 </div>
-                <div class="col-12 col-md-4">
+                <div class="col-12 col-md-3">
                   <h6 class="mb-1"><i class="fas fa-money-bill-wave pr-2 text-muted"></i>Budget</h6>
                   <div>
                     {{ reqDetailsConfig.data?.budgetFrom | currency }} -
                     {{ reqDetailsConfig.data?.budgetTo | currency }}
                   </div>
                 </div>
-                <div class="col-12 col-md-4">
+                <div class="col-12 col-md-3">
                   <h6 class="mb-1"><i class="fas fa-calendar-week pr-2 text-muted"></i>Open Till</h6>
                   <div>{{ reqDetailsConfig.data?.openTill | date: 'mediumDate' }}</div>
+                </div>
+                <div class="col-12 col-md-3">
+                  <div
+                    *ngIf="reqDetailsConfig.data?.attachment !== ''"
+                    class="p-2 d-flex zoomCard align-items-center curPoint bg-primary-light"
+                  >
+                    <span class="material-icons pr-3">
+                      attach_file
+                    </span>
+                    <a
+                      [href]="reqDetailsConfig.data?.attachment"
+                      target="_blank"
+                      color="primary"
+                      class="mr-2"
+                      download
+                      matTooltipPosition="below"
+                      matTooltip="View Attachment"
+                    >
+                      Attachment
+                    </a>
+                  </div>
                 </div>
               </div>
               <div class="p-3">
