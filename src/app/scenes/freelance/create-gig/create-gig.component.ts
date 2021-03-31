@@ -83,6 +83,33 @@ export class CreateGigComponent implements OnInit {
 
   startGigCreation() {
     this.gigConfig.startGig = true;
+    this.gigConfig.gig = {
+      id: '',
+      userId: this.user.email,
+      tasaId: this.user.tasaId,
+      title: '',
+      description: '',
+      image: '',
+      video: '',
+      category: '',
+      reasonToHire: '',
+      plans: [
+        {
+          name: '',
+          deliveryDays: '',
+          price: 0,
+          commission: 10,
+          deliveryPrice: 0,
+          revisions: 0,
+          deliveryDetails: [],
+        },
+      ],
+      active: 'Y',
+      createdOn: '',
+      createdBy: '',
+      updatedOn: '',
+      updatedBy: '',
+    };
   }
 
   getDeliveryPrice(plan: any) {
@@ -209,7 +236,6 @@ export class CreateGigComponent implements OnInit {
         $t.gigConfig.inactiveGigs = response[1].responseObj;
         if ($t.gigConfig.activeGigs.length || $t.gigConfig.inactiveGigs.length) {
           $t.gigConfig.isNew = false;
-          $t.cdr.detectChanges();
         }
         $t.gigConfig.isLoading = false;
       },
@@ -226,14 +252,16 @@ export class CreateGigComponent implements OnInit {
     let succMsg = '';
     $t.sharedService.uiService.showApiStartPopMsg('Updating...');
     if (type === 'active') {
-      succMsg = 'Your gig card is inactive now.';
+      succMsg = 'Your gig card is active now.';
       apiUrl = $t.sharedService.urlService.apiCallWithParams('activateGig', {
         '{cardId}': gig.id,
+        '{userId}': $t.user.email
       });
     } else {
-      succMsg = 'Your gig card is active now.';
+      succMsg = 'Your gig card is inactive now.';
       apiUrl = $t.sharedService.urlService.apiCallWithParams('deactivateGig', {
         '{cardId}': gig.id,
+        '{userId}': $t.user.email
       });
     }
     $t.sharedService.configService.post(apiUrl).subscribe(
@@ -242,7 +270,7 @@ export class CreateGigComponent implements OnInit {
         $t.sharedService.uiService.showApiSuccessPopMsg(succMsg);
       },
       (error) => {
-        $t.sharedService.uiService.showApiErrorPopMsg('Something Went Wrong, Please Try Again After Sometime...');
+        $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
       }
     );
   }

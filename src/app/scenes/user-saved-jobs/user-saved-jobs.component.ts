@@ -37,7 +37,7 @@ export class UserSavedJobsComponent implements OnInit {
     event.stopPropagation();
     event.preventDefault();
     let $t = this;
-    let apiUrl = this.sharedService.urlService.apiCallWithParams('saveJob', {
+    let apiUrl = this.sharedService.urlService.apiCallWithParams('removeSavedJob', {
       '{userId}': $t.user.email,
       '{jobId}': job.id,
     });

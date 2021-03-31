@@ -107,7 +107,7 @@
       <div class="row no-gutters animated fadeInUp">
         <div class="col-12 col-md-6">
           <div class="form-group text-left mr-2">
-            <label class="form-label" for="cost">Cost</label>
+            <label class="form-label" for="cost">Cost <span class="text-danger pl-1 asterisk">*</span></label>
             <div class="input-group input-group-merge">
               <input
                 id="cost"
@@ -123,7 +123,7 @@
         </div>
         <div class="col-12 col-md-6">
           <div class="form-group text-left">
-            <label class="form-label" for="tat">TAT</label>
+            <label class="form-label" for="tat">TAT <span class="text-danger pl-1 asterisk">*</span></label>
             <div class="input-group input-group-merge">
               <input
                 id="tat"
@@ -185,10 +185,10 @@
         </div>
         <div class="col-12">
           <div class="form-group text-left">
-            <label class="form-label" for="comment">Comment</label>
+            <label class="form-label" for="description">Description <span class="text-danger pl-1 asterisk">*</span></label>
             <textarea
-              name="comment"
-              [(ngModel)]="bidConfig.bid.comments"
+              name="description"
+              [(ngModel)]="bidConfig.bid.description"
               class="form-control form-control-prepended"
               cols="30"
               rows="10"

@@ -183,8 +183,8 @@ export const urls: any = {
   getAllActiveGigs: '/gigcard/allActive/page/{page}/{size}', // G
   getUserActiveGigs: '/gigcard/allActive/{userId}', // G
   getUserInactiveGigs: '/gigcard/allInActive/{userId}', // G
-  activateGig: '/gigcard/activate/{cardId}', // PO
-  deactivateGig: '/gigcard/deactivate/{cardId}', // PO
+  activateGig: '/gigcard/activate/{cardId}/{userId}', // PO
+  deactivateGig: '/gigcard/deactivate/{cardId}/{userId}', // PO
   getGigCard: '/gigcard/{gigCardId}', // G
   gigSearch: '/gigcard/search/{searchText}', // G
 

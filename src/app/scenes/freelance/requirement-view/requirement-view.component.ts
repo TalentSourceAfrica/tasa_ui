@@ -29,7 +29,7 @@ export class RequirementViewComponent implements OnInit {
       requirementByTasaId: '',
       requirementByName: '',
       requirementByImage: '',
-      comments: '',
+      description: '',
       attachment: '',
       tat: 0,
       cost: 0,
@@ -90,7 +90,7 @@ export class RequirementViewComponent implements OnInit {
   }
 
   checkBidValidation() {
-    if (this.bidConfig.bid.comments === '' || this.bidConfig.bid.tat === 0 || this.bidConfig.bid.cost === 0) {
+    if (this.bidConfig.bid.description === '' || this.bidConfig.bid.tat === 0 || this.bidConfig.bid.cost === 0) {
       return true;
     } else {
       return false;
