@@ -678,6 +678,16 @@
         <button
           mat-menu-item
           class="h6"
+          [routerLink]="['/freelance/all-requirements']"
+          routerLinkActive="router-link-active"
+        >
+          <i class="fas fa-grip-horizontal pr-3 text-primary"></i> All Requirements
+        </button>
+      </li>
+      <li>
+        <button
+          mat-menu-item
+          class="h6"
           [routerLink]="['/freelance/create-requirement']"
           routerLinkActive="router-link-active"
         >
@@ -686,7 +696,7 @@
       </li>
       <li *ngIf="user && user.isFreelancer === 'Y'">
         <button mat-menu-item class="h6" [routerLink]="['/freelance/create-gig']" routerLinkActive="router-link-active">
-          <i class="fas fa-id-badge pr-3 text-primary"></i> Seller
+          <i class="fas fa-id-badge pr-3 text-primary"></i>Become Seller
         </button>
       </li>
       <li>

@@ -273,6 +273,14 @@ const routes: Routes = [
                 (m) => m.RequirementViewModule
               ),
           },
+          {
+            path: 'all-requirements',
+            canActivate: [AuthenticationGuard],
+            loadChildren: () =>
+              import('@app/scenes/freelance/all-requirement/all-requirement.module').then(
+                (m) => m.AllRequirementModule
+              ),
+          },
         ],
       },
       { path: '', redirectTo: '/home', pathMatch: 'full' },

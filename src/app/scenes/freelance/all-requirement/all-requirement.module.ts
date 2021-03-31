@@ -5,12 +5,11 @@ import { FormsModule } from '@angular/forms';
 import { I18nModule } from '@app/i18n';
 import { MaterialModule } from '@app/modules/material.module';
 import { RouterModule } from '@angular/router';
-import { AllGigsComponent } from './all-gigs.component';
-import { AllGigsRoutingModule } from './all-gigs-routing.module';
-import { CarouselModule } from 'ngx-owl-carousel-o';
+import { AllRequirementComponent } from './all-requirement.component';
+import { AllRequirementRoutingModule } from './all-requirement-routing.module';
 
 @NgModule({
-  declarations: [AllGigsComponent],
+  declarations: [AllRequirementComponent],
   imports: [
     CommonModule,
     TranslateModule,
@@ -18,9 +17,8 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
     I18nModule,
     RouterModule,
     MaterialModule,
-    AllGigsRoutingModule,
-    CarouselModule,
+    AllRequirementRoutingModule,
   ],
   schemas: [NO_ERRORS_SCHEMA],
 })
-export class AllGigsModule {}
+export class AllRequirementModule {}

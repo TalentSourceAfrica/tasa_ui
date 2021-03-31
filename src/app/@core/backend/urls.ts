@@ -194,7 +194,14 @@ export const urls: any = {
   deactivateRequirement: '/requirement/deactivate/{requirementId}/{userId}', // PO
   openRequirement: '/requirement/open/{requirementId}', // PO
   closeRequirement: '/requirement/close/{requirementId}', // PO
-  getAllOpenRequirement: '/requirement/allOpen', // G
+  getAllOpenRequirement: '/requirement/allOpen/page/{page}/{size}', // G
   getUserActiveRequirements: '/requirement/allActive/{userId}', // G
   getUserInactiveRequirements: '/requirement/allInActive/{userId}', // G
+  getRequirement: '/requirement/{requirementId}', // G
+
+  // bidding
+  postBid: '/bid/{requirementId}/{userId}', // PO
+  fetchAllBid: '/bid/{requirementId}/{status}' , // G
+  updateBid : '/bid/updateStatus/{bidId}/{status}/{userId}', // PO
+  fetchAllBidsForBidder : '/bid/bidder/{bidderId}/{status}' , // G
 };

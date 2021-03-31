@@ -18,7 +18,7 @@
 <ng-template #allGigs>
   <mat-paginator
     class="col-12"
-    [length]="length"
+    [length]="gigConfig.data.length"
     [pageSize]="pageSize"
     [pageSizeOptions]="pageSizeOptions"
     (page)="pageEvent = pagination($event)"
