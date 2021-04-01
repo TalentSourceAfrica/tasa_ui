@@ -249,13 +249,13 @@
                   </h6>
                 </span>
                 <span class="pl-2 text-right">
-                  <span class="badge badge-warning p-1" *ngIf="job.jobStatus == 'Applied'">{{ job.jobStatus }}</span>
-                  <span class="badge badge-dark p-1" *ngIf="job.jobStatus == 'Under Review'">{{ job.jobStatus }}</span>
-                  <span class="badge badge-success p-1" *ngIf="job.jobStatus == 'Accepted'">{{ job.jobStatus }}</span>
-                  <span class="badge badge-danger p-1" *ngIf="job.jobStatus == 'Rejected'">{{ job.jobStatus }}</span>
+                  <span class="badge badge-warning p-1 caps" *ngIf="job.jobStatus == 'Applied'">{{ job.jobStatus }}</span>
+                  <span class="badge badge-dark p-1 caps" *ngIf="job.jobStatus == 'Under Review'">{{ job.jobStatus }}</span>
+                  <span class="badge badge-success p-1 caps" *ngIf="job.jobStatus == 'Accepted'">{{ job.jobStatus }}</span>
+                  <span class="badge badge-danger p-1 caps" *ngIf="job.jobStatus == 'Rejected'">{{ job.jobStatus }}</span>
                 </span>
               </div>
-              <div class="card-intro">
+              <div class="card-intro mt-2">
                 <div class="d-flex">
                   <span class="text-muted pl-1 d-flex text-bold" style="justify-content: center;"
                     ><span class="material-icons pr-1 text-primary">
@@ -433,7 +433,7 @@
                   <span class="badge badge-danger p-1" *ngIf="job.jobStatus == 'Rejected'">{{ job.jobStatus }}</span>
                 </span>
               </div>
-              <div class="card-intro">
+              <div class="card-intro mt-2">
                 <div class="d-flex">
                   <span class="text-muted pl-1 d-flex text-bold" style="justify-content: center;"
                     ><span class="material-icons pr-1 text-primary">

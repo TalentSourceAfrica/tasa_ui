@@ -668,7 +668,7 @@
     <a class="curPoint px-2 py-4">
       <i class="fas fa-unlock-alt pr-2"></i>Freelance<i class="fas fa-caret-down pl-1"></i
     ></a>
-    <ul class="animated fadeIn pt-2 pb-2 bg-white sidebar-submenu">
+    <ul class="animated fadeIn pt-2 pb-2 bg-white sidebar-submenu" style="min-width: 280px;">
       <li>
         <button mat-menu-item class="h6" [routerLink]="['/freelance/all-gigs']" routerLinkActive="router-link-active">
           <i class="fas fa-grip-horizontal pr-3 text-primary"></i> All Services
@@ -681,7 +681,7 @@
           [routerLink]="['/freelance/all-requirements']"
           routerLinkActive="router-link-active"
         >
-          <i class="fas fa-grip-horizontal pr-3 text-primary"></i> All Requirements
+          <i class="fas fa-grip-horizontal pr-3 text-primary"></i> Custom Gigs
         </button>
       </li>
       <li>
@@ -691,7 +691,7 @@
           [routerLink]="['/freelance/create-requirement']"
           routerLinkActive="router-link-active"
         >
-          <i class="fas fa-pen-square pr-3 text-primary"></i> Create Requirement
+          <i class="fas fa-pen-square pr-3 text-primary"></i> Create Custom Gig Request
         </button>
       </li>
       <li *ngIf="user && user.isFreelancer === 'Y'">

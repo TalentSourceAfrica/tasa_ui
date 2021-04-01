@@ -312,8 +312,8 @@
                           </div>
                         </div>
                       </div>
-                      <hr />
-                      <div class="card m-0 p-4">
+      
+                      <div class="card m-0  mt-4 p-4">
                         <div class="d-flex">
                           <h3 class="heading-small text-muted mb-4 w50 caps">Experience</h3>
                           <div class="d-flex w100 justify-content-end" *ngIf="isCurrentUser">
@@ -345,8 +345,7 @@
                           <hr *ngIf="userConfig.user.experience.length > 1 && !last" />
                         </div>
                       </div>
-                      <hr />
-                      <div class="card m-0 p-4">
+                      <div class="card m-0  mt-4 p-4">
                         <div class="d-flex">
                           <h3 class="heading-small text-muted mb-4 w50 caps">Education</h3>
                           <div class="d-flex w100 justify-content-end" *ngIf="isCurrentUser">
@@ -388,8 +387,7 @@
                           <hr *ngIf="userConfig.user.education.length > 1 && !last" />
                         </div>
                       </div>
-                      <hr />
-                      <div class="card m-0 p-4">
+                      <div class="card m-0  mt-4 p-4">
                         <ng-container>
                           <div class="d-flex">
                             <h3 class="heading-small text-muted mb-4 w50 caps">Certification</h3>
@@ -430,9 +428,7 @@
                           </div>
                         </ng-container>
                       </div>
-                      <hr />
-
-                      <div class="card m-0 p-4">
+                      <div class="card m-0 mt-4 p-4">
                         <div class="d-flex">
                           <h3 class="heading-small text-muted mb-4 w50 caps">Freelance Experience</h3>
                           <div class="d-flex w100 justify-content-end" *ngIf="isCurrentUser">
@@ -471,13 +467,6 @@
                               </div>
                             </div>
                             <div class="col-lg-4">
-                              <div class="form-group focused">
-                                <label class="form-control-label" for="input-country">Gig Details</label>
-                                <h4 class="text-primary font400">{{ item.projectDesc }}</h4>
-                                <!-- <input type="text" id="input-country" class="form-control form-control-alternative" placeholder="Country" value="United States"> -->
-                              </div>
-                            </div>
-                            <div class="col-lg-4">
                               <div class="form-group">
                                 <label class="form-control-label" for="input-country">Client Name</label>
                                 <h4 class="text-primary font400">{{ item.clientName }}</h4>
@@ -491,11 +480,17 @@
                                 <!-- <input type="number" id="input-postal-code" class="form-control form-control-alternative" placeholder="Postal code"> -->
                               </div>
                             </div>
-                            <hr *ngIf="userConfig.user.pastGigs.length > 1 && !last" />
+                            <div class="col-lg-6">
+                              <div class="form-group focused">
+                                <label class="form-control-label" for="input-country">Gig Details</label>
+                                <h4 class="text-primary font400">{{ item.projectDesc }}</h4>
+                                <!-- <input type="text" id="input-country" class="form-control form-control-alternative" placeholder="Country" value="United States"> -->
+                              </div>
+                            </div>
+                            <div class="col-12" *ngIf="!last"><hr /></div>
                           </div>
                         </div>
                       </div>
-                      <hr />
                     </div>
                   </div>
                 </div>

@@ -22,6 +22,7 @@ export class CreateGigComponent implements OnInit {
     activeGigs: [],
     inactiveGigs: [],
     isLoading: false,
+    isCarousel: false,
     gig: {
       id: '',
       userId: this.user.email,
@@ -238,6 +239,9 @@ export class CreateGigComponent implements OnInit {
           $t.gigConfig.isNew = false;
         }
         $t.gigConfig.isLoading = false;
+        setTimeout(() => {
+          $t.gigConfig.isCarousel = true;
+        }, 10);
       },
       (error) => {
         $t.gigConfig.isLoading = false;
@@ -255,13 +259,13 @@ export class CreateGigComponent implements OnInit {
       succMsg = 'Your gig card is active now.';
       apiUrl = $t.sharedService.urlService.apiCallWithParams('activateGig', {
         '{cardId}': gig.id,
-        '{userId}': $t.user.email
+        '{userId}': $t.user.email,
       });
     } else {
       succMsg = 'Your gig card is inactive now.';
       apiUrl = $t.sharedService.urlService.apiCallWithParams('deactivateGig', {
         '{cardId}': gig.id,
-        '{userId}': $t.user.email
+        '{userId}': $t.user.email,
       });
     }
     $t.sharedService.configService.post(apiUrl).subscribe(

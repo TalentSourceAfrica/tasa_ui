@@ -50,7 +50,7 @@
                               <h6 class="text-primary mt-2 pb-2">{{ job.title }}</h6>
                               &nbsp; &nbsp;
                               <span
-                                class="badge pt-2 mt-1 badge-pill"
+                                class="badge caps mt-1 font18"
                                 style="height: 28px;"
                                 [ngClass]="{
                                   'badge-warning text-white': checkStatus(job) == 'Applied',
@@ -118,7 +118,7 @@
                                     Job Location :
                                   </div>
                                   <div class="col-6 col-md-9 h6">
-                                    {{ job.location }}
+                                    {{ job.country }}
                                   </div>
                                 </div>
                               </div>
@@ -138,7 +138,7 @@
                                     Tags :
                                   </div>
                                   <div class="col-6 col-md-9 h6">
-                                    <span class="card-intro pr-1 p-1" *ngFor="let item of job.tags"
+                                    <span class="card-intro pr-1 p-1" *ngFor="let item of job.desiredSkill"
                                       ><badge class="badge badge-info">{{ item }}</badge></span
                                     >
                                   </div>

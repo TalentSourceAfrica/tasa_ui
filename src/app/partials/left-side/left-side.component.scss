@@ -47,7 +47,7 @@ $userActionColor: #004e98;
       }
     }
     .card-body {
-      background-color: #accbe1 !important;
+      background-color: #accbe16b !important;
     }
     .detail {
       border: 2px solid $userActionColor;
@@ -59,7 +59,7 @@ $userActionColor: #004e98;
       background-color: $userActionColor !important;
     }
     .material-icons {
-      color: $recommendationColor !important;
+      color: $userActionColor !important;
     }
   }
   .profile-complete-wrapper {
