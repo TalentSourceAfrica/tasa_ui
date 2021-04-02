@@ -27,7 +27,7 @@ export class RightSideComponent implements OnInit {
   // };
 
   groupsOptions: OwlOptions = {
-    loop: true,
+    loop: false,
     autoplay: true,
     center: true,
     smartSpeed: 1000,
@@ -35,7 +35,7 @@ export class RightSideComponent implements OnInit {
     autoHeight: false,
     autoWidth: true,
     autoplayHoverPause: true,
-    items: 4,
+    items: 1,
     nav: true,
     margin: 4,
     navText: ["<i class='fas fa-chevron-circle-left'></i>", "<i class='fas fa-chevron-circle-right'></i>"],
@@ -43,16 +43,7 @@ export class RightSideComponent implements OnInit {
     responsive: {
       0: {
         items: 1,
-      },
-      300: {
-        items: 2,
-      },
-      600: {
-        items: 3,
-      },
-      900: {
-        items: 4,
-      },
+      }
     },
   };
   newsConfig: any = {

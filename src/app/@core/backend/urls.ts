@@ -202,6 +202,8 @@ export const urls: any = {
   // bidding
   postBid: '/bid/{requirementId}/{userId}', // PO
   fetchAllBid: '/bid/{requirementId}/{status}' , // G
-  updateBid : '/bid/updateStatus/{bidId}/{status}/{userId}', // PO
+  updateBidStatus : '/bid/updateStatus/{bidId}/{status}/{userId}', // PO
   fetchAllBidsForBidder : '/bid/bidder/{bidderId}/{status}' , // G
+  fetchAllBidsForRequirement : '/bid/shallow/{requirementId}/{status}' , // G
+  fetchUserSpecificBid : '/bid/user/{requirementId}/{tasaId}', // G
 };

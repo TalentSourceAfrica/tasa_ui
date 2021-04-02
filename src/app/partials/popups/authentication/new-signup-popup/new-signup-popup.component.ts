@@ -461,8 +461,10 @@ export class NewSignupPopupComponent implements OnInit {
   getRace() {
     let $t = this;
     let apiUrl = $t.sharedService.urlService.apiCallWithParams('getLovsByGroup', { '{group}': 'Race' });
-    $t.sharedService.configService.get(apiUrl).subscribe((response) => {
-      $t.raceData = response[0].value;
+    $t.sharedService.configService.get(apiUrl).subscribe((response:any) => {
+      if(response.length){
+        $t.raceData = response[0].value;
+      }
     });
   }
 

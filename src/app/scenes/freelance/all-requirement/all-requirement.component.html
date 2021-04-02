@@ -6,7 +6,7 @@
     </ol>
     <section>
       <ng-container *ngIf="!reqConfig.isLoading">
-        <ng-container *ngTemplateOutlet="allGigs"></ng-container>
+        <ng-container *ngTemplateOutlet="allRequirements"></ng-container>
       </ng-container>
       <ng-container *ngIf="reqConfig.isLoading">
         <ng-container *ngTemplateOutlet="loader"></ng-container>
@@ -15,7 +15,7 @@
   </div>
 </div>
 
-<ng-template #allGigs>
+<ng-template #allRequirements>
   <mat-paginator
     class="col-12"
     [length]="reqConfig.data.length"
@@ -46,15 +46,18 @@
     </div>
     <div class="col-4" *ngFor="let item of reqConfig.data">
       <div class="m-2">
-      <div class="card m-0 mt-4 curPoint">
-       
+        <div class="card m-0 mt-4 curPoint">
           <div class="card-img pb-1 d-flex align-items-center justify-content-center">
             <h5 class="text-css m-auto">{{ item.category }}</h5>
           </div>
           <div class="card-body pl-3 pr-3">
             <div class="d-flex align-items-center justify-content-center mb-4">
               <img
-                src="{{item.postedByImage !== '' ? item.postedByImage : 'https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg'}} "
+                src="{{
+                  item.postedByImage !== ''
+                    ? item.postedByImage
+                    : 'https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg'
+                }} "
                 [routerLink]="['/social-network/profile/', item.postedByTasaId]"
                 routerLinkActive="router-link-active"
                 class="user-img"

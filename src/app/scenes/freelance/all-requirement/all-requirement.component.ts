@@ -29,7 +29,22 @@ export class AllRequirementComponent implements OnInit {
     }
   }
 
-  onSearchReq() {}
+  onSearchReq() {
+    let $t = this;
+    if ($t.reqConfig.searchText.length >= 3) {
+      let apiUrl = $t.sharedService.urlService.apiCallWithParams('gigSearch', {
+        '{searchText}': $t.reqConfig.searchText,
+      });
+      $t.sharedService.configService.get(apiUrl).subscribe(
+        (response: any) => {
+          $t.reqConfig.data = response.responseObj;
+        },
+        (error) => {
+          $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
+        }
+      );
+    }
+  }
 
   fetchAllReq(_pageIndex: number) {
     let $t = this;

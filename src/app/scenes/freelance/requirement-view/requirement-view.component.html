@@ -1,4 +1,4 @@
-<div class="req-view-wrapper w80 m-auto pt-4 mb-4">
+<div class="req-view-wrapper w85 m-auto pt-4 mb-4">
   <div class="page">
     <div class="text-center m-auto min-vertical-h-50" *ngIf="reqDetailsConfig.isLoading">
       <img src="../assets/loaders/swal-loader.gif" height="150" width="150" />
@@ -101,7 +101,8 @@
 <ng-template #bidPosting>
   <div class="card my-4 m-0">
     <div class="card-header text-center">
-      <h4 class="card-title">Post BID</h4>
+      <h4 class="card-title" *ngIf="bidConfig.bid.id === ''">Post BID</h4>
+      <h4 class="card-title" *ngIf="bidConfig.bid.id !== ''">Update BID</h4>
     </div>
     <div class="card-body">
       <div class="row no-gutters animated fadeInUp">
@@ -151,7 +152,10 @@
                 </span>
                 Add Attachment
               </div>
-              <div *ngIf="bidConfig.bid.attachment !== ''" class="p-3 d-flex align-items-center curPoint bg-primary-light">
+              <div
+                *ngIf="bidConfig.bid.attachment !== ''"
+                class="p-2 d-flex align-items-center curPoint bg-primary-light"
+              >
                 <span class="material-icons pr-3">
                   attach_file
                 </span>
@@ -185,7 +189,9 @@
         </div>
         <div class="col-12">
           <div class="form-group text-left">
-            <label class="form-label" for="description">Description <span class="text-danger pl-1 asterisk">*</span></label>
+            <label class="form-label" for="description"
+              >Description <span class="text-danger pl-1 asterisk">*</span></label
+            >
             <textarea
               name="description"
               [(ngModel)]="bidConfig.bid.description"
@@ -208,18 +214,254 @@
           <span class="material-icons pr-2">
             publish
           </span>
-          Submit Bid
+          <span *ngIf="bidConfig.bid.id === ''">Submit Bid</span>
+          <span *ngIf="bidConfig.bid.id !== ''">Update Bid</span>
         </button>
       </div>
+    </div>
+  </div>
+
+  <div class="card my-4 m-0">
+    <div class="card-header text-center">
+      <h4 class="card-title">Freelancers BID</h4>
+    </div>
+    <div class="card-body">
+      <owl-carousel-o [options]="allShalowBidsOptions" class="recommend-grp-carousel">
+        <ng-container *ngFor="let item of bidConfig.allBidders">
+          <ng-template carouselSlide [width]="120">
+            <div class="shadow-sm m-1">
+              <div class="card-body p-1 text-center bg-primary-more-light">
+                <div class="d-flex align-items-center justify-content-center">
+                  <img
+                    src="{{
+                      item.userImage !== ''
+                        ? item.userImage
+                        : 'https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg'
+                    }} "
+                    class="user-img"
+                    alt=""
+                  />
+                </div>
+                <div class="font400 text-truncate" [title]="item.userName">{{ item.userName }}</div>
+              </div>
+              <div>
+                <div class="ml-2 d-block">
+                  <p class="card-intro text-center mb-1">
+                    <span
+                      >Cost : <span class="text-muted">{{ item.cost | currency }}</span></span
+                    >
+                  </p>
+                  <p class="card-intro text-center">
+                    <span class="pl-2"
+                      >TAT : <span class="text-muted">{{ item.tat }}</span></span
+                    >
+                  </p>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </ng-container>
+      </owl-carousel-o>
     </div>
   </div>
 </ng-template>
 
 <ng-template #allBids>
-  <div class="card my-4 m-0">
+  <div class="card m-0">
     <div class="card-header text-center">
       <h4 class="card-title">All BID</h4>
     </div>
-    <div class="card-body"></div>
+    <div class="card-body pl-0 pr-0">
+      <mat-accordion>
+        <div
+          class="col-12 animated fadeIn w100 mt-4 mb-1"
+          id="jobPanel-{{ i }}"
+          *ngFor="let item of bidConfig.allBids; let i = index"
+        >
+          <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" class="jobs-panel">
+            <mat-expansion-panel-header class="d-flex align-items-center">
+              <mat-panel-title class="pt-3">
+                <h6 class="text-primary mt-2 pb-2">
+                  {{ item.userName }} <span class="text-muted ml-1">({{ item.cost | currency }})</span>
+                </h6>
+              </mat-panel-title>
+              <mat-panel-description>
+                <div class="text-right d-flex align-items-center">
+                  <span
+                    class="badge p-2 ml-1 mt-2 caps"
+                    [ngClass]="{
+                      'badge-secondary': item.status === requirementStatus[0].value,
+                      'badge-warning': item.status === requirementStatus[1].value,
+                      'badge-dark': item.status === requirementStatus[2].value,
+                      'badge-success': item.status === requirementStatus[3].value,
+                      'badge-danger': item.status === requirementStatus[4].value
+                    }"
+                    style="z-index: 9; right: 10px;"
+                    >{{ item.status }}</span
+                  >
+                  <!-- <span class="pr-1 p-1" *ngFor="let item of job.desiredSkill"
+                    ><badge class="badge badge-info">{{ item }}</badge></span
+                  > -->
+                </div>
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div class="mt-4">
+              <div class="row no-gutters animated fadeInUp">
+                <div class="col-12 col-md-6">
+                  <div class="form-group text-left mr-2">
+                    <label class="form-label" for="cost">Cost <span class="text-danger pl-1 asterisk">*</span></label>
+                    <div class="input-group input-group-merge">
+                      <input
+                        id="cost"
+                        type="number"
+                        min="0"
+                        step="1"
+                        readonly
+                        oninput="validity.valid||(value='');"
+                        [(ngModel)]="item.cost"
+                        class="form-control form-control-prepended"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6">
+                  <div class="form-group text-left">
+                    <label class="form-label" for="tat">TAT <span class="text-danger pl-1 asterisk">*</span></label>
+                    <div class="input-group input-group-merge">
+                      <input
+                        id="tat"
+                        type="number"
+                        min="0"
+                        step="1"
+                        readonly
+                        oninput="validity.valid||(value='');"
+                        [(ngModel)]="item.tat"
+                        class="form-control form-control-prepended"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6">
+                  <div class="form-group text-left">
+                    <label class="form-label" for="Attachment">Attachment</label>
+                    <div class="input-group input-group-merge">
+                      <div
+                        *ngIf="item.attachment !== ''"
+                        class="p-2 d-flex zoomCard align-items-center curPoint bg-primary-light"
+                      >
+                        <span class="material-icons pr-3">
+                          attach_file
+                        </span>
+                        <a
+                          [href]="item.attachment"
+                          target="_blank"
+                          color="primary"
+                          class="mr-2"
+                          download
+                          matTooltipPosition="below"
+                          matTooltip="View Attachment"
+                        >
+                          View Attachment
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6">
+                  <div class="form-group text-left">
+                    <label class="form-label" for="negotiable"
+                      >Negotiable<span class="text-danger pl-1 asterisk">*</span></label
+                    >
+                    <mat-select
+                      id="negotiable"
+                      readonly
+                      [(ngModel)]="item.negotiable"
+                      [(value)]="item.negotiable"
+                      class="form-control form-control-prepended"
+                    >
+                      <mat-option [value]="'Y'">
+                        Yes
+                      </mat-option>
+                      <mat-option [value]="'N'">
+                        No
+                      </mat-option>
+                    </mat-select>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="form-group text-left">
+                    <label class="form-label" for="description"
+                      >Description <span class="text-danger pl-1 asterisk">*</span></label
+                    >
+                    <textarea
+                      name="description"
+                      [(ngModel)]="item.description"
+                      class="form-control form-control-prepended"
+                      cols="30"
+                      rows="10"
+                      readonly
+                      style="min-height: 100px; max-height: 100px;"
+                    ></textarea>
+                  </div>
+                </div>
+              </div>
+              <div class="text-center mt-4">
+                <div class="row no-gutters">
+                  <div class="col-12 col-md-6">
+                    <div class="form-group text-left">
+                      <label class="form-label" for="status"
+                        >Status<span class="text-danger pl-1 asterisk">*</span></label
+                      >
+                      <mat-select
+                        id="status"
+                        [(ngModel)]="item.status"
+                        [(value)]="item.status"
+                        class="form-control form-control-prepended"
+                      >
+                        <mat-option [value]="item.value" *ngFor="let item of requirementStatus">
+                          {{ item.value }}
+                        </mat-option>
+                      </mat-select>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <button
+                      mat-flat-button
+                      color="primary"
+                      class="rounded-pill ml-2 mt-4"
+                      (click)="changeBidStatus(item)"
+                    >
+                      <span>Change Status</span>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- <button
+                mat-mini-fab
+                color="primary"
+                matTooltipPosition="below"
+                class="mr-2"
+                matTooltip="View Job"
+                (click)="viewJob(job)"
+              >
+                <mat-icon class="mb-1">remove_red_eye</mat-icon>
+              </button>
+               
+                </button> -->
+              </div>
+            </div>
+          </mat-expansion-panel>
+        </div>
+      </mat-accordion>
+
+      <ng-container *ngIf="bidConfig.allBids.length == 0">
+        <div class="text-center m-auto animated fadeIn">
+          <div class="col-12 text-center">
+            <img src="../assets/images/no-record.gif" style="height: 300px;" class="img-fluid d-block mx-auto" />
+            <h6 class="text-primary">Nobody Applied...!</h6>
+          </div>
+        </div>
+      </ng-container>
+    </div>
   </div>
 </ng-template>

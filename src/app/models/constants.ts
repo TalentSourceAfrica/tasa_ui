@@ -29,12 +29,7 @@ export const jobsSeniorityLevel = [
   'Executive',
 ];
 
-export const jobsType = [
-  'Full Time',
-  'Part Time',
-  'Contract',
-  'Internship'
-];
+export const jobsType = ['Full Time', 'Part Time', 'Contract', 'Internship'];
 
 export const jobsSchedule = [
   '8 hour shift',
@@ -46,14 +41,7 @@ export const jobsSchedule = [
   'Day Shift',
 ];
 
-export const jobsMinEducationLevels = [
-  'High School or equivalent',
-  'Associate',
-  'Bachelors',
-  'Masters',
-  'Doctorate'
-];
-
+export const jobsMinEducationLevels = ['High School or equivalent', 'Associate', 'Bachelors', 'Masters', 'Doctorate'];
 
 export const applicantJobStatus = ['Applied', 'Under Review', 'Accepted', 'Rejected', 'Withdrawn'];
 
@@ -77,3 +65,11 @@ export const documents = {
 export const suportedFile = {
   certificate: ['pdf', 'jpg', 'jpeg', 'png'],
 };
+
+export const requirementStatus = [
+  { id: 1, value: 'Auctioned' },
+  { id: 2, value: 'Withdrawn' },
+  { id: 3, value: 'Shortlisted' },
+  { id: 4, value: 'Selected' },
+  { id: 5, value: 'Closed' },
+];
