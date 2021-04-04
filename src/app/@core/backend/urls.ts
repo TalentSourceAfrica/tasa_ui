@@ -186,7 +186,7 @@ export const urls: any = {
   activateGig: '/gigcard/activate/{cardId}/{userId}', // PO
   deactivateGig: '/gigcard/deactivate/{cardId}/{userId}', // PO
   getGigCard: '/gigcard/{gigCardId}', // G
-  gigSearch: '/gigcard/search/{searchText}', // G
+  gigSearch: '/gigcard/search/{searchText}/{pageNo}/{pageSize}', // G
 
   // requirement
   postRequirement: '/requirement/{userId}', // PO
@@ -198,6 +198,7 @@ export const urls: any = {
   getUserActiveRequirements: '/requirement/allActive/{userId}', // G
   getUserInactiveRequirements: '/requirement/allInActive/{userId}', // G
   getRequirement: '/requirement/{requirementId}', // G
+  requirementSearch: '/requirement/search/{searchText}/{pageNo}/{pageSize}', // G
 
   // bidding
   postBid: '/bid/{requirementId}/{userId}', // PO

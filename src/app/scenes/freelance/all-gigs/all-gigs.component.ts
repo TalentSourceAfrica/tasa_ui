@@ -70,11 +70,13 @@ export class AllGigsComponent implements OnInit {
     );
   }
 
-  onSearchGig(_type?: string) {
+  onSearchGig(_pageIndex?: string) {
     let $t = this;
     if ($t.gigConfig.gigSearchText.length >= 3) {
       let apiUrl = $t.sharedService.urlService.apiCallWithParams('gigSearch', {
         '{searchText}': $t.gigConfig.gigSearchText,
+        '{pageNo}': _pageIndex || 1,
+        '{pageSize}': this.pageSize,
       });
       $t.sharedService.configService.get(apiUrl).subscribe(
         (response: any) => {

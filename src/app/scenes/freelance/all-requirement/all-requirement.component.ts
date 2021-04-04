@@ -23,28 +23,12 @@ export class AllRequirementComponent implements OnInit {
   pagination(event: any): any {
     this.pageSize = event.pageSize;
     if (this.reqConfig.searchText !== '') {
-      this.onSearchGig(event.pageIndex + 1);
+      this.onSearchReq(event.pageIndex + 1);
     } else {
       this.fetchAllReq(event.pageIndex + 1);
     }
   }
 
-  onSearchReq() {
-    let $t = this;
-    if ($t.reqConfig.searchText.length >= 3) {
-      let apiUrl = $t.sharedService.urlService.apiCallWithParams('gigSearch', {
-        '{searchText}': $t.reqConfig.searchText,
-      });
-      $t.sharedService.configService.get(apiUrl).subscribe(
-        (response: any) => {
-          $t.reqConfig.data = response.responseObj;
-        },
-        (error) => {
-          $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
-        }
-      );
-    }
-  }
 
   fetchAllReq(_pageIndex: number) {
     let $t = this;
@@ -65,11 +49,13 @@ export class AllRequirementComponent implements OnInit {
     );
   }
 
-  onSearchGig(_type?: string) {
+  onSearchReq(_pageIndex?: string) {
     let $t = this;
     if ($t.reqConfig.searchText.length >= 3) {
-      let apiUrl = $t.sharedService.urlService.apiCallWithParams('gigSearch', {
+      let apiUrl = $t.sharedService.urlService.apiCallWithParams('requirementSearch', {
         '{searchText}': $t.reqConfig.searchText,
+        '{pageNo}': _pageIndex || 1,
+        '{pageSize}': this.pageSize,
       });
       $t.sharedService.configService.get(apiUrl).subscribe(
         (response: any) => {

@@ -152,7 +152,6 @@ export class RequirementViewComponent implements OnInit {
   }
 
   changeBidStatus(bid: any) {
-    console.log(bid);
     let $t = this;
     let apiUrl = $t.sharedService.urlService.apiCallWithParams('updateBidStatus', {
       '{bidId}': bid.id,

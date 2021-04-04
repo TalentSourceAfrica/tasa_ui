@@ -364,6 +364,12 @@
                           View Attachment
                         </a>
                       </div>
+                      <div
+                        *ngIf="item.attachment === ''"
+                        class="p-2 d-flex align-items-center curPoint bg-primary-light"
+                      >
+                        No Attachments
+                      </div>
                     </div>
                   </div>
                 </div>
