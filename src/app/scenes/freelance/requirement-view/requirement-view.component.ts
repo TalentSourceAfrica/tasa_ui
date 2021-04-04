@@ -135,7 +135,7 @@ export class RequirementViewComponent implements OnInit {
     });
     $t.sharedService.configService.get(apiUrl).subscribe(
       (response: any) => {
-        $t.bidConfig.bid = response.responseObj;
+        response.responseObj ? $t.bidConfig.bid = response.responseObj : null;
       },
       (error) => {
         $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
@@ -191,6 +191,7 @@ export class RequirementViewComponent implements OnInit {
     $t.sharedService.configService.post(apiUrl, $t.bidConfig.bid).subscribe(
       (response: any) => {
         $t.sharedService.uiService.showApiSuccessPopMsg(response.message);
+        $t.getReqDetail();
       },
       (error) => {
         $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
