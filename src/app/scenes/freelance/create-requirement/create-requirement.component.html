@@ -20,7 +20,7 @@
 
 <ng-template #createRequirement>
   <div class="text-center">
-    <button mat-flat-button color="primary" (click)="requirementConfig.isStart = false" class="rounded-pill ml-3 w25">
+    <button mat-flat-button color="primary" (click)="requirementConfig.isStart = false" class="rounded-pill ml-3">
       <span class="material-icons pr-2">
         arrow_back
       </span>
@@ -215,7 +215,7 @@
 
 <ng-template #allRecruirements>
   <div class="text-center p-4">
-    <button mat-flat-button color="primary" (click)="requirementConfig.isStart = true" class="rounded-pill caps w30">
+    <button mat-flat-button color="primary" (click)="requirementConfig.isStart = true" class="rounded-pill caps">
       Create Requirement
     </button>
   </div>
@@ -223,7 +223,7 @@
   <mat-tab-group animationDuration="0ms">
     <mat-tab label="Active Requirements">
       <div class="row w100 no-gutters animated fadeIn">
-        <div class="col-4" *ngFor="let item of requirementConfig.activeRequirements">
+        <div class="col-md-4 col-12" *ngFor="let item of requirementConfig.activeRequirements">
           <div class="card m-0 mt-4 mr-4 curPoint">
             <div class="card-img pb-1 d-flex align-items-center justify-content-center">
               <h5 class="text-css m-auto">{{ item.category }}</h5>

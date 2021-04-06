@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
+import { CredentialsService } from '@app/auth';
 import { SharedService } from '@app/services/shared.service';
 
 @Component({
@@ -18,7 +19,7 @@ export class AllRequirementComponent implements OnInit {
   pageSize = 20;
   pageSizeOptions: number[] = [5, 10, 25, 100];
   pageEvent: PageEvent;
-  constructor(public sharedService: SharedService) {}
+  constructor(public sharedService: SharedService, private credentialsService: CredentialsService) {}
 
   pagination(event: any): any {
     this.pageSize = event.pageSize;
@@ -28,7 +29,6 @@ export class AllRequirementComponent implements OnInit {
       this.fetchAllReq(event.pageIndex + 1);
     }
   }
-
 
   fetchAllReq(_pageIndex: number) {
     let $t = this;
@@ -70,5 +70,9 @@ export class AllRequirementComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchAllReq(1);
+  }
+  get user(): any | null {
+    const credentials = this.credentialsService.credentials;
+    return credentials ? credentials : null;
   }
 }

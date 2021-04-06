@@ -332,13 +332,13 @@ export class LeftSideComponent implements OnInit {
       }
     });
 
-    jQuery(document).scroll(() => {
-      if (jQuery('.footer-wrapper').length) {
-        this.checkOffset();
-      } else {
-        jQuery('#left-side-wrappert').css('position', 'fixed');
-      }
-    });
+    // jQuery(document).scroll(() => {
+    //   if (jQuery('.footer-wrapper').length) {
+    //     this.checkOffset();
+    //   } else {
+    //     jQuery('#left-side-wrapper').css('position', 'fixed');
+    //   }
+    // });
   }
 
   ngOnDestroy(): void {}

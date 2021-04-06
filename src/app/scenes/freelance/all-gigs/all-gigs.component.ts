@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
+import { CredentialsService } from '@app/auth';
 import { SharedService } from '@app/services/shared.service';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 
@@ -40,7 +41,7 @@ export class AllGigsComponent implements OnInit {
   pageSize = 20;
   pageSizeOptions: number[] = [5, 10, 25, 100];
   pageEvent: PageEvent;
-  constructor(public sharedService: SharedService) {}
+  constructor(public sharedService: SharedService, private credentialsService: CredentialsService) {}
 
   pagination(event: any): any {
     this.pageSize = event.pageSize;
@@ -91,5 +92,10 @@ export class AllGigsComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchUserGig(1);
+  }
+
+  get user(): any | null {
+    const credentials = this.credentialsService.credentials;
+    return credentials ? credentials : null;
   }
 }

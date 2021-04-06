@@ -90,10 +90,10 @@
         <h5 class="card-title m-0">
           {{ job.title }}
           <span class="pl-2 text-right" *ngIf="job.isApplied">
-            <span class="badge badge-warning p-1" *ngIf="job.applicantStatus == 'Applied'">{{ job.jobStatus }}</span>
-            <span class="badge badge-dark p-1" *ngIf="job.applicantStatus == 'Under Review'">{{ job.jobStatus }}</span>
-            <span class="badge badge-success p-1" *ngIf="job.applicantStatus == 'Accepted'">{{ job.jobStatus }}</span>
-            <span class="badge badge-danger p-1" *ngIf="job.applicantStatus == 'Rejected'">{{ job.jobStatus }}</span>
+            <span class="badge badge-warning p-1 caps" *ngIf="job.applicantStatus == 'Applied'">{{ job.jobStatus }}</span>
+            <span class="badge badge-dark p-1 caps" *ngIf="job.applicantStatus == 'Under Review'">{{ job.jobStatus }}</span>
+            <span class="badge badge-success p-1 caps" *ngIf="job.applicantStatus == 'Accepted'">{{ job.jobStatus }}</span>
+            <span class="badge badge-danger p-1 caps" *ngIf="job.applicantStatus == 'Rejected'">{{ job.jobStatus }}</span>
           </span>
         </h5>
 

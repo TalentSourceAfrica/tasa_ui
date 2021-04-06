@@ -1,4 +1,4 @@
-<div class="right-side-wrapper">
+<div class="right-side-wrapper position-fixed">
   <div class="row no-gutters">
     <!-- <div class="col-12 text-center" *ngIf="user?.type === 'Recruiter'">
       <ng-container>
@@ -22,27 +22,26 @@
           <!-- <p class="card-subtitle">Best score</p> -->
         </div>
         <div class="card-body p-2">
-          <owl-carousel-o [options]="groupsOptions" class="recommend-grp-carousel">
-            <ng-container *ngFor="let item of recommendedGroupsConfig.data; let i = index">
-              <ng-template carouselSlide [id]="i">
-                <div class="pt-1 pb-1 text-center">
-                  <div
-                    class="card mb-0 zoomCard curPoint d-flex align-items-center"
-                    [routerLink]="['/group/', item.groupId]"
-                    routerLinkActive="router-link-active"
-                  >
-                    <div class="card-img">
-                      <img [src]="item.groupImageUrl" class="" alt="" />
+            <owl-carousel-o [options]="groupsOptions" class="recommend-grp-carousel">
+              <ng-container *ngFor="let item of recommendedGroupsConfig.data; let i = index">
+                <ng-template carouselSlide [id]="i">
+                  <div class="pt-1 pb-1 text-center">
+                    <div
+                      class="card mb-0 curPoint d-flex align-items-center"
+                      [routerLink]="['/group/', item.groupId]"
+                      routerLinkActive="router-link-active"
+                    >
+                      <div class="card-img">
+                        <img [src]="item.groupImageUrl" class="" alt="" />
+                      </div>
+                      <h6 class="text-primary pt-3 text-truncate w90" [title]="item.groupTitle">
+                        {{ item.groupTitle }}
+                      </h6>
                     </div>
-                    <h6 class="text-primary pt-3 text-truncate w90" [title]="item.groupTitle">{{ item.groupTitle }}</h6>
                   </div>
-                </div>
-              </ng-template>
-            </ng-container>
-          </owl-carousel-o>
-          <!-- <div class="text-right" *ngIf="recommendedGroupsConfig.data.length">
-            <p class="curPoint text-primary">{{ recommendedGroupsConfig.data.length }}</p>
-          </div> -->
+                </ng-template>
+              </ng-container>
+            </owl-carousel-o>
           <div *ngIf="recommendedGroupsConfig.data.length == 0 && !recommendedGroupsConfig.isFetching">
             <div class="text-center m-auto animated fadeIn">
               <div class="col-12 text-center">

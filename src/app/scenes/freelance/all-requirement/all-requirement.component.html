@@ -1,16 +1,26 @@
 <div class="freelance-all-req-wrapper">
-  <div class="container">
-    <ol class="breadcrumb mt-3">
-      <li class="breadcrumb-item curPoint"><a [routerLink]="['/home']">Home</a></li>
-      <li class="breadcrumb-item active"><a>All Requirements</a></li>
-    </ol>
+  <div class="">
     <section>
-      <ng-container *ngIf="!reqConfig.isLoading">
-        <ng-container *ngTemplateOutlet="allRequirements"></ng-container>
-      </ng-container>
-      <ng-container *ngIf="reqConfig.isLoading">
-        <ng-container *ngTemplateOutlet="loader"></ng-container>
-      </ng-container>
+      <div class="row no-gutters">
+        <div class="col-md-3 col-sm-12 bg-white" *ngIf="!sharedService.deviceDetectorService.isMobile()">
+          <app-left-side *ngIf="user"></app-left-side>
+        </div>
+        <div class="col-md-7 col-sm-12 main-div mb-4">
+          <ol class="breadcrumb mt-3">
+            <li class="breadcrumb-item curPoint"><a [routerLink]="['/home']">Home</a></li>
+            <li class="breadcrumb-item active"><a>All Requirements</a></li>
+          </ol>
+          <ng-container *ngIf="!reqConfig.isLoading">
+            <ng-container *ngTemplateOutlet="allRequirements"></ng-container>
+          </ng-container>
+          <ng-container *ngIf="reqConfig.isLoading">
+            <ng-container *ngTemplateOutlet="loader"></ng-container>
+          </ng-container>
+        </div>
+        <div class="col-md-2 col-sm-12 bg-white" *ngIf="!sharedService.deviceDetectorService.isMobile()">
+          <app-right-side></app-right-side>
+        </div>
+      </div>
     </section>
   </div>
 </div>
@@ -27,7 +37,7 @@
   <div class="row w100 no-gutters animated fadeIn">
     <div class="col-12 mt-4">
       <div class="text-center">
-        <mat-form-field class="example-form-field w40 m-auto" *ngIf="!reqConfig.isLoading" style="font-size: 16px;">
+        <mat-form-field class="example-form-field  m-auto" *ngIf="!reqConfig.isLoading" style="font-size: 16px;">
           <mat-label>Search Requirements</mat-label>
           <input matInput type="text" (keyup)="onSearchReq()" [(ngModel)]="reqConfig.searchText" />
           <button
@@ -44,7 +54,7 @@
         </mat-form-field>
       </div>
     </div>
-    <div class="col-4" *ngFor="let item of reqConfig.data">
+    <div class="col-md-4 col-12" *ngFor="let item of reqConfig.data">
       <div class="m-2">
         <div class="card m-0 mt-4 curPoint">
           <div class="card-img pb-1 d-flex align-items-center justify-content-center">

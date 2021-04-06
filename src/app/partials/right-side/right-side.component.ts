@@ -12,20 +12,6 @@ import { delay } from 'rxjs/operators';
   styleUrls: ['./right-side.component.scss'],
 })
 export class RightSideComponent implements OnInit {
-  // customOptions: OwlOptions = {
-  //   loop: true,
-  //   mouseDrag: false,
-  //   touchDrag: false,
-  //   pullDrag: false,
-  //   dots: true,
-  //   navSpeed: 700,
-  //   items: 3,
-  //   margin: 1,
-  //   autoWidth: true,
-  //   navText: ['', ''],
-  //   nav: true,
-  // };
-
   groupsOptions: OwlOptions = {
     loop: false,
     autoplay: true,
@@ -122,16 +108,6 @@ export class RightSideComponent implements OnInit {
     this.sharedService.configService.get(apiUrl).subscribe(
       (response: any) => {
         this.recommendedGroupsConfig.data = response.responseObj ? response.responseObj : [];
-        this.recommendedGroupsConfig.data = [
-          ...this.recommendedGroupsConfig.data,
-          ...this.recommendedGroupsConfig.data,
-          ...this.recommendedGroupsConfig.data,
-          ...this.recommendedGroupsConfig.data,
-          ...this.recommendedGroupsConfig.data,
-          ...this.recommendedGroupsConfig.data,
-          ...this.recommendedGroupsConfig.data,
-          ...this.recommendedGroupsConfig.data,
-        ];
         this.recommendedGroupsConfig.isFetching = false;
       },
       (error) => {

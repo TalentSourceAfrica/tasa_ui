@@ -13,7 +13,7 @@
               >
                 {{ userProgressConfig.percent }} % &nbsp;&nbsp;<i
                   class="fas fa-info-circle"
-                  style="color:gray"
+                  style="color: gray;"
                   matTooltipPosition="right"
                   matTooltip="Complete Profile To Get Recommendations"
                 ></i>
@@ -21,19 +21,24 @@
               <p [ngStyle]="{ color: userProgressConfig.outerColor }">Profile Complete</p>
             </div>
             <div class="col-6 text-right">
-              <div class="h2 mb-0 text-white">
+              <div
+                class="h2 mb-0 text-white"
+              >
                 <img
                   *ngIf="!user.image || user.image == 'string'"
-                  class="user-img"
+                  class="user-img curPoint"
+                  [routerLink]="['/social-network/profile/', user.tasaId]"
+                  routerLinkActive="router-link-active"
                   src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
                 />
                 <img
                   *ngIf="user.image && user.image != 'string'"
-                  class="user-img"
+                  class="user-img curPoint"
+                  [routerLink]="['/social-network/profile/', user.tasaId]"
+                  routerLinkActive="router-link-active"
                   [ngStyle]="{ color: userProgressConfig.outerColor }"
                   [src]="user.image"
                 />
-                <!-- <i class="fas fa-user-tie" ></i> -->
               </div>
             </div>
           </div>
@@ -164,11 +169,7 @@
             >
               <div class="d-flex">
                 <span>
-                  <img
-                    class="circle-img img-responsive img-circle curPoint"
-                    [src]="job.orgImage"
-                    alt="Job"
-                  />
+                  <img class="circle-img img-responsive img-circle curPoint" [src]="job.orgImage" alt="Job" />
                 </span>
                 <span class="d-flex">
                   <h6 class="card-title font400 text-truncate mt-2" [title]="job.title">
@@ -177,14 +178,14 @@
                 </span>
               </div>
               <div class="card-intro mt-2">
-                <div class="d-flex ">
+                <div class="d-flex">
                   <span class="text-muted pl-1 d-flex align-items-center text-bold" style="justify-content: center;"
                     ><span class="material-icons job-material-icons pr-1 text-primary">
                       work
                     </span>
                     {{ job.experienceFrom }} - {{ job.experienceTo }} Year</span
                   >
-                  <span class="text-muted pl-2 d-flex  align-items-center text-bold" style="justify-content: center;"
+                  <span class="text-muted pl-2 d-flex align-items-center text-bold" style="justify-content: center;"
                     ><span class="material-icons job-material-icons pr-1 text-primary">
                       location_city
                     </span>
@@ -249,10 +250,18 @@
                   </h6>
                 </span>
                 <span class="pl-2 text-right">
-                  <span class="badge badge-warning p-1 caps" *ngIf="job.jobStatus == 'Applied'">{{ job.jobStatus }}</span>
-                  <span class="badge badge-dark p-1 caps" *ngIf="job.jobStatus == 'Under Review'">{{ job.jobStatus }}</span>
-                  <span class="badge badge-success p-1 caps" *ngIf="job.jobStatus == 'Accepted'">{{ job.jobStatus }}</span>
-                  <span class="badge badge-danger p-1 caps" *ngIf="job.jobStatus == 'Rejected'">{{ job.jobStatus }}</span>
+                  <span class="badge badge-warning p-1 caps" *ngIf="job.jobStatus == 'Applied'">{{
+                    job.jobStatus
+                  }}</span>
+                  <span class="badge badge-dark p-1 caps" *ngIf="job.jobStatus == 'Under Review'">{{
+                    job.jobStatus
+                  }}</span>
+                  <span class="badge badge-success p-1 caps" *ngIf="job.jobStatus == 'Accepted'">{{
+                    job.jobStatus
+                  }}</span>
+                  <span class="badge badge-danger p-1 caps" *ngIf="job.jobStatus == 'Rejected'">{{
+                    job.jobStatus
+                  }}</span>
                 </span>
               </div>
               <div class="card-intro mt-2">
@@ -415,11 +424,7 @@
             >
               <div class="d-flex">
                 <span>
-                  <img
-                    class="circle-img img-responsive img-circle curPoint"
-                    [src]="job.orgImage"
-                    alt="Job"
-                  />
+                  <img class="circle-img img-responsive img-circle curPoint" [src]="job.orgImage" alt="Job" />
                 </span>
                 <span>
                   <h6 class="card-title text-truncate" [title]="job.title">

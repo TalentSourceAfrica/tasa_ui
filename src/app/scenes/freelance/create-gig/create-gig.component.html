@@ -95,7 +95,7 @@
 
 <ng-template #allGigs>
   <div class="text-center p-4">
-    <button mat-flat-button color="primary" (click)="startGigCreation()" class="rounded-pill caps ml-3 w35">
+    <button mat-flat-button color="primary" (click)="startGigCreation()" class="rounded-pill caps ml-3">
       Create Your Seller Card
     </button>
   </div>
@@ -103,9 +103,9 @@
   <mat-tab-group animationDuration="0ms">
     <mat-tab label="Active Gigs">
       <div class="row w100 animated fadeIn">
-        <div class="col-4" *ngFor="let item of gigConfig.activeGigs">
+        <div class="col-md-4 col-12" *ngFor="let item of gigConfig.activeGigs">
           <div class="card m-0 mt-4 curPoint">
-            <div class="card-img ">
+            <div class="card-img">
               <img [src]="item.image" *ngIf="item.video === ''" />
               <div *ngIf="item.image !== '' && item.video !== ''">
                 <owl-carousel-o [options]="gigAssetsOptions" *ngIf="gigConfig.isCarousel" class="gig-view-carousel">
@@ -185,7 +185,7 @@
     </mat-tab>
     <mat-tab label="Inactive Gigs">
       <div class="row w100 no-gutters animated fadeIn">
-        <div class="col-4" *ngFor="let item of gigConfig.inactiveGigs">
+        <div class="col-md-4 col-12" *ngFor="let item of gigConfig.inactiveGigs">
           <div class="card m-0 mt-4 mr-4 curPoint">
             <div class="card-img">
               <img [src]="item.image" *ngIf="item.video === ''" />
@@ -209,7 +209,10 @@
                 </owl-carousel-o>
               </ng-container>
             </div>
-            <div class="card-body mt-4 pl-3 pr-3" [ngClass]="{ 'margin-top-15px': item.image !== '' && item.video !== '' }">
+            <div
+              class="card-body mt-4 pl-3 pr-3"
+              [ngClass]="{ 'margin-top-15px': item.image !== '' && item.video !== '' }"
+            >
               <h5 class="card-title mb-1">
                 {{ item.title }}
               </h5>
@@ -271,7 +274,7 @@
 
 <ng-template #createGig>
   <div class="text-center">
-    <button mat-flat-button color="primary" (click)="gigConfig.startGig = false" class="rounded-pill ml-3 w25">
+    <button mat-flat-button color="primary" (click)="gigConfig.startGig = false" class="rounded-pill ml-3">
       <span class="material-icons pr-2">
         arrow_back
       </span>
@@ -359,7 +362,7 @@
         </div>
         <div class="col-12 bg-primary-more-light mb-3">
           <div class="row no-gutters">
-            <div class="col-6 p-3 text-center">
+            <div class="col-md-6 col-12 p-3 text-center">
               <label class="form-label" for="image"
                 >Upload Image For Card<span class="text-danger pl-1 asterisk">*</span></label
               >
@@ -380,7 +383,7 @@
                 <mat-icon>cloud_upload</mat-icon>
               </button>
             </div>
-            <div class="col-6 p-3 text-center">
+            <div class="col-md-6 col-12  p-3 text-center">
               <label class="form-label" for="video">Upload Video For Card</label>
               <div class="upload-video d-flex align-items-center justify-content-center">
                 <span class="material-icons text-muted" style="font-size: 60px;" *ngIf="gigConfig.gig.video === ''">
@@ -423,204 +426,208 @@
     </mat-step>
     <mat-step [completed]="false">
       <ng-template matStepLabel>Pricing Plans</ng-template>
-      <div class="text-center">
-        <button
-          mat-mini-fab
-          color="primary"
-          matTooltipPosition="below"
-          matTooltip="Add Pricing"
-          class="mt-3"
-          (click)="addPricing()"
-        >
-          <mat-icon>add_circle_outline</mat-icon>
-        </button>
-      </div>
-      <div class="card m-0 mb-3 mt-2 p-3" *ngFor="let item of gigConfig.gig.plans; let i = index">
-        <div class="row no-gutters animated fadeInUp mt-2">
-          <div class="col-12 text-right">
-            <button
-              mat-mini-fab
-              color="primary"
-              matTooltipPosition="below"
-              matTooltip="Remove Pricing"
-              *ngIf="gigConfig.gig.plans.length > 1"
-              (click)="removePricing(i)"
-            >
-              <mat-icon>remove_circle_outline</mat-icon>
-            </button>
-          </div>
-          <div class="col-6 w100">
-            <div class="form-group m-2">
-              <label class="form-label" for="name">Plan Name<span class="text-danger pl-1 asterisk">*</span></label>
-              <input
-                id="name-{{ i }}"
-                type="text"
-                [(ngModel)]="item.name"
-                class="form-control form-control-prepended"
-                placeholder="Ex: Basic, Silver, Gold"
-              />
-            </div>
-          </div>
-          <div class="col-6 w100">
-            <div class="form-group m-2">
-              <label class="form-label" for="deliveryDays"
-                >Delivery Days<span class="text-danger pl-1 asterisk">*</span></label
+      <div class="animated fadeInUp p-4">
+        <div class="text-center">
+          <button
+            mat-mini-fab
+            color="primary"
+            matTooltipPosition="below"
+            matTooltip="Add Pricing"
+            class="mt-3"
+            (click)="addPricing()"
+          >
+            <mat-icon>add_circle_outline</mat-icon>
+          </button>
+        </div>
+        <div class="card m-0 mb-3 mt-2 p-3" *ngFor="let item of gigConfig.gig.plans; let i = index">
+          <div class="row no-gutters animated fadeInUp mt-2">
+            <div class="col-12 text-right">
+              <button
+                mat-mini-fab
+                color="primary"
+                matTooltipPosition="below"
+                matTooltip="Remove Pricing"
+                *ngIf="gigConfig.gig.plans.length > 1"
+                (click)="removePricing(i)"
               >
-              <input
-                id="deliveryDays-{{ i }}"
-                type="text"
-                [(ngModel)]="item.deliveryDays"
-                class="form-control form-control-prepended"
-              />
+                <mat-icon>remove_circle_outline</mat-icon>
+              </button>
             </div>
-          </div>
-          <div class="col-6 w100">
-            <div class="form-group m-2">
-              <label class="form-label" for="price">Price<span class="text-danger pl-1 asterisk">*</span></label>
-              <input
-                id="price-{{ i }}"
-                type="number"
-                min="0"
-                step="1"
-                oninput="validity.valid||(value='');"
-                [(ngModel)]="item.price"
-                class="form-control form-control-prepended"
-              />
+            <div class="col-md-6 col-12 w100">
+              <div class="form-group m-2">
+                <label class="form-label" for="name">Plan Name<span class="text-danger pl-1 asterisk">*</span></label>
+                <input
+                  id="name-{{ i }}"
+                  type="text"
+                  [(ngModel)]="item.name"
+                  class="form-control form-control-prepended"
+                  placeholder="Ex: Basic, Silver, Gold"
+                />
+              </div>
             </div>
-          </div>
-          <div class="col-6 w100">
-            <div class="form-group m-2">
-              <label class="form-label" for="revisions"
-                >Revisions<span class="text-danger pl-1 asterisk">*</span></label
-              >
-              <input
-                id="revisions-{{ i }}"
-                type="number"
-                min="0"
-                step="1"
-                oninput="validity.valid||(value='');"
-                [(ngModel)]="item.revisions"
-                class="form-control form-control-prepended"
-              />
-            </div>
-          </div>
-          <div class="col-6 w100">
-            <div class="form-group m-2">
-              <label class="form-label" for="commission"
-                >Commission Percent<span class="text-danger pl-1 asterisk">*</span></label
-              >
-              <input
-                id="commission-{{ i }}"
-                type="number"
-                min="0"
-                step="1"
-                disabled="true"
-                oninput="validity.valid||(value='');"
-                [(ngModel)]="item.commission"
-                class="form-control form-control-prepended"
-              />
-            </div>
-          </div>
-          <div class="col-6 w100">
-            <div class="form-group m-2">
-              <label class="form-label" for="deliveryPrice"
-                >Delivery Price<span class="text-danger pl-1 asterisk">*</span></label
-              >
-              <input
-                id="deliveryPrice-{{ i }}"
-                type="number"
-                min="0"
-                step="1"
-                readonly
-                oninput="validity.valid||(value='');"
-                [value]="getDeliveryPrice(item)"
-                class="form-control form-control-prepended"
-              />
-            </div>
-          </div>
-          <div class="col-12 w100">
-            <div class="form-group m-2">
-              <label class="form-label" for="deliveryDetails"
-                >Delivery Details<span class="text-danger pl-1 asterisk">*</span>
-                <button
-                  mat-mini-fab
-                  color="primary"
-                  matTooltipPosition="below"
-                  matTooltip="Add Details"
-                  class="ml-3"
-                  (click)="addDeliveryDetails(item)"
+            <div class="col-md-6 col-12 w100">
+              <div class="form-group m-2">
+                <label class="form-label" for="deliveryDays"
+                  >Delivery Days<span class="text-danger pl-1 asterisk">*</span></label
                 >
-                  <mat-icon>add</mat-icon>
-                </button></label
-              >
-              <div class="row no-gutters w100">
-                <div class="col-6" *ngFor="let details of item.deliveryDetails; let di = index">
-                  <div class="d-flex align-items-center p-2">
-                    <span class="material-icons text-success">
-                      check
-                    </span>
-                    <input
-                      id="deliveryDetails-{{ di }}"
-                      type="text"
-                      [(ngModel)]="details.value"
-                      class="form-control form-control-prepended ml-3"
-                    />
-                    <button
-                      mat-mini-fab
-                      color="primary"
-                      matTooltipPosition="below"
-                      matTooltip="Remove Details"
-                      class="ml-3"
-                      (click)="removeDeliveryDetails(item, di)"
-                    >
-                      <mat-icon>remove</mat-icon>
-                    </button>
+                <input
+                  id="deliveryDays-{{ i }}"
+                  type="text"
+                  [(ngModel)]="item.deliveryDays"
+                  class="form-control form-control-prepended"
+                />
+              </div>
+            </div>
+            <div class="col-md-6 col-12 w100">
+              <div class="form-group m-2">
+                <label class="form-label" for="price">Price<span class="text-danger pl-1 asterisk">*</span></label>
+                <input
+                  id="price-{{ i }}"
+                  type="number"
+                  min="0"
+                  step="1"
+                  oninput="validity.valid||(value='');"
+                  [(ngModel)]="item.price"
+                  class="form-control form-control-prepended"
+                />
+              </div>
+            </div>
+            <div class="col-md-6 col-12 w100">
+              <div class="form-group m-2">
+                <label class="form-label" for="revisions"
+                  >Revisions<span class="text-danger pl-1 asterisk">*</span></label
+                >
+                <input
+                  id="revisions-{{ i }}"
+                  type="number"
+                  min="0"
+                  step="1"
+                  oninput="validity.valid||(value='');"
+                  [(ngModel)]="item.revisions"
+                  class="form-control form-control-prepended"
+                />
+              </div>
+            </div>
+            <div class="col-md-6 col-12 w100">
+              <div class="form-group m-2">
+                <label class="form-label" for="commission"
+                  >Commission Percent<span class="text-danger pl-1 asterisk">*</span></label
+                >
+                <input
+                  id="commission-{{ i }}"
+                  type="number"
+                  min="0"
+                  step="1"
+                  disabled="true"
+                  oninput="validity.valid||(value='');"
+                  [(ngModel)]="item.commission"
+                  class="form-control form-control-prepended"
+                />
+              </div>
+            </div>
+            <div class="col-md-6 col-12 w100">
+              <div class="form-group m-2">
+                <label class="form-label" for="deliveryPrice"
+                  >Delivery Price<span class="text-danger pl-1 asterisk">*</span></label
+                >
+                <input
+                  id="deliveryPrice-{{ i }}"
+                  type="number"
+                  min="0"
+                  step="1"
+                  readonly
+                  oninput="validity.valid||(value='');"
+                  [value]="getDeliveryPrice(item)"
+                  class="form-control form-control-prepended"
+                />
+              </div>
+            </div>
+            <div class="col-12 w100">
+              <div class="form-group m-2">
+                <label class="form-label" for="deliveryDetails"
+                  >Delivery Details<span class="text-danger pl-1 asterisk">*</span>
+                  <button
+                    mat-mini-fab
+                    color="primary"
+                    matTooltipPosition="below"
+                    matTooltip="Add Details"
+                    class="ml-3"
+                    (click)="addDeliveryDetails(item)"
+                  >
+                    <mat-icon>add</mat-icon>
+                  </button></label
+                >
+                <div class="row no-gutters w100">
+                  <div class="col-md-6 col-12" *ngFor="let details of item.deliveryDetails; let di = index">
+                    <div class="d-flex align-items-center p-2">
+                      <span class="material-icons text-success">
+                        check
+                      </span>
+                      <input
+                        id="deliveryDetails-{{ di }}"
+                        type="text"
+                        [(ngModel)]="details.value"
+                        class="form-control form-control-prepended ml-3"
+                      />
+                      <button
+                        mat-mini-fab
+                        color="primary"
+                        matTooltipPosition="below"
+                        matTooltip="Remove Details"
+                        class="ml-3"
+                        (click)="removeDeliveryDetails(item, di)"
+                      >
+                        <mat-icon>remove</mat-icon>
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="text-center m-auto">
-        <button mat-flat-button color="primary" matStepperPrevious class="rounded-pill caps">
-          BACK
-        </button>
-        <button
-          mat-flat-button
-          color="primary"
-          [disbaled]="checkPlanDisable()"
-          matStepperNext
-          class="rounded-pill caps ml-3"
-        >
-          NEXT
-        </button>
+        <div class="text-center m-auto">
+          <button mat-flat-button color="primary" matStepperPrevious class="rounded-pill caps">
+            BACK
+          </button>
+          <button
+            mat-flat-button
+            color="primary"
+            [disbaled]="checkPlanDisable()"
+            matStepperNext
+            class="rounded-pill caps ml-3"
+          >
+            NEXT
+          </button>
+        </div>
       </div>
     </mat-step>
     <mat-step [completed]="false">
       <ng-template matStepLabel>Done</ng-template>
-      <div class="d-flex justify-content-center">
-        <div class="card w50 curPoint">
-          <div class="card-img">
-            <img [src]="gigConfig.gig.image" />
-          </div>
-          <div class="card-body mt-4 pl-3 pr-3">
-            <h5 class="card-title mb-1">
-              {{ gigConfig.gig.title }}
-            </h5>
-            <p class="card-intro">
-              {{ gigConfig.gig.category }}
-            </p>
+      <div class="animated fadeInUp p-4">
+        <div class="d-flex justify-content-center">
+          <div class="card w50 curPoint">
+            <div class="card-img">
+              <img [src]="gigConfig.gig.image" />
+            </div>
+            <div class="card-body mt-4 pl-3 pr-3">
+              <h5 class="card-title mb-1">
+                {{ gigConfig.gig.title }}
+              </h5>
+              <p class="card-intro">
+                {{ gigConfig.gig.category }}
+              </p>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="text-center m-auto mt-4">
-        <button mat-flat-button color="primary" matStepperPrevious class="rounded-pill caps">
-          BACK
-        </button>
-        <button mat-flat-button color="primary" (click)="publish()" matStepperNext class="rounded-pill caps">
-          PUBLISH YOUR CARD
-        </button>
+        <div class="text-center m-auto mt-4">
+          <button mat-flat-button color="primary" matStepperPrevious class="rounded-pill caps">
+            BACK
+          </button>
+          <button mat-flat-button color="primary" (click)="publish()" matStepperNext class="rounded-pill caps">
+            PUBLISH YOUR CARD
+          </button>
+        </div>
       </div>
     </mat-step>
   </mat-horizontal-stepper>

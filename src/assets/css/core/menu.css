@@ -212,7 +212,7 @@ END MENU VARIENT
 } */
 
 .is-sticky {
-  position: absolute !important;
+  /* position: absolute !important; */
   left: 0;
   top: 0;
   width: 100%;

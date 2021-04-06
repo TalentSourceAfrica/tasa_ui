@@ -445,7 +445,29 @@
   .btn-height {
     height: 42px !important;
   }
+
+  @media only screen and (max-width: 600px) {
+    .new-overlay {
+      width: 0px;
+      height: 0px;
+      position: relative;
+    }
+    .sign-up {
+      position: relative !important;
+      --padding: 90px !important;
+    }
+    .flip-card {
+      width: auto !important;
+    }
+    .flip-card-inner {
+      width: 100% !important;
+    }
+    .form-class{
+      width: 70vw !important;
+    }
+  }
 }
+
 .terms-privacy-modal {
   .modal-content {
     left: 5%;

@@ -1,25 +1,28 @@
 .freelance-all-gig-wrapper {
-  .card {
-    min-height: 300px;
-  }
-  .card-img {
-    padding-bottom: 0;
-    img {
-      position: relative;
-      width: 100%;
-      max-height: 200px;
-      min-height: 200px;
-      object-fit: fill;
-      object-fit: cover;
-      -o-object-position: center;
-      object-position: center;
+  .main-div{
+    .card {
+      min-height: 300px;
     }
-    video {
-      max-height: 200px;
-      min-height: 200px;
+    .card-img {
+      padding-bottom: 0;
+      img {
+        position: relative;
+        width: 100%;
+        max-height: 200px;
+        min-height: 200px;
+        object-fit: fill;
+        object-fit: cover;
+        -o-object-position: center;
+        object-position: center;
+      }
+      video {
+        max-height: 200px;
+        min-height: 200px;
+      }
+    }
+    .margin-top-15px {
+      margin-top: -15px;
     }
   }
-  .margin-top-15px {
-    margin-top: -15px;
-  }
+
 }

@@ -139,7 +139,7 @@
     </li>
     <li class="sidebar-dropdown">
       <a class="curPoint">
-        <i class="far fa-comment-alt"></i>
+        <i class="far fa-user"></i>
         <span>Profile</span>
         <!-- <span class="badge badge-pill badge-warning">New</span> -->
       </a>
@@ -210,6 +210,59 @@
               class="curPoint menu-item"
               >Inbox</a
             >
+          </li>
+        </ul>
+      </div>
+    </li>
+    <li class="header-menu">
+      <span>My Freelance</span>
+    </li>
+    <li class="sidebar-dropdown">
+      <a class="curPoint">
+        <i class="fas fa-unlock-alt"></i>
+        <span>Freelance</span>
+        <!-- <span class="badge badge-pill badge-warning">New</span> -->
+      </a>
+      <div class="sidebar-submenu">
+        <ul>
+          <li>
+            <a
+              class="curPoint menu-item"
+              [routerLink]="['/freelance/all-gigs']"
+              routerLinkActive="router-link-active"
+              [routerLink]="['/social-network/posts']"
+              >All Gigs
+            </a>
+          </li>
+          <li>
+            <a
+              class="curPoint menu-item"
+              [routerLink]="['/freelance/all-requirements']"
+              routerLinkActive="router-link-active"
+            >
+              All Custom Gigs
+            </a>
+          </li>
+          <li>
+            <a
+              class="curPoint menu-item"
+              [routerLink]="['/freelance/create-requirement']"
+              routerLinkActive="router-link-active"
+            >
+              Create Custom Gigs
+            </a>
+          </li>
+          <li>
+            <a
+              class="curPoint menu-item"
+              [routerLink]="['/freelance/create-gig']"
+              routerLinkActive="router-link-active"
+            >
+              Become A Gig Seller
+            </a>
+          </li>
+          <li>
+            <a class="curPoint menu-item"> My Order </a>
           </li>
         </ul>
       </div>

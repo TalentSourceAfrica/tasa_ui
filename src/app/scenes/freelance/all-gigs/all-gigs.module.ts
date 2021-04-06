@@ -8,6 +8,8 @@ import { RouterModule } from '@angular/router';
 import { AllGigsComponent } from './all-gigs.component';
 import { AllGigsRoutingModule } from './all-gigs-routing.module';
 import { CarouselModule } from 'ngx-owl-carousel-o';
+import { LeftSideModule } from '@app/partials/left-side/left-side.module';
+import { RightSideModule } from '@app/partials/right-side/right-side.module';
 
 @NgModule({
   declarations: [AllGigsComponent],
@@ -20,6 +22,8 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
     MaterialModule,
     AllGigsRoutingModule,
     CarouselModule,
+    RightSideModule,
+    LeftSideModule,
   ],
   schemas: [NO_ERRORS_SCHEMA],
 })

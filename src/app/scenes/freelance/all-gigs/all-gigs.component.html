@@ -1,16 +1,26 @@
 <div class="freelance-all-gig-wrapper">
-  <div class="container">
-    <ol class="breadcrumb mt-3">
-      <li class="breadcrumb-item curPoint"><a [routerLink]="['/home']">Home</a></li>
-      <li class="breadcrumb-item active"><a>All Gigs</a></li>
-    </ol>
+  <div class="">
     <section>
-      <ng-container *ngIf="!gigConfig.isLoading">
-        <ng-container *ngTemplateOutlet="allGigs"></ng-container>
-      </ng-container>
-      <ng-container *ngIf="gigConfig.isLoading">
-        <ng-container *ngTemplateOutlet="loader"></ng-container>
-      </ng-container>
+      <div class="row no-gutters">
+        <div class="col-md-3 col-sm-12 bg-white" *ngIf="!sharedService.deviceDetectorService.isMobile()">
+          <app-left-side *ngIf="user"></app-left-side>
+        </div>
+        <div class="col-md-7 col-sm-12 main-div mb-4">
+          <ol class="breadcrumb mt-3">
+            <li class="breadcrumb-item curPoint"><a [routerLink]="['/home']">Home</a></li>
+            <li class="breadcrumb-item active"><a>All Gigs</a></li>
+          </ol>
+          <ng-container *ngIf="!gigConfig.isLoading">
+            <ng-container *ngTemplateOutlet="allGigs"></ng-container>
+          </ng-container>
+          <ng-container *ngIf="gigConfig.isLoading">
+            <ng-container *ngTemplateOutlet="loader"></ng-container>
+          </ng-container>
+        </div>
+        <div class="col-md-2 col-sm-12 bg-white" *ngIf="!sharedService.deviceDetectorService.isMobile()">
+          <app-right-side></app-right-side>
+        </div>
+      </div>
     </section>
   </div>
 </div>
