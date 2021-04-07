@@ -15,6 +15,9 @@
     <div class="col-12" *ngIf="cartDetails.isCourse">
       <ng-template [ngTemplateOutlet]="cartCourseDetails"></ng-template>
     </div>
+    <div class="col-12" *ngIf="cartDetails.isGig">
+      <ng-template [ngTemplateOutlet]="cartGigDetails"></ng-template>
+    </div>
     <div class="col-12 mt-1" *ngIf="(cartDetails | json) != ({} | json)">
       <ng-template [ngTemplateOutlet]="cartCheckout"></ng-template>
     </div>
@@ -31,13 +34,16 @@
           <div class="shape shape-green"></div>
           <div class="content">
             <h2>
-              <span class="text-black"><span class="text-muted">Plan: </span>{{ cartDetails.subscriptionData.id }}</span>
+              <span class="text-black"
+                ><span class="text-muted">Plan: </span>{{ cartDetails.subscriptionData.id }}</span
+              >
             </h2>
             <h5>
               <span class="text-black">{{ cartDetails.subscriptionData.price * 12 | currency }}</span
               ><small> / Year</small>
-              <span class="badge badge-warning">Pay {{ cartDetails.subscriptionData.price | currency }} <small> / Month</small></span
-                >
+              <span class="badge badge-warning"
+                >Pay {{ cartDetails.subscriptionData.price | currency }} <small> / Month</small></span
+              >
             </h5>
           </div>
         </div>
@@ -131,6 +137,47 @@
     </ul>
   </div>
 </ng-template>
+
+<ng-template #cartGigDetails>
+  <div class="m-auto gig">
+    <div class="card m-0 mt-4 mr-4 curPoint mb-4">
+      <div class="card-img">
+        <img [src]="cartDetails.gigData.image" *ngIf="cartDetails.gigData.video === ''" />
+        <ng-container *ngIf="cartDetails.gigData.image !== '' && cartDetails.gigData.video !== ''">
+          <owl-carousel-o [options]="gigAssetsOptions" class="gig-view-carousel">
+            <ng-template carouselSlide>
+              <div style="background: #ebe9ed;">
+                <video controls>
+                  <source [src]="cartDetails.gigData.video" type="video/mp4" />
+                  <source [src]="cartDetails.gigData.video" type="video/ogg" />
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+            </ng-template>
+            <ng-template carouselSlide>
+              <div style="background: #ebe9ed;">
+                <img [src]="cartDetails.gigData.image" class="img-thumbnail gig-img" alt="course" />
+              </div>
+            </ng-template>
+          </owl-carousel-o>
+        </ng-container>
+      </div>
+      <div
+        class="card-body pl-3 pr-3"
+        [ngClass]="{ 'margin-top-15px': cartDetails.gigData.image !== '' && cartDetails.gigData.video !== '' }"
+      >
+        <h5>  {{ cartDetails.gigData.userName }}</h5><hr/>
+        <h5 class="card-title mt-3 mb-1">
+          {{ cartDetails.gigData.title }}
+        </h5>
+        <p class="card-intro">
+          {{ cartDetails.gigData.category }}
+        </p>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
 <ng-template #cartCheckout>
   <section class="p-2 animated fadeIn" style="border-top: 4px solid #523f6d;">
     <form [formGroup]="customerForm" novalidate>
@@ -158,7 +205,9 @@
         </div>
         <div class="col-md-4 col-sm-6">
           <div class="form-group p-2">
-            <label class="form-label" for="fullname">Your Full Name <span class="text-danger pl-1 asterisk">*</span></label>
+            <label class="form-label" for="fullname"
+              >Your Full Name <span class="text-danger pl-1 asterisk">*</span></label
+            >
             <div class="input-group input-group-merge">
               <input
                 id="fullname"
@@ -179,7 +228,9 @@
         </div>
         <div class="col-md-4 col-sm-6">
           <div class="form-group p-2">
-            <label class="form-label" for="phoneNumber">Your Phone Number <span class="text-danger pl-1 asterisk">*</span></label>
+            <label class="form-label" for="phoneNumber"
+              >Your Phone Number <span class="text-danger pl-1 asterisk">*</span></label
+            >
             <div class="input-group input-group-merge">
               <input
                 id="phoneNumber"
@@ -214,6 +265,9 @@
             <li class="total" *ngIf="cartDetails.isCourse">
               Total <span>{{ cartDetails.courseData.offerPrice | currency }}</span>
             </li>
+            <li class="total" *ngIf="cartDetails.isGig">
+              Total <span>{{ cartDetails.gigData.price | currency }}</span>
+            </li>
             <li class="total" *ngIf="cartDetails.isSubscription">
               Monthly Charge <span>{{ cartDetails.subscriptionData.price | currency }}</span>
             </li>
@@ -231,6 +285,7 @@
       >
         <span *ngIf="cartDetails.isSubscription">Checkout & Pay Monthly</span>
         <span *ngIf="cartDetails.isCourse">Checkout</span>
+        <span *ngIf="cartDetails.isGig">Checkout</span>
       </button>
     </div>
   </section>

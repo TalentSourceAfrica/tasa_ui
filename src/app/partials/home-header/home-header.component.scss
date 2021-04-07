@@ -361,7 +361,7 @@ $light-blue: #523f6d80;
 
   .user-img {
     border-radius: 50%;
-    width: 50px;
+    width: 50px !important;
     height: 50px;
     margin-right: 15px;
     object-fit: cover;

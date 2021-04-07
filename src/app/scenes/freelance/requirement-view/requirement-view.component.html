@@ -37,24 +37,24 @@
                 <div class="font400 pl-0 text-truncate" [title]="">{{ reqDetailsConfig.data?.postedByName }}</div>
               </div>
               <div class="row no-gutters border-bottom pb-4">
-                <div class="col-12 col-md-3">
+                <div class="col-6 col-md-3">
                   <h6 class="mb-1"><i class="fas fa-briefcase pr-2 text-muted"></i>Experience</h6>
                   <div>
                     {{ reqDetailsConfig.data?.experienceFrom }} - {{ reqDetailsConfig.data?.experienceTo }} Years
                   </div>
                 </div>
-                <div class="col-12 col-md-3">
+                <div class="col-6 col-md-3">
                   <h6 class="mb-1"><i class="fas fa-money-bill-wave pr-2 text-muted"></i>Budget</h6>
                   <div>
                     {{ reqDetailsConfig.data?.budgetFrom | currency }} -
                     {{ reqDetailsConfig.data?.budgetTo | currency }}
                   </div>
                 </div>
-                <div class="col-12 col-md-3">
+                <div class="col-6 col-md-3 mt-2">
                   <h6 class="mb-1"><i class="fas fa-calendar-week pr-2 text-muted"></i>Open Till</h6>
                   <div>{{ reqDetailsConfig.data?.openTill | date: 'mediumDate' }}</div>
                 </div>
-                <div class="col-12 col-md-3">
+                <div class="col-6 col-md-3">
                   <div
                     *ngIf="reqDetailsConfig.data?.attachment !== ''"
                     class="p-2 d-flex zoomCard align-items-center curPoint bg-primary-light"
@@ -326,7 +326,7 @@
                 </div>
                 <div class="col-12 col-md-6">
                   <div class="form-group text-left">
-                    <label class="form-label" for="tat">TAT <span class="text-danger pl-1 asterisk">*</span></label>
+                    <label class="form-label" for="tat">Turn Around Time <span class="text-danger pl-1 asterisk">*</span></label>
                     <div class="input-group input-group-merge">
                       <input
                         id="tat"

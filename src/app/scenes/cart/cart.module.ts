@@ -6,6 +6,8 @@ import { SharedModule } from '@shared';
 import { MaterialModule } from '@app/modules/material.module';
 import { CartRoutingModule } from './cart-routing.module';
 import { CartComponent } from './cart.component';
+import { CarouselModule } from 'ngx-owl-carousel-o';
+
 
 @NgModule({
   imports: [
@@ -15,7 +17,8 @@ import { CartComponent } from './cart.component';
     SharedModule,
     CartRoutingModule,
     MaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CarouselModule
   ],
   declarations: [CartComponent],
   entryComponents: [],

@@ -7,6 +7,7 @@ import { CredentialsService } from '@app/auth';
 import { Router } from '@angular/router';
 import { BaseConfig } from '@app/@core/backend/baseconfig';
 import { environment } from '@env/environment';
+import { OwlOptions } from 'ngx-owl-carousel-o';
 
 declare var FlutterwaveCheckout: any;
 @Component({
@@ -19,6 +20,26 @@ export class CartComponent implements OnInit {
   amount: number = 0;
   baseConfig: any = BaseConfig;
   customerForm: FormGroup;
+  gigAssetsOptions: OwlOptions = {
+    loop: true,
+    autoplay: false,
+    center: true,
+    smartSpeed: 1000,
+    dots: false,
+    autoHeight: false,
+    autoWidth: false,
+    autoplayHoverPause: true,
+    items: 1,
+    nav: true,
+    margin: 4,
+    navText: ["<i class='fas fa-chevron-circle-left'></i>", "<i class='fas fa-chevron-circle-right'></i>"],
+    autoplayTimeout: 3000,
+    responsive: {
+      0: {
+        items: 1,
+      },
+    },
+  };
   constructor(
     public sharedService: SharedService,
     private cartService: CartService,
@@ -144,10 +165,13 @@ export class CartComponent implements OnInit {
     this.createForm();
     this.loadScript('https://checkout.flutterwave.com/v3.js');
     this.cartDetails = this.cartService.fetchData();
+    console.log(this.cartDetails);
     if (this.cartDetails.isSubscription) {
       this.amount = this.cartDetails.subscriptionData.price;
     } else if (this.cartDetails.isCourse) {
       this.amount = this.cartDetails.courseData.offerPrice;
+    } else if (this.cartDetails.isGig) {
+      this.amount = this.cartDetails.gigData.price;
     }
   }
 

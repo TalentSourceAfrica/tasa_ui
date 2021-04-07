@@ -21,13 +21,29 @@ export class CartService {
     this.cartConfig = {
       isSubscription: false,
       isCourse: false,
+      isGig:false,
+      isCustomGig:false,
       subscriptionData: {},
       courseData: {},
+      gigData:{},
+      customGigData:{}
     };
   }
 
   clearCart() {
     this.intializeConfig();
+  }
+
+  setCartForGig(_data: Object) {
+    this.intializeConfig();
+    this.cartConfig.isGig = true;
+    this.cartConfig.gigData = _data;
+  }
+
+  setCartForCustomGig(_data: Object) {
+    this.intializeConfig();
+    this.cartConfig.isCustomGig = true;
+    this.cartConfig.customGigData = _data;
   }
 
   setCartForCourse(_data: Object) {
