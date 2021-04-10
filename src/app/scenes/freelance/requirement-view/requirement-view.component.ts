@@ -1,10 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CredentialsService } from '@app/auth';
 import { SharedService } from '@app/services/shared.service';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 
 import { requirementStatus } from '@app/models/constants';
+import Swal from 'sweetalert2';
+import { CartService } from '@app/scenes/cart/cart.service';
 
 @Component({
   selector: 'app-requirement-view',
@@ -77,7 +79,9 @@ export class RequirementViewComponent implements OnInit {
   constructor(
     public sharedService: SharedService,
     private route: ActivatedRoute,
-    private credentialsService: CredentialsService
+    private credentialsService: CredentialsService,
+    private cartService: CartService,
+    private router: Router
   ) {
     this.reqDetailsConfig.requirementId = this.route.snapshot.params.requirementId;
   }
@@ -135,7 +139,7 @@ export class RequirementViewComponent implements OnInit {
     });
     $t.sharedService.configService.get(apiUrl).subscribe(
       (response: any) => {
-        response.responseObj ? $t.bidConfig.bid = response.responseObj : null;
+        response.responseObj ? ($t.bidConfig.bid = response.responseObj) : null;
       },
       (error) => {
         $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
@@ -153,20 +157,24 @@ export class RequirementViewComponent implements OnInit {
 
   changeBidStatus(bid: any) {
     let $t = this;
-    let apiUrl = $t.sharedService.urlService.apiCallWithParams('updateBidStatus', {
-      '{bidId}': bid.id,
-      '{status}': bid.status,
-      '{userId}': $t.user.email,
-    });
-    $t.sharedService.uiService.showApiStartPopMsg('Updating Bid Status.');
-    $t.sharedService.configService.post(apiUrl, $t.bidConfig.bid).subscribe(
-      (response: any) => {
-        $t.sharedService.uiService.showApiSuccessPopMsg(response.message);
-      },
-      (error) => {
-        $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
-      }
-    );
+    if (bid.status === 'Selected') {
+      $t.purchaseBidder(bid);
+    } else {
+      let apiUrl = $t.sharedService.urlService.apiCallWithParams('updateBidStatus', {
+        '{bidId}': bid.id,
+        '{status}': bid.status,
+        '{userId}': $t.user.email,
+      });
+      $t.sharedService.uiService.showApiStartPopMsg('Updating Bid Status.');
+      $t.sharedService.configService.post(apiUrl, $t.bidConfig.bid).subscribe(
+        (response: any) => {
+          $t.sharedService.uiService.showApiSuccessPopMsg(response.message);
+        },
+        (error) => {
+          $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
+        }
+      );
+    }
   }
 
   postBid() {
@@ -230,6 +238,32 @@ export class RequirementViewComponent implements OnInit {
     );
   }
 
+  purchaseBidder(_bidderDetails: any) {
+    let $t = this;
+    $t.sharedService.uiService.closePopMsg();
+    let _callback = () => {
+      $t.reqDetailsConfig.data = { ...$t.reqDetailsConfig.data, bidderDetails: _bidderDetails };
+      $t.cartService.setCartForCustomGig($t.reqDetailsConfig.data);
+      Swal.fire({
+        title: 'Added..!', // title of the modal
+        text: '', // description of the modal
+        type: 'success', // warning, error, success, info, and question,
+        backdrop: true,
+        confirmButtonClass: 'rounded-pill shadow-sm',
+        cancelButtonClass: 'rounded-pill shadow-sm',
+        confirmButtonText: 'Go To Checkout!',
+        showCancelButton: true,
+      }).then((isConfirm) => {
+        if (isConfirm.value) {
+          Swal.close();
+          $t.router.navigate(['/cart']);
+        } else {
+          Swal.close();
+        }
+      });
+    };
+    $t.sharedService.uiService.showPreConfirmPopMsg('Do You Want To Buy This Bidder', _callback);
+  }
   ngOnInit(): void {
     this.getReqDetail();
     this.getCurrentUserBid();

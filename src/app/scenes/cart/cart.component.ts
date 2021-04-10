@@ -172,6 +172,8 @@ export class CartComponent implements OnInit {
       this.amount = this.cartDetails.courseData.offerPrice;
     } else if (this.cartDetails.isGig) {
       this.amount = this.cartDetails.gigData.price;
+    } else if (this.cartDetails.isCustomGig) {
+      this.amount = this.cartDetails.customGigData.bidderDetails.cost;
     }
   }
 

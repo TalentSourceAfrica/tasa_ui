@@ -18,6 +18,9 @@
     <div class="col-12" *ngIf="cartDetails.isGig">
       <ng-template [ngTemplateOutlet]="cartGigDetails"></ng-template>
     </div>
+    <div class="col-12" *ngIf="cartDetails.isCustomGig">
+      <ng-template [ngTemplateOutlet]="cartCustomGigDetails"></ng-template>
+    </div>
     <div class="col-12 mt-1" *ngIf="(cartDetails | json) != ({} | json)">
       <ng-template [ngTemplateOutlet]="cartCheckout"></ng-template>
     </div>
@@ -166,13 +169,114 @@
         class="card-body pl-3 pr-3"
         [ngClass]="{ 'margin-top-15px': cartDetails.gigData.image !== '' && cartDetails.gigData.video !== '' }"
       >
-        <h5>  {{ cartDetails.gigData.userName }}</h5><hr/>
+        <h5>{{ cartDetails.gigData.userName }}</h5>
+        <hr />
         <h5 class="card-title mt-3 mb-1">
           {{ cartDetails.gigData.title }}
         </h5>
         <p class="card-intro">
           {{ cartDetails.gigData.category }}
         </p>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #cartCustomGigDetails>
+  <div class="m-auto gig gig-custom">
+    <div class="card m-0 mt-4 mb-4 curPoint">
+      <div class="card-img pb-1 d-flex align-items-center justify-content-center">
+        <h5 class="text-css m-auto">{{ cartDetails.customGigData.category }}</h5>
+      </div>
+      <div class="card-body pl-3 pr-3">
+        <div class="d-flex align-items-center justify-content-center mb-4">
+          <img
+            src="{{
+              cartDetails.customGigData.postedByImage !== ''
+                ? cartDetails.customGigData.postedByImage
+                : 'https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg'
+            }} "
+            class="user-img"
+            alt=""
+          />
+          <div class="font400 pl-0 text-truncate" [title]="">{{ cartDetails.customGigData.postedByName }}</div>
+        </div>
+        <div class="row no-gutters">
+          <div class="col-12 col-md-6">
+            <h6 class="mb-1"><i class="fas fa-briefcase pr-2 text-muted"></i>Experience</h6>
+            <div>
+              {{ cartDetails.customGigData.experienceFrom }} - {{ cartDetails.customGigData.experienceTo }} Years
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <h6 class="mb-1"><i class="fas fa-money-bill-wave pr-2 text-muted"></i>Budget</h6>
+            <div>
+              {{ cartDetails.customGigData.budgetFrom | currency }} -
+              {{ cartDetails.customGigData.budgetTo | currency }}
+            </div>
+          </div>
+          <div class="col-12 col-md-6 mt-4">
+            <h6 class="mb-1"><i class="fas fa-calendar-week pr-2 text-muted"></i>Open Till</h6>
+            <div>{{ cartDetails.customGigData.openTill | date: 'mediumDate' }}</div>
+          </div>
+          <div class="col-12 col-md-6 mt-4">
+            <div
+              *ngIf="cartDetails.customGigData.attachment !== ''"
+              class="p-2 d-flex align-items-center curPoint bg-primary-light"
+            >
+              <span class="material-icons pr-1">
+                attach_file
+              </span>
+              <a
+                [href]="cartDetails.customGigData.attachment"
+                target="_blank"
+                color="primary"
+                class="mr-2"
+                download
+                matTooltipPosition="below"
+                matTooltip="View Attachment"
+              >
+                Attachment
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer border-top">
+        <h6>Bidder Details</h6>
+        <div class="shadow-sm m-1">
+          <div class="card-body p-1 text-center bg-primary-more-light">
+            <div class="d-flex align-items-center justify-content-center">
+              <img
+                src="{{
+                  cartDetails.customGigData.bidderDetails.userImage !== ''
+                    ? cartDetails.customGigData.bidderDetails.userImage
+                    : 'https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg'
+                }} "
+                class="user-img"
+                alt=""
+              />
+            </div>
+            <div class="font400 text-truncate" [title]="cartDetails.customGigData.bidderDetails.userName">
+              {{ cartDetails.customGigData.bidderDetails.userName }}
+            </div>
+          </div>
+          <div>
+            <div class="ml-2 d-block">
+              <p class="card-intro text-center mb-1">
+                <span
+                  >Cost :
+                  <span class="text-muted">{{ cartDetails.customGigData.bidderDetails.cost | currency }}</span></span
+                >
+              </p>
+              <p class="card-intro text-center">
+                <span class="pl-2"
+                  >TAT : <span class="text-muted">{{ cartDetails.customGigData.bidderDetails.tat }}</span></span
+                >
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -268,6 +372,9 @@
             <li class="total" *ngIf="cartDetails.isGig">
               Total <span>{{ cartDetails.gigData.price | currency }}</span>
             </li>
+            <li class="total" *ngIf="cartDetails.isCustomGig">
+              Total <span>{{ cartDetails.customGigData.bidderDetails.cost | currency }}</span>
+            </li>
             <li class="total" *ngIf="cartDetails.isSubscription">
               Monthly Charge <span>{{ cartDetails.subscriptionData.price | currency }}</span>
             </li>
@@ -284,8 +391,7 @@
         class="rounded-pill ml-2"
       >
         <span *ngIf="cartDetails.isSubscription">Checkout & Pay Monthly</span>
-        <span *ngIf="cartDetails.isCourse">Checkout</span>
-        <span *ngIf="cartDetails.isGig">Checkout</span>
+        <span *ngIf="cartDetails.isCourse || cartDetails.isGig || cartDetails.isCustomGig">Checkout</span>
       </button>
     </div>
   </section>

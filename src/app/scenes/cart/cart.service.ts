@@ -21,12 +21,12 @@ export class CartService {
     this.cartConfig = {
       isSubscription: false,
       isCourse: false,
-      isGig:false,
-      isCustomGig:false,
+      isGig: false,
+      isCustomGig: false,
       subscriptionData: {},
       courseData: {},
-      gigData:{},
-      customGigData:{}
+      gigData: {},
+      customGigData: {},
     };
   }
 
