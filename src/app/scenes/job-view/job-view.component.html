@@ -1,10 +1,10 @@
-<div class="job-view-wrapper container mt-4 mb-4">
+<div class="job-view-wrapper mt-4 mb-4">
   <div class="page">
     <div class="text-center m-auto min-vertical-h-50" *ngIf="jobConfig.fetchingJob">
       <img src="../../../assets/loaders/swal-loader.gif" height="150" width="150" />
       <h5 class="text-primary">Fetching Job...</h5>
     </div>
-    <div class="container page__container animated fadeIn" *ngIf="!jobConfig.fetchingJob">
+    <div class="container-fluid w80 page__container animated fadeIn" *ngIf="!jobConfig.fetchingJob">
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a [routerLink]="['/home']">Home</a></li>
         <li class="breadcrumb-item" *ngIf="credentialsService.getLoggedInUserType().isMentee">

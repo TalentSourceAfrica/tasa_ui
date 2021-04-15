@@ -13,7 +13,7 @@ import { delay } from 'rxjs/operators';
 })
 export class RightSideComponent implements OnInit {
   groupsOptions: OwlOptions = {
-    loop: false,
+    loop: true,
     autoplay: true,
     center: true,
     smartSpeed: 1000,

@@ -21,6 +21,7 @@ export class RequirementViewComponent implements OnInit {
     isLoading: false,
     data: {},
     requirementId: 0,
+    selectedBidderConversation: [],
   };
   bidConfig: any = {
     isAlreadyBid: false,
@@ -76,6 +77,23 @@ export class RequirementViewComponent implements OnInit {
     },
   };
 
+  commentConfig: any = {
+    newComment: {
+      id:'',
+      content: '',
+      post: true,
+      userName: this.user.firstName + ' ' + this.user.lastName,
+      userImageUrl: this.user.image,
+      userId: this.user.email,
+      videoUrl: '',
+      tasaId: this.user.tasaId,
+      type: this.user.type,
+      imageUrl: '',
+      shareLink: '',
+      shareArticle: '',
+    },
+  };
+
   constructor(
     public sharedService: SharedService,
     private route: ActivatedRoute,
@@ -84,6 +102,52 @@ export class RequirementViewComponent implements OnInit {
     private router: Router
   ) {
     this.reqDetailsConfig.requirementId = this.route.snapshot.params.requirementId;
+  }
+
+  addComment() {
+    this.reqDetailsConfig.selectedBidderConversation.push({...this.commentConfig.newComment});
+  }
+
+  postComment(comment: any, bidId: any) {
+    let $t = this;
+    $t.sharedService.uiService.showApiStartPopMsg('Adding Comment...');
+    let apiUrl = $t.sharedService.urlService.apiCallWithParams('addComment', {
+      '{postId}': bidId,
+    });
+    $t.sharedService.configService.post(apiUrl, comment).subscribe(
+      (response: any) => {
+        $t.reqDetailsConfig.selectedBidderConversation = response.responseObj.comments;
+        $t.sharedService.uiService.showApiSuccessPopMsg('Comment Shared...');
+        $t.addComment();
+      },
+      (error) => {
+        $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
+      }
+    );
+  }
+
+  fetchPostById(_bidId: any) {
+    let $t = this;
+    $t.reqDetailsConfig.selectedBidderConversation = [];
+    let api = $t.sharedService.urlService.apiCallWithParams('getPostById', {
+      '{postId}': _bidId,
+    });
+    $t.sharedService.configService.get(api).subscribe(
+      (response: any) => {
+        if (response.responseObj.comments.length) {
+          $t.reqDetailsConfig.selectedBidderConversation = response.responseObj.comments;
+        }
+        $t.addComment();
+      },
+      (error) => {
+        $t.sharedService.uiService.showApiErrorPopMsg(error);
+      }
+    );
+  }
+
+  onExapansionPanel(_bid: any) {
+    this.panelOpenState = true;
+    this.fetchPostById(_bid.id);
   }
 
   triggerUpload() {
@@ -122,6 +186,7 @@ export class RequirementViewComponent implements OnInit {
           $t.getAllBid();
         } else {
           $t.getAllShallowBidders();
+          $t.getCurrentUserBid();
         }
       },
       (error) => {
@@ -140,6 +205,7 @@ export class RequirementViewComponent implements OnInit {
     $t.sharedService.configService.get(apiUrl).subscribe(
       (response: any) => {
         response.responseObj ? ($t.bidConfig.bid = response.responseObj) : null;
+        $t.fetchPostById($t.bidConfig.bid.id);
       },
       (error) => {
         $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
@@ -264,9 +330,9 @@ export class RequirementViewComponent implements OnInit {
     };
     $t.sharedService.uiService.showPreConfirmPopMsg('Do You Want To Buy This Bidder', _callback);
   }
+
   ngOnInit(): void {
     this.getReqDetail();
-    this.getCurrentUserBid();
   }
 
   get user(): any | null {

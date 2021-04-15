@@ -10,6 +10,9 @@
       <button mat-flat-button color="primary" *ngIf="transactionConfig.typeOfPurchase === 'subscription'" [routerLink]="['/my-plan']" class="rounded-pill ml-2  mt-4 w25">
         Go To My Subscription
       </button>
+      <button mat-flat-button color="primary" *ngIf="transactionConfig.typeOfPurchase === 'gigcard'" [routerLink]="['/my-plan']" class="rounded-pill ml-2  mt-4 w25">
+        Go To My Orders
+      </button>
     </div>
 
     <div class="message error" *ngIf="transactionConfig.status !== 'successful'">

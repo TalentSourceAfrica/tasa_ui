@@ -66,11 +66,11 @@ export class GigViewComponent implements OnInit {
     );
   }
 
-  purchaseGig(gigPrice: number) {
+  purchaseGig(gigPlan: any) {
     let $t = this;
     $t.sharedService.uiService.closePopMsg();
     let _callback = () => {
-      $t.gigDetailsConfig.data = { ...$t.gigDetailsConfig.data, price: gigPrice };
+      $t.gigDetailsConfig.data = { ...$t.gigDetailsConfig.data, price: gigPlan.deliveryPrice, planName : gigPlan.name };
       $t.cartService.setCartForGig($t.gigDetailsConfig.data);
       Swal.fire({
         title: 'Added..!', // title of the modal

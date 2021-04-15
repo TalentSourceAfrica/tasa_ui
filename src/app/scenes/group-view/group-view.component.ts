@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { CredentialsService } from '@app/auth';
 import { SharedService } from '@app/services/shared.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-group-view',
@@ -12,9 +14,13 @@ export class GroupViewComponent implements OnInit {
     isLoading: false,
     data: {},
     groupId: 0,
+    isCurrentUserAlreadyAMember: false,
   };
-
-  constructor(public sharedService: SharedService, private route: ActivatedRoute) {}
+  constructor(
+    public sharedService: SharedService,
+    private route: ActivatedRoute,
+    private credentialsService: CredentialsService
+  ) {}
 
   getGroupDetail() {
     let $t = this;
@@ -26,6 +32,11 @@ export class GroupViewComponent implements OnInit {
     this.sharedService.configService.get(apiUrl).subscribe(
       (response: any) => {
         this.groupDetailsConfig.data = response.responseObj;
+        if (this.groupDetailsConfig.data.members.filter((d: any) => d.email === this.user.email).length) {
+          this.groupDetailsConfig.isCurrentUserAlreadyAMember = true;
+        } else {
+          this.groupDetailsConfig.isCurrentUserAlreadyAMember = false;
+        }
         this.groupDetailsConfig.isLoading = false;
       },
       (error) => {
@@ -35,7 +46,55 @@ export class GroupViewComponent implements OnInit {
     );
   }
 
+  sendRequest(grpId: any) {
+    Swal.fire({
+      title: 'Add A Note',
+      input: 'text',
+      inputAttributes: {
+        autocapitalize: 'off',
+        placeholder: 'Type Your Message',
+      },
+      showCancelButton: true,
+      confirmButtonText: 'Send',
+      confirmButtonClass: 'rounded-pill shadow-sm',
+      cancelButtonClass: 'rounded-pill shadow-sm',
+      showLoaderOnConfirm: true,
+      preConfirm: (data) => {
+        if (data === '') {
+          Swal.showValidationMessage('Please enter message');
+        }
+      },
+      allowOutsideClick: () => !Swal.isLoading(),
+    }).then((result) => {
+      if (result) {
+        if (result.dismiss) {
+          Swal.close();
+        }
+        if (result.value) {
+          this.sharedService.uiService.showApiStartPopMsg('Sending Request to Admin...');
+          let apiUrl = this.sharedService.urlService.apiCallWithParams('sendRequestToGroup', {
+            '{userId}': this.user.email,
+            '{groupId}': grpId,
+          });
+          this.sharedService.configService.post(apiUrl, result.value).subscribe(
+            (response: any) => {
+              this.sharedService.uiService.showApiSuccessPopMsg('Request Send.');
+            },
+            (error) => {
+              this.sharedService.uiService.showApiErrorPopMsg(error.error.message);
+            }
+          );
+        }
+      }
+    });
+  }
+
   ngOnInit(): void {
     this.getGroupDetail();
+  }
+
+  get user(): any | null {
+    const credentials = this.credentialsService.credentials;
+    return credentials ? credentials : null;
   }
 }

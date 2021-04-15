@@ -19,6 +19,25 @@ export class AllRequirementComponent implements OnInit {
   pageSize = 20;
   pageSizeOptions: number[] = [5, 10, 25, 100];
   pageEvent: PageEvent;
+
+  socialConfig: any = {
+    isLoading: false,
+    allSocialPost: [],
+    newPost: {
+      content: '',
+      post: true,
+      userName: this.user.firstName + ' ' + this.user.lastName,
+      userImageUrl: this.user.image,
+      userId: this.user.email,
+      videoUrl: '',
+      tasaId: this.user.tasaId,
+      type: this.user.type,
+      imageUrl: '',
+      shareLink: '',
+      shareArticle: '',
+    },
+    sharedPosts: []
+  };
   constructor(public sharedService: SharedService, private credentialsService: CredentialsService) {}
 
   pagination(event: any): any {

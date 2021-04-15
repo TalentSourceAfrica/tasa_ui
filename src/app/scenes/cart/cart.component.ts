@@ -105,6 +105,19 @@ export class CartComponent implements OnInit {
 
   afterPayment(_data: any) {
     let $t = this;
+    if ($t.cartDetails.isCourse || $t.cartDetails.isSubscription) {
+      $t.afterPaymentCallForCourseAndSubs(_data);
+    }
+    if ($t.cartDetails.isGig) {
+      $t.afterPaymentCallForGigCard(_data);
+    }
+    if ($t.cartDetails.isCustomGig) {
+      $t.afterPaymentCallForReq(_data);
+    }
+  }
+
+  afterPaymentCallForCourseAndSubs(_data: any) {
+    let $t = this;
     let apiUrl: any;
     let payload = {
       transactionId: _data.transaction_id,
@@ -148,6 +161,38 @@ export class CartComponent implements OnInit {
       }
     );
   }
+
+  afterPaymentCallForGigCard(_data: any) {
+    let $t = this;
+    let apiUrl: any;
+    apiUrl = $t.sharedService.urlService.apiCallWithParams('checkoutGigCard', {
+      '{tasaId}': $t.user.tasaId,
+      '{gigCardId}': $t.cartDetails.gigData.id,
+      '{gigCardPlan}': $t.cartDetails.gigData.planName,
+    });
+    $t.sharedService.configService.post(apiUrl).subscribe(
+      (response: any) => {
+        $t.cartService.clearCart();
+        $t.sharedService.uiService.showApiSuccessPopMsg(response.message);
+        setTimeout(() => {
+          $t.sharedService.uiService.closePopMsg();
+          $t.router.navigate(['/transaction'], {
+            queryParams: {
+              status: _data.status,
+              transaction_id: _data.transaction_id,
+              tx_ref: _data.tx_ref,
+              typeOfPurchase: 'gigcard',
+            },
+          });
+        }, 200);
+      },
+      (error) => {
+        $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
+      }
+    );
+  }
+
+  afterPaymentCallForReq(_data: any) {}
 
   public loadScript(url: string) {
     const body = <HTMLDivElement>document.body;

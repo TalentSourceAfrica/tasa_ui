@@ -64,7 +64,7 @@ export class EditUserPopupComponent implements OnInit {
           element.organization === '' ||
           element.description === '' ||
           element.experienceFrom === '' ||
-          element.experience === 'false'
+          element.recentEmployer === 'false'
             ? element.experienceTo == null || element.experienceTo === ''
             : false
         ) {
