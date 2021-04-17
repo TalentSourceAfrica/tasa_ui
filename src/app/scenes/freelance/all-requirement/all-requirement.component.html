@@ -37,7 +37,7 @@
   <div class="row w100 no-gutters animated fadeIn">
     <div class="col-12 mt-4">
       <div class="text-center">
-        <mat-form-field class="example-form-field  m-auto" *ngIf="!reqConfig.isLoading" style="font-size: 16px;">
+        <mat-form-field class="example-form-field  m-auto w30" *ngIf="!reqConfig.isLoading" style="font-size: 16px;">
           <mat-label>Search Requirements</mat-label>
           <input matInput type="text" (keyup)="onSearchReq()" [(ngModel)]="reqConfig.searchText" />
           <button

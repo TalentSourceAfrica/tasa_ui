@@ -111,6 +111,7 @@
     </div>
   </div>
 </ng-template>
+
 <ng-template #cartCourseDetails>
   <div>
     <ul class="products max-vertical-h-50 stylishSlimScroll flow-y-auto flow-x-hidden">
@@ -185,7 +186,7 @@
 <ng-template #cartCustomGigDetails>
   <div class="m-auto gig gig-custom">
     <div class="card m-0 mt-4 mb-4 curPoint">
-      <div class="card-img pb-1 d-flex align-items-center justify-content-center">
+      <div class="card-img pb-1 d-flex align-items-center text-center justify-content-center">
         <h5 class="text-css m-auto">{{ cartDetails.customGigData.category }}</h5>
       </div>
       <div class="card-body pl-3 pr-3">
@@ -271,7 +272,8 @@
               </p>
               <p class="card-intro text-center">
                 <span class="pl-2"
-                  >Turn Around Time : <span class="text-muted">{{ cartDetails.customGigData.bidderDetails.tat }}</span></span
+                  >Turn Around Time :
+                  <span class="text-muted">{{ cartDetails.customGigData.bidderDetails.tat }}</span></span
                 >
               </p>
             </div>
@@ -408,6 +410,12 @@
         </button>
         <button mat-flat-button color="primary" [routerLink]="['/subscription-plans']" class="rounded-pill ml-2">
           Add Subscription
+        </button>
+        <button mat-flat-button color="primary" [routerLink]="['/freelance/all-gigs']" class="rounded-pill ml-2">
+          Add Gig 
+        </button>
+        <button mat-flat-button color="primary" [routerLink]="['/freelance/all-requirements']" class="rounded-pill ml-2">
+          Add Custom Gig
         </button>
       </div>
     </div>

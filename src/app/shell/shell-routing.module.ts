@@ -281,6 +281,14 @@ const routes: Routes = [
                 (m) => m.AllRequirementModule
               ),
           },
+          {
+            path: 'my-orders',
+            canActivate: [AuthenticationGuard],
+            loadChildren: () =>
+              import('@app/scenes/freelance/my-orders/my-orders.module').then(
+                (m) => m.MyOrdersModule
+              ),
+          },
         ],
       },
       { path: '', redirectTo: '/home', pathMatch: 'full' },

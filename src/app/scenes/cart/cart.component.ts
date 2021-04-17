@@ -59,40 +59,46 @@ export class CartComponent implements OnInit {
   makePayment() {
     let $t = this;
     const customer = this.customerForm.getRawValue();
-    let flutterWaveProperties = {
-      public_key: flutterWaveKeys['Public Key'],
-      tx_ref: $t.uuidv4Generator(),
+    // let flutterWaveProperties = {
+    //   public_key: flutterWaveKeys['Public Key'],
+    //   tx_ref: $t.uuidv4Generator(),
+    //   amount: $t.amount,
+    //   currency: 'USD',
+    //   country: 'US',
+    //   payment_options:
+    //     'account,banktransfer,payattitude,mpesa,mobilemoneyfranco,paga,card,mobilemoneyghana,ussd,credit',
+    //   meta: {
+    //     consumer_id: 23,
+    //     consumer_mac: '92a3-912ba-1192a',
+    //   },
+    //   customer: {
+    //     email: customer.email,
+    //     phone_number: customer.phoneNumber,
+    //     name: customer.name,
+    //   },
+    //   callback: function (data: any) {
+    //     $t.afterPayment(data);
+    //   },
+    //   onclose: function () {
+    //     // close modal
+    //   },
+    //   customizations: {
+    //     title: 'TaSA',
+    //     description: 'Payment for items in cart',
+    //     logo: 'https://assets.tasainc.com/images/TaSALogo.jpg',
+    //   },
+    // };
+    // if ($t.cartDetails.isSubscription) {
+    //   flutterWaveProperties = { ...flutterWaveProperties, amount: $t.amount };
+    //   flutterWaveProperties['payment_plan'] = 10028;
+    // }
+    // FlutterwaveCheckout(flutterWaveProperties);
+    const data = {
+      transaction_id: $t.uuidv4Generator(),
+      status: 'successful',
       amount: $t.amount,
-      currency: 'USD',
-      country: 'US',
-      payment_options:
-        'account,banktransfer,payattitude,mpesa,mobilemoneyfranco,paga,card,mobilemoneyghana,ussd,credit',
-      meta: {
-        consumer_id: 23,
-        consumer_mac: '92a3-912ba-1192a',
-      },
-      customer: {
-        email: customer.email,
-        phone_number: customer.phoneNumber,
-        name: customer.name,
-      },
-      callback: function (data: any) {
-        $t.afterPayment(data);
-      },
-      onclose: function () {
-        // close modal
-      },
-      customizations: {
-        title: 'TaSA',
-        description: 'Payment for items in cart',
-        logo: 'https://assets.tasainc.com/images/TaSALogo.jpg',
-      },
     };
-    if ($t.cartDetails.isSubscription) {
-      flutterWaveProperties = { ...flutterWaveProperties, amount: $t.amount };
-      flutterWaveProperties['payment_plan'] = 10028;
-    }
-    FlutterwaveCheckout(flutterWaveProperties);
+    $t.afterPayment(data);
   }
 
   uuidv4Generator() {
@@ -165,12 +171,27 @@ export class CartComponent implements OnInit {
   afterPaymentCallForGigCard(_data: any) {
     let $t = this;
     let apiUrl: any;
+    let payload = {
+      transactionId: _data.transaction_id,
+      transactionStatus: _data.status,
+      transactionAmount: _data.amount,
+      description: '',
+      transactionOn: '',
+      buyerId: '',
+      sellerId: '',
+      type: '',
+      subscriptionId: '',
+      courseId: '',
+      requirementId: '',
+      bidId: '',
+      gigCardId: '',
+    };
     apiUrl = $t.sharedService.urlService.apiCallWithParams('checkoutGigCard', {
       '{tasaId}': $t.user.tasaId,
       '{gigCardId}': $t.cartDetails.gigData.id,
-      '{gigCardPlan}': $t.cartDetails.gigData.planName,
+      '{gigCardPlan}': $t.cartDetails.gigData.planName.trim(),
     });
-    $t.sharedService.configService.post(apiUrl).subscribe(
+    $t.sharedService.configService.post(apiUrl, payload).subscribe(
       (response: any) => {
         $t.cartService.clearCart();
         $t.sharedService.uiService.showApiSuccessPopMsg(response.message);
@@ -192,7 +213,51 @@ export class CartComponent implements OnInit {
     );
   }
 
-  afterPaymentCallForReq(_data: any) {}
+  afterPaymentCallForReq(_data: any) {
+    let $t = this;
+    let apiUrl: any;
+    let payload = {
+      transactionId: _data.transaction_id,
+      transactionStatus: _data.status,
+      transactionAmount: _data.amount,
+      description: '',
+      transactionOn: '',
+      buyerId: '',
+      sellerId: '',
+      type: '',
+      subscriptionId: '',
+      courseId: '',
+      requirementId: '',
+      bidId: '',
+      gigCardId: '',
+    };
+
+    apiUrl = $t.sharedService.urlService.apiCallWithParams('checkoutRequirement', {
+      '{tasaId}': $t.user.tasaId,
+      '{bidId}': $t.cartDetails.customGigData.bidderDetails.id,
+    });
+
+    $t.sharedService.configService.post(apiUrl, payload).subscribe(
+      (response: any) => {
+        $t.cartService.clearCart();
+        $t.sharedService.uiService.showApiSuccessPopMsg(response.message);
+        setTimeout(() => {
+          $t.sharedService.uiService.closePopMsg();
+          $t.router.navigate(['/transaction'], {
+            queryParams: {
+              status: _data.status,
+              transaction_id: _data.transaction_id,
+              tx_ref: _data.tx_ref,
+              typeOfPurchase: 'gigcard',
+            },
+          });
+        }, 200);
+      },
+      (error) => {
+        $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
+      }
+    );
+  }
 
   public loadScript(url: string) {
     const body = <HTMLDivElement>document.body;

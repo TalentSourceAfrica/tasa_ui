@@ -187,7 +187,7 @@ export const urls: any = {
   deactivateGig: '/gigcard/deactivate/{cardId}/{userId}', // PO
   getGigCard: '/gigcard/{gigCardId}', // G
   gigSearch: '/gigcard/search/{searchText}/{pageNo}/{pageSize}', // G
-  checkoutGigCard : '/bid/checkout/{tasaId}/{gigCardId}/{gigCardPlan}', // PO
+  checkoutGigCard : '/gigcard/checkout/{tasaId}/{gigCardId}/{gigCardPlan}', // PO
 
   // requirement
   postRequirement: '/requirement/{userId}', // PO
@@ -209,4 +209,7 @@ export const urls: any = {
   fetchAllBidsForBidder : '/bid/bidder/{bidderId}/{status}' , // G
   fetchAllBidsForRequirement : '/bid/shallow/{requirementId}/{status}' , // G
   fetchUserSpecificBid : '/bid/user/{requirementId}/{tasaId}', // G
+
+  // order
+  fetchAllOrder : '/users/transactions/{tasaId}' // G
 };
