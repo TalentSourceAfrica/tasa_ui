@@ -42,6 +42,8 @@ export class RequirementViewComponent implements OnInit {
       attachment: '',
       tat: 0,
       cost: 0,
+      commission: 10,
+      deliveryPrice: 0,
       negotiable: 'Y',
       status: 'Auctioned',
       createdOn: '',
@@ -79,7 +81,7 @@ export class RequirementViewComponent implements OnInit {
 
   commentConfig: any = {
     newComment: {
-      id:'',
+      id: '',
       content: '',
       post: true,
       userName: this.user.firstName + ' ' + this.user.lastName,
@@ -105,7 +107,7 @@ export class RequirementViewComponent implements OnInit {
   }
 
   addComment() {
-    this.reqDetailsConfig.selectedBidderConversation.push({...this.commentConfig.newComment});
+    this.reqDetailsConfig.selectedBidderConversation.push({ ...this.commentConfig.newComment });
   }
 
   postComment(comment: any, bidId: any) {
@@ -329,6 +331,14 @@ export class RequirementViewComponent implements OnInit {
       });
     };
     $t.sharedService.uiService.showPreConfirmPopMsg('Do You Want To Buy This Bidder', _callback);
+  }
+
+  getDeliveryPrice(bid: any) {
+    if (bid.cost > 0) {
+      const dp = bid.cost * (bid.commission / 100) + bid.cost;
+      bid.deliveryPrice = dp;
+      return dp;
+    }
   }
 
   ngOnInit(): void {

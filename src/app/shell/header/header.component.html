@@ -226,10 +226,7 @@
       <div class="sidebar-submenu">
         <ul>
           <li>
-            <a
-              class="curPoint menu-item"
-              [routerLink]="['/freelance/all-gigs']"
-              routerLinkActive="router-link-active"
+            <a class="curPoint menu-item" [routerLink]="['/freelance/all-gigs']" routerLinkActive="router-link-active"
               >All Gigs
             </a>
           </li>
@@ -261,7 +258,9 @@
             </a>
           </li>
           <li>
-            <a class="curPoint menu-item"> My Order </a>
+            <a class="curPoint menu-item" [routerLink]="['/freelance/my-orders']" routerLinkActive="router-link-active">
+              My Orders
+            </a>
           </li>
         </ul>
       </div>

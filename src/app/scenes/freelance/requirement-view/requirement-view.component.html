@@ -140,6 +140,44 @@
             </div>
           </div>
         </div>
+        <div class="col-md-6 col-12">
+          <div class="form-group text-left mr-2">
+            <label class="form-label" for="commission"
+              >Commission Percent<span class="text-danger pl-1 asterisk">*</span></label
+            >
+            <div class="input-group input-group-merge">
+              <input
+                id="commission"
+                type="number"
+                min="0"
+                step="1"
+                disabled="true"
+                oninput="validity.valid||(value='');"
+                [(ngModel)]="bidConfig.bid.commission"
+                class="form-control form-control-prepended"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-12">
+          <div class="form-group text-left">
+            <label class="form-label" for="deliveryPrice"
+              >Final Cost<span class="text-danger pl-1 asterisk">*</span></label
+            >
+            <div class="input-group input-group-merge">
+              <input
+                id="deliveryPrice"
+                type="number"
+                min="0"
+                step="1"
+                readonly
+                oninput="validity.valid||(value='');"
+                [value]="getDeliveryPrice(bidConfig.bid)"
+                class="form-control form-control-prepended"
+              />
+            </div>
+          </div>
+        </div>
         <div class="col-12 col-md-6">
           <div class="form-group text-left">
             <label class="form-label" for="Attachment">Attachment</label>
@@ -261,7 +299,7 @@
                 <div class="ml-2 d-block">
                   <p class="card-intro text-center mb-1">
                     <span
-                      >Cost : <span class="text-muted">{{ item.cost | currency }}</span></span
+                      >Cost : <span class="text-muted">{{ item.deliveryPrice | currency }}</span></span
                     >
                   </p>
                   <p class="card-intro text-center">
@@ -291,14 +329,19 @@
           id="jobPanel-{{ i }}"
           *ngFor="let item of bidConfig.allBids; let i = index"
         >
-          <mat-expansion-panel (opened)="onExapansionPanel(item)" (closed)="panelOpenState = false" class="jobs-panel">
+          <mat-expansion-panel
+            [disabled]="item.status === requirementStatus[4].value"
+            (opened)="onExapansionPanel(item)"
+            (closed)="panelOpenState = false"
+            class="jobs-panel"
+          >
             <mat-expansion-panel-header class="d-flex align-items-center">
               <mat-panel-title class="pt-3">
                 <h6 class="text-primary mt-2 pb-2">
-                  {{ item.userName }} <span class="text-muted ml-1">({{ item.cost | currency }})</span>
+                  {{ item.userName }} <span class="text-muted ml-1">({{ item.deliveryPrice | currency }})</span>
                 </h6>
               </mat-panel-title>
-              <mat-panel-description>
+              <mat-panel-description class="justify-content-end">
                 <div class="text-right d-flex align-items-center">
                   <span
                     class="badge p-2 ml-1 mt-2 caps"
@@ -426,17 +469,15 @@
                   </div>
                 </div>
               </div>
-              <div class="text-center">
-                <label class="form-label" for="description"
-                >Comments </label
-              >
+              <div>
+                <label class="form-label" for="description">Comments </label>
                 <ng-template
                   [ngTemplateOutlet]="comments"
                   [ngTemplateOutletContext]="{ post: reqDetailsConfig.selectedBidderConversation, bidId: item.id }"
                 >
                 </ng-template>
               </div>
-              <div class="text-center mt-4">
+              <div class="text-center mt-4" *ngIf="item.status !== requirementStatus[4].value">
                 <div class="row no-gutters">
                   <div class="col-12 col-md-6">
                     <div class="form-group text-left">
@@ -507,7 +548,13 @@
           <mat-label
             ><a>{{ comment.userName }}</a></mat-label
           >
-          <textarea type="text" [readonly]="comment.id  !== ''" matInput #commentBox [(ngModel)]="comment.content"></textarea>
+          <textarea
+            type="text"
+            [readonly]="comment.id !== ''"
+            matInput
+            #commentBox
+            [(ngModel)]="comment.content"
+          ></textarea>
         </mat-form-field>
       </div>
       <div class="col-2">

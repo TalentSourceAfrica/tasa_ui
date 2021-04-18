@@ -442,6 +442,11 @@ $break-big: 900px;
                 border-radius: 50%;
                 float: left;
                 margin-right: 10px;
+                -o-object-fit: cover;
+                object-fit: cover;
+                -o-object-position: center;
+                object-position: center;
+                border: 2px solid #ddd;
                 @media screen and (max-width: $break) {
                   margin-right: 0px;
                 }
@@ -747,8 +752,8 @@ $break-big: 900px;
     left: 25px;
     z-index: 9 !important;
   }
-  .left-40-px{
-    left:40px;
+  .left-40-px {
+    left: 40px;
   }
 }
 

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuthenticationService, CredentialsService } from '@app/auth';
 
+
 @Component({
   selector: 'app-transaction',
   templateUrl: './transaction.component.html',

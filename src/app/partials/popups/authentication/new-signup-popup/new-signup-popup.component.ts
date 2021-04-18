@@ -154,7 +154,7 @@ export class NewSignupPopupComponent implements OnInit {
           // confirmPassword: ['', [Validators.required]],
           termsCond: [true, [Validators.required]],
           raceEthnicity: ['', [Validators.required]],
-          tribe: ['', [Validators.required]],
+          tribe: [''],
           tribeEnrolled: ['N', [Validators.required]],
           country: ['', [Validators.required]],
           state: ['', [Validators.required]],

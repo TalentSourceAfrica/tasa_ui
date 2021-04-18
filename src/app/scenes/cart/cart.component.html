@@ -245,8 +245,8 @@
       </div>
       <div class="card-footer border-top">
         <h6>Bidder Details</h6>
-        <div class="shadow-sm m-1">
-          <div class="card-body p-1 text-center bg-primary-more-light">
+        <div class="shadow-sm m-1 bg-white">
+          <div class="card-body p-1 text-center">
             <div class="d-flex align-items-center justify-content-center">
               <img
                 src="{{
@@ -267,7 +267,7 @@
               <p class="card-intro text-center mb-1">
                 <span
                   >Cost :
-                  <span class="text-muted">{{ cartDetails.customGigData.bidderDetails.cost | currency }}</span></span
+                  <span class="text-muted">{{ cartDetails.customGigData.bidderDetails.deliveryPrice | currency }}</span></span
                 >
               </p>
               <p class="card-intro text-center">
@@ -361,10 +361,6 @@
       <div class="col-12">
         <div class="summary text-right">
           <ul>
-            <!-- <li>Subtotal <span>$ 350</span></li>
-            <li>Discount <span> 30%</span></li>
-            <li>Tax <span> 10%</span></li> -->
-
             <li class="total" *ngIf="cartDetails.isSubscription">
               Total <span>{{ cartDetails.subscriptionData.price * 12 | currency }}</span>
             </li>
@@ -372,7 +368,7 @@
               Total <span>{{ cartDetails.courseData.offerPrice | currency }}</span>
             </li>
             <li class="total" *ngIf="cartDetails.isGig">
-              Total <span>{{ cartDetails.gigData.price | currency }}</span>
+              Total <span>{{ cartDetails.gigData.selectedGigPlan.deliveryPrice | currency }}</span>
             </li>
             <li class="total" *ngIf="cartDetails.isCustomGig">
               Total <span>{{ cartDetails.customGigData.bidderDetails.cost | currency }}</span>

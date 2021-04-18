@@ -201,6 +201,7 @@ export const urls: any = {
   getRequirement: '/requirement/{requirementId}', // G
   requirementSearch: '/requirement/search/{searchText}/{pageNo}/{pageSize}', // G
   checkoutRequirement : '/bid/checkout/{tasaId}/{bidId}', // PO
+  updateRequirementStage :'/requirement/updateStage/{requirementId}/{stage}/{userId}', // PO
 
   // bidding
   postBid: '/bid/{requirementId}/{userId}', // PO

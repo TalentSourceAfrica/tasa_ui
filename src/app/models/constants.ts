@@ -73,3 +73,13 @@ export const requirementStatus = [
   { id: 4, value: 'Selected' },
   { id: 5, value: 'Closed' },
 ];
+
+export const requirementProgressStatus = [
+  { id: 1, value: 'Analysis' },
+  { id: 2, value: 'Design' },
+  { id: 3, value: 'Development' },
+  { id: 4, value: 'Testing' },
+  { id: 5, value: 'Deployment' },
+  { id: 6, value: 'Support' },
+  { id: 7, value: 'Completed' },
+];

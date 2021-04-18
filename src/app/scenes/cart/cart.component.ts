@@ -85,7 +85,7 @@ export class CartComponent implements OnInit {
     //   customizations: {
     //     title: 'TaSA',
     //     description: 'Payment for items in cart',
-    //     logo: 'https://assets.tasainc.com/images/TaSALogo.jpg',
+    //     logo: 'https://s3.amazonaws.com/content.common/TaSALogo.jpg',
     //   },
     // };
     // if ($t.cartDetails.isSubscription) {
@@ -175,6 +175,7 @@ export class CartComponent implements OnInit {
       transactionId: _data.transaction_id,
       transactionStatus: _data.status,
       transactionAmount: _data.amount,
+      transactionPrice: $t.cartDetails.gigData.selectedGigPlan.price,
       description: '',
       transactionOn: '',
       buyerId: '',
@@ -189,7 +190,7 @@ export class CartComponent implements OnInit {
     apiUrl = $t.sharedService.urlService.apiCallWithParams('checkoutGigCard', {
       '{tasaId}': $t.user.tasaId,
       '{gigCardId}': $t.cartDetails.gigData.id,
-      '{gigCardPlan}': $t.cartDetails.gigData.planName.trim(),
+      '{gigCardPlan}': $t.cartDetails.gigData.selectedGigPlan.name.trim(),
     });
     $t.sharedService.configService.post(apiUrl, payload).subscribe(
       (response: any) => {
@@ -220,6 +221,7 @@ export class CartComponent implements OnInit {
       transactionId: _data.transaction_id,
       transactionStatus: _data.status,
       transactionAmount: _data.amount,
+      transactionPrice: $t.cartDetails.customGigData.bidderDetails.cost,
       description: '',
       transactionOn: '',
       buyerId: '',
@@ -281,9 +283,9 @@ export class CartComponent implements OnInit {
     } else if (this.cartDetails.isCourse) {
       this.amount = this.cartDetails.courseData.offerPrice;
     } else if (this.cartDetails.isGig) {
-      this.amount = this.cartDetails.gigData.price;
+      this.amount = this.cartDetails.gigData.selectedGigPlan.deliveryPrice;
     } else if (this.cartDetails.isCustomGig) {
-      this.amount = this.cartDetails.customGigData.bidderDetails.cost;
+      this.amount = this.cartDetails.customGigData.bidderDetails.deliveryPrice;
     }
   }
 

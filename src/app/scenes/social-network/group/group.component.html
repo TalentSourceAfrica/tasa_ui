@@ -32,8 +32,8 @@
 <ng-template #groups>
   <mat-tab-group>
     <mat-tab label="My Groups">
-      <div class="d-flex align-items-center mt-4">
-        <mat-form-field class="example-form-field w40 m-auto" *ngIf="myGroups.data.length" style="font-size: 16px;">
+      <div class="d-flex align-items-center mt-4"  *ngIf="myGroups.data.length">
+        <mat-form-field class="example-form-field w40 m-auto" style="font-size: 16px;">
           <mat-label>Search Group</mat-label>
           <input matInput type="text" [(ngModel)]="myGroupSearchText" />
           <button
@@ -47,6 +47,9 @@
             <mat-icon>close</mat-icon>
           </button>
         </mat-form-field>
+        <button mat-flat-button color="primary" (click)="createGroup()" class="rounded-pill ml-2 mb-2">
+          Create group
+        </button>
       </div>
       <div
         *ngIf="myGroups.data.length"

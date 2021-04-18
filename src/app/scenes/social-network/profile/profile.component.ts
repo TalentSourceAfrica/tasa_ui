@@ -161,6 +161,7 @@ export class ProfileComponent implements OnInit {
       type: _type,
       data: [],
     };
+
     switch (_type) {
       case 'User Information':
         userConfigToUpdate.data = [
@@ -306,7 +307,7 @@ export class ProfileComponent implements OnInit {
 
       $t.sharedService.configService.post(apiUrl, form).subscribe(
         (response: any) => {
-          $t.sharedService.uiService.showApiSuccessPopMsg('Awesome!, Background Updated.');
+          $t.sharedService.uiService.showApiSuccessPopMsg('Awesome! Background Updated.');
           $t.user.backgroundImage = response.url;
           $t.authenticationService.login($t.user);
           $t.sharedService.utilityService.changeMessage('FETCH-USER-PROFILE');
