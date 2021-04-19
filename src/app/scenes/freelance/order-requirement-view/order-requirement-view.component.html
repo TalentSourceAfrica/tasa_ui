@@ -36,6 +36,52 @@
                 />
                 <div class="font400 pl-0 text-truncate" [title]="">{{ reqDetailsConfig.data?.postedByName }}</div>
               </div>
+
+              <h6 class="mb-2">
+                Progress <span class="text-muted">{{ reqDetailsConfig.data?.reqProgressConfig.percent }}%</span>
+              </h6>
+              <mat-progress-bar
+                [ngClass]="{
+                  'progress-red': reqDetailsConfig.data?.reqProgressConfig.percent <= 50,
+                  'progress-green': reqDetailsConfig.data?.reqProgressConfig.percent > 50 && reqDetailsConfig.data?.percent <= 80,
+                  'progress-theme': reqDetailsConfig.data?.reqProgressConfig.percent > 80
+                }"
+                [mode]="reqDetailsConfig.data?.reqProgressConfig.mode"
+                [value]="reqDetailsConfig.data?.reqProgressConfig.percent"
+              ></mat-progress-bar>
+
+              <div class="card-footer" *ngIf="reqDetailsConfig.data.postedByTasaId == user.tasaId">
+                <div class="w100">
+                  <div class="text-center">
+                    <div class="row no-gutters" *ngIf="reqDetailsConfig.data.stage !== ''">
+                      <div class="col-12 mb-1">
+                        <div class="form-group text-left">
+                          <label class="form-label" for="status">Stage<span class="text-danger pl-1 asterisk">*</span></label>
+                          <mat-select
+                            id="status"
+                            [(ngModel)]="reqDetailsConfig.data.stage"
+                            [value]="reqDetailsConfig.data.stage"
+                            class="form-control form-control-prepended"
+                          >
+                            <mat-option
+                              [value]="item.value"
+                              [disabled]="item.disable"
+                              *ngFor="let item of requirementProgressStatus"
+                            >
+                              {{ item.value }}
+                            </mat-option>
+                          </mat-select>
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <button mat-flat-button color="primary" class="rounded-pill" (click)="changeReqStage(reqDetailsConfig.data)">
+                          <span>Change Stage</span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
               <!-- <div class="row no-gutters border-bottom pb-4">
                   <div class="col-6 col-md-3">
                     <h6 class="mb-1"><i class="fas fa-briefcase pr-2 text-muted"></i>Experience</h6>

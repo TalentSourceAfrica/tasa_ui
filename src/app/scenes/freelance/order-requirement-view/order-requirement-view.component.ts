@@ -1,22 +1,20 @@
-
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CredentialsService } from '@app/auth';
 import { SharedService } from '@app/services/shared.service';
 import { OwlOptions } from 'ngx-owl-carousel-o';
-
-import { requirementStatus } from '@app/models/constants';
+import { requirementProgressStatus,requirementStatus } from '@app/models/constants';
 import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-order-requirement-view',
   templateUrl: './order-requirement-view.component.html',
-  styleUrls: ['./order-requirement-view.component.scss']
+  styleUrls: ['./order-requirement-view.component.scss'],
 })
 export class OrderRequirementViewComponent implements OnInit {
-
   @ViewChild('uploadAttachment', { static: false }) public upAttachment: any;
   panelOpenState: boolean = false;
+  requirementProgressStatus = JSON.parse(JSON.stringify(requirementProgressStatus));
   requirementStatus = JSON.parse(JSON.stringify(requirementStatus));
   reqDetailsConfig: any = {
     isLoading: false,
@@ -54,30 +52,10 @@ export class OrderRequirementViewComponent implements OnInit {
     },
   };
 
-  allShalowBidsOptions: OwlOptions = {
-    loop: false,
-    autoplay: false,
-    center: true,
-    smartSpeed: 1000,
-    dots: false,
-    autoHeight: false,
-    autoWidth: true,
-    autoplayHoverPause: true,
-    items: 3,
-    nav: true,
-    navText: ["<i class='fas fa-chevron-circle-left'></i>", "<i class='fas fa-chevron-circle-right'></i>"],
-    autoplayTimeout: 3000,
-    responsive: {
-      0: {
-        items: 1,
-      },
-      150: {
-        items: 2,
-      },
-      300: {
-        items: 3,
-      },
-    },
+  reqProgressConfig: any = {
+    percent: 0,
+    color: 'primary',
+    mode: 'determinate',
   };
 
   commentConfig: any = {
@@ -104,6 +82,10 @@ export class OrderRequirementViewComponent implements OnInit {
     private router: Router
   ) {
     this.reqDetailsConfig.requirementId = this.route.snapshot.params.requirementId;
+    // create Progress Percent base on stages;
+    this.requirementProgressStatus.forEach((d: any, i: number) => {
+      d['percent'] = ((i + 1) / this.requirementProgressStatus.length) * 100;
+    });
   }
 
   addComment() {
@@ -174,6 +156,24 @@ export class OrderRequirementViewComponent implements OnInit {
     );
   }
 
+  changeReqStage(item: any) {
+    let $t = this;
+    $t.sharedService.uiService.showApiStartPopMsg('Updating Stage');
+    let apiUrl = $t.sharedService.urlService.apiCallWithParams('updateRequirementStage', {
+      '{requirementId}': item.id,
+      '{stage}': item.stage,
+      '{userId}': $t.user.email,
+    });
+    $t.sharedService.configService.post(apiUrl).subscribe(
+      (response: any) => {
+        $t.sharedService.uiService.showApiSuccessPopMsg('Stage Updated');
+      },
+      (error) => {
+        $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
+      }
+    );
+  }
+
   getReqDetail() {
     let $t = this;
     $t.reqDetailsConfig.isLoading = true;
@@ -183,6 +183,14 @@ export class OrderRequirementViewComponent implements OnInit {
     this.sharedService.configService.get(apiUrl).subscribe(
       (response: any) => {
         $t.reqDetailsConfig.data = response.responseObj;
+        const currentProgressStage = $t.requirementProgressStatus.find((d: any) => d.value === $t.reqDetailsConfig.data.stage);
+        $t.reqDetailsConfig.data['reqProgressConfig'] = { ...$t.reqProgressConfig };
+        $t.reqDetailsConfig.data['reqProgressConfig'].percent = currentProgressStage.percent.toFixed(2);
+        // disable all previous stages
+        $t.requirementProgressStatus.forEach((d: any, i: number) => {
+          d['disable'] = i <= currentProgressStage.id - 1 ? true : false;
+        });
+
         $t.reqDetailsConfig.isLoading = false;
         if ($t.reqDetailsConfig.data.createdBy === $t.user.email) {
           $t.getAllBid();
@@ -282,8 +290,8 @@ export class OrderRequirementViewComponent implements OnInit {
     $t.sharedService.configService.get(apiUrl).subscribe(
       (response: any) => {
         $t.bidConfig.allBids = response.responseObj;
-        $t.bidConfig.bid = $t.bidConfig.allBids[0]
-        $t.onExapansionPanel( $t.bidConfig.bid);
+        $t.bidConfig.bid = $t.bidConfig.allBids[0];
+        $t.onExapansionPanel($t.bidConfig.bid);
       },
       (error) => {
         $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
@@ -307,7 +315,6 @@ export class OrderRequirementViewComponent implements OnInit {
     );
   }
 
-
   getDeliveryPrice(bid: any) {
     if (bid.cost > 0) {
       const dp = bid.cost * (bid.commission / 100) + bid.cost;
@@ -324,5 +331,4 @@ export class OrderRequirementViewComponent implements OnInit {
     const credentials = this.credentialsService.credentials;
     return credentials ? credentials : null;
   }
-
 }

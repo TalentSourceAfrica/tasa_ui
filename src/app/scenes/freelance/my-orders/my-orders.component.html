@@ -100,7 +100,7 @@
           <mat-progress-bar
             [ngClass]="{
               'progress-red': data.reqProgressConfig.percent <= 50,
-              'progress-green': data.reqProgressConfig.percent > 50 && reqProgressConfig.percent <= 80,
+              'progress-green': data.reqProgressConfig.percent > 50 && data.reqProgressConfig.percent <= 80,
               'progress-theme': data.reqProgressConfig.percent > 80
             }"
             [mode]="data.reqProgressConfig.mode"
