@@ -1,0 +1,547 @@
+<div class="req-view-wrapper w85 m-auto pt-4 mb-4">
+  <div class="page">
+    <div class="text-center m-auto min-vertical-h-50" *ngIf="reqDetailsConfig.isLoading">
+      <img src="../assets/loaders/swal-loader.gif" height="150" width="150" />
+      <h5 class="text-primary">Fetching Requirement...</h5>
+    </div>
+    <div class="animated fadeInUp" *ngIf="!reqDetailsConfig.isLoading">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a [routerLink]="['/home']">Home</a></li>
+        <li class="breadcrumb-item">
+          <a [routerLink]="['/freelance/all-requirements']">All Requirements</a>
+        </li>
+        <li class="breadcrumb-item active text-truncate">{{ reqDetailsConfig.data?.category }}</li>
+      </ol>
+      <div class="row">
+        <div class="col-md-8 col-12">
+          <div class="card my-4 m-0">
+            <ng-container>
+              <div class="card-img pb-1 d-flex align-items-center justify-content-center">
+                <h5 class="text-css m-auto">{{ reqDetailsConfig.data?.category }}</h5>
+              </div>
+            </ng-container>
+
+            <div class="card-body">
+              <div class="d-flex align-items-center justify-content-center mb-4">
+                <img
+                  src="{{
+                    reqDetailsConfig.data?.postedByImage !== ''
+                      ? reqDetailsConfig.data?.postedByImage
+                      : 'https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg'
+                  }} "
+                  [routerLink]="['/social-network/profile/', reqDetailsConfig.data?.postedByTasaId]"
+                  routerLinkActive="router-link-active"
+                  class="user-img"
+                  alt=""
+                />
+                <div class="font400 pl-0 text-truncate" [title]="">{{ reqDetailsConfig.data?.postedByName }}</div>
+              </div>
+              <!-- <div class="row no-gutters border-bottom pb-4">
+                  <div class="col-6 col-md-3">
+                    <h6 class="mb-1"><i class="fas fa-briefcase pr-2 text-muted"></i>Experience</h6>
+                    <div>
+                      {{ reqDetailsConfig.data?.experienceFrom }} - {{ reqDetailsConfig.data?.experienceTo }} Years
+                    </div>
+                  </div>
+                  <div class="col-6 col-md-3">
+                    <h6 class="mb-1"><i class="fas fa-money-bill-wave pr-2 text-muted"></i>Budget</h6>
+                    <div>
+                      {{ reqDetailsConfig.data?.budgetFrom | currency }} -
+                      {{ reqDetailsConfig.data?.budgetTo | currency }}
+                    </div>
+                  </div>
+                  <div class="col-6 col-md-3 mt-2">
+                    <h6 class="mb-1"><i class="fas fa-calendar-week pr-2 text-muted"></i>Open Till</h6>
+                    <div>{{ reqDetailsConfig.data?.openTill | date: 'mediumDate' }}</div>
+                  </div>
+                  <div class="col-6 col-md-3">
+                    <div
+                      *ngIf="reqDetailsConfig.data?.attachment !== ''"
+                      class="p-2 d-flex zoomCard align-items-center curPoint bg-primary-light"
+                    >
+                      <span class="material-icons pr-3">
+                        attach_file
+                      </span>
+                      <a
+                        [href]="reqDetailsConfig.data?.attachment"
+                        target="_blank"
+                        color="primary"
+                        class="mr-2"
+                        download
+                        matTooltipPosition="below"
+                        matTooltip="View Attachment"
+                      >
+                        View Attachment
+                      </a>
+                    </div>
+                  </div>
+                </div> -->
+              <div class="p-3">
+                <h4 class="mt-3">About This Requirement</h4>
+                <div class="mt-2" [innerHTML]="reqDetailsConfig.data.description | safeHtml"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 col-12">
+          <!-- <ng-container *ngIf="user.email !== reqDetailsConfig.data.createdBy">
+            <ng-container *ngTemplateOutlet="bidPosting"></ng-container>
+          </ng-container> -->
+          <ng-container *ngIf="user.email === reqDetailsConfig.data.createdBy">
+            <ng-container *ngTemplateOutlet="allBids"></ng-container>
+          </ng-container>
+          <div class="card m-0 mt-4">
+            <div class="card-header text-center">
+              <h4 class="card-title">Comments</h4>
+            </div>
+            <div class="card-body pl-0 pr-0">
+              <ng-template
+                [ngTemplateOutlet]="comments"
+                [ngTemplateOutletContext]="{
+                  post: reqDetailsConfig.selectedBidderConversation,
+                  bidId: bidConfig.bid.id
+                }"
+              >
+              </ng-template>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<input id="resumeUpload" class="d-none" #uploadAttachment type="file" (change)="uploadFile($event)" />
+
+<ng-template #bidPosting>
+  <div class="card my-4 m-0">
+    <div class="card-header text-center">
+      <h4 class="card-title" *ngIf="bidConfig.bid.id === ''">Post BID</h4>
+      <h4 class="card-title" *ngIf="bidConfig.bid.id !== ''">Update BID</h4>
+    </div>
+    <div class="card-body">
+      <div class="row no-gutters animated fadeInUp">
+        <div class="col-12 col-md-6">
+          <div class="form-group text-left mr-2">
+            <label class="form-label" for="cost">Cost <span class="text-danger pl-1 asterisk">*</span></label>
+            <div class="input-group input-group-merge">
+              <input
+                id="cost"
+                type="number"
+                min="0"
+                step="1"
+                oninput="validity.valid||(value='');"
+                [(ngModel)]="bidConfig.bid.cost"
+                class="form-control form-control-prepended"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-6">
+          <div class="form-group text-left">
+            <label class="form-label" for="tat"
+              >Turn Around Time <span class="text-danger pl-1 asterisk">*</span></label
+            >
+            <div class="input-group input-group-merge">
+              <input
+                id="tat"
+                type="number"
+                min="0"
+                step="1"
+                oninput="validity.valid||(value='');"
+                [(ngModel)]="bidConfig.bid.tat"
+                class="form-control form-control-prepended"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-12">
+          <div class="form-group text-left mr-2">
+            <label class="form-label" for="commission"
+              >Commission Percent<span class="text-danger pl-1 asterisk">*</span></label
+            >
+            <div class="input-group input-group-merge">
+              <input
+                id="commission"
+                type="number"
+                min="0"
+                step="1"
+                disabled="true"
+                oninput="validity.valid||(value='');"
+                [(ngModel)]="bidConfig.bid.commission"
+                class="form-control form-control-prepended"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-12">
+          <div class="form-group text-left">
+            <label class="form-label" for="deliveryPrice"
+              >Final Cost<span class="text-danger pl-1 asterisk">*</span></label
+            >
+            <div class="input-group input-group-merge">
+              <input
+                id="deliveryPrice"
+                type="number"
+                min="0"
+                step="1"
+                readonly
+                oninput="validity.valid||(value='');"
+                [value]="getDeliveryPrice(bidConfig.bid)"
+                class="form-control form-control-prepended"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-6">
+          <div class="form-group text-left">
+            <label class="form-label" for="Attachment">Attachment</label>
+            <div class="input-group input-group-merge">
+              <div
+                *ngIf="bidConfig.bid.attachment === ''"
+                class="p-2 d-flex align-items-center curPoint bg-primary-more-light"
+                (click)="triggerUpload()"
+              >
+                <span class="material-icons pr-3">
+                  attach_file
+                </span>
+                Add Attachment
+              </div>
+              <div
+                *ngIf="bidConfig.bid.attachment !== ''"
+                class="p-2 d-flex align-items-center curPoint bg-primary-light"
+              >
+                <span class="material-icons pr-3">
+                  attach_file
+                </span>
+                Attachment
+                <span class="material-icons pl-3" (click)="(bidConfig.bid.attachment === '')">
+                  close
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-6">
+          <div class="form-group text-left">
+            <label class="form-label" for="negotiable"
+              >Negotiable<span class="text-danger pl-1 asterisk">*</span></label
+            >
+            <mat-select
+              id="negotiable"
+              [(ngModel)]="bidConfig.bid.negotiable"
+              [(value)]="bidConfig.bid.negotiable"
+              class="form-control form-control-prepended"
+            >
+              <mat-option [value]="'Y'">
+                Yes
+              </mat-option>
+              <mat-option [value]="'N'">
+                No
+              </mat-option>
+            </mat-select>
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="form-group text-left">
+            <label class="form-label" for="description"
+              >Description <span class="text-danger pl-1 asterisk">*</span></label
+            >
+            <textarea
+              name="description"
+              [(ngModel)]="bidConfig.bid.description"
+              class="form-control form-control-prepended"
+              cols="30"
+              rows="10"
+              style="min-height: 100px; max-height: 100px;"
+            ></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="text-center">
+        <button
+          mat-flat-button
+          color="primary"
+          [disabled]="checkBidValidation()"
+          (click)="postBid()"
+          class="rounded-pill ml-3"
+        >
+          <span class="material-icons pr-2">
+            publish
+          </span>
+          <span *ngIf="bidConfig.bid.id === ''">Submit Bid</span>
+          <span *ngIf="bidConfig.bid.id !== ''">Update Bid</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="card m-0" *ngIf="bidConfig.bid.id !== ''">
+    <div class="card-header text-center">
+      <h4 class="card-title">Comments</h4>
+    </div>
+    <div>
+      <ng-template
+        [ngTemplateOutlet]="comments"
+        [ngTemplateOutletContext]="{ post: reqDetailsConfig.selectedBidderConversation, bidId: bidConfig.bid.id }"
+      >
+      </ng-template>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #allBids>
+  <div class="card m-0">
+    <div class="card-header text-center">
+      <h4 class="card-title">All BID</h4>
+    </div>
+    <div class="card-body pl-0 pr-0">
+      <mat-accordion>
+        <div
+          class="col-12 animated fadeIn w100 mb-1"
+          id="jobPanel-{{ i }}"
+          *ngFor="let item of bidConfig.allBids; let i = index"
+        >
+          <mat-expansion-panel
+            [disabled]="item.status === requirementStatus[4].value"
+            (opened)="onExapansionPanel(item)"
+            (closed)="panelOpenState = false"
+            class="jobs-panel"
+          >
+            <mat-expansion-panel-header class="d-flex align-items-center">
+              <mat-panel-title class="pt-3">
+                <h6 class="text-primary mt-2 pb-2">
+                  {{ item.userName }} <span class="text-muted ml-1">({{ item.deliveryPrice | currency }})</span>
+                </h6>
+              </mat-panel-title>
+              <mat-panel-description class="justify-content-end">
+                <div class="text-right d-flex align-items-center">
+                  <span
+                    class="badge p-2 ml-1 mt-2 caps"
+                    [ngClass]="{
+                      'badge-secondary': item.status === requirementStatus[0].value,
+                      'badge-warning': item.status === requirementStatus[1].value,
+                      'badge-dark': item.status === requirementStatus[2].value,
+                      'badge-success': item.status === requirementStatus[3].value,
+                      'badge-danger': item.status === requirementStatus[4].value
+                    }"
+                    style="z-index: 9; right: 10px;"
+                    >{{ item.status }}</span
+                  >
+                  <!-- <span class="pr-1 p-1" *ngFor="let item of job.desiredSkill"
+                      ><badge class="badge badge-info">{{ item }}</badge></span
+                    > -->
+                </div>
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div class="mt-4">
+              <div class="row no-gutters animated fadeInUp">
+                <div class="col-12 col-md-6">
+                  <div class="form-group text-left mr-2">
+                    <label class="form-label" for="cost">Cost <span class="text-danger pl-1 asterisk">*</span></label>
+                    <div class="input-group input-group-merge">
+                      <input
+                        id="cost"
+                        type="number"
+                        min="0"
+                        step="1"
+                        readonly
+                        oninput="validity.valid||(value='');"
+                        [(ngModel)]="item.cost"
+                        class="form-control form-control-prepended"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6">
+                  <div class="form-group text-left">
+                    <label class="form-label" for="tat"
+                      >Turn Around Time <span class="text-danger pl-1 asterisk">*</span></label
+                    >
+                    <div class="input-group input-group-merge">
+                      <input
+                        id="tat"
+                        type="number"
+                        min="0"
+                        step="1"
+                        readonly
+                        oninput="validity.valid||(value='');"
+                        [(ngModel)]="item.tat"
+                        class="form-control form-control-prepended"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6">
+                  <div class="form-group text-left">
+                    <label class="form-label" for="Attachment">Attachment</label>
+                    <div class="input-group input-group-merge">
+                      <div
+                        *ngIf="item.attachment !== ''"
+                        class="p-2 d-flex align-items-center curPoint bg-primary-light"
+                      >
+                        <span class="material-icons pr-3">
+                          attach_file
+                        </span>
+                        <a
+                          [href]="item.attachment"
+                          target="_blank"
+                          color="primary"
+                          class="mr-2"
+                          download
+                          matTooltipPosition="below"
+                          matTooltip="View Attachment"
+                        >
+                          View Attachment
+                        </a>
+                      </div>
+                      <div
+                        *ngIf="item.attachment === ''"
+                        class="p-2 d-flex align-items-center curPoint bg-primary-light"
+                      >
+                        No Attachments
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6">
+                  <div class="form-group text-left">
+                    <label class="form-label" for="negotiable"
+                      >Negotiable<span class="text-danger pl-1 asterisk">*</span></label
+                    >
+                    <mat-select
+                      id="negotiable"
+                      readonly
+                      [(ngModel)]="item.negotiable"
+                      [(value)]="item.negotiable"
+                      class="form-control form-control-prepended"
+                    >
+                      <mat-option [value]="'Y'">
+                        Yes
+                      </mat-option>
+                      <mat-option [value]="'N'">
+                        No
+                      </mat-option>
+                    </mat-select>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="form-group text-left">
+                    <label class="form-label" for="description"
+                      >Description <span class="text-danger pl-1 asterisk">*</span></label
+                    >
+                    <textarea
+                      name="description"
+                      [(ngModel)]="item.description"
+                      class="form-control form-control-prepended"
+                      cols="30"
+                      rows="10"
+                      readonly
+                      style="min-height: 100px; max-height: 100px;"
+                    ></textarea>
+                  </div>
+                </div>
+              </div>
+              <!-- <div>
+                <label class="form-label" for="description">Comments </label>
+                <ng-template
+                  [ngTemplateOutlet]="comments"
+                  [ngTemplateOutletContext]="{ post: reqDetailsConfig.selectedBidderConversation, bidId: item.id }"
+                >
+                </ng-template>
+              </div> -->
+              <!-- <div class="text-center mt-4" *ngIf="item.status !== requirementStatus[4].value">
+                  <div class="row no-gutters">
+                    <div class="col-12 col-md-6">
+                      <div class="form-group text-left">
+                        <label class="form-label" for="status"
+                          >Status<span class="text-danger pl-1 asterisk">*</span></label
+                        >
+                        <mat-select
+                          id="status"
+                          [(ngModel)]="item.status"
+                          [(value)]="item.status"
+                          class="form-control form-control-prepended"
+                        >
+                          <mat-option [value]="item.value" *ngFor="let item of requirementStatus">
+                            {{ item.value }}
+                          </mat-option>
+                        </mat-select>
+                      </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                      <button
+                        mat-flat-button
+                        color="primary"
+                        class="rounded-pill ml-2 mt-4"
+                        (click)="changeBidStatus(item)"
+                      >
+                        <span>Change Status</span>
+                      </button>
+                    </div>
+                  </div>
+                </div> -->
+            </div>
+          </mat-expansion-panel>
+        </div>
+      </mat-accordion>
+
+      <ng-container *ngIf="bidConfig.allBids.length == 0">
+        <div class="text-center m-auto animated fadeIn">
+          <div class="col-12 text-center">
+            <img src="../assets/images/no-record.gif" style="height: 300px;" class="img-fluid d-block mx-auto" />
+            <h6 class="text-primary">Nobody Applied...!</h6>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #comments let-post="post" let-bidId="bidId" let-iteration="iteration">
+  <div class="album-comments pt-4 pb-2 pl-2 pr-2 w100 max-vertical-h-35 stylishSlimScroll flow-y-auto flow-x-hidden">
+    <div class="row no-gutters text-center animated fadeIn pb-3" *ngFor="let comment of post; let ind = index">
+      <div class="col-2 text-right curPoint">
+        <img
+          class="status-img img-responsive user-img img-circle"
+          matTooltipPosition="below"
+          [matTooltip]="comment.userName"
+          [routerLink]="['/social-network/profile/', comment.tasaId]"
+          routerLinkActive="router-link-active"
+          src="{{
+            comment.userImageUrl != ''
+              ? comment.userImageUrl
+              : 'https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg'
+          }}"
+          alt=""
+        />
+      </div>
+      <div class="col-8">
+        <mat-form-field class="w100" style="height: 30px;">
+          <mat-label
+            ><a>{{ comment.userName }}</a></mat-label
+          >
+          <textarea
+            type="text"
+            [readonly]="comment.id !== ''"
+            matInput
+            #commentBox
+            [(ngModel)]="comment.content"
+          ></textarea>
+        </mat-form-field>
+      </div>
+      <div class="col-2">
+        <button
+          mat-mini-fab
+          color="primary"
+          style="z-index: 9;"
+          *ngIf="comment?.id === '' || !comment.id"
+          matTooltipPosition="below"
+          matTooltip="Post Comment"
+          (click)="postComment(comment, bidId)"
+        >
+          <mat-icon>send</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-template>

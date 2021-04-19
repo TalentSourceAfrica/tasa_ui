@@ -19,14 +19,9 @@
 </div>
 
 <ng-template #allGigs>
-  <div class="row w100 no-gutters animated fadeIn">
+  <div class="row w100 no-gutters animated fadeIn pb-4">
     <div class="col-12 col-md-6" *ngFor="let item of orderConfig.data">
-      <ng-container *ngIf="item.type === 'Bid'">
-        <ng-template [ngTemplateOutlet]="customGig" [ngTemplateOutletContext]="{ data: item }"> </ng-template>
-      </ng-container>
-      <ng-container *ngIf="item.type !== 'Bid'">
-        <ng-template [ngTemplateOutlet]="gig" [ngTemplateOutletContext]="{ data: item }"> </ng-template>
-      </ng-container>
+      <ng-template [ngTemplateOutlet]="customGig" [ngTemplateOutletContext]="{ data: item }"> </ng-template>
     </div>
 
     <ng-container *ngIf="!orderConfig.isLoading && orderConfig.data.length === 0">
@@ -46,14 +41,15 @@
       >Active</span
     >
     <div class="card-img pb-1 d-flex align-items-center text-center justify-content-center">
-      <h5 class="text-css m-auto">{{ data.remarks }}</h5>
+      <h5 class="text-css m-auto" *ngIf="data.type === 'Bid'">{{ data.remarks }}</h5>
+      <h5 class="text-css m-auto" *ngIf="data.type === 'Gig'">Gig Card</h5>
     </div>
     <div class="card-body pl-3 pr-3">
       <div class="row no-gutters">
         <div class="col-12 col-md-6" *ngIf="data.sellerId != user.tasaId">
           <h6 class="mb-1"><i class="fas fa-briefcase pr-2 text-muted"></i>Freelancer</h6>
           <div
-            class="text-underline curPoint pl-4"
+            class="underline curPoint pl-4"
             [routerLink]="['/social-network/profile/', data.sellerId]"
             routerLinkActive="router-link-active"
           >
@@ -91,7 +87,7 @@
           matTooltip="Close Progress"
           *ngIf="data.reqProgressConfig"
         >
-          <span class="material-icons" [ngClass]="{ 'spin-loader-prop': data.isLoadingProgress }">
+          <span class="material-icons">
             close
           </span>
         </button>
@@ -145,14 +141,22 @@
           <button
             mat-mini-fab
             color="primary"
-            *ngIf="data.buyerId != user.tasaId"
-            [routerLink]="['/freelance/requirement/', data.requirementId]"
+            [routerLink]="['/freelance/order/requirement/', data.requirementId]"
             routerLinkActive="router-link-active"
             matTooltipPosition="below"
             class="mr-2"
-            matTooltip="View Requirement"
+            matTooltip="View Details"
           >
             <mat-icon class="mb-1">remove_red_eye</mat-icon>
+          </button>
+          <button
+            mat-flat-button
+            color="primary"
+            *ngIf="data.progressStatus === 'Completed' && data.buyerId != user.tasaId"
+            class="rounded-pill"
+            (click)="paymentToFreelancer(data)"
+          >
+            <span>Pay Out</span>
           </button>
         </div>
       </div>
@@ -172,7 +176,7 @@
         <div class="col-12 col-md-6" *ngIf="data.sellerId != user.tasaId">
           <h6 class="mb-1"><i class="fas fa-briefcase pr-2 text-muted"></i>Freelancer</h6>
           <div
-            class="text-underline curPoint pl-4"
+            class="underline curPoint pl-4"
             [routerLink]="['/social-network/profile/', data.sellerId]"
             routerLinkActive="router-link-active"
           >
@@ -203,7 +207,20 @@
     </div>
     <div class="card-footer">
       <div class="w100">
-        <div class="text-center"></div>
+        <div class="text-center">
+          <button
+            mat-mini-fab
+            color="primary"
+            *ngIf="data.buyerId != user.tasaId"
+            [routerLink]="['/freelance/order/requirement/', data.requirementId]"
+            routerLinkActive="router-link-active"
+            matTooltipPosition="below"
+            class="mr-2"
+            matTooltip="View Requirement"
+          >
+            <mat-icon class="mb-1">remove_red_eye</mat-icon>
+          </button>
+        </div>
       </div>
     </div>
   </div>

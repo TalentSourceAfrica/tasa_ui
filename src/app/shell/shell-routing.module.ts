@@ -289,6 +289,14 @@ const routes: Routes = [
                 (m) => m.MyOrdersModule
               ),
           },
+          {
+            path: 'order/requirement/:requirementId',
+            canActivate: [AuthenticationGuard],
+            loadChildren: () =>
+              import('@app/scenes/freelance/order-requirement-view/order-requirement-view.module').then(
+                (m) => m.OrderRequirementViewModule
+              ),
+          },
         ],
       },
       { path: '', redirectTo: '/home', pathMatch: 'full' },

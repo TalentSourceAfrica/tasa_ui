@@ -58,14 +58,12 @@ export class MyOrdersComponent implements OnInit {
     $t.sharedService.configService.get(apiUrl).subscribe(
       (response: any) => {
         item.progressStatus = response.responseObj.stage;
-        const currentProgressStage = $t.requirementProgressStatus.find(
-          (d: any) => d.value === item.progressStatus
-        );
+        const currentProgressStage = $t.requirementProgressStatus.find((d: any) => d.value === item.progressStatus);
         item['reqProgressConfig'] = { ...$t.reqProgressConfig };
-        item['reqProgressConfig'].percent = currentProgressStage.percent.toFixed(2)
+        item['reqProgressConfig'].percent = currentProgressStage.percent.toFixed(2);
         // disable all previous stages
         $t.requirementProgressStatus.forEach((d: any, i: number) => {
-          d['disable'] = i <= (currentProgressStage.id - 1) ? true : false
+          d['disable'] = i <= currentProgressStage.id - 1 ? true : false;
         });
 
         item.isLoadingProgress = false;
@@ -74,6 +72,29 @@ export class MyOrdersComponent implements OnInit {
         item.isLoadingProgress = false;
         $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
       }
+    );
+  }
+
+  paymentToFreelancer(item: any) {
+    console.log(item);
+    let $t = this;
+    let payload = {
+      account_bank: '044',
+      account_number: '0690000040',
+      amount: 5500,
+      narration: 'Akhlm Pstmn Trnsfr xx007',
+      currency: 'NGN',
+      reference: 'akhlm-pstmnpyt-rfxx007_PMCKDU_1',
+      callback_url: 'https://webhook.site/b3e505b0-fe02-430e-a538-22bbbce8ce0d',
+      debit_currency: 'NGN',
+    };
+    const apiUrl = 'https://api.flutterwave.com/v3/transfers';
+
+    $t.sharedService.configService.post(apiUrl, payload).subscribe(
+      (response) => {
+        console.log(response);
+      },
+      (error) => {}
     );
   }
 
@@ -86,6 +107,7 @@ export class MyOrdersComponent implements OnInit {
     $t.sharedService.configService.get(apiUrl).subscribe(
       (response: any) => {
         $t.orderConfig.data = response.responseObj.transactions;
+        $t.orderConfig.data =  $t.orderConfig.data.filter((d:any) => d.type !== 'Course');
         $t.orderConfig.data.forEach((element: any) => {
           element['progressStatus'] = '';
         });
