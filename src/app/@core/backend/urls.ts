@@ -212,5 +212,8 @@ export const urls: any = {
   fetchUserSpecificBid : '/bid/user/{requirementId}/{tasaId}', // G
 
   // order
-  fetchAllOrder : '/users/transactions/{tasaId}' // G
+  fetchAllOrder : '/users/transactions/{tasaId}', // G
+
+  // rating
+  rating : '/rating/{userId}/{ratedBy}' // PO
 };

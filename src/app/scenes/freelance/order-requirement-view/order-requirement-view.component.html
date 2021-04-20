@@ -43,7 +43,8 @@
               <mat-progress-bar
                 [ngClass]="{
                   'progress-red': reqDetailsConfig.data?.reqProgressConfig.percent <= 50,
-                  'progress-green': reqDetailsConfig.data?.reqProgressConfig.percent > 50 && reqDetailsConfig.data?.percent <= 80,
+                  'progress-green':
+                    reqDetailsConfig.data?.reqProgressConfig.percent > 50 && reqDetailsConfig.data?.percent <= 80,
                   'progress-theme': reqDetailsConfig.data?.reqProgressConfig.percent > 80
                 }"
                 [mode]="reqDetailsConfig.data?.reqProgressConfig.mode"
@@ -53,10 +54,15 @@
               <div class="card-footer" *ngIf="reqDetailsConfig.data.postedByTasaId == user.tasaId">
                 <div class="w100">
                   <div class="text-center">
-                    <div class="row no-gutters" *ngIf="reqDetailsConfig.data.stage !== ''">
+                    <div
+                      class="row no-gutters"
+                      *ngIf="reqDetailsConfig.data.stage !== '' && !reqDetailsConfig.isCompleted"
+                    >
                       <div class="col-12 mb-1">
                         <div class="form-group text-left">
-                          <label class="form-label" for="status">Stage<span class="text-danger pl-1 asterisk">*</span></label>
+                          <label class="form-label" for="status"
+                            >Stage<span class="text-danger pl-1 asterisk">*</span></label
+                          >
                           <mat-select
                             id="status"
                             [(ngModel)]="reqDetailsConfig.data.stage"
@@ -74,10 +80,32 @@
                         </div>
                       </div>
                       <div class="col-12">
-                        <button mat-flat-button color="primary" class="rounded-pill" (click)="changeReqStage(reqDetailsConfig.data)">
+                        <button
+                          mat-flat-button
+                          color="primary"
+                          class="rounded-pill"
+                          (click)="changeReqStage(reqDetailsConfig.data)"
+                        >
                           <span>Change Stage</span>
                         </button>
                       </div>
+                    </div>
+                    <div
+                      *ngIf="
+                        reqDetailsConfig.data.postedByTasaId == user.tasaId &&
+                        reqDetailsConfig.data.isCompleted
+                      "
+                    >
+                      <img
+                        class="message-icon animated fadeInUp"
+                        style="width: 150px; height: 150px;"
+                        src="../assets/images/success.svg"
+                        alt=""
+                      />
+                      <h4 class="message-text animated fadeInUp font700 text-shadow-theme text-primary">Work Done!</h4>
+                      <button mat-flat-button color="primary" class="rounded-pill" (click)="openFeedbackPopup()">
+                        <span>Provide Feedback</span>
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -343,7 +371,7 @@
     <div class="card-body pl-0 pr-0">
       <mat-accordion>
         <div
-          class="col-12 animated fadeIn w100 mb-1"
+          class="col-12 animated fadeIn w100 mb-3"
           id="jobPanel-{{ i }}"
           *ngFor="let item of bidConfig.allBids; let i = index"
         >

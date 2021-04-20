@@ -107,9 +107,10 @@ export class MyOrdersComponent implements OnInit {
     $t.sharedService.configService.get(apiUrl).subscribe(
       (response: any) => {
         $t.orderConfig.data = response.responseObj.transactions;
-        $t.orderConfig.data =  $t.orderConfig.data.filter((d:any) => d.type !== 'Course');
+        $t.orderConfig.data = $t.orderConfig.data.filter((d: any) => d.type !== 'Course');
         $t.orderConfig.data.forEach((element: any) => {
           element['progressStatus'] = '';
+          element['rating'] = 0;
         });
         $t.orderConfig.isLoading = false;
       },

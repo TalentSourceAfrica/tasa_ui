@@ -8,7 +8,7 @@ import { MaterialModule } from '@app/modules/material.module';
 import { RouterModule } from '@angular/router';
 import { MyOrdersComponent } from './my-orders.component';
 import { MyOrdersRoutingModule } from './my-orders-routing.module';
-
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [MyOrdersComponent],
@@ -20,6 +20,7 @@ import { MyOrdersRoutingModule } from './my-orders-routing.module';
     FormsModule,
     TranslateModule,
     MyOrdersRoutingModule,
+    NgbModule
   ],
   schemas: [NO_ERRORS_SCHEMA],
 })

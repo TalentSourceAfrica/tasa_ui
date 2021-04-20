@@ -10,6 +10,8 @@ import { SafeHtmlModule } from '@app/pipes/safe-html.pipe';
 
 import { OrderRequirementViewRoutingModule } from './order-requirement-view-routing.module';
 import { OrderRequirementViewComponent } from './order-requirement-view.component';
+import { SubmitFeedbackPopupModule } from '@app/partials/popups/freelance/submit-feedback-popup/submit-feedback-popup.module';
+
 
 
 @NgModule({
@@ -23,6 +25,7 @@ import { OrderRequirementViewComponent } from './order-requirement-view.componen
     TranslateModule,
     OrderRequirementViewRoutingModule,
     SafeHtmlModule,
+    SubmitFeedbackPopupModule
   ],
   schemas: [NO_ERRORS_SCHEMA],
 })

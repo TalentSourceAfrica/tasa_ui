@@ -56,7 +56,7 @@ export class RequirementViewComponent implements OnInit {
   allShalowBidsOptions: OwlOptions = {
     loop: false,
     autoplay: false,
-    center: true,
+    center: false,
     smartSpeed: 1000,
     dots: false,
     autoHeight: false,
@@ -106,6 +106,13 @@ export class RequirementViewComponent implements OnInit {
     this.reqDetailsConfig.requirementId = this.route.snapshot.params.requirementId;
   }
 
+  setStatusActiveness(_bid:any){
+    const currentProgressStage = this.requirementStatus.find((d: any) => d.value === _bid.status);
+    this.requirementStatus.forEach((d: any, i: number) => {
+      d['disable'] = i <= currentProgressStage.id - 1 ? true : false;
+    });
+  }
+
   addComment() {
     this.reqDetailsConfig.selectedBidderConversation.push({ ...this.commentConfig.newComment });
   }
@@ -149,6 +156,7 @@ export class RequirementViewComponent implements OnInit {
 
   onExapansionPanel(_bid: any) {
     this.panelOpenState = true;
+    this.setStatusActiveness(_bid);
     this.fetchPostById(_bid.id);
   }
 
@@ -183,7 +191,6 @@ export class RequirementViewComponent implements OnInit {
     this.sharedService.configService.get(apiUrl).subscribe(
       (response: any) => {
         $t.reqDetailsConfig.data = response.responseObj;
-        $t.reqDetailsConfig.isLoading = false;
         if ($t.reqDetailsConfig.data.createdBy === $t.user.email) {
           $t.getAllBid();
         } else {
@@ -236,6 +243,7 @@ export class RequirementViewComponent implements OnInit {
       $t.sharedService.uiService.showApiStartPopMsg('Updating Bid Status.');
       $t.sharedService.configService.post(apiUrl, $t.bidConfig.bid).subscribe(
         (response: any) => {
+          $t.setStatusActiveness(bid);
           $t.sharedService.uiService.showApiSuccessPopMsg(response.message);
         },
         (error) => {
@@ -283,8 +291,10 @@ export class RequirementViewComponent implements OnInit {
     $t.sharedService.configService.get(apiUrl).subscribe(
       (response: any) => {
         $t.bidConfig.allBids = response.responseObj;
+        $t.reqDetailsConfig.isLoading = false;
       },
       (error) => {
+        $t.reqDetailsConfig.isLoading = false;
         $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
       }
     );
@@ -299,8 +309,10 @@ export class RequirementViewComponent implements OnInit {
     $t.sharedService.configService.get(apiUrl).subscribe(
       (response: any) => {
         $t.bidConfig.allBidders = response.responseObj;
+        $t.reqDetailsConfig.isLoading = false;
       },
       (error) => {
+        $t.reqDetailsConfig.isLoading = false;
         $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
       }
     );

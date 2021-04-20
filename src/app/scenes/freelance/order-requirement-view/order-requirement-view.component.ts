@@ -2,9 +2,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CredentialsService } from '@app/auth';
 import { SharedService } from '@app/services/shared.service';
-import { OwlOptions } from 'ngx-owl-carousel-o';
-import { requirementProgressStatus,requirementStatus } from '@app/models/constants';
-import Swal from 'sweetalert2';
+
+import { requirementProgressStatus, requirementStatus } from '@app/models/constants';
+import { SubmitFeedbackPopupComponent } from '@app/partials/popups/freelance/submit-feedback-popup/submit-feedback-popup.component';
 
 @Component({
   selector: 'app-order-requirement-view',
@@ -21,6 +21,7 @@ export class OrderRequirementViewComponent implements OnInit {
     data: {},
     requirementId: 0,
     selectedBidderConversation: [],
+    isCompleted: false,
   };
   bidConfig: any = {
     isAlreadyBid: false,
@@ -166,6 +167,9 @@ export class OrderRequirementViewComponent implements OnInit {
     });
     $t.sharedService.configService.post(apiUrl).subscribe(
       (response: any) => {
+        if (item.stage === 'Completed') {
+          $t.reqDetailsConfig.isCompleted = true;
+        }
         $t.sharedService.uiService.showApiSuccessPopMsg('Stage Updated');
       },
       (error) => {
@@ -183,7 +187,12 @@ export class OrderRequirementViewComponent implements OnInit {
     this.sharedService.configService.get(apiUrl).subscribe(
       (response: any) => {
         $t.reqDetailsConfig.data = response.responseObj;
-        const currentProgressStage = $t.requirementProgressStatus.find((d: any) => d.value === $t.reqDetailsConfig.data.stage);
+        if ($t.reqDetailsConfig.data.stage === 'Completed') {
+          $t.reqDetailsConfig.isCompleted = true;
+        }
+        const currentProgressStage = $t.requirementProgressStatus.find(
+          (d: any) => d.value === $t.reqDetailsConfig.data.stage
+        );
         $t.reqDetailsConfig.data['reqProgressConfig'] = { ...$t.reqProgressConfig };
         $t.reqDetailsConfig.data['reqProgressConfig'].percent = currentProgressStage.percent.toFixed(2);
         // disable all previous stages
@@ -228,27 +237,6 @@ export class OrderRequirementViewComponent implements OnInit {
       return true;
     } else {
       return false;
-    }
-  }
-
-  changeBidStatus(bid: any) {
-    let $t = this;
-    if (bid.status === 'Selected') {
-    } else {
-      let apiUrl = $t.sharedService.urlService.apiCallWithParams('updateBidStatus', {
-        '{bidId}': bid.id,
-        '{status}': bid.status,
-        '{userId}': $t.user.email,
-      });
-      $t.sharedService.uiService.showApiStartPopMsg('Updating Bid Status.');
-      $t.sharedService.configService.post(apiUrl, $t.bidConfig.bid).subscribe(
-        (response: any) => {
-          $t.sharedService.uiService.showApiSuccessPopMsg(response.message);
-        },
-        (error) => {
-          $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
-        }
-      );
     }
   }
 
@@ -321,6 +309,23 @@ export class OrderRequirementViewComponent implements OnInit {
       bid.deliveryPrice = dp;
       return dp;
     }
+  }
+
+  openFeedbackPopup() {
+    let buyerDetails: any = {
+      email: this.reqDetailsConfig.data.createdBy,
+      name: this.reqDetailsConfig.data.postedByName,
+      tasaId: this.reqDetailsConfig.data.postedByTasaId,
+      userImage: this.reqDetailsConfig.postedByImage,
+    };
+    this.sharedService.dialogService.open(SubmitFeedbackPopupComponent, {
+      width: '700px',
+      data: {
+        buyerDetails: buyerDetails,
+        user: this.user,
+      },
+      disableClose: false,
+    });
   }
 
   ngOnInit(): void {

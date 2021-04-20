@@ -325,7 +325,7 @@
     <div class="card-body pl-0 pr-0">
       <mat-accordion>
         <div
-          class="col-12 animated fadeIn w100 mt-4 mb-1"
+          class="col-12 animated fadeIn w100 mb-3"
           id="jobPanel-{{ i }}"
           *ngFor="let item of bidConfig.allBids; let i = index"
         >
@@ -438,7 +438,7 @@
                     >
                     <mat-select
                       id="negotiable"
-                      readonly
+                      disabled="true"
                       [(ngModel)]="item.negotiable"
                       [(value)]="item.negotiable"
                       class="form-control form-control-prepended"
@@ -490,7 +490,7 @@
                         [(value)]="item.status"
                         class="form-control form-control-prepended"
                       >
-                        <mat-option [value]="item.value" *ngFor="let item of requirementStatus">
+                        <mat-option [disabled]="item.disable" [value]="item.value" *ngFor="let item of requirementStatus">
                           {{ item.value }}
                         </mat-option>
                       </mat-select>
