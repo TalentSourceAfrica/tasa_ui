@@ -23,6 +23,11 @@ export class MyOrdersComponent implements OnInit {
     mode: 'determinate',
   };
 
+  allActivityConfig: any = {
+    data: [],
+    isLoading: false,
+  };
+
   constructor(public sharedService: SharedService, private credentialsService: CredentialsService) {
     // create Progress Percent base on stages;
     this.requirementProgressStatus.forEach((d: any, i: number) => {
@@ -40,6 +45,9 @@ export class MyOrdersComponent implements OnInit {
     });
     $t.sharedService.configService.post(apiUrl).subscribe(
       (response: any) => {
+        if (item.progressStatus === 'Completed') {
+          item['isCompleted'] = true;
+        }
         $t.sharedService.uiService.showApiSuccessPopMsg('Stage Updated');
         $t.checkReqProgress(item);
       },
@@ -58,6 +66,9 @@ export class MyOrdersComponent implements OnInit {
     $t.sharedService.configService.get(apiUrl).subscribe(
       (response: any) => {
         item.progressStatus = response.responseObj.stage;
+        if (item.progressStatus === 'Completed') {
+          item['isCompleted'] = true;
+        }
         const currentProgressStage = $t.requirementProgressStatus.find((d: any) => d.value === item.progressStatus);
         item['reqProgressConfig'] = { ...$t.reqProgressConfig };
         item['reqProgressConfig'].percent = currentProgressStage.percent.toFixed(2);
@@ -111,6 +122,7 @@ export class MyOrdersComponent implements OnInit {
         $t.orderConfig.data.forEach((element: any) => {
           element['progressStatus'] = '';
           element['rating'] = 0;
+          element['isCompleted'] = false;
         });
         $t.orderConfig.isLoading = false;
       },
@@ -121,8 +133,28 @@ export class MyOrdersComponent implements OnInit {
     );
   }
 
+  getAllAssignments() {
+    let $t = this;
+    $t.allActivityConfig.isLoading = true;
+    let apiUrl = $t.sharedService.urlService.apiCallWithParams('getAllAssignments', {
+      '{tasaId}': $t.user.tasaId,
+    });
+    $t.sharedService.configService.get(apiUrl).subscribe(
+      (response: any) => {
+        $t.allActivityConfig.data = response.responseObj;
+
+        $t.allActivityConfig.isLoading = false;
+      },
+      (error) => {
+        $t.orderConfig.isLoading = false;
+        $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
+      }
+    );
+  }
+
   ngOnInit(): void {
     this.getOrder();
+    this.getAllAssignments();
   }
 
   get user(): any | null {

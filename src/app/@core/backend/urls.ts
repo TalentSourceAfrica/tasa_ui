@@ -187,7 +187,7 @@ export const urls: any = {
   deactivateGig: '/gigcard/deactivate/{cardId}/{userId}', // PO
   getGigCard: '/gigcard/{gigCardId}', // G
   gigSearch: '/gigcard/search/{searchText}/{pageNo}/{pageSize}', // G
-  checkoutGigCard : '/gigcard/checkout/{tasaId}/{gigCardId}/{gigCardPlan}', // PO
+  checkoutGigCard: '/gigcard/checkout/{tasaId}/{gigCardId}/{gigCardPlan}', // PO
 
   // requirement
   postRequirement: '/requirement/{userId}', // PO
@@ -200,20 +200,23 @@ export const urls: any = {
   getUserInactiveRequirements: '/requirement/allInActive/{userId}', // G
   getRequirement: '/requirement/{requirementId}', // G
   requirementSearch: '/requirement/search/{searchText}/{pageNo}/{pageSize}', // G
-  checkoutRequirement : '/bid/checkout/{tasaId}/{bidId}', // PO
-  updateRequirementStage :'/requirement/updateStage/{requirementId}/{stage}/{userId}', // PO
+  checkoutRequirement: '/bid/checkout/{tasaId}/{bidId}', // PO
+  updateRequirementStage: '/requirement/updateStage/{requirementId}/{stage}/{userId}', // PO
 
   // bidding
   postBid: '/bid/{requirementId}/{userId}', // PO
-  fetchAllBid: '/bid/{requirementId}/{status}' , // G
-  updateBidStatus : '/bid/updateStatus/{bidId}/{status}/{userId}', // PO
-  fetchAllBidsForBidder : '/bid/bidder/{bidderId}/{status}' , // G
-  fetchAllBidsForRequirement : '/bid/shallow/{requirementId}/{status}' , // G
-  fetchUserSpecificBid : '/bid/user/{requirementId}/{tasaId}', // G
+  fetchAllBid: '/bid/{requirementId}/{status}', // G
+  updateBidStatus: '/bid/updateStatus/{bidId}/{status}/{userId}', // PO
+  fetchAllBidsForBidder: '/bid/bidder/{bidderId}/{status}', // G
+  fetchAllBidsForRequirement: '/bid/shallow/{requirementId}/{status}', // G
+  fetchUserSpecificBid: '/bid/user/{requirementId}/{tasaId}', // G
 
   // order
-  fetchAllOrder : '/users/transactions/{tasaId}', // G
+  fetchAllOrder: '/users/transactions/{tasaId}', // G
 
   // rating
-  rating : '/rating/{userId}/{ratedBy}' // PO
+  rating: '/rating/{userId}/{ratedBy}', // PO
+
+  // Assignments
+  getAllAssignments: '/requirement/progressive/{tasaId}', // G
 };

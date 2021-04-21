@@ -17,6 +17,7 @@ import * as underscore from 'underscore';
 import * as jQuery from 'jquery';
 import { ConfigService } from './config.service';
 import { UrlService } from './url.service';
+import { EncrDecrService } from './encr-decr.service';
 
 @Injectable({
   providedIn: 'root',
@@ -32,7 +33,8 @@ export class SharedService {
     public dialogService: DialogService,
     public configService: ConfigService,
     public urlService: UrlService,
-    public deviceDetectorService: DeviceDetectorService
+    public deviceDetectorService: DeviceDetectorService,
+    public encrDecrService: EncrDecrService
   ) {
     this.initPlugins();
   }

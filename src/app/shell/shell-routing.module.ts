@@ -282,7 +282,7 @@ const routes: Routes = [
               ),
           },
           {
-            path: 'my-orders',
+            path: 'my-engagements',
             canActivate: [AuthenticationGuard],
             loadChildren: () =>
               import('@app/scenes/freelance/my-orders/my-orders.module').then(

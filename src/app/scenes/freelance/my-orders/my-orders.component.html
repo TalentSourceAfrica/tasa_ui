@@ -1,45 +1,55 @@
-<div class="my-orders-wrapper container">
+<div class="my-orders-wrapper container-fluid w70">
   <div class="">
     <section>
       <ol class="breadcrumb mt-3">
         <li class="breadcrumb-item curPoint"><a [routerLink]="['/home']">Home</a></li>
-        <li class="breadcrumb-item active"><a>My Orders</a></li>
+        <li class="breadcrumb-item active"><a>My Engagements</a></li>
       </ol>
       <div class="sec-title">
-        <div class="title">All Orders</div>
+        <div class="title">All Engagements</div>
       </div>
-      <ng-container *ngIf="!orderConfig.isLoading">
-        <ng-container *ngTemplateOutlet="allGigs"></ng-container>
-      </ng-container>
-      <ng-container *ngIf="orderConfig.isLoading">
-        <ng-container *ngTemplateOutlet="loader"></ng-container>
-      </ng-container>
+
+      <mat-tab-group>
+        <mat-tab label="My Assignments">
+          <ng-container *ngIf="!orderConfig.isLoading">
+            <ng-container *ngTemplateOutlet="allAssignment"></ng-container>
+          </ng-container>
+          <ng-container *ngIf="orderConfig.isLoading">
+            <ng-container *ngTemplateOutlet="loader"></ng-container>
+          </ng-container>
+        </mat-tab>
+        <mat-tab label="My Activity">
+          <ng-container *ngIf="!allActivityConfig.isLoading">
+            <ng-container *ngTemplateOutlet="allActivity"></ng-container>
+          </ng-container>
+          <ng-container *ngIf="allActivityConfig.isLoading">
+            <ng-container *ngTemplateOutlet="loader"></ng-container>
+          </ng-container>
+        </mat-tab>
+      </mat-tab-group>
     </section>
   </div>
 </div>
 
-<ng-template #allGigs>
+<ng-template #allAssignment>
   <div class="row w100 no-gutters animated fadeIn pb-4">
-    <div class="col-12 col-md-6" *ngFor="let item of orderConfig.data">
-      <ng-template [ngTemplateOutlet]="customGig" [ngTemplateOutletContext]="{ data: item }"> </ng-template>
+    <div class="col-12 col-md-4" *ngFor="let item of orderConfig.data">
+      <ng-template [ngTemplateOutlet]="allAssignments" [ngTemplateOutletContext]="{ data: item }"> </ng-template>
     </div>
 
     <ng-container *ngIf="!orderConfig.isLoading && orderConfig.data.length === 0">
       <div class="text-center m-auto animated fadeIn">
         <div class="col-12 text-center">
           <img src="../assets/images/no-record.gif" style="height: 300px;" class="d-block m-auto" />
-          <h6 class="text-primary">No Orders Found...!</h6>
+          <h6 class="text-primary">No Assignments Found...!</h6>
         </div>
       </div>
     </ng-container>
   </div>
 </ng-template>
 
-<ng-template #customGig let-data="data">
+<ng-template #allAssignments let-data="data">
   <div class="card m-0 mt-4 mr-4 animated fadeInUp">
-    <!-- <span class="badge badge-success p-2 caps position-absolute" style="font-size: 12px; right: 5px; top: 10px;"
-      >Active</span
-    > -->
     <div class="card-img pb-1 d-flex align-items-center text-center justify-content-center">
       <h5 class="text-css m-auto" *ngIf="data.type === 'Bid'">{{ data.remarks }}</h5>
       <h5 class="text-css m-auto" *ngIf="data.type === 'Gig'">Gig Card</h5>
@@ -112,7 +122,10 @@
     <div class="card-footer">
       <div class="w100">
         <div class="text-center">
-          <div class="row no-gutters" *ngIf="data.progressStatus !== '' && data.sellerId != user.tasaId">
+          <div
+            class="row no-gutters"
+            *ngIf="data.progressStatus !== '' && data.sellerId != user.tasaId && !data.isCompleted"
+          >
             <div class="col-12 mb-1">
               <div class="form-group text-left">
                 <label class="form-label" for="status">Stage<span class="text-danger pl-1 asterisk">*</span></label>
@@ -152,7 +165,7 @@
           <button
             mat-flat-button
             color="primary"
-            *ngIf="data.progressStatus === 'Completed' && data.buyerId != user.tasaId"
+            *ngIf="data.isCompleted && data.buyerId != user.tasaId"
             class="rounded-pill"
             (click)="paymentToFreelancer(data)"
           >
@@ -164,72 +177,115 @@
   </div>
 </ng-template>
 
-<ng-template #gig let-data="data">
-  <div class="card m-0 mt-4 mr-4 animated fadeInUp">
-    <div class="card-img pb-1 d-flex align-items-center text-center justify-content-center">
-      <h5 class="text-css m-auto">Gig Card</h5>
-    </div>
-    <div class="card-body pl-3 pr-3">
-      <h6 class="text-muted font400">{{ data.remarks }}</h6>
-      <hr />
-      <div class="row no-gutters">
-        <div class="col-12 col-md-6" *ngIf="data.sellerId != user.tasaId">
-          <h6 class="mb-1"><i class="fas fa-briefcase pr-2 text-muted"></i>Freelancer</h6>
-          <div
-            class="underline curPoint pl-4"
-            [routerLink]="['/social-network/profile/', data.sellerId]"
-            routerLinkActive="router-link-active"
-          >
-            {{ data.sellerName }}
+<ng-template #allActivity>
+  <div class="row w100 no-gutters animated fadeIn pb-4">
+    <div class="col-12 col-md-4" *ngFor="let item of allActivityConfig.data">
+      <div class="card m-0 mt-4 mr-4 animated fadeInUp">
+        <div class="card-img pb-1 d-flex align-items-center text-center justify-content-center">
+          <h5 class="text-css m-auto">{{ item.category }}</h5>
+        </div>
+        <div class="card-body pl-3 pr-3">
+          <!-- <h6 class="text-muted font400">{{ data.remarks }}</h6>
+          <hr /> -->
+          <div class="row no-gutters">
+            <div class="col-12 pt-3 pl-2 bg-primary-more-light">
+              <div class="d-flex mb-4">
+                <img
+                  src="{{
+                    item.postedByImage !== ''
+                      ? item.postedByImage
+                      : 'https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg'
+                  }} "
+                  [routerLink]="['/social-network/profile/', item.postedByTasaId]"
+                  routerLinkActive="router-link-active"
+                  class="user-img curPoint"
+                  alt=""
+                />
+                <div>
+                  <h6 class="mb-1">Seller</h6>
+                  <div class="font400 pl-0 text-truncate d-flex align-items-center" [title]="item.postedByName">
+                    {{ item.postedByName }}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 pt-3 pl-2 mt-2 bg-primary-more-light">
+              <div class="d-flex mb-4">
+                <img
+                  src="{{
+                    item.winningUserImage !== ''
+                      ? item.winningUserImage
+                      : 'https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg'
+                  }} "
+                  [routerLink]="['/social-network/profile/', item.winningUserImage]"
+                  routerLinkActive="router-link-active"
+                  class="user-img curPoint"
+                  alt=""
+                />
+                <div>
+                  <h6 class="mb-1">Winning User</h6>
+                  <div class="font400 pl-0 text-truncate d-flex align-items-center" [title]="item.winningUserName">
+                    {{ item.winningUserName }}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- 
+            <div class="col-12 col-md-6">
+              <h6 class="mb-1">Stage</h6>
+              <div class="pl-4">{{ item.stage }}</div>
+            </div> -->
+          </div>
+          <div class="mt-2">
+            <h6 class="mb-2">
+              Progress <span class="text-muted">{{ item.completePerc }}%</span>
+            </h6>
+            <mat-progress-bar
+              [ngClass]="{
+                'progress-red': item.completePerc <= 50,
+                'progress-green': item.completePerc > 50 && item.completePerc <= 80,
+                'progress-theme': item.completePerc > 80
+              }"
+              [mode]="'determinate'"
+              [value]="item.completePerc"
+            ></mat-progress-bar>
           </div>
         </div>
-        <div class="col-12 col-md-6" *ngIf="data.buyerId != user.tasaId">
-          <h6 class="mb-1"><i class="fas fa-briefcase pr-2 text-muted"></i>Buyer</h6>
-          <div class="pl-4">{{ data.buyerName }}</div>
-        </div>
-        <div class="col-12 col-md-6">
-          <h6 class="mb-1"><i class="fas fa-money-bill pr-2 text-muted"></i>Bought For</h6>
-          <div class="pl-4">{{ data.transactionAmount | currency }}</div>
-        </div>
-      </div>
-      <div class="d-flex align-items-center justify-content-center">
-        <!-- <img
-          [src]="item.userImage"
-          [routerLink]="['/social-network/profile/', item.tasaId]"
-          routerLinkActive="router-link-active"
-          class="user-img"
-          alt=""
-        /> -->
-      </div>
-      <!-- <p class="card-intro">
-        {{ item.category }}
-      </p> -->
-    </div>
-    <div class="card-footer">
-      <div class="w100">
-        <div class="text-center">
-          <button
-            mat-mini-fab
-            color="primary"
-            *ngIf="data.buyerId != user.tasaId"
-            [routerLink]="['/freelance/order/requirement/', data.requirementId]"
-            routerLinkActive="router-link-active"
-            matTooltipPosition="below"
-            class="mr-2"
-            matTooltip="View Requirement"
-          >
-            <mat-icon class="mb-1">remove_red_eye</mat-icon>
-          </button>
+        <div class="card-footer">
+          <div class="w100">
+            <div class="text-center">
+              <button
+                mat-mini-fab
+                color="primary"
+                [routerLink]="['/freelance/order/requirement/', item.id]"
+                routerLinkActive="router-link-active"
+                matTooltipPosition="below"
+                class="mr-2"
+                matTooltip="View Requirement"
+              >
+                <mat-icon class="mb-1">remove_red_eye</mat-icon>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
+
+    <ng-container *ngIf="!allActivityConfig.isLoading && allActivityConfig.data.length === 0">
+      <div class="text-center m-auto animated fadeIn">
+        <div class="col-12 text-center">
+          <img src="../assets/images/no-record.gif" style="height: 300px;" class="d-block m-auto" />
+          <h6 class="text-primary">No Activity Found...!</h6>
+        </div>
+      </div>
+    </ng-container>
   </div>
 </ng-template>
 
 <ng-template #loader>
   <ng-container>
-    <div class="row">
-      <div class="col-md-6 col-12 animated fadeInUp" *ngFor="let item of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]">
+    <div class="row mt-2">
+      <div class="col-md-4 col-12 animated fadeInUp" *ngFor="let item of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]">
         <div class="card m-0 mb-4">
           <div class="card-img skeleton">
             <!-- waiting for img to load from javascript -->
