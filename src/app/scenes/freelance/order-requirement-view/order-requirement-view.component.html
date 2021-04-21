@@ -12,10 +12,25 @@
         </li>
         <li class="breadcrumb-item active text-truncate">{{ reqDetailsConfig.data?.category }}</li>
       </ol>
+      <div class="sec-title">
+        <div class="title">Order Details</div>
+      </div>
       <div class="row">
         <div class="col-md-8 col-12">
           <div class="card my-4 m-0">
             <ng-container>
+              <span
+                *ngIf="!reqDetailsConfig.isCompleted"
+                class="badge badge-success p-2 caps position-absolute"
+                style="font-size: 12px; right: 5px; top: 10px;"
+                >Active</span
+              >
+              <span
+                *ngIf="reqDetailsConfig.isCompleted"
+                class="badge badge-primary p-2 caps position-absolute"
+                style="font-size: 12px; right: 5px; top: 10px;"
+                >Completed</span
+              >
               <div class="card-img pb-1 d-flex align-items-center justify-content-center">
                 <h5 class="text-css m-auto">{{ reqDetailsConfig.data?.category }}</h5>
               </div>
@@ -31,7 +46,7 @@
                   }} "
                   [routerLink]="['/social-network/profile/', reqDetailsConfig.data?.postedByTasaId]"
                   routerLinkActive="router-link-active"
-                  class="user-img"
+                  class="user-img curPoint"
                   alt=""
                 />
                 <div class="font400 pl-0 text-truncate" [title]="">{{ reqDetailsConfig.data?.postedByName }}</div>
@@ -91,10 +106,7 @@
                       </div>
                     </div>
                     <div
-                      *ngIf="
-                        reqDetailsConfig.data.postedByTasaId == user.tasaId &&
-                        reqDetailsConfig.data.isCompleted
-                      "
+                      *ngIf="reqDetailsConfig.data.postedByTasaId == user.tasaId && reqDetailsConfig.data.isCompleted"
                     >
                       <img
                         class="message-icon animated fadeInUp"
@@ -157,7 +169,7 @@
             </div>
           </div>
         </div>
-        <div class="col-md-4 col-12">
+        <div class="col-md-4 col-12 mt-4">
           <!-- <ng-container *ngIf="user.email !== reqDetailsConfig.data.createdBy">
             <ng-container *ngTemplateOutlet="bidPosting"></ng-container>
           </ng-container> -->
@@ -484,7 +496,7 @@
                     >
                     <mat-select
                       id="negotiable"
-                      readonly
+                      disabled="true"
                       [(ngModel)]="item.negotiable"
                       [(value)]="item.negotiable"
                       class="form-control form-control-prepended"
@@ -503,15 +515,23 @@
                     <label class="form-label" for="description"
                       >Description <span class="text-danger pl-1 asterisk">*</span></label
                     >
-                    <textarea
-                      name="description"
-                      [(ngModel)]="item.description"
-                      class="form-control form-control-prepended"
-                      cols="30"
-                      rows="10"
-                      readonly
-                      style="min-height: 100px; max-height: 100px;"
-                    ></textarea>
+                    <ng-container *ngIf="item.winningGigCardId !== ''">
+                      <div
+                        [innerHTML]="item.description | safeHtml"
+                        class="max-vertical-h-35 stylishSlimScroll flow-y-auto flow-x-hidden"
+                      ></div>
+                    </ng-container>
+                    <ng-container *ngIf="item.winningGigCardId === ''">
+                      <textarea
+                        name="description"
+                        [(ngModel)]="item.description"
+                        class="form-control form-control-prepended"
+                        cols="30"
+                        rows="10"
+                        readonly
+                        style="min-height: 100px; max-height: 100px;"
+                      ></textarea>
+                    </ng-container>
                   </div>
                 </div>
               </div>
