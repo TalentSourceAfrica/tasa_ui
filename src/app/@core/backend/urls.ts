@@ -207,7 +207,8 @@ export const urls: any = {
   postBid: '/bid/{requirementId}/{userId}', // PO
   fetchAllBid: '/bid/{requirementId}/{status}', // G
   updateBidStatus: '/bid/updateStatus/{bidId}/{status}/{userId}', // PO
-  fetchAllBidsForBidder: '/bid/bidder/{bidderId}/{status}', // G
+  fetchAllBidsForBidder: '/bid/bidder/{bidderId}/{status}/', // G
+  fetchAllBidsForBidderCustomeWise: '/bid/bidder/{bidderId}/{status}/{custom}', // G
   fetchAllBidsForRequirement: '/bid/shallow/{requirementId}/{status}', // G
   fetchUserSpecificBid: '/bid/user/{requirementId}/{tasaId}', // G
 
@@ -216,6 +217,7 @@ export const urls: any = {
 
   // rating
   rating: '/rating/{userId}/{ratedBy}', // PO
+  getUsersRating : '/rating/users', // PO
 
   // Assignments
   getAllAssignments: '/requirement/progressive/{tasaId}', // G

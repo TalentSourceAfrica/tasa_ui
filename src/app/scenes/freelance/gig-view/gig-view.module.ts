@@ -10,6 +10,7 @@ import { GigViewRoutingModule } from './gig-view-routing.module';
 import { GigViewComponent } from './gig-view.component';
 import { SafeHtmlModule } from '@app/pipes/safe-html.pipe';
 import { CarouselModule } from 'ngx-owl-carousel-o';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [GigViewComponent],
@@ -23,6 +24,7 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
     GigViewRoutingModule,
     SafeHtmlModule,
     CarouselModule,
+    NgbModule
   ],
   schemas: [NO_ERRORS_SCHEMA],
 })

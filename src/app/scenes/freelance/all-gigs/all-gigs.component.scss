@@ -1,5 +1,9 @@
 .freelance-all-gig-wrapper {
-  .main-div{
+  .main-div {
+    .star {
+      font-size: 15px;
+      color: #ffc107;
+    }
     .card {
       min-height: 300px;
     }
@@ -24,5 +28,4 @@
       margin-top: -15px;
     }
   }
-
 }

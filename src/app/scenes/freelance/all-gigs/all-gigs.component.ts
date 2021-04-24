@@ -62,7 +62,7 @@ export class AllGigsComponent implements OnInit {
     $t.sharedService.configService.get(apiUrl).subscribe(
       (response: any) => {
         $t.gigConfig.data = response.responseObj;
-        $t.gigConfig.isLoading = false;
+        $t.getRatingForGigCardUsers();
       },
       (error) => {
         $t.gigConfig.isLoading = false;
@@ -88,6 +88,29 @@ export class AllGigsComponent implements OnInit {
         }
       );
     }
+  }
+
+  getRatingForGigCardUsers() {
+    let $t = this;
+    let payload = $t.gigConfig.data.map((d: any) => d.tasaId);
+    $t.gigConfig.isLoading = true;
+    let apiUrl = $t.sharedService.urlService.simpleApiCall('getUsersRating');
+    $t.sharedService.configService.post(apiUrl, payload).subscribe(
+      (response: any) => {
+        response.responseObj.forEach((d: any) => {
+          const selGig = $t.gigConfig.data.find((gig: any) => gig.tasaId === d.tasaId);
+          if (selGig) {
+            selGig['rating'] = d.averageRating;
+            selGig['ratingCount'] = d.countOfRating;
+          }
+        });
+        $t.gigConfig.isLoading = false;
+      },
+      (error) => {
+        $t.gigConfig.isLoading = false;
+        $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
+      }
+    );
   }
 
   ngOnInit(): void {

@@ -24,7 +24,7 @@ export class CreateRequirementComponent implements OnInit {
       postedBy: this.user.email,
       postedByTasaId: this.user.tasaId,
       postedByName: this.user.firstName + ' ' + this.user.lastName,
-      postedByImage:  this.user.image,
+      postedByImage: this.user.image,
       description: '',
       attachment: '',
       category: '',
@@ -172,7 +172,14 @@ export class CreateRequirementComponent implements OnInit {
     forkJoin([api1, api2]).subscribe(
       (response: any) => {
         $t.requirementConfig.activeRequirements = response[0].responseObj;
+        $t.requirementConfig.activeRequirements = $t.requirementConfig.activeRequirements.filter((d: any) => {
+          d.winningGigCardId === '';
+        });
+
         $t.requirementConfig.inactiveRequirements = response[1].responseObj;
+        $t.requirementConfig.inactiveRequirements = $t.requirementConfig.inactiveRequirements.filter((d: any) => {
+          d.winningGigCardId === '';
+        });
         if ($t.requirementConfig.activeRequirements.length || $t.requirementConfig.inactiveRequirements.length) {
           $t.requirementConfig.isNew = false;
           $t.requirementConfig.isStart = false;

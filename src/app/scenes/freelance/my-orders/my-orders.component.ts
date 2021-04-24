@@ -174,15 +174,15 @@ export class MyOrdersComponent implements OnInit {
   getAllBids() {
     let $t = this;
     $t.allBidConfig.isLoading = true;
-    let apiUrl = $t.sharedService.urlService.apiCallWithParams('fetchAllBidsForBidder', {
+    let apiUrl = $t.sharedService.urlService.apiCallWithParams('fetchAllBidsForBidderCustomeWise', {
       '{bidderId}': $t.user.email,
       '{status}': 'All',
+      '{custom}': 'Y',
     });
     $t.sharedService.configService.get(apiUrl).subscribe(
       (response: any) => {
         $t.allBidConfig.data = response.responseObj;
         $t.allBidConfig.isLoading = false;
-        console.log($t.allBidConfig.data);
       },
       (error) => {
         $t.orderConfig.isLoading = false;

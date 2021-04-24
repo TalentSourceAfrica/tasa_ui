@@ -12,6 +12,9 @@
         </li>
         <li class="breadcrumb-item active text-truncate">{{ reqDetailsConfig.data?.category }}</li>
       </ol>
+      <div class="sec-title">
+        <div class="title">Requirement Details</div>
+      </div>
       <div class="row">
         <div class="col-md-8 col-12">
           <div class="card my-4 m-0">
@@ -50,7 +53,7 @@
                     {{ reqDetailsConfig.data?.budgetTo | currency }}
                   </div>
                 </div>
-                <div class="col-6 col-md-3 mt-2">
+                <div class="col-6 col-md-3">
                   <h6 class="mb-1"><i class="fas fa-calendar-week pr-2 text-muted"></i>Open Till</h6>
                   <div>{{ reqDetailsConfig.data?.openTill | date: 'mediumDate' }}</div>
                 </div>

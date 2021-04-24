@@ -10,6 +10,7 @@ import { AllGigsRoutingModule } from './all-gigs-routing.module';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { LeftSideModule } from '@app/partials/left-side/left-side.module';
 import { RightSideModule } from '@app/partials/right-side/right-side.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [AllGigsComponent],
@@ -24,6 +25,7 @@ import { RightSideModule } from '@app/partials/right-side/right-side.module';
     CarouselModule,
     RightSideModule,
     LeftSideModule,
+    NgbModule
   ],
   schemas: [NO_ERRORS_SCHEMA],
 })

@@ -18,15 +18,15 @@ export class SubmitFeedbackPopupComponent implements OnInit {
     ratedBy: '',
     ratedByTasaId: '',
     ratedByUserImage: '',
-    sincerity: 0,
-    promptness: 0,
-    proactiveness: 0,
-    technical: 0,
-    analytical: 0,
-    problemSolving: 0,
-    quality: 0,
-    timelines: 0,
-    satisfaction: 0,
+    sincerity: 1,
+    promptness: 1,
+    proactiveness: 1,
+    technical: 1,
+    analytical: 1,
+    problemSolving: 1,
+    quality: 1,
+    timelines: 1,
+    satisfaction: 1,
     comments: '',
     createdOn: '',
     createdBy: '',
@@ -60,7 +60,7 @@ export class SubmitFeedbackPopupComponent implements OnInit {
     $t.sharedService.configService.post(apiUrl, $t.feedback).subscribe(
       (response: any) => {
         $t.dialogRef.close();
-        $t.sharedService.uiService.showApiSuccessPopMsg('Thanks!. Feedback given to freelancer.');
+        $t.sharedService.uiService.showApiSuccessPopMsg('Thanks! Feedback given to freelancer.');
       },
       (error) => {
         $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);

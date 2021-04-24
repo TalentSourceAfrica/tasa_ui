@@ -55,7 +55,7 @@
       </div>
     </div>
     <div class="col-12 col-md-4" *ngFor="let item of gigConfig.data">
-      <div class="card m-0 mt-4 mr-4 curPoint">
+      <div class="card m-0 mt-4 mr-4">
         <div class="card-img">
           <img [src]="item.image" *ngIf="item.video === ''" />
           <ng-container *ngIf="item.image !== '' && item.video !== ''">
@@ -83,12 +83,29 @@
               [src]="item.userImage"
               [routerLink]="['/social-network/profile/', item.tasaId]"
               routerLinkActive="router-link-active"
-              class="user-img"
+              class="user-img curPoint"
               alt=""
             />
-            <div class="font400 pl-0 text-truncate" [title]="item.userName">{{ item.userName }}</div>
+            <div>
+              <div class="font400 pl-0 text-truncate" [title]="item.userName">{{ item.userName }}</div>
+              <ng-container *ngIf="item.ratingCount !== 0">
+                <ngb-rating
+                  matTooltipPosition="below"
+                  [readonly]="true"
+                  [max]="5"
+                  class="star"
+                  [(rate)]="item.rating"
+                ></ngb-rating>
+                <span class="text-muted" matTooltipPosition="below" matTooltip="Count of rating"
+                  >({{ item.ratingCount }})</span
+                >
+              </ng-container>
+              <ng-container *ngIf="item.ratingCount === 0">
+                <span class="text-muted">Rating not available</span>
+              </ng-container>
+            </div>
           </div>
-          <h5 class="card-title mt-3 mb-1">
+          <h5 class="card-title mt-3 mb-1 text-truncate" [title]="item.title">
             {{ item.title }}
           </h5>
           <p class="card-intro">
