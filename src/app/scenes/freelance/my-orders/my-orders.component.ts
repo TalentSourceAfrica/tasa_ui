@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CredentialsService } from '@app/auth';
 import { SharedService } from '@app/services/shared.service';
-import { requirementProgressStatus } from '@app/models/constants';
+import { requirementProgressStatus,requirementStatus } from '@app/models/constants';
 
 @Component({
   selector: 'app-my-orders',
@@ -9,6 +9,7 @@ import { requirementProgressStatus } from '@app/models/constants';
   styleUrls: ['./my-orders.component.scss'],
 })
 export class MyOrdersComponent implements OnInit {
+  requirementStatus = JSON.parse(JSON.stringify(requirementStatus));
   requirementProgressStatus = JSON.parse(JSON.stringify(requirementProgressStatus));
   orderConfig: any = {
     data: [],
@@ -23,7 +24,12 @@ export class MyOrdersComponent implements OnInit {
     mode: 'determinate',
   };
 
-  allActivityConfig: any = {
+  allAssignmentConfig: any = {
+    data: [],
+    isLoading: false,
+  };
+
+  allBidConfig: any = {
     data: [],
     isLoading: false,
   };
@@ -39,17 +45,17 @@ export class MyOrdersComponent implements OnInit {
     let $t = this;
     $t.sharedService.uiService.showApiStartPopMsg('Updating Stage');
     let apiUrl = $t.sharedService.urlService.apiCallWithParams('updateRequirementStage', {
-      '{requirementId}': item.requirementId,
-      '{stage}': item.progressStatus,
-      '{userId}': this.user.email,
+      '{requirementId}': item.id,
+      '{stage}': item.stage,
+      '{userId}': $t.user.email,
     });
     $t.sharedService.configService.post(apiUrl).subscribe(
       (response: any) => {
-        if (item.progressStatus === 'Completed') {
+        if (item.stage === 'Completed') {
           item['isCompleted'] = true;
         }
         $t.sharedService.uiService.showApiSuccessPopMsg('Stage Updated');
-        $t.checkReqProgress(item);
+        $t.calculateProgress(item);
       },
       (error) => {
         $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
@@ -57,33 +63,44 @@ export class MyOrdersComponent implements OnInit {
     );
   }
 
-  checkReqProgress(item: any) {
-    let $t = this;
-    item.isLoadingProgress = true;
-    let apiUrl = $t.sharedService.urlService.apiCallWithParams('getRequirement', {
-      '{requirementId}': item.requirementId,
-    });
-    $t.sharedService.configService.get(apiUrl).subscribe(
-      (response: any) => {
-        item.progressStatus = response.responseObj.stage;
-        if (item.progressStatus === 'Completed') {
-          item['isCompleted'] = true;
-        }
-        const currentProgressStage = $t.requirementProgressStatus.find((d: any) => d.value === item.progressStatus);
-        item['reqProgressConfig'] = { ...$t.reqProgressConfig };
-        item['reqProgressConfig'].percent = currentProgressStage.percent.toFixed(2);
-        // disable all previous stages
-        $t.requirementProgressStatus.forEach((d: any, i: number) => {
-          d['disable'] = i <= currentProgressStage.id - 1 ? true : false;
-        });
+  // checkReqProgress(item: any) {
+  //   let $t = this;
+  //   item.isLoadingProgress = true;
+  //   let apiUrl = $t.sharedService.urlService.apiCallWithParams('getRequirement', {
+  //     '{requirementId}': item.id,
+  //   });
+  //   $t.sharedService.configService.get(apiUrl).subscribe(
+  //     (response: any) => {
+  //       item.progressStatus = response.responseObj.stage;
+  //       if (item.progressStatus === 'Completed') {
+  //         item['isCompleted'] = true;
+  //       }
+  //       const currentProgressStage = $t.requirementProgressStatus.find((d: any) => d.value === item.progressStatus);
+  //       item['reqProgressConfig'] = { ...$t.reqProgressConfig };
+  //       item['reqProgressConfig'].percent = currentProgressStage.percent.toFixed(2);
+  //       // disable all previous stages
+  //       $t.requirementProgressStatus.forEach((d: any, i: number) => {
+  //         d['disable'] = i <= currentProgressStage.id - 1 ? true : false;
+  //       });
 
-        item.isLoadingProgress = false;
-      },
-      (error) => {
-        item.isLoadingProgress = false;
-        $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
-      }
-    );
+  //       item.isLoadingProgress = false;
+  //     },
+  //     (error) => {
+  //       item.isLoadingProgress = false;
+  //       $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
+  //     }
+  //   );
+  // }
+
+  calculateProgress(item:any){
+    let $t = this;
+    const currentProgressStage = $t.requirementProgressStatus.find((rps: any) => rps.value === item.stage);
+    item['completePerc'] = currentProgressStage.percent.toFixed(2);
+    item['requirementProgressStatus'] = [...$t.requirementProgressStatus];
+    // disable all previous stages
+    item['requirementProgressStatus'].forEach((rps: any, i: number) => {
+      rps['disable'] = i <= currentProgressStage.id - 1 ? true : false;
+    });
   }
 
   paymentToFreelancer(item: any) {
@@ -135,15 +152,37 @@ export class MyOrdersComponent implements OnInit {
 
   getAllAssignments() {
     let $t = this;
-    $t.allActivityConfig.isLoading = true;
+    $t.allAssignmentConfig.isLoading = true;
     let apiUrl = $t.sharedService.urlService.apiCallWithParams('getAllAssignments', {
       '{tasaId}': $t.user.tasaId,
     });
     $t.sharedService.configService.get(apiUrl).subscribe(
       (response: any) => {
-        $t.allActivityConfig.data = response.responseObj;
+        $t.allAssignmentConfig.data = response.responseObj;
+        $t.allAssignmentConfig.data.forEach((d: any) => {
+          $t.calculateProgress(d);
+        });
+        $t.allAssignmentConfig.isLoading = false;
+      },
+      (error) => {
+        $t.orderConfig.isLoading = false;
+        $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
+      }
+    );
+  }
 
-        $t.allActivityConfig.isLoading = false;
+  getAllBids() {
+    let $t = this;
+    $t.allBidConfig.isLoading = true;
+    let apiUrl = $t.sharedService.urlService.apiCallWithParams('fetchAllBidsForBidder', {
+      '{bidderId}': $t.user.email,
+      '{status}': 'All',
+    });
+    $t.sharedService.configService.get(apiUrl).subscribe(
+      (response: any) => {
+        $t.allBidConfig.data = response.responseObj;
+        $t.allBidConfig.isLoading = false;
+        console.log($t.allBidConfig.data);
       },
       (error) => {
         $t.orderConfig.isLoading = false;
@@ -153,8 +192,9 @@ export class MyOrdersComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getOrder();
+    // this.getOrder();
     this.getAllAssignments();
+    this.getAllBids();
   }
 
   get user(): any | null {

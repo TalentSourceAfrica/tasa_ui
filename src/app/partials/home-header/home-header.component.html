@@ -696,11 +696,17 @@
       </li>
       <li *ngIf="user && user.isFreelancer === 'Y'">
         <button mat-menu-item class="h6" [routerLink]="['/freelance/create-gig']" routerLinkActive="router-link-active">
-          <i class="fas fa-id-badge pr-3 text-primary"></i>Become A Gig Seller
+          <i class="far fa-address-card pr-3 text-primary"></i>
+          Become A Gig Seller
         </button>
       </li>
       <li>
-        <button mat-menu-item class="h6" [routerLink]="['/freelance/my-engagements']" routerLinkActive="router-link-active">
+        <button
+          mat-menu-item
+          class="h6"
+          [routerLink]="['/freelance/my-engagements']"
+          routerLinkActive="router-link-active"
+        >
           <i class="fas fa-user-edit pr-3 text-primary"></i> My Engagements
         </button>
       </li>

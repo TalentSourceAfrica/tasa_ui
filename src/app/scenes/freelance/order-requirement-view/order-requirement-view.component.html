@@ -8,7 +8,7 @@
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a [routerLink]="['/home']">Home</a></li>
         <li class="breadcrumb-item">
-          <a [routerLink]="['/freelance/all-requirements']">All Requirements</a>
+          <a [routerLink]="['/freelance/my-engagements']">All Engagements</a>
         </li>
         <li class="breadcrumb-item active text-truncate">{{ reqDetailsConfig.data?.category }}</li>
       </ol>
@@ -105,9 +105,7 @@
                         </button>
                       </div>
                     </div>
-                    <div
-                      *ngIf="reqDetailsConfig.isCompleted"
-                    >
+                    <div *ngIf="reqDetailsConfig.isCompleted">
                       <img
                         class="message-icon animated fadeInUp"
                         style="width: 150px; height: 150px;"
@@ -396,7 +394,11 @@
             <mat-expansion-panel-header class="d-flex align-items-center">
               <mat-panel-title class="pt-3">
                 <h6 class="text-primary mt-2 pb-2">
-                  {{ item.userName }} <span class="text-muted ml-1">({{ item.deliveryPrice | currency }})</span>
+                  {{ item.userName }}
+                  <span class="text-muted ml-1" *ngIf="item.winningGigCardId === ''"
+                    >({{ item.deliveryPrice | currency }})</span
+                  >
+                  <span class="text-muted ml-1" *ngIf="item.winningGigCardId !== ''">({{ item.cost | currency }})</span>
                 </h6>
               </mat-panel-title>
               <mat-panel-description class="justify-content-end">
