@@ -41,7 +41,7 @@
             </div>
 
             <div class="card-body">
-              <div class="text-center">
+              <div class="text-center mb-2">
                 <img
                   [src]="gigDetailsConfig.data?.userImage"
                   [routerLink]="['/social-network/profile/', gigDetailsConfig.data?.tasaId]"
@@ -54,7 +54,21 @@
                     {{ gigDetailsConfig.data?.userName }}
                   </div>
                   <div class="mt-2">
-                    <ngb-rating [max]="5" class="star" [rate]="'4'"></ngb-rating>
+                    <ng-container *ngIf="gigDetailsConfig.data?.ratingCount !== 0">
+                      <ngb-rating
+                        [max]="5"
+                        class="star"
+                        [readonly]="true"
+                        [rate]="gigDetailsConfig.data?.rating"
+                      ></ngb-rating>
+                      <span class="text-muted" matTooltipPosition="below" matTooltip="Count of rating"
+                        >({{ gigDetailsConfig.data?.ratingCount }})</span
+                      >
+                    </ng-container>
+
+                    <ng-container *ngIf="gigDetailsConfig.data?.ratingCount === 0">
+                      <span class="text-muted">Rating not available</span>
+                    </ng-container>
                   </div>
                 </div>
               </div>

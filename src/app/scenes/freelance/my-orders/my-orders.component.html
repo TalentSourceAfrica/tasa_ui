@@ -160,6 +160,16 @@
             <mat-icon class="mb-1">remove_red_eye</mat-icon>
           </button>
           <button
+            mat-mini-fab
+            color="link"
+            matTooltipPosition="below"
+            class="mr-2"
+            (click)="downloadInvoice(data)"
+            matTooltip="Download Invoice"
+          >
+            <mat-icon class="mb-1">file_download</mat-icon>
+          </button>
+          <button
             mat-flat-button
             color="primary"
             *ngIf="data.isCompleted && data.buyerId != user.tasaId"

@@ -90,7 +90,6 @@
               <div class="font400 pl-0 text-truncate" [title]="item.userName">{{ item.userName }}</div>
               <ng-container *ngIf="item.ratingCount !== 0">
                 <ngb-rating
-                  matTooltipPosition="below"
                   [readonly]="true"
                   [max]="5"
                   class="star"

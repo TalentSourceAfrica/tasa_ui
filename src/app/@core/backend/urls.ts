@@ -221,4 +221,10 @@ export const urls: any = {
 
   // Assignments
   getAllAssignments: '/requirement/progressive/{tasaId}', // G
+
+  // transactions
+  prePayout :'/transactions/payout/check/{tasaId}/{requirementId}', // G
+  postPayout : '/transactions/payout/process', // PO
+  getTransactionByRequirement : '/transactions/{tasaId}/{requirementId}', // G
+  downloadInvoice : '/transactions/download/{tasaId}/{requirementId}', // G
 };

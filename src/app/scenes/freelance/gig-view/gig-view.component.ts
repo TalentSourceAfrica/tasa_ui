@@ -54,14 +54,15 @@ export class GigViewComponent implements OnInit {
     let apiUrl = this.sharedService.urlService.apiCallWithParams('getGigCard', {
       '{gigCardId}': this.gigDetailsConfig.gigId,
     });
-    this.sharedService.configService.get(apiUrl).subscribe(
+    $t.sharedService.configService.get(apiUrl).subscribe(
       (response: any) => {
-        this.gigDetailsConfig.data = response.responseObj;
-        this.gigDetailsConfig.isLoading = false;
+        $t.gigDetailsConfig.data = response.responseObj;
+        $t.getRatingForGigCardUser();
+        $t.gigDetailsConfig.isLoading = false;
       },
       (error) => {
-        this.gigDetailsConfig.isLoading = false;
-        this.sharedService.uiService.showApiErrorPopMsg(error.error.message);
+        $t.gigDetailsConfig.isLoading = false;
+        $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
       }
     );
   }
@@ -91,6 +92,23 @@ export class GigViewComponent implements OnInit {
       });
     };
     $t.sharedService.uiService.showPreConfirmPopMsg('Do You Want To Buy This Gig', _callback);
+  }
+
+  getRatingForGigCardUser() {
+    let $t = this;
+    let payload = [$t.gigDetailsConfig.data.tasaId];
+    let apiUrl = $t.sharedService.urlService.simpleApiCall('getUsersRating');
+    $t.sharedService.configService.post(apiUrl, payload).subscribe(
+      (response: any) => {
+        $t.gigDetailsConfig.data['rating'] = response.responseObj[0].averageRating;
+        $t.gigDetailsConfig.data['ratingCount'] = response.responseObj[0].countOfRating;
+        $t.gigDetailsConfig.isLoading = false;
+      },
+      (error) => {
+        $t.gigDetailsConfig.isLoading = false;
+        $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
+      }
+    );
   }
 
   ngOnInit(): void {

@@ -111,6 +111,7 @@ export class ConversationComponent implements OnInit {
               groupTitle: d.groupTitle,
               groupImageUrl: d.groupImageUrl,
               groupDescription: d.groupDescription,
+              groupMembersCount : d.memberCount,
               groupId: d.groupId,
             });
           });

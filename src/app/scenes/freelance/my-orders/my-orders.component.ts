@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CredentialsService } from '@app/auth';
 import { SharedService } from '@app/services/shared.service';
-import { requirementProgressStatus,requirementStatus } from '@app/models/constants';
+import { requirementProgressStatus, requirementStatus } from '@app/models/constants';
 
 @Component({
   selector: 'app-my-orders',
@@ -92,7 +92,7 @@ export class MyOrdersComponent implements OnInit {
   //   );
   // }
 
-  calculateProgress(item:any){
+  calculateProgress(item: any) {
     let $t = this;
     const currentProgressStage = $t.requirementProgressStatus.find((rps: any) => rps.value === item.stage);
     item['completePerc'] = currentProgressStage.percent.toFixed(2);
@@ -104,7 +104,24 @@ export class MyOrdersComponent implements OnInit {
   }
 
   paymentToFreelancer(item: any) {
-    console.log(item);
+    let $t = this;
+    $t.sharedService.uiService.showApiStartPopMsg('Checking Eligibility');
+    let apiUrl = $t.sharedService.urlService.apiCallWithParams('prePayout', {
+      '{tasaId}': item.winningTasaId,
+      '{requirementId}': item.id,
+    });
+    $t.sharedService.configService.get(apiUrl).subscribe(
+      (response: any) => {
+        $t.sharedService.uiService.closePopMsg();
+        $t.transferMoneyToFreelancer();
+      },
+      (error) => {
+        $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
+      }
+    );
+  }
+
+  transferMoneyToFreelancer() {
     let $t = this;
     let payload = {
       account_bank: '044',
@@ -117,12 +134,47 @@ export class MyOrdersComponent implements OnInit {
       debit_currency: 'NGN',
     };
     const apiUrl = 'https://api.flutterwave.com/v3/transfers';
-
     $t.sharedService.configService.post(apiUrl, payload).subscribe(
       (response) => {
         console.log(response);
       },
       (error) => {}
+    );
+  }
+
+  postTransferMoneyToFreelancer() {
+    let $t = this;
+    let payload = {
+      id: '',
+      tasaId: '',
+      requirementId: '',
+      externalTransactionId: '',
+      amount: 0,
+    };
+
+    let apiUrl = $t.sharedService.urlService.simpleApiCall('postPayout');
+    $t.sharedService.configService.post(apiUrl, payload).subscribe(
+      (response) => {
+        console.log(response);
+      },
+      (error) => {}
+    );
+  }
+
+  downloadInvoice(data: any) {
+    let $t = this;
+    $t.sharedService.uiService.showApiStartPopMsg('Downloading');
+    let apiUrl = $t.sharedService.urlService.apiCallWithParams('downloadInvoice', {
+      '{tasaId}': $t.user.tasaId,
+      '{requirementId}': data.id,
+    });
+    $t.sharedService.configService.get(apiUrl).subscribe(
+      (response: any) => {
+        $t.sharedService.uiService.showApiSuccessPopMsg('Downloading Successfull');
+      },
+      (error) => {
+        $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
+      }
     );
   }
 
