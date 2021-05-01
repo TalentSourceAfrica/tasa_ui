@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CredentialsService } from '@app/auth';
 import { SharedService } from '@app/services/shared.service';
 import { requirementProgressStatus, requirementStatus } from '@app/models/constants';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-my-orders',
@@ -170,6 +171,7 @@ export class MyOrdersComponent implements OnInit {
     });
     $t.sharedService.configService.get(apiUrl).subscribe(
       (response: any) => {
+        saveAs(new Blob([response]),'invoice.pdf');
         $t.sharedService.uiService.showApiSuccessPopMsg('Downloading Successfull');
       },
       (error) => {
