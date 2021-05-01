@@ -86,7 +86,7 @@
                   ? data.winningUserImage
                   : 'https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg'
               }} "
-              [routerLink]="['/social-network/profile/', data.winningUserImage]"
+              [routerLink]="['/social-network/profile/', data.winningTasaId]"
               routerLinkActive="router-link-active"
               class="user-img curPoint"
               alt=""
@@ -164,6 +164,7 @@
             color="link"
             matTooltipPosition="below"
             class="mr-2"
+            *ngIf="checkShowDownloadInvoice(data)"
             (click)="downloadInvoice(data)"
             matTooltip="Download Invoice"
           >
@@ -172,7 +173,7 @@
           <button
             mat-flat-button
             color="primary"
-            *ngIf="data.isCompleted && data.buyerId != user.tasaId"
+            *ngIf="data.isCompleted && data.winningTasaId == user.tasaId"
             class="rounded-pill"
             (click)="paymentToFreelancer(data)"
           >

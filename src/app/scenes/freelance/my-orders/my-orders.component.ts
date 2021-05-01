@@ -102,6 +102,10 @@ export class MyOrdersComponent implements OnInit {
     item['requirementProgressStatus'].forEach((rps: any, i: number) => {
       rps['disable'] = i <= currentProgressStage.id - 1 ? true : false;
     });
+
+    if (currentProgressStage.value === 'Completed') {
+      item['isCompleted'] = true;
+    }
   }
 
   paymentToFreelancer(item: any) {
@@ -162,6 +166,18 @@ export class MyOrdersComponent implements OnInit {
     );
   }
 
+  checkShowDownloadInvoice(data: any) {
+    if (data.postedByTasaId == this.user.tasaId) {
+      return true;
+    } else {
+      if (data.winningTasaId == this.user.tasaId && data.isCompleted) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  }
+
   downloadInvoice(data: any) {
     let $t = this;
     $t.sharedService.uiService.showApiStartPopMsg('Downloading');
@@ -171,7 +187,7 @@ export class MyOrdersComponent implements OnInit {
     });
     $t.sharedService.configService.get(apiUrl).subscribe(
       (response: any) => {
-        saveAs(new Blob([response]),'invoice.pdf');
+        saveAs(new Blob([response]), 'invoice.pdf');
         $t.sharedService.uiService.showApiSuccessPopMsg('Downloading Successfull');
       },
       (error) => {
