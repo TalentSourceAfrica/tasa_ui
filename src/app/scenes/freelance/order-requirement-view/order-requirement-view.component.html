@@ -174,7 +174,7 @@
           <ng-container *ngIf="user.email === reqDetailsConfig.data.createdBy">
             <ng-container *ngTemplateOutlet="allBids"></ng-container>
           </ng-container>
-          <div class="card m-0 mt-4">
+          <div class="card m-0" [ngClass]="{'mt-4': user.email === reqDetailsConfig.data.createdBy}">
             <div class="card-header text-center">
               <h4 class="card-title">Comments</h4>
             </div>

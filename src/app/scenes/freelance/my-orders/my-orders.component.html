@@ -170,6 +170,16 @@
           >
             <mat-icon class="mb-1">file_download</mat-icon>
           </button>
+
+          <button
+            mat-flat-button
+            color="primary"
+            class="rounded-pill"
+            *ngIf="data.isCompleted && data.postedByTasaId == user.tasaId"
+            (click)="openFeedbackPopup(data)"
+          >
+            <span>Feedback</span>
+          </button>
           <button
             mat-flat-button
             color="primary"

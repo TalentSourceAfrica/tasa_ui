@@ -9,6 +9,7 @@ import { RouterModule } from '@angular/router';
 import { MyOrdersComponent } from './my-orders.component';
 import { MyOrdersRoutingModule } from './my-orders-routing.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { SubmitFeedbackPopupModule } from '@app/partials/popups/freelance/submit-feedback-popup/submit-feedback-popup.module';
 
 @NgModule({
   declarations: [MyOrdersComponent],
@@ -20,8 +21,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     FormsModule,
     TranslateModule,
     MyOrdersRoutingModule,
-    NgbModule
+    NgbModule,
+    SubmitFeedbackPopupModule,
   ],
   schemas: [NO_ERRORS_SCHEMA],
 })
-export class MyOrdersModule { }
+export class MyOrdersModule {}

@@ -3,7 +3,7 @@ import { CredentialsService } from '@app/auth';
 import { SharedService } from '@app/services/shared.service';
 import { requirementProgressStatus, requirementStatus } from '@app/models/constants';
 import { saveAs } from 'file-saver';
-
+import { SubmitFeedbackPopupComponent } from '@app/partials/popups/freelance/submit-feedback-popup/submit-feedback-popup.component';
 @Component({
   selector: 'app-my-orders',
   templateUrl: './my-orders.component.html',
@@ -164,6 +164,23 @@ export class MyOrdersComponent implements OnInit {
       },
       (error) => {}
     );
+  }
+
+  openFeedbackPopup(data:any) {
+    let buyerDetails: any = {
+      email: data.postedBy,
+      name: data.postedByName,
+      tasaId: data.postedByTasaId,
+      userImage: data.postedByImage,
+    };
+    this.sharedService.dialogService.open(SubmitFeedbackPopupComponent, {
+      width: '700px',
+      data: {
+        buyerDetails: buyerDetails,
+        user: this.user,
+      },
+      disableClose: false,
+    });
   }
 
   checkShowDownloadInvoice(data: any) {
