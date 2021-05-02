@@ -97,11 +97,11 @@ export class AllGigsComponent implements OnInit {
     let apiUrl = $t.sharedService.urlService.simpleApiCall('getUsersRating');
     $t.sharedService.configService.post(apiUrl, payload).subscribe(
       (response: any) => {
-        response.responseObj.forEach((d: any) => {
-          const selGig = $t.gigConfig.data.find((gig: any) => gig.tasaId === d.tasaId);
+        $t.gigConfig.data.forEach((d: any) => {
+          const selGig = response.responseObj.find((gig: any) => gig.tasaId === d.tasaId);
           if (selGig) {
-            selGig['rating'] = d.averageRating;
-            selGig['ratingCount'] = d.countOfRating;
+            d['rating'] = selGig.averageRating;
+            d['ratingCount'] = selGig.countOfRating;
           }
         });
         $t.gigConfig.isLoading = false;

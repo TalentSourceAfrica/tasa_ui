@@ -14,7 +14,7 @@ export class LovComponent implements OnInit {
   constructor(public sharedService: SharedService) {}
 
   addGrp() {
-    this.lovsData.push({
+    this.lovsData.unshift({
       id: '',
       group: '',
       value: [],
@@ -26,7 +26,7 @@ export class LovComponent implements OnInit {
   }
 
   addVal() {
-    this.selectedLovsData.value.push({ code: '', desc: '', subValue1: '', subValue2: '', subValue3: '' });
+    this.selectedLovsData.value.unshift({ code: '', desc: '', subValue1: '', subValue2: '', subValue3: '' });
   }
 
   saveLovs(lov: any, lovIndex: number) {

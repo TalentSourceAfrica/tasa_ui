@@ -21,6 +21,7 @@ export class OrderRequirementViewComponent implements OnInit {
     data: {},
     requirementId: 0,
     selectedBidderConversation: [],
+    selectedBidderConversationLoading : false,
     isCompleted: false,
   };
   bidConfig: any = {
@@ -113,6 +114,7 @@ export class OrderRequirementViewComponent implements OnInit {
 
   fetchPostById(_bidId: any) {
     let $t = this;
+    $t.reqDetailsConfig.selectedBidderConversationLoading = true;
     $t.reqDetailsConfig.selectedBidderConversation = [];
     let api = $t.sharedService.urlService.apiCallWithParams('getPostById', {
       '{postId}': _bidId,
@@ -122,10 +124,14 @@ export class OrderRequirementViewComponent implements OnInit {
         if (response.responseObj.comments.length) {
           $t.reqDetailsConfig.selectedBidderConversation = response.responseObj.comments;
         }
-        $t.addComment();
+        if(!$t.reqDetailsConfig.isCompleted){
+          $t.addComment();
+        }
+        $t.reqDetailsConfig.selectedBidderConversationLoading = false;
       },
       (error) => {
         $t.sharedService.uiService.showApiErrorPopMsg(error);
+        $t.reqDetailsConfig.selectedBidderConversationLoading = false;
       }
     );
   }

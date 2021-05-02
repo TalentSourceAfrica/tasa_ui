@@ -369,15 +369,13 @@ export class NewSignupPopupComponent implements OnInit {
     );
   }
 
- 
-
   login() {
     this.isLoading = true;
     // console.log(this.loginForm.value);
     // console.log('Password = ' + this.loginForm.value.password);
-    // const encryptedPass = this.sharedService.encrDecrService.set('T@15N+s0UR35@6R9', this.loginForm.value.password);
+    // const encryptedPass = this.sharedService.encrDecrService.encrypt('T@15N+s0UR35@6R9', this.loginForm.value.password);
     // console.log('Encrypted Password = ' + encryptedPass);
-    // console.log('Decrypted Password = ' + this.sharedService.encrDecrService.get('T@15N+s0UR35@6R9', encryptedPass.trim()));
+    // console.log('Decrypted Password = ' + this.sharedService.encrDecrService.decrypt('T@15N+s0UR35@6R9', encryptedPass.trim()));
     this.sharedService.uiService.showApiStartPopMsg('Logging you in...');
     let apiUrl = this.sharedService.urlService.simpleApiCall('login');
     this.sharedService.utilityService.changeMessage('BEFORE-LOGIN');

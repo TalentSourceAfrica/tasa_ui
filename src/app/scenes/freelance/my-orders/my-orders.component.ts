@@ -118,7 +118,7 @@ export class MyOrdersComponent implements OnInit {
     $t.sharedService.configService.get(apiUrl).subscribe(
       (response: any) => {
         $t.sharedService.uiService.closePopMsg();
-        $t.transferMoneyToFreelancer();
+        $t.transferMoneyToFreelancer(item);
       },
       (error) => {
         $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
@@ -126,7 +126,7 @@ export class MyOrdersComponent implements OnInit {
     );
   }
 
-  transferMoneyToFreelancer() {
+  transferMoneyToFreelancer(_data:any) {
     let $t = this;
     let payload = {
       account_bank: '044',
@@ -145,39 +145,45 @@ export class MyOrdersComponent implements OnInit {
       },
       (error) => {}
     );
+
+    $t.postTransferMoneyToFreelancer(_data);
   }
 
-  postTransferMoneyToFreelancer() {
+  postTransferMoneyToFreelancer(_data:any) {
     let $t = this;
     let payload = {
       id: '',
-      tasaId: '',
-      requirementId: '',
+      tasaId: _data.winningTasaId,
+      requirementId: _data.id,
       externalTransactionId: '',
-      amount: 0,
+      amount: _data.transactionAmount,
     };
 
     let apiUrl = $t.sharedService.urlService.simpleApiCall('postPayout');
     $t.sharedService.configService.post(apiUrl, payload).subscribe(
       (response) => {
         console.log(response);
+        _data.sellerInvoiceGenerated = 'Y';
       },
       (error) => {}
     );
   }
 
-  openFeedbackPopup(data:any) {
+  openFeedbackPopup(data: any) {
     let buyerDetails: any = {
       email: data.postedBy,
       name: data.postedByName,
       tasaId: data.postedByTasaId,
       userImage: data.postedByImage,
     };
+    let freelancerDetails: any = {
+      email: data.winningUserId,
+    };
     this.sharedService.dialogService.open(SubmitFeedbackPopupComponent, {
       width: '700px',
       data: {
         buyerDetails: buyerDetails,
-        user: this.user,
+        user: freelancerDetails,
       },
       disableClose: false,
     });
@@ -187,7 +193,7 @@ export class MyOrdersComponent implements OnInit {
     if (data.postedByTasaId == this.user.tasaId) {
       return true;
     } else {
-      if (data.winningTasaId == this.user.tasaId && data.isCompleted) {
+      if (data.winningTasaId == this.user.tasaId && data.isCompleted && data.sellerInvoiceGenerated === 'Y' ) {
         return true;
       } else {
         return false;
@@ -204,7 +210,8 @@ export class MyOrdersComponent implements OnInit {
     });
     $t.sharedService.configService.get(apiUrl).subscribe(
       (response: any) => {
-        saveAs(new Blob([response]), 'invoice.pdf');
+        // saveAs(new Blob([response]), 'invoice.pdf');
+        $t.sharedService.utilityService.downloadURI(apiUrl);
         $t.sharedService.uiService.showApiSuccessPopMsg('Downloading Successfull');
       },
       (error) => {

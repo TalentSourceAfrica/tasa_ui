@@ -34,7 +34,9 @@
 <ng-template #allAssignment>
   <div class="row w100 no-gutters animated fadeIn pb-4">
     <div class="col-12 col-md-4" *ngFor="let item of allAssignmentConfig.data">
-      <ng-template [ngTemplateOutlet]="allAssignments" [ngTemplateOutletContext]="{ data: item }"> </ng-template>
+      <div class="p-2">
+        <ng-template [ngTemplateOutlet]="allAssignments" [ngTemplateOutletContext]="{ data: item }"> </ng-template>
+      </div>
     </div>
 
     <ng-container *ngIf="!allAssignmentConfig.isLoading && allAssignmentConfig.data.length === 0">
@@ -49,7 +51,7 @@
 </ng-template>
 
 <ng-template #allAssignments let-data="data">
-  <div class="card m-0 mt-4 mr-4 animated fadeInUp">
+  <div class="card m-0 mt-4  animated fadeInUp">
     <div class="card-img pb-1 d-flex align-items-center text-center justify-content-center">
       <h6 class="text-css m-auto caps" *ngIf="data.winningGigCardId === ''">Custom Gig</h6>
       <h6 class="text-css m-auto caps" *ngIf="data.winningGigCardId !== ''">Gig Card</h6>
@@ -148,6 +150,15 @@
               </button>
             </div>
           </div>
+          <div class="text-center" *ngIf="data.isCompleted">
+            <img
+              class="message-icon animated fadeInUp"
+              style="width: 90px; height: 90px;"
+              src="../assets/images/success.svg"
+              alt=""
+            />
+            <h4 class="message-text animated fadeInUp font700 text-shadow-theme text-primary">Work Done!</h4>
+          </div>
           <button
             mat-mini-fab
             color="primary"
@@ -170,7 +181,6 @@
           >
             <mat-icon class="mb-1">file_download</mat-icon>
           </button>
-
           <button
             mat-flat-button
             color="primary"
@@ -183,7 +193,7 @@
           <button
             mat-flat-button
             color="primary"
-            *ngIf="data.isCompleted && data.winningTasaId == user.tasaId"
+            *ngIf="data.isCompleted && data.winningTasaId == user.tasaId && data.sellerInvoiceGenerated === 'N'"
             class="rounded-pill"
             (click)="paymentToFreelancer(data)"
           >

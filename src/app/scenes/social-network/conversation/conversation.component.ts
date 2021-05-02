@@ -422,9 +422,9 @@ export class ConversationComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
-    jQuery('#profile-img').click(function () {
-      jQuery('#status-options').toggleClass('active');
-    });
+    // jQuery('#profile-img').click(function () {
+    //   jQuery('#status-options').toggleClass('active');
+    // });
 
     jQuery('.expand-button').click(function () {
       jQuery('#profile').toggleClass('expanded');

@@ -49,7 +49,6 @@ export class CreateRequirementComponent implements OnInit {
   checkValidation() {
     if (
       this.requirementConfig.requirement.description === '' ||
-      this.requirementConfig.requirement.attachment === '' ||
       this.requirementConfig.requirement.category === '' ||
       this.requirementConfig.requirement.skills === '' ||
       !this.requirementConfig.requirement.openTill ||
@@ -172,19 +171,22 @@ export class CreateRequirementComponent implements OnInit {
     forkJoin([api1, api2]).subscribe(
       (response: any) => {
         $t.requirementConfig.activeRequirements = response[0].responseObj;
-        $t.requirementConfig.activeRequirements = $t.requirementConfig.activeRequirements.filter((d: any) => {
-          d.winningGigCardId === '';
-        });
+        // $t.requirementConfig.activeRequirements = $t.requirementConfig.activeRequirements.filter((d: any) => {
+        //   d.winningGigCardId === '';
+        // });
 
         $t.requirementConfig.inactiveRequirements = response[1].responseObj;
-        $t.requirementConfig.inactiveRequirements = $t.requirementConfig.inactiveRequirements.filter((d: any) => {
-          d.winningGigCardId === '';
-        });
+        // $t.requirementConfig.inactiveRequirements = $t.requirementConfig.inactiveRequirements.filter((d: any) => {
+        //   d.winningGigCardId === '';
+        // });
+
         if ($t.requirementConfig.activeRequirements.length || $t.requirementConfig.inactiveRequirements.length) {
           $t.requirementConfig.isNew = false;
           $t.requirementConfig.isStart = false;
         }
         $t.requirementConfig.isLoading = false;
+
+        console.log($t.requirementConfig);
       },
       (error) => {
         $t.requirementConfig.isLoading = false;

@@ -145,6 +145,14 @@ export class UtilityService {
     document.body.removeChild(a);
   }
 
+  downloadURI(uri:string) {
+    let link:any = document.createElement("a");
+    link.href = uri;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
   isValidIframeUrl(_urlString: string) {
     var regexQuery = this.CustomValidators.iframeUrl;
     var url = new RegExp(regexQuery, 'i');

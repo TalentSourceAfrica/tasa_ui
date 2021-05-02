@@ -64,7 +64,7 @@
       </div>
       <div class="col-6">
         <div class="form-group text-left">
-          <label class="form-label" for="Attachment">Attachment<span class="text-danger pl-1 asterisk">*</span></label>
+          <label class="form-label" for="Attachment">Attachment</label>
           <div class="input-group input-group-merge">
             <div
               *ngIf="requirementConfig.requirement.attachment === ''"
@@ -230,11 +230,11 @@
             </div>
             <div class="card-body pl-3 pr-3">
               <div class="row no-gutters">
-                <div class="col-12 col-md-6">
+                <div class="col-12 col-md-5">
                   <h6 class="mb-1">Experience :</h6>
                   <div>{{ item.experienceFrom }} - {{ item.experienceTo }} Years</div>
                 </div>
-                <div class="col-12 col-md-6">
+                <div class="col-12 col-md-7">
                   <h6 class="mb-1">Budget :</h6>
                   <div>{{ item.budgetFrom | currency }} - {{ item.budgetTo | currency }}</div>
                 </div>
