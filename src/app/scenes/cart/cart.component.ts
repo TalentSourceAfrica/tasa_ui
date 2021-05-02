@@ -192,6 +192,7 @@ export class CartComponent implements OnInit {
       '{gigCardId}': $t.cartDetails.gigData.id,
       '{gigCardPlan}': $t.cartDetails.gigData.selectedGigPlan.name.trim(),
     });
+    $t.sharedService.uiService.showApiStartPopMsg('Processing');
     $t.sharedService.configService.post(apiUrl, payload).subscribe(
       (response: any) => {
         $t.cartService.clearCart();
