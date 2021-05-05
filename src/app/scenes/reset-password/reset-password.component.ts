@@ -6,6 +6,7 @@ import * as AOS from 'aos';
 import { MustMatch } from '@app/auth/must-match';
 import { CredentialsService } from '@app/auth';
 import { ActivatedRoute } from '@angular/router';
+import { encryptionKey } from '@app/models/constants';
 
 @Component({
   selector: 'app-reset-password',
@@ -76,14 +77,14 @@ export class ResetPasswordComponent implements OnInit {
 
   submit() {
     let $t = this;
+    const encryptedPass = this.sharedService.encrDecrService.encrypt(
+      encryptionKey.password,
+      $t.contactUsForm.value.password
+    );
+    localStorage.setItem('encryptedPass', encryptedPass);
     if (this.isToken) {
       let apiUrl = $t.sharedService.urlService.simpleApiCall('resetPassword');
       $t.sharedService.uiService.showApiStartPopMsg('Updating Password...');
-      const encryptedPass = this.sharedService.encrDecrService.encrypt(
-        'T@15N+s0UR35@6R9',
-        $t.contactUsForm.value.password
-      );
-      localStorage.setItem('encryptedPass', encryptedPass);
       const payload = {
         password: '',
         token: $t.route.snapshot.queryParams.token,
@@ -100,11 +101,6 @@ export class ResetPasswordComponent implements OnInit {
     } else {
       let apiUrl = $t.sharedService.urlService.simpleApiCall('updatePassword');
       $t.sharedService.uiService.showApiStartPopMsg('Updating Password...');
-      const encryptedPass = this.sharedService.encrDecrService.encrypt(
-        'T@15N+s0UR35@6R9',
-        $t.contactUsForm.value.password
-      );
-      localStorage.setItem('encryptedPass', encryptedPass);
       $t.sharedService.configService.post(apiUrl, $t.userDetails).subscribe(
         (response) => {
           $t.sharedService.uiService.showApiSuccessPopMsg('Password Updated...');

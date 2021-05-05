@@ -8,6 +8,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 // service
 import { SharedService } from '@app/services/shared.service';
 import { finalize } from 'rxjs/operators';
+import { encryptionKey } from '@app/models/constants';
 //extra
 declare var jQuery: any;
 
@@ -39,7 +40,7 @@ export class LoginPopupComponent implements OnInit {
   login() {
     this.isLoading = true;
     this.sharedService.uiService.showApiStartPopMsg('Logging you in...');
-    const encryptedPass = this.sharedService.encrDecrService.encrypt('T@15N+s0UR35@6R9', this.loginForm.value.password);
+    const encryptedPass = this.sharedService.encrDecrService.encrypt(encryptionKey.password, this.loginForm.value.password);
     localStorage.setItem('encryptedPass', encryptedPass);
     this.sharedService.uiService.showApiStartPopMsg('Logging you in...');
     let apiUrl = this.sharedService.urlService.apiCallWithParams('login', {

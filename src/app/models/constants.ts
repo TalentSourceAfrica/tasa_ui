@@ -83,3 +83,10 @@ export const requirementProgressStatus = [
   { id: 6, value: 'Support' },
   { id: 7, value: 'Completed' },
 ];
+
+export const encryptionKey = {
+  password: 'T@15N+s0UR35@6R9',
+};
+
+
+

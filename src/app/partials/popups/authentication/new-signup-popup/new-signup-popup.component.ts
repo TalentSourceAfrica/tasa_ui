@@ -7,7 +7,7 @@ import { Logger, untilDestroyed } from '@core';
 import { finalize } from 'rxjs/operators';
 
 import { SharedService } from '@app/services/shared.service';
-import { documents } from '@app/models/constants';
+import { documents, encryptionKey } from '@app/models/constants';
 
 @Component({
   selector: 'app-new-signup-popup',
@@ -243,7 +243,7 @@ export class NewSignupPopupComponent implements OnInit {
       type: _payload.type,
       email: _payload.email,
       emailVerified: '',
-      password: _payload.password,
+      // password: _payload.password,
       username: _payload.username,
       firstName: _payload.firstName,
       lastName: _payload.lastName,
@@ -327,6 +327,9 @@ export class NewSignupPopupComponent implements OnInit {
     let $t = this;
     let apiUrl = $t.sharedService.urlService.simpleApiCall('signup');
     $t.sharedService.uiService.showApiStartPopMsg('Creating Account...');
+    const encryptedPass = this.sharedService.encrDecrService.encrypt(encryptionKey.password, this.userDetailsForm.value.password);
+    localStorage.setItem('encryptedPass', encryptedPass);
+
     let payload = { ...JSON.parse(JSON.stringify($t.userDetailsForm.value)), type: $t.userType.dbValue };
 
     payload['username'] = payload.email;
@@ -371,7 +374,7 @@ export class NewSignupPopupComponent implements OnInit {
 
   login() {
     this.isLoading = true;
-    const encryptedPass = this.sharedService.encrDecrService.encrypt('T@15N+s0UR35@6R9', this.loginForm.value.password);
+    const encryptedPass = this.sharedService.encrDecrService.encrypt(encryptionKey.password, this.loginForm.value.password);
     localStorage.setItem('encryptedPass',encryptedPass);
     this.sharedService.uiService.showApiStartPopMsg('Logging you in...');
     let apiUrl = this.sharedService.urlService.apiCallWithParams('login',{
