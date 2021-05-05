@@ -182,23 +182,22 @@
             routerLinkActive="router-link-active"
             >{{ connectionConfig.selectedUser?.firstName }} {{ connectionConfig.selectedUser?.lastName }}
           </a>
-
           <!-- ( <span class="text-muted">{{ connectionConfig.selectedUser?.summary }}</span> ) -->
         </p>
         <p *ngIf="connectionConfig.selectedUser?.groupId">
           <a
-            [routerLink]="['/social-network/profile/', connectionConfig.selectedUser?.tasaId]"
+            [routerLink]="['/group/', connectionConfig.selectedUser?.groupId]"
             routerLinkActive="router-link-active"
             >{{ connectionConfig.selectedUser?.groupTitle }}
           </a>
 
           <!-- ( <span class="text-muted">{{ connectionConfig.selectedUser?.summary }}</span> ) -->
         </p>
-        <div class="social-media">
+        <!-- <div class="social-media">
           <i class="fab fa-facebook-f"></i>
           <i class="fab fa-twitter"></i>
           <i class="fab fa-linkedin-in"></i>
-        </div>
+        </div> -->
       </div>
       <mat-progress-bar
         mode="indeterminate"

@@ -89,6 +89,10 @@ $break-big: 900px;
             margin-top: 5px;
             border: 2px solid $red;
             height: 60px;
+            -o-object-fit: cover;
+            object-fit: cover;
+            -o-object-position: center;
+            object-position: center;
             float: left;
             cursor: pointer;
             @include transition(0.3s border ease);
@@ -567,6 +571,10 @@ $break-big: 900px;
           border-radius: 50%;
           float: left;
           margin: 9px 12px 0 9px;
+          -o-object-fit: cover;
+          object-fit: cover;
+          -o-object-position: center;
+          object-position: center;
         }
 
         p {

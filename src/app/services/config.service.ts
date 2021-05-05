@@ -53,7 +53,10 @@ export class ConfigService {
     if (this.cookieService.get('access_token') && this.cookieService.get('access_token') !== '') {
       this.apiHeaders = this.apiHeaders.set('Authorization', `Bearer ${this.cookieService.get('access_token')}`);
     }
-
+    if(localStorage.getItem('encryptedPass')){
+      this.apiHeaders = this.apiHeaders.set('zone', localStorage.getItem('encryptedPass'));
+      localStorage.removeItem('encryptedPass');
+    }
     Object.keys(commonheaders).forEach((c) => {
       this.apiHeaders = this.apiHeaders.set(c, commonheaders[c]);
     });

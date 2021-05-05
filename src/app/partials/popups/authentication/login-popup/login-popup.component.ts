@@ -39,10 +39,15 @@ export class LoginPopupComponent implements OnInit {
   login() {
     this.isLoading = true;
     this.sharedService.uiService.showApiStartPopMsg('Logging you in...');
-    let apiUrl = this.sharedService.urlService.simpleApiCall('login');
+    const encryptedPass = this.sharedService.encrDecrService.encrypt('T@15N+s0UR35@6R9', this.loginForm.value.password);
+    localStorage.setItem('encryptedPass', encryptedPass);
+    this.sharedService.uiService.showApiStartPopMsg('Logging you in...');
+    let apiUrl = this.sharedService.urlService.apiCallWithParams('login', {
+      '{email}': this.loginForm.value.username,
+    });
     this.sharedService.utilityService.changeMessage('BEFORE-LOGIN');
     this.sharedService.configService
-      .post(apiUrl, this.loginForm.value)
+      .post(apiUrl)
       .pipe(
         finalize(() => {
           this.loginForm.markAsPristine();

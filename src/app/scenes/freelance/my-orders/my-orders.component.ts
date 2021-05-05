@@ -179,11 +179,16 @@ export class MyOrdersComponent implements OnInit {
     let freelancerDetails: any = {
       email: data.winningUserId,
     };
+    let reqDetails: any = {
+      requirementId: data.id,
+      requirementCategory: data.category,
+    };
     this.sharedService.dialogService.open(SubmitFeedbackPopupComponent, {
       width: '700px',
       data: {
         buyerDetails: buyerDetails,
         user: freelancerDetails,
+        reqDetails:reqDetails
       },
       disableClose: false,
     });

@@ -18,6 +18,8 @@ export class SubmitFeedbackPopupComponent implements OnInit {
     ratedBy: '',
     ratedByTasaId: '',
     ratedByUserImage: '',
+    ratedForRequirementId: '',
+    ratedForRequirementCategory: '',
     sincerity: 1,
     promptness: 1,
     proactiveness: 1,
@@ -40,6 +42,7 @@ export class SubmitFeedbackPopupComponent implements OnInit {
     public cdr: ChangeDetectorRef
   ) {
     this.popupData = data;
+    console.log(this.popupData);
   }
 
   submit() {
@@ -56,6 +59,8 @@ export class SubmitFeedbackPopupComponent implements OnInit {
     $t.feedback.ratedBy = $t.popupData.buyerDetails.name;
     $t.feedback.ratedByTasaId = $t.popupData.buyerDetails.tasaId;
     $t.feedback.ratedByUserImage = $t.popupData.buyerDetails.userImage;
+    $t.feedback.ratedForRequirementId = $t.popupData.reqDetails.requirementId;
+    $t.feedback.ratedForRequirementCategory = $t.popupData.reqDetails.requirementCategory;;
 
     $t.sharedService.configService.post(apiUrl, $t.feedback).subscribe(
       (response: any) => {

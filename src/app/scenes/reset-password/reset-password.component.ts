@@ -63,7 +63,7 @@ export class ResetPasswordComponent implements OnInit {
     } else {
       this.contactUsForm = this.formBuilder.group(
         {
-          currentPassword: ['', [Validators.required]],
+          currentPassword: [''],
           password: ['', [Validators.required]],
           confirmPassword: ['', [Validators.required]],
         },
@@ -79,8 +79,13 @@ export class ResetPasswordComponent implements OnInit {
     if (this.isToken) {
       let apiUrl = $t.sharedService.urlService.simpleApiCall('resetPassword');
       $t.sharedService.uiService.showApiStartPopMsg('Updating Password...');
+      const encryptedPass = this.sharedService.encrDecrService.encrypt(
+        'T@15N+s0UR35@6R9',
+        $t.contactUsForm.value.password
+      );
+      localStorage.setItem('encryptedPass', encryptedPass);
       const payload = {
-        password: $t.contactUsForm.value.password,
+        password: '',
         token: $t.route.snapshot.queryParams.token,
       };
       $t.sharedService.configService.post(apiUrl, payload).subscribe(
@@ -95,7 +100,11 @@ export class ResetPasswordComponent implements OnInit {
     } else {
       let apiUrl = $t.sharedService.urlService.simpleApiCall('updatePassword');
       $t.sharedService.uiService.showApiStartPopMsg('Updating Password...');
-      $t.userDetails.password = $t.contactUsForm.value.password;
+      const encryptedPass = this.sharedService.encrDecrService.encrypt(
+        'T@15N+s0UR35@6R9',
+        $t.contactUsForm.value.password
+      );
+      localStorage.setItem('encryptedPass', encryptedPass);
       $t.sharedService.configService.post(apiUrl, $t.userDetails).subscribe(
         (response) => {
           $t.sharedService.uiService.showApiSuccessPopMsg('Password Updated...');

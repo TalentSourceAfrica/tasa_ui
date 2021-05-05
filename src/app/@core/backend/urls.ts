@@ -9,14 +9,14 @@ export const urls: any = {
   getUsers: '/users', // G
   getUserById: '/users/view/{tasaId}', // G
   viewProfile: '/users/viewprofile/{tasaId}', // G
-  login: '/login', // PO
+  login: '/login/{email}', // PO
   signup: '/signup', // PO
   checkUsername: '/checkUserName/{userName}', // PO
   checkEmail: '/checkEmail/{email}', // PO
   uploadUserImage: '/uploadImage/{email}', // PO
   updatePassword: '/auth/update-password', // PO
   forgotPassword: '/auth/forgot-password/{email}', //PO
-  resetPassword: '/auth/reset-password', // PO
+  resetPassword: '/auth/resetPassword', // PO
   checkCurrentPassword: '/checkPassword/{email}/{currentPassword}', // PO
   activateUser: '/users/activate/{userId}', // PO
   deactivateUser: '/users/deactivate/{userId}', // PO
