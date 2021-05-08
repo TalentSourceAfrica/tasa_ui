@@ -256,6 +256,10 @@ export class ConversationComponent implements OnInit {
     $t.sharedService.configService.get(apiUrl).subscribe(
       (response: any) => {
         $t.connectionConfig.currentMsgList = response.responseObj.reverse();
+        $t.connectionConfig.currentMsgList.forEach((data:any) => {
+            data['sentOnDate'] = $t.sharedService.plugins.mom(data.sentOn).format('MMMM Do, YYYY');
+            data['sentTime'] = $t.sharedService.plugins.mom(data.sentOn).format('h:mm a');
+        });
         $t.connectionConfig.isFetchingMsgList = false;
         setTimeout(() => {
           if ($t.connectionConfig.currentMsgList.length > 8) {

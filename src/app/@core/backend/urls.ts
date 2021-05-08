@@ -14,7 +14,7 @@ export const urls: any = {
   checkUsername: '/checkUserName/{userName}', // PO
   checkEmail: '/checkEmail/{email}', // PO
   uploadUserImage: '/uploadImage/{email}', // PO
-  updatePassword: '/auth/update-password', // PO
+  updatePassword: '/auth/updatePassword', // PO
   forgotPassword: '/auth/forgot-password/{email}', //PO
   resetPassword: '/auth/resetPassword', // PO
   checkCurrentPassword: '/checkPassword/{email}/{currentPassword}', // PO
