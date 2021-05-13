@@ -224,7 +224,7 @@
     <mat-tab label="Active Requirements">
       <div class="row w100 no-gutters animated fadeIn">
         <div class="col-md-4 col-12" *ngFor="let item of requirementConfig.activeRequirements">
-          <div class="card m-0 mt-4 mr-4 curPoint">
+          <div class="card m-0 mt-4 mr-2">
             <div class="card-img pb-1 d-flex align-items-center justify-content-center">
               <h5 class="text-css m-auto">{{ item.category }}</h5>
             </div>
@@ -293,8 +293,8 @@
     </mat-tab>
     <mat-tab label="Inactive Requirements">
       <div class="row w100 no-gutters animated fadeIn">
-        <div class="col-4" *ngFor="let item of requirementConfig.inactiveRequirements">
-          <div class="card m-0 mt-4 mr-4 curPoint">
+        <div class="col-md-4 col-12" *ngFor="let item of requirementConfig.inactiveRequirements">
+          <div class="card m-0 mt-4 mr-2">
             <div class="card-img pb-1 d-flex align-items-center justify-content-center">
               <h5 class="text-css m-auto">{{ item.category }}</h5>
             </div>

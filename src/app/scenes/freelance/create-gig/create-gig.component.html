@@ -104,7 +104,7 @@
     <mat-tab label="Active Gigs">
       <div class="row w100 animated fadeIn">
         <div class="col-md-4 col-12" *ngFor="let item of gigConfig.activeGigs">
-          <div class="card m-0 mt-4 curPoint">
+          <div class="card m-0 mt-4">
             <div class="card-img">
               <img [src]="item.image" *ngIf="item.video === ''" />
               <div *ngIf="item.image !== '' && item.video !== ''">
@@ -186,9 +186,8 @@
     <mat-tab label="Inactive Gigs">
       <div class="row w100 no-gutters animated fadeIn">
         <div class="col-md-4 col-12" *ngFor="let item of gigConfig.inactiveGigs">
-          <div class="card m-0 mt-4 mr-4 curPoint">
+          <div class="card m-0 mt-4">
             <div class="card-img">
-              <img [src]="item.image" *ngIf="item.video === ''" />
               <img [src]="item.image" *ngIf="item.video === ''" />
               <ng-container *ngIf="item.image !== '' && item.video !== ''">
                 <owl-carousel-o [options]="gigAssetsOptions" *ngIf="gigConfig.isCarousel" class="gig-view-carousel">

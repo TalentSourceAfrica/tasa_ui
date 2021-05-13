@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SharedService } from '@app/services/shared.service';
 import { CartService } from './cart.service';
-import { flutterWaveKeys, fultterWavePaymentPlansForLocal } from '@app/models/constants';
+import { flutterWaveKeys, fultterWavePaymentPlansForLocal, stripeKeys } from '@app/models/constants';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CredentialsService } from '@app/auth';
 import { Router } from '@angular/router';
@@ -9,13 +9,13 @@ import { BaseConfig } from '@app/@core/backend/baseconfig';
 import { environment } from '@env/environment';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 
-declare var FlutterwaveCheckout: any;
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.scss'],
 })
 export class CartComponent implements OnInit {
+  handler: any = null;
   cartDetails: any;
   amount: number = 0;
   baseConfig: any = BaseConfig;
@@ -54,6 +54,49 @@ export class CartComponent implements OnInit {
       name: [{ value: this.user.firstName + ' ' + this.user.lastName, disabled: true }, Validators.required],
       phoneNumber: [this.user.contactNo ? this.user.contactNo : '', Validators.required],
     });
+  }
+
+  pay(amount: any) {
+
+    var handler = (<any>window).StripeCheckout.configure({
+      key: stripeKeys.public,
+      locale: 'auto',
+      token: function (token: any) {
+        // You can access the token ID with `token.id`.
+        // Get the token ID to your server-side code for use.
+        console.log(token);
+        alert('Token Created!!');
+      }
+    });
+
+    handler.open({
+      name: 'TaSA',
+      description: '',
+      amount: amount * 100,
+    });
+  }
+
+  loadStripe() {
+    if (!window.document.getElementById('stripe-script')) {
+      var s = window.document.createElement('script');
+      s.id = 'stripe-script';
+      s.type = 'text/javascript';
+      s.src = 'https://checkout.stripe.com/checkout.js';
+      s.onload = () => {
+        this.handler = (<any>window).StripeCheckout.configure({
+          key: stripeKeys.public,
+          locale: 'auto',
+          token: function (token: any) {
+            // You can access the token ID with `token.id`.
+            // Get the token ID to your server-side code for use.
+            console.log(token);
+            alert('Payment Success!!');
+          },
+        });
+      };
+
+      window.document.body.appendChild(s);
+    }
   }
 
   makePayment() {
@@ -98,6 +141,7 @@ export class CartComponent implements OnInit {
       status: 'successful',
       amount: $t.amount,
     };
+    // $t.pay($t.amount);
     $t.afterPayment(data);
   }
 
@@ -234,9 +278,9 @@ export class CartComponent implements OnInit {
       bidId: '',
       gigCardId: '',
     };
-   
+
     $t.sharedService.uiService.showApiStartPopMsg('Processing');
-    
+
     apiUrl = $t.sharedService.urlService.apiCallWithParams('checkoutRequirement', {
       '{tasaId}': $t.user.tasaId,
       '{bidId}': $t.cartDetails.customGigData.bidderDetails.id,
@@ -278,7 +322,8 @@ export class CartComponent implements OnInit {
     window.scrollTo(0, 0);
     console.log('PROD: ' + environment.production);
     this.createForm();
-    this.loadScript('https://checkout.flutterwave.com/v3.js');
+    // this.loadScript('https://js.stripe.com/v3/');
+    this.loadStripe();
     this.cartDetails = this.cartService.fetchData();
     // console.log(this.cartDetails);
     if (this.cartDetails.isSubscription) {

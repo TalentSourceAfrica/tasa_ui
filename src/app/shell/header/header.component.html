@@ -230,7 +230,7 @@
               >All Gigs
             </a>
           </li>
-          <li>
+          <li  *ngIf="user?.isFreelancer === 'Y'">
             <a
               class="curPoint menu-item"
               [routerLink]="['/freelance/all-requirements']"
@@ -248,7 +248,7 @@
               Create Custom Gigs
             </a>
           </li>
-          <li>
+          <li  *ngIf="user?.isFreelancer === 'Y'">
             <a
               class="curPoint menu-item"
               [routerLink]="['/freelance/create-gig']"

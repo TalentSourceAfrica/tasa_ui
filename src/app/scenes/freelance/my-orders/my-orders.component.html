@@ -1,4 +1,4 @@
-<div class="my-orders-wrapper container-fluid w70">
+<div class="my-orders-wrapper m-auto w90">
   <div class="">
     <section>
       <ol class="breadcrumb mt-3">
@@ -33,7 +33,7 @@
 
 <ng-template #allAssignment>
   <div class="row w100 no-gutters animated fadeIn pb-4">
-    <div class="col-12 col-md-4" *ngFor="let item of allAssignmentConfig.data">
+    <div class="col-12 col-md-4 col-lg-3" *ngFor="let item of allAssignmentConfig.data">
       <div class="p-2">
         <ng-template [ngTemplateOutlet]="allAssignments" [ngTemplateOutletContext]="{ data: item }"> </ng-template>
       </div>
@@ -207,8 +207,8 @@
 
 <ng-template #allBids>
   <div class="row w100 all-bids no-gutters animated fadeIn pb-4 pt-4">
-    <div class="col-12 col-md-6" *ngFor="let item of allBidConfig.data; let i = index">
-      <div class="card m-0 mt-4 mr-4 animated fadeInUp">
+    <div class="col-12 col-md-6 col-lg-4" *ngFor="let item of allBidConfig.data; let i = index">
+      <div class="card m-0 mt-4 mr-2 animated fadeInUp">
         <div class="card-body pl-3 pr-3 pb-0">
           <div class="row no-gutters">
             <div class="col-12 pt-3 pl-2">
@@ -411,7 +411,7 @@
 <ng-template #loader>
   <ng-container>
     <div class="row mt-2">
-      <div class="col-md-4 col-12 animated fadeInUp" *ngFor="let item of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]">
+      <div class="col-md-4 col-lg-3 col-12 animated fadeInUp" *ngFor="let item of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]">
         <div class="card m-0 mb-4">
           <div class="card-img skeleton">
             <!-- waiting for img to load from javascript -->

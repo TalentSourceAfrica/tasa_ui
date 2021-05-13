@@ -51,6 +51,11 @@ export const flutterWaveKeys = {
   'Encryption Key': 'FLWSECK_TEST24647b096e99',
 };
 
+export const stripeKeys = {
+  'public': 'pk_test_51IpgHfGe2s8gUvp6L009dwlaOA7Ox3K9jtbLc2yPKE6aZk0E5YlKS3EQrHQOuMHsasCEmyp0MY7zedwyiFb2x48U00Bg11661d',
+  'secret': 'FLWSECK_TEST-89895f07ab4316fc9858e2f9b88eca2d-X',
+};
+
 export const fultterWavePaymentPlansForLocal = {
   monthly: 10028,
 };

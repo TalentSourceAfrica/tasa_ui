@@ -170,12 +170,12 @@ export class CreateRequirementComponent implements OnInit {
 
     forkJoin([api1, api2]).subscribe(
       (response: any) => {
-        $t.requirementConfig.activeRequirements = response[0].responseObj;
+        $t.requirementConfig.activeRequirements = response[0].responseObj.filter((d:any) => d.winningGigCardId  === '');
         // $t.requirementConfig.activeRequirements = $t.requirementConfig.activeRequirements.filter((d: any) => {
         //   d.winningGigCardId === '';
         // });
 
-        $t.requirementConfig.inactiveRequirements = response[1].responseObj;
+        $t.requirementConfig.inactiveRequirements = response[1].responseObj.filter((d:any) => d.winningGigCardId  === '');
         // $t.requirementConfig.inactiveRequirements = $t.requirementConfig.inactiveRequirements.filter((d: any) => {
         //   d.winningGigCardId === '';
         // });

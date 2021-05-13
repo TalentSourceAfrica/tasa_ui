@@ -95,14 +95,15 @@ export class MyOrdersComponent implements OnInit {
 
   calculateProgress(item: any) {
     let $t = this;
-    const currentProgressStage = $t.requirementProgressStatus.find((rps: any) => rps.value === item.stage);
+    const _requirementProgressStatus = JSON.parse(JSON.stringify($t.requirementProgressStatus));
+    item['requirementProgressStatus'] = _requirementProgressStatus;
+    const currentProgressStage = _requirementProgressStatus.find((rps: any) => rps.value === item.stage);
     item['completePerc'] = currentProgressStage.percent.toFixed(2);
-    item['requirementProgressStatus'] = [...$t.requirementProgressStatus];
     // disable all previous stages
     item['requirementProgressStatus'].forEach((rps: any, i: number) => {
       rps['disable'] = i <= currentProgressStage.id - 1 ? true : false;
     });
-
+    // set if work is completed
     if (currentProgressStage.value === 'Completed') {
       item['isCompleted'] = true;
     }

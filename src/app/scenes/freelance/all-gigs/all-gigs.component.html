@@ -5,7 +5,7 @@
         <div class="col-md-3 col-sm-12 bg-white" *ngIf="!sharedService.deviceDetectorService.isMobile()">
           <app-left-side *ngIf="user"></app-left-side>
         </div>
-        <div class="col-md-7 col-sm-12 main-div mb-4">
+        <div class="col-md-7 col-sm-12 main-div m-2 mb-4">
           <ol class="breadcrumb mt-3">
             <li class="breadcrumb-item curPoint"><a [routerLink]="['/home']">Home</a></li>
             <li class="breadcrumb-item active"><a>All Gigs</a></li>
@@ -55,79 +55,82 @@
       </div>
     </div>
     <div class="col-12 col-md-4" *ngFor="let item of gigConfig.data">
-      <div class="card m-0 mt-4 mr-4">
-        <div class="card-img">
-          <img [src]="item.image" *ngIf="item.video === ''" />
-          <ng-container *ngIf="item.image !== '' && item.video !== ''">
-            <owl-carousel-o [options]="gigAssetsOptions" class="gig-view-carousel">
-              <ng-template carouselSlide>
-                <div style="background: #ebe9ed;">
-                  <video controls>
-                    <source [src]="item.video" type="video/mp4" />
-                    <source [src]="item.video" type="video/ogg" />
-                    Your browser does not support the video tag.
-                  </video>
-                </div>
-              </ng-template>
-              <ng-template carouselSlide>
-                <div style="background: #ebe9ed;">
-                  <img [src]="item.image" class="img-thumbnail gig-img" alt="course" />
-                </div>
-              </ng-template>
-            </owl-carousel-o>
-          </ng-container>
-        </div>
-        <div class="card-body pl-3 pr-3" [ngClass]="{ 'margin-top-15px': item.image !== '' && item.video !== '' }">
-          <div class="d-flex align-items-center justify-content-center">
-            <img
-              [src]="item.userImage"
-              [routerLink]="['/social-network/profile/', item.tasaId]"
-              routerLinkActive="router-link-active"
-              class="user-img curPoint"
-              alt=""
-            />
-            <div>
-              <div class="font400 pl-0 text-truncate" [title]="item.userName">{{ item.userName }}</div>
-              <ng-container *ngIf="item.ratingCount !== 0">
-                <ngb-rating
-                  [readonly]="true"
-                  [max]="5"
-                  class="star"
-                  [(rate)]="item.rating"
-                ></ngb-rating>
-                <span class="text-muted" matTooltipPosition="below" matTooltip="Count of rating"
-                  >({{ item.ratingCount }})</span
-                >
-              </ng-container>
-              <ng-container *ngIf="item.ratingCount === 0">
-                <span class="text-muted">Rating not available</span>
-              </ng-container>
-            </div>
+      <div class="p-2">
+      <div class="card m-0 mt-4">
+          <div class="card-img">
+            <img [src]="item.image" *ngIf="item.video === ''" />
+            <ng-container *ngIf="item.image !== '' && item.video !== ''">
+              <owl-carousel-o [options]="gigAssetsOptions" class="gig-view-carousel">
+                <ng-template carouselSlide>
+                  <div style="background: #ebe9ed;">
+                    <video controls>
+                      <source [src]="item.video" type="video/mp4" />
+                      <source [src]="item.video" type="video/ogg" />
+                      Your browser does not support the video tag.
+                    </video>
+                  </div>
+                </ng-template>
+                <ng-template carouselSlide>
+                  <div style="background: #ebe9ed;">
+                    <img [src]="item.image" class="img-thumbnail gig-img" alt="course" />
+                  </div>
+                </ng-template>
+              </owl-carousel-o>
+            </ng-container>
           </div>
-          <h5 class="card-title mt-3 mb-1 text-truncate" [title]="item.title">
-            {{ item.title }}
-          </h5>
-          <p class="card-intro">
-            {{ item.category }}
-          </p>
-        </div>
-        <div class="card-footer">
-          <div class="w100">
-            <div class="text-center">
-              <button
-                mat-mini-fab
-                color="primary"
-                [routerLink]="['/freelance/gig/', item.id]"
+          <div class="card-body pl-3 pr-3" [ngClass]="{ 'margin-top-15px': item.image !== '' && item.video !== '' }">
+            <div class="d-flex align-items-center justify-content-center">
+              <img
+                [src]="item.userImage"
+                [routerLink]="['/social-network/profile/', item.tasaId]"
                 routerLinkActive="router-link-active"
-                matTooltipPosition="below"
-                class="mr-2"
-                matTooltip="View Gig"
-              >
-                <mat-icon class="mb-1">remove_red_eye</mat-icon>
-              </button>
+                class="user-img curPoint"
+                alt=""
+              />
+              <div>
+                <div class="font400 pl-0 text-truncate" [title]="item.userName">{{ item.userName }}</div>
+                <ng-container *ngIf="item.ratingCount !== 0">
+                  <ngb-rating
+                    [readonly]="true"
+                    [max]="5"
+                    class="star"
+                    [(rate)]="item.rating"
+                  ></ngb-rating>
+                  <span class="text-muted" matTooltipPosition="below" matTooltip="Count of rating"
+                    >({{ item.ratingCount }})</span
+                  >
+                </ng-container>
+                <ng-container *ngIf="item.ratingCount === 0">
+                  <span class="text-muted">Rating not available</span>
+                </ng-container>
+              </div>
+            </div>
+            <h5 class="card-title mt-3 mb-1 text-truncate" [title]="item.title">
+              {{ item.title }}
+            </h5>
+            <p class="card-intro">
+              {{ item.category }}
+            </p>
+          </div>
+          <div class="card-footer">
+            <div class="w100">
+              <div class="text-center">
+                <button
+                  mat-mini-fab
+                  color="primary"
+                  [routerLink]="['/freelance/gig/', item.id]"
+                  routerLinkActive="router-link-active"
+                  matTooltipPosition="below"
+                  class="mr-2"
+                  matTooltip="View Gig"
+                >
+                  <mat-icon class="mb-1">remove_red_eye</mat-icon>
+                </button>
+              </div>
             </div>
           </div>
         </div>
+
       </div>
     </div>
 
@@ -146,17 +149,19 @@
   <ng-container>
     <div class="row">
       <div class="col-md-4 col-lg-4 col-sm-6 animated fadeIn" *ngFor="let item of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]">
-        <div class="card m-0 mb-4">
-          <div class="card-img skeleton">
-            <!-- waiting for img to load from javascript -->
-          </div>
-          <div class="card-body">
-            <h2 class="card-title skeleton">
-              <!-- wating for title to load from javascript -->
-            </h2>
-            <p class="card-intro skeleton">
-              <!-- waiting for intro to load from Javascript -->
-            </p>
+        <div class="p-2">
+          <div class="card m-0 mb-4">
+            <div class="card-img skeleton">
+              <!-- waiting for img to load from javascript -->
+            </div>
+            <div class="card-body">
+              <h2 class="card-title skeleton">
+                <!-- wating for title to load from javascript -->
+              </h2>
+              <p class="card-intro skeleton">
+                <!-- waiting for intro to load from Javascript -->
+              </p>
+            </div>
           </div>
         </div>
       </div>
