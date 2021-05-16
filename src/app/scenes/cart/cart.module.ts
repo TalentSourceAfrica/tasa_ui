@@ -7,9 +7,7 @@ import { MaterialModule } from '@app/modules/material.module';
 import { CartRoutingModule } from './cart-routing.module';
 import { CartComponent } from './cart.component';
 import { CarouselModule } from 'ngx-owl-carousel-o';
-// Import the library
-import { NgxStripeModule } from 'ngx-stripe';
-import { stripeKeys } from '@app/models/constants';
+
 
 @NgModule({
   imports: [
@@ -20,8 +18,7 @@ import { stripeKeys } from '@app/models/constants';
     CartRoutingModule,
     MaterialModule,
     ReactiveFormsModule,
-    CarouselModule,
-    NgxStripeModule.forRoot(stripeKeys.public)
+    CarouselModule
   ],
   declarations: [CartComponent],
   entryComponents: [],

@@ -25,7 +25,6 @@ import { ResetPasswordModule } from './scenes/reset-password/reset-password.modu
 import { LoginPopupComponent } from './partials/popups/authentication/login-popup/login-popup.component';
 import { UserDetailsPopupComponent } from './partials/popups/authentication/user-details-popup/user-details-popup.component';
 
-
 @NgModule({
   imports: [
     BrowserModule,

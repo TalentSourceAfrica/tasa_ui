@@ -40,6 +40,7 @@ export class CartComponent implements OnInit {
       },
     },
   };
+  
   constructor(
     public sharedService: SharedService,
     private cartService: CartService,
@@ -77,6 +78,7 @@ export class CartComponent implements OnInit {
   }
 
   loadStripe() {
+    let $t = this;
     if (!window.document.getElementById('stripe-script')) {
       var s = window.document.createElement('script');
       s.id = 'stripe-script';
@@ -90,7 +92,12 @@ export class CartComponent implements OnInit {
             // You can access the token ID with `token.id`.
             // Get the token ID to your server-side code for use.
             console.log(token);
-            alert('Payment Success!!');
+            const data = {
+              transaction_id: token.id,
+              status: 'successful',
+              amount: $t.amount,
+            };
+            $t.afterPayment(data);
           },
         });
       };
@@ -141,8 +148,8 @@ export class CartComponent implements OnInit {
       status: 'successful',
       amount: $t.amount,
     };
-    // $t.pay($t.amount);
-    $t.afterPayment(data);
+    $t.pay($t.amount);
+    // $t.afterPayment(data);
   }
 
   uuidv4Generator() {

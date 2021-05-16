@@ -71,7 +71,7 @@
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "10kb"
+                  "maximumWarning": "50kb"
                 }
               ],
               "serviceWorker": true,

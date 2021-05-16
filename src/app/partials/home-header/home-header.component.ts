@@ -267,7 +267,7 @@ export class HomeHeaderComponent implements OnInit {
         '{page}': 1,
         '{size}': 50,
       });
-      $t.sharedService.configService.post(apiUrl, $t.jobConfig.searchConfig).subscribe(
+      $t.sharedService.configService.post(apiUrl, $t.courseConfig.searchConfig).subscribe(
         (response: any) => {
           $t.courseConfig.isFetching = false;
           $t.courseConfig.data = response.responseObj.courses;
