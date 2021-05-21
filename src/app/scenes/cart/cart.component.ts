@@ -72,7 +72,9 @@ export class CartComponent implements OnInit {
 
     handler.open({
       name: 'TaSA',
-      description: '',
+      label: 'Checkout',
+      description: 'Payment for items in cart',
+      image : 'https://s3.amazonaws.com/content.common/TaSALogo.jpg',
       amount: amount * 100,
     });
   }
