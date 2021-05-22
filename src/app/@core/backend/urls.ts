@@ -5,6 +5,7 @@
 // where PA stands for PATCH api request
 // where D  stands for DELETE api request
 export const urls: any = {
+
   // Authentication
   getUsers: '/users', // G
   getUserById: '/users/view/{tasaId}', // G
@@ -219,7 +220,7 @@ export const urls: any = {
   rating: '/rating/{userId}/{ratedBy}', // PO
   getUsersRating : '/rating/users', // PO
 
-  // Assignments
+  // assignments
   getAllAssignments: '/requirement/progressive/{tasaId}', // G
 
   // transactions
@@ -227,4 +228,7 @@ export const urls: any = {
   postPayout : '/transactions/payout/process', // PO
   getTransactionByRequirement : '/transactions/{tasaId}/{requirementId}', // G
   downloadInvoice : '/transactions/download/{tasaId}/{requirementId}', // G
+
+  // payment (stripe)
+  createPayment : '/payment/createCharge' // PO
 };

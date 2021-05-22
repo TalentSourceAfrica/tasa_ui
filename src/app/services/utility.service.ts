@@ -153,6 +153,15 @@ export class UtilityService {
     document.body.removeChild(link);
   }
 
+  openLinkInNewTab(_href:string){
+    var a = document.createElement('a');
+    a.href = _href;
+    a.target = '_blank';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  }
+
   isValidIframeUrl(_urlString: string) {
     var regexQuery = this.CustomValidators.iframeUrl;
     var url = new RegExp(regexQuery, 'i');

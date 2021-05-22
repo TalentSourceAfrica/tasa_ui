@@ -20,6 +20,7 @@ export class CartComponent implements OnInit {
   amount: number = 0;
   baseConfig: any = BaseConfig;
   customerForm: FormGroup;
+  stripeKey: string = '';
   gigAssetsOptions: OwlOptions = {
     loop: true,
     autoplay: false,
@@ -40,7 +41,7 @@ export class CartComponent implements OnInit {
       },
     },
   };
-  
+
   constructor(
     public sharedService: SharedService,
     private cartService: CartService,
@@ -57,27 +58,7 @@ export class CartComponent implements OnInit {
     });
   }
 
-  pay(amount: any) {
-
-    var handler = (<any>window).StripeCheckout.configure({
-      key: stripeKeys.public,
-      locale: 'auto',
-      token: function (token: any) {
-        // You can access the token ID with `token.id`.
-        // Get the token ID to your server-side code for use.
-        console.log(token);
-        alert('Token Created!!');
-      }
-    });
-
-    handler.open({
-      name: 'TaSA',
-      label: 'Checkout',
-      description: 'Payment for items in cart',
-      image : 'https://s3.amazonaws.com/content.common/TaSALogo.jpg',
-      amount: amount * 100,
-    });
-  }
+  pay(amount: any) {}
 
   loadStripe() {
     let $t = this;
@@ -88,12 +69,11 @@ export class CartComponent implements OnInit {
       s.src = 'https://checkout.stripe.com/checkout.js';
       s.onload = () => {
         this.handler = (<any>window).StripeCheckout.configure({
-          key: stripeKeys.public,
+          key: $t.stripeKey,
           locale: 'auto',
           token: function (token: any) {
             // You can access the token ID with `token.id`.
             // Get the token ID to your server-side code for use.
-            console.log(token);
             const data = {
               transaction_id: token.id,
               status: 'successful',
@@ -110,7 +90,24 @@ export class CartComponent implements OnInit {
 
   makePayment() {
     let $t = this;
-    const customer = this.customerForm.getRawValue();
+    var handler = (<any>window).StripeCheckout.configure({
+      key: $t.stripeKey,
+      locale: 'auto',
+      token: function (data: any) {
+        // You can access the token ID with `token.id`.
+        // Get the token ID to your server-side code for use.
+        $t.makePaymentWithStripeToken(data);
+      },
+    });
+
+    handler.open({
+      name: 'TaSA',
+      label: 'Checkout',
+      description: 'Payment for items in cart',
+      image: 'https://s3.amazonaws.com/content.common/TaSALogo.jpg',
+      amount: $t.amount * 100,
+    });
+
     // let flutterWaveProperties = {
     //   public_key: flutterWaveKeys['Public Key'],
     //   tx_ref: $t.uuidv4Generator(),
@@ -145,13 +142,35 @@ export class CartComponent implements OnInit {
     //   flutterWaveProperties['payment_plan'] = 10028;
     // }
     // FlutterwaveCheckout(flutterWaveProperties);
-    const data = {
-      transaction_id: $t.uuidv4Generator(),
-      status: 'successful',
+  }
+
+  makePaymentWithStripeToken(_stripeData: any) {
+    let $t = this;
+    let apiUrl: any;
+    let payload = {
+      description: 'Payment for items in cart',
       amount: $t.amount,
+      currency: 'USD',
+      stripeEmail: _stripeData.email,
+      stripeToken: _stripeData.id,
     };
-    $t.pay($t.amount);
-    // $t.afterPayment(data);
+    apiUrl = $t.sharedService.urlService.simpleApiCall('createPayment');
+    $t.sharedService.uiService.showApiStartPopMsg('Processing');
+    $t.sharedService.configService.post(apiUrl, payload).subscribe(
+      (response: any) => {
+        const paymentResponse = response.responseObj;
+        const data = {
+          transaction_id: paymentResponse.id,
+          status: paymentResponse.status === 'succeeded' ? 'successful' : 'failure',
+          amount: paymentResponse.amount,
+          receipt_url: paymentResponse.receipt_url ? paymentResponse.receipt_url : '',
+        };
+        $t.afterPayment(data);
+      },
+      (error) => {
+        $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
+      }
+    );
   }
 
   uuidv4Generator() {
@@ -209,6 +228,7 @@ export class CartComponent implements OnInit {
             queryParams: {
               status: _data.status,
               transaction_id: _data.transaction_id,
+              receipt_url: _data.receipt_url,
               tx_ref: _data.tx_ref,
               typeOfPurchase: $t.cartDetails.isSubscription ? 'subscription' : 'course',
             },
@@ -256,6 +276,7 @@ export class CartComponent implements OnInit {
             queryParams: {
               status: _data.status,
               transaction_id: _data.transaction_id,
+              receipt_url: _data.receipt_url,
               tx_ref: _data.tx_ref,
               typeOfPurchase: 'gigcard',
             },
@@ -305,6 +326,7 @@ export class CartComponent implements OnInit {
             queryParams: {
               status: _data.status,
               transaction_id: _data.transaction_id,
+              receipt_url: _data.receipt_url,
               tx_ref: _data.tx_ref,
               typeOfPurchase: 'gigcard',
             },
@@ -330,8 +352,13 @@ export class CartComponent implements OnInit {
   ngOnInit(): void {
     window.scrollTo(0, 0);
     console.log('PROD: ' + environment.production);
+    // change stripe key according to environment
+    if (environment.production) {
+      this.stripeKey = stripeKeys.secret;
+    } else {
+      this.stripeKey = stripeKeys.public;
+    }
     this.createForm();
-    // this.loadScript('https://js.stripe.com/v3/');
     this.loadStripe();
     this.cartDetails = this.cartService.fetchData();
     // console.log(this.cartDetails);
