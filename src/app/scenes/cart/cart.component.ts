@@ -18,7 +18,7 @@ export class CartComponent implements OnInit {
   handler: any = null;
   cartDetails: any;
   amount: number = 0;
-  baseConfig: any = BaseConfig;
+  baseConfig = new BaseConfig();
   customerForm: FormGroup;
   stripeKey: string = '';
   gigAssetsOptions: OwlOptions = {
@@ -57,8 +57,6 @@ export class CartComponent implements OnInit {
       phoneNumber: [this.user.contactNo ? this.user.contactNo : '', Validators.required],
     });
   }
-
-  pay(amount: any) {}
 
   loadStripe() {
     let $t = this;
@@ -153,7 +151,13 @@ export class CartComponent implements OnInit {
       currency: 'USD',
       stripeEmail: _stripeData.email,
       stripeToken: _stripeData.id,
+      courseId: $t.cartDetails.isCourse ? $t.cartDetails.courseData.id : '' ,
+      subscriptionId: $t.cartDetails.isSubscription ? $t.cartDetails.subscriptionData.id : '',
+      gigId: $t.cartDetails.isGig ? $t.cartDetails.gigData.id : $t.cartDetails.isCustomGig ?  $t.cartDetails.customGigData.id : '',
+      tasaId: $t.user.tasaId,
+      payout: 'N',
     };
+    
     apiUrl = $t.sharedService.urlService.simpleApiCall('createPayment');
     $t.sharedService.uiService.showApiStartPopMsg('Processing');
     $t.sharedService.configService.post(apiUrl, payload).subscribe(
@@ -351,9 +355,9 @@ export class CartComponent implements OnInit {
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
-    console.log('PROD: ' + environment.production);
+    console.log(this.baseConfig);
     // change stripe key according to environment
-    if (environment.production) {
+    if (this.baseConfig.env === 'PROD') {
       this.stripeKey = stripeKeys.secret;
     } else {
       this.stripeKey = stripeKeys.public;

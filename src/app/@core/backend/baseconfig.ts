@@ -4,6 +4,7 @@ import { WINDOW } from '../backend/window.service';
 @Injectable({
   providedIn: 'root',
 })
+
 export class BaseConfig {
   @Inject(WINDOW) public window: Window;
 
@@ -39,18 +40,22 @@ export class BaseConfig {
 
   init() {
     if (this.windowLocation.hostname.indexOf('localhost') === 0) {
+       // Local Env
       this.restHost = this.localRestHost;
-      // this.localSocketRestHost = this.localSocketRestHost;
       this.envExtension = '-playground';
       this.env = 'DEV';
       this.isLocal = '&local=true';
-
       if (this.windowLocation.search.indexOf('offline') > 0) {
         this.env = 'DEV-OFFLINE';
       }
       if (this.windowLocation.search.indexOf('online') > 0) {
         this.env = 'DEV-ONLINE';
       }
+    } else if (location.hostname.indexOf('52.20.117.251') === 0) {
+      // Pre-Prod Env
+      this.restHost = this.localRestHost;
+      this.envExtension = '-playground';
+      this.env = 'PRE-PROD';
     } else {
       // Prod Env
       this.restHost = this.localRestHost;
