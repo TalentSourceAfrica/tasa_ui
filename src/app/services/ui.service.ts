@@ -91,6 +91,27 @@ export class UiService {
     });
   }
 
+  showApiErrorPopMsgWithTwoActions(msg: any, buttonName:string, callBack:any): void {
+    Swal.fire({
+      title: msg, // title of the modal
+      text: '', // description of the modal
+      type: 'error', // warning, error, success, info, and question,
+      backdrop: true,
+      allowOutsideClick: true,
+      allowEscapeKey: true,
+      allowEnterKey: true,
+      confirmButtonClass: 'rounded-pill shadow-sm',
+      cancelButtonClass: 'rounded-pill shadow-sm',
+      confirmButtonText: buttonName,
+      showCancelButton: true,
+    }).then((isConfirm) => {
+      if (isConfirm.value) {
+        callBack();
+      } else {
+      }
+    });
+  }
+
   showPreConfirmPopMsg(msg: any, callBack: any): void {
     Swal.fire({
       title: 'Are you sure?', // title of the modal

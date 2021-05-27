@@ -89,6 +89,7 @@ export class OrganizationComponent implements OnInit {
     this.sharedService.dialogService.open(CreateOrganizationComponent, {
       width: '40%',
       disableClose: false,
+      data : {user : this.user}
     });
   }
 

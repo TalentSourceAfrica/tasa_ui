@@ -14,6 +14,7 @@ export class CreateGigComponent implements OnInit {
   @ViewChild('file', { static: false }) public file: any;
   @ViewChild('videoFile', { static: false }) public videoFile: any;
   links = ['First', 'Second', 'Third'];
+  planType = ['Bronze', 'Gold' , 'Silver'];
   public editor: Editor;
   freelanceCategory: any = [];
   gigConfig: any = {

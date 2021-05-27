@@ -7,6 +7,10 @@ import { SharedService } from '@app/services/shared.service';
   styleUrls: ['./deactive-user.component.scss'],
 })
 export class DeactiveUserComponent implements OnInit {
+  userDataConfig:any = {
+    recruiterUsers : [],
+    menteeUsers : []
+  }
   userData: any = [];
   constructor(public sharedService: SharedService) {}
 
@@ -47,6 +51,8 @@ export class DeactiveUserComponent implements OnInit {
       (response: any) => {
         $t.userData = response;
         $t.userData = $t.userData.filter((d: any) => d.type != 'Admin');
+        $t.userDataConfig.recruiterUsers = $t.userData.filter((d:any) =>  d.type === 'Recruiter');
+        $t.userDataConfig.menteeUsers = $t.userData.filter((d:any) =>  d.type === 'Mentee')
       },
       (error) => {
         $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);

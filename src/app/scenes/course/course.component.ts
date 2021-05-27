@@ -107,7 +107,18 @@ export class CourseComponent implements OnInit {
           }
         },
         (error) => {
-          $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
+          if (_type === 'buy') {
+            $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
+          } else {
+            let _callback = () => {
+              $t.router.navigate(['/subscription-plans'], { replaceUrl: true });
+            };
+            $t.sharedService.uiService.showApiErrorPopMsgWithTwoActions(
+              error.error.message,
+              'Check Subscription Plans',
+              _callback
+            );
+          }
         }
       );
     }

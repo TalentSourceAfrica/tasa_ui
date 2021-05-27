@@ -11,13 +11,15 @@ import { SharedService } from '@app/services/shared.service';
 export class CreateOrganizationComponent implements OnInit {
   @ViewChild('orgfile', { static: false }) public orgfile: any;
   signupForm: FormGroup;
-
+  popupData: any;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private formBuilder: FormBuilder,
     private dialogRef: MatDialogRef<CreateOrganizationComponent>,
     public sharedService: SharedService
-  ) {}
+  ) {
+    this.popupData = data;
+  }
 
   uploadImage() {
     this.orgfile.nativeElement.click();
@@ -49,22 +51,41 @@ export class CreateOrganizationComponent implements OnInit {
   }
 
   initForm() {
-    this.signupForm = this.formBuilder.group({
-      id: '',
-      activeFlag: '',
-      orgName: ['', [Validators.required]],
-      orgDesc: ['', [Validators.required]],
-      orgImage: [{ value: '', disabled: true }, [Validators.required]],
-      registrationId: [''],
-      contactPersonEmail: ['', [Validators.required, Validators.email]],
-      contactPersonNo: ['', [Validators.required]],
-      contactPersonName: ['', [Validators.required]],
-      contactPersonDesignation: ['', [Validators.required]],
-      createdOn: null,
-      updatedOn: null,
-      createdBy: '',
-      updatedBy: ''
-    });
+    if (this.popupData && this.popupData.user.type === 'Admin') {
+      this.signupForm = this.formBuilder.group({
+        id: '',
+        activeFlag: '',
+        orgName: ['', [Validators.required]],
+        orgDesc: '',
+        orgImage: [{ value: '', disabled: true }],
+        registrationId: [''],
+        contactPersonEmail: [''],
+        contactPersonNo: [''],
+        contactPersonName: [''],
+        contactPersonDesignation: [''],
+        createdOn: null,
+        updatedOn: null,
+        createdBy: '',
+        updatedBy: '',
+      });
+    } else {
+      this.signupForm = this.formBuilder.group({
+        id: '',
+        activeFlag: '',
+        orgName: ['', [Validators.required]],
+        orgDesc: ['', [Validators.required]],
+        orgImage: [{ value: '', disabled: true }, [Validators.required]],
+        registrationId: [''],
+        contactPersonEmail: ['', [Validators.required, Validators.email]],
+        contactPersonNo: ['', [Validators.required]],
+        contactPersonName: ['', [Validators.required]],
+        contactPersonDesignation: ['', [Validators.required]],
+        createdOn: null,
+        updatedOn: null,
+        createdBy: '',
+        updatedBy: '',
+      });
+    }
   }
 
   onSubmit() {

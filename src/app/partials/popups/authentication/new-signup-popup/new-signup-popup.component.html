@@ -33,14 +33,9 @@
                       class="form-control form-control-prepended"
                       placeholder="Enter your email address"
                     />
-                    <!-- <div class="input-group-prepend">
-                      <div class="input-group-text">
-                        <span class="far fa-envelope"></span>
-                      </div>
-                    </div> -->
                   </div>
                   <small
-                    [hidden]="userDetailsForm.controls.email.valid || userDetailsForm.controls.email.untouched"
+                    [hidden]="loginForm.controls.username.valid || loginForm.controls.username.untouched"
                     class="text-danger"
                     translate
                   >
@@ -61,7 +56,7 @@
                     />
                   </div>
                   <small
-                    [hidden]="userDetailsForm.controls.password.valid || userDetailsForm.controls.password.untouched"
+                    [hidden]="loginForm.controls.password.valid || loginForm.controls.password.untouched"
                     class="text-danger"
                     translate
                   >
@@ -72,15 +67,15 @@
               <div id="flip-card-back" class=""></div>
             </div>
           </div>
-          <div class="text-center mt-2">
+          <div class="mt-4 text-center">
+            <button mat-flat-button color="primary" [disabled]="loginForm.invalid" (click)="login()" class="rounded-pill ml-2 w30">
+              Sign In
+            </button>
+          </div>
+          <div class="text-center mt-4">
             <a (click)="forgotPass()" class="text-muted curPoint h6 p-2" style="text-decoration: underline;"
               >Forgot Password?</a
             >
-          </div>
-          <div class="mt-4 text-center">
-            <button mat-flat-button color="primary" (click)="login()" class="rounded-pill ml-2 w30">
-              Sign In
-            </button>
           </div>
         </form>
       </div>
