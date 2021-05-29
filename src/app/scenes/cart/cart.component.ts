@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { SharedService } from '@app/services/shared.service';
 import { CartService } from './cart.service';
-import { flutterWaveKeys, fultterWavePaymentPlansForLocal, stripeKeys } from '@app/models/constants';
+import { stripeKeys } from '@app/models/constants';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CredentialsService } from '@app/auth';
 import { Router } from '@angular/router';
 import { BaseConfig } from '@app/@core/backend/baseconfig';
-import { environment } from '@env/environment';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 
 @Component({
@@ -148,16 +147,25 @@ export class CartComponent implements OnInit {
     let payload = {
       description: 'Payment for items in cart',
       amount: $t.amount,
+      price: 0,
       currency: 'USD',
       stripeEmail: _stripeData.email,
       stripeToken: _stripeData.id,
-      courseId: $t.cartDetails.isCourse ? $t.cartDetails.courseData.id : '' ,
-      subscriptionId: $t.cartDetails.isSubscription ? $t.cartDetails.subscriptionData.id : '',
-      gigId: $t.cartDetails.isGig ? $t.cartDetails.gigData.id : $t.cartDetails.isCustomGig ?  $t.cartDetails.customGigData.id : '',
+      stripePlanId:
+        $t.cartDetails.subscriptionData.id === 'Bronze'
+          ? 'price_1IuLBQGe2s8gUvp6XnO5ccO6'
+          : $t.cartDetails.subscriptionData.id === 'Silver'
+          ? 'price_1IuLEEGe2s8gUvp6tGZvCV2X'
+          : '',
+      tier: $t.cartDetails.isSubscription ? $t.cartDetails.subscriptionData.id : '',
       tasaId: $t.user.tasaId,
+      bidId: $t.cartDetails.isCustomGig ? $t.cartDetails.customGigData.id : '',
+      courseId: $t.cartDetails.isCourse ? $t.cartDetails.courseData.key : '',
+      gigId: $t.cartDetails.isGig ? $t.cartDetails.gigData.id : '',
+      freelancerEnrolled: 'N',
       payout: 'N',
     };
-    
+
     apiUrl = $t.sharedService.urlService.simpleApiCall('createPayment');
     $t.sharedService.uiService.showApiStartPopMsg('Processing');
     $t.sharedService.configService.post(apiUrl, payload).subscribe(
@@ -355,7 +363,6 @@ export class CartComponent implements OnInit {
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
-    console.log(this.baseConfig);
     // change stripe key according to environment
     if (this.baseConfig.env === 'PROD') {
       this.stripeKey = stripeKeys.secret;

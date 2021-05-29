@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CredentialsService } from '@app/auth';
 import { SharedService } from '@app/services/shared.service';
-import { requirementProgressStatus, requirementStatus } from '@app/models/constants';
-import { saveAs } from 'file-saver';
+import { requirementProgressStatus, requirementStatus, stripeKeys } from '@app/models/constants';
 import { SubmitFeedbackPopupComponent } from '@app/partials/popups/freelance/submit-feedback-popup/submit-feedback-popup.component';
+import { BaseConfig } from '@app/@core/backend/baseconfig';
+
 @Component({
   selector: 'app-my-orders',
   templateUrl: './my-orders.component.html',
@@ -34,6 +35,10 @@ export class MyOrdersComponent implements OnInit {
     data: [],
     isLoading: false,
   };
+
+  baseConfig = new BaseConfig();
+  stripeKey: string = '';
+  handler: any = null;
 
   constructor(public sharedService: SharedService, private credentialsService: CredentialsService) {
     // create Progress Percent base on stages;
@@ -119,7 +124,7 @@ export class MyOrdersComponent implements OnInit {
     $t.sharedService.configService.get(apiUrl).subscribe(
       (response: any) => {
         $t.sharedService.uiService.closePopMsg();
-        $t.transferMoneyToFreelancer(item);
+        $t.makePayment(item);
       },
       (error) => {
         $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
@@ -127,44 +132,56 @@ export class MyOrdersComponent implements OnInit {
     );
   }
 
-  transferMoneyToFreelancer(_data:any) {
+  transferMoneyToFreelancer(_stripeData: any, _assignmentData: any) {
+    console.log(_assignmentData);
     let $t = this;
-    let payload = {
-      account_bank: '044',
-      account_number: '0690000040',
-      amount: 5500,
-      narration: 'Akhlm Pstmn Trnsfr xx007',
-      currency: 'NGN',
-      reference: 'akhlm-pstmnpyt-rfxx007_PMCKDU_1',
-      callback_url: 'https://webhook.site/b3e505b0-fe02-430e-a538-22bbbce8ce0d',
-      debit_currency: 'NGN',
-    };
-    const apiUrl = 'https://api.flutterwave.com/v3/transfers';
-    $t.sharedService.configService.post(apiUrl, payload).subscribe(
-      (response) => {
-        console.log(response);
-      },
-      (error) => {}
-    );
+    let apiUrl: any;
 
-    $t.postTransferMoneyToFreelancer(_data);
+    let payload = {
+      description: 'Payment for freelancer',
+      amount: 0,
+      price: _assignmentData.transactionPrice,
+      currency: 'USD',
+      stripeEmail: _stripeData.email,
+      stripeToken: _stripeData.id,
+      stripePlanId: '',
+      tier: '',
+      tasaId: $t.user.tasaId,
+      bidId: '',
+      courseId: '',
+      gigId: _assignmentData.id,
+      freelancerEnrolled: 'N',
+      payout: 'Y',
+    };
+
+    apiUrl = $t.sharedService.urlService.simpleApiCall('createPayment');
+    $t.sharedService.uiService.showApiStartPopMsg('Processing');
+    $t.sharedService.configService.post(apiUrl, payload).subscribe(
+      (response: any) => {
+        $t.postTransferMoneyToFreelancer(_assignmentData);
+      },
+      (error) => {
+        $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
+      }
+    );
   }
 
-  postTransferMoneyToFreelancer(_data:any) {
+  postTransferMoneyToFreelancer(_assignmentData: any) {
     let $t = this;
     let payload = {
       id: '',
-      tasaId: _data.winningTasaId,
-      requirementId: _data.id,
+      tasaId: _assignmentData.winningTasaId,
+      requirementId: _assignmentData.id,
       externalTransactionId: '',
-      amount: _data.transactionAmount,
+      amount: _assignmentData.transactionPrice,
     };
 
     let apiUrl = $t.sharedService.urlService.simpleApiCall('postPayout');
     $t.sharedService.configService.post(apiUrl, payload).subscribe(
       (response) => {
         console.log(response);
-        _data.sellerInvoiceGenerated = 'Y';
+        _assignmentData.sellerInvoiceGenerated = 'Y';
+        $t.sharedService.uiService.showApiSuccessPopMsg('Amount transferred successfully.');
       },
       (error) => {}
     );
@@ -189,7 +206,7 @@ export class MyOrdersComponent implements OnInit {
       data: {
         buyerDetails: buyerDetails,
         user: freelancerDetails,
-        reqDetails:reqDetails
+        reqDetails: reqDetails,
       },
       disableClose: false,
     });
@@ -199,7 +216,7 @@ export class MyOrdersComponent implements OnInit {
     if (data.postedByTasaId == this.user.tasaId) {
       return true;
     } else {
-      if (data.winningTasaId == this.user.tasaId && data.isCompleted && data.sellerInvoiceGenerated === 'Y' ) {
+      if (data.winningTasaId == this.user.tasaId && data.isCompleted && data.sellerInvoiceGenerated === 'Y') {
         return true;
       } else {
         return false;
@@ -291,10 +308,59 @@ export class MyOrdersComponent implements OnInit {
     );
   }
 
+  loadStripe() {
+    let $t = this;
+    if (!window.document.getElementById('stripe-script')) {
+      var s = window.document.createElement('script');
+      s.id = 'stripe-script';
+      s.type = 'text/javascript';
+      s.src = 'https://checkout.stripe.com/checkout.js';
+      s.onload = () => {
+        this.handler = (<any>window).StripeCheckout.configure({
+          key: $t.stripeKey,
+          locale: 'auto',
+          token: function (token: any) {
+            // You can access the token ID with `token.id`.
+            // Get the token ID to your server-side code for use.
+          },
+        });
+      };
+
+      window.document.body.appendChild(s);
+    }
+  }
+
+  makePayment(assignmentData: any) {
+    let $t = this;
+    var handler = (<any>window).StripeCheckout.configure({
+      key: $t.stripeKey,
+      locale: 'auto',
+      token: function (stripeData: any) {
+        // You can access the token ID with `token.id`.
+        // Get the token ID to your server-side code for use.
+        $t.transferMoneyToFreelancer(stripeData, assignmentData);
+      },
+    });
+
+    handler.open({
+      name: 'TaSA',
+      label: 'Checkout',
+      description: 'Transfer amount to your account',
+      image: 'https://s3.amazonaws.com/content.common/TaSALogo.jpg',
+      amount: assignmentData.transactionPrice * 100,
+    });
+  }
+
   ngOnInit(): void {
-    // this.getOrder();
+    // change stripe key according to environment
+    if (this.baseConfig.env === 'PROD') {
+      this.stripeKey = stripeKeys.secret;
+    } else {
+      this.stripeKey = stripeKeys.public;
+    }
     this.getAllAssignments();
     this.getAllBids();
+    this.loadStripe();
   }
 
   get user(): any | null {
