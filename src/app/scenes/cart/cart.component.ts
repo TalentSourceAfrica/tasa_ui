@@ -3,7 +3,7 @@ import { SharedService } from '@app/services/shared.service';
 import { CartService } from './cart.service';
 import { stripeKeys } from '@app/models/constants';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CredentialsService } from '@app/auth';
+import { AuthenticationService, CredentialsService } from '@app/auth';
 import { Router } from '@angular/router';
 import { BaseConfig } from '@app/@core/backend/baseconfig';
 import { OwlOptions } from 'ngx-owl-carousel-o';
@@ -46,6 +46,7 @@ export class CartComponent implements OnInit {
     private cartService: CartService,
     private formBuilder: FormBuilder,
     private credentialsService: CredentialsService,
+    private authenticationService: AuthenticationService,
     private router: Router
   ) {}
 
@@ -195,15 +196,36 @@ export class CartComponent implements OnInit {
 
   afterPayment(_data: any) {
     let $t = this;
-    if ($t.cartDetails.isCourse || $t.cartDetails.isSubscription) {
-      $t.afterPaymentCallForCourseAndSubs(_data);
+    let _typeOfPurchase: string = '';
+
+    if ($t.cartDetails.isSubscription) {
+      _typeOfPurchase = 'subscription';
+    } else if ($t.cartDetails.isCourse) {
+      _typeOfPurchase = 'course';
+    } else if ($t.cartDetails.isGig || $t.cartDetails.isCustomGig) {
+      _typeOfPurchase = 'gigcard';
     }
-    if ($t.cartDetails.isGig) {
-      $t.afterPaymentCallForGigCard(_data);
-    }
-    if ($t.cartDetails.isCustomGig) {
-      $t.afterPaymentCallForReq(_data);
-    }
+    $t.authenticationService.updateUserData($t.user);
+    $t.sharedService.uiService.closePopMsg();
+    $t.router.navigate(['/transaction'], {
+      queryParams: {
+        status: _data.status,
+        transaction_id: _data.transaction_id,
+        receipt_url: _data.receipt_url,
+        tx_ref: _data.tx_ref,
+        typeOfPurchase: _typeOfPurchase,
+      }
+    });
+
+    // if ($t.cartDetails.isCourse || $t.cartDetails.isSubscription) {
+    //   $t.afterPaymentCallForCourseAndSubs(_data);
+    // }
+    // if ($t.cartDetails.isGig) {
+    //   $t.afterPaymentCallForGigCard(_data);
+    // }
+    // if ($t.cartDetails.isCustomGig) {
+    //   $t.afterPaymentCallForReq(_data);
+    // }
   }
 
   afterPaymentCallForCourseAndSubs(_data: any) {

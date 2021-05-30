@@ -12,6 +12,7 @@ export class CreateOrganizationComponent implements OnInit {
   @ViewChild('orgfile', { static: false }) public orgfile: any;
   signupForm: FormGroup;
   popupData: any;
+  public isAdmin: boolean = false;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private formBuilder: FormBuilder,
@@ -19,6 +20,9 @@ export class CreateOrganizationComponent implements OnInit {
     public sharedService: SharedService
   ) {
     this.popupData = data;
+    if (this.popupData && this.popupData.user.type === 'Admin') {
+      this.isAdmin = true;
+    }
   }
 
   uploadImage() {
@@ -51,7 +55,7 @@ export class CreateOrganizationComponent implements OnInit {
   }
 
   initForm() {
-    if (this.popupData && this.popupData.user.type === 'Admin') {
+    if (this.isAdmin) {
       this.signupForm = this.formBuilder.group({
         id: '',
         activeFlag: '',

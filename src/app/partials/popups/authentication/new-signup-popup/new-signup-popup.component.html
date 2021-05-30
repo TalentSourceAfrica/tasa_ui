@@ -68,7 +68,13 @@
             </div>
           </div>
           <div class="mt-4 text-center">
-            <button mat-flat-button color="primary" [disabled]="loginForm.invalid" (click)="login()" class="rounded-pill ml-2 w30">
+            <button
+              mat-flat-button
+              color="primary"
+              [disabled]="loginForm.invalid"
+              (click)="login()"
+              class="rounded-pill ml-2 w30"
+            >
               Sign In
             </button>
           </div>
@@ -292,9 +298,7 @@
                       </small>
                     </div>
                     <div class="form-group d-block">
-                      <label class="form-label" for="name"
-                        >Tribally Enrolled</label
-                      >
+                      <label class="form-label" for="name">Tribally Enrolled</label>
                       <div class="input-group input-group-merge">
                         <mat-radio-group aria-label="Select an option" formControlName="tribeEnrolled">
                           <mat-radio-button value="Y">YES</mat-radio-button>
@@ -677,7 +681,17 @@
                 >
                   BACK
                 </button>
-                <button mat-flat-button color="primary" (click)="flipOnClick('submit')" class="rounded-pill ml-2 w30">
+                <button
+                  mat-flat-button
+                  color="primary"
+                  [disabled]="
+                    userDetailsForm.controls.firstName.invalid ||
+                    userDetailsForm.controls.lastName.invalid ||
+                    userDetailsForm.controls.organizationName.invalid
+                  "
+                  (click)="flipOnClick('submit')"
+                  class="rounded-pill ml-2 w30"
+                >
                   Sign Up
                 </button>
               </div>

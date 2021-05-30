@@ -39,7 +39,9 @@
         </small>
       </div>
       <div class="form-group">
-        <label class="form-label" for="name">Organization Description <span class="text-danger pl-1 asterisk">*</span></label>
+        <label class="form-label" for="name"
+          >Organization Description <span class="text-danger pl-1 asterisk" *ngIf="!isAdmin">*</span></label
+        >
         <div class="input-group input-group-merge">
           <input
             id="name"
@@ -63,7 +65,7 @@
         </small>
       </div>
       <div class="form-group">
-        <label class="form-label" for="name">Organization Image <span class="text-danger pl-1 asterisk">*</span></label>
+        <label class="form-label" for="name">Organization Image <span  *ngIf="!isAdmin" class="text-danger pl-1 asterisk ">*</span></label>
         <div class="input-group input-group-merge">
           <input
             id="name"
@@ -113,7 +115,9 @@
         </small>
       </div> -->
       <div class="form-group">
-        <label class="form-label" for="email">Contact Person Email <span class="text-danger pl-1 asterisk">*</span></label>
+        <label class="form-label" for="email"
+          >Contact Person Email <span class="text-danger pl-1 asterisk"  *ngIf="!isAdmin">*</span></label
+        >
         <div class="input-group input-group-merge">
           <input
             id="email"
@@ -137,7 +141,9 @@
         </small>
       </div>
       <div class="form-group">
-        <label class="form-label" for="password">Contact Person No <span class="text-danger pl-1 asterisk">*</span></label>
+        <label class="form-label" for="password"
+          >Contact Person No <span class="text-danger pl-1 asterisk"  *ngIf="!isAdmin">*</span></label
+        >
         <div class="input-group input-group-merge">
           <input
             id="password"
@@ -161,7 +167,9 @@
         </small>
       </div>
       <div class="form-group">
-        <label class="form-label" for="name">Contact Person Name <span class="text-danger pl-1 asterisk">*</span></label>
+        <label class="form-label" for="name"
+          >Contact Person Name <span class="text-danger pl-1 asterisk"  *ngIf="!isAdmin">*</span></label
+        >
         <div class="input-group input-group-merge">
           <input
             id="name"
@@ -185,7 +193,9 @@
         </small>
       </div>
       <div class="form-group">
-        <label class="form-label" for="name">Contact Person Role <span class="text-danger pl-1 asterisk">*</span></label>
+        <label class="form-label" for="name"
+          >Contact Person Role <span class="text-danger pl-1 asterisk"  *ngIf="!isAdmin">*</span></label
+        >
         <div class="input-group input-group-merge">
           <input
             id="name"
@@ -218,7 +228,7 @@
         color="primary"
         type="submit"
         [disabled]="signupForm.invalid"
-        class="rounded-pill ml-2 w50"
+        class="rounded-pill ml-2"
       >
         Save
       </button>

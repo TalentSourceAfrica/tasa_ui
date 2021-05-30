@@ -19,17 +19,20 @@
           <div class="p-2 text-center">
             <h2 class="caps"><span class="text-muted">PLAN : </span>{{ mySubscription.subscriptionId }}</h2>
           </div>
+          <div class="alert alert-info text-center mb-0" role="alert">
+            <h6>This Plan Will Expire On {{ mySubscription.expiresOn | date: 'mediumDate' }}</h6>
+          </div>
           <div class="card-header bg-theme text-center">
             <div class="holder pb-4">
               <div class="plan__options plan-left m-2 animated fadeInUp m-auto">
                 <div class="head d-flex">
                   <div class="shape shape-green"></div>
                   <div class="content text-center m-auto">
-                    <h2 class="card-title mb-0">
-                      <h2 class="badge badge-success caps">
-                        {{ mySubscription.transactionStatus == 'successful' ? 'ACTIVE' : '' }}
-                      </h2>
-                    </h2>
+                    <h3 class="card-title mb-0">
+                      <h3 class="badge badge-success caps">
+                        ACTIVE
+                      </h3>
+                    </h3>
                   </div>
                 </div>
                 <div class="line-divider"></div>
@@ -107,9 +110,6 @@
                 </h5>
               </div>
             </div>
-          </div>
-          <div class="alert alert-info text-center mb-0" role="alert">
-            <h6> This Plan Will Expire On {{mySubscription.expiresOn | date:'mediumDate'}}</h6> 
           </div>
         </div>
       </div>
