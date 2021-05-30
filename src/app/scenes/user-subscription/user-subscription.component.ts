@@ -31,7 +31,9 @@ export class UserSubscriptionComponent implements OnInit {
   }
   ngOnInit(): void {
     this.mySubscription = this.user.currentSubscription;
-    this.getPlanDetails();
+    if(this.mySubscription && this.mySubscription.subscriptionId){
+      this.getPlanDetails();
+    }
   }
 
   get user(): any | null {

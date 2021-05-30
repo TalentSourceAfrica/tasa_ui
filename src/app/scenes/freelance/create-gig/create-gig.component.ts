@@ -14,7 +14,7 @@ export class CreateGigComponent implements OnInit {
   @ViewChild('file', { static: false }) public file: any;
   @ViewChild('videoFile', { static: false }) public videoFile: any;
   links = ['First', 'Second', 'Third'];
-  planType = ['Bronze', 'Gold' , 'Silver'];
+  planType = ['Bronze', 'Gold', 'Silver'];
   public editor: Editor;
   freelanceCategory: any = [];
   gigConfig: any = {
@@ -123,11 +123,17 @@ export class CreateGigComponent implements OnInit {
   }
 
   checkPlanDisable() {
-    for (let index = 0; index < this.gigConfig.gig.plans; index++) {
+    const planNameArr: any = [];
+    for (var index = 0; index < this.gigConfig.gig.plans.length; index++) {
       const plan = this.gigConfig.gig.plans[index];
       if (plan.name === '' || plan.deliveryDays === '' || plan.price === 0 || plan.revisions === 0) {
         return true;
       }
+      planNameArr.push(plan.name);
+    }
+
+    if (planNameArr.length !== new Set(planNameArr).size) {
+      return true;
     }
   }
 
@@ -295,6 +301,7 @@ export class CreateGigComponent implements OnInit {
     $t.gigConfig.gig.plans.forEach((d: any) => {
       d.deliveryDetails = d.deliveryDetails.map((dd: any) => dd.value);
     });
+
     let apiUrl = $t.sharedService.urlService.apiCallWithParams('postSeller', { '{userId}': $t.user.email });
     if ($t.gigConfig.gig.id === '') {
       $t.sharedService.uiService.showApiStartPopMsg('Publishing your card.');

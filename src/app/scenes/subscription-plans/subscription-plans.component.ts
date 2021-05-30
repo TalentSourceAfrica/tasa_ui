@@ -25,7 +25,7 @@ export class SubscriptionPlansComponent implements OnInit {
       (response: any) => {
         this.subscriptions = response.responseObj;
         this.subscriptions.forEach((element: any) => {
-          if (element.id === this.user.currentSubscription.subscriptionId) {
+          if (this.user.currentSubscription && element.id === this.user.currentSubscription.subscriptionId) {
               element['isActive'] = true;
           } else {
             element['isActive'] = false;

@@ -382,7 +382,7 @@
                 <mat-icon>cloud_upload</mat-icon>
               </button>
             </div>
-            <div class="col-md-6 col-12  p-3 text-center">
+            <div class="col-md-6 col-12 p-3 text-center">
               <label class="form-label" for="video">Upload Video For Card</label>
               <div class="upload-video d-flex align-items-center justify-content-center">
                 <span class="material-icons text-muted" style="font-size: 60px;" *ngIf="gigConfig.gig.video === ''">
@@ -454,14 +454,31 @@
             </div>
             <div class="col-md-6 col-12 w100">
               <div class="form-group m-2">
-                <label class="form-label" for="name">Plan Name<span class="text-danger pl-1 asterisk">*</span></label>
-                <input
+                <label class="form-label" for="name"
+                  >Plan Name<span class="text-danger pl-1 asterisk">*</span>&nbsp;<small class="text-truncate"
+                    ><i>(Plan name should be unique)</i></small
+                  ></label
+                >
+
+                <mat-select
+                  id="name-{{ i }}"
+                  placeholder="Select Plan Name"
+                  [(ngModel)]="item.name"
+                  [(value)]="item.name"
+                  class="form-control form-control-prepended"
+                >
+                  <mat-option *ngFor="let plan of planType" [value]="plan">
+                    {{ plan }}
+                  </mat-option>
+                </mat-select>
+
+                <!-- <input
                   id="name-{{ i }}"
                   type="text"
                   [(ngModel)]="item.name"
                   class="form-control form-control-prepended"
                   placeholder="Ex: Basic, Silver, Gold"
-                />
+                /> -->
               </div>
             </div>
             <div class="col-md-6 col-12 w100">
@@ -592,7 +609,7 @@
           <button
             mat-flat-button
             color="primary"
-            [disbaled]="checkPlanDisable()"
+            [disabled]="checkPlanDisable()"
             matStepperNext
             class="rounded-pill caps ml-3"
           >
