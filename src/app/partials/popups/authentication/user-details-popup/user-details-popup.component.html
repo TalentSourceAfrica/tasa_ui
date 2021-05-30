@@ -4,7 +4,7 @@
       <div class="navbar-shadow">
         <div class="p-3 text-center">
           <div class="row no-gutters">
-            <div class="col-11">
+            <div class="col-sm-10 col-md-11">
               <h2 class="pt-2 text-muted caps">
                 WELCOME
                 <span class="text-shadow-theme animated fadeInUp transition-1 text-primary"
@@ -12,8 +12,8 @@
                 </span>
               </h2>
             </div>
-            <div class="col-1">
-              <button mat-flat-button color="warn" (click)="skip()" class="rounded-pill ml-2 w30 caps">
+            <div class="col-sm-2 col-md-1">
+              <button mat-flat-button color="warn" (click)="skip()" class="rounded-pill ml-2 caps">
                 SKIP
               </button>
             </div>
@@ -37,7 +37,7 @@
           }}"
         />
         <div>
-          <button mat-flat-button color="primary" class="rounded-pill mt-4 w25" (click)="callUpload($event)">
+          <button mat-flat-button color="primary" class="rounded-pill mt-4" (click)="callUpload($event)">
             Change Avatar
           </button>
         </div>
@@ -68,45 +68,47 @@
       </div>
     </div>
     <div class="animated fadeInUp" *ngIf="steps[1].isActive">
-      <div class="user-upload-avatar p-5 text-center">
-        <label class="form-label" for="headline">Headline</label>
-        <textarea
-          name=""
-          id="headline"
-          [(ngModel)]="user.profileSummary"
-          class="form-control form-control-prepended"
-          cols="30"
-          rows="3"
-        ></textarea>
-        <div>
-          <button mat-flat-button color="primary" class="rounded-pill mt-4 w25" (click)="submit('headline')">
-            Save Headline
+      <div class="m-auto text-center">
+        <div class="user-upload-avatar">
+          <label class="form-label text-left" for="headline">Headline</label>
+          <textarea
+            name=""
+            id="headline"
+            [(ngModel)]="user.profileSummary"
+            class="form-control form-control-prepended"
+            cols="30"
+            rows="3"
+          ></textarea>
+          <div>
+            <button mat-flat-button color="primary" class="rounded-pill mt-4" (click)="submit('headline')">
+              Save Headline
+            </button>
+          </div>
+        </div>
+        <div class="mt-4">
+          <button
+            mat-mini-fab
+            color="primary"
+            style="z-index: 9;"
+            class="mr-2"
+            (click)="stepsClick(1, false)"
+            matTooltipPosition="below"
+            matTooltip="Previous"
+          >
+            <mat-icon>arrow_back_ios</mat-icon>
+          </button>
+          <button
+            mat-mini-fab
+            color="primary"
+            style="z-index: 9;"
+            class="mr-2"
+            (click)="stepsClick(1, true)"
+            matTooltipPosition="below"
+            matTooltip="Next"
+          >
+            <mat-icon>arrow_forward_ios</mat-icon>
           </button>
         </div>
-      </div>
-      <div class="m-auto text-center">
-        <button
-          mat-mini-fab
-          color="primary"
-          style="z-index: 9;"
-          class="mr-2"
-          (click)="stepsClick(1, false)"
-          matTooltipPosition="below"
-          matTooltip="Previous"
-        >
-          <mat-icon>arrow_back_ios</mat-icon>
-        </button>
-        <button
-          mat-mini-fab
-          color="primary"
-          style="z-index: 9;"
-          class="mr-2"
-          (click)="stepsClick(1, true)"
-          matTooltipPosition="below"
-          matTooltip="Next"
-        >
-          <mat-icon>arrow_forward_ios</mat-icon>
-        </button>
       </div>
     </div>
     <div class="animated fadeInUp" *ngIf="steps[2].isActive">
@@ -174,237 +176,246 @@
 </div>
 
 <ng-template #experience>
-  <div class="form-group col-12" style="display: grid;" *ngFor="let item of user.experience; let i = index">
-    <div class="pt-2 m-auto w80">
-      <div class="row no-gutters w100">
-        <div class="col-12">
-          <div class="form-group text-left">
-            <label class="form-label" for="currentRole"
-              >Most recent job Title <span class="text-danger pl-1 asterisk">*</span></label
-            >
-            <div class="input-group input-group-merge">
-              <input
-                id="currentRole{{ i }}"
-                type="text"
-                [(ngModel)]="item.currentRole[0]"
-                class="form-control form-control-prepended"
-                placeholder="Your job title"
-              />
-            </div>
-          </div>
-        </div>
-        <div class="col-12">
-          <div class="form-group text-left">
-            <label class="form-label" for="organization">Name of most recent of employer</label>
-            <div class="input-group input-group-merge">
-              <input
-                type="text"
-                id="organization{{ i }}"
-                [(ngModel)]="item.organization"
-                class="form-control form-control-prepended"
-                placeholder="Your organization"
-              />
-            </div>
-          </div>
-        </div>
-        <div class="col-12">
-          <div class="form-group text-left">
-            <label class="form-label" for="industry">Industry</label>
-            <mat-select
-              id="industry"
-              [(ngModel)]="item.industry"
-              placeholder="Your Industry"
-              multiple
-              required
-              [(value)]="item.industry"
-              class="form-control form-control-prepended"
-              placeholder="Your industry"
-            >
-              <mat-option *ngFor="let item of industryData" [value]="item.code">
-                {{ item.code }}
-              </mat-option>
-            </mat-select>
-          </div>
-        </div>
+  <div class="min-vertical-h-50 max-vertical-h-50 stylishSlimScroll flow-y-auto flow-x-hidden">
+    <div class="form-group col-12" style="display: grid;" *ngFor="let item of user.experience; let i = index">
+      <div class="pt-2 m-auto">
         <div class="row no-gutters w100">
-          <div class="col-12 form-group text-left w100">
-            <label class="form-label" for="professionalInterests">Professional Interests</label>
-            <div class="input-group input-group-merge w100">
-              <mat-chip-list #chipList aria-label="Fruit selection" class="w100">
-                <mat-chip
-                  *ngFor="let item of user.preferredRole"
-                  [selectable]="selectable"
-                  [removable]="removable"
-                  (removed)="remove(item)"
-                >
-                  {{ item }}
-                  <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-                </mat-chip>
+          <div class="col-12">
+            <div class="form-group text-left">
+              <label class="form-label" for="currentRole"
+                >Most recent job Title <span class="text-danger pl-1 asterisk">*</span></label
+              >
+              <div class="input-group input-group-merge">
                 <input
-                  placeholder="Your professional interests"
-                  [matChipInputFor]="chipList"
-                  [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                  [matChipInputAddOnBlur]="addOnBlur"
-                  (matChipInputTokenEnd)="add($event)"
+                  id="currentRole{{ i }}"
+                  type="text"
+                  [(ngModel)]="item.currentRole[0]"
                   class="form-control form-control-prepended"
+                  placeholder="Your job title"
                 />
-              </mat-chip-list>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-      <div class="d-flex align-items-center">
-        <div class="form-group w45 text-left">
-          <label class="form-label" for="experienceFrom">Job Start Date</label>
-          <div class="input-group input-group-merge">
-            <input
-              matInput
-              class="form-control form-control-prepended"
-              [matDatepicker]="picker1"
-              readonly
-              [(ngModel)]="item.experienceFrom"
-            />
-            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-            <mat-datepicker #picker1 color="primary"></mat-datepicker>
-          </div>
-        </div>
-        <div class="form-group pl-2 w45 text-left" *ngIf="item.experience === 'false'">
-          <label class="form-label" for="experienceTo">Job End Date</label>
-          <div class="input-group input-group-merge">
-            <input
-              matInput
-              class="form-control form-control-prepended"
-              [matDatepicker]="picker2"
-              readonly
-              [(ngModel)]="item.experienceTo"
-            />
-            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-            <mat-datepicker #picker2 color="primary"></mat-datepicker>
-          </div>
-        </div>
-        <div class="form-group pl-2 w45 d-flex align-items-center">
-          <div class="input-group input-group-merge">
-            <div class="f-color d-flex">
-              <mat-slide-toggle
-                class="example-margin text-primary"
-                checked="{{ item.experience === 'true' ? true : false }}"
-                (change)="item.experience === 'true' ? (item.experience = 'false') : (item.experience = 'true')"
-              >
-                Current Job
-              </mat-slide-toggle>
+          <div class="col-12">
+            <div class="form-group text-left">
+              <label class="form-label" for="organization">Name of most recent of employer</label>
+              <div class="input-group input-group-merge">
+                <input
+                  type="text"
+                  id="organization{{ i }}"
+                  [(ngModel)]="item.organization"
+                  class="form-control form-control-prepended"
+                  placeholder="Your organization"
+                />
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-    <div>
-      <button
-        mat-flat-button
-        color="primary"
-        [disabled]="item.currentRole[0] === ''"
-        class="rounded-pill mt-4 w25"
-        (click)="submit('experience')"
-      >
-        Save Experience
-      </button>
-    </div>
-  </div>
-</ng-template>
-
-<ng-template #education>
-  <div class="form-group col-12" style="display: grid;" *ngFor="let item of user.education; let i = index">
-    <div class="pt-2 m-auto w80">
-      <div class="row no-gutters">
-        <div class="col-12">
-          <div class="form-group text-left">
-            <label class="form-label" for="currentRole"
-              >Highest degree attained <span class="text-danger pl-1 asterisk">*</span></label
-            >
-            <div class="input-group input-group-merge">
+          <div class="col-12">
+            <div class="form-group text-left">
+              <label class="form-label" for="industry">Industry</label>
               <mat-select
-                id="highestDegree{{ i }}"
-                [(ngModel)]="item.highestDegree"
-                [(value)]="item.highestDegree"
+                id="industry"
+                [(ngModel)]="item.industry"
+                placeholder="Your Industry"
+                multiple
+                required
+                [(value)]="item.industry"
                 class="form-control form-control-prepended"
-                placeholder="Your degree"
+                placeholder="Your industry"
               >
-                <mat-option *ngFor="let item of highestDegreeData" [value]="item.code">
+                <mat-option *ngFor="let item of industryData" [value]="item.code">
                   {{ item.code }}
                 </mat-option>
               </mat-select>
             </div>
           </div>
-        </div>
-        <div class="col-12">
-          <div class="row no-gutters">
-            <div class="col-6 pr-2">
-              <div class="form-group text-left">
-                <label class="form-label" for="organization">School/College</label>
-                <div class="input-group input-group-merge">
+          <div class="row no-gutters w100">
+            <div class="col-12 form-group text-left w100">
+              <label class="form-label" for="professionalInterests">Professional Interests</label>
+              <div class="input-group input-group-merge w100">
+                <mat-chip-list #chipList aria-label="Fruit selection" class="w100">
+                  <mat-chip
+                    *ngFor="let item of user.preferredRole"
+                    [selectable]="selectable"
+                    [removable]="removable"
+                    (removed)="remove(item)"
+                  >
+                    {{ item }}
+                    <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                  </mat-chip>
                   <input
-                    type="text"
-                    id="college{{ i }}"
-                    [(ngModel)]="item.college[0]"
-                    placeholder="Your school/college"
+                    placeholder="Your professional interests"
+                    [matChipInputFor]="chipList"
+                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                    [matChipInputAddOnBlur]="addOnBlur"
+                    (matChipInputTokenEnd)="add($event)"
                     class="form-control form-control-prepended"
                   />
-                </div>
+                </mat-chip-list>
               </div>
             </div>
-            <div class="col-6">
-              <div class="form-group text-left">
-                <label class="form-label" for="description">University</label>
-                <div class="input-group input-group-merge">
-                  <input
-                    type="text"
-                    id="university{{ i }}"
-                    [(ngModel)]="item.university[0]"
-                    class="form-control form-control-prepended"
-                    placeholder="Your university"
-                  />
+          </div>
+        </div>
+        <div class="row no-gutters">
+          <div class="col-sm-12 col-md-4">
+            <div class="form-group text-left">
+              <label class="form-label" for="experienceFrom">Job Start Date</label>
+              <div class="input-group input-group-merge">
+                <input
+                  matInput
+                  class="form-control form-control-prepended"
+                  [matDatepicker]="picker1"
+                  readonly
+                  [(ngModel)]="item.experienceFrom"
+                />
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1 color="primary"></mat-datepicker>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-12 col-md-4">
+            <div class="form-group pl-2 w45 text-left" *ngIf="item.experience === 'false'">
+              <label class="form-label" for="experienceTo">Job End Date</label>
+              <div class="input-group input-group-merge">
+                <input
+                  matInput
+                  class="form-control form-control-prepended"
+                  [matDatepicker]="picker2"
+                  readonly
+                  [(ngModel)]="item.experienceTo"
+                />
+                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2 color="primary"></mat-datepicker>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-12 col-md-4">
+            <div class="form-group pl-2 w45 d-flex align-items-center">
+              <div class="input-group input-group-merge">
+                <div class="f-color d-flex">
+                  <mat-slide-toggle
+                    class="example-margin text-primary"
+                    checked="{{ item.experience === 'true' ? true : false }}"
+                    (change)="item.experience === 'true' ? (item.experience = 'false') : (item.experience = 'true')"
+                  >
+                    Current Job
+                  </mat-slide-toggle>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="form-group text-left">
-        <label class="form-label" for="description">Major</label>
-        <div class="input-group input-group-merge">
-          <input
-            type="text"
-            id="major{{ i }}"
-            [(ngModel)]="item.major"
-            class="form-control form-control-prepended"
-            placeholder="Your major"
-          />
-        </div>
+      <div>
+        <button
+          mat-flat-button
+          color="primary"
+          [disabled]="item.currentRole[0] === ''"
+          class="rounded-pill mt-4"
+          (click)="submit('experience')"
+        >
+          Save Experience
+        </button>
       </div>
-      <div class="form-group text-left">
-        <label class="form-label" for="description">Minor</label>
-        <div class="input-group input-group-merge">
-          <mat-chip-list #chipList aria-label="Fruit selection" class="w100">
-            <mat-chip
-              *ngFor="let item of item.minor"
-              [selectable]="selectable"
-              [removable]="removable"
-              (removed)="remove(item, 'minor')"
-            >
-              {{ item }}
-              <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-            </mat-chip>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #education>
+  <div class="min-vertical-h-50 max-vertical-h-50 stylishSlimScroll flow-y-auto flow-x-hidden">
+    <div class="form-group col-12" style="display: grid;" *ngFor="let item of user.education; let i = index">
+      <div class="pt-2 m-auto w80">
+        <div class="row no-gutters">
+          <div class="col-12">
+            <div class="form-group text-left">
+              <label class="form-label" for="currentRole"
+                >Highest degree attained <span class="text-danger pl-1 asterisk">*</span></label
+              >
+              <div class="input-group input-group-merge">
+                <mat-select
+                  id="highestDegree{{ i }}"
+                  [(ngModel)]="item.highestDegree"
+                  [(value)]="item.highestDegree"
+                  class="form-control form-control-prepended"
+                  placeholder="Your degree"
+                >
+                  <mat-option *ngFor="let item of highestDegreeData" [value]="item.code">
+                    {{ item.code }}
+                  </mat-option>
+                </mat-select>
+              </div>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="row no-gutters">
+              <div class="col-6 pr-2">
+                <div class="form-group text-left">
+                  <label class="form-label" for="organization">School/College</label>
+                  <div class="input-group input-group-merge">
+                    <input
+                      type="text"
+                      id="college{{ i }}"
+                      [(ngModel)]="item.college[0]"
+                      placeholder="Your school/college"
+                      class="form-control form-control-prepended"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="form-group text-left">
+                  <label class="form-label" for="description">University</label>
+                  <div class="input-group input-group-merge">
+                    <input
+                      type="text"
+                      id="university{{ i }}"
+                      [(ngModel)]="item.university[0]"
+                      class="form-control form-control-prepended"
+                      placeholder="Your university"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group text-left">
+          <label class="form-label" for="description">Major</label>
+          <div class="input-group input-group-merge">
             <input
-              placeholder="Your minor"
-              [matChipInputFor]="chipList"
-              [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-              [matChipInputAddOnBlur]="addOnBlur"
-              (matChipInputTokenEnd)="add($event, 'minor')"
+              type="text"
+              id="major{{ i }}"
+              [(ngModel)]="item.major"
               class="form-control form-control-prepended"
+              placeholder="Your major"
             />
-          </mat-chip-list>
+          </div>
         </div>
-      </div>
-      <!-- <div class="d-flex">
+        <div class="form-group text-left">
+          <label class="form-label" for="description">Minor</label>
+          <div class="input-group input-group-merge">
+            <mat-chip-list #chipList aria-label="Fruit selection" class="w100">
+              <mat-chip
+                *ngFor="let item of item.minor"
+                [selectable]="selectable"
+                [removable]="removable"
+                (removed)="remove(item, 'minor')"
+              >
+                {{ item }}
+                <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+              </mat-chip>
+              <input
+                placeholder="Your minor"
+                [matChipInputFor]="chipList"
+                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                [matChipInputAddOnBlur]="addOnBlur"
+                (matChipInputTokenEnd)="add($event, 'minor')"
+                class="form-control form-control-prepended"
+              />
+            </mat-chip-list>
+          </div>
+        </div>
+        <!-- <div class="d-flex">
         <div class="form-group w45">
           <label class="form-label" for="degreeFromDate"
             >Degree Start Date<span class="text-danger pl-1 asterisk">*</span></label
@@ -438,17 +449,18 @@
           </div>
         </div>
       </div> -->
-    </div>
-    <div>
-      <button
-        mat-flat-button
-        color="primary"
-        class="rounded-pill w25"
-        [disabled]="item.highestDegree === ''"
-        (click)="submit('education')"
-      >
-        Save Education
-      </button>
+      </div>
+      <div>
+        <button
+          mat-flat-button
+          color="primary"
+          class="rounded-pill"
+          [disabled]="item.highestDegree === ''"
+          (click)="submit('education')"
+        >
+          Save Education
+        </button>
+      </div>
     </div>
   </div>
 </ng-template>

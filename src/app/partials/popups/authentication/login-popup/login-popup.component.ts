@@ -62,8 +62,16 @@ export class LoginPopupComponent implements OnInit {
           this.popupData.authenticationService.setToken(JSON.parse(response.data).access_token);
           this.sharedService.uiService.closePopMsg();
           this.dialogRef.close();
-
-          this.router.navigate(['/social-network/posts'], { replaceUrl: true });
+          if (
+            (response.responseObj.image === '' ||
+              response.responseObj.experience.length === 0 ||
+              response.responseObj.education.length === 0) &&
+            response.responseObj.type === 'Mentee'
+          ) {
+            this.popupData.authenticationService.openUserDetailsPopup();
+          } else {
+            this.router.navigate(['/social-network/posts'], { replaceUrl: true });
+          }
           setTimeout(() => {
             jQuery('.header-top-area').removeClass('position-absolute');
             this.sharedService.utilityService.changeMessage('AFTER-LOGIN');
