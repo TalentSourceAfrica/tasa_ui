@@ -260,12 +260,12 @@
                               <label class="form-control-label" for="input-username">Email Address</label>
                               <h4 class="text-primary font400">{{ userConfig.user.email }}</h4>
                             </div>
-                            <div class="col-lg-6 col-sm-12">
+                            <div class="col-lg-6 col-sm-12" *ngIf="userConfig.user.city !== '' || userConfig.user.state !== '' ||  userConfig.user.country !== ''">
                               <label class="form-control-label" for="input-username">Lives in</label>
                               <h4 class="text-primary font400">
                                 <span *ngIf="userConfig.user.city">{{ userConfig.user.city }}, </span>
-                                <span *ngIf="userConfig.user.city">{{ userConfig.user.state }}, </span>
-                                <span *ngIf="userConfig.user.city">{{ userConfig.user.country }}</span>
+                                <span *ngIf="userConfig.user.state">{{ userConfig.user.state }}, </span>
+                                <span *ngIf="userConfig.user.country">{{ userConfig.user.country }}</span>
                               </h4>
                             </div>
                             <div class="col-lg-6 col-sm-12" *ngIf="user.email === userConfig.user.email">
