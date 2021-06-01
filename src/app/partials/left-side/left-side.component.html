@@ -8,8 +8,7 @@
               <h6
                 [ngStyle]="{ color: userProgressConfig.outerColor }"
                 class="curPoint mb-0 pb-1"
-                [routerLink]="['/social-network/profile/', user.tasaId]"
-                routerLinkActive="router-link-active"
+                (click)="showProfile()"
               >
                 {{ userProgressConfig.percent }} % &nbsp;&nbsp;<i
                   class="fas fa-info-circle"
@@ -27,15 +26,13 @@
                 <img
                   *ngIf="!user.image || user.image == 'string'"
                   class="user-img curPoint"
-                  [routerLink]="['/social-network/profile/', user.tasaId]"
-                  routerLinkActive="router-link-active"
+                  (click)="showProfile()"
                   src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
                 />
                 <img
                   *ngIf="user.image && user.image != 'string'"
                   class="user-img curPoint"
-                  [routerLink]="['/social-network/profile/', user.tasaId]"
-                  routerLinkActive="router-link-active"
+                  (click)="showProfile()"
                   [ngStyle]="{ color: userProgressConfig.outerColor }"
                   [src]="user.image"
                 />

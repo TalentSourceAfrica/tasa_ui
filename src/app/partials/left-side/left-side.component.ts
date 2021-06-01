@@ -5,6 +5,7 @@ import { SharedService } from '@app/services/shared.service';
 import { delay } from 'rxjs/operators';
 import { ProgressBarMode } from '@angular/material/progress-bar';
 import { object } from 'underscore';
+import { Router } from '@angular/router';
 
 //extra
 declare var jQuery: any;
@@ -97,7 +98,8 @@ export class LeftSideComponent implements OnInit {
   constructor(
     public sharedService: SharedService,
     private credentialsService: CredentialsService,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private router: Router
   ) {
     this.uds = this.sharedService.plugins.undSco;
     if (this.user) {
@@ -106,6 +108,11 @@ export class LeftSideComponent implements OnInit {
       this.recentlyViewedCourse = this.user.recentlyViewed;
       this.savedJobs = this.user.savedJobs;
     }
+  }
+
+  showProfile() {
+    this.router.navigate(['/social-network/profile/', this.user.tasaId], { replaceUrl: true });
+    this.sharedService.utilityService.changeMessage('VIEW-USER-PROFILE');
   }
 
   addToFavorite(_type: boolean, _course: any, event: any) {

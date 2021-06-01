@@ -171,7 +171,7 @@ export class ProfileComponent implements OnInit {
         break;
       case 'About':
         userConfigToUpdate.data = [
-          { label: 'Headline', key: 'profileSummary', textarea: true, isRequired: false },
+          { label: 'Headline', key: 'profileSummary', textarea: true, isRequired: false, maxlength : 120 },
           { label: 'City', key: 'city', isRequired: true },
           { label: 'Country', key: 'country', isDropdown: true, isRequired: true },
           { label: 'State', key: 'state', isRequired: true },
@@ -179,7 +179,7 @@ export class ProfileComponent implements OnInit {
           { label: 'Preferred Role', key: 'careerGoals' },
           { label: 'Professional Interest', key: 'preferredRole', isChips: true },
           { label: 'Subjects/Topics of Preference', key: 'areaOfPreference', isArray: true },
-          { label: 'About Me', key: 'bio', textarea: true, isRequired: true },
+          { label: 'About Me', key: 'bio', textarea: true, isRequired: true, maxlength : 500  },
         ];
         break;
       case 'Contact Information':

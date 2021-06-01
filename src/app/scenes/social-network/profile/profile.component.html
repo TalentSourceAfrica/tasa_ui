@@ -268,13 +268,13 @@
                                 <span *ngIf="userConfig.user.country">{{ userConfig.user.country }}</span>
                               </h4>
                             </div>
-                            <div class="col-lg-6 col-sm-12" *ngIf="user.email === userConfig.user.email">
+                            <!-- <div class="col-lg-6 col-sm-12" *ngIf="user.email === userConfig.user.email">
                               <label class="form-control-label" for="input-username">Date of Birth</label>
                               <h4 class="text-primary font400">
                                 <span *ngIf="userConfig.user.dob">{{ userConfig.user.dob | date: 'mediumDate' }}</span>
                               </h4>
-                            </div>
-                            <div class="col-lg-6">
+                            </div> -->
+                            <div class="col-lg-6" *ngIf="userConfig.user.preferredRole?.length">
                               <div class="form-group">
                                 <label class="form-control-label" for="input-email">Professional Interest</label>
                                 <div>

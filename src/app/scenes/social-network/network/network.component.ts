@@ -74,6 +74,7 @@ export class NetworkComponent implements OnInit {
           $t.networkConfig.data.splice(index, 1);
           $t.sharedService.uiService.showApiSuccessPopMsg('Added...!');
           $t.getConnectionRequest();
+          $t.getAllConnections();
         },
         (error) => {
           $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
