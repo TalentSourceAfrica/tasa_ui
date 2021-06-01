@@ -62,10 +62,11 @@ export class AllGigsComponent implements OnInit {
     $t.sharedService.configService.get(apiUrl).subscribe(
       (response: any) => {
         $t.gigConfig.data = response.responseObj;
-        if($t.gigConfig.data.length){
+        if ($t.gigConfig.data.length) {
           $t.getRatingForGigCardUsers();
+        } else {
+          $t.gigConfig.isLoading = false;
         }
-
       },
       (error) => {
         $t.gigConfig.isLoading = false;
@@ -85,8 +86,10 @@ export class AllGigsComponent implements OnInit {
       $t.sharedService.configService.get(apiUrl).subscribe(
         (response: any) => {
           $t.gigConfig.data = response.responseObj;
-          if($t.gigConfig.data.length){
+          if ($t.gigConfig.data.length) {
             $t.getRatingForGigCardUsers();
+          } else {
+            $t.gigConfig.isLoading = false;
           }
         },
         (error) => {
