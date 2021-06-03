@@ -1814,3 +1814,10 @@ button:hover,
 .mat-expansion-panel-header[aria-disabled=true] {
   background: #d3d3d3f2;
 }
+
+.carousel-cell {
+  img {
+    -o-object-fit: contain !important;
+    object-fit: contain !important;
+  }
+}

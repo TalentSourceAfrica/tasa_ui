@@ -53,7 +53,7 @@ export const flutterWaveKeys = {
 
 export const stripeKeys = {
   'public': 'pk_test_51IpgHfGe2s8gUvp6L009dwlaOA7Ox3K9jtbLc2yPKE6aZk0E5YlKS3EQrHQOuMHsasCEmyp0MY7zedwyiFb2x48U00Bg11661d',
-  'secret': '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',
+  'secret': 'pk_live_51IpgHfGe2s8gUvp6EhmS53vXjlg6kozsSvAQz6CUspk8g3MtiGtiDkcM1rhsH04xNxAyPzXfyIcebd6qaIIe52kx002tCODCFC',
 };
 
 export const fultterWavePaymentPlansForLocal = {
