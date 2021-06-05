@@ -26,7 +26,7 @@ export class AboutUsComponent implements OnInit {
 
   openMyTeam(_name: string, _type: number) {
     this.sharedService.dialogService.open(OurTeamComponent, {
-      width: '50%',
+      width: '800px',
       data: { name: _name, type: _type },
       disableClose: false,
     });

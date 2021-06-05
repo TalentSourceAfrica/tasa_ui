@@ -2,8 +2,15 @@
   .team-title {
     font-size: 15px;
   }
-  .team-img{
-    height: 400px;
-    width: 400px;
+  .team-img {
+    height: 350px;
+    width: 350px;
+  }
+
+  @media only screen and (max-width: 600px) {
+    .team-img {
+      height: 200px;
+      width: 200px;
+    }
   }
 }

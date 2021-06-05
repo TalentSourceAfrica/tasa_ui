@@ -4,7 +4,7 @@
       <div class="card-header text-center">
         <h4 class="card-title">Team Member</h4>
       </div>
-      <div class="card-body">
+      <div class="card-body min-vertical-h-70 max-vertical-h-70 stylishSlimScroll flow-y-auto flow-x-hidden">
         <ng-container *ngIf="popupData.type == 1">
           <ng-template *ngTemplateOutlet="teamDetails1"></ng-template>
         </ng-container>
@@ -17,7 +17,7 @@
       </div>
       <div class="card-footer text-center text-black-50 h6 text-muted">
         <button mat-flat-button color="primary" (click)="close()" mat-dialog-close class="rounded-pill ml-2">
-          I've heard enough about {{ popupData.name }}
+          Heard enough about {{ popupData.name }}
         </button>
       </div>
     </div>
@@ -37,11 +37,11 @@
               <h4 class="caps text-primary">{{ popupData.name }}</h4>
               <h5 class="text-muted"><span>Founder &amp; CEO</span></h5>
             </div>
-            <div class="s-link text-center">
+            <!-- <div class="s-link text-center">
               <a class="curPoint"><i class="fab fa-facebook fa-lg"></i></a>
               <a class="curPoint"><i class="fab fa-twitter fa-lg pl-3"></i></a>
               <a class="curPoint"><i class="fab fa-linkedin fa-lg pl-3"></i></a>
-            </div>
+            </div> -->
           </div>
         </div>
         <div class="col-12 mt-4">
@@ -81,11 +81,11 @@
               <h4 class="caps text-primary">{{ popupData.name }}</h4>
               <h5 class="text-muted"><span>Co-Founder & VP Product & Technology</span></h5>
             </div>
-            <div class="s-link text-center">
+            <!-- <div class="s-link text-center">
               <a class="curPoint"><i class="fab fa-facebook fa-lg"></i></a>
               <a class="curPoint"><i class="fab fa-twitter fa-lg pl-3"></i></a>
               <a class="curPoint"><i class="fab fa-linkedin fa-lg pl-3"></i></a>
-            </div>
+            </div> -->
           </div>
         </div>
         <div class="col-12 mt-4">
