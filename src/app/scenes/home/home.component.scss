@@ -954,9 +954,11 @@ $grey: #7d7d7d;
       position: relative;
     }
   }
-  .no-credit-card {
-    top: 290px;
-    right: 300px;
+  #freelance-home {
+    .freelance-img {
+      background: url("../../../assets/images/freelance-home.jpg") no-repeat scroll center center / cover;
+      background-size: cover;
+    }
   }
 }
 

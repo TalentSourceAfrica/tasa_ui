@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CredentialsService } from '@app/auth';
+import { AuthenticationService, CredentialsService } from '@app/auth';
 import { CartService } from '@app/scenes/cart/cart.service';
 import { SharedService } from '@app/services/shared.service';
 import { OwlOptions } from 'ngx-owl-carousel-o';
@@ -44,7 +44,8 @@ export class GigViewComponent implements OnInit {
     private route: ActivatedRoute,
     private cartService: CartService,
     private credentialsService: CredentialsService,
-    private router: Router
+    private router: Router,
+    private authenticationService:AuthenticationService
   ) {}
 
   getGigDetail() {
@@ -110,6 +111,11 @@ export class GigViewComponent implements OnInit {
       }
     );
   }
+
+  login() {
+    this.authenticationService.openLoginPopup();
+  }
+
 
   ngOnInit(): void {
     this.getGigDetail();

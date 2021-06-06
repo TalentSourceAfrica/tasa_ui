@@ -118,11 +118,21 @@
                         mat-flat-button
                         color="primary"
                         class="rounded-pill ml-2"
-                        *ngIf="gigDetailsConfig.data.createdBy !== user.email"
+                        *ngIf="user && gigDetailsConfig.data.createdBy !== user.email"
                         (click)="purchaseGig(item)"
                       >
                         <span>Purchase Gig</span>
                       </button>
+
+                      <button
+                      mat-flat-button
+                      color="primary"
+                      class="rounded-pill ml-2"
+                      *ngIf="!user"
+                      (click)="login()"
+                    >
+                      <span>Login To Purchase</span>
+                    </button>
                     </div>
                   </div>
                 </div>

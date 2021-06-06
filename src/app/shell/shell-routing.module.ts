@@ -248,7 +248,6 @@ const routes: Routes = [
           },
           {
             path: 'gig/:gigId',
-            canActivate: [AuthenticationGuard],
             loadChildren: () => import('@app/scenes/freelance/gig-view/gig-view.module').then((m) => m.GigViewModule),
           },
           {

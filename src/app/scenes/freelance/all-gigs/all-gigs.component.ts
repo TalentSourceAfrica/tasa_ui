@@ -129,7 +129,7 @@ export class AllGigsComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchUserGig(1);
-
+    window.scrollTo(0, 0);
     this.currMsgSubscribe = this.sharedService.utilityService.currentMessage
       .pipe(delay(10), untilDestroyed(this))
       .subscribe((message) => {
