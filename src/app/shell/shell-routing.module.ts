@@ -173,7 +173,6 @@ const routes: Routes = [
       },
       {
         path: 'jobs/listings',
-        canActivate: [AuthenticationGuard],
         loadChildren: () =>
           import('@app/scenes/all-job-listings/all-job-listings.module').then((m) => m.AllJobListingsModule),
       },
@@ -254,7 +253,6 @@ const routes: Routes = [
           },
           {
             path: 'all-gigs',
-            canActivate: [AuthenticationGuard],
             loadChildren: () => import('@app/scenes/freelance/all-gigs/all-gigs.module').then((m) => m.AllGigsModule),
           },
           {

@@ -250,7 +250,7 @@ export class NewSignupPopupComponent implements OnInit {
       profileSummary: '',
       orgId: _payload.orgId,
       raceEthnicity: [_payload.raceEthnicity],
-      tribe: _payload.raceEthnicity === 'Native American' ? [_payload.tribe] : [],
+      tribe: _payload.raceEthnicity === 'Native American/Alaska Native' ? [_payload.tribe] : [],
       tribeEnrolled: _payload.tribeEnrolled,
       enrolledCourses: [],
       favoriteCourses: [],

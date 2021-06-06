@@ -29,7 +29,6 @@ export class HomeHeaderComponent implements OnInit {
   notificationsData: any = [];
   isAdmin: boolean = false;
   menuHidden = true;
-  searchCourseText: any = '';
   searchGlobalText: any = '';
   globalSearchType = 'profile';
   orgConfig: any = {
@@ -55,6 +54,27 @@ export class HomeHeaderComponent implements OnInit {
     data: [],
     searchConfig: '',
   };
+
+  // search config before login
+  searchTextBeforeLogin: any = '';
+  public searchDropdownValue = [
+    {
+      name: 'Course',
+      value: 'course',
+      placeholder: 'Type computer science, design, finance...',
+    },
+    {
+      name: 'Gig',
+      value: 'gig',
+      placeholder: 'Type content, web development, data analyst...',
+    },
+    {
+      name: 'Job',
+      value: 'job',
+      placeholder: 'Type architect, data analyst...',
+    },
+  ];
+  selectedSearchDrp = this.searchDropdownValue[0];
   constructor(
     private router: Router,
     public sharedService: SharedService,
@@ -143,8 +163,8 @@ export class HomeHeaderComponent implements OnInit {
     }
   }
 
-  groupSearch(){
-    let $t  = this;
+  groupSearch() {
+    let $t = this;
     $t.userSearchConfig.isFetching = true;
     $t.userSearchConfig.data = [];
     if ($t.searchGlobalText != '') {
@@ -352,9 +372,23 @@ export class HomeHeaderComponent implements OnInit {
     this.sharedService.utilityService.scrollToElement(_id);
   }
 
+  onSearch() {
+    switch (this.selectedSearchDrp.value) {
+      case 'course':
+        this.onCourseSearch('text');
+        break;
+      case 'job':
+        this.sharedService.utilityService.onJobSearch(this.searchTextBeforeLogin);
+        break;
+      case 'gig':
+        this.sharedService.utilityService.onGigSearch(this.searchTextBeforeLogin);
+        break;
+    }
+  }
+
   onCourseSearch(_type: string, _val?: string) {
     if (_type === 'text') {
-      this.sharedService.utilityService.onCourseSearch(this.searchCourseText, _type);
+      this.sharedService.utilityService.onCourseSearch(this.searchTextBeforeLogin, _type);
     } else {
       this.sharedService.utilityService.onCourseSearch(_val, _type);
     }
@@ -468,19 +502,6 @@ export class HomeHeaderComponent implements OnInit {
         this.getNotifications();
       }
     });
-    // setTimeout(() => {
-    //   jQuery('.notification-popup').click((event: any) => {
-    //     jQuery(this).toggleClass('open');
-    //     jQuery('#notificationMenu').removeClass('d-none').addClass('open');
-    //   });
-    //   jQuery(document).on('click', (event: any) => {
-    //     if (!jQuery(event.target).closest('.notification-popup').length) {
-    //       if (jQuery('#notificationMenu').hasClass('open')) {
-    //         jQuery('#notificationMenu').addClass('d-none').removeClass('open');
-    //       }
-    //     }
-    //   });
-    // }, 10000);
   }
 
   ngAfterViewInit(): void {

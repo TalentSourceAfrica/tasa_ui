@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { HttpClient, HttpRequest, HttpEventType, HttpResponse } from '@angular/common/http';
-import { courseSearchData } from '@app/models/constants';
+import { courseSearchData, jobsSearchData, localStorageKeys } from '@app/models/constants';
 import { Router } from '@angular/router';
 declare var jQuery: any;
 
@@ -145,15 +145,15 @@ export class UtilityService {
     document.body.removeChild(a);
   }
 
-  downloadURI(uri:string) {
-    let link:any = document.createElement("a");
+  downloadURI(uri: string) {
+    let link: any = document.createElement('a');
     link.href = uri;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
   }
 
-  openLinkInNewTab(_href:string){
+  openLinkInNewTab(_href: string) {
     var a = document.createElement('a');
     a.href = _href;
     a.target = '_blank';
@@ -223,11 +223,27 @@ export class UtilityService {
         _courseSearchData.subject = _searchText;
         break;
     }
-    localStorage.setItem('tasa-search-course', JSON.stringify(_courseSearchData));
+    localStorage.setItem(localStorageKeys.courseSearchKey, JSON.stringify(_courseSearchData));
     jQuery('.header-top-area').removeClass('position-absolute');
     this.router.navigate(['/all-course'], { replaceUrl: true });
     if (this.router.url === '/all-course') {
       this.changeMessage('TRIGGER-COURSE-SEARCH');
     }
+  }
+
+  public onGigSearch(_searchText: string) {
+    localStorage.setItem(localStorageKeys.gigSearchKey, JSON.stringify(_searchText));
+    jQuery('.header-top-area').removeClass('position-absolute');
+    this.router.navigate(['/freelance/all-gigs'], { replaceUrl: true });
+    this.changeMessage('TRIGGER-GIG-SEARCH');
+  }
+
+  public onJobSearch(_searchText: string) {
+    const _jobsSearchData = JSON.parse(JSON.stringify(jobsSearchData));
+    _jobsSearchData.text = _searchText;
+    localStorage.setItem(localStorageKeys.jobSearchKey, JSON.stringify(_jobsSearchData));
+    jQuery('.header-top-area').removeClass('position-absolute');
+    this.router.navigate(['/jobs/listings'], { replaceUrl: true });
+    this.changeMessage('TRIGGER-JOB-SEARCH');
   }
 }

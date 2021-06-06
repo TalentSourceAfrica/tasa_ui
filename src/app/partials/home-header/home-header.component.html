@@ -23,7 +23,7 @@
                 <li><h6 class="text-white sub-heading-text mb-0" *ngIf="!sharedService.deviceDetectorService.isMobile()">Talent Source Asia</h6></li>
               </ul></span>   -->
             </div>
-            <div class="col-md-4 explore-section pt-1" *ngIf="!user">
+            <div class="col-md-4 explore-section pt-1" *ngIf="!user && searchDropdownValue.length && selectedSearchDrp">
               <div class="p-0 pt-3 d-flex align-items-center">
                 <button
                   mat-button
@@ -32,35 +32,41 @@
                   color="default"
                   class="rc-ExploreButton rounded-pill ml-2 bg-theme curPoint"
                 >
-                  <span> Explore <i class="fa fa-chevron-down" aria-hidden="true"></i> </span>
+                  <span> {{ selectedSearchDrp.name }} <i class="fa fa-chevron-down" aria-hidden="true"></i> </span>
                 </button>
                 <mat-menu class="mt-2" #exploreMenu="matMenu">
-                  <mat-selection-list
-                    class="min-vertical-h-40 max-vertical-h-40 stylishSlimScroll flow-y-auto flow-x-hidden"
-                    #shoes
+                  <mat-list class="max-vertical-h-40 stylishSlimScroll flow-y-auto flow-x-hidden">
+                    <mat-list-item class="curPoint"  (click)="selectedSearchDrp = item" *ngFor="let item of searchDropdownValue" [value]="item">
+                      Search {{ item.name }}
+                    </mat-list-item>
+                  </mat-list>
+
+                  <!-- <mat-selection-list
+                    class="max-vertical-h-40 stylishSlimScroll flow-y-auto flow-x-hidden"
                     [multiple]="false"
+                    [(ngModel)]="selectedSearchDrp"
                   >
                     <mat-list-option
-                      (click)="onCourseSearch('subject', item)"
-                      *ngFor="let item of courseConfig.subjects"
+                      *ngFor="let item of searchDropdownValue"
                       [value]="item"
+                     
                     >
-                      {{ item }}
+                     Search {{ item.name }}
                     </mat-list-option>
-                  </mat-selection-list>
+                  </mat-selection-list> -->
                 </mat-menu>
                 <div class="home-button ml-2">
                   <form>
                     <input
                       type="search"
-                      [(ngModel)]="searchCourseText"
+                      [(ngModel)]="searchTextBeforeLogin"
                       name="search"
                       class="w100"
                       id="search"
-                      placeholder="Search Courses"
-                      (keyup.enter)="onCourseSearch('text')"
+                      [placeholder]="selectedSearchDrp.placeholder"
+                      (keyup.enter)="onSearch()"
                     />
-                    <button type="button" (click)="onCourseSearch('text')">
+                    <button type="button" (click)="onSearch()">
                       <i class="fa fa-search"></i>
                     </button>
                   </form>
@@ -684,7 +690,7 @@
           <i class="fas fa-grip-horizontal pr-3 text-primary"></i> All Custom Gigs
         </button>
       </li>
-      <li  *ngIf="user">
+      <li *ngIf="user">
         <button
           mat-menu-item
           class="h6"

@@ -83,7 +83,16 @@
         <div class="col-md-4 col-12">
           <div class="card my-4 m-0">
             <mat-tab-group animationDuration="0ms">
-              <mat-tab [label]="item.name" class="bg-warning" *ngFor="let item of gigDetailsConfig.data.plans">
+              <mat-tab  class="bg-warning" *ngFor="let item of gigDetailsConfig.data.plans">
+                <ng-template mat-tab-label>
+                  <span [ngSwitch]="item.name">
+                    <img *ngSwitchCase="'Bronze'" class="plan-type-img" src="../assets/images/bronze.jpeg" alt=""/>
+                    <img *ngSwitchCase="'Silver'" style="height: 30px;" class="plan-type-img" src="../assets/images/silver.png" alt=""/>
+                    <img *ngSwitchCase="'Gold'" class="plan-type-img" src="../assets/images/gold.jpeg" alt=""/>
+                  </span>
+                
+                  <span>{{item.name}}</span>
+              </ng-template>
                 <div class="p-4">
                   <div class="d-flex">
                     <h6>

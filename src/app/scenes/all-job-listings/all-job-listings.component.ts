@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, RouterEvent, NavigationEnd } from '@angular/router';
 import { PageEvent } from '@angular/material/paginator';
 import { filter, delay } from 'rxjs/operators';
-import { jobsSearchData } from '@app/models/constants';
+import { jobsSearchData, localStorageKeys } from '@app/models/constants';
 import { untilDestroyed } from '@app/@core';
 
 // service
@@ -12,7 +12,6 @@ import { CredentialsService, AuthenticationService } from '@app/auth';
 //popups
 import { JobsApplyPopupComponent } from '@app/partials/popups/jobs/jobs-apply-popup/jobs-apply-popup.component';
 import { Subscription } from 'rxjs';
-import { LeftSideComponent } from '@app/partials/left-side/left-side.component';
 
 @Component({
   selector: 'app-all-job-listings',
@@ -95,8 +94,8 @@ export class AllJobListingsComponent implements OnInit {
     this.sharedService.configService.get(apiUrl).subscribe(
       (response: any) => {
         if ($t.user) {
-          job['orgName']= job.organisation.orgName;
-          job['orgImage']= job.organisation.orgImage;
+          job['orgName'] = job.organisation.orgName;
+          job['orgImage'] = job.organisation.orgImage;
           $t.user['savedJobs'].push(job);
           $t.user['savedJobs'] = $t.uds.uniq($t.user['savedJobs'], (d: any) => {
             return d.id;
@@ -167,11 +166,6 @@ export class AllJobListingsComponent implements OnInit {
     this.getCountry();
   }
 
-  get user(): any | null {
-    const credentials = this.credentialsService.credentials;
-    return credentials ? credentials : null;
-  }
-
   getJobCount() {
     let apiUrl = this.sharedService.urlService.simpleApiCall('getJobsCount');
     this.sharedService.configService.get(apiUrl).subscribe(
@@ -193,7 +187,7 @@ export class AllJobListingsComponent implements OnInit {
     this.sharedService.configService.get(apiUrl).subscribe(
       (response: any) => {
         this.allJobs = response.responseObj;
-        let savedJobIdArr = this.user.savedJobs.map((d: any) => d.id);
+        let savedJobIdArr = this.user &&  this.user.savedJobs ? this.user.savedJobs.map((d: any) => d.id) : [];
         this.uds.each(this.allJobs, (d: any) => {
           this.uds.each(d.applicants, (app: any) => {
             d['isApplied'] = app.userId === this.user.email && app.status !== 'Withdrawn';
@@ -238,13 +232,24 @@ export class AllJobListingsComponent implements OnInit {
     this.currMsgSubscribe = this.sharedService.utilityService.currentMessage
       .pipe(delay(10), untilDestroyed(this))
       .subscribe((message) => {
-        if (message == 'REFRESH-ALL-JOBS') {
+        if (message === 'REFRESH-ALL-JOBS') {
           this.init();
+        }
+        if (message === 'TRIGGER-JOB-SEARCH') {
+          this.searchConfig = JSON.parse(localStorage.getItem(localStorageKeys.jobSearchKey));
+          this.filterDrawer.toggle();
+          this.applyFilter();
+          localStorage.removeItem(localStorageKeys.jobSearchKey);
         }
       });
   }
 
   ngOnDestroy(): void {
     this.currMsgSubscribe.unsubscribe();
+  }
+
+  get user(): any | null {
+    const credentials = this.credentialsService.credentials;
+    return credentials ? credentials : null;
   }
 }

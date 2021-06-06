@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
+import { untilDestroyed } from '@app/@core';
 import { CredentialsService } from '@app/auth';
+import { localStorageKeys } from '@app/models/constants';
 import { SharedService } from '@app/services/shared.service';
 import { OwlOptions } from 'ngx-owl-carousel-o';
+import { Subscription } from 'rxjs';
+import { delay } from 'rxjs/operators';
 
 @Component({
   selector: 'app-all-gigs',
@@ -10,6 +14,7 @@ import { OwlOptions } from 'ngx-owl-carousel-o';
   styleUrls: ['./all-gigs.component.scss'],
 })
 export class AllGigsComponent implements OnInit {
+  private currMsgSubscribe = new Subscription();
   gigConfig: any = {
     data: [],
     isLoading: false,
@@ -124,6 +129,20 @@ export class AllGigsComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchUserGig(1);
+
+    this.currMsgSubscribe = this.sharedService.utilityService.currentMessage
+      .pipe(delay(10), untilDestroyed(this))
+      .subscribe((message) => {
+        if (message === 'TRIGGER-GIG-SEARCH') {
+          this.gigConfig.gigSearchText = JSON.parse(localStorage.getItem(localStorageKeys.gigSearchKey));
+          this.onSearchGig();
+          localStorage.removeItem(localStorageKeys.gigSearchKey);
+        }
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.currMsgSubscribe.unsubscribe();
   }
 
   get user(): any | null {

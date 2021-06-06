@@ -12,6 +12,12 @@ export const courseSearchData = {
   priceEnd: 0,
 };
 
+export const localStorageKeys = {
+  courseSearchKey : 'tasa-search-course',
+  gigSearchKey : 'tasa-search-gig',
+  jobSearchKey : 'tasa-search-job'
+} 
+
 export const jobsSearchData = {
   text: '',
   tag: '',

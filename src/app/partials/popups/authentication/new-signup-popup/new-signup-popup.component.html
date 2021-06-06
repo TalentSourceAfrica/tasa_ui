@@ -269,7 +269,7 @@
                       Race / Enthinicity is required
                     </small>
                   </div>
-                  <ng-container *ngIf="userDetailsForm.controls.raceEthnicity.value === 'Native American'">
+                  <ng-container *ngIf="userDetailsForm.controls.raceEthnicity.value === 'Native American/Alaska Native'">
                     <div class="form-group d-block">
                       <label class="form-label" for="name"
                         >Tribe <span class="text-danger pl-1 asterisk">*</span></label
@@ -324,7 +324,7 @@
                   (click)="signupStepsClick(1, true)"
                   [disabled]="
                     getForm().raceEthnicity.status != 'VALID' ||
-                    (userDetailsForm.controls.raceEthnicity.value === 'Native American' &&
+                    (userDetailsForm.controls.raceEthnicity.value === 'Native American/Alaska Native' &&
                       getForm().tribe.status != 'VALID')
                   "
                   class="rounded-pill ml-2 w30"
