@@ -7,7 +7,7 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { ShowApplicantsComponent } from '@app/partials/popups/recruiter/show-applicants/show-applicants.component';
 import * as Highcharts from 'highcharts';
-const Drilldown = require('highcharts/modules/drilldown');
+import Drilldown from 'highcharts/modules/drilldown';
 Drilldown(Highcharts);
 
 @Component({
