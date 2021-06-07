@@ -4,7 +4,6 @@ import { MatChipInputEvent } from '@angular/material/chips';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { suportedFile } from '@app/models/constants';
 import { SharedService } from '@app/services/shared.service';
-import { element } from 'protractor';
 
 @Component({
   selector: 'app-edit-user-popup',
@@ -15,9 +14,15 @@ export class EditUserPopupComponent implements OnInit {
   @ViewChild('uploadCertificate', { static: false }) public upCert: any;
   popupData: any;
   countries: any;
+  universityConifg:any = {
+    isLoading: false,
+    data: []
+  }
+
   certificateSuportedFile = suportedFile.certificate;
   user: any;
   highestDegreeData: any = [];
+  
   //chips
   visible = true;
   selectable = true;
@@ -246,6 +251,23 @@ export class EditUserPopupComponent implements OnInit {
     $t.sharedService.configService.get(apiUrl).subscribe((response) => {
       $t.countries = response;
     });
+  }
+
+  getUniversity(searchText: string) {
+    if (searchText.length >= 3) {
+      let $t = this;
+      $t.universityConifg.isLoading = true;
+      let apiUrl = $t.sharedService.urlService.apiCallWithParams('getUniversityByName', {
+        '{searchText}': searchText,
+      });
+      $t.sharedService.configService.post(apiUrl).subscribe((response: any) => {
+        $t.universityConifg.data = response.responseObj;
+        $t.universityConifg.isLoading = false;
+      }, error => {
+        $t.universityConifg.isLoading = false;
+        $t.universityConifg.data = [];
+      });
+    }
   }
 
   highestDegree() {

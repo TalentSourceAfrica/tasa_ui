@@ -363,12 +363,22 @@
                 <label class="form-label" for="description">University</label>
                 <div class="input-group input-group-merge">
                   <input
-                    type="text"
-                    id="university{{ i }}"
-                    [(ngModel)]="item.university[0]"
-                    class="form-control form-control-prepended"
-                    placeholder="Your university"
-                  />
+                  type="text"
+                  id="university{{ i }}"
+                  placeholder="Pick one"
+                  (keyup)="getUniversity($event.target.value)"
+                  class="form-control form-control-prepended"
+                  [(ngModel)]="item.university[0]"
+                  [matAutocomplete]="universityAutocomplete"
+                />
+                <mat-autocomplete autoActiveFirstOption #universityAutocomplete="matAutocomplete">
+                  <mat-option *ngIf="universityConifg.isloading">
+                    Loading...
+                  </mat-option>
+                  <mat-option *ngFor="let option of universityConifg.data" [value]="option.university">
+                    {{ option.university }}
+                  </mat-option>
+                </mat-autocomplete>
                 </div>
               </div>
             </div>

@@ -32,6 +32,9 @@ export class AllNotificationsComponent implements OnInit {
       this.router.navigate(['/course/' + _noti.courseId], { replaceUrl: true });
     } else if (_noti.connRequestId !== '') {
       this.router.navigate(['/social-network/network/'], { replaceUrl: true });
+    } else if (_noti.userId !== '') {
+      this.router.navigate(['/social-network/profile/', _noti.userId], { replaceUrl: true });
+      // this.sharedService.utilityService.changeMessage('VIEW-USER-PROFILE');
     } else if (_noti.postId !== '') {
       this.router.navigate(['/social-network/posts/'], { replaceUrl: true });
     } else if (_noti.messageId !== '') {
@@ -52,7 +55,6 @@ export class AllNotificationsComponent implements OnInit {
         $t.isLoading = false;
       },
       (error) => {
-        console.log(error);
         $t.isLoading = false;
       }
     );

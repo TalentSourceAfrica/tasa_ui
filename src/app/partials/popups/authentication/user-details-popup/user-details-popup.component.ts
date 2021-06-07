@@ -42,6 +42,10 @@ export class UserDetailsPopupComponent implements OnInit {
       isActive: false,
     },
   ];
+  universityConifg:any = {
+    isLoading: false,
+    data: []
+  }
   //chips
   visible = true;
   selectable = true;
@@ -374,6 +378,23 @@ export class UserDetailsPopupComponent implements OnInit {
     let $t = this;
     $t.dialogRef.close();
     $t.router.navigate(['/social-network/posts'], { replaceUrl: true });
+  }
+
+  getUniversity(searchText: string) {
+    if (searchText.length >= 3) {
+      let $t = this;
+      $t.universityConifg.isLoading = true;
+      let apiUrl = $t.sharedService.urlService.apiCallWithParams('getUniversityByName', {
+        '{searchText}': searchText,
+      });
+      $t.sharedService.configService.post(apiUrl).subscribe((response: any) => {
+        $t.universityConifg.data = response.responseObj;
+        $t.universityConifg.isLoading = false;
+      }, error => {
+        $t.universityConifg.isLoading = false;
+        $t.universityConifg.data = [];
+      });
+    }
   }
 
   ngOnInit(): void {

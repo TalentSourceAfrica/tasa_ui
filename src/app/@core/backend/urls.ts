@@ -26,9 +26,10 @@ export const urls: any = {
   verifyEmail: '/verifyemail/{hash}', // G
   getTribe: '/tribe', // G
 
-  // location
+  // location, university
   getCountry: '/locations', // G
   getCities: '/locations/{countryCode}/cities', // G
+  getUniversityByName : '/university/search/{searchText}', // PO
 
   // Contact us
   contactUs: '/contact-us', // PO

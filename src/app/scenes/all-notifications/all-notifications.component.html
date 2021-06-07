@@ -47,6 +47,9 @@
             <button mat-mini-fab color="warn" *ngIf="item.connRequestId != '' && item.connRequestId != 'string'">
               <mat-icon>person</mat-icon>
             </button>
+            <button mat-mini-fab color="warn" *ngIf="item.userId != '' && item.userId != 'string'">
+              <mat-icon>person</mat-icon>
+            </button>
             <button mat-mini-fab color="warn" *ngIf="item.messageId != '' && item.messageId != 'string'">
               <mat-icon>message</mat-icon>
             </button>
@@ -56,7 +59,14 @@
             <button
               mat-mini-fab
               color="primary"
-              *ngIf="item.courseId == '' && item.jobId == '' && item.connRequestId == '' && item.messageId == '' && item.postId == ''"
+              *ngIf="
+                item.courseId == '' &&
+                item.jobId == '' &&
+                item.connRequestId == '' &&
+                item.messageId == '' &&
+                item.postId == '' &&
+                item.userId == ''
+              "
             >
               <mat-icon>notifications_active</mat-icon>
             </button>
@@ -72,7 +82,14 @@
               <button
                 mat-mini-fab
                 class="ml-3"
-                *ngIf="item.courseId != '' || item.jobId != '' || item.connRequestId != '' || item.messageId != '' || item.postId != ''"
+                *ngIf="
+                  item.courseId != '' ||
+                  item.jobId != '' ||
+                  item.connRequestId != '' ||
+                  item.messageId != '' ||
+                  item.postId != '' ||
+                  item.userId != ''
+                "
                 (click)="notiRedirect(item)"
                 color="primary"
                 matTooltipPosition="below"

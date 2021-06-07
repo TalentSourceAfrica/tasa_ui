@@ -340,10 +340,20 @@
             <div class="input-group input-group-merge">
               <input
                 type="text"
-                id="university{{ i }}"
-                [(ngModel)]="item.university[0]"
+                placeholder="Pick one"
+                (keyup)="getUniversity($event.target.value)"
                 class="form-control form-control-prepended"
+                [(ngModel)]="item.university[0]"
+                [matAutocomplete]="universityAutocomplete"
               />
+              <mat-autocomplete autoActiveFirstOption #universityAutocomplete="matAutocomplete">
+                <mat-option *ngIf="universityConifg.isloading">
+                  Loading...
+                </mat-option>
+                <mat-option *ngFor="let option of universityConifg.data" [value]="option.university">
+                  {{ option.university }}
+                </mat-option>
+              </mat-autocomplete>
             </div>
           </div>
           <div class="form-group">
