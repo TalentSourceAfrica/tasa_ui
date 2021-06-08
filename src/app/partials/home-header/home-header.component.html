@@ -17,11 +17,6 @@
                   <span class="tasa-logo-text">TaSA</span></a
                 >
               </div>
-              <!-- <span class="text-white tasa-logo ml-2" *ngIf="!sharedService.deviceDetectorService.isMobile()"><h4 class="mb-0">TaSA</h4><ul class="heading-ul">
-                <li><h6 class="text-white sub-heading-text mb-0" *ngIf="!sharedService.deviceDetectorService.isMobile()">Talent Source Africa</h6></li>
-                <li><h6 class="text-white sub-heading-text mb-0" *ngIf="!sharedService.deviceDetectorService.isMobile()">Talent Soure Americas</h6></li>
-                <li><h6 class="text-white sub-heading-text mb-0" *ngIf="!sharedService.deviceDetectorService.isMobile()">Talent Source Asia</h6></li>
-              </ul></span>   -->
             </div>
             <div class="col-md-4 explore-section pt-1" *ngIf="!user && searchDropdownValue.length && selectedSearchDrp">
               <div class="p-0 pt-3 d-flex align-items-center">
@@ -41,19 +36,6 @@
                     </mat-list-item>
                   </mat-list>
 
-                  <!-- <mat-selection-list
-                    class="max-vertical-h-40 stylishSlimScroll flow-y-auto flow-x-hidden"
-                    [multiple]="false"
-                    [(ngModel)]="selectedSearchDrp"
-                  >
-                    <mat-list-option
-                      *ngFor="let item of searchDropdownValue"
-                      [value]="item"
-                     
-                    >
-                     Search {{ item.name }}
-                    </mat-list-option>
-                  </mat-selection-list> -->
                 </mat-menu>
                 <div class="home-button ml-2">
                   <form>
@@ -115,12 +97,10 @@
                         *ngIf="!item.image || item.image == 'string'"
                         src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
                         class="user-img"
-                        alt="{{ item.firstName }} {{ item.lastName }}"
                       />
                       <img
                         *ngIf="item.image && item.image != 'string'"
                         [src]="item.image"
-                        alt="{{ item.firstName }} {{ item.lastName }}"
                         class="user-img"
                       />
                       <span [title]="item.firstName + ' ' + item.lastName">
@@ -142,12 +122,10 @@
                         *ngIf="!item.image || item.image == 'string'"
                         src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
                         class="user-img"
-                        alt="{{ item.firstName }} {{ item.lastName }}"
                       />
                       <img
                         *ngIf="item.image && item.image != 'string'"
                         [src]="item.image"
-                        alt="{{ item.firstName }} {{ item.lastName }}"
                         class="user-img"
                       />
                       <span [title]="item.firstName + ' ' + item.lastName">
@@ -170,12 +148,10 @@
                         *ngIf="!item.orgImage || item.orgImage == 'string'"
                         src="../../../assets/images/TSA_logo_new.small.png"
                         class="user-img"
-                        alt="{{ item.orgName }}"
                       />
                       <img
                         *ngIf="item.orgImage && item.orgImage != 'string'"
                         [src]="item.orgImage"
-                        alt="{{ item.orgName }}"
                         class="user-img"
                       />
                       <span [title]="item.orgName"> {{ item.orgName }}</span>
@@ -195,12 +171,10 @@
                         *ngIf="!item.image_url || item.image_url == 'string'"
                         src="../../../assets/images/TSA_logo_new.small.png"
                         class="user-img"
-                        alt="{{ item.orgName }}"
                       />
                       <img
                         *ngIf="item.image_url && item.image_url != 'string'"
                         [src]="item.image_url"
-                        alt="{{ item.title }}"
                         class="user-img"
                       />
                       <span [title]="item.title">{{ item.title }}</span>

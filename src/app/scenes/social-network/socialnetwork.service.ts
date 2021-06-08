@@ -14,9 +14,9 @@ export class SocialnetworkService {
     return this.sharedService.configService.get(apiUrl);
   }
 
-  getAllConnections() {
+  getAllConnections(_userEmail?: string) {
     let apiUrl = this.sharedService.urlService.apiCallWithParams('getAllNetworkConnections', {
-      '{userId}': this.user.email,
+      '{userId}': _userEmail ? _userEmail : this.user.email,
     });
     return this.sharedService.configService.get(apiUrl);
   }

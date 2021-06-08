@@ -124,7 +124,7 @@ export class ProfileComponent implements OnInit {
 
   fetchConnections() {
     this.userConfig.isConnected = false;
-    this.socialnetworkService.getAllConnections().subscribe(
+    this.socialnetworkService.getAllConnections(this.userConfig.user.email).subscribe(
       (response: any) => {
         if (response) {
           this.userConfig.totalConnectedUser = response.length;
