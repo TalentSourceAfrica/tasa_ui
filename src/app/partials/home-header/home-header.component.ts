@@ -1,10 +1,20 @@
-import { ChangeDetectorRef, Component, HostListener, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  HostListener,
+  OnInit,
+  ViewChild,
+  ViewEncapsulation,
+} from '@angular/core';
 import { AuthenticationService, CredentialsService } from '@app/auth';
 import { SharedService } from '@app/services/shared.service';
 import { Router } from '@angular/router';
 import { courseSearchData, jobsSearchData } from '@app/models/constants';
 import { CartService } from '@app/scenes/cart/cart.service';
 import { untilDestroyed } from '@app/@core';
+import { fromEvent } from 'rxjs';
+import { debounceTime, map, distinctUntilChanged, filter } from 'rxjs/operators';
 
 //extra
 declare var jQuery: any;
@@ -19,6 +29,8 @@ export class HomeHeaderComponent implements OnInit {
     this.processData();
   }
   @ViewChild('file', { static: false }) public file: any;
+  @ViewChild('globalSearchInput', { static: false }) public globalSearchInput: ElementRef;
+
   notificationConfig: any = {
     messageCount: 0,
     messageNotifications: [],
@@ -117,9 +129,10 @@ export class HomeHeaderComponent implements OnInit {
 
   userSearch() {
     let $t = this;
-    $t.userSearchConfig.isFetching = true;
+
     $t.userSearchConfig.data = [];
     if ($t.searchGlobalText != '') {
+      $t.userSearchConfig.isFetching = true;
       let apiUrl = $t.sharedService.urlService.apiCallWithParams('searchUser', {
         '{page}': 1,
         '{size}': 50,
@@ -129,6 +142,12 @@ export class HomeHeaderComponent implements OnInit {
         (response: any) => {
           $t.userSearchConfig.isFetching = false;
           $t.userSearchConfig.data = response.responseObj;
+          if ($t.userSearchConfig.data.length === 0) {
+            $t.userSearchConfig.data.push({
+              tasaId: '',
+              isNoData: true,
+            });
+          }
           jQuery('#globalSearchInput').focus();
         },
         (error) => {
@@ -141,9 +160,10 @@ export class HomeHeaderComponent implements OnInit {
 
   freeLanceSearch() {
     let $t = this;
-    $t.freelanceConfig.isFetching = true;
+
     $t.freelanceConfig.data = [];
     if ($t.searchGlobalText != '') {
+      $t.freelanceConfig.isFetching = true;
       let apiUrl = $t.sharedService.urlService.apiCallWithParams('searchFreelancer', {
         '{page}': 1,
         '{size}': 50,
@@ -153,6 +173,13 @@ export class HomeHeaderComponent implements OnInit {
         (response: any) => {
           $t.freelanceConfig.isFetching = false;
           $t.freelanceConfig.data = response.responseObj;
+
+          if ($t.freelanceConfig.data.length === 0) {
+            $t.freelanceConfig.data.push({
+              tasaId: '',
+              isNoData: true,
+            });
+          }
           jQuery('#globalSearchInput').focus();
         },
         (error) => {
@@ -165,9 +192,9 @@ export class HomeHeaderComponent implements OnInit {
 
   groupSearch() {
     let $t = this;
-    $t.userSearchConfig.isFetching = true;
     $t.userSearchConfig.data = [];
     if ($t.searchGlobalText != '') {
+      $t.userSearchConfig.isFetching = true;
       let apiUrl = $t.sharedService.urlService.apiCallWithParams('searchGroup', {
         '{searchText}': $t.searchGlobalText,
       });
@@ -175,6 +202,12 @@ export class HomeHeaderComponent implements OnInit {
         (response: any) => {
           $t.userSearchConfig.isFetching = false;
           $t.userSearchConfig.data = response.responseObj;
+          if ($t.userSearchConfig.data.length === 0) {
+            $t.userSearchConfig.data.push({
+              id: '',
+              isNoData: true,
+            });
+          }
           jQuery('#globalSearchInput').focus();
         },
         (error) => {
@@ -188,52 +221,63 @@ export class HomeHeaderComponent implements OnInit {
   redirect(_type: string, _id?: string) {
     switch (_type) {
       case 'job':
-        this.router.navigate(['/job/', _id], { replaceUrl: true });
-        setTimeout(() => {
-          this.sharedService.utilityService.changeMessage('FETCH-JOB-DETAILS');
-        }, 500);
+        if (_id !== '') {
+          this.router.navigate(['/job/', _id], { replaceUrl: true });
+          setTimeout(() => {
+            this.sharedService.utilityService.changeMessage('FETCH-JOB-DETAILS');
+          }, 500);
+        }
         break;
       case 'course':
-        this.router.navigate(['/course/', _id], { replaceUrl: true });
-        setTimeout(() => {
-          this.sharedService.utilityService.changeMessage('FETCH-COURSE-DETAILS');
-        }, 500);
+        if (_id !== '') {
+          this.router.navigate(['/course/', _id], { replaceUrl: true });
+          setTimeout(() => {
+            this.sharedService.utilityService.changeMessage('FETCH-COURSE-DETAILS');
+          }, 500);
+        }
         break;
     }
   }
 
   gsVal() {
     if (typeof this.searchGlobalText === 'object') {
-      switch (this.globalSearchType) {
-        case 'profile':
-          this.searchGlobalText = this.searchGlobalText.firstName + ' ' + this.searchGlobalText.lastName;
-          break;
-        case 'job':
-          this.searchGlobalText = this.searchGlobalText.title;
-          break;
-        case 'organization':
-          this.searchGlobalText = this.searchGlobalText.orgName;
-          break;
-        case 'course':
-          this.searchGlobalText = this.searchGlobalText.title;
-          break;
-        case 'group':
-          this.searchGlobalText = this.searchGlobalText.title;
-          break;
+      if (this.searchGlobalText.isNoData) {
+        this.searchGlobalText = '';
+      } else {
+        switch (this.globalSearchType) {
+          case 'profile':
+            this.searchGlobalText = this.searchGlobalText.firstName + ' ' + this.searchGlobalText.lastName;
+            break;
+          case 'job':
+            this.searchGlobalText = this.searchGlobalText.title;
+            break;
+          case 'organization':
+            this.searchGlobalText = this.searchGlobalText.orgName;
+            break;
+          case 'course':
+            this.searchGlobalText = this.searchGlobalText.title;
+            break;
+          case 'group':
+            this.searchGlobalText = this.searchGlobalText.title;
+            break;
+        }
       }
     }
   }
 
   showProfile(tasaId: string) {
-    this.router.navigate(['/social-network/profile/', tasaId], { replaceUrl: true });
-    this.sharedService.utilityService.changeMessage('VIEW-USER-PROFILE');
+    if (tasaId && tasaId !== '') {
+      this.router.navigate(['/social-network/profile/', tasaId], { replaceUrl: true });
+      this.sharedService.utilityService.changeMessage('VIEW-USER-PROFILE');
+    }
   }
 
   orgSearch() {
     let $t = this;
-    $t.orgConfig.isFetching = true;
+
     $t.orgConfig.data = [];
     if ($t.searchGlobalText != '') {
+      $t.orgConfig.isFetching = true;
       let apiUrl = $t.sharedService.urlService.apiCallWithParams('searchOrganization', {
         '{page}': 1,
         '{size}': 50,
@@ -255,9 +299,10 @@ export class HomeHeaderComponent implements OnInit {
 
   jobSearch() {
     let $t = this;
-    $t.jobConfig.isFetching = true;
+
     $t.jobConfig.data = [];
     if ($t.searchGlobalText != '') {
+      $t.jobConfig.isFetching = true;
       $t.jobConfig.searchConfig.text = $t.searchGlobalText;
       let apiUrl = $t.sharedService.urlService.apiCallWithParams('searchJobs', {
         '{page}': 1,
@@ -267,6 +312,12 @@ export class HomeHeaderComponent implements OnInit {
         (response: any) => {
           $t.jobConfig.isFetching = false;
           $t.jobConfig.data = response.responseObj.jobs;
+          if ($t.jobConfig.data.length === 0) {
+            $t.jobConfig.data.push({
+              id: '',
+              isNoData: true,
+            });
+          }
           jQuery('#globalSearchInput').focus();
         },
         (error) => {
@@ -279,9 +330,10 @@ export class HomeHeaderComponent implements OnInit {
 
   courseSearch() {
     let $t = this;
-    $t.courseConfig.isFetching = true;
+
     $t.courseConfig.data = [];
     if ($t.searchGlobalText != '') {
+      $t.courseConfig.isFetching = true;
       $t.courseConfig.searchConfig.text = $t.searchGlobalText;
       let apiUrl = $t.sharedService.urlService.apiCallWithParams('searchCourse', {
         '{page}': 1,
@@ -291,7 +343,13 @@ export class HomeHeaderComponent implements OnInit {
         (response: any) => {
           $t.courseConfig.isFetching = false;
           $t.courseConfig.data = response.responseObj.courses;
-          $('#globalSearchInput').focus();
+          if ($t.courseConfig.data.length === 0) {
+            $t.courseConfig.data.push({
+              key: '',
+              isNoData: true,
+            });
+          }
+          jQuery('#globalSearchInput').focus();
         },
         (error) => {
           $t.courseConfig.isFetching = false;
@@ -492,6 +550,7 @@ export class HomeHeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    let $t = this;
     this.fetchCourseFilter();
     setInterval(() => {
       this.getNotifications();
@@ -517,6 +576,22 @@ export class HomeHeaderComponent implements OnInit {
       scrollbarFix: true,
       breakpoint: 900,
     });
+
+    // global search
+
+    fromEvent(this.globalSearchInput.nativeElement, 'keyup')
+      .pipe(
+        // get value
+        map((event: any) => {
+          return event.target.value;
+        }),
+        filter((res) => res.length >= 0),
+        debounceTime(1000),
+        distinctUntilChanged()
+      )
+      .subscribe((text: string) => {
+        this.globalSearch();
+      });
   }
 
   ngOnDestroy(): void {}

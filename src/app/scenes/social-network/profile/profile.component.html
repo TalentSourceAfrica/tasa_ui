@@ -117,14 +117,14 @@
                                         <span class="material-icons pr-2"> check_circle </span>Request Pending
                                       </span>
                                     </div>
-                                    <ng-container *ngIf="userConfig.user.profileSummary === ''">
+                                    <!-- <ng-container *ngIf="userConfig.user.profileSummary === ''">
                                       <h6 class="mt-0 mb-1" *ngIf="(userConfig.currentJob | json) !== '{}'">
                                         <span class="text-primary font500">
                                           {{ userConfig.currentJob.currentRole[0] }} @
                                           {{ userConfig.currentJob.organization }}
                                         </span>
                                       </h6>
-                                    </ng-container>
+                                    </ng-container> -->
                                     <ng-container *ngIf="userConfig.user.profileSummary !== ''">
                                       <h6 class="mt-0 mb-1">
                                         <span class="text-primary font500">

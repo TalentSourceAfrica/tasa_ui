@@ -14,8 +14,7 @@
                     alt="logo"
                     class="tasa-logo"
                   />
-                  <span class="tasa-logo-text">TaSA</span></a
-                >
+                </a>
               </div>
             </div>
             <div class="col-md-4 explore-section pt-1" *ngIf="!user && searchDropdownValue.length && selectedSearchDrp">
@@ -31,11 +30,15 @@
                 </button>
                 <mat-menu class="mt-2" #exploreMenu="matMenu">
                   <mat-list class="max-vertical-h-40 stylishSlimScroll flow-y-auto flow-x-hidden">
-                    <mat-list-item class="curPoint"  (click)="selectedSearchDrp = item" *ngFor="let item of searchDropdownValue" [value]="item">
+                    <mat-list-item
+                      class="curPoint"
+                      (click)="selectedSearchDrp = item"
+                      *ngFor="let item of searchDropdownValue"
+                      [value]="item"
+                    >
                       Search {{ item.name }}
                     </mat-list-item>
                   </mat-list>
-
                 </mat-menu>
                 <div class="home-button ml-2">
                   <form>
@@ -79,7 +82,7 @@
                   placeholder="Search..."
                   [matAutocomplete]="auto"
                   id="globalSearchInput"
-                  (keyup.enter)="globalSearch()"
+                  #globalSearchInput
                   [value]="gsVal()"
                 />
                 <mat-autocomplete #auto="matAutocomplete">
@@ -93,19 +96,20 @@
                       [value]="item"
                       class="mb-2 mt-2"
                     >
-                      <img
-                        *ngIf="!item.image || item.image == 'string'"
-                        src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
-                        class="user-img"
-                      />
-                      <img
-                        *ngIf="item.image && item.image != 'string'"
-                        [src]="item.image"
-                        class="user-img"
-                      />
-                      <span [title]="item.firstName + ' ' + item.lastName">
-                        {{ item.firstName }} {{ item.lastName }}</span
-                      >
+                      <ng-container *ngIf="!item.isNoData">
+                        <img
+                          *ngIf="!item.image || item.image == 'string'"
+                          src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
+                          class="user-img"
+                        />
+                        <img *ngIf="item.image && item.image != 'string'" [src]="item.image" class="user-img" />
+                        <span [title]="item.firstName + ' ' + item.lastName">
+                          {{ item.firstName }} {{ item.lastName }}</span
+                        >
+                      </ng-container>
+                      <ng-container *ngIf="item.isNoData">
+                        <h6 class="text-primary"><span>😕</span> No Data Found.</h6>
+                      </ng-container>
                     </mat-option>
                   </ng-container>
                   <ng-container *ngIf="globalSearchType == 'freelance'">
@@ -118,19 +122,20 @@
                       [value]="item"
                       class="mb-2 mt-2"
                     >
-                      <img
-                        *ngIf="!item.image || item.image == 'string'"
-                        src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
-                        class="user-img"
-                      />
-                      <img
-                        *ngIf="item.image && item.image != 'string'"
-                        [src]="item.image"
-                        class="user-img"
-                      />
-                      <span [title]="item.firstName + ' ' + item.lastName">
-                        {{ item.firstName }} {{ item.lastName }}</span
-                      >
+                      <ng-container *ngIf="!item.isNoData">
+                        <img
+                          *ngIf="!item.image || item.image == 'string'"
+                          src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
+                          class="user-img"
+                        />
+                        <img *ngIf="item.image && item.image != 'string'" [src]="item.image" class="user-img" />
+                        <span [title]="item.firstName + ' ' + item.lastName">
+                          {{ item.firstName }} {{ item.lastName }}</span
+                        >
+                      </ng-container>
+                      <ng-container *ngIf="item.isNoData">
+                        <h6 class="text-primary"><span>😕</span> No Data Found.</h6>
+                      </ng-container>
                     </mat-option>
                   </ng-container>
                   <ng-container *ngIf="globalSearchType == 'organization'">
@@ -144,17 +149,22 @@
                       [value]="item"
                       class="mb-2 mt-2"
                     >
-                      <img
-                        *ngIf="!item.orgImage || item.orgImage == 'string'"
-                        src="../../../assets/images/TSA_logo_new.small.png"
-                        class="user-img"
-                      />
-                      <img
-                        *ngIf="item.orgImage && item.orgImage != 'string'"
-                        [src]="item.orgImage"
-                        class="user-img"
-                      />
-                      <span [title]="item.orgName"> {{ item.orgName }}</span>
+                      <ng-container *ngIf="!item.isNoData">
+                        <img
+                          *ngIf="!item.orgImage || item.orgImage == 'string'"
+                          src="../../../assets/images/TSA_logo_new.small.png"
+                          class="user-img"
+                        />
+                        <img
+                          *ngIf="item.orgImage && item.orgImage != 'string'"
+                          [src]="item.orgImage"
+                          class="user-img"
+                        />
+                        <span [title]="item.orgName"> {{ item.orgName }}</span>
+                      </ng-container>
+                      <ng-container *ngIf="item.isNoData">
+                        <h6 class="text-primary"><span>😕</span> No Data Found.</h6>
+                      </ng-container>
                     </mat-option>
                   </ng-container>
                   <ng-container *ngIf="globalSearchType == 'course'">
@@ -167,21 +177,26 @@
                       [value]="item"
                       class="mb-2 mt-2"
                     >
-                      <img
-                        *ngIf="!item.image_url || item.image_url == 'string'"
-                        src="../../../assets/images/TSA_logo_new.small.png"
-                        class="user-img"
-                      />
-                      <img
-                        *ngIf="item.image_url && item.image_url != 'string'"
-                        [src]="item.image_url"
-                        class="user-img"
-                      />
-                      <span [title]="item.title">{{ item.title }}</span>
+                      <ng-container *ngIf="!item.isNoData">
+                        <img
+                          *ngIf="!item.image_url || item.image_url == 'string'"
+                          src="../../../assets/images/TSA_logo_new.small.png"
+                          class="user-img"
+                        />
+                        <img
+                          *ngIf="item.image_url && item.image_url != 'string'"
+                          [src]="item.image_url"
+                          class="user-img"
+                        />
+                        <span [title]="item.title">{{ item.title }}</span>
+                      </ng-container>
+                      <ng-container *ngIf="item.isNoData">
+                        <h6 class="text-primary"><span>😕</span> No Data Found.</h6>
+                      </ng-container>
                     </mat-option>
                   </ng-container>
                   <ng-container *ngIf="globalSearchType == 'job'">
-                    <mat-option *ngIf="courseConfig.isFetching">
+                    <mat-option *ngIf="jobConfig.isFetching">
                       <i class="fas fa-circle-notch pr-2 text-primary"></i> Fetching...
                     </mat-option>
                     <mat-option
@@ -190,7 +205,12 @@
                       *ngFor="let item of jobConfig.data"
                       [value]="item"
                     >
-                      {{ item.title }}
+                      <ng-container *ngIf="!item.isNoData">
+                        {{ item.title }}
+                      </ng-container>
+                      <ng-container *ngIf="item.isNoData">
+                        <h6 class="text-primary"><span>😕</span> No Data Found.</h6>
+                      </ng-container>
                     </mat-option>
                   </ng-container>
                   <ng-container *ngIf="globalSearchType == 'group'">
@@ -203,13 +223,23 @@
                       [value]="item"
                       class="mb-2 mt-2"
                     >
-                      <img
-                        *ngIf="!item.imageUrl || item.imageUrl == 'string'"
-                        src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
-                        class="user-img"
-                      />
-                      <img *ngIf="item.imageUrl && item.imageUrl != 'string'" [src]="item.imageUrl" class="user-img" />
-                      <span [title]="item.title"> {{ item.title }}</span>
+                      <ng-container *ngIf="!item.isNoData">
+                        <img
+                          *ngIf="!item.imageUrl || item.imageUrl == 'string'"
+                          src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
+                          class="user-img"
+                        />
+                        <img
+                          *ngIf="item.imageUrl && item.imageUrl != 'string'"
+                          [src]="item.imageUrl"
+                          class="user-img"
+                        />
+                        <span [title]="item.title"> {{ item.title }}</span>
+                      </ng-container>
+
+                      <ng-container *ngIf="item.isNoData">
+                        <h6 class="text-primary"><span>😕</span> No Data Found.</h6>
+                      </ng-container>
                     </mat-option>
                   </ng-container>
                 </mat-autocomplete>
@@ -716,6 +746,16 @@
     </a>
     <ng-template *ngTemplateOutlet="notifications"></ng-template>
   </li>
+</ng-template>
+
+<ng-template #recordNotFound>
+  <mat-option>
+    <div class="text-center m-auto animated fadeIn">
+      <div class="col-12 text-center">
+        <h6 class="text-primary"><span>😕</span> No Data Found.</h6>
+      </div>
+    </div>
+  </mat-option>
 </ng-template>
 
 <input type="file" #file class="d-none" id="imageUpload" (change)="handleFileInput($event)" />

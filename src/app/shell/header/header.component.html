@@ -2,6 +2,16 @@
   <a id="show-sidebar" class="btn btn-sm btn-dark" *ngIf="user">
     <i class="fas fa-bars"></i>
   </a>
+  <div class="navbar-header pt-1 border-none" [ngClass]="{'ml-5': user}">
+    <a [routerLink]="['/home']" class="navbar-brand img-responsive p-2 mr-0"
+      ><img
+        src="../assets/logo/TSA_transparent_logo.png"
+        style="height: 35px; width: auto;"
+        alt="logo"
+        class="tasa-logo"
+      />
+    </a>
+  </div>
   <nav id="sidebar" class="sidebar-wrapper" *ngIf="user">
     <div class="sidebar-content">
       <div class="sidebar-brand">
@@ -230,7 +240,7 @@
               >All Gigs
             </a>
           </li>
-          <li  *ngIf="user?.isFreelancer === 'Y'">
+          <li *ngIf="user?.isFreelancer === 'Y'">
             <a
               class="curPoint menu-item"
               [routerLink]="['/freelance/all-requirements']"
@@ -248,7 +258,7 @@
               Create Custom Gigs
             </a>
           </li>
-          <li  *ngIf="user?.isFreelancer === 'Y'">
+          <li *ngIf="user?.isFreelancer === 'Y'">
             <a
               class="curPoint menu-item"
               [routerLink]="['/freelance/create-gig']"
@@ -258,7 +268,11 @@
             </a>
           </li>
           <li>
-            <a class="curPoint menu-item" [routerLink]="['/freelance/my-engagements']" routerLinkActive="router-link-active">
+            <a
+              class="curPoint menu-item"
+              [routerLink]="['/freelance/my-engagements']"
+              routerLinkActive="router-link-active"
+            >
               My Engagements
             </a>
           </li>

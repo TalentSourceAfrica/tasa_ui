@@ -56,7 +56,7 @@ export class UserDetailsPopupComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private formBuilder: FormBuilder,
     private dialogRef: MatDialogRef<UserDetailsPopupComponent>,
-    private sharedService: SharedService,
+    public sharedService: SharedService,
     private router: Router,
     public cdr: ChangeDetectorRef
   ) {
