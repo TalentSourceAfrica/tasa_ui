@@ -8,6 +8,7 @@ import { AuthModule } from '@app/auth';
 import { MaterialModule } from '@app/modules/material.module';
 import { RouterModule } from '@angular/router';
 import { SocialnetworkService } from '../socialnetwork.service';
+import { ImageCropperPopupModule } from '@app/partials/popups/image-cropper-popup/image-cropper-popup.module';
 
 // Module
 import { LeftSideModule } from '@app/partials/left-side/left-side.module';
@@ -22,6 +23,7 @@ import { IvyGalleryModule } from 'angular-gallery';
 // Component
 import { EditUserPopupComponent } from '@app/partials/popups/authentication/edit-user-popup/edit-user-popup.component';
 import { ProfileComponent } from './profile.component';
+
 
 @NgModule({
   imports: [
@@ -41,7 +43,8 @@ import { ProfileComponent } from './profile.component';
     RightSideModule,
     CreateGroupPopupModule,
     SharedModule,
-    IvyGalleryModule
+    IvyGalleryModule,
+    ImageCropperPopupModule
   ],
   declarations: [ProfileComponent, EditUserPopupComponent],
   providers: [SocialnetworkService],

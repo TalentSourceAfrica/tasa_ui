@@ -1,0 +1,51 @@
+<div class="d-flex align-items-center no-gutters edit-profile-wrapper">
+  <div class="col-sm-8 col-md-12 col-lg-12 mx-auto">
+    <div class="navbar-shadow">
+      <div class="card-header text-center">
+        <div class="row no-gutters">
+          <div class="col-11">
+            <h5 class="card-title">
+              Crop Image
+            </h5>
+          </div>
+          <div class="col-1">
+            <button
+              mat-mini-fab
+              color="primary"
+              style="z-index: 9;"
+              class="mr-2"
+              matTooltipPosition="below"
+              matTooltip="Close"
+              mat-dialog-close
+            >
+              <mat-icon>clear</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div
+        class="pb-2 pl-4 pr-4 no-gutters max-vertical-h-60 stylishSlimScroll flow-y-auto flow-x-hidden animated fadeInUp"
+      >
+        <ng-container *ngTemplateOutlet="imageCropper"></ng-container>
+      </div>
+      <div class="card-footer">
+        <div class="col-12 text-center mt-3">
+          <button mat-flat-button color="primary" (click)="submit()" class="rounded-pill ml-2">
+            Update
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #imageCropper>
+  <image-cropper
+    [imageChangedEvent]="imageChangedEvent"
+    [maintainAspectRatio]="true"
+    format="png"
+    (imageCropped)="imageCropped($event)"
+    (cropperReady)="cropperReady()"
+    (loadImageFailed)="loadImageFailed()"
+  ></image-cropper>
+</ng-template>

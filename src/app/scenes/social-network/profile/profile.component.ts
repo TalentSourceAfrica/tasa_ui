@@ -13,6 +13,8 @@ import Swal from 'sweetalert2';
 // component
 import { CreateGroupPopupComponent } from '@app/partials/popups/group/create-group-popup/create-group-popup.component';
 import { EditUserPopupComponent } from '@app/partials/popups/authentication/edit-user-popup/edit-user-popup.component';
+import { ImageCropperPopupComponent } from '@app/partials/popups/image-cropper-popup/image-cropper-popup.component';
+
 import { Gallery } from 'angular-gallery';
 
 @Component({
@@ -171,7 +173,7 @@ export class ProfileComponent implements OnInit {
         break;
       case 'About':
         userConfigToUpdate.data = [
-          { label: 'Headline', key: 'profileSummary', textarea: true, isRequired: false, maxlength : 120 },
+          { label: 'Headline', key: 'profileSummary', textarea: true, isRequired: false, maxlength: 120 },
           { label: 'City', key: 'city', isRequired: true },
           { label: 'Country', key: 'country', isDropdown: true, isRequired: true },
           { label: 'State', key: 'state', isRequired: true },
@@ -179,7 +181,7 @@ export class ProfileComponent implements OnInit {
           { label: 'Preferred Role', key: 'careerGoals' },
           { label: 'Professional Interest', key: 'preferredRole', isChips: true },
           { label: 'Subjects/Topics of Preference', key: 'areaOfPreference', isArray: true },
-          { label: 'About Me', key: 'bio', textarea: true, isRequired: true, maxlength : 500  },
+          { label: 'About Me', key: 'bio', textarea: true, isRequired: true, maxlength: 500 },
         ];
         break;
       case 'Contact Information':
@@ -297,9 +299,25 @@ export class ProfileComponent implements OnInit {
 
   handleFileInput(event: any) {
     let $t = this;
+
+    $t.sharedService.dialogService.open(ImageCropperPopupComponent, {
+      width: '700px',
+      data: {
+        imageEvent: event,
+        user: this.user,
+        submit: (imageEvent: any) => {
+          this.saveBgImage(imageEvent);
+        },
+      },
+      disableClose: false,
+    });
+  }
+
+  saveBgImage(_imageEvent: any) {
+    let $t = this;
     let apiUrl = $t.sharedService.urlService.apiCallWithParams('uploadSingle', { '{email}': $t.user.email });
     apiUrl = $t.sharedService.urlService.addQueryStringParm(apiUrl, 'profile', true);
-    let files = event.target.files;
+    let files = _imageEvent.target.files;
     var form = new FormData();
     form.append('file', files[0], files[0].name);
     if ($t.sharedService.utilityService.ValidateImageUpload(files[0].name)) {
