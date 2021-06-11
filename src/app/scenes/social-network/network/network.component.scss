@@ -13,4 +13,10 @@
       min-height: 340px !important;
     }
   }
+  img {
+    -o-object-fit: cover;
+    object-fit: cover;
+    -o-object-position: center;
+    object-position: center;
+  }
 }

@@ -60,9 +60,9 @@
             <div class="card-body text-center">
               <p>
                 <img
-                  [routerLink]="['/social-network/profile/', item.fromTasaId]"
+                  [routerLink]="['/social-network/profile/', item.tasaId]"
                   routerLinkActive="router-link-active"
-                  class="img-fluid shadow-lg"
+                  class="img-fluid shadow-lg curPoint"
                   src="{{
                     item.imageUrl
                       ? item.imageUrl
@@ -73,7 +73,7 @@
               </p>
 
               <h4
-                class="card-title"
+                class="card-title curPoint"
                 [routerLink]="['/social-network/profile/', item.tasaId]"
                 routerLinkActive="router-link-active"
               >
@@ -137,7 +137,7 @@
                   *ngIf="!item?.groupId"
                   [routerLink]="['/social-network/profile/', item.fromTasaId]"
                   routerLinkActive="router-link-active"
-                  class="img-fluid shadow-lg"
+                  class="img-fluid shadow-lg curPoint"
                   src="{{
                     item.fromImage
                       ? item.fromImage
@@ -149,14 +149,14 @@
                   *ngIf="item?.groupId"
                   [routerLink]="['/social-network/profile/', item.fromTasaId]"
                   routerLinkActive="router-link-active"
-                  class="img-fluid"
+                  class="img-fluid curPoint"
                   src="{{ item.groupImageUrl }}"
                   alt="User picture"
                 />
               </p>
 
               <h4
-                class="card-title mb-1"
+                class="card-title mb-1 curPoint"
                 *ngIf="!item?.groupId"
                 [routerLink]="['/social-network/profile/', item.fromTasaId]"
                 routerLinkActive="router-link-active"
