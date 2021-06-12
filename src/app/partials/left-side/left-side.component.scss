@@ -15,18 +15,19 @@ $userActionColor: #004e98;
   }
   .course-recommendation {
     .card-header {
-      background-color: $recommendationColor !important;
+      background-color: #fff !important;
       .fas {
         animation: swing ease-in-out 3s 1 alternate;
       }
     }
     .card-body {
-      background-color: #f8f9fa !important;
+      background-color: #fff !important;
     }
     .course-detail {
-      border: 2px solid $recommendationColor;
+      border: 2px solid #fff;
     }
   }
+
   .user-action-card {
     .card-header {
       background-color: $userActionColor !important;

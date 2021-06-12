@@ -66,46 +66,47 @@ export class GroupComponent implements OnInit {
   }
 
   sendRequest(grpId: any) {
-    Swal.fire({
-      title: 'Add A Note',
-      input: 'text',
-      inputAttributes: {
-        autocapitalize: 'off',
-        placeholder: 'Type Your Message',
-      },
-      showCancelButton: true,
-      confirmButtonText: 'Send',
-      confirmButtonClass: 'rounded-pill shadow-sm',
-      cancelButtonClass: 'rounded-pill shadow-sm',
-      showLoaderOnConfirm: true,
-      preConfirm: (data) => {
-        if (data === '') {
-          Swal.showValidationMessage('Please enter message');
-        }
-      },
-      allowOutsideClick: () => !Swal.isLoading(),
-    }).then((result) => {
-      if (result) {
-        if (result.dismiss) {
-          Swal.close();
-        }
-        if (result.value) {
-          this.sharedService.uiService.showApiStartPopMsg('Sending Request to Admin...');
-          let apiUrl = this.sharedService.urlService.apiCallWithParams('sendRequestToGroup', {
-            '{userId}': this.user.email,
-            '{groupId}': grpId,
-          });
-          this.sharedService.configService.post(apiUrl, result.value).subscribe(
-            (response: any) => {
-              this.sharedService.uiService.showApiSuccessPopMsg('Request Send.');
-            },
-            (error) => {
-              this.sharedService.uiService.showApiErrorPopMsg(error.error.message);
-            }
-          );
-        }
-      }
+    // Swal.fire({
+    //   title: 'Add A Note',
+    //   input: 'text',
+    //   inputAttributes: {
+    //     autocapitalize: 'off',
+    //     placeholder: 'Type Your Message',
+    //   },
+    //   showCancelButton: true,
+    //   confirmButtonText: 'Send',
+    //   confirmButtonClass: 'rounded-pill shadow-sm',
+    //   cancelButtonClass: 'rounded-pill shadow-sm',
+    //   showLoaderOnConfirm: true,
+    //   preConfirm: (data) => {
+    //     if (data === '') {
+    //       Swal.showValidationMessage('Please enter message');
+    //     }
+    //   },
+    //   allowOutsideClick: () => !Swal.isLoading(),
+    // }).then((result) => {
+    //   if (result) {
+    //     if (result.dismiss) {
+    //       Swal.close();
+    //     }
+    //     if (result.value) {
+    //     }
+    //   }
+    // });
+
+    this.sharedService.uiService.showApiStartPopMsg('Sending Request to Admin...');
+    let apiUrl = this.sharedService.urlService.apiCallWithParams('sendRequestToGroup', {
+      '{userId}': this.user.email,
+      '{groupId}': grpId,
     });
+    this.sharedService.configService.post(apiUrl, 'message').subscribe(
+      (response: any) => {
+        this.sharedService.uiService.showApiSuccessPopMsg('Request Send.');
+      },
+      (error) => {
+        this.sharedService.uiService.showApiErrorPopMsg(error.error.message);
+      }
+    );
   }
 
   invitePeople(grp: any) {

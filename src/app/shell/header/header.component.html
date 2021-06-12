@@ -2,7 +2,7 @@
   <a id="show-sidebar" class="btn btn-sm btn-dark" *ngIf="user">
     <i class="fas fa-bars"></i>
   </a>
-  <div class="navbar-header pt-1 border-none" [ngClass]="{'ml-5': user}">
+  <div class="navbar-header pt-1 border-none" [ngClass]="{ 'ml-5': user }">
     <a [routerLink]="['/home']" class="navbar-brand img-responsive p-2 mr-0"
       ><img
         src="../assets/logo/TSA_transparent_logo.png"
@@ -237,7 +237,7 @@
         <ul>
           <li>
             <a class="curPoint menu-item" [routerLink]="['/freelance/all-gigs']" routerLinkActive="router-link-active"
-              >All Gigs
+              >Find a Freelancer
             </a>
           </li>
           <li *ngIf="user?.isFreelancer === 'Y'">
@@ -246,7 +246,7 @@
               [routerLink]="['/freelance/all-requirements']"
               routerLinkActive="router-link-active"
             >
-              All Custom Gigs
+              All Custom Freelancing
             </a>
           </li>
           <li>
@@ -255,7 +255,7 @@
               [routerLink]="['/freelance/create-requirement']"
               routerLinkActive="router-link-active"
             >
-              Create Custom Gigs
+              Create Custom Freelancing Request
             </a>
           </li>
           <li *ngIf="user?.isFreelancer === 'Y'">
@@ -264,7 +264,7 @@
               [routerLink]="['/freelance/create-gig']"
               routerLinkActive="router-link-active"
             >
-              Become A Gig Seller
+              Make Money Freelancing
             </a>
           </li>
           <li>

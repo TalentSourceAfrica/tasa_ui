@@ -79,7 +79,7 @@
               >
                 {{ item.firstName }} {{ item.lastName }}
               </h4>
-              <p class="card-text">{{ item.message }}</p>
+              <!-- <p class="card-text">{{ item.message }}</p> -->
               <button
                 mat-mini-fab
                 color="warn"
@@ -164,7 +164,7 @@
                 {{ item.fromName }}
               </h4>
               <h4 class="card-title mb-1" *ngIf="item?.groupId">Group - {{ item.groupTitle }}</h4>
-              <p class="card-text">{{ item.message }}</p>
+              <!-- <p class="card-text">{{ item.message }}</p> -->
               <button mat-flat-button color="primary" (click)="approve(item.id, i)" class="rounded-pill mt-3">
                 <span *ngIf="item?.groupId">Join</span>
                 <span *ngIf="!item?.groupId">Add</span>

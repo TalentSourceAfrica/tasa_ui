@@ -20,9 +20,7 @@
               <p [ngStyle]="{ color: userProgressConfig.outerColor }">Profile Complete</p>
             </div>
             <div class="col-6 text-right">
-              <div
-                class="h2 mb-0 text-white"
-              >
+              <div class="h2 mb-0 text-white">
                 <img
                   *ngIf="!user.image || user.image == 'string'"
                   class="user-img curPoint"
@@ -86,31 +84,6 @@
 
                 <div class="col-4">
                   <img [src]="course.image_url" alt="Course picture" />
-
-                  <button
-                    mat-mini-fab
-                    color="primary"
-                    style="z-index: 9; right: 70px; height: 30px; width: 30px; color: orangered !important;"
-                    class="position-absolute mt-2"
-                    *ngIf="course.favorite"
-                    matTooltipPosition="below"
-                    matTooltip="Remove From Favorite"
-                    (click)="addToFavorite(false, course, $event)"
-                  >
-                    <mat-icon style="font-size: 20px;">favorite</mat-icon>
-                  </button>
-                  <button
-                    mat-mini-fab
-                    color="primary"
-                    style="z-index: 9; right: 70px; height: 30px; width: 30px; color: white !important;"
-                    class="position-absolute mt-2"
-                    *ngIf="!course.favorite"
-                    matTooltipPosition="below"
-                    matTooltip="Add To Favorite"
-                    (click)="addToFavorite(true, course, $event)"
-                  >
-                    <mat-icon style="font-size: 20px;">favorite_border</mat-icon>
-                  </button>
                 </div>
                 <div class="col-8 p-2">
                   <h6 class="card-title font600 text-truncate" [title]="course.title">
@@ -119,6 +92,30 @@
                   <p class="card-intro">
                     {{ course.subject }}
                   </p>
+                  <button
+                  mat-mini-fab
+                  color="primary"
+                  style="z-index: 9; right: 2px; bottom:10px; height: 30px; width: 30px; color: orangered !important;"
+                  class="position-absolute mt-2"
+                  *ngIf="course.favorite"
+                  matTooltipPosition="below"
+                  matTooltip="Remove From Favorite"
+                  (click)="addToFavorite(false, course, $event)"
+                >
+                  <mat-icon style="font-size: 20px;">favorite</mat-icon>
+                </button>
+                <button
+                  mat-mini-fab
+                  color="primary"
+                  style="z-index: 9; right: 2px;bottom:10px; height: 30px; width: 30px; color: white !important;"
+                  class="position-absolute mt-2"
+                  *ngIf="!course.favorite"
+                  matTooltipPosition="below"
+                  matTooltip="Add To Favorite"
+                  (click)="addToFavorite(true, course, $event)"
+                >
+                  <mat-icon style="font-size: 20px;">favorite_border</mat-icon>
+                </button>
                 </div>
               </div>
             </div>

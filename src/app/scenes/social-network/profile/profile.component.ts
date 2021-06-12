@@ -230,47 +230,47 @@ export class ProfileComponent implements OnInit {
 
   connect() {
     let $t = this;
-    Swal.fire({
-      title: 'Add A Note',
-      input: 'text',
-      inputAttributes: {
-        autocapitalize: 'off',
-        placeholder: 'Type Your Message',
-      },
-      showCancelButton: true,
-      confirmButtonText: 'Send',
-      confirmButtonClass: 'rounded-pill shadow-sm',
-      cancelButtonClass: 'rounded-pill shadow-sm',
-      showLoaderOnConfirm: true,
-      preConfirm: (data) => {
-        if (data === '') {
-          Swal.showValidationMessage('Please enter a note..!');
-        }
-      },
-      allowOutsideClick: () => !Swal.isLoading(),
-    }).then((result) => {
-      if (result) {
-        if (result.dismiss) {
-          Swal.close();
-        }
-        if (result.value) {
-          $t.sharedService.uiService.showApiStartPopMsg('Sending Request...!');
-          let apiUrl = $t.sharedService.urlService.apiCallWithParams('sendNetworkConnectionRequest', {
-            '{fromUserId}': $t.user.email,
-            '{toUserId}': $t.userConfig.user.email,
-          });
-          $t.sharedService.configService.post(apiUrl, result.value).subscribe(
-            (response: any) => {
-              $t.sharedService.uiService.showApiSuccessPopMsg('Request Send...!');
-              $t.userConfig.isRequestPending = true;
-            },
-            (error) => {
-              $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
-            }
-          );
-        }
-      }
+    // Swal.fire({
+    //   title: 'Add A Note',
+    //   input: 'text',
+    //   inputAttributes: {
+    //     autocapitalize: 'off',
+    //     placeholder: 'Type Your Message',
+    //   },
+    //   showCancelButton: true,
+    //   confirmButtonText: 'Send',
+    //   confirmButtonClass: 'rounded-pill shadow-sm',
+    //   cancelButtonClass: 'rounded-pill shadow-sm',
+    //   showLoaderOnConfirm: true,
+    //   preConfirm: (data) => {
+    //     if (data === '') {
+    //       Swal.showValidationMessage('Please enter a note..!');
+    //     }
+    //   },
+    //   allowOutsideClick: () => !Swal.isLoading(),
+    // }).then((result) => {
+    //   if (result) {
+    //     if (result.dismiss) {
+    //       Swal.close();
+    //     }
+    //     if (result.value) {
+    //     }
+    //   }
+    // });
+    $t.sharedService.uiService.showApiStartPopMsg('Sending Request...!');
+    let apiUrl = $t.sharedService.urlService.apiCallWithParams('sendNetworkConnectionRequest', {
+      '{fromUserId}': $t.user.email,
+      '{toUserId}': $t.userConfig.user.email,
     });
+    $t.sharedService.configService.post(apiUrl, 'message').subscribe(
+      (response: any) => {
+        $t.sharedService.uiService.showApiSuccessPopMsg('Request Send...!');
+        $t.userConfig.isRequestPending = true;
+      },
+      (error) => {
+        $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
+      }
+    );
   }
 
   showProfilePic(doc: any, index: number) {
@@ -299,14 +299,13 @@ export class ProfileComponent implements OnInit {
 
   handleFileInput(event: any) {
     let $t = this;
-
     $t.sharedService.dialogService.open(ImageCropperPopupComponent, {
       width: '700px',
       data: {
         imageEvent: event,
         user: this.user,
         submit: (imageEvent: any) => {
-          this.saveBgImage(imageEvent);
+          $t.saveBgImage(imageEvent);
         },
       },
       disableClose: false,

@@ -65,53 +65,54 @@ export class InviteUserPopupComponent implements OnInit {
   }
 
   submit() {
-    Swal.fire({
-      title: 'Add A Note',
-      input: 'text',
-      inputAttributes: {
-        autocapitalize: 'off',
-        placeholder: 'Type Your Message',
-      },
-      showCancelButton: true,
-      confirmButtonText: 'Send',
-      confirmButtonClass: 'rounded-pill shadow-sm',
-      cancelButtonClass: 'rounded-pill shadow-sm',
-      showLoaderOnConfirm: true,
-      preConfirm: (data) => {
-        if (data === '') {
-          Swal.showValidationMessage('Please enter message');
-        }
-      },
-      allowOutsideClick: () => !Swal.isLoading(),
-    }).then((result) => {
-      if (result) {
-        if (result.dismiss) {
-          Swal.close();
-        }
-        if (result.value) {
-          let payload = {
-            users: this.selectedUserIds,
-            message: result.value,
-          };
-          this.sharedService.uiService.showApiStartPopMsg('Inviting User(s)...');
-          // sendRequestToMultiplePeople
-          console.log(this.selectedUserIds);
-          let apiUrl = this.sharedService.urlService.apiCallWithParams('sendRequestToMultiplePeople', {
-            '{adminId}': this.popupData.user.email,
-            '{groupId}': this.popupData.group.groupId,
-          });
-          this.sharedService.configService.post(apiUrl, payload).subscribe(
-            (response: any) => {
-              this.sharedService.uiService.showApiSuccessPopMsg(response.message);
-              this.dialogRef.close();
-            },
-            (error) => {
-              this.sharedService.uiService.showApiErrorPopMsg(error.error.message);
-            }
-          );
-        }
-      }
+    // Swal.fire({
+    //   title: 'Add A Note',
+    //   input: 'text',
+    //   inputAttributes: {
+    //     autocapitalize: 'off',
+    //     placeholder: 'Type Your Message',
+    //   },
+    //   showCancelButton: true,
+    //   confirmButtonText: 'Send',
+    //   confirmButtonClass: 'rounded-pill shadow-sm',
+    //   cancelButtonClass: 'rounded-pill shadow-sm',
+    //   showLoaderOnConfirm: true,
+    //   preConfirm: (data) => {
+    //     if (data === '') {
+    //       Swal.showValidationMessage('Please enter message');
+    //     }
+    //   },
+    //   allowOutsideClick: () => !Swal.isLoading(),
+    // }).then((result) => {
+    //   if (result) {
+    //     if (result.dismiss) {
+    //       Swal.close();
+    //     }
+    //     if (result.value) {
+    //     }
+    //   }
+    // });
+
+    let payload = {
+      users: this.selectedUserIds,
+      message: 'message',
+    };
+    this.sharedService.uiService.showApiStartPopMsg('Inviting User(s)...');
+    // sendRequestToMultiplePeople
+    console.log(this.selectedUserIds);
+    let apiUrl = this.sharedService.urlService.apiCallWithParams('sendRequestToMultiplePeople', {
+      '{adminId}': this.popupData.user.email,
+      '{groupId}': this.popupData.group.groupId,
     });
+    this.sharedService.configService.post(apiUrl, payload).subscribe(
+      (response: any) => {
+        this.sharedService.uiService.showApiSuccessPopMsg(response.message);
+        this.dialogRef.close();
+      },
+      (error) => {
+        this.sharedService.uiService.showApiErrorPopMsg(error.error.message);
+      }
+    );
   }
 
   ngOnInit(): void {
