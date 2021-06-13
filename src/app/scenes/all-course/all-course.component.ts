@@ -147,16 +147,13 @@ export class AllCourseComponent implements OnInit {
         }
       },
       (error) => {
-        console.log(error);
+        $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
       }
     );
   }
 
   applyFilter(_pageIndex?: number) {
     let $t = this;
-    if ($t.sharedService.deviceDetectorService.isMobile()) {
-      $t.filterDrawer.toggle();
-    }
     $t.isLoading = true;
     let apiUrl = $t.sharedService.urlService.apiCallWithParams('searchCourse', {
       '{page}': _pageIndex || 1,
@@ -167,9 +164,13 @@ export class AllCourseComponent implements OnInit {
         $t.allCourse = response.responseObj.courses;
         $t.length = response.responseObj.count;
         $t.isLoading = false;
+
+        if ($t.sharedService.deviceDetectorService.isMobile()) {
+          $t.filterDrawer.toggle();
+        }
       },
       (error) => {
-        console.log(error);
+        $t.sharedService.uiService.showApiErrorPopMsg(error.error.message);
       }
     );
   }

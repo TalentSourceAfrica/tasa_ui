@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { untilDestroyed } from '@app/@core';
 import { CredentialsService } from '@app/auth';
 import { SocialnetworkService } from '@app/scenes/social-network/socialnetwork.service';
 import { SharedService } from '@app/services/shared.service';
 import { OwlOptions } from 'ngx-owl-carousel-o';
-import { delay } from 'rxjs/operators';
 
 @Component({
   selector: 'app-right-side',
@@ -13,7 +11,7 @@ import { delay } from 'rxjs/operators';
 })
 export class RightSideComponent implements OnInit {
   groupsOptions: OwlOptions = {
-    loop: true,
+    loop: false,
     autoplay: true,
     center: true,
     smartSpeed: 1000,

@@ -11,6 +11,8 @@ import { MaterialModule } from '@app/modules/material.module';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxDocViewerModule } from 'ngx-doc-viewer';
+import { ProductSearchModule } from '@app/partials/product-search/product-search.module';
+
 
 @NgModule({
   imports: [
@@ -24,7 +26,8 @@ import { NgxDocViewerModule } from 'ngx-doc-viewer';
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
-    NgxDocViewerModule
+    NgxDocViewerModule,
+    ProductSearchModule
   ],
   declarations: [HomeComponent],
   schemas: [NO_ERRORS_SCHEMA],

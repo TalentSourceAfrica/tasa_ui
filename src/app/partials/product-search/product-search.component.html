@@ -1,0 +1,39 @@
+<div class="p-0 pt-3 d-flex align-items-center">
+    <button
+      mat-button
+      [matMenuTriggerFor]="exploreMenu"
+      mat-flat-button
+      color="default"
+      class="rc-ExploreButton rounded-pill ml-2 bg-theme curPoint"
+    >
+      <span> {{ selectedSearchDrp.name }} <i class="fa fa-chevron-down" aria-hidden="true"></i> </span>
+    </button>
+    <mat-menu class="mt-2" #exploreMenu="matMenu">
+      <mat-list class="max-vertical-h-40 stylishSlimScroll flow-y-auto flow-x-hidden">
+        <mat-list-item
+          class="curPoint"
+          (click)="selectedSearchDrp = item"
+          *ngFor="let item of searchDropdownValue"
+          [value]="item"
+        >
+          Search {{ item.name }}
+        </mat-list-item>
+      </mat-list>
+    </mat-menu>
+    <div class="home-button ml-2">
+      <form>
+        <input
+          type="search"
+          [(ngModel)]="searchTextBeforeLogin"
+          name="search"
+          class="w100"
+          id="search"
+          [placeholder]="selectedSearchDrp.placeholder"
+          (keyup.enter)="onSearch()"
+        />
+        <button type="button" (click)="onSearch()">
+          <i class="fa fa-search"></i>
+        </button>
+      </form>
+    </div>
+  </div>

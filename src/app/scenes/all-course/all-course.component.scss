@@ -74,4 +74,10 @@
     border-width: 0 15px 22px 0;
     border-color: transparent transparent #ffc107 transparent;
   }
+
+  @media only screen and (max-width: 600px) {
+    .position-absolute {
+      position: relative !important;
+    }
+  }
 }

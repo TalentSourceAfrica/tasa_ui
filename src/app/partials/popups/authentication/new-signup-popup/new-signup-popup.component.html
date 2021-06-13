@@ -86,7 +86,7 @@
         </form>
       </div>
       <div class="sign-up px-0" id="sign-up-info">
-        <h1>Sign Up <span *ngIf="popupData.case == 'recruiter'" class="text-muted underline"> As Recruiter </span></h1>
+       <h1> <span *ngIf="popupData.case == 'recruiter'">Employer </span>Sign Up</h1>
         <ng-container *ngIf="popupData.case == 'student' || popupData.case == 'sign-in'">
           <form [formGroup]="userDetailsForm" novalidate class="form-class">
             <div class="flip-card animated fadeInUp min-vertical-h-35 mt-3 w20 mx-auto">

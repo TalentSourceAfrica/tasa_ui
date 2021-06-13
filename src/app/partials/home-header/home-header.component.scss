@@ -61,40 +61,7 @@ $light-blue: #523f6d80;
     color: #867899;
   }
 
-  .rc-ExploreButton {
-    margin-left: 40%;
-    background: none;
-    border: none;
-    height: 34px;
-    width: 25%;
-    display: -ms-flexbox;
-    display: box;
-    display: flex;
-    -o-box-align: center;
-    align-items: center;
-    border-radius: 3px;
-    background-color: white;
-    /* font-weight: 700; */
-    cursor: default;
-    position: relative;
-  }
-
-  .rc-ExploreButton {
-    .mat-button-wrapper {
-      margin: auto !important;
-    }
-  }
-
-  .rc-ExploreButton span {
-    top: 0;
-    width: 100%;
-    line-height: 36px;
-    text-align: center;
-    position: relative;
-    padding-left: 5px;
-    color: #867899;
-  }
-
+  
   *,
   *::before,
   *::after {

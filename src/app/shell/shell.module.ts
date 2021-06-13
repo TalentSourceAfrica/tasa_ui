@@ -13,6 +13,7 @@ import { ShellComponent } from './shell.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from '@app/partials/footer/footer.component';
 import { HomeHeaderComponent } from '@app/partials/home-header/home-header.component';
+import { ProductSearchModule } from '@app/partials/product-search/product-search.module';
 
 @NgModule({
   imports: [
@@ -26,6 +27,7 @@ import { HomeHeaderComponent } from '@app/partials/home-header/home-header.compo
     FormsModule,
     ShellRoutingModule,
     ReactiveFormsModule,
+    ProductSearchModule
   ],
   declarations: [HeaderComponent, ShellComponent, FooterComponent, HomeHeaderComponent],
   schemas: [NO_ERRORS_SCHEMA],

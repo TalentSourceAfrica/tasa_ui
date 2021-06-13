@@ -1,14 +1,10 @@
 <!--START TOP AREA-->
 <div class="home-wrapper animated fadeIn">
-  <a
-    href="https://web.whatsapp.com/send?text=www.google.com"
-    data-text="Take a look at this awesome website:"
-    class="wa_btn wa_btn_s"
-    style="display: none;"
-    >Share1</a
-  >
   <!--WELCOME SLIDER AREA-->
   <div class="row no-gutters shadow">
+    <div class="col-12 bg-primary p-2 pb-3" *ngIf="!user && sharedService.deviceDetectorService.isMobile()">
+      <app-product-search></app-product-search>
+    </div>
     <div class="col-sm-6 col-12 d-flex">
       <div class="m-auto m-auto p-5 align-items-center">
         <div class="welcome-text">
@@ -163,7 +159,12 @@
       </div>
     </div>
   </div>
-
+  <!-- <a
+    href="https://web.whatsapp.com/send?text=www.google.com"
+    data-text="Take a look at this awesome website:"
+    class="wa_btn wa_btn_s"
+    >Share1</a
+  > -->
   <!--WELCOME SLIDER AREA END-->
   <!--END TOP AREA-->
 
@@ -173,7 +174,7 @@
       <div class="row promo-content animated fadeInUp shadow-lg">
         <div class="col-md-3 col-lg-3 col-sm-6 col-xs-12">
           <div class="text-icon-box mb20 xs-mb0 wow fadeInUp p-2" data-wow-delay="0.1s">
-            <div class="box-icon features-box-icon">
+            <div class="box-icon features-box-icon curPoint" (click)="signup()">
               <i class="fab fa-connectdevelop"></i>
             </div>
             <h3 class="box-title">Network</h3>
@@ -184,7 +185,7 @@
         </div>
         <div class="col-md-3 col-lg-3 col-sm-6 col-xs-12">
           <div class="text-icon-box relative mb20 xs-mb0 wow fadeInUp p-2" data-wow-delay="0.3s">
-            <div class="box-icon features-box-icon">
+            <div class="box-icon features-box-icon curPoint" (click)="signup()">
               <i class="fas fa-globe"></i>
             </div>
             <h3 class="box-title">Find Jobs</h3>
@@ -195,7 +196,7 @@
         </div>
         <div class="col-md-3 col-lg-3 col-sm-6 col-xs-12">
           <div class="text-icon-box relative mb20 xs-mb0 wow fadeInUp p-2 visible-sm" data-wow-delay="0.4s">
-            <div class="box-icon features-box-icon">
+            <div class="box-icon features-box-icon curPoint" (click)="signup()">
               <i class="fas fa-briefcase"></i>
             </div>
             <h3 class="box-title">Freelance</h3>
@@ -207,7 +208,7 @@
         </div>
         <div class="col-md-3 col-lg-3 col-sm-6 col-xs-12">
           <div class="text-icon-box relative mb20 xs-mb0 wow fadeInUp p-2 visible-sm" data-wow-delay="0.4s">
-            <div class="box-icon features-box-icon">
+            <div class="box-icon features-box-icon curPoint" (click)="signup()">
               <i class="fas fa-book-reader"></i>
             </div>
             <h3 class="box-title">Learn</h3>
