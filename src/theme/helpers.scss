@@ -1679,10 +1679,10 @@ button:hover,
 
 @keyframes spin {
   from {
-      transform:rotate(0deg);
+    transform: rotate(0deg);
   }
   to {
-      transform:rotate(360deg);
+    transform: rotate(360deg);
   }
 }
 
@@ -1811,7 +1811,7 @@ button:hover,
     0.03em 0.03em 0 mix(#fff, #28bed6, 70%), 0.035em 0.035em 0 mix(#fff, #28bed6, 72%);
 }
 
-.mat-expansion-panel-header[aria-disabled=true] {
+.mat-expansion-panel-header[aria-disabled="true"] {
   background: #d3d3d3f2;
 }
 
@@ -1821,6 +1821,12 @@ button:hover,
     object-fit: contain !important;
   }
 }
-.carousel-close{
+.carousel-close {
   background-size: 100px !important;
+}
+
+.cdk-global-scrollblock {
+  body {
+    overflow-x: unset !important;
+  }
 }
