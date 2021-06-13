@@ -22,7 +22,7 @@ export class ApiPrefixInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     
     const url = request.url.substring(request.url.indexOf('api') - 1).replace(/[/]\d+/g, '/:id');
-    const file = url.toLowerCase().match(/(\w+).(jpg|jpeg|png|dbf|pdf|xlsx|msg|tiff|csv|txt|mht|eml|htm|tsv|xls)/);
+    const file = url.toLowerCase().match(/(\w+).(jpg|jpeg|png|dbf|pdf|xlsx|msg|tiff|csv|txt|mht|eml|tsv|xls)/);
     if (request.url.indexOf('download') !== -1 && (request.method === 'GET' || request.method === 'POST')) {
       request = request.clone({
         responseType: 'arraybuffer',

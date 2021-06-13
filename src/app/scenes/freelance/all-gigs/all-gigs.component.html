@@ -10,12 +10,29 @@
             <li class="breadcrumb-item curPoint"><a [routerLink]="['/home']">Home</a></li>
             <li class="breadcrumb-item active"><a>All Gigs</a></li>
           </ol>
-          <ng-container *ngIf="!gigConfig.isLoading">
+
+          <ng-container>
+            <mat-tab-group>
+              <mat-tab label="All gigs">
+                <ng-container *ngIf="!gigConfig.isLoading">
+                  <ng-container *ngTemplateOutlet="allGigs"></ng-container>
+                </ng-container>
+                <ng-container *ngIf="gigConfig.isLoading">
+                  <ng-container *ngTemplateOutlet="loader"></ng-container>
+                </ng-container>
+              </mat-tab>
+              <mat-tab label="All Freelancers">
+                <ng-template *ngTemplateOutlet="freelancerList"></ng-template>
+              </mat-tab>
+            </mat-tab-group>
+          </ng-container>
+
+          <!-- <ng-container *ngIf="!gigConfig.isLoading">
             <ng-container *ngTemplateOutlet="allGigs"></ng-container>
           </ng-container>
           <ng-container *ngIf="gigConfig.isLoading">
             <ng-container *ngTemplateOutlet="loader"></ng-container>
-          </ng-container>
+          </ng-container> -->
         </div>
         <div class="col-md-2 col-sm-12 bg-white" *ngIf="!sharedService.deviceDetectorService.isMobile()">
           <app-right-side *ngIf="user"></app-right-side>
@@ -49,7 +66,7 @@
             matSuffix
             mat-icon-button
             aria-label="Clear"
-            placehoder="Min 3 Char..."
+            placeholder="Min 3 Char..."
             (click)="gigConfig.gigSearchText = ''; fetchUserGig(1)"
           >
             <mat-icon>close</mat-icon>
@@ -132,14 +149,84 @@
     </div>
 
     <ng-container *ngIf="!gigConfig.isLoading && gigConfig.data.length == 0">
-      <div class="text-center m-auto animated fadeIn">
-        <div class="col-12 text-center">
-          <img src="../assets/images/no-record.gif" style="height: 300px;" class="d-block m-auto" />
-          <h6 class="text-primary">No Gigs Found...!</h6>
-        </div>
-      </div>
+      <ng-template
+        [ngTemplateOutlet]="noData"
+        [ngTemplateOutletContext]="{ msg: 'No Freelancer Found...!' }"
+      ></ng-template>
     </ng-container>
   </div>
+</ng-template>
+
+<ng-template #freelancerList>
+  <div class="text-center mt-4">
+    <mat-form-field class="example-form-field m-auto w40" style="font-size: 16px;">
+      <mat-label>Search Freelancers</mat-label>
+      <input matInput type="text" (keyup)="fetchFreelancers()" [(ngModel)]="freelanceConfig.freelancerSearchText" />
+      <button
+        mat-button
+        *ngIf="freelanceConfig.freelancerSearchText"
+        matSuffix
+        mat-icon-button
+        aria-label="Clear"
+        placeholder="For EX: html | Min 3 Char..."
+        (click)="freelanceConfig.freelancerSearchText = ''; fetchFreelancers()"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+  <div
+    *ngIf="!freelanceConfig.isLoading"
+    class="row w100 no-gutters animated fadeIn p-2 min-vertical-h-80 max-vertical-h-80 stylishSlimScroll flow-y-auto flow-x-hidden"
+  >
+    <div class="col-12 mt-4 shadow-sm" *ngFor="let item of freelanceConfig.data">
+      <div class="row no-gutters p-4">
+        <div class="col-2 d-flex align-items-center justify-content-center">
+          <img
+            src="{{
+              item.image
+                ? item.image
+                : 'https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg'
+            }}"
+            class="user-img"
+            alt=""
+          />
+        </div>
+        <div class="col-8 text-left">
+          <h4 class="mb-1">{{ item.fullName }}</h4>
+          <h6 class="text-muted text-truncate font400" *ngIf="item.currentJobTitle">{{ item.currentJobTitle }}</h6>
+          <h6 class="text-muted text-truncate font400" [title]="item.profileSummary">{{ item.profileSummary }}</h6>
+        </div>
+        <div class="col-2 text-left">
+          <button mat-flat-button class="rounded-pill text-white" (click)="viewFreelance(item)" color="primary">
+            View Freelancer
+          </button>
+        </div>
+        <div class="col-10 mt-2">
+          <h6 class="font400">{{ item.bio }}</h6>
+        </div>
+        <div class="col-12">
+          <span
+            class="badge badge-dark ml-1 mt-1"
+            style="font-size: 15px;"
+            *ngFor="let item of item.fieldsOfExpertise; let first = first"
+            >{{ item.areaOfExpertise }}</span
+          >
+        </div>
+      </div>
+    </div>
+
+    <ng-container *ngIf="!freelanceConfig.isLoading && freelanceConfig.data.length == 0">
+      <ng-template
+        [ngTemplateOutlet]="noData"
+        [ngTemplateOutletContext]="{ msg: 'No Freelancer Found...!' }"
+      ></ng-template>
+    </ng-container>
+  </div>
+
+  <ng-container *ngIf="freelanceConfig.isLoading">
+    <ng-container *ngTemplateOutlet="loader"></ng-container>
+  </ng-container>
 </ng-template>
 
 <ng-template #loader>
@@ -164,4 +251,13 @@
       </div>
     </div>
   </ng-container>
+</ng-template>
+
+<ng-template #noData let-msg="msg">
+  <div class="text-center m-auto animated fadeIn">
+    <div class="col-12 text-center">
+      <img src="../assets/images/no-record.gif" style="height: 300px;" class="d-block m-auto" />
+      <h6 class="text-primary">{{ msg }}</h6>
+    </div>
+  </div>
 </ng-template>

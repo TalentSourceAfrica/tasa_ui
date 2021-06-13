@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
+import { Router } from '@angular/router';
 import { untilDestroyed } from '@app/@core';
-import { CredentialsService } from '@app/auth';
+import { AuthenticationService, CredentialsService } from '@app/auth';
 import { localStorageKeys } from '@app/models/constants';
 import { SharedService } from '@app/services/shared.service';
 import { OwlOptions } from 'ngx-owl-carousel-o';
@@ -20,6 +21,12 @@ export class AllGigsComponent implements OnInit {
     isLoading: false,
     gigSearchText: '',
     isSearching: false,
+  };
+  freelanceConfig: any = {
+    isLoading: false,
+    data: [],
+    searchConfig: '',
+    freelancerSearchText: '',
   };
   gigAssetsOptions: OwlOptions = {
     loop: true,
@@ -46,7 +53,12 @@ export class AllGigsComponent implements OnInit {
   pageSize = 20;
   pageSizeOptions: number[] = [5, 10, 25, 100];
   pageEvent: PageEvent;
-  constructor(public sharedService: SharedService, private credentialsService: CredentialsService) {}
+  constructor(
+    public sharedService: SharedService,
+    private credentialsService: CredentialsService,
+    private authenticationService: AuthenticationService,
+    private router: Router
+  ) {}
 
   pagination(event: any): any {
     this.pageSize = event.pageSize;
@@ -127,6 +139,48 @@ export class AllGigsComponent implements OnInit {
     );
   }
 
+  fetchFreelancers() {
+    let $t = this;
+    if ($t.freelanceConfig.freelancerSearchText.length >= 3) {
+      $t.freelanceConfig.isLoading = true;
+      let apiUrl = $t.sharedService.urlService.apiCallWithParams('searchFreelancer', {
+        '{page}': 1,
+        '{size}': 50,
+        '{searchText}': $t.freelanceConfig.freelancerSearchText,
+      });
+      $t.sharedService.configService.post(apiUrl).subscribe(
+        (response: any) => {
+          $t.freelanceConfig.isLoading = false;
+          $t.freelanceConfig.data = response.responseObj;
+          $t.freelanceConfig.data.forEach((element: any) => {
+            const currentExp = element.experience.find((d: any) => d.recentEmployer);
+            if (currentExp) {
+              element['currentJobTitle'] = `${currentExp.currentRole[0]} @ ${currentExp.organization}`;
+            }
+          });
+        },
+        (error) => {
+          $t.freelanceConfig.isLoading = false;
+          $t.freelanceConfig.data = [];
+        }
+      );
+    }
+  }
+
+  viewFreelance(user: any) {
+    let $t = this;
+    if (!this.user) {
+      if ($t.sharedService.deviceDetectorService.isMobile()) {
+        $t.authenticationService.openLoginPopup();
+      } else {
+        $t.authenticationService.openSignupPopup('sign-in');
+      }
+    } else {
+      $t.router.navigate(['/social-network/profile/', user.tasaId], { replaceUrl: true });
+      $t.sharedService.utilityService.changeMessage('VIEW-USER-PROFILE');
+    }
+  }
+
   ngOnInit(): void {
     this.fetchUserGig(1);
     window.scrollTo(0, 0);
@@ -135,7 +189,10 @@ export class AllGigsComponent implements OnInit {
       .subscribe((message) => {
         if (message === 'TRIGGER-GIG-SEARCH') {
           this.gigConfig.gigSearchText = JSON.parse(localStorage.getItem(localStorageKeys.gigSearchKey));
+          this.freelanceConfig.freelancerSearchText = JSON.parse(localStorage.getItem(localStorageKeys.gigSearchKey));
+
           this.onSearchGig();
+          this.fetchFreelancers();
           localStorage.removeItem(localStorageKeys.gigSearchKey);
         }
       });

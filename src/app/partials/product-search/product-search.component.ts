@@ -18,7 +18,7 @@ export class ProductSearchComponent implements OnInit {
     {
       name: 'Gig',
       value: 'gig',
-      placeholder: 'Type content, web development, data analyst...',
+      placeholder: 'Type html, content, web development, data analyst...',
     },
     {
       name: 'Job',

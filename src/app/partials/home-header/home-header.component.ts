@@ -147,7 +147,7 @@ export class HomeHeaderComponent implements OnInit {
       let apiUrl = $t.sharedService.urlService.apiCallWithParams('searchFreelancer', {
         '{page}': 1,
         '{size}': 50,
-        '{searchText}': $t.searchGlobalText,
+        '{searchText}': String($t.searchGlobalText),
       });
       $t.sharedService.configService.post(apiUrl).subscribe(
         (response: any) => {
@@ -239,6 +239,9 @@ export class HomeHeaderComponent implements OnInit {
             break;
           case 'group':
             this.searchGlobalText = this.searchGlobalText.title;
+            break;
+          case 'freelance':
+            this.searchGlobalText = this.searchGlobalText.fullName;
             break;
         }
       }
@@ -410,7 +413,6 @@ export class HomeHeaderComponent implements OnInit {
     this.sharedService.utilityService.scrollToElement(_id);
   }
 
-
   // onCourseSearch(_type: string, _val?: string) {
   //   if (_type === 'text') {
   //     this.sharedService.utilityService.onCourseSearch(this.searchTextBeforeLogin, _type);
@@ -545,8 +547,8 @@ export class HomeHeaderComponent implements OnInit {
     });
 
     // global search
-
-    fromEvent(this.globalSearchInput.nativeElement, 'keyup')
+    if(this.globalSearchInput){
+      fromEvent(this.globalSearchInput.nativeElement, 'keyup')
       .pipe(
         // get value
         map((event: any) => {
@@ -559,6 +561,8 @@ export class HomeHeaderComponent implements OnInit {
       .subscribe((text: string) => {
         this.globalSearch();
       });
+    }
+
   }
 
   ngOnDestroy(): void {}

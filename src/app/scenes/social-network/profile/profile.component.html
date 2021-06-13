@@ -128,11 +128,11 @@
                                     <ng-container *ngIf="userConfig.user.profileSummary !== ''">
                                       <h6 class="mt-0 mb-1">
                                         <span class="text-primary font500">
-                                          {{ userConfig.user.profileSummary}} 
+                                          {{ userConfig.user.profileSummary }}
                                         </span>
                                       </h6>
                                     </ng-container>
-                                
+
                                     <h6 class="mt-0 mb-1">
                                       <span>
                                         <span class="text-primary font500"
@@ -260,7 +260,14 @@
                               <label class="form-control-label" for="input-username">Email Address</label>
                               <h4 class="text-primary font400">{{ userConfig.user.email }}</h4>
                             </div>
-                            <div class="col-lg-6 col-sm-12" *ngIf="userConfig.user.city !== '' || userConfig.user.state !== '' ||  userConfig.user.country !== ''">
+                            <div
+                              class="col-lg-6 col-sm-12"
+                              *ngIf="
+                                userConfig.user.city !== '' ||
+                                userConfig.user.state !== '' ||
+                                userConfig.user.country !== ''
+                              "
+                            >
                               <label class="form-control-label" for="input-username">Lives in</label>
                               <h4 class="text-primary font400">
                                 <span *ngIf="userConfig.user.city">{{ userConfig.user.city }}, </span>
@@ -312,8 +319,8 @@
                           </div>
                         </div>
                       </div>
-      
-                      <div class="card m-0  mt-4 p-4">
+
+                      <div class="card m-0 mt-4 p-4">
                         <div class="d-flex">
                           <h3 class="heading-small text-muted mb-4 w50 caps">Experience</h3>
                           <div class="d-flex w100 justify-content-end" *ngIf="isCurrentUser">
@@ -336,16 +343,31 @@
                             <h6 class="font400">
                               {{ exp.experienceFrom | date: 'mediumDate' }}
                               <span *ngIf="exp.recentEmployer === 'true'"> - Present</span>
-                              <span *ngIf="exp.recentEmployer === 'false' || exp.recentEmployer === ''"
-                                > - {{ exp.experienceTo | date: 'mediumDate' }}
+                              <span *ngIf="exp.recentEmployer === 'false' || exp.recentEmployer === ''">
+                                - {{ exp.experienceTo | date: 'mediumDate' }}
                               </span>
                             </h6>
                             <h4 class="text-primary font400">{{ exp.description[0] }}</h4>
                           </div>
-                          <hr *ngIf="userConfig.user.experience.length > 1 && !last" />
+                          <hr *ngIf="userConfig.user?.experience?.length > 1 && !last" />
                         </div>
+                        <ng-container *ngIf="userConfig.user?.experience?.length === 0">
+                          <div class="text-center m-auto animated fadeIn pb-4">
+                            <div class="col-12 text-center">
+                              <img
+                                src="./assets/images/profile-no-data.svg"
+                                style="height: 150px;"
+                                class="d-block m-auto"
+                              />
+                             <h6 class="font400 mt-2"> We're sure you have a lot to show off to employers.
+                              <i class="underline text-muted curPoint" (click)="editUser('Experience')"
+                                >Fill up your work experience!</i
+                              ></h6>
+                            </div>
+                          </div>
+                        </ng-container>
                       </div>
-                      <div class="card m-0  mt-4 p-4">
+                      <div class="card m-0 mt-4 p-4">
                         <div class="d-flex">
                           <h3 class="heading-small text-muted mb-4 w50 caps">Education</h3>
                           <div class="d-flex w100 justify-content-end" *ngIf="isCurrentUser">
@@ -369,9 +391,11 @@
                               <span class="font500" *ngIf="edu.university[0] != ''">, {{ edu.university[0] }}</span>
                             </h6>
                             <h6 class="font400">
-                              {{ edu.degreeFromDate | date: 'mediumDate' }} 
+                              {{ edu.degreeFromDate | date: 'mediumDate' }}
                               <span *ngIf="edu.degreeToDate === ''"> - Present</span>
-                              <span *ngIf="edu.degreeToDate != ''"> - {{ edu.degreeToDate | date: 'mediumDate' }} </span>
+                              <span *ngIf="edu.degreeToDate != ''">
+                                - {{ edu.degreeToDate | date: 'mediumDate' }}
+                              </span>
                             </h6>
                             <h6>{{ edu.major }}</h6>
                             <div>
@@ -384,10 +408,25 @@
                             </div>
                             <h4 class="text-primary font400">{{ edu.description }}</h4>
                           </div>
-                          <hr *ngIf="userConfig.user.education.length > 1 && !last" />
+                          <hr *ngIf="userConfig.user?.education?.length > 1 && !last" />
                         </div>
+                        <ng-container *ngIf="userConfig.user?.education?.length === 0">
+                          <div class="text-center m-auto animated fadeIn pb-4">
+                            <div class="col-12 text-center">
+                              <img
+                                src="./assets/images/profile-no-data.svg"
+                                style="height: 150px;"
+                                class="d-block m-auto"
+                              />
+                             <h6 class="font400 mt-2"> We're sure you have a lot to show off to employers.
+                              <i class="underline text-muted curPoint" (click)="editUser('Education')"
+                                >Fill up your Education!</i
+                              ></h6>
+                            </div>
+                          </div>
+                        </ng-container>
                       </div>
-                      <div class="card m-0  mt-4 p-4">
+                      <div class="card m-0 mt-4 p-4">
                         <ng-container>
                           <div class="d-flex">
                             <h3 class="heading-small text-muted mb-4 w50 caps">Certification</h3>
@@ -406,7 +445,7 @@
                               class="form-group focused max-vertical-h-50 stylishSlimScroll flow-y-auto flow-x-hidden"
                             >
                               <div class="row no-gutters">
-                                <div class="col-sm-12 col-md-6" *ngFor="let item of userConfig.user.certificate">
+                                <div class="col-sm-12 col-md-6" *ngFor="let item of userConfig.user?.certificate">
                                   <div class="p-2">
                                     <ngx-doc-viewer
                                       *ngIf="item.certificateType === 'pdf'"
@@ -423,6 +462,21 @@
                                     <p class="text-muted mt-1">{{ item.certificateName }}</p>
                                   </div>
                                 </div>
+                                <ng-container *ngIf="userConfig.user?.certificate?.length === 0">
+                                  <div class="text-center m-auto animated fadeIn pb-4">
+                                    <div class="col-12 text-center">
+                                      <img
+                                        src="./assets/images/profile-no-data.svg"
+                                        style="height: 150px;"
+                                        class="d-block m-auto"
+                                      />
+                                     <h6 class="font400 mt-2"> We're sure you have a lot to show off to employers.
+                                      <i class="underline text-muted curPoint" (click)="editUser('Certificate')"
+                                        >Add your Certificates!</i
+                                      ></h6>
+                                    </div>
+                                  </div>
+                                </ng-container>
                               </div>
                             </div>
                           </div>

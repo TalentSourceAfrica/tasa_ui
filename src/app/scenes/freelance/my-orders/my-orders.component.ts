@@ -233,7 +233,6 @@ export class MyOrdersComponent implements OnInit {
     });
     $t.sharedService.configService.get(apiUrl).subscribe(
       (response: any) => {
-        // saveAs(new Blob([response]), 'invoice.pdf');
         $t.sharedService.utilityService.downloadURI(apiUrl);
         $t.sharedService.uiService.showApiSuccessPopMsg('Downloading Successfull');
       },
