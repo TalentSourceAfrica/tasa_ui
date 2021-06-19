@@ -5,6 +5,7 @@ import { ShellComponent } from '@app/shell/shell.component';
 import { AuthenticationGuard } from '@app/auth';
 import { AdminGuard } from '@app/auth/guard/admin.guard';
 import { RecruiterGuard } from '@app/auth/guard/recruiter.guard';
+import { FreelancerGuard } from '@app/auth/guard/freelancer.guard';
 
 // import { extract } from '@app/core';
 // import { PublicGuard, ProtectedGuard } from 'ngx-auth';
@@ -242,7 +243,7 @@ const routes: Routes = [
         children: [
           {
             path: 'create-gig',
-            canActivate: [AuthenticationGuard],
+            canActivate: [AuthenticationGuard, FreelancerGuard],
             loadChildren: () =>
               import('@app/scenes/freelance/create-gig/create-gig.module').then((m) => m.CreateGigModule),
           },
@@ -272,7 +273,7 @@ const routes: Routes = [
           },
           {
             path: 'all-requirements',
-            canActivate: [AuthenticationGuard],
+            canActivate: [AuthenticationGuard, FreelancerGuard],
             loadChildren: () =>
               import('@app/scenes/freelance/all-requirement/all-requirement.module').then(
                 (m) => m.AllRequirementModule
@@ -282,9 +283,7 @@ const routes: Routes = [
             path: 'my-engagements',
             canActivate: [AuthenticationGuard],
             loadChildren: () =>
-              import('@app/scenes/freelance/my-orders/my-orders.module').then(
-                (m) => m.MyOrdersModule
-              ),
+              import('@app/scenes/freelance/my-orders/my-orders.module').then((m) => m.MyOrdersModule),
           },
           {
             path: 'order/requirement/:requirementId',

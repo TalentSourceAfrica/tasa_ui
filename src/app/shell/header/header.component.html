@@ -240,12 +240,8 @@
               >Find a Freelancer
             </a>
           </li>
-          <li *ngIf="user?.isFreelancer === 'Y'">
-            <a
-              class="curPoint menu-item"
-              [routerLink]="['/freelance/all-requirements']"
-              routerLinkActive="router-link-active"
-            >
+          <li (click)="onRedirect('freelance', 'all-requirements')">
+            <a class="curPoint menu-item">
               All Custom Freelancing
             </a>
           </li>
@@ -258,12 +254,8 @@
               Create Custom Freelancing Request
             </a>
           </li>
-          <li *ngIf="user?.isFreelancer === 'Y'">
-            <a
-              class="curPoint menu-item"
-              [routerLink]="['/freelance/create-gig']"
-              routerLinkActive="router-link-active"
-            >
+          <li (click)="onRedirect('freelance', 'create-gig')">
+            <a class="curPoint menu-item">
               Make Money Freelancing
             </a>
           </li>

@@ -56,7 +56,7 @@ export class EditUserPopupComponent implements OnInit {
         }
       );
     } else {
-      $t.sharedService.uiService.showApiErrorPopMsg('Please fill out all the compulsory fields');
+      $t.sharedService.uiService.showApiErrorPopMsg('Please fill out all the required fields');
     }
   }
 

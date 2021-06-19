@@ -54,8 +54,8 @@ export class HeaderComponent implements OnInit {
   freelanceConfig: any = {
     isFetching: false,
     data: [],
-    searchConfig: ''
-  }
+    searchConfig: '',
+  };
   constructor(
     private httpClient: HttpClient,
     private router: Router,
@@ -91,22 +91,22 @@ export class HeaderComponent implements OnInit {
 
   globalSearch() {
     let $t = this;
-    switch($t.globalSearchType) {
-        case 'profile':
-          $t.userSearch();
-          break;
-        case 'organization':
-          $t.orgSearch();
-          break;
-        case 'job':
-          $t.jobSearch();
-          break;
-        case 'course':
-          $t.courseSearch();
-          break;
-        case 'freelance':
-          $t.freeLanceSearch();
-          break;        
+    switch ($t.globalSearchType) {
+      case 'profile':
+        $t.userSearch();
+        break;
+      case 'organization':
+        $t.orgSearch();
+        break;
+      case 'job':
+        $t.jobSearch();
+        break;
+      case 'course':
+        $t.courseSearch();
+        break;
+      case 'freelance':
+        $t.freeLanceSearch();
+        break;
     }
   }
 
@@ -403,6 +403,10 @@ export class HeaderComponent implements OnInit {
       this.notificationsData = this.notificationConfig.messageNotifications;
       this.notificationConfig.currentView = 1;
     }
+  }
+
+  onRedirect(_module: string, _routerEndPath: string) {
+    this.sharedService.utilityService.onRedirect(this.user, _module, _routerEndPath);
   }
 
   get user(): any | null {

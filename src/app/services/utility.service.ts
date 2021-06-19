@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { HttpClient, HttpRequest, HttpEventType, HttpResponse } from '@angular/common/http';
+import { BehaviorSubject } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 import { courseSearchData, jobsSearchData, localStorageKeys } from '@app/models/constants';
 import { Router } from '@angular/router';
+import { UiService } from './ui.service';
 declare var jQuery: any;
 
 @Injectable({
@@ -30,7 +31,7 @@ export class UtilityService {
       '^(https?://)?(www\\.)?([-a-z0-9]{1,63}\\.)*?[a-z0-9][-a-z0-9]{0,61}[a-z0-9]\\.[a-z]{2,6}(/[-\\w@\\+\\.~#\\?&/=%]*)?$',
   };
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private router: Router, private uiService: UiService) {}
 
   changeMessage(message: string) {
     this.messageSource.next(message);
@@ -245,5 +246,25 @@ export class UtilityService {
     jQuery('.header-top-area').removeClass('position-absolute');
     this.router.navigate(['/jobs/listings'], { replaceUrl: true });
     this.changeMessage('TRIGGER-JOB-SEARCH');
+  }
+
+  public onRedirect(_user: any, _module: string, _routerEndPath: string) {
+    const $t = this;
+    switch (_module) {
+      case 'freelance':
+        let _callBackRedirection = () => {
+          $t.router.navigate(['/social-network/profile/', _user.tasaId], { replaceUrl: true });
+        };
+        if (_user.isFreelancer !== 'Y') {
+          $t.uiService.showApiErrorPopMsgWithTwoActions(
+            'You are not a freelancer, Please registered as freelancer.',
+            'Go to profile',
+            _callBackRedirection
+          );
+        } else {
+          $t.router.navigate([`/freelance/${_routerEndPath}/`], { replaceUrl: true });
+        }
+        break;
+    }
   }
 }

@@ -151,7 +151,7 @@
     <ng-container *ngIf="!gigConfig.isLoading && gigConfig.data.length == 0">
       <ng-template
         [ngTemplateOutlet]="noData"
-        [ngTemplateOutletContext]="{ msg: 'No Freelancer Found...!' }"
+        [ngTemplateOutletContext]="{ msg: 'No Gigs Found...!' }"
       ></ng-template>
     </ng-container>
   </div>
@@ -199,7 +199,7 @@
         </div>
         <div class="col-2 text-left">
           <button mat-flat-button class="rounded-pill text-white" (click)="viewFreelance(item)" color="primary">
-            View Freelancer
+            View Profile
           </button>
         </div>
         <div class="col-10 mt-2">

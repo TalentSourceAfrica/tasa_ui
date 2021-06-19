@@ -145,7 +145,7 @@ export class AllGigsComponent implements OnInit {
       $t.freelanceConfig.isLoading = true;
       let apiUrl = $t.sharedService.urlService.apiCallWithParams('searchFreelancer', {
         '{page}': 1,
-        '{size}': 50,
+        '{size}': 100,
         '{searchText}': $t.freelanceConfig.freelancerSearchText,
       });
       $t.sharedService.configService.post(apiUrl).subscribe(

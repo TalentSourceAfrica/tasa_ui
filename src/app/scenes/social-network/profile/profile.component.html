@@ -83,7 +83,12 @@
                                     class="example-margin text-primary p-2 pr-4"
                                     (change)="onFreelanceToggleChange()"
                                   >
-                                    Do you want to be listed as a Freelancer on TaSA
+                                    <span *ngIf="!sharedService.deviceDetectorService.isMobile()"
+                                      >Do you want to be listed as a Freelancer on TaSA</span
+                                    >
+                                    <span *ngIf="sharedService.deviceDetectorService.isMobile()">
+                                      Freelancer on TaSA</span
+                                    >
                                   </mat-slide-toggle>
                                 </ng-container>
                                 <ng-container *ngIf="userConfig.user.isFreelancer === 'Y'">
@@ -359,10 +364,12 @@
                                 style="height: 150px;"
                                 class="d-block m-auto"
                               />
-                             <h6 class="font400 mt-2"> We're sure you have a lot to show off to employers.
-                              <i class="underline text-muted curPoint" (click)="editUser('Experience')"
-                                >Fill up your work experience!</i
-                              ></h6>
+                              <h6 class="font400 mt-2">
+                                We're sure you have a lot to show off to employers.
+                                <i class="underline text-muted curPoint" (click)="editUser('Experience')"
+                                  >Fill up your work experience!</i
+                                >
+                              </h6>
                             </div>
                           </div>
                         </ng-container>
@@ -418,10 +425,12 @@
                                 style="height: 150px;"
                                 class="d-block m-auto"
                               />
-                             <h6 class="font400 mt-2"> We're sure you have a lot to show off to employers.
-                              <i class="underline text-muted curPoint" (click)="editUser('Education')"
-                                >Fill up your Education!</i
-                              ></h6>
+                              <h6 class="font400 mt-2">
+                                We're sure you have a lot to show off to employers.
+                                <i class="underline text-muted curPoint" (click)="editUser('Education')"
+                                  >Fill up your Education!</i
+                                >
+                              </h6>
                             </div>
                           </div>
                         </ng-container>
@@ -470,10 +479,12 @@
                                         style="height: 150px;"
                                         class="d-block m-auto"
                                       />
-                                     <h6 class="font400 mt-2"> We're sure you have a lot to show off to employers.
-                                      <i class="underline text-muted curPoint" (click)="editUser('Certificate')"
-                                        >Add your Certificates!</i
-                                      ></h6>
+                                      <h6 class="font400 mt-2">
+                                        We're sure you have a lot to show off to employers.
+                                        <i class="underline text-muted curPoint" (click)="editUser('Certificate')"
+                                          >Add your Certificates!</i
+                                        >
+                                      </h6>
                                     </div>
                                   </div>
                                 </ng-container>

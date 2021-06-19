@@ -1,8 +1,8 @@
 // core
-import { HttpHeaders } from '@angular/common/http';
+
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { Router, NavigationStart } from '@angular/router';
+import { Router } from '@angular/router';
 
 // services
 
@@ -91,7 +91,7 @@ export class UiService {
     });
   }
 
-  showApiErrorPopMsgWithTwoActions(msg: any, buttonName:string, callBack:any): void {
+  showApiErrorPopMsgWithTwoActions(msg: any, buttonName: string, callBack: any): void {
     Swal.fire({
       title: msg, // title of the modal
       text: '', // description of the modal

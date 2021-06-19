@@ -13,7 +13,7 @@
               </h2>
             </div>
             <div class="col-sm-2 col-md-1">
-              <button mat-flat-button color="warn" (click)="skip()" class="rounded-pill ml-2 caps">
+              <button mat-flat-button color="primary" (click)="skip()" class="rounded-pill ml-2 caps">
                 SKIP
               </button>
             </div>
@@ -250,7 +250,7 @@
                   <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
                 </mat-chip>
                 <input
-                  placeholder="Your professional interests"
+                  placeholder="EX: Data Science, ML"
                   [matChipInputFor]="chipList"
                   [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                   [matChipInputAddOnBlur]="addOnBlur"
@@ -295,7 +295,7 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-12 col-md-4">
+        <div class="col-sm-12 col-md-2">
           <div class="d-flex pt-4">
             <div class="input-group input-group-merge justify-content-center">
               <div class="f-color d-flex">

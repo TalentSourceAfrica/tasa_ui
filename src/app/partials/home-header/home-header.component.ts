@@ -518,6 +518,10 @@ export class HomeHeaderComponent implements OnInit {
     }
   }
 
+  onRedirect(_module: string, _routerEndPath: string) {
+    this.sharedService.utilityService.onRedirect(this.user, _module, _routerEndPath);
+  }
+
   ngOnInit(): void {
     let $t = this;
     this.fetchCourseFilter();
@@ -547,22 +551,21 @@ export class HomeHeaderComponent implements OnInit {
     });
 
     // global search
-    if(this.globalSearchInput){
+    if (this.globalSearchInput) {
       fromEvent(this.globalSearchInput.nativeElement, 'keyup')
-      .pipe(
-        // get value
-        map((event: any) => {
-          return event.target.value;
-        }),
-        filter((res) => res.length >= 0),
-        debounceTime(1000),
-        distinctUntilChanged()
-      )
-      .subscribe((text: string) => {
-        this.globalSearch();
-      });
+        .pipe(
+          // get value
+          map((event: any) => {
+            return event.target.value;
+          }),
+          filter((res) => res.length >= 0),
+          debounceTime(1000),
+          distinctUntilChanged()
+        )
+        .subscribe((text: string) => {
+          this.globalSearch();
+        });
     }
-
   }
 
   ngOnDestroy(): void {}
